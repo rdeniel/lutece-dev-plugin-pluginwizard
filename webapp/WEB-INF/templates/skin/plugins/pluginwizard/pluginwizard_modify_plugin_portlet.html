@@ -1,0 +1,59 @@
+<div class="span-15 prepend-1 append-bottom">       
+  		<div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.pageTitle}
+  		</div>    
+  		                  
+		<div class="portlet-background-content">        
+			<form class="default-form" method="post" name="generate" >
+              
+                <input type="hidden" name="page" value="pluginwizard" />
+                <input type="hidden" name="action" value="do_modify_portlet" />
+                  <input type="hidden" name="plugin_id" value="${portlet.idPlugin}" />
+                  <input type="hidden" name="portlet_id" value="${portlet.pluginPortletId}" />  
+                 
+                 <div class="span-5  last">
+                <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelPortletClass} :</label>
+                </div>    
+                          
+      			<div class="push-0  last">   
+                <input type="text" name="portlet_class" size="30" value="${portlet.pluginPortletClass}"  />
+                </div>  
+                <div class="span-5  last"> 
+                <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelPortletTypeName} :</label>
+                       </div>    
+                          
+      			<div class="push-0  last"> 
+                <input type="text" name="portlet_type_name"  size="30"  value="${portlet.pluginPortletTypeName}"/>
+                 </div>  
+                <div class="span-5  last">
+         	     <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelCreationUrl} :</label>
+                       </div>    
+                          
+      			<div class="push-0  last"> 
+                <input type="text" name="portlet_creation_url"  size="30" value="${portlet.pluginPortletCreationUrl}"  />
+                </div>  
+                <div class="span-5  last">
+         		<label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelUpdateUrl} :</label>
+                       </div>    
+                          
+      			<div class="push-0  last"> 
+                <input type="text" name="portlet_update_url"  size="30"  value="${portlet.pluginPortletUpdateUrl}" />
+               </div> 
+               
+               <div class="portlet-background-content -lutece-border-radius-bottom push-0 last">                                          
+        			<button type="submit" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.buttonModifyPortlet}
+        			</button>                   
+        			<button type="submit" name="goToManagePortlets" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.buttonBack}
+        			</button>                                                             
+      			</div> 
+			</form>
+		</div>    
+</div>
+
+<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">          
+  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}   
+  </div>            
+  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
+  </ul>           
+  <div class="portlet-background-content">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.pageHelp}   
+  </div>  
+</div>

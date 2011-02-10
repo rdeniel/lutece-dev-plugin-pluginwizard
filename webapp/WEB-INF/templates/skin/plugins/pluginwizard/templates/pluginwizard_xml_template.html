@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<plug-in>
+    <name>${plugin.pluginName}</name>
+    <class>${plugin.pluginClass}</class>
+    <version>${plugin.pluginVersion}</version>
+    <documentation><#if plugin.pluginDocumentation??>${plugin.pluginDocumentation}</#if></documentation>
+    <installation><#if plugin.pluginInstallation??>${plugin.pluginInstallation}</#if></installation>
+    <changes><#if plugin.pluginChanges??>${plugin.pluginChanges}</#if></changes>
+    <user-guide><#if plugin.pluginUserGuide??>${plugin.pluginUserGuide}</#if></user-guide>
+    <description>${plugin.pluginDescription}</description>
+    <provider>${plugin.pluginProvider}</provider>
+    <provider-url>${plugin.pluginProviderUrl}</provider-url>
+    <icon-url>${plugin.pluginIconUrl}</icon-url>
+    <copyright>${plugin.pluginCopyright}</copyright>
+    <db-pool-required>${plugin.pluginDbPoolRequired}</db-pool-required>
+    
+    <!-- Admin features parameters -->
+    <#if features??>
+    <admin-features>
+    <#list features as feature >
+        <admin-feature>
+            <feature-id>${feature.pluginFeatureLabel}</feature-id>
+            <feature-title>${feature.pluginFeatureTitle}</feature-title>
+            <feature-description>${feature.pluginFeatureDescription}</feature-description>
+            <feature-level>${feature.pluginFeatureLevel}</feature-level>
+            <feature-url>${feature.pluginFeatureUrl}</feature-url>
+            <feature-icon-url></feature-icon-url>
+      </admin-feature>
+      </#list>
+    </admin-features>    
+  </#if>
+  	<!-- XPages parameters -->
+    <#if applications??>
+    <applications>
+    <#list applications as application>
+        <application>
+            <application-id>${application.applicationName}</application-id>
+            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationClass}</application-class>
+        </application>
+        </#list>
+    </applications>
+    </#if>
+	<!-- Portlet parameters -->
+    <#if portlets??>
+    <portlets>
+    <#list portlets as portlet>
+    	<#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")>
+	<#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+     <portlet>
+       <portlet-class>${portlet.pluginPortletClass}</portlet-class>
+	   <portlet-type-id>${portlet.pluginPortletTypeName}</portlet-type-id>
+	   <portlet-type-name>${plugin.pluginName}.portlet.${portletName?lower_case}Portlet.name</portlet-type-name>
+	   <portlet-creation-url>${portlet.pluginPortletCreationUrl}</portlet-creation-url>
+	   <portlet-update-url>${portlet.pluginPortletUpdateUrl}</portlet-update-url>
+	   <portlet-create-action-url>plugins/${plugin.pluginName}/DoCreatePortlet${portletName?cap_first}.jsp</portlet-create-action-url>
+      <portlet-modify-action-url>plugins/${plugin.pluginName}/DoModifyPortlet${portletName?cap_first}.jsp</portlet-modify-action-url>
+	    <!-- optional entries -->
+        <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+        <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+        <portlet-create-specific-template>/admin/plugins/${plugin.pluginName}/portlet/create_portlet_${portletName?lower_case}.html</portlet-create-specific-template>
+        <portlet-modify-specific-template>/admin/plugins/${plugin.pluginName}/portlet/modify_portlet_${portletName?lower_case}.html</portlet-modify-specific-template>
+        <portlet-create-specific-form-template></portlet-create-specific-form-template>
+        <portlet-modify-specific-form-template></portlet-modify-specific-form-template> 
+     </portlet>
+     </#list>
+   </portlets>
+   </#if>
+</plug-in>
+

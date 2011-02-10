@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+            Ajout de la description du plugin
+        </title>
+    </properties>
+    <body>
+		<section name="Les champs pour décrire le plugin">
+			<p>
+				
+			</p>
+				<ul>
+              <li>Nom du plugin</li>
+              <li>Classe du plugin</li>
+              <li>Description du plugin</li>
+              <li>Documentation du plugin</li>
+              <li>Installation du plugin</li>
+              <li>Changements du plugin</li>
+              <li>Guide utilisateur du plugin</li>
+              <li>Version du plugin</li>
+              <li>Droit d'auteur</li>
+              <li>Icône du plugin</li>
+              <li>Fournisseur du plugin</li>
+			  <li>Url du Fournisseur</li>
+			  <li>Base de données requise</li>
+				</ul>
+				
+			  <subsection name="Nom du plugin">
+				<p>
+				Le nom du plugin est le nom choisi durant l'étape précédente lors de la création du plugin.
+				</p>
+			  </subsection>
+              <subsection name="Classe du plugin">
+				<p>
+				La classe du plugin peut-être par défaut renseignée à "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation"   ou il peut être implémenter par le développeur "fr.paris.lutece.plugins.monplugin.service.MonPlugin" Ce chemin désigne une classe fille de "PluginDefaultImplementation".
+				</p>
+			  </subsection>
+              <subsection name="Description du plugin">
+				<p>
+				La description est une clé i18n faisant référence à une valeur.(e.g monplugin.plugin.description).Cette clé est renseignée dans les fichiers ressources du plugin
+				</p>
+			  </subsection>
+              <subsection name="Documentation du plugin">
+				<p>
+				Ce champ désigne le chemin où la documentation du plugin sera placée.Ce champ peut être vide.
+				</p>
+			  </subsection>
+              <subsection name="Installation du plugin">
+				<p>
+				Ce champ désigne le chemin où le manuel d'installation se trouve.Ce champ peut être vide.
+				</p>
+			  </subsection>
+              <subsection name="Changements du plugin">
+				<p>
+				Ce champ désigne le chemin où les informations sur les changements du plugin se trouvent.Ce champ peut être vide.
+				</p>
+			  </subsection>
+              <subsection name="Guide utilisateur du plugin">
+				<p>
+				Ce champ désigne le chemin où se trouvera le guide de l'utilisateur sur le plugin.Ce champ peut être vide.
+				</p>
+			  </subsection>
+              <subsection name="Version du plugin">
+				<p>
+				Ce champs désigne le numéro du plugin à générer.
+				</p>
+			  </subsection>
+              <subsection name="Droit d'auteur">
+				<p>
+				Ce champs est une description sur les droits d'exploitation du plugin.(e.g Copyright 2001-2009 Mairie de Paris)
+				</p>
+			  </subsection>
+              <subsection name="Icône du plugin">
+				<p>
+				Ce champs désigne le chemin où une icône représentant le plugin sera placée(i.e images/admin/skin/plugins/monplugin/monplugin.png)
+				</p>
+			  </subsection>
+              <subsection name="Fournisseur du plugin">
+				<p>
+				Ce champ désigne le fournisseur du plugin. C'est aussi une clé i18n dont les valeurs linguistiques se trouveront dans les fichiers textes de ressource(i.e monplugin.plugin.provider).
+				</p>
+			  </subsection>
+			  <subsection name="Url du Fournisseur">
+				<p>
+				Ce champ donne l'url du site du fournisseur du plugin. 
+				</p>
+			  </subsection>
+			  <subsection name="Base de données requise">
+				<p>
+				On peut choisir si le plugin a besoin d'un pool de connexion à la base de données.
+				</p>
+			  </subsection>
+
+      </section>
+   </body>
+</document>       
+             

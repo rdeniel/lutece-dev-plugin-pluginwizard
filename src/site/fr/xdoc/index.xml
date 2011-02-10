@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <document>
+      <properties>
+          <title>
+          Le module pluginwizard permet de générer à la volée des module personnalisés en quelques minutes </title>
+      </properties>
+      <body>
+          <section name="Introduction au module pluginwizard ">
+             
+              <subsection name="Le module génère du code exécutable à partir de son interface web.">
+              <center>
+              <img src="../images/zip_content.png" />
+              </center>
+              </subsection>
+              
+        
+              <subsection name="Pourquoi utiliser ce module ?">
+                 <p>
+L’objectif primaire du module pluginwizard est de baisser le risque d’erreur de configuration et de réduire la possibilité de transgresser les normes de développement de Lutèce. Un module simple peut-être conçu et exécuté en quelques minutes. 
+                 </p>
+               </subsection>
+               <subsection name="Quels sont les fichiers générés par l'outil?">
+               <p>
+                  All the files needed to implement CRUD functionalities on defined business classes.
+                  The files include :
+               <p>
+              <ol>
+                <li>Le fichier pom( i.e.<a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">pom.xml</a>)</li>
+                <li>Les classes Java</li>
+                <li>Le fichier de configuration Spring framework</li>
+                <li>Les fichiers sql</li>
+                <li>Les Jsp du back et du front</li>
+                <li>Les templates HTML</li>
+                <li>Les fichiers de propriètés</li>
+                <li>La définition xml du plugin.</li>
+                <li>Les XSL pour les portlets</li>
+              </ol>
+              </p> 
+          
+           </p>
+               </subsection>
+              <subsection name="Quelles les Pros and Cons?">
+               <p>
+               <p>Pros</p>
+               <ul>
+               <li>Utilisation d'un cycle itératif.On peut revenir sur son module grâce à un bouton "précédent".</li>
+               <li>Le model est simple à comprendre.</li>
+               </ul>
+               <p>Cons</p>
+                La génération basée sur un modèle qui est centre sur les données n’implique pas que tous les modules sont des applications basées sur une couche de persistance. Il y a plusieurs mécanismes dans Lutèce qui permettent de répondre à un plusieurs types de besoins. Le mécanisme peut être des daemons ou des mécanismes de gestion de droit (RBAC). 
+               </p>
+               </subsection>
+               <subsection name="Conception d'un mini plugin">
+               <p>
+               <strong>Spécifications simplifiées:</strong> 
+                <ul>
+       
+              <li>Gérer une liste de personnes</li>
+              <li>Un administrateur ajoute, édite et supprime les personnes dans une base de données</li>
+             </ul>
+               
+               <strong>Solution possible:</strong> 
+                  <ul>
+              <li> Ajouter une fonctionnalité d'adminstration.</li>
+              <li> Attacher une classe métier à la fonctionnalité d'administration.</li>
+              <li>La classe déclarée a des attributs(id_person,person_name and person_address).</li>
+              <li> Le champ id_person est la clé and person_name est la description de la classe.</li>
+              </ul>
+               </p>
+               </subsection>
+               <subsection name="Pourquoi utiliser ce module ?">
+               <p>
+               Tout module de Lutèce peut être converti en projet eclipse grâce à la commande qui suit.
+               <pre>mvn eclipse:eclipse</pre>
+               </p>
+               </subsection>
+          </section>
+      </body>
+  </document>

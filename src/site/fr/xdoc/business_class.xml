@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+            La gestion des classes métiers du plugin
+        </title>
+    </properties>
+    <body>
+		<section name="La gestion des classes métier">
+			<p>
+			 L'interface permet de visualiser les classes implémentées dans le plugin.
+			</p>
+			<ul>
+              <li>Le bouton "Ajouter Classe"</li>
+			  <li>Le bouton "Modifier"</li>
+			  <li>Le bouton "Effacer"</li>
+				</ul>
+			 <subsection name="Ajouter Classe">
+				       			<p>
+			Le bouton permet d'aller à l'interface de création d'une classe. Une classe sera un Pojo et les informations à donner à l'outil est le nom de la classe ,ses champs et le nom de la table sql où les instances de la classes seront persistées.
+								</p>
+               </subsection>
+              <subsection name="Le bouton Modifier">
+              				<p>
+			Le bouton permet de modifier les propriétés de la classe.
+							</p>
+              </subsection>
+              <subsection name="Le bouton Effacer">
+              				 <p>
+			La suppression de la classe métier.
+							 </p>
+              </subsection>
+      </section>
+	  		
+			
+			<section name="La création d'une classe métier">
+			<p>
+			 L'interface permet de créer une classe métier. Cette classe est affectée à une fonctionnalité d'administration.
+			</p>
+			<ul>
+              <li>Le champ Classe Métier</li>
+			  <li>Le champ Nom de la table</li>
+			  <li>Le champ Attributs Métier</li>
+			  <li>Le champ Fonctionnalité d'administration </li>
+				</ul>
+				
+			 <subsection name="Le champ Classe Métier">
+				       			<p>
+								Le nom de la classe métier(e.g Utilisateur)
+								</p>
+               </subsection>
+              <subsection name="Le champ Nom de la table">
+              				<p>
+							Le nom de la table va être utiliser pour la création du script sql et aussi lors de la génération de la DAO(i.e monplugin_utilisateur).
+							</p>
+              </subsection>
+              <subsection name="Le champ Attributs Métier">
+              				 <p>
+							Les attributs métiers respectent un nommage simple. Les entiers sont suivis de int et les chaînes de caractères par String 
+								<ul>
+								<li>id_utilisateur int</li>
+								<li>nom_utilisateur String</li>
+								</ul>
+							</p>
+              </subsection>
+			                <subsection name="Le champ Fonctionnalité d'administration">
+              				 <p>
+							Ce champs désigne la fonctionnalité d'administration où l'on va gérer les objets de la classe métier.
+							</p>
+							 </subsection>
+      </section>
+   </body>
+</document>       
+             

@@ -1,0 +1,26 @@
+<#switch language>
+ <#case "_en">
+<#list list_resource as resource>
+<#if resource.markerIdentifier !="">
+ <#if resource.markerIdentifier?contains("=")>
+ ${resource.markerIdentifier}
+ <#else>
+${resource.markerIdentifier?trim}=${resource.englishLocale}
+</#if>
+</#if>
+</#list>
+
+ <#break>
+ <#case "_fr">
+<#list list_resource as resource>
+<#if resource.markerIdentifier !="">
+ <#if resource.markerIdentifier?contains("=")>
+ ${resource.markerIdentifier}
+ <#else>
+${resource.markerIdentifier?trim}=${resource.frenchLocale}
+</#if>
+</#if>
+</#list>
+ <#break>
+  <#default>
+  </#switch> 

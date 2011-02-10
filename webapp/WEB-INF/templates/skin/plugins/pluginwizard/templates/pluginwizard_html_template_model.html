@@ -1,0 +1,159 @@
+<#switch template_type>
+ 
+ <#case "1">
+<div class="content-box" >
+      <#if business_class?? >
+    
+    <h2>${i18n_open}${business_class.businessPluginName?lower_case}.create_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</h2>
+    
+    <form method="post"  name="create_${business_class.businessClass?lower_case}" id="create_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/DoCreate${business_class.businessClass?cap_first}.jsp">
+      
+         <p>
+            
+               <#list business_class.attributes as attribute>
+                   	  <#if attribute.attributeName = business_class.primaryKey>
+                   	   <input type="hidden" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}"  />
+             <#else>
+            <div>
+            <label for="${business_class.businessClass?lower_case}_${attribute.name?uncap_first}" >${i18n_open}${business_class.businessPluginName?lower_case}.create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+            <input type="text" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" size="60" maxlength="50" tabindex="1" />
+            </div>
+            </#if>
+ 			 </#list>
+        </p>
+        <p>   
+        	<input type="submit" value="${i18n_open}${business_class.businessPluginName?lower_case}.create_${business_class.businessClass?lower_case}.buttonValidate${i18n_close}" class="button" tabindex="3" />
+        </p>
+        
+    </form>
+ 
+</#if>  
+    
+</div>
+
+ <#break>
+
+
+  <#case "2">
+
+<div class="content-box">
+        <#if business_class?? > 
+       
+    <form method="post"  name="modify_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/DoModify${business_class.businessClass?cap_first}.jsp">
+        <h2>${i18n_open}${business_class.businessPluginName?lower_case}.modify_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</h2>
+        
+
+        <p>
+             <#list business_class.attributes as attribute>
+             	  <#if attribute.attributeName = business_class.primaryKey>
+             	  
+                   	   <input type="hidden" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}"/>
+             <#else>
+ 			
+             <div>
+            <label for="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" >${i18n_open}${business_class.businessPluginName?lower_case}.modify_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+            <input type="text" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" size="60" maxlength="50" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
+            </div>
+            </#if>
+ 			 </#list>
+        </p>
+        <p>   
+            <input type="submit" value="${i18n_open}${business_class.businessPluginName?lower_case}.modify_${business_class.businessClass?lower_case}.buttonModify${business_class.businessClass?cap_first}${i18n_close}" class="button" tabindex="3" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+        </p>
+        
+    </form>
+      
+  
+</#if>  
+    
+</div>
+
+ <#break>
+
+  <#case "3">
+      <#if business_class?? > 
+
+  <div class="content-box" >
+    <h2>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</h2>    
+    <table>
+        <tr>
+        <#list business_class.attributes as attribute>
+ 			  <#if attribute.attributeName = business_class.primaryKey>
+ 			  
+                   	   <input type="hidden" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}"  />
+             <#else>
+ 			
+ 			<th>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.column${attribute.attributeName?cap_first}${i18n_close}</th>
+		</#if>
+		</#list>
+		<th>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.columnAction${i18n_close}</th>
+        </tr>
+        <${variable}list ${business_class.businessClass?lower_case}_list as ${business_class.businessClass?lower_case} >
+         <tr>
+   
+             <#list business_class.attributes as attribute>
+             
+             <#if attribute.attributeName = business_class.primaryKey>
+             
+                   	   <input type="hidden" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}"  />
+             <#else>
+              <#if attribute.attributeName = business_class.classDescription>
+              <td><a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Modify${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClassParam?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}" class="bullet-link">
+                 ${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+                </a>
+                </td>
+                <#else>
+                <td>${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}</td>
+             </#if>
+             </#if>
+             
+             
+ 			 
+ 			 </#list>
+             <td>
+                <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Remove${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClassParam?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}" >
+                    <img src="images/admin/skin/actions/delete.png" alt="${i18n_open}portal.util.labelDelete${i18n_close}" title="${i18n_open}portal.util.labelDelete${i18n_close}" />
+                </a>
+             </td>
+        </tr>
+        </${variable}list>
+    </table>
+
+    <form method="post"  action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Create${business_class.businessClass?cap_first}.jsp">
+        <input type="submit" value="${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.buttonAdd${business_class.businessClass?cap_first}${i18n_close}" class="button" />
+    </form>
+
+</div>
+
+</#if>  
+
+  
+
+ <#break>
+
+  <#case "4">
+<div class="content-box" >
+    
+    <h2>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessPluginName?lower_case}.tableLabel${i18n_close}</h2>
+    
+<table>
+        <tbody>
+       <#if business_classes?? > 
+        <#list business_classes as business_class>
+        <tr>
+            <td>
+                <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Manage${business_class.businessClass?cap_first}s.jsp" class="bullet-link">${business_class.businessClass?cap_first}  ${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessPluginName?lower_case}.labelManagement${i18n_close}</a>
+            </td>
+        </tr>
+        </#list>	
+        </#if>
+    </tbody>
+</table>    
+</div>
+
+ <#break>
+
+  <#default>
+  </#switch>  
+

@@ -1,0 +1,22 @@
+<div class="content-box">
+    <form method="post"  name="modify_configurationkey" action="jsp/admin/plugins/pluginwizard/DoModifyConfigurationKey.jsp">
+        <h2>#i18n{pluginwizard.modify_configurationkey.tableLabel}</h2>
+     
+           <input type="hidden" id="configurationkey_id_key" name="configurationkey_id_key" size="60" maxlength="50" value="${configurationkey.idKey}" tabindex="1" />
+         
+          <p>
+            <label for="configurationkey_key_description" >#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationDescription} * :</label>
+            <input type="text" id="configurationkey_key_description" name="configurationkey_key_description" size="60" maxlength="50" value="${configurationkey.keyDescription}" tabindex="1" />
+            </p>
+             <p>
+            <label for="configurationkey_key_value" >#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationValue} * :</label>
+            <input type="text" id="configurationkey_key_value" name="configurationkey_key_value" size="60" maxlength="50" value="${configurationkey.keyValue}" tabindex="1" />
+        </p>
+        <p>   
+            <input type="submit" value="#i18n{pluginwizard.modify_configurationkey.buttonModifyConfigurationKey}" class="button" tabindex="3" />
+            <input class="button" type="button" onclick="javascript:history.go(-1)" value="Cancel" />	
+        </p>
+    </form>
+</div>
+
+

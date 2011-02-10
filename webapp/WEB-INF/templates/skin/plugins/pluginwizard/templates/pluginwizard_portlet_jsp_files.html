@@ -1,0 +1,60 @@
+  <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>	
+<#switch portlet_jsp_type>
+ 
+ <#case "1">
+<%@ page errorPage="../../ErrorPage.jsp" %>
+
+<jsp:include page="../../PortletAdminHeader.jsp" />
+
+<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+
+<% ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE ); %>
+<%= ${portletName}Portlet.getModify ( request ) %>
+
+<%@ include file="../../AdminFooter.jsp" %>
+
+ <#break>
+ 
+  <#case "2">
+<%@ page errorPage="../../ErrorPage.jsp" %>
+
+<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+
+<%
+    ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE );
+    response.sendRedirect( ${portletName}Portlet.doModify( request ) );
+%>
+
+ <#break>
+ 
+  <#case "3">
+
+<%@ page errorPage="../../ErrorPage.jsp" %>
+<jsp:include page="../../PortletAdminHeader.jsp" />
+
+<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+
+<% ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE); %>
+<%= ${portletName}Portlet.getCreate ( request ) %>
+
+<%@ include file="../../AdminFooter.jsp" %>
+
+ <#break>
+
+  <#case "4">
+
+<%@ page errorPage="../../ErrorPage.jsp" %>
+
+<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+
+<%
+    ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE );
+    response.sendRedirect( ${portletName}Portlet.doCreate( request ) );
+%>
+ <#break>
+
+
+  <#default>
+  
+  </#switch>  
+

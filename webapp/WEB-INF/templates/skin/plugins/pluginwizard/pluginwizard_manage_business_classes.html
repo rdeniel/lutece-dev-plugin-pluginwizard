@@ -1,0 +1,77 @@
+<div class="span-15 prepend-1 append-bottom">    
+             
+    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_manage_business_classes.pageTitle} - #i18n{pluginwizard.pluginwizard_create_plugin.labelStepOf}   #i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}
+    </div>                 
+    <div class="portlet-background-content">  
+<table>
+
+    <thead>
+    	<tr>
+        	<th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessClass}</th>
+            <th scope="col">#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessTableName}</th>
+            <th scope="col" class="rounded-head-right">#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessAction}</th>
+        </tr>
+    </thead>
+
+<tbody>
+	<#if business_classes?? >
+	<#list business_classes as business_class >
+	<tr>
+		<td>${business_class.businessClass}</td>
+		<td>${business_class.businessTableName}</td>
+		
+<td>
+		<form class="default-form" method="post"
+			action="jsp/site/Portal.jsp">
+      <input
+			type="hidden" name="page" value="pluginwizard" /> <input
+			type="hidden" name="action" value="modify_business_class" /> <input
+			type="hidden" name="plugin_id" value="${plugin_id}" /> 
+      <input
+			type="hidden" name="feature_id" value="${business_class.idFeature}" />
+      <input
+			type="hidden" name="business_class_id" value="${business_class.idBusinessClass}" />
+			<button type="submit" name="modify_business_class" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}</button>
+		</form>
+		<form class="default-form" method="post"
+			action="jsp/site/Portal.jsp"><input
+			type="hidden" name="page" value="pluginwizard" /> <input
+			type="hidden" name="action" value="remove_business_class" /> 
+			<input type="hidden" name="plugin_id" value="${plugin_id}" /> 
+            <input
+			type="hidden" name="feature_id" value="${business_class.idFeature}" /><input
+			type="hidden" name="business_class_id" value="${business_class.idBusinessClass}" />
+			<button type="submit" name="remove_business_class" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}</button>
+		 </form>
+		</td>
+	</#list> 
+	</tr>
+	</#if>
+</tbody>
+
+</table>
+ <div class="portlet-background-content -lutece-border-radius-bottom push-0 last"> 
+
+<form method="post" name="generate"	action="jsp/site/Portal.jsp"><input
+	type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
+	name="action" value="manage_plugin_applications" /> <input
+	type="hidden" name="plugin_id" value="${plugin_id}" />
+
+<button type="submit" name="goToManageAdminFeatures" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonBack}</button>
+<button type="submit" name="goToManagePluginApplications" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonNext}</button>
+<button type="submit" name="goToCreateBusinessClass" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonAddBusinessClass}</button>
+</form>
+</div>
+</div>
+</div>
+
+<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">       
+  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}
+  </div>         
+   <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
+  </ul>         
+  <div class="portlet-background-content">      
+   #i18n{pluginwizard.pluginwizard_manage_business_classes.pageHelp}
+  </div>
+  </div>
+

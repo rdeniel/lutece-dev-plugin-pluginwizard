@@ -1,0 +1,52 @@
+<div class="span-15 prepend-1 append-bottom">       
+  		<div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin_application.pageTitle}
+  		</div>    
+  		                  
+		<div class="portlet-background-content">        
+			<form class="default-form" method="post" name="generate" >
+              
+                <input type="hidden" name="page" value="wizard" />
+                <input type="hidden" name="action" value="do_create_application" />
+                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />      
+                 
+                <div class="span-5  last">     
+                <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelApplicationName} :</label>
+                </div>    
+                          
+      			<div class="push-0  last">   
+                <input type="text" name="application_name" value="${plugin_model.pluginName?lower_case}" size="30" />
+                </div>                                           
+      
+      			<div class="span-5  last">  
+                <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelApplicationClass} :</label>
+	            </div>              
+      
+      			<div class="push-0  last"> 
+                <input type="text" name="application_class" value="${plugin_model.pluginName?cap_first}App" size="30" />
+                </div>
+                
+	
+	      		<div class="portlet-background-content -lutece-border-radius-bottom push-0 last">                                          
+        			<button type="submit" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_create_plugin_application.buttonCreateApplication}
+        			</button>                   
+        			<button type="submit" name="goToManagePluginApplications" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_create_plugin_application.buttonBack}
+        			</button>                                                             
+      			</div> 
+			</form>
+		</div>    
+</div>
+
+<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">          
+  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}   
+  </div>            
+  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
+  </ul>            
+  <div class="portlet-background-content">         #i18n{pluginwizard.pluginwizard_create_plugin_application.pageHelp}   
+  </div>  
+</div>
+
+
+
+
+
+

@@ -1,0 +1,202 @@
+<pre>
+<font class="comment">
+/*
+ * Copyright (c) 2002-2009, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+
+</font>
+<font class="keyword">package</font> ${businessClass.packageName};
+
+<font class="keyword">import</font> fr.paris.lutece.util.sql.DAOUtil;
+
+<font class="keyword">import</font> java.util.ArrayList;
+<font class="keyword">import</font> java.util.Collection;
+
+<font class="comment">
+/**
+ * This class provides Data Access methods for ${businessClass.businessClass} objects
+ */
+</font>
+<font class="keyword">public final class </font>${businessClass.businessClass}DAO implements I${businessClass.businessClass}DAO
+{
+	<font class="comment">
+	// Constants
+	</font>
+	<font class="modify">private static final</font> String SQL_QUERY_NEW_PK = "SELECT max( ${businessClass.idColumnName} ) FROM ${businessClass.table}";
+	<font class="modify">private static final</font> String SQL_QUERY_SELECT = "SELECT <#list businessClass.attributeList as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessClass.table} WHERE ${businessClass.idColumnName} = ?";
+	<font class="modify">private static final</font> String SQL_QUERY_INSERT = "INSERT INTO ${businessClass.table} ( <#list businessClass.attributeList as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessClass.attributeList as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
+	<font class="modify">private static final</font> String SQL_QUERY_DELETE = "DELETE FROM ${businessClass.table} WHERE ${businessClass.idColumnName} = ? ";
+	<font class="modify">private static final</font> String SQL_QUERY_UPDATE = "UPDATE ${businessClass.table} SET <#list businessClass.attributeList as attribute>${attribute.columnName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessClass.idColumnName} = ?";
+	<font class="modify">private static final</font> String SQL_QUERY_SELECTALL = "SELECT <#list businessClass.attributeList as attribute>${attribute.columnName}<#if attribute_has_next>, </#if></#list> FROM ${businessClass.table}";
+
+
+	<font class="comment">
+	/**
+	 * Generates a new primary key
+	 * @return The new primary key
+	 */
+    </font>
+	<font class="modify">public</font> int newPrimaryKey()
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK  );
+		daoUtil.executeQuery();
+
+		int nKey;
+
+		<font class="keyword">if</font>( !daoUtil.next() )
+		{
+			// if the table is empty
+			nKey = 1;
+		}
+
+		nKey = daoUtil.getInt( 1 ) + 1;
+		daoUtil.free();
+
+		<font class="keyword">return</font> nKey;
+	}
+
+
+<font class="comment">
+
+	/**
+	 * Insert a new record in the table.
+	 * @param ${businessClass.instanceName} instance of the ${businessClass.businessClass} object to insert
+	 */
+</font>
+	<font class="keyword">public void</font> insert( ${businessClass.businessClass} ${businessClass.instanceName} )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT );
+                
+		${businessClass.instanceName}.setId( newPrimaryKey() );
+                
+        	<#list businessClass.attributeList as attribute>
+                daoUtil.set${attribute.type?cap_first} ( ${attribute_index + 1}, ${businessClass.instanceName}.get${attribute.name} ( ) );
+            </#list>
+
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+<font class="comment">
+	/**
+	 * Load the data of the ${businessClass.instanceName} from the table
+	 * @param nId The identifier of the ${businessClass.instanceName}
+	 * @return the instance of the ${businessClass.businessClass}
+	 */
+</font>
+
+        <font class="keyword">public</font> ${businessClass.businessClass} load( int nId )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT );
+		daoUtil.setInt( 1 , nId );
+		daoUtil.executeQuery();
+
+		${businessClass.businessClass} ${businessClass.instanceName} = <font class="keyword">null</font>;
+
+		<font class="keyword">if</font> ( daoUtil.next() )
+		{
+			${businessClass.instanceName} = new ${businessClass.businessClass}();
+
+                <#list businessClass.attributeList as attribute>
+                    ${businessClass.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}(  ${attribute_index + 1} ) );
+                </#list>
+		}
+
+		daoUtil.free();
+		<font class="keyword">return</font> ${businessClass.instanceName};
+	}
+
+<font class="comment">
+	/**
+	 * Delete a record from the table
+	 * @param n${businessClass.businessClass}Id The identifier of the ${businessClass.instanceName}
+	 */
+</font>
+	<font class="keyword">public void</font> delete( int n${businessClass.businessClass}Id )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE );
+		daoUtil.setInt( 1 , n${businessClass.businessClass}Id );
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+<font class="comment">
+	/**
+	 * Update the record in the table
+	 * @param ${businessClass.instanceName} The reference of the ${businessClass.instanceName}
+	 */
+</font>
+	<font class="keyword">public void</font> store( ${businessClass.businessClass} ${businessClass.instanceName} )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE );
+                
+             <#list businessClass.attributeList as attribute>
+             <#assign nIndex=attribute_index+1 >
+                daoUtil.set${attribute.type?cap_first}( ${nIndex}, ${businessClass.instanceName}.get${attribute.name}( ) );
+             </#list>
+             daoUtil.setInt( ${nIndex+1}, ${businessClass.instanceName}.getId( ) );
+                
+		daoUtil.executeUpdate( );
+		daoUtil.free( );
+	}
+
+
+<font class="comment">
+	/**
+	 * Load the data of all the ${businessClass.instanceName}s and returns them as a collection
+	 * @return The Collection which contains the data of all the ${businessClass.instanceName}s
+	 */
+</font>
+        <font class="keyword">public Collection&lt;${businessClass.businessClass}&gt;</font> select${businessClass.businessClass}sList()
+	{
+		Collection&lt;${businessClass.businessClass}&gt; ${businessClass.instanceName}List = new ArrayList&lt;${businessClass.businessClass}&gt;(  );
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL );
+		daoUtil.executeQuery(  );
+
+		<font class="keyword">while</font> ( daoUtil.next(  ) )
+		{
+                ${businessClass.businessClass} ${businessClass.instanceName} = new ${businessClass.businessClass}(  );
+
+                <#list businessClass.attributeList as attribute>
+                    ${businessClass.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
+                </#list>
+
+                ${businessClass.instanceName}List.add( ${businessClass.instanceName} );
+		}
+
+		daoUtil.free();
+		<font class="keyword">return</font> ${businessClass.instanceName}List;
+	}
+
+}
+</pre>

@@ -1,0 +1,202 @@
+/*
+ * Copyright (c) 2002-2009, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+
+
+package @package@;
+
+import fr.paris.lutece.portal.service.Plugin;
+import fr.paris.lutece.util.ReferenceList;
+import fr.paris.lutece.util.sql.DAOUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * This class provides Data Access methods for @classname@ objects
+ */
+
+public final class @classname@DAO implements  I@classname@DAO 
+{
+
+	// Constants
+	
+	private static final String SQL_QUERY_NEW_PK = " @select_max_sql_statement@ ";
+	private static final String SQL_QUERY_SELECT = " @select_sql_statement@ ";
+  private static final String SQL_QUERY_INSERT = " @insert_sql_statement@ ";
+	private static final String SQL_QUERY_DELETE = " @delete_sql_statement@ ";
+	private static final String SQL_QUERY_UPDATE = " @update_sql_statement@ ";
+	private static final String SQL_QUERY_SELECTALL = " @select_all_sql_statement@ ";
+
+
+	/** This class implements the Singleton design pattern. */
+	private static @classname@DAO _dao = new @classname@DAO();
+
+
+	/**
+	 * Creates a new @classname@DAO object.
+	 */
+	
+	private @classname@DAO()
+	{
+	}
+
+
+	/**
+	 * Returns the unique instance of the singleton.
+	 * @return the instance
+	 */
+	
+  static @classname@DAO getInstance()
+	{
+		return _dao;
+	}
+
+	
+	/**
+	 * Generates a new primary key
+	 * @param plugin The Plugin using this data access service
+	 * @return The new primary key
+	 */
+    
+	public int newPrimaryKey( Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin );
+		daoUtil.executeQuery();
+
+		int nKey;
+
+		if( !daoUtil.next() )
+		{
+			// if the table is empty
+			nKey = 1;
+		}
+
+		nKey = daoUtil.getInt( 1 ) + 1;
+
+		daoUtil.free();
+		return nKey;
+	}
+
+
+
+	/**
+	 * {@inheritDoc} 
+	 */
+
+	synchronized void insert( @classname@ @instance_name@ , Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , plugin );
+		@instance_name@.setId( newPrimaryKey( plugin ) );
+@insert_statement_setting@
+
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+
+	/**
+	 * {@inheritDoc} 
+	 */
+
+
+	@classname@ load( int n@classname@Id , Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
+		daoUtil.setInt( 1 , n@classname@Id );
+		daoUtil.executeQuery();
+
+		@classname@ @instance_name@ = null;
+
+		if ( daoUtil.next(  ) )
+		{
+			@instance_name@ = new @classname@();
+@select_results@
+		}
+
+		daoUtil.free();
+		return @instance_name@;
+	}
+
+
+	/**
+	 * {@inheritDoc} 
+	 */
+
+	void delete( int n@classname@Id , Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
+		daoUtil.setInt( 1 , n@classname@Id );
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+
+	/**
+	 * {@inheritDoc} 
+	 */
+
+	void store( @classname@ @instance_name@ , Plugin plugin )
+	{
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
+@update_statement_setting@
+		daoUtil.executeUpdate();
+		daoUtil.free();
+	}
+
+
+
+	/**
+	 * {@inheritDoc} 
+	 */
+
+	List&lt;@classname@&gt; select@classname@List( Plugin plugin )
+	{
+		List&lt;@classname@&gt; list@classname@s = new ArrayList(  );
+		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+		daoUtil.executeQuery(  );
+
+		while ( daoUtil.next(  ) )
+		{
+			@classname@ @instance_name@ = new @classname@(  );
+@select_all_results@
+			list@classname@s.add( @instance_name@ );
+		}
+
+		daoUtil.free();
+		return list@classname@s;
+	}
+
+}
+</pre>

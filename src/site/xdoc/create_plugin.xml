@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+            Création du plugin en utilisant pluginwizard
+        </title>
+    </properties>
+    <body>
+		<section name="L'interface utilisateur de la création du plugin">
+			<p>
+			 L'interface d'entrée donne la possibilité à l'utilisateur de choisir les
+			 fichiers qu'il souhaite obtenir du générateur.
+			</p>
+				<ul>
+              <li>Les classes Java de la couche métier</li>
+              <li>Les classes Java de la couche présentation</li>
+              <li>Le script SQL d'initialisation de la base de données</li>
+              <li>Les templates HTML</li>
+              <li>Les fichiers ressources i18n</li>
+              <li>Les Jsp de l'interface d'administration</li>
+              <li>Le fichier properties de configuration du plugin</li>
+              <li>Le fichier xml de la définition du plugin</li>
+              <li>Le fichier pom.xml du projet</li>
+              <li>Le fichier de context de Spring</li>
+              <li>Les classes des XPage </li>
+				</ul>
+				       <subsection name="Les classes Java de la couche métier">
+				       			<p>
+								Les classes Java de la couche métier sont les Pojo et les classes nécessaires pour interfacer avec la base de données. Le framework Spring qui a été intégré dans Lutèce s’occupe de l’instanciation de la classe DAO qui  respecte la signature de l’interface générée pour chaque classe métier
+								</p>
+               </subsection>
+              <subsection name="Les classes Java de la couche présentation">
+              				<p>
+							Ces classes sont responsables de l’administration des objets métiers. Le code produit se limite à la création, modification et la suppression. Des règles métiers standard dans Lutèce sont mises en place (i.e la confirmation de l’utilisateur en back office lors de la  suppression d’une entité)
+				            </p>
+              </subsection>
+              <subsection name="Le script SQL d'initialisation de la base de données">
+              				 <p>
+				             Le script a été testé avec Mysql. Il y a une correspondance entre une classe métier et une table. Ce script sera automatiquement exécuté grâce à l’outil ant en utilisant les propriétés du pool de connexion qui sont déclarées dans le fichier db.properties
+							 </p>
+              </subsection>
+              <subsection name="Les templates HTML">
+              				<p>
+							Les templates Html sont utilisés par la couche présentation afin de créer l’interface utilisateur du back et du front office. Le template va contenir des structures de contrôles et des mots clefs spécifiques au mouteur de template freemarker. Cet outil facilite grandement la maintenance du code du template.
+				            </p>
+              </subsection>
+              <subsection name="Les fichiers ressources i18n">
+              				<p>
+							La possibilité d’implémenter des interfaces utilisateurs en plusieurs langues est assurée par le mécanisme interne de Lutèce. Les fichiers de traductions sont des fichiers textes simples avec la clé et sa valeur. Ainsi, par défaut, Lutèce est livrée avec la version anglaise et française.
+				            </p>
+              </subsection>
+              <subsection name="Les Jsp de l'interface d'administration">
+              				  <p>
+							Les Jsp d’interface utilisateur  dans Lutèce sont allégées et s’occupent généralement de la vérification du droit d’accès à la page demandée  et à l’exécution des méthodes du JspBean .
+				              </p>
+              </subsection>
+              <subsection name="Le fichier properties de configuration du plugin">
+              				    <p>
+							Ce fichier permet d’ajouter des valeurs spécifiques au plugin(i.e nombre de lignes à afficher par défaut,etc..)	
+				                </p>
+              </subsection>
+              <subsection name="Le fichier xml de la définition du plugin">
+              				<p>
+							Le fichier plugin.xml est l’épine dorsale du plugin et contient tous les informations nécessaires pour chaque cycle de vie du plugin. Elle permet de définir tous les services essentiels à l’intégration avec le noyau de Lutèce.
+				            </p>
+              </subsection>
+              <subsection name="Le fichier pom.xml du projet">
+              				  <p>
+							Le pom.xml hérite du mécanisme mise en place autour de l’outil maven. Ainsi avec la simple commande mvn lutece :exploded, il est possible de construire une instance de Lutèce avec le plugin qui a été généré en ligne. Cette instance est exécutable et assure les fonctionnalités rudimentaires d’un plugin. Ce processus permet de réduire le temps de mise en place de la plateforme de développement et réduit la courbe d’apprentissage de l’outil.
+				              </p>
+                      </subsection>
+              <subsection name="Le fichier de context de Spring">
+              				  <p>
+						Le fichier Spring s’occupe dans le plugin de créer les beans de la couche métier. Il est donc possible de remplacer cette couche métier simplement et extraire des données d’une autre base.
+				              </p>
+                      </subsection>
+              <subsection name="Les classes des XPage ">
+              				 <p>
+						Les XPages sont une alternative à l’utilisation de portlets dans Lutèce. Il permet d’implémenter simplement les fonctionnalités du front-office.
+				            </p>
+              </subsection>
+      </section>
+   </body>
+</document>       
+             

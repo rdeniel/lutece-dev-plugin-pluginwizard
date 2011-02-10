@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>
+            Les fonctionnalités d'administration dans pluginwizard
+        </title>
+    </properties>
+    <body>
+		<section name="La gestion des fonctionnalités d'administration">
+			<p>
+			 L'interface permet de visualiser les fonctionnalités décrites pour le plugin.
+			</p>
+			<ul>
+        <li>Le bouton "Ajouter une fonctionnalité"</li>
+			  <li>Le bouton "Modifier"</li>
+			  <li>Le bouton "Effacer"</li>
+				</ul>
+			 <subsection name="Le bouton Ajouter une fonctionnalité">
+				       			<p>
+			Le bouton permet de créer une nouvelle fonctionnalité.La fonctionnalité permet d'encadrer
+			la vue utilisée pour l'administration.
+								</p>
+               </subsection>
+              <subsection name="Le bouton Modifier">
+              				<p>
+			Modification des valeurs des champs décrivant la fonctionnalité.
+							</p>
+              </subsection>
+              <subsection name="Le bouton Effacer">
+              				 <p>
+			La suppression de la fonctionnalité.
+							 </p>
+              </subsection>
+      </section>
+	  		<section name="La création d'une fonctionnalité d'administration">
+			<p>
+			 L'interface permet de créer une fonctionnalité d'administration.
+			</p>
+			<ul>
+        <li>Le champ Gestion</li>
+			  <li>Le champ Titre</li>
+			  <li>Le champ Description</li>
+			  <li>Le champ Niveau</li>
+			  <li>Le champ Url</li>
+				</ul>
+			 <subsection name="Le champ Gestion">
+				       			<p>
+						  Le champ de gestion est une description de la fonctionnalité, l'usage des lettres en capitale
+								en majuscules est obligatoire.(e.g MONPLUGIN_MANAGEMENT)</p>
+               </subsection>
+              <subsection name="Le champ Titre">
+              				<p>
+							Le champ titre est une clé i18n qui donne un titre de la fonctionnalité.
+							</p>
+              </subsection>
+              <subsection name="Le champ Description">
+              				 <p>
+							Le champ description est une clé i18n qui donne une description de la fonctionnalité.
+							</p>
+              </subsection>
+			                <subsection name="Le champ Niveau">
+              				 <p>
+							Le champ niveau permet de déclarer quel type d'utilisateurs a droit à cette fonctionnalité(e.g 0 Droits de l'administrateur technique ).
+							</p>
+              </subsection>
+			  <subsection name="Le champ Url">
+              				 <p>
+							 Le champ url est l'url de l'icône qui représente la fonctionnalité d'administration(e.g images/admin/skin/plugins/monplugin/manage_monplugin.png).
+							 </p>
+              </subsection>
+      </section>
+   </body>
+</document>       
+             

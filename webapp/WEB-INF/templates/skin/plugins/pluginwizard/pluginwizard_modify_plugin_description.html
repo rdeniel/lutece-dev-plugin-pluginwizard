@@ -1,0 +1,128 @@
+<div class="span-15 prepend-1 append-bottom ">       
+  <form class="default-form" method="post" name="generate" action="jsp/site/Portal.jsp" >                    
+    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_modify_plugin_description.pageTitle}     
+    </div>                      
+    <div class="portlet-background-content">                  
+      <input type="hidden" name="page" value="pluginwizard" />                
+      <input type="hidden" name="action" value="do_modify_plugin_description" />                  
+      <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />    
+                                                     
+       <div class="span-5  last">                
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginName} :
+        </label>   
+        </div>       
+      <div class="push-0  last">         
+        <input type="text" name="plugin_name" value="<#if plugin_model.pluginName??>${plugin_model.pluginName}</#if>" size="30" readonly />                 
+      </div>
+        <div class="span-5  last">                                
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginClass} :
+        </label> 
+                </div>       
+      <div class="push-0  last">               
+        <input type="text" name="plugin_class" value="<#if plugin_model.pluginClass??>${plugin_model.pluginClass}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                                    
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginDescription} :
+        </label>   
+                </div>       
+      <div class="push-0  last">             
+        <input type="text" name="plugin_description" value="<#if plugin_model.pluginDescription??>${plugin_model.pluginDescription}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                  
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginDocumentation} :
+        </label>   
+                </div>       
+      <div class="push-0  last">             
+        <input type="text" name="plugin_documentation" value="<#if plugin_model.pluginDocumentation??>${plugin_model.pluginDocumentation}</#if>" size="30" />                 
+      </div>
+     <div class="span-5  last">                   
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginInstallation} :
+        </label>      
+                </div>       
+      <div class="push-0  last">          
+        <input type="text" name="plugin_installation" value="<#if plugin_model.pluginInstallation??>${plugin_model.pluginInstallation}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                   
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginChanges} :
+        </label>  
+                </div>       
+      <div class="push-0  last">              
+        <input type="text" name="plugin_changes" value="<#if plugin_model.pluginClass??>${plugin_model.pluginChanges}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                   
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginUserGuide} :
+        </label>   
+                </div>       
+      <div class="push-0  last">             
+        <input type="text" name="user_guide" value="<#if plugin_model.pluginUserGuide??>${plugin_model.pluginUserGuide}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                            
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginVersion} :
+        </label> 
+                </div>       
+      <div class="push-0  last">               
+        <input type="text" name="version" value="<#if plugin_model.pluginVersion??>${plugin_model.pluginVersion}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                            
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginCopyright} :
+        </label>   
+                </div>       
+      <div class="push-0  last">             
+        <input type="text" name="plugin_copyright" value="<#if plugin_model.pluginCopyright??>${plugin_model.pluginCopyright}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                     
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginIconUrl} :
+        </label>   
+                </div>       
+      <div class="push-0  last">             
+        <input type="text" name="icon_url" value="<#if plugin_model.pluginIconUrl??>${plugin_model.pluginIconUrl}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                      
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginProvider} :
+        </label>    
+                </div>       
+      <div class="push-0  last">            
+        <input type="text" name="plugin_provider" value="<#if plugin_model.pluginProvider??>${plugin_model.pluginProvider}</#if>" size="30" />                 
+      </div>
+     <div class="span-5  last">                      
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginProviderUrl} :
+        </label>    
+                </div>       
+      <div class="push-0  last">            
+        <input type="text" name="plugin_provider_url" value="<#if plugin_model.pluginProviderUrl??>${plugin_model.pluginProviderUrl}</#if>" size="30" />                 
+      </div>
+      <div class="span-5  last">                     
+        <label>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPlugindbPoolRequired} :
+        </label>      
+                </div>       
+      <div class="push-0  last">          
+        <select name="plugin_pool">    				
+          <option value="1" <#if plugin_model.pluginDbPoolRequired ="1">selected="selected"
+          </#if>>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelTrue}
+          </option>    				
+          <option value="0" <#if plugin_model.pluginDbPoolRequired ="0">selected="selected"
+          </#if>>#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelFalse}
+          </option>				
+        </select>                    
+      </div>  
+       </div>                                       
+      <div class="portlet-background-content -lutece-border-radius-bottom push-0 last">                                
+        <button type="submit" name="goToModifyPlugin" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_plugin_description.buttonBack}
+        </button>                                                                                         
+      <button type="submit" name="goToModifyPluginDescription" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_plugin_description.buttonNext}
+      </button>   
+      
+      </div>   
+                                                   		
+  </form>                                                   		   
+  </form>		 		
+</div>	                         
+<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">       
+  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}
+  </div>         
+   <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
+  </ul>      
+  <div class="portlet-background-content">      
+   #i18n{pluginwizard.pluginwizard_modify_plugin_description.pageHelp}
+  </div>
+  </div>

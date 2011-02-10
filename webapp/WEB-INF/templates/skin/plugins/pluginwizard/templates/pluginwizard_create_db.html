@@ -1,0 +1,49 @@
+<#switch sql_type>
+ 
+ <#case "1">
+<#list business_classes as business_class>
+
+<#if business_class?? > 
+--
+-- Structure for table ${business_class.businessTableName}
+--
+
+DROP TABLE IF EXISTS ${business_class.businessTableName};
+CREATE TABLE ${business_class.businessTableName} (		
+<#list business_class.attributes as attribute>
+<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) NOT NULL default '0'</#if><#if attribute.type ='String' >${attribute.attributeName?lower_case} varchar(50) NOT NULL default ''</#if><#if business_class.attributes?size != attribute_index + 1>,</#if>
+</#list>
+);
+</#if>    
+</#list>
+ <#break>
+ 
+  <#case "2">
+ <#break>
+
+  <#case "3">
+
+ <#break>
+
+  <#case "4">
+
+ <#break>
+  <#case "5">
+  <#list portlets as portlet> 
+  <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+  
+--
+-- Structure for table ${portletName?lower_case}_portlet
+--
+DROP TABLE IF EXISTS ${portletName?lower_case}_portlet;
+CREATE TABLE ${portletName?lower_case}_portlet (
+  id_portlet int default '0' NOT NULL,
+  ${portletName?lower_case}_feed_id varchar(100) default NULL,
+  PRIMARY KEY  (id_portlet)
+);
+ </#list>
+ <#break>
+
+
+  <#default>
+  </#switch>  

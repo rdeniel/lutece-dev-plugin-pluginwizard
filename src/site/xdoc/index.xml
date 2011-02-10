@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <document>
+      <properties>
+          <title>
+              The pluginwizard plugin allows to generate on the fly customized plugins in minutes.
+          </title>
+      </properties>
+      <body>
+          <section name="Introducing Plugiwizard ">
+             
+              <subsection name="Pluginn wizard generates an executable plugin online">
+              <center>
+              <img src="images/zip_content.png" />
+              </center>
+              </subsection>
+              
+        
+              <subsection name="Why to use plugin wizard?">
+                 <p>
+                 The primary goal of Lutece pluginwizard is to reduce developer configuration files overhead and
+                 the risk of infringing the development norms.Also new developers entering the project will inherit
+                 the best pratices directly in their project.A basic plugin can be conceived in some minutes and
+                 executed immediately. 
+                 </p>
+               </subsection>
+               <subsection name="What do you get?">
+               <p>
+                  All the files needed to implement CRUD functionalities on defined business classes.
+                  The files include :
+               <p>
+              <ol>
+                <li>The Project Object Model( i.e.<a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">pom.xml</a>)</li>
+                <li>The Java classes</li>
+                <li>The Spring framework context file</li>
+                <li>The sql file needed by the plugin</li>
+                <li>The Jsp files needed by Front and Back Office</li>
+                <li>Html templates needed by the view layer</li>
+                <li>The properties files</li>
+                <li>The plugin xml definition needed by the Lutece core</li>
+                <li>Basic XSL for defined portlets</li>
+              </ol>
+              </p> 
+          
+           </p>
+               </subsection>
+              <subsection name="What are the Pros ans Cons?">
+               <p>
+               <p>Pros</p>
+               <ul>
+               <li>The process is iterative, the back button allows to improve and stock the model.</li>
+               <li>The model is simple and easy to understand.</li>
+               </ul>
+               <p>Cons</p>
+               The generation based upon a model which is datacentered doesn't imply that all plugins are based upon
+               business layers.There are a many mechanisms in Lutece which helps to comply to requirements. The mechanism
+               could be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which
+               offers the possibility to set up fine-grained control on declared resources.
+               </p>
+               </subsection>
+               <subsection name="Plugin conception">
+               <p>
+               <strong>Simplified Requirements:</strong> 
+                <ul>
+       
+              <li>Manage a list of persons.</li>
+              <li> An administrator must be able to modify,delete and update.</li>
+             </ul>
+               
+               <strong>Possible Solution:</strong> 
+                  <ul>
+              <li> Use the pluginwizard to attach an admin feature to the plugin.</li>
+              <li> Attach a business class to the admin feature.</li>
+              <li>  The business class is comprised of some fields(id_person,person_name and person_address).</li>
+              <li> The id_person is the primary key and person_name is the description of the business object.</li>
+              </ul>
+               </p>
+               </subsection>
+               <subsection name="Can I work on the generated plugin using an IDE?">
+               <p>
+               Any Lutece plugin project can be converted into an eclipse project
+               <pre>mvn eclipse:eclipse</pre>
+               </p>
+               </subsection>
+               
+              
+          </section>
+		  <section name="Project Information">
+			<p>
+				<a href="project-summary.html">Project Summary</a>: this document lists other related information of this project
+			</p>	
+			<p>
+				<a href="http://dev.lutece.paris.fr/jira/browse/PLUGINWIZARD" target="_blank">Issue Tracking</a> : this is a link to the issue management system for this project. Issues (bugs, features, change requests) can be created and queried using this link.
+			</p>	
+			<p>
+				<a href="http://dev.lutece.paris.fr/viewvc/portal/trunk/" target="_blank">Source Repository</a> : this is a link to the online source repository that can be viewed via a web browser.
+			</p>
+			<p>
+				<a href="dependencies.html">Dependencies</a> : this document lists the projects dependencies and provides information on each dependency.
+			</p>
+			<p>
+				<a href="license.html">Project License</a> : this is a link to the definitions of project licenses.
+			</p>
+		  </section>
+      </body>
+  </document>
+          

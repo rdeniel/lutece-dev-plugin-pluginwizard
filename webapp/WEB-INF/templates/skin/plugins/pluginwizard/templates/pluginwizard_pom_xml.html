@@ -1,0 +1,39 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+	  <artifactId>lutece-plugins-pom</artifactId>
+	  <groupId>fr.paris.lutece.plugins</groupId>
+	  <version>${pom_parent_version}</version>
+	</parent>
+
+	<modelVersion>${pom_model_version}</modelVersion>
+	<groupId>fr.paris.lutece.plugins</groupId>
+	<artifactId>plugin-${plugin.pluginName}</artifactId>
+	<packaging>lutece-plugin</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Lutece ${plugin.pluginName?cap_first} plugin</name>
+
+	<repositories>
+	  <repository>
+	    <id>lutece</id>
+	    <name>luteceRepository</name>
+	    <url>http://dev.lutece.paris.fr/maven_repository</url>
+	    <layout>default</layout>
+	  </repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>fr.paris.lutece</groupId>
+			<artifactId>lutece-core</artifactId>
+			<version>${pom_dependencies_core_version}</version>
+			<type>lutece-core</type>
+		</dependency>
+	</dependencies>
+
+	<properties>
+		<componentName>${plugin.pluginName}</componentName>
+		<jiraProjectName>LUTECE</jiraProjectName>
+		<jiraComponentId>10036</jiraComponentId>
+	</properties>
+</project>
