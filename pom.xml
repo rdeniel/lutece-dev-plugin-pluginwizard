@@ -40,6 +40,6 @@
     <scm>
         <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</connection>
         <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/portal/trunk/plugins/technical/plugin-pluginwizard</url>
+        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</url>
     </scm>
 </project>
