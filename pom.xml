@@ -10,7 +10,7 @@
 	<groupId>fr.paris.lutece.plugins</groupId>
 	<artifactId>plugin-pluginwizard</artifactId>
 	<packaging>lutece-plugin</packaging>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 	<name>Lutece Plugin wizard plugin</name>
 
 	<repositories>
@@ -38,8 +38,8 @@
 	</properties>
 
     <scm>
-        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</connection>
-        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</url>
+        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/tags/plugin-pluginwizard-1.0.3</connection>
+        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/tags/plugin-pluginwizard-1.0.3</developerConnection>
+        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/tags/plugin-pluginwizard-1.0.3</url>
     </scm>
 </project>
