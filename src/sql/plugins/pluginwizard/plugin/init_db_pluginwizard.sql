@@ -5,7 +5,7 @@
 INSERT INTO pluginwizard_configuration_key (id_key, key_description, key_value) VALUES (1,'plugin_version_number','3.0');
 INSERT INTO pluginwizard_configuration_key (id_key, key_description, key_value) VALUES (2,'pom_parent_version','2.26');
 INSERT INTO pluginwizard_configuration_key (id_key, key_description, key_value) VALUES (3,'pom_model_version','4.0.0');
-INSERT INTO pluginwizard_configuration_key (id_key, key_description, key_value) VALUES (4,'pom_dependencies_core_version','[2.2.4,3.0.0-SNAPSHOT)');
+INSERT INTO pluginwizard_configuration_key (id_key, key_description, key_value) VALUES (4,'pom_dependencies_core_version','[2.2.4,)');
 
 --
 -- Dumping data for table `pluginwizard_plugin_application`
