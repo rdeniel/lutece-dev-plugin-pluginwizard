@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Lutece - Pluginwizard">
+<project>
 	<body>
 		<links>
 			<item name="FR" href="/fr/index.html" />
 		</links>
-
 		<menu name="Overview">
-				<item name="Introduction" href="index.html" />
-				<item name="Download" href="download.html" />
-				<item name="Configuration" href="configuration.html" />
-			<item name="Creation of a plugin" href="create_plugin.html"/>
-      <item name="Description of a plugin" href="describe_plugin.html"/>
-			<item name="Admin Feature" href="admin_feature.html"/>
-			<item name="Business Class" href="business_class.html"/>
-	
-  	</menu>
-    
-    <menu name="Downloads" inherit="bottom">
-		  <item name="Released versions" href="download.html" />
-      <item name="Nightly builds" href="/nightly_build/" />
+			<item name="Introduction" href="index.html" />
 		</menu>
-    
 		<menu ref="reports" />
 	</body>
 </project>

@@ -6,22 +6,12 @@
           </title>
       </properties>
       <body>
-          <section name="Introducing Plugiwizard ">
-             
-              <subsection name="Pluginn wizard generates an executable plugin online">
-              <center>
-              <img src="images/zip_content.png" />
-              </center>
-              </subsection>
-              
-        
-              <subsection name="Why to use plugin wizard?">
-                 <p>
+          <section name="Plugin plugiwizard ">
+              <subsection name="Introduction">
                  The primary goal of Lutece pluginwizard is to reduce developer configuration files overhead and
                  the risk of infringing the development norms.Also new developers entering the project will inherit
                  the best pratices directly in their project.A basic plugin can be conceived in some minutes and
                  executed immediately. 
-                 </p>
                </subsection>
                <subsection name="What do you get?">
                <p>

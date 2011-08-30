@@ -5,19 +5,13 @@
           Le module pluginwizard permet de générer à la volée des module personnalisés en quelques minutes </title>
       </properties>
       <body>
-          <section name="Introduction au module pluginwizard ">
+          <section name="Plugin pluginwizard ">
              
-              <subsection name="Le module génère du code exécutable à partir de son interface web.">
-              <center>
-              <img src="../images/zip_content.png" />
-              </center>
-              </subsection>
-              
-        
-              <subsection name="Pourquoi utiliser ce module ?">
-                 <p>
-L’objectif primaire du module pluginwizard est de baisser le risque d’erreur de configuration et de réduire la possibilité de transgresser les normes de développement de Lutèce. Un module simple peut-être conçu et exécuté en quelques minutes. 
-                 </p>
+              <subsection name="Introduction">
+	L'objectif principal du plugin pluginwizard est de baisser le risque
+	d'erreur de configuration et de réduire la possibilité de transgresser
+	les normes de développement de Lutèce. Un module simple peut-être conçu
+	et exécuté en quelques minutes. 
                </subsection>
                <subsection name="Quels sont les fichiers générés par l'outil?">
                <p>
@@ -47,7 +41,7 @@ L’objectif primaire du module pluginwizard est de baisser le risque d’erreur
                <li>Le model est simple à comprendre.</li>
                </ul>
                <p>Cons</p>
-                La génération basée sur un modèle qui est centre sur les données n’implique pas que tous les modules sont des applications basées sur une couche de persistance. Il y a plusieurs mécanismes dans Lutèce qui permettent de répondre à un plusieurs types de besoins. Le mécanisme peut être des daemons ou des mécanismes de gestion de droit (RBAC). 
+                La génération basée sur un modèle qui est centre sur les données n'implique pas que tous les modules sont des applications basées sur une couche de persistance. Il y a plusieurs mécanismes dans Lutèce qui permettent de répondre à un plusieurs types de besoins. Le mécanisme peut être des daemons ou des mécanismes de gestion de droit (RBAC). 
                </p>
                </subsection>
                <subsection name="Conception d'un mini plugin">
