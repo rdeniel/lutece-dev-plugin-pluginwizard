@@ -1,71 +1,71 @@
-   <div class="span-15 prepend-1 append-bottom">    
-             
-    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelDescriptionStep}
-    </div>                 
-    <div class="portlet-background-content">  
-  <table summary="">
-    <thead>
-    	<tr>
-        	<th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
-          <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
-          <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
-      </tr>
-    </thead>
-    
-    <tbody>
-    <#if admin_features?? > <#list admin_features as feature >
-	   <tr>
-		  <td><a href="jsp/site/Portal.jsp?page=pluginwizard&action=view_admin_feature&action=view_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.idPluginFeature}" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonViewFeature}">${feature.pluginFeatureLabel}</a></td>
+<#include "sidebar.html" />   
 
-		  <td>${feature.pluginFeatureLevel}</td>
-		<td>
 
-		<form method="post"
-			action="jsp/site/Portal.jsp"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="modify_admin_feature" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="feature_id" value="${feature.idPluginFeature}" />
-			<button type="submit" name="modify_admin_feature" class="-lutece-input -lutece-border-radius-mini" >#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}</button>
-		</form>
+<div class="row">    
 
-		<form method="post"
-			action="jsp/site/Portal.jsp"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="remove_admin_feature" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="feature_id" value="${feature.idPluginFeature}" />
-				<button type="submit" name="remove_admin_feature" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}</button>
-		
-		</form>
-		</td>
-	</tr>
-	</#list> 
-</#if>
-</tbody>
-</table>
+    <div class="span3">       
+        <@sidebar step="administration" />
+        <div class="portlet-background-content">      
+            #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageHelp}
+        </div>
+    </div>
 
-    <div class="portlet-background-content -lutece-border-radius-bottom push-0 last">      
-    <form class="default-form" method="post" name="generate"
-	action="jsp/site/Portal.jsp?page=pluginwizard"><input
-	type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
-	name="action" value="manage_plugin_applications" /> <input
-	type="hidden" name="plugin_id" value="${plugin_id}" />                                        
-      <button type="submit" name="goToPluginModification" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonBack}</button>                        
-      <button type="submit" name="goToManageBusinessClasses" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonNext}</button>  
-      <button type="submit" name="goToCreateAdminFeature" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonAddFeature}</button>                
-    </div>   
-</form>
+    <div class="span8">
+        <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelDescriptionStep}</h4>                 
+
+        <div class="pull-right">
+            <form class="default-form" method="post" name="generate" action="jsp/site/Portal.jsp?page=pluginwizard">
+                <input type="hidden" name="page" value="pluginwizard" /> 
+                <input type="hidden" name="action" value="manage_plugin_applications" /> 
+                <input type="hidden" name="plugin_id" value="${plugin_id}" />                                        
+                <button type="submit" name="goToCreateAdminFeature" class="btn btn-primary">
+                    <i class="icon-plus icon-white"></i>
+                    #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonAddFeature}
+                </button>                
+            </form>
+        </div>
+
+        <table class="table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <#if admin_features?? > <#list admin_features as feature >
+                <tr>
+                    <td><a href="jsp/site/Portal.jsp?page=pluginwizard&action=view_admin_feature&action=view_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.idPluginFeature}" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonViewFeature}">${feature.pluginFeatureLabel}</a></td>
+
+                    <td>${feature.pluginFeatureLevel}</td>
+                    <td>
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.idPluginFeature}" 
+                           class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}">
+                            <i class="icon-edit icon-white"></i>
+                        </a>
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.idPluginFeature}" 
+                           class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}">
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+
+                    </td>
+                </tr>
+                </#list> 
+                </#if>
+            </tbody>
+        </table>
+
+        <div class="form-actions">      
+            <form class="default-form" method="post" name="generate" action="jsp/site/Portal.jsp?page=pluginwizard">
+                <input type="hidden" name="page" value="pluginwizard" /> 
+                <input type="hidden" name="action" value="manage_plugin_applications" /> 
+                <input type="hidden" name="plugin_id" value="${plugin_id}" />                                        
+                <button type="submit" name="goToPluginModification" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonBack}</button>                        
+                <button type="submit" name="goToManageBusinessClasses" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonNext}</button>  
+        </div>   
+        </form>
+    </div>
+
 </div>
-</div>
-
-
-<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">       
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}
-  </div>         
-  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
-  </ul>        
-  <div class="portlet-background-content">      
-   #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageHelp}
-  </div>
-  </div>
