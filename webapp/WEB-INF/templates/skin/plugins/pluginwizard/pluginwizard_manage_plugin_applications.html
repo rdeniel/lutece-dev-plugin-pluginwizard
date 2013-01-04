@@ -1,77 +1,81 @@
-<div class="span-15 prepend-1 append-bottom">              
-    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelXPageStep}
-    </div>                 
-    <div class="portlet-background-content">  
-<table>
+<#include "sidebar.html" />   
 
-    <thead>
-    	<tr>
-        	<th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationName}</th>
-            <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationClass}</th>
-            <th scope="col" class="rounded-head-right">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationAction}</th>
-        </tr>
-    </thead>
-    <tbody>
-	<#if plugin_applications?? > <#list plugin_applications as
-	plugin_application >
-	<tr>
-	<td>${plugin_application.applicationName}</td>
-		<td>${plugin_application.applicationClass}</td>
-		
-		<td>
+<div class="row">
 
-		
-		<form method="post"
-			action="jsp/site/Portal.jsp?page=pluginwizard"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="modify_plugin_application" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="application_id"
-			value="${plugin_application.idPluginApplication}" />
-			<button type="submit" name="modify_admin_feature"  class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonModifyApplication}</button>
-		</form>
-		<form method="post"
-			action="jsp/site/Portal.jsp?page=pluginwizard"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="remove_plugin_application" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="application_id"
-			value="${plugin_application.idPluginApplication}" />
-				<button type="submit" name="remove_admin_feature"  class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonRemoveApplication}</button>
-		
-		</form>
-		</td>
-	</#list>
-	 </#if>
+    <div class="span3">             
+        <@sidebar step="xpage" />
+        <div class="portlet-background-content">         
+            #i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageHelp}   
+        </div>  
+    </div>
 
-	</tr>
-	</tbody>
+    <div class="span8">
+        <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelXPageStep} </h4>                 
 
-</table>
-<div class="portlet-background-content -lutece-border-radius-bottom push-0 last"> 
+        <div class="pull-right"> 
+            <form class="default-form" method="post" name="generate"
+                  action="jsp/site/Portal.jsp?page=pluginwizard"><input
+                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
+                    name="action" value="manage_plugin_applications" /> <input
+                    type="hidden" name="plugin_id" value="${plugin_id}" />
 
-<form class="default-form" method="post" name="generate"
-	action="jsp/site/Portal.jsp?page=pluginwizard"><input
-	type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
-	name="action" value="manage_plugin_applications" /> <input
-	type="hidden" name="plugin_id" value="${plugin_id}" />
+                <button type="submit" name="goToCreatePluginApplication" class="btn btn-primary">
+                    <i class="icon-plus icon-white"></i>
+                    #i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonAddApplication}
+                </button>
+            </form>
+        </div>
 
-<button type="submit" name="goToManageBusinessClasses" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonBack}</button>
-<button type="submit" name="goToManagePluginPortlets" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonNext}</button>
-<button type="submit" name="goToCreatePluginApplication" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonAddApplication}</button>
-</form>
+
+        <table class="table table-condensed table-striped">
+
+            <thead>
+                <tr>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationName}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationClass}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationAction}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <#if plugin_applications?? > <#list plugin_applications as
+                plugin_application >
+                <tr>
+                    <td>${plugin_application.applicationName}</td>
+                    <td>${plugin_application.applicationClass}</td>
+
+                    <td>
+
+
+                        <a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&page=pluginwizard&action=modify_plugin_application&plugin_id=${plugin_id}&application_id=${plugin_application.idPluginApplication}" 
+                           title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonModifyApplication}" >
+                            <i class="icon-edit icon-white"></i>
+                        </a>
+
+                        <a class="btn btn-danger btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&page=pluginwizard&action=remove_plugin_application&plugin_id=${plugin_id}&application_id=${plugin_application.idPluginApplication}" 
+                           title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonRemoveApplication}" >
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                   </td>
+                    </#list>
+                    </#if>
+
+                </tr>
+            </tbody>
+
+        </table>
+
+        <div class="form-actions"> 
+            <form class="default-form" method="post" name="generate"
+                  action="jsp/site/Portal.jsp?page=pluginwizard"><input
+                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
+                    name="action" value="manage_plugin_applications" /> <input
+                    type="hidden" name="plugin_id" value="${plugin_id}" />
+
+                <button type="submit" name="goToManageBusinessClasses" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonBack}</button>
+                <button type="submit" name="goToManagePluginPortlets" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonNext}</button>
+            </form>
+        </div>
+    </div>
 </div>
-</div>
-</div>
 
-
-<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">       
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}
-  </div>         
-  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
-  </ul>         
-  <div class="portlet-background-content">      
-   #i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageHelp}
-  </div>
-</div>
 

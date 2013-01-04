@@ -5,66 +5,84 @@
         <@sidebar step="creation" />
         <div class="help-block">#i18n{pluginwizard.pluginwizard_create_plugin.pageHelp}</div>
     </div>
-    
+
     <div class="span8">
-        <form class="form" method="post" name="generate" >               
-             <div class="well">		 		
-            <legend>#i18n{pluginwizard.pluginwizard_create_plugin.pageTitle} - #i18n{pluginwizard.pluginwizard_create_plugin.labelStepOf}   #i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}
-            </legend>                 
-               <p>			
-                    <input type="hidden" name="page" value="wizard" />			
-                    <input type="hidden" name="action" value="do_create_plugin" />			
-                    <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :
-                    </label>			 			
-                    <input type="text" name="plugin_name" value="" size="30" />		
-                <p>
-                    <input class="checkbox" name="user_choice" value="add_business_classes"  <#if user_choice?? && user_choice.businessClasses>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBusinessClasses}             
-                </p>         
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_jsp_bean" <#if user_choice?? && user_choice.jspBean>checked="checked"
-                           </#if> type="checkbox">			#i18n{pluginwizard.pluginwizard_create_plugin.labelAddJspBean}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_sql_files" <#if user_choice?? && user_choice.sqlFiles>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSqlFiles}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_back_office_template" <#if user_choice?? && user_choice.backOfficeTemplate>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeTemplate}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_resource_files" <#if user_choice?? && user_choice.resourceFiles>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddResourceFiles}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_back_office_jsp" <#if user_choice?? && user_choice.backOfficeJsp>checked="checked"
-                           </#if> type="checkbox">            	#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeJsp}             
-                </p>                         
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_plugin_properties_file" <#if user_choice?? && user_choice.pluginPropertiesFile>checked="checked"
-                           </#if> type="checkbox">            	#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginPropertiesFile}             
-                </p>           
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_plugin_xml_definition" <#if user_choice?? && user_choice.pluginXmlDefinition>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginXmlDefinition}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_maven_pom_xml"  <#if user_choice?? && user_choice.mavenPomXml>checked="checked"
-                           </#if> type="checkbox">            		#i18n{pluginwizard.pluginwizard_create_plugin.labelAddMavenPom}             
-                </p>            
-                <p>		
-                    <input class="checkbox" name="user_choice" value="add_spring_context_xml" <#if user_choice?? && user_choice.springContextXml>checked="checked"
-                           </#if> type="checkbox">            	#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSpringContextXml}             
-                </p>            
-                <p>		    
-                    <input class="checkbox" name="user_choice" value="add_xpages" <#if user_choice?? && user_choice.xpages>checked="checked"
-                           </#if> type="checkbox">            	#i18n{pluginwizard.pluginwizard_create_plugin.labelAddXPage}             
-                </p>                   
-            </div>                                                                          
-            <div class="portlet-background-content -lutece-border-radius-bottom push-1 last">                        
-                <input class="btn btn-primary" name="do_create_plugin" value="#i18n{pluginwizard.pluginwizard_create_plugin.buttonCreatePlugin}" type="submit" />                        
-            </div>		
+        <form class="form form-horizontal" method="post" name="generate" >               
+            <fieldset>  	 		
+                <legend>
+                    #i18n{pluginwizard.pluginwizard_create_plugin.pageTitle} - #i18n{pluginwizard.pluginwizard_create_plugin.labelStepOf}   
+                    #i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}      
+                </legend>                 
+
+                <input type="hidden" name="page" value="wizard" />			
+                <input type="hidden" name="action" value="do_create_plugin" />			
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	
+                    <div class="controls">
+                        <input type="text" name="plugin_name" value="" />
+                        <span class="help-block">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginNameHelp}</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_business_classes"  checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddBusinessClasses}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_jsp_bean" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddJspBean}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_xpages" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddXPage}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_sql_files" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddSqlFiles}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_back_office_template" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeTemplate}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_resource_files" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddResourceFiles}             
+                </div>
+                
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_back_office_jsp" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeJsp}             
+                </div>
+
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_plugin_properties_file" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginPropertiesFile}             
+                </div>
+
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_plugin_xml_definition" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginXmlDefinition}             
+                </div>
+
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_maven_pom_xml" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddMavenPom}             
+                </div>
+
+                <div class="controls">
+                    <input class="checkbox" name="user_choice" value="add_spring_context_xml" checked="checked" type="checkbox">
+                    #i18n{pluginwizard.pluginwizard_create_plugin.labelAddSpringContextXml}             
+                </div>
+
+                <div class="form-actions">                        
+                    <input class="btn btn-primary" name="do_create_plugin" value="#i18n{pluginwizard.pluginwizard_create_plugin.buttonCreatePlugin}" type="submit" />                        
+                </div>	
+            </fieldset>
         </form>		 		
     </div>		 		
 </div>

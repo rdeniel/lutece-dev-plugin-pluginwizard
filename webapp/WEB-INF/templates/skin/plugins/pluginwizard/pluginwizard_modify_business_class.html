@@ -30,22 +30,22 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessTableName} *: </label>      
                     <div class="controls">  
-                        <input type="text" name="table" value="${business_class.businessTableName}" size="30" />      
+                        <input class="input-xlarge" type="text" name="table" value="${business_class.businessTableName}" size="30" />      
                     </div>                       
                 </div>              
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAdminFeatures} : </label>      
                     <div class="controls">       
-                        <@combo name="feature_id" default_value="all" items=combo_admin_features />      
+                        <@comboWithParams name="feature_id" default_value="all" items=combo_admin_features  additionalParameters="class=\"input-xlarge\"" />      
                     </div>                
                 </div>
-
+                
                 <div class="form-actions">                                          
                     <button type="submit" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyClass}
                     </button>                    
-                    <button type="submit" name="goToManageBusinessClasses" class="btn btn-primary">
+                    <button type="submit" name="goToManageBusinessClasses" class="btn">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonBack}
                     </button>                                                             
                 </div>
@@ -89,11 +89,13 @@
                     <tr>
                         <td>${attribute.attributeName}</td>
                         <td>${attribute.type}</td>
-                        <td><#if attribute.isPrimary><img src="images/local/skin/buttons/ok.png">
-                            <#else>
-                            <img src="images/local/skin/buttons/not_ok.png"></#if></td>
+                        <td><#if attribute.isPrimary>
+                            <span class="label">key</span>
+                            </#if>
+                        </td>
                         <td><#if attribute.isDescription>
-                            <img src="images/local/skin/buttons/ok.png"><#else><img src="images/local/skin/buttons/not_ok.png"></#if></td>
+                            <span class="label">label</span></#if>
+                        </td>
 
                         <td>
                             <form  method="post"

@@ -1,79 +1,82 @@
-<div class="span-15 prepend-1 append-bottom">              
-    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletsStep}
-    </div>                 
-    <div class="portlet-background-content">  
-<table summary="">
-    <thead>
-    	<tr>
-        	<th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletClass}</th>
-            <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletTypeName}</th>
-            <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletCreationUrl}</th>
-            <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletUpdateUrl}</th>
-            <th scope="col" class="rounded-head-right">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletAction}</th>
-        </tr>
-    </thead>
+<#include "sidebar.html" />   
 
-    <tbody>
-	<#if plugin_portlets?? > <#list plugin_portlets as plugin_portlet >
-	<tr>
-	<#assign nEndIndex = plugin_portlet.pluginPortletClass?length>
-	<#assign nBeginIndex = plugin_portlet.pluginPortletClass?last_index_of(".")+1>
+<div class="row">
 
-		<td>${plugin_portlet.pluginPortletClass?substring(nBeginIndex, nEndIndex)}
-		</td>
-		<td>${plugin_portlet.pluginPortletTypeName}</td>
-		<td>${plugin_portlet.pluginPortletCreationUrl}</td>
-		<td>${plugin_portlet.pluginPortletUpdateUrl}</td>
+    <div class="span3">             
+        <@sidebar step="portlet" />
+        <div class="portlet-background-content">         
+            #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageHelp}
+        </div>  
+    </div>
 
-<td>
-		<form class="default-form" method="post"
-			action="jsp/site/Portal.jsp"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="modify_portlet" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="portlet_id" value="${plugin_portlet.pluginPortletId}" />
-			<button type="submit" name="modify_admin_feature" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}</button>
-		</form>
-		<form class="default-form" method="post"
-			action="jsp/site/Portal.jsp"><input
-			type="hidden" name="page" value="pluginwizard" /> <input
-			type="hidden" name="action" value="remove_plugin_portlet" /> <input
-			type="hidden" name="plugin_id" value="${plugin_id}" /> <input
-			type="hidden" name="portlet_id" value="${plugin_portlet.pluginPortletId}" />
-				<button type="submit" name="remove_admin_feature" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}</button>
-		</form>
-</td>
-		</#list> 
-		</#if>
+    <div class="span8">
+        <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageTitle} - #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletsStep}</h4>
 
-	</tr>
-	</tbody>
-</table>
-<div class="portlet-background-content -lutece-border-radius-bottom push-0 last"> 
+        <div class="pull-right"> 
+            <form class="default-form" method="post" name="generate"
+                  action="jsp/site/Portal.jsp"><input
+                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
+                    name="action" value="manage_plugin_portlets" /> <input
+                    type="hidden" name="plugin_id" value="${plugin_id}" />
 
+                <button type="submit" name="goToCreatePluginPortlet" class="btn btn-primary">
+                    <i class="icon-plus icon-white"></i>
+                    #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonAddPortlet}
+                </button>
+            </form>
+        </div>
 
-<form class="default-form" method="post" name="generate"
-	action="jsp/site/Portal.jsp"><input
-	type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
-	name="action" value="manage_plugin_portlets" /> <input
-	type="hidden" name="plugin_id" value="${plugin_id}" />
+        <table class="table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletClass}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletTypeName}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletCreationUrl}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletUpdateUrl}</th>
+                    <th scope="col" class="rounded-head-right">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletAction}</th>
+                </tr>
+            </thead>
 
-<button type="submit" name="goToManagePluginApplications" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonBack}</button>
-<button type="submit" name="goToGetRecapitulate" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonNext}</button>
-<button type="submit" name="goToCreatePluginPortlet" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonAddPortlet}</button>
-</form>
-</div>
-</div>
-</div>
+            <tbody>
+                <#if plugin_portlets?? > <#list plugin_portlets as plugin_portlet >
+                <tr>
+                    <#assign nEndIndex = plugin_portlet.pluginPortletClass?length>
+                    <#assign nBeginIndex = plugin_portlet.pluginPortletClass?last_index_of(".")+1>
 
-<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">       
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}
-  </div>         
-  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
-  </ul>        
-  <div class="portlet-background-content">      
-   #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageHelp}
-  </div>
+                    <td>${plugin_portlet.pluginPortletClass?substring(nBeginIndex, nEndIndex)}
+                    </td>
+                    <td>${plugin_portlet.pluginPortletTypeName}</td>
+                    <td>${plugin_portlet.pluginPortletCreationUrl}</td>
+                    <td>${plugin_portlet.pluginPortletUpdateUrl}</td>
+
+                    <td>
+                        <a class="btn btn-primary" href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_portlet&plugin_id=${plugin_id}&portlet_id=${plugin_portlet.pluginPortletId}" 
+                           title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
+                            <i class="icon-edit"></i>
+                        </a>
+                        <a class="btn btn-danger" href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_plugin_portlet&plugin_id=${plugin_id}&portlet_id=${plugin_portlet.pluginPortletId}" 
+                           title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
+                            <i class="icon-edit"></i>
+                        </a>
+                    </td>
+                    </#list> 
+                    </#if>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="form-actions"> 
+            <form class="default-form" method="post" name="generate"
+                  action="jsp/site/Portal.jsp"><input
+                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
+                    name="action" value="manage_plugin_portlets" /> <input
+                    type="hidden" name="plugin_id" value="${plugin_id}" />
+
+                <button type="submit" name="goToManagePluginApplications" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonBack}</button>
+                <button type="submit" name="goToGetRecapitulate" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonNext}</button>
+            </form>
+        </div>
+    </div>
 </div>
 
 

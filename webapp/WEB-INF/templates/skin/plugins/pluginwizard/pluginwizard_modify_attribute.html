@@ -1,66 +1,69 @@
-<div class="span-15 prepend-1 append-bottom">       
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_modify_attribute.pageTitle}
-  </div>                      
-  <div class="portlet-background-content">           
-    <form method="post" name="generate" >                    
-      <input type="hidden" name="page" value="pluginwizard" />        
-      <input type="hidden" name="action" value="do_modify_attribute" />
-      <input type="hidden" name="business_class_id" value="${business_class_id}" />
-      <input type="hidden" name="plugin_id" value="${plugin_id}" />
-      <input type="hidden" name="attribute_id" value="${attribute.idAttribute}" />                                                                       
-      <div class="span-5  last">                                                            
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeName} *:
-        </label>      
-      </div>              
-      <div class="push-0  last">    
-        <input type="text" name="attribute_name" value="${attribute.attributeName}" size="30" />      
-      </div>                                                               
-      <div class="span-5  last">                                                         
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeType} :
-        </label>      
-      </div>              
-      <div class="push-0  last">       
-        <@combo name="id_attribute_type" default_value="${attribute.attributeTypeId}" items=combo_attribute_type />      
-      </div>     
-      
-            <div class="span-5 last">                                     
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * :                        
-        </label>                            
-      </div>                       
-      <div class="push-0 last">                                                                                                     
-        <select name="primary_key">    				                                 				                              
-          <option <#if attribute.isPrimary=true>selected="selected"</#if>value="1">Vrai                    
-          </option>    				                              
-          <option <#if attribute.isPrimary=false>selected="selected"</#if> value="0">Faux                              
-          </option>    	                          
+<#include "sidebar.html" />   
+
+<div class="row">
+
+    <div class="span3">             
+        <@sidebar step="model" />
+        <div class="portlet-background-content">         
+            #i18n{pluginwizard.pluginwizard_modify_attribute.pageHelp}  
+        </div>  
+    </div>
+
+
+    <div class="span8">
+        <form class="form-horizontal" method="post" name="generate" >   
+            <fieldset>
+                <legend>#i18n{pluginwizard.pluginwizard_modify_attribute.pageTitle}</legend>
+
+                <input type="hidden" name="page" value="pluginwizard" />        
+                <input type="hidden" name="action" value="do_modify_attribute" />
+                <input type="hidden" name="business_class_id" value="${business_class_id}" />
+                <input type="hidden" name="plugin_id" value="${plugin_id}" />
+                <input type="hidden" name="attribute_id" value="${attribute.idAttribute}" />   
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeName} * : </label>      
+                    <div class="controls">     
+                        <input type="text" name="attribute_name" value="${attribute.attributeName}" size="30" />      
+                    </div>  
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeType} * :</label>      
+                    <div class="controls">        
+                        <@combo name="id_attribute_type" default_value="${attribute.attributeTypeId}" items=combo_attribute_type />      
+                    </div>     
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * : </label>                            
+                    <div class="controls">                                                                                                      
+                        <select class="input-small" name="primary_key">    				                                 				                              
+                            <option <#if attribute.isPrimary=true>selected="selected"</#if>value="1">Vrai                    
+                        </option>    				                              
+                        <option <#if attribute.isPrimary=false>selected="selected"</#if> value="0">Faux                              
+                    </option>    	                          
+                </select>                
+            </div> 
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description * :                        
+            </label>                            
+            <div class="controls">                                                                                                     
+                <select class="input-small" name="class_description">    				                                 				                              
+                    <option <#if attribute.isDescription=true >selected="selected"</#if> value="1">Vrai                    
+                </option>    				                              
+                <option <#if attribute.isDescription=false>selected="selected"</#if> value="0">Faux                              
+            </option>    	                          
         </select>                
-      </div>  
-      <div class="span-5 last">                                     
-        <label class="text-label" for="package">Description :                        
-        </label>                            
-      </div>                       
-      <div class="push-0 last">                                                                                                     
-        <select name="class_description">    				                                 				                              
-          <option <#if attribute.isDescription=true >selected="selected"</#if> value="1">Vrai                    
-          </option>    				                              
-          <option <#if attribute.isDescription=false>selected="selected"</#if> value="0">Faux                              
-          </option>    	                          
-        </select>                
-      </div>                            		          		  
-      <div class="portlet-background-content -lutece-border-radius-bottom push-0 last">                                          
-        <button type="submit" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}
-        </button>                    
-        <button type="submit" name="goToModifyBusinessClass" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}
-        </button>                                                             
-      </div>            
-    </form>        
-  </div>    
+    </div>  
 </div>
-<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">          
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}   
-  </div>            
-  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
-  </ul>          
-  <div class="portlet-background-content">         #i18n{pluginwizard.pluginwizard_modify_attribute.pageHelp}   
-  </div>  
+
+<div class="form-actions">                                          
+    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}</button>                    
+    <button type="submit" name="goToModifyBusinessClass" class="btn">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}</button>                                                             
+</div>            
+</form>        
+</div>    
 </div>

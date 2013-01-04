@@ -8,7 +8,6 @@
         </div>  
     </div>
 
-
     <div class="span8">
 
         <form class="form-horizontal" method="post" name="generate" >                    
@@ -28,22 +27,22 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelBusinessTableName} *:</label>      
                     <div class="controls">
-                        <input type="text" name="table" value="" size="30" />      
+                        <input class="input-xlarge" type="text" name="table" value="${plugin_model.pluginName}_" size="30" />      
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelAdminFeatures} : </label>      
                     <div class="controls">       
-                        <@combo name="feature_id" default_value="all" items=combo_admin_features />      
+                        <@comboWithParams name="feature_id" default_value="all" items=combo_admin_features additionalParameters="class=\"input-xlarge\""/>      
                     </div>  
                 </div>
-
+ 
                 <div class="form-actions">                                          
-                    <button type="submit" class="btn btn-primary"">
+                    <button type="submit" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_business_class.buttonCreateClass}
                     </button>                    
-                    <button type="submit" name="goToManageBusinessClasses" class="btn btn-primary">
+                    <button type="submit" name="goToManageBusinessClasses" class="btn">
                         #i18n{pluginwizard.pluginwizard_create_business_class.buttonBack}
                     </button>                                                             
                 </div>    

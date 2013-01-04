@@ -1,74 +1,76 @@
-<div class="span-15 prepend-1 append-bottom">                   
-  <form class="default-form" method="post" name="generate" >                                 
-    <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_modify_admin_feature.pageTitle}                        
-    </div>                                          
-    <div class="portlet-background-content">                                   
-      <input type="hidden" name="page" value="pluginwizard" />                     
-      <input type="hidden" name="action" value="do_modify_feature" />                     
-      <input type="hidden" name="plugin_id" value="${plugin_id}" />                        
-      <input type="hidden" name="feature_id" value="${feature.idPluginFeature}" />                                       
-      <div class="span-5  last">                                                                   
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} :                      
-        </label>                     
-      </div>                       
-      <div class="push-0  last">               
-        <input type="text" name="feature_label" value="${feature.pluginFeatureLabel}" size="30" />                                 
-      </div>                                                                                                                                                                                                                                                           
-      <div class="span-5  last">                                  
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureDescription} :                      
-        </label>                        
-      </div>                       
-      <div class="push-0  last">                                                                                       
-        <input type="text" name="feature_description" value="${feature.pluginFeatureDescription}" size="30" />                               
-      </div>                                                         
-      <div class="span-5  last">                                     
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureLevel} :                        
-        </label>                            
-      </div>                       
-      <div class="push-0  last">                                                                                                     
-        <select name="feature_level">    				                              
-          <option value="0" <#if feature.pluginFeatureLevel ="0">selected="selected"                              
-          </#if> >#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel0}                              
-          </option>    				                              
-          <option value="1" <#if feature.pluginFeatureLevel ="1">selected="selected"                              
-          </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel1}                              
-          </option>    				                              
-          <option value="2" <#if feature.pluginFeatureLevel ="2">selected="selected"                              
-          </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel2}                              
-          </option>    				                              
-          <option value="3" <#if feature.pluginFeatureLevel ="3">selected="selected"                              
-          </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel3}                              
-          </option>				                          
+<#include "sidebar.html" />   
+
+<div class="row">
+
+    <div class="span3">             
+        <@sidebar step="administration" />
+        <div class="portlet-background-content">         
+            #i18n{pluginwizard.pluginwizard_modify_admin_feature.pageHelp}     
+        </div>  
+    </div>
+
+    <div class="span8">
+
+        <form class="form form-horizontal" method="post" name="generate" > 
+            <fieldset>
+                <legend>#i18n{pluginwizard.pluginwizard_modify_admin_feature.pageTitle}</legend>
+
+                <input type="hidden" name="page" value="pluginwizard" />                     
+                <input type="hidden" name="action" value="do_modify_feature" />                     
+                <input type="hidden" name="plugin_id" value="${plugin_id}" />                        
+                <input type="hidden" name="feature_id" value="${feature.idPluginFeature}" />   
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} : </label>                     
+                    <div class="controls">               
+                        <input type="text" name="feature_label" value="${feature.pluginFeatureLabel}" size="30" />                                 
+                    </div> 
+                </div>
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureDescription} : </label>                        
+                    <div class="controls">                                                                                       
+                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.pluginFeatureDescription}" size="30" />                               
+                    </div>    
+                </div>
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureLevel} : </label>                            
+                    <div class="controls">                                                                                                     
+                        <select class="input-xlarge" name="feature_level">    				                              
+                            <option value="0" <#if feature.pluginFeatureLevel ="0">selected="selected" </#if> >
+                                    #i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel0}                              
+                        </option>    				                              
+                        <option value="1" <#if feature.pluginFeatureLevel ="1">selected="selected"                              
+                                </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel1}                              
+                    </option>    				                              
+                    <option value="2" <#if feature.pluginFeatureLevel ="2">selected="selected"                              
+                            </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel2}                              
+                </option>    				                              
+                <option value="3" <#if feature.pluginFeatureLevel ="3">selected="selected"                              
+                        </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel3}                              
+            </option>				                          
         </select>                
-      </div>                                                                                             
-      <div class="span-5  last">                                         
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureTitle} :                          
-        </label>                           
-      </div>                       
-      <div class="push-0  last">                                                                                               
-        <input type="text" name="feature_title" value="${feature.pluginFeatureTitle}" size="30" />                                                                      
-      </div>                                                                                                              
-      <div class="span-5  last">                                                    
-        <label class="text-label" for="package">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureUrl} :                            
-        </label>                               
-      </div>                       
-      <div class="push-0  last">                                                              	                              
-        <input type="text" name="feature_url" value="${feature.pluginFeatureUrl}" size="30" /> 				                                                                        
-      </div>                                                                                                                                                                      	  				                     
-    </div>                                    
-    <div class="portlet-background-content -lutece-border-radius-bottom push-0 last">                                                                    
-      <button type="submit" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}                        
-      </button>                                            
-      <button type="submit" name="goToManageAdminFeatures" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}                        
-      </button>                                    
-    </div>                  
-  </form>
+    </div>         
 </div>
-<div id="sidebar" class="span-6 append-1 prepend-1 append-bottom last portlet-background">                      
-  <div class="portlet-background-header -lutece-border-radius-top">#i18n{pluginwizard.pluginwizard_create_plugin.labelInformation}               
-  </div>                        
-  <ul><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelCreationStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelDescriptionStep}</li><li><img src="images/local/skin/buttons/show.png">#i18n{pluginwizard.pluginwizard_create_plugin_application.labelFeaturesStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelBusinessStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelXPageStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelPortletsStep}</li><li>#i18n{pluginwizard.pluginwizard_create_plugin_application.labelGenerateStep}</li>       
-  </ul>                         
-  <div class="portlet-background-content">         #i18n{pluginwizard.pluginwizard_modify_admin_feature.pageHelp}               
-  </div>  
+<div class="control-group">
+    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureTitle} :                          
+    </label>                           
+    <div class="controls">                                                                                               
+        <input class="input-xlarge" type="text" name="feature_title" value="${feature.pluginFeatureTitle}" size="30" />                                                                      
+    </div>                                                                                                              
+    <div class="control-group">
+        <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureUrl} :                            
+        </label>                               
+        <div class="controls">                                                              	                              
+            <input class="input-xlarge" type="text" name="feature_url" value="${feature.pluginFeatureUrl}" size="30" /> 				                                                                        
+        </div>                                                                                                                                                                      	  				                     
+    </div>                                    
+    <div class="form-actions">                                                                    
+        <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
+        <button type="submit" name="goToManageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    
+    </div>  
+</fieldset>
+
+</form>
+</div>
+
 </div>

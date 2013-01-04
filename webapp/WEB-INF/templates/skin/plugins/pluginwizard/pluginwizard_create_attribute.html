@@ -11,7 +11,7 @@
 
 
     <div class="span8">
-        <form method="post" name="generate" >  
+        <form class="form-horizontal" method="post" name="generate" >  
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_create_attribute.pageTitle}</legend>
                 <input type="hidden" name="page" value="pluginwizard" />        
@@ -19,39 +19,39 @@
                 <input type="hidden" name="business_class_id" value="${business_class_id}" />  
                 <input type="hidden" name="plugin_id" value="${plugin_id}" />                                                                      
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeName} *:</label>      
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeName} * :</label>      
                     <div class="controls">    
                         <input type="text" name="attribute_name" value="" size="30" />      
                     </div>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeType} :</label>      
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeType} * :</label>      
                     <div class="controls">       
                         <@combo name="id_attribute_type" default_value="all" items=combo_attribute_type />      
                     </div> 
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} : </label>                            
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} * : </label>                            
                     <div class="controls">                                                                                                     
-                        <select name="primary_key">    				                                 				                              
-                            <option value="1">Vrai                    
-                            </option>    				                              
+                        <select class="input-small" name="primary_key">    				                                 				                              
                             <option value="0">Faux                              
                             </option>    	                          
-                        </select>                
+                           <option value="1">Vrai                    
+                            </option>    				                              
+                         </select>                
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Description : </label>                            
+                    <label class="control-label">Description * : </label>                            
                     <div class="controls">                                                                                                     
-                        <select name="class_description">    				                                 				                              
+                        <select class="input-small" name="class_description">    				                                 				                              
+                            <option value="0" >Faux                              
+                            </option>    	                          
                             <option value="1">Vrai                    
                             </option>    				                              
-                            <option value="0">Faux                              
-                            </option>    	                          
                         </select>                
                     </div>                         
                 </div>
@@ -60,7 +60,7 @@
                     <button type="submit" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_attribute.buttonCreateAttribute}
                     </button>                    
-                    <button type="submit" name="goToModifyBusinessClass" class="btn btn-primary">
+                    <button type="submit" name="goToModifyBusinessClass" class="btn">
                         #i18n{pluginwizard.pluginwizard_create_attribute.buttonBack}
                     </button>                                                             
                 </div>    
