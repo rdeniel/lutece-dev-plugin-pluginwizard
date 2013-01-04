@@ -58,7 +58,7 @@ public class PluginXmlGenerator implements Visitor
     {
         HashMap map = new HashMap(  );
         String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "\\" + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
+        strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
 
         String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );

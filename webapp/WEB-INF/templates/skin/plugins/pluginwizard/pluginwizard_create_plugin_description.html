@@ -28,58 +28,6 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginClass} : </label>       
-                    <div class="controls">  
-                        <input class="input-xxlarge" type="text" name="plugin_class"  value="<#if plugin_model.pluginName??>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</#if>" size="30" /> 
-                    </div>  
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProvider} : </label>       
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_provider"  value="<#if plugin_model.pluginName??>${plugin_model.pluginName}.plugin.provider</#if>"  />                
-                    </div>                
-                </div>             
-
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>       
-
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_description"  value="<#if plugin_model.pluginName??>${plugin_model.pluginName}.plugin.description</#if>" size="30" />                
-                    </div>      
-                </div>
-<!--
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_modify_plugin_description.labelPluginDocumentation} : </label>   
-                    <div class="controls">            
-                        <input type="text" name="plugin_documentation" value="<#if plugin_model.pluginDocumentation??>${plugin_model.pluginDocumentation}</#if>" size="30" />                 
-                    </div>     
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginInstallation} : </label>       
-
-                    <div class="controls">       
-                        <input type="text" name="plugin_installation"  size="30" />
-                    </div> 
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginChanges} :</label>       
-
-                    <div class="controls">
-                        <input type="text" name="plugin_changes"  size="30" />
-                    </div>  
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginUserGuide} :  </label>       
-                    <div class="controls">
-                        <input type="text" name="user_guide"  size="30" />
-                    </div>                                                                                              
-                </div>
--->
-                <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
                     <div class="controls">
                         <input class="input-small" type="text" name="version"  value="${plugin_version_number}" size="30" />
