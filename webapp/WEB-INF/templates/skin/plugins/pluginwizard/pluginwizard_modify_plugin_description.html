@@ -42,13 +42,6 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginIconUrl} : </label>         
-                    <div class="controls">
-                        <input class="input-xxlarge" type="text" name="icon_url"  value="<#if plugin_model.pluginName??>images/admin/skin/plugins/${plugin_model.pluginName}/${plugin_model.pluginName}.png</#if>" size="30" />                 
-                    </div>                                                                             
-                </div>
-
-                <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProviderUrl} :</label>       
                     <div class="controls">
                         <input class="input-xlarge" type="text" name="plugin_provider_url"  value="http://your.web.site.com"  /> 
@@ -68,9 +61,13 @@
                 </div>                                                                                   
 
                 <div class="form-actions">                                              
-                    <button type="submit" name="goToModifyPlugin" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonBack}
+                    <button type="submit" name="goToModifyPlugin" class="btn btn-primary">
+                        <i class="icon-chevron-left icon-white"></i>
+                        #i18n{pluginwizard.pluginwizard_create_plugin_description.buttonBack}
                     </button>                        
-                    <button type="submit" name="goToModifyPluginDescription" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonNext}
+                    <button type="submit" name="goToModifyPluginDescription" class="btn btn-primary">
+                        #i18n{pluginwizard.pluginwizard_create_plugin_description.buttonNext}
+                        <i class="icon-chevron-right icon-white"></i>
                     </button>                  
                 </div>                                              		
 

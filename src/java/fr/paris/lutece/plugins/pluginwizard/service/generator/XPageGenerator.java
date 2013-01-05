@@ -68,7 +68,7 @@ public class XPageGenerator implements Visitor
 
         for ( PluginApplication xpage : listPluginApplications )
         {
-            strBasePath = strBasePath + "\\" + xpage.getApplicationClass(  ) + ".java";
+            strBasePath = strBasePath + "/" + xpage.getApplicationClass(  ) + ".java";
 
             String strSourceCode = SourceCodeGenerator.getXPageCode( pluginModel.getIdPlugin(  ), plugin,
                     xpage.getIdPluginApplication(  ) );

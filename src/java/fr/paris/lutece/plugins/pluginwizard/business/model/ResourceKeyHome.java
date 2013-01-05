@@ -57,16 +57,6 @@ public final class ResourceKeyHome
     }
 
     /**
-     * Removes i18n ressources by plugin
-     * @param nIdPlugin The id of the plugin
-     * @param plugin The plugin
-     */
-    public static void removeResourcesByPlugin( int nIdPlugin, Plugin plugin )
-    {
-        throw new UnsupportedOperationException( "Not yet implemented" ); //TODO
-    }
-
-    /**
      * Create an instance of the resourceKey class
      * @param resourceKey The instance of the ResourceKey which contains the informations to store
      * @param plugin the Plugin

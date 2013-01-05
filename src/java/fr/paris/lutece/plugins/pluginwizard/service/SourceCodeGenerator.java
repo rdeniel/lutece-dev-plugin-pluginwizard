@@ -147,7 +147,7 @@ public final class SourceCodeGenerator
      */
     public static String getJspFile( BusinessClass businessClass, String strPluginName, int nJspType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_JSP_TYPE, nJspType + "" );
@@ -167,7 +167,7 @@ public final class SourceCodeGenerator
      */
     public static String getPortletJspFile( PluginPortlet portlet, String strPluginName, int nPortletJspType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_PORTLET_JSP_TYPE, nPortletJspType + "" );
@@ -186,7 +186,7 @@ public final class SourceCodeGenerator
      */
     public static String getPortletJspBean( PluginPortlet portlet, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
@@ -210,7 +210,7 @@ public final class SourceCodeGenerator
         Collection<BusinessClass> listBusinessClasses, Collection<PluginFeature> listFeatures,
         Collection<PluginApplication> listApplcations, Collection<PluginPortlet> listPortlets )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         model.put( MARK_LIST_FEATURES, listFeatures );
@@ -246,7 +246,7 @@ public final class SourceCodeGenerator
     public static String getPropertiesFileCode( int nPluginId, Plugin plugin )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
@@ -278,7 +278,7 @@ public final class SourceCodeGenerator
     public static String getPomXmlCode( int nPluginId, Plugin plugin )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( plugin );
 
         //Fetches the actual configuration values to be replaced in the templates
@@ -317,7 +317,7 @@ public final class SourceCodeGenerator
     public static String getPortletCode( int nPluginId, Plugin plugin )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
@@ -350,7 +350,7 @@ public final class SourceCodeGenerator
     public static String getXPageCode( int nPluginId, Plugin plugin, int nIdPluginApplication )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         model.put( MARK_PLUGIN_MODEL, pluginModel );
@@ -370,7 +370,7 @@ public final class SourceCodeGenerator
     public static String getSpringContextCode( int nPluginId, Plugin plugin )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
@@ -405,7 +405,7 @@ public final class SourceCodeGenerator
     public static String getPluginXmlCode( int nPluginId, Plugin plugin )
     {
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pluginModel );
 
         int nIdPlugin = pluginModel.getIdPlugin(  );
@@ -431,7 +431,7 @@ public final class SourceCodeGenerator
      */
     public static String getJspBeanCode( PluginModel pluginModel, Collection<BusinessClass> listBusinessClasses )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
         model.put( MARK_PLUGIN_MODEL, pluginModel );
@@ -451,7 +451,7 @@ public final class SourceCodeGenerator
      */
     public static String getLocalePropertiesKeys( int nPluginId, String strLanguage, Plugin plugin )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         Collection<ResourceKey> listResourceKey = ResourceKeyHome.getResourceKeysList( nPluginId, plugin );
         model.put( MARK_RESOURCE_KEY_LIST, listResourceKey );
         model.put( MARK_LANGUAGE, strLanguage );
@@ -497,7 +497,7 @@ public final class SourceCodeGenerator
     public static ArrayList<String> findResourceKeys( List<BusinessClass> listBusinessClasses, String strPluginName,
         int nPluginId, Plugin plugin )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
 
         model.put( MARK_LIST_PORTLETS, listPortlets );
@@ -512,7 +512,12 @@ public final class SourceCodeGenerator
 
         while ( st.hasMoreTokens(  ) )
         {
-            listKeys.add( (String) st.nextElement(  ) );
+            String strKey = (String) st.nextElement(  );
+            if( strKey.trim().length() > 2 )
+            {    
+                listKeys.add( strKey );
+                System.out.println( strKey );
+            }
         }
 
         return listKeys;
@@ -529,7 +534,7 @@ public final class SourceCodeGenerator
     public static String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses,
         BusinessClass businessClass, int nTemplateType, Plugin plugin )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
         model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
@@ -557,7 +562,7 @@ public final class SourceCodeGenerator
      */
     public static String getPortletFile( PluginPortlet portlet, String strPluginName, int nPortletFileType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
@@ -579,7 +584,7 @@ public final class SourceCodeGenerator
      */
     public static String getPortletHtmlTemplate( PluginPortlet portlet, String strPluginName, int nPortletTemplateType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
         model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
         model.put( MARK_BRACKETS_OPEN, "${" );
@@ -603,7 +608,7 @@ public final class SourceCodeGenerator
      */
     public static String getPortletXsl( PluginPortlet portlet, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );;
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 

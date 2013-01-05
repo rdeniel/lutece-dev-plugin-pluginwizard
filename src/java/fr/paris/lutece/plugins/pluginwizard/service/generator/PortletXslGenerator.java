@@ -66,7 +66,7 @@ public class PortletXslGenerator implements Visitor
 
         for ( PluginPortlet portlet : listPortlets )
         {
-            strBasePath = strBasePath + "\\" + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) +
+            strBasePath = strBasePath + "/" + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) +
                 ".xsl";
 
             String strSourceCode = SourceCodeGenerator.getPortletXsl( portlet, pluginModel.getPluginName(  ) );

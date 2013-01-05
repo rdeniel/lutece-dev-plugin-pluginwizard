@@ -54,17 +54,18 @@ public class ResourcesCodeGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
+    @Override
     public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
 
-        String strOldPath = new String( strPath );
-        String strBasePath = new String( strPath );
+        String strOldPath = strPath;
+        String strBasePath = strPath;
         String strLanguage = "_en";
 
         for ( int i = 0; i < 2; i++ )
         {
-            strBasePath = strBasePath + "\\" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" +
+            strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" +
                 strLanguage + ".properties";
 
             String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ),

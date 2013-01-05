@@ -141,7 +141,7 @@ public class PluginWizardZipService
             if ( choice.getBusinessClasses(  ) )
             {
                 // Add the business classes to the reference map
-                String strPortletBusinessPath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\business\\portlet\\";
+                String strPortletBusinessPath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/portlet/";
                 strPortletBusinessPath = strPortletBusinessPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PortletGenerator portletGenerator = new PortletGenerator(  );
@@ -159,7 +159,7 @@ public class PluginWizardZipService
             if ( choice.getBusinessClasses(  ) )
             {
                 // Add the business classes to the reference map
-                String strBusinessPath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\business\\";
+                String strBusinessPath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/";
                 strBusinessPath = strBusinessPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 BusinessClassCodeGenerator businessClassGenerator = new BusinessClassCodeGenerator(  );
@@ -177,7 +177,7 @@ public class PluginWizardZipService
             if ( choice.getSqlFiles(  ) )
             {
                 //Add Sql Files
-                String strSqlPath = "plugin-{plugin_name}\\src\\sql\\plugins\\{plugin_name}\\";
+                String strSqlPath = "plugin-{plugin_name}/src/sql/plugins/{plugin_name}/";
                 strSqlPath = strSqlPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 SqlCodeGenerator sqlCodeGenerator = new SqlCodeGenerator(  );
@@ -195,7 +195,7 @@ public class PluginWizardZipService
             if ( choice.getJspBean(  ) )
             {
                 //Add the Jsp Bean
-                String strJspBeanPath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\web\\";
+                String strJspBeanPath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
                 strJspBeanPath = strJspBeanPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 JspBeanCodeGenerator jspBeanCodeGenerator = new JspBeanCodeGenerator(  );
@@ -213,7 +213,7 @@ public class PluginWizardZipService
             if ( choice.getXpages(  ) )
             {
                 //Add the XPage
-                String strXPagePath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\web\\";
+                String strXPagePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
                 strXPagePath = strXPagePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 XPageGenerator xPageGenerator = new XPageGenerator(  );
@@ -231,7 +231,7 @@ public class PluginWizardZipService
             if ( choice.getXpages(  ) )
             {
                 //Add the Portlet JspBean
-                String strXPagePath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\web\\";
+                String strXPagePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
                 strXPagePath = strXPagePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PortletJspBeanGenerator portletJspBean = new PortletJspBeanGenerator(  );
@@ -249,7 +249,7 @@ public class PluginWizardZipService
             if ( choice.getBackOfficeTemplate(  ) )
             {
                 //Add the back office templates
-                String strBackTemplatesPath = "plugin-{plugin_name}\\webapp\\WEB-INF\\templates\\admin\\plugins\\{plugin_name}\\";
+                String strBackTemplatesPath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
                 strBackTemplatesPath = strBackTemplatesPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 BackOfficeTemplateCodeGenerator backOfficeTemplateCodeGenerator = new BackOfficeTemplateCodeGenerator(  );
@@ -269,7 +269,7 @@ public class PluginWizardZipService
             if ( choice.getResourceFiles(  ) )
             {
                 //Add the resources files
-                String strResourcesPath = "plugin-{plugin_name}\\src\\java\\fr\\paris\\lutece\\plugins\\{plugin_name}\\resources\\";
+                String strResourcesPath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
                 strResourcesPath = strResourcesPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 ResourcesCodeGenerator resourcesCodeGenerator = new ResourcesCodeGenerator(  );
@@ -287,7 +287,7 @@ public class PluginWizardZipService
             if ( choice.getBackOfficeJsp(  ) )
             {
                 //Add the back office jsps
-                String strBackOfficeJspPath = "plugin-{plugin_name}\\webapp\\jsp\\admin\\plugins\\{plugin_name}\\";
+                String strBackOfficeJspPath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
                 strBackOfficeJspPath = strBackOfficeJspPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 BackOfficeJspGenerator backOfficeJspGenerator = new BackOfficeJspGenerator(  );
@@ -305,7 +305,7 @@ public class PluginWizardZipService
             if ( choice.getBackOfficeJsp(  ) )
             {
                 //Add the back office jsps
-                String strBackOfficeJspPath = "plugin-{plugin_name}\\webapp\\jsp\\admin\\plugins\\{plugin_name}\\";
+                String strBackOfficeJspPath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
                 strBackOfficeJspPath = strBackOfficeJspPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PortletJspFilesGenerator portletJspGenerator = new PortletJspFilesGenerator(  );
@@ -323,7 +323,7 @@ public class PluginWizardZipService
             if ( choice.getPluginPropertiesFile(  ) )
             {
                 //Add the plugin properties file
-                String strPropertiesPath = "plugin-{plugin_name}\\webapp\\WEB-INF\\conf\\plugins\\";
+                String strPropertiesPath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
                 strPropertiesPath = strPropertiesPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PropertiesGenerator propertiesGenerator = new PropertiesGenerator(  );
@@ -359,7 +359,7 @@ public class PluginWizardZipService
             if ( choice.getPluginXmlDefinition(  ) )
             {
                 //Add the xml definition of the plugin
-                String strPluginXmlPath = "plugin-{plugin_name}\\webapp\\WEB-INF\\plugins\\";
+                String strPluginXmlPath = "plugin-{plugin_name}/webapp/WEB-INF/plugins/";
                 strPluginXmlPath = strPluginXmlPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PluginXmlGenerator pluginXmlGenerator = new PluginXmlGenerator(  );
@@ -377,7 +377,7 @@ public class PluginWizardZipService
             if ( choice.getSpringContextXml(  ) )
             {
                 //Add the spring context of the plugin
-                String strSpringContextPath = "plugin-{plugin_name}\\webapp\\WEB-INF\\conf\\plugins\\";
+                String strSpringContextPath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
                 strSpringContextPath = strSpringContextPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 SpringContextXmlGenerator springContextGenerator = new SpringContextXmlGenerator(  );
@@ -395,7 +395,7 @@ public class PluginWizardZipService
             if ( choice.getBusinessClasses(  ) )
             {
                 //Add the portlet template files
-                String strPortletTemplatePath = "plugin-{plugin_name}\\webapp\\WEB-INF\\templates\\admin\\plugins\\{plugin_name}\\portlet\\";
+                String strPortletTemplatePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
                 strPortletTemplatePath = strPortletTemplatePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PortletTemplateGenerator portletTemplateGenerator = new PortletTemplateGenerator(  );
@@ -414,7 +414,7 @@ public class PluginWizardZipService
             if ( choice.getBusinessClasses(  ) )
             {
                 //Add the portlet template files
-                String strPortletXslPath = "plugin-{plugin_name}\\webapp\\WEB-INF\\xsl\\normal\\";
+                String strPortletXslPath = "plugin-{plugin_name}/webapp/WEB-INF/xsl/normal/";
                 strPortletXslPath = strPortletXslPath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
                 PortletXslGenerator portletXslGenerator = new PortletXslGenerator(  );

@@ -106,32 +106,32 @@ public class SqlCodeGenerator implements Visitor
         switch ( nSqlType )
         {
             case 1:
-                strReturn = "plugin\\create_db_" + strPluginName + ".sql";
+                strReturn = "plugin/create_db_" + strPluginName + ".sql";
 
                 break;
 
             case 2:
-                strReturn = "plugin\\init_db_" + strPluginName + ".sql";
+                strReturn = "plugin/init_db_" + strPluginName + ".sql";
 
                 break;
 
             case 3:
-                strReturn = "plugin\\init_db_" + strPluginName + "_sample.sql";
+                strReturn = "plugin/init_db_" + strPluginName + "_sample.sql";
 
                 break;
 
             case 4:
-                strReturn = "core\\init_core_" + strPluginName + ".sql";
+                strReturn = "core/init_core_" + strPluginName + ".sql";
 
                 break;
 
             case 5:
-                strReturn = "core\\create_" + strPluginName + "_portlet.sql";
+                strReturn = "core/create_" + strPluginName + "_portlet.sql";
 
                 break;
 
             default:
-                strReturn = "plugin\\create_db_" + strPluginName + ".sql";
+                strReturn = "plugin/create_db_" + strPluginName + ".sql";
 
                 break;
         }

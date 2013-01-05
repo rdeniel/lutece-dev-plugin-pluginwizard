@@ -11,11 +11,13 @@ manage_${business_class.businessClassTemplate}.pageTitle
 manage_${business_class.businessClassTemplate}.tableLabel
 manage_${business_class.businessClassTemplate}.labelManagement
 manage_${business_class.businessClassTemplate}.columnAction
+
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
 manage_${business_class.businessClassTemplate}.column${attribute.attributeName?cap_first}
 </#list>
 </#if>
+
 manage_${business_class.businessClassTemplate}.buttonAdd${business_class.businessClassTemplate?cap_first}
 manage_${business_class.businessClassTemplate}.actionDelete
 manage_${business_class.businessClassTemplate}.actionModify
@@ -24,11 +26,10 @@ create_${business_class.businessClassTemplate}.tableLabel
 
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
-create_${business_class.businessClassTemplate}.rowTitle${attribute.attributeName?cap_first}
 create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}
-
 </#list>
 </#if>
+
 create_${business_class.businessClass?lower_case}.buttonValidate
 create_${business_class.businessClassTemplate}.buttonValidate
 modify_${business_class.businessClassTemplate}.pageTitle

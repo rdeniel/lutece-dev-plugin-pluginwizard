@@ -69,7 +69,7 @@ public class PortletJspBeanGenerator implements Visitor
             String strPortlet = portlet.getPluginPortletTypeName(  );
             int nIndex = strPortlet.lastIndexOf( "_" );
 
-            strBasePath = strBasePath + "\\" + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) +
+            strBasePath = strBasePath + "/" + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) +
                 "PortletJspBean.java";
 
             String strSourceCode = SourceCodeGenerator.getPortletJspBean( portlet, pluginModel.getPluginName(  ) );

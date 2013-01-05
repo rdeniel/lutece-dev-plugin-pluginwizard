@@ -83,9 +83,7 @@ public class PluginWizardApp implements XPageApplication
 {
     //Constants
 
-    private static final String MARK_COMBO_GENERATORS = "combo_generators";
     private static final String MARK_PLUGIN_ID = "plugin_id";
-    private static final String MARK_PLUGIN_NAME = "plugin_name";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
     private static final String MARK_USER_CHOICE = "user_choice";
     private static final String MARK_PAGINATOR = "paginator";
@@ -128,6 +126,7 @@ public class PluginWizardApp implements XPageApplication
     private static final String TEMPLATE_MODIFY_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_modify_admin_feature.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin_portlet.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin_application.html";
+
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_CLASSNAME = "class";
     private static final String PARAM_TABLE = "table";
@@ -138,7 +137,6 @@ public class PluginWizardApp implements XPageApplication
     private static final String PARAM_PAGE = "page";
     private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
     private static final String PARAM_PLUGIN_DB_POOL_REQUIRED = "plugin_pool";
-    private static final String PARAM_PLUGIN_ICON_URL = "icon_url";
     private static final String PARAM_PLUGIN_PROVIDER_URL = "plugin_provider_url";
     private static final String PARAM_PLUGIN_VERSION = "version";
     private static final String PARAM_BUSINESS_CLASS_ID = "business_class_id";
@@ -174,8 +172,6 @@ public class PluginWizardApp implements XPageApplication
     private static final String PROPERTY_ADD_MAVEN_POM_XML = "add_maven_pom_xml";
     private static final String PROPERTY_ADD_SPRING_CONTEXT_XML = "add_spring_context_xml";
     private static final String PROPERTY_ADD_XPAGES = "add_xpages";
-    //Business Class
-    private static final String PARAM_BUSINESS_CLASS = "business_class";
     //Portlet
     private static final String PARAM_PORTLET_ID = "portlet_id";
     //Navigation
@@ -187,30 +183,22 @@ public class PluginWizardApp implements XPageApplication
     private static final String PARAMETER_GOTO_CREATE_PLUGIN_APPLICATION = "goToCreatePluginApplication";
     private static final String PARAMETER_GOTO_MANAGE_PLUGIN_PORTLETS = "goToManagePluginPortlets";
     private static final String PARAMETER_GOTO_CREATE_PLUGIN_PORTLET = "goToCreatePluginPortlet";
-    private static final String PARAMETER_GOTO_CREATE_RESOURCE_KEY = "goToCreateResourceKey";
     private static final String PARAMETER_GOTO_GET_RECAPITULATE = "goToGetRecapitulate";
     private static final String PARAMETER_GOTO_CREATE_BUSINESS_CLASS = "goToCreateBusinessClass";
     private static final String PARAMETER_GOTO_MANAGE_RESOURCE_KEYS = "goToManageResourceKeys";
-    private static final String PARAMETER_GOTO_MODIFY_PLUGIN_DESCRIPTION = "goToModifyPluginDescription";
     private static final String PARAMETER_GOTO_MODIFY_PLUGIN = "goToModifyPlugin";
     private static final String PARAMETER_GOTO_CREATE_ATTRIBUTE = "goToCreateAttribute";
     private static final String PARAMETER_GOTO_MODIFY_BUSINESS_CLASS = "goToModifyBusinessClass";
     private static final String PARAMETER_GOTO_MODIFY_ATTRIBUTE = "goToModifyAttribute";
     //Plugin
-    private static final String PARAM_GENERATION_TYPE = "generation_type";
-    private static final String PARAM_ATTRIBUTES = "attributes";
     private static final String PARAM_ATTRIBUTE_NAME = "attribute_name";
     private static final String PARAM_ATTRIBUTE_TYPE_ID = "id_attribute_type";
     private static final String PARAM_PRIMARY_KEY = "primary_key";
     private static final String PARAM_CLASS_DESCRIPTION = "class_description";
-    // private static final String ACTION_GENERATE = "generate";
-    private static final String ACTION_CREATE_PLUGIN = "create_plugin";
     private static final String ACTION_DO_CREATE_PLUGIN = "do_create_plugin";
-    private static final String ACTION_DO_NOT_CREATE_PLUGIN = "do_not_create_plugin";
     private static final String ACTION_GET_MODIFY_PLUGIN_DESCRIPTION = "get_modify_plugin_description";
     private static final String ACTION_GET_MODIFY_PLUGIN = "get_modify_plugin";
     private static final String ACTION_DO_MODIFY_PLUGIN_DESCRIPTION = "do_modify_plugin_description";
-    private static final String ACTION_DO_MODIFY_PLUGIN = "do_modify_plugin";
     private static final String ACTION_CREATE_ATTRIBUTE = "create_attribute";
     private static final String ACTION_DO_CREATE_ATTRIBUTE = "do_create_attribute";
     private static final String ACTION_MODIFY_ATTRIBUTE = "modify_attribute";
@@ -257,8 +245,6 @@ public class PluginWizardApp implements XPageApplication
     private static final String ACTION_DO_REMOVE_BUSINESS_ATTRIBUTE = "do_remove_attribute";
     //Recapitulate
     private static final String ACTION_GET_RECAPITULATE = "get_recapitulate";
-    private static final String ACTION_ZIP = "zip";
-    private static final String PROPERTY_GENERATOR = "pluginwizard.generator";
     private static final String PROPERTY_PAGE_TITLE = "pluginwizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "pluginwizard.pagePathLabel";
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
@@ -280,35 +266,20 @@ public class PluginWizardApp implements XPageApplication
     private static final String PROPERTY_CLASS_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotDefined.alertMessage";
     private static final String PROPERTY_CLASS_NOT_BEGIN_CAPITAL_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotBeginCapital.alertMessage";
     private static final String PROPERTY_ATTRIBUTE_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.attributeNotDefined.alertMessage";
-    private static final String PROPERTY_ATTRIBUTES_INVALID_TITLE_MESSAGE = "pluginwizard.siteMessage.attributesInvalid.alertMessage";
     private static final String PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE = "pluginwizard.siteMessage.mandatoryFields.alertMessage";
     private static final String PROPERTY_BUSINESS_CLASS_HAS_A_DESCRIPTION = "pluginwizard.siteMessage.descriptionAlreadyPresent.alertMessage";
     private static final String PROPERTY_BUSINESS_CLASS_HAS_A_KEY = "pluginwizard.siteMessage.keyAlreadyPresent.alertMessage";
     private static final String PROPERTY_BUSINESS_CLASS_CANNOT_KEY_DESCRIPTION = "pluginwizard.siteMessage.attributeCannotBeKeyAndDescription.alertMessage";
     private static final String PROPERTY_BUSINESS_PRIMARY_KEY_MUST_BE_INT = "pluginwizard.siteMessage.keyMustBeInt.alertMessage";
     private static final String PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING = "pluginwizard.siteMessage.descriptionIsString.alertMessage";
-    private static final String PROPERTY_CLASS_NOT_WELL_FORMED = "pluginwizard.siteMessage.businessClassNotWellFormed.alertMessage";
     //Input Fields Verification
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_ID = "pluginwizard.regex.do_modify_plugin.plugin_id";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_CHANGES = "pluginwizard.regex.do_modify_plugin.plugin_changes";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_CLASS = "pluginwizard.regex.do_modify_plugin.plugin_class";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_COPYRIGHT = "pluginwizard.regex.do_modify_plugin.plugin_copyright";
     private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED = "pluginwizard.regex.do_modify_plugin.plugin_db_pool_required";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DESCRIPTION = "pluginwizard.regex.do_modify_plugin.plugin_description";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DOCUMENTATION = "pluginwizard.regex.do_modify_plugin.plugin_documentation";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_ICON_URL = "pluginwizard.regex.do_modify_plugin.plugin_icon_url";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_INSTALLATION = "pluginwizard.regex.do_modify_plugin.plugin_installation";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_NAME = "pluginwizard.regex.do_modify_plugin.plugin_name";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER = "pluginwizard.regex.do_modify_plugin.plugin_provider";
     private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL = "pluginwizard.regex.do_modify_plugin.plugin_provider_url";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_USER_GUIDE = "pluginwizard.regex.do_modify_plugin.plugin_user_guide";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_VERSION = "pluginwizard.regex.do_modify_plugin.plugin_version";
     private static final String PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME = "pluginwizard.regex.do_create_plugin.plugin_name";
     //Regex property for creation of a portlet
     private static final String PROPERTY_DO_CREATE_PORTLET_PARAM_PORTLET_TYPE_NAME = "pluginwizard.regex.do_create_portlet.portlet_type_name";
     private static final String PROPERTY_DO_MODIFY_PORTLET_PARAM_PORTLET_TYPE_NAME = "pluginwizard.regex.do_modify_portlet.portlet_type_name";
     //Error Messages
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_ID_MESSAGE = "pluginwizard.siteMessage.regex.do_modify_plugin.plugin_class";
     private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL_MESSAGE = "pluginwizard.siteMessage.regex.do_modify_plugin.plugin_provider_url";
     private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED_MESSAGE = "pluginwizard.siteMessage.regex.do_modify_plugin.plugin_db_pool_required";
     private static final String PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_plugin.plugin_name";
@@ -338,6 +309,7 @@ public class PluginWizardApp implements XPageApplication
      * warning
      * @return XPage
      */
+    @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
             throws SiteMessageException
     {
@@ -1030,7 +1002,7 @@ public class PluginWizardApp implements XPageApplication
         model.setPluginClass( DEFAULT_PLUGIN_CLASS );
         model.setPluginDescription( strPluginName + SUFFIX_PLUGIN_DESCRIPTION );
         model.setPluginProvider( strPluginName + SUFFIX_PLUGIN_PROVIDER );
-        model.setPluginIconUrl( request.getParameter( PARAM_PLUGIN_ICON_URL ) );
+        model.setPluginIconUrl( "images/admin/skin/plugins/" + strPluginName + "/" + strPluginName + ".png" );
         model.setPluginCopyright( request.getParameter( PARAM_PLUGIN_COPYRIGHT ) );
 
         String strPluginProviderUrl = request.getParameter( PARAM_PLUGIN_PROVIDER_URL );
@@ -1373,8 +1345,6 @@ public class PluginWizardApp implements XPageApplication
      */
     public void doModifyResourceKey( HttpServletRequest request, Plugin plugin )
     {
-        //TODO Complete doModifyResourceKey
-        PluginFeature feature = new PluginFeature();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nIdPluginFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
         String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
@@ -1384,15 +1354,15 @@ public class PluginWizardApp implements XPageApplication
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
         String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_URL );
 
-        PluginFeature pluginFeature = new PluginFeature();
-        pluginFeature.setIdPluginFeature( nIdPluginFeature );
-        pluginFeature.setIdPlugin( nPluginId );
-        pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
-        pluginFeature.setPluginFeatureLabel( strPluginFeatureLabel );
-        pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
-        pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
-        pluginFeature.setPluginFeatureUrl( strPluginFeatureUrl );
-        PluginFeatureHome.update( pluginFeature, plugin );
+        PluginFeature feature = new PluginFeature();
+        feature.setIdPluginFeature( nIdPluginFeature );
+        feature.setIdPlugin( nPluginId );
+        feature.setPluginFeatureDescription( strPluginFeatureDescription );
+        feature.setPluginFeatureLabel( strPluginFeatureLabel );
+        feature.setPluginFeatureLevel( strPluginFeatureLevel );
+        feature.setPluginFeatureTitle( strPluginFeatureTitle );
+        feature.setPluginFeatureUrl( strPluginFeatureUrl );
+        PluginFeatureHome.update( feature, plugin );
     }
 
     /**

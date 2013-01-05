@@ -58,7 +58,7 @@ public class PropertiesGenerator implements Visitor
     {
         HashMap map = new HashMap(  );
         String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "\\" + pluginModel.getPluginName(  ).toLowerCase(  ) + ".properties";
+        strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + ".properties";
 
         String strSourceCode = SourceCodeGenerator.getPropertiesFileCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );

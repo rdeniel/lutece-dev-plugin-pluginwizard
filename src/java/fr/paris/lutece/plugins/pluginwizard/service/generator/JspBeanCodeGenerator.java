@@ -63,7 +63,7 @@ public class JspBeanCodeGenerator implements Visitor
         HashMap map = new HashMap(  );
         String strPluginNameCap = getFirstCaps( pluginModel.getPluginName(  ) );
         String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "\\" + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+        strBasePath = strBasePath + "/" + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
 
         Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );

@@ -57,7 +57,7 @@ public class PomGenerator implements Visitor
     {
         HashMap map = new HashMap(  );
         String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "\\pom.xml";
+        strBasePath = strBasePath + "/pom.xml";
 
         String strSourceCode = SourceCodeGenerator.getPomXmlCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );

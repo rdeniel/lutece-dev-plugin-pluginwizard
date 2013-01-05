@@ -73,7 +73,7 @@ public class BackOfficeJspGenerator implements Visitor
                 String strJspFileName = getJspFileName( businessClass.getBusinessClass(  ),
                         pluginModel.getPluginName(  ), i );
 
-                strBasePath = strBasePath + "\\" + strJspFileName;
+                strBasePath = strBasePath + "/" + strJspFileName;
 
                 String strSourceCode = SourceCodeGenerator.getJspFile( businessClass, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );

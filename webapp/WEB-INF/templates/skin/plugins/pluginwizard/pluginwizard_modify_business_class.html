@@ -69,7 +69,7 @@
         </div>
 
         <fieldset>
-            <legend>Attributes of the business class</legend>
+            <legend>#i18n{pluginwizard.pluginwizard_modify_business_class.labelFielsetAttributes}</legend>
             <table class="table table-condensed table-striped">
 
                 <thead>
@@ -98,26 +98,16 @@
                         </td>
 
                         <td>
-                            <form  method="post"
-                                   action="jsp/site/Portal.jsp"><input
-                                    type="hidden" name="page" value="pluginwizard" /> 
-                                <input
-                                    type="hidden" name="action" value="modify_attribute" /> 
-                                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />        
-                                <input type="hidden" name="attribute_id" value="${attribute.idAttribute}"/>          
-                                <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>   
-                                <button type="submit" name="goToModifyAttribute" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}</button>
-                            </form>
-                            <form  method="post"
-                                   action="jsp/site/Portal.jsp"><input
-                                    type="hidden" name="page" value="pluginwizard" />
-                                <input
-                                    type="hidden" name="action" value="remove_attribute" /> 
-                                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" /> 
-                                <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>   
-                                <input type="hidden" name="attribute_id" value="${attribute.idAttribute}"/> 
-                                <button type="submit" name="remove_business_class" class="-lutece-input -lutece-border-radius-mini">#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}</button>
-                            </form>
+                            <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                               class="btn btn-primary btn-small"
+                               title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}" >
+                                <i class="icon-edit icon-white"></i>
+                            </a>
+                            <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                               class="btn btn-danger btn-small"
+                               title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}" >
+                                <i class="icon-trash icon-white"></i>
+                            </a>
                         </td>
                         </#list> 
                     </tr>
@@ -125,9 +115,6 @@
                 </tbody>
 
             </table>
-
         </fieldset>
-
     </div>                                              
-
 </div>

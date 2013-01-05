@@ -89,7 +89,7 @@ public class BackOfficeTemplateCodeGenerator implements Visitor
                 String strOldPath = new String( strPath );
                 String strBasePath = new String( strPath );
 
-                strBasePath = strBasePath + "\\" + getTemplatePrefix( i ) +
+                strBasePath = strBasePath + "/" + getTemplatePrefix( i ) +
                     businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
 
                 Collection<BusinessClass> listClass = new ArrayList<BusinessClass>(  );
@@ -108,7 +108,7 @@ public class BackOfficeTemplateCodeGenerator implements Visitor
             }
 
             //Add the main template where all the business management interface will be accessible
-            strBasePath1 = strBasePath1 + "\\" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
+            strBasePath1 = strBasePath1 + "/" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
 
             String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4,
                     plugin );

@@ -72,7 +72,7 @@ public class PortletGenerator implements Visitor
                 String strPortletFile = getPortletFileName( getFirstCaps( 
                             strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), pluginModel.getPluginName(  ), i );
 
-                strBasePath = strBasePath + "\\" + strPortletFile;
+                strBasePath = strBasePath + "/" + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );

@@ -77,10 +77,10 @@ public class BusinessClassCodeGenerator implements Visitor
                     if ( i == 9 )
                     {
                         // The test source code is in another directory
-                        strBasePath = strBasePath.replace( "src", "src\\test" );
+                        strBasePath = strBasePath.replace( "src", "src/test" );
                     }
 
-                    strBasePath = strBasePath + "\\" + strClassName + ".java";
+                    strBasePath = strBasePath + "/" + strClassName + ".java";
 
                     String strSourceCode = SourceCodeGenerator.getSourceCode( businessClass, i );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );

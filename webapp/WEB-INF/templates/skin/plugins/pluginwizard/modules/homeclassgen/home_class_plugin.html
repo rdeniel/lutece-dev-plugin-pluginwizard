@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2009, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@
 package ${businessClass.packageName};
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import java.util.Collection;
 
@@ -47,8 +48,8 @@ public final class ${businessClass.businessClass}Home
 
     // Static variable pointed at the DAO instance
 
-    private static I${businessClass.businessClass}DAO _dao = ( I${businessClass.businessClass}DAO ) SpringContextService.getPluginBean( "${businessClass.businessPluginName}", "${businessClass.instanceName}DAO" );
-
+    private static I${businessClass.businessClass}DAO _dao = ( I${businessClass.businessClass}DAO ) SpringContextService.getBean( "${businessClass.businessPluginName}.${businessClass.instanceName}DAO" );
+    private static Plugin _plugin = PluginService.getPlugin( "${businessClass.businessPluginName}" );
 
     /**
      * Private constructor - this class need not be instantiated
@@ -61,13 +62,12 @@ public final class ${businessClass.businessClass}Home
     /**
      * Create an instance of the ${businessClass.instanceName} class
      * @param ${businessClass.instanceName} The instance of the ${businessClass.businessClass} which contains the informations to store
-     * @param plugin the Plugin
      * @return The  instance of ${businessClass.instanceName} which has been created with its primary key.
      */
 
-    public static ${businessClass.businessClass} create( ${businessClass.businessClass} ${businessClass.instanceName}, Plugin plugin )
+    public static ${businessClass.businessClass} create( ${businessClass.businessClass} ${businessClass.instanceName} )
     {
-        _dao.insert( ${businessClass.instanceName}, plugin );
+        _dao.insert( ${businessClass.instanceName}, _plugin );
 
         return ${businessClass.instanceName};
     }
@@ -76,13 +76,12 @@ public final class ${businessClass.businessClass}Home
     /**
      * Update of the ${businessClass.instanceName} which is specified in parameter
      * @param ${businessClass.instanceName} The instance of the ${businessClass.businessClass} which contains the data to store
-     * @param plugin the Plugin
      * @return The instance of the  ${businessClass.instanceName} which has been updated
      */
 
-    public static ${businessClass.businessClass} update( ${businessClass.businessClass} ${businessClass.instanceName}, Plugin plugin )
+    public static ${businessClass.businessClass} update( ${businessClass.businessClass} ${businessClass.instanceName} )
     {
-        _dao.store( ${businessClass.instanceName}, plugin );
+        _dao.store( ${businessClass.instanceName}, _plugin );
 
         return ${businessClass.instanceName};
     }
@@ -91,13 +90,12 @@ public final class ${businessClass.businessClass}Home
     /**
      * Remove the ${businessClass.instanceName} whose identifier is specified in parameter
      * @param n${businessClass.businessClass}Id The ${businessClass.instanceName} Id
-     * @param plugin the Plugin
      */
 
 
-    public static void remove( int n${businessClass.businessClass}Id, Plugin plugin )
+    public static void remove( int n${businessClass.businessClass}Id )
     {
-        _dao.delete( n${businessClass.businessClass}Id, plugin );
+        _dao.delete( n${businessClass.businessClass}Id, _plugin );
     }
 
 
@@ -107,25 +105,23 @@ public final class ${businessClass.businessClass}Home
     /**
      * Returns an instance of a ${businessClass.instanceName} whose identifier is specified in parameter
      * @param nKey The ${businessClass.instanceName} primary key
-     * @param plugin the Plugin
      * @return an instance of ${businessClass.businessClass}
      */
 
-    public static ${businessClass.businessClass} findByPrimaryKey( int nKey, Plugin plugin )
+    public static ${businessClass.businessClass} findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, plugin);
+        return _dao.load( nKey, _plugin);
     }
 
 
     /**
      * Load the data of all the ${businessClass.instanceName} objects and returns them in form of a collection
-     * @param plugin the Plugin
      * @return the collection which contains the data of all the ${businessClass.instanceName} objects
      */
 
-    public static Collection&lt;${businessClass.businessClass}&gt; get${businessClass.businessClass}sList( Plugin plugin )
+    public static Collection&lt;${businessClass.businessClass}&gt; get${businessClass.businessClass}sList( )
     {
-        return _dao.select${businessClass.businessClass}sList( plugin );
+        return _dao.select${businessClass.businessClass}sList( _plugin );
     }
 
 }

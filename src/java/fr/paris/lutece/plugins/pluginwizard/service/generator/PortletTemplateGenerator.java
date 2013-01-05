@@ -73,7 +73,7 @@ public class PortletTemplateGenerator implements Visitor
                 String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ),
                         pluginModel.getPluginName(  ), i );
 
-                strBasePath = strBasePath + "\\" + strPortletFile;
+                strBasePath = strBasePath + "/" + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletHtmlTemplate( portlet,
                         pluginModel.getPluginName(  ), i );

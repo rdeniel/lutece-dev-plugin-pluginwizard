@@ -58,7 +58,7 @@ public class SpringContextXmlGenerator implements Visitor
     {
         HashMap map = new HashMap(  );
         String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "\\" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_context.xml";
+        strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_context.xml";
 
         String strSourceCode = SourceCodeGenerator.getSpringContextCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );
