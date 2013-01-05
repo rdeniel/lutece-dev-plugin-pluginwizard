@@ -48,10 +48,9 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.admin.PluginAdminPageJspBean;
 import fr.paris.lutece.portal.web.constants.Messages;
-import fr.paris.lutece.util.ReferenceList;
+import fr.paris.lutece.portal.web.util.LocalizedPaginator;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
-import fr.paris.lutece.util.string.StringUtil;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
@@ -187,13 +186,16 @@ private static final String PROPERTY_PAGE_TITLE_MANAGE_${plugin_model.pluginName
                 _nDefaultItemsPerPage );
         UrlItem url = new UrlItem(  JSP_MANAGE_${business_class.businessClass?upper_case}S);
         String strUrl = url.getUrl(  );
-        Collection<${business_class.businessClass?cap_first}> list${business_class.businessClass?upper_case}s = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
-        Paginator paginator = new Paginator( (List<${business_class.businessClass?cap_first}>) list${business_class.businessClass?upper_case}s, _nItemsPerPage, strUrl , PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
+        List<${business_class.businessClass?cap_first}> list${business_class.businessClass}s = (List<${business_class.businessClass?cap_first}>) ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
+
+        // PAGINATOR
+        LocalizedPaginator paginator = new LocalizedPaginator( list${business_class.businessClass}s, _nItemsPerPage, strUrl , PARAMETER_PAGE_INDEX, _strCurrentPageIndex , getLocale() );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
         model.put( MARK_PAGINATOR, paginator );
+
         model.put( MARK_${business_class.businessClass?upper_case}_LIST, paginator.getPageItems(  ));
         
         HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, getLocale(  ), model );

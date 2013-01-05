@@ -539,6 +539,7 @@ public final class SourceCodeGenerator
         model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
         model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
         model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
+        model.put( MARK_MACRO, "@" );
         model.put( MARK_VARIABLE, "@@" );
         model.put( MARK_BRACKETS_OPEN, "${" );
         model.put( MARK_BRACKETS_CLOSE, "}" );
