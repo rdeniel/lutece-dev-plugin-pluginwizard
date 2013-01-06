@@ -483,8 +483,22 @@ public final class SourceCodeGenerator
         String strPluginName = pluginModel.getPluginName(  );
         ArrayList<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
         //Method will add all the keys for the generated plugin in the database
-        ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
+        // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
+        storeKeyList( nPluginId, plugin, listKeys );
     }
+    
+    private static void storeKeyList( int nPluginId, Plugin plugin , List<String> listKeys )
+    {
+        for( String strKey : listKeys )
+        {
+            
+            ResourceKey key = LocalizationService.localize( strKey.trim() );
+            key.setIdPlugin( nPluginId );
+            ResourceKeyHome.create( key, plugin );
+            System.out.println( key.getMarkerIdentifier() + " " + key.getFrenchLocale() + " " + key.getEnglishLocale() );
+        }
+    }
+    
 
     /**
      * Fetches all the resource keys
