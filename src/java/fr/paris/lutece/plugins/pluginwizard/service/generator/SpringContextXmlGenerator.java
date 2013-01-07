@@ -39,28 +39,32 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.HashMap;
 
-
 /**
  *
  * Class generates the spring context file
  *
  */
-public class SpringContextXmlGenerator implements Visitor
+public class SpringContextXmlGenerator implements Generator
 {
+
     /**
      * Visits the path and verifies whether spring context is needed
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_context.xml";
+        HashMap map = new HashMap();
 
-        String strSourceCode = SourceCodeGenerator.getSpringContextCode( pluginModel.getIdPlugin(  ), plugin );
+        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath + "/" + pluginModel.getPluginName().toLowerCase() + "_context.xml";
+
+        String strSourceCode = SourceCodeGenerator.getSpringContextCode( pluginModel.getIdPlugin(), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;

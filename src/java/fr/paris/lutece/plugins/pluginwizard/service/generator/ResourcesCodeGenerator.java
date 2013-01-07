@@ -45,7 +45,7 @@ import java.util.HashMap;
  * Class generated needed resource files for i18n implementation
  *
  */
-public class ResourcesCodeGenerator implements Visitor
+public class ResourcesCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies whether resouce files are needed
@@ -54,26 +54,26 @@ public class ResourcesCodeGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
+    
+    private static String[] _languages = { "_en" , "_fr" };
+    
     @Override
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
+        
+                        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
+                strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        String strOldPath = strPath;
-        String strBasePath = strPath;
+
         String strLanguage = "_en";
 
-        for ( int i = 0; i < 2; i++ )
+        for ( int i = 0; i < _languages.length; i++ )
         {
-            strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" +
-                strLanguage + ".properties";
+            String strPath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] + ".properties";
 
-            String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ),
-                    strLanguage, plugin );
-            map.put( strBasePath, strSourceCode );
-
-            strBasePath = strOldPath;
-            strLanguage = "_fr";
+            String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ), strLanguage, plugin );
+            map.put( strPath, strSourceCode );
         }
 
         return map;

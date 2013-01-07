@@ -46,7 +46,7 @@ import java.util.HashMap;
 /**
  * The portlet generator  generates all the java files needed for portlet creation
  */
-public class PortletGenerator implements Visitor
+public class PortletGenerator implements Generator
 {
     /**
      * Visits the path and verifies if Portlet files is relevant to be generated
@@ -55,16 +55,17 @@ public class PortletGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
         Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
+        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/portlet/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+
         for ( PluginPortlet portlet : listPortlets )
         {
-            String strOldPath = new String( strPath );
-            String strBasePath = new String( strPath );
-
             for ( int i = 1; i < 5; i++ )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
@@ -72,13 +73,12 @@ public class PortletGenerator implements Visitor
                 String strPortletFile = getPortletFileName( getFirstCaps( 
                             strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), pluginModel.getPluginName(  ), i );
 
-                strBasePath = strBasePath + "/" + strPortletFile;
+                String strPath = strBasePath + "/" + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                map.put( strBasePath, strSourceCode );
-                strBasePath = strOldPath;
+                map.put( strPath, strSourceCode );
             }
         }
 
@@ -94,7 +94,7 @@ public class PortletGenerator implements Visitor
      */
     private String getPortletFileName( String strPortletName, String strPluginName, int nPortletFileType )
     {
-        String strReturn = "";
+        String strReturn;
 
         switch ( nPortletFileType )
         {

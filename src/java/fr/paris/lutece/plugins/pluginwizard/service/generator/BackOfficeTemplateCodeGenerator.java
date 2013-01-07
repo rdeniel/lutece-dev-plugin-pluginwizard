@@ -51,7 +51,7 @@ import java.util.HashMap;
  * Generates Html files used as template to construct back office UI
  *
  */
-public class BackOfficeTemplateCodeGenerator implements Visitor
+public class BackOfficeTemplateCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies if Back office tempklate is relevant
@@ -60,11 +60,16 @@ public class BackOfficeTemplateCodeGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
 
         Collection<BusinessClass> listAllBusinessClasses = new ArrayList<BusinessClass>(  );
+        
+        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+
 
         //for each feature,which business classes are attached to
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
@@ -81,39 +86,24 @@ public class BackOfficeTemplateCodeGenerator implements Visitor
         {
             businessClass.setPluginName( pluginModel.getPluginName(  ) );
 
-            String strOldPath1 = new String( strPath );
-            String strBasePath1 = new String( strPath );
-
             for ( int i = 1; i < 4; i++ )
             {
-                String strOldPath = new String( strPath );
-                String strBasePath = new String( strPath );
 
-                strBasePath = strBasePath + "/" + getTemplatePrefix( i ) +
+                String strPath = strBasePath + "/" + getTemplatePrefix( i ) +
                     businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
 
                 Collection<BusinessClass> listClass = new ArrayList<BusinessClass>(  );
                 listClass.add( businessClass );
+                String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, i, plugin );
+                map.put( strPath, strSourceCode );
 
-                if ( i == 4 )
-                {
-                    listClass = listAllBusinessClasses;
-                }
-
-                String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, i,
-                        plugin );
-                map.put( strBasePath, strSourceCode );
-
-                strBasePath = strOldPath;
             }
 
             //Add the main template where all the business management interface will be accessible
-            strBasePath1 = strBasePath1 + "/" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
+            String strPath = strBasePath + "/" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
 
-            String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4,
-                    plugin );
-            map.put( strBasePath1, strSourceCode );
-            strBasePath1 = strOldPath1; //
+            String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4, plugin );
+            map.put( strPath, strSourceCode );
         }
 
         return map;
@@ -126,7 +116,7 @@ public class BackOfficeTemplateCodeGenerator implements Visitor
      */
     private static String getTemplatePrefix( int nTemplateType )
     {
-        String strReturn = "";
+        String strReturn;
 
         switch ( nTemplateType )
         {

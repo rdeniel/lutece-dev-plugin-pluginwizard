@@ -48,7 +48,7 @@ import java.util.HashMap;
  * Class generates the xsl associated to every generated portlet
  *
  */
-public class PortletXslGenerator implements Visitor
+public class PortletXslGenerator implements Generator
 {
     /**
      * Visits the path and verifies whether portlet xsl files needed
@@ -57,23 +57,23 @@ public class PortletXslGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
         Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
-        String strOldPath = new String( strPath );
-        String strBasePath = new String( strPath );
+
+                        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/xsl/normal/";
+                strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
         for ( PluginPortlet portlet : listPortlets )
         {
-            strBasePath = strBasePath + "/" + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) +
-                ".xsl";
+            String strPath = strBasePath + "/" + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
 
             String strSourceCode = SourceCodeGenerator.getPortletXsl( portlet, pluginModel.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
-            map.put( strBasePath, strSourceCode );
-            strBasePath = strOldPath;
+            map.put( strPath, strSourceCode );
         }
 
         return map;

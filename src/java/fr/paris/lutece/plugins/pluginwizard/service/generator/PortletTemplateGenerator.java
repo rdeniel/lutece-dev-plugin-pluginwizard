@@ -42,46 +42,48 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 import java.util.HashMap;
 
-
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
-public class PortletTemplateGenerator implements Visitor
+public class PortletTemplateGenerator implements Generator
 {
+
     /**
-     * Visit the path and verifies if Portlet templates is relevant to be generated
+     * Visit the path and verifies if Portlet templates is relevant to be
+     * generated
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
+        HashMap map = new HashMap();
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
 
-        for ( PluginPortlet portlet : listPortlets )
+        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+
+        for (PluginPortlet portlet : listPortlets)
         {
-            String strOldPath = new String( strPath );
-            String strBasePath = new String( strPath );
-
-            for ( int i = 1; i < 4; i++ )
+            for (int i = 1; i < 4; i++)
             {
-                String strPortlet = portlet.getPluginPortletTypeName(  );
+                String strPortlet = portlet.getPluginPortletTypeName();
                 int nIndex = strPortlet.lastIndexOf( "_" );
 
-                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ),
-                        pluginModel.getPluginName(  ), i );
+                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(),
+                        pluginModel.getPluginName(), i );
 
-                strBasePath = strBasePath + "/" + strPortletFile;
+                String strPath = strBasePath + "/" + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletHtmlTemplate( portlet,
-                        pluginModel.getPluginName(  ), i );
+                        pluginModel.getPluginName(), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@@", "#" );
-                map.put( strBasePath, strSourceCode );
-                strBasePath = strOldPath;
+                map.put( strPath, strSourceCode );
             }
         }
 
@@ -89,17 +91,18 @@ public class PortletTemplateGenerator implements Visitor
     }
 
     /**
-    * Chooses the name of the template
-    * @param strPortletName The name of the portlet
-    * @param strPluginName The plugin name
-    * @param nTemplate The type of template
-    * @return The name of the tempate
-    */
+     * Chooses the name of the template
+     *
+     * @param strPortletName The name of the portlet
+     * @param strPluginName The plugin name
+     * @param nTemplate The type of template
+     * @return The name of the tempate
+     */
     private String getPortletTemplateName( String strPortletName, String strPluginName, int nTemplate )
     {
         String strReturn = "";
 
-        switch ( nTemplate )
+        switch (nTemplate)
         {
             case 1:
                 strReturn = "combo_feed_" + strPortletName + ".html";

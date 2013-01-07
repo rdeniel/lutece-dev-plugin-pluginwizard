@@ -39,28 +39,33 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.HashMap;
 
-
 /**
  *
  * Class produces the xml file describing the generated plugin
  *
  */
-public class PluginXmlGenerator implements Visitor
+public class PluginXmlGenerator implements Generator
 {
+
     /**
      * Visits the path and verifies xml plugin description file is needed
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        String strBasePath = new String( strPath );
-        strBasePath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
+        HashMap map = new HashMap();
+        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/plugins/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
 
-        String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
+
+        strBasePath = strBasePath + "/" + pluginModel.getPluginName().toLowerCase() + ".xml";
+
+        String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;

@@ -42,39 +42,41 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 import java.util.HashMap;
 
-
 /**
  *
  * The class generated the portlet jspbean needed to manage portlets
  *
  */
-public class PortletJspBeanGenerator implements Visitor
+public class PortletJspBeanGenerator implements Generator
 {
+
     /**
-     * Visits the path and verifies if PortletJspBean is relevant to be generated
+     * Visits the path and verifies if PortletJspBean is relevant to be
+     * generated
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
-        String strOldPath = new String( strPath );
-        String strBasePath = new String( strPath );
+        HashMap map = new HashMap();
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
 
-        for ( PluginPortlet portlet : listPortlets )
+        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/portlet/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+
+        for (PluginPortlet portlet : listPortlets)
         {
-            String strPortlet = portlet.getPluginPortletTypeName(  );
+            String strPortlet = portlet.getPluginPortletTypeName();
             int nIndex = strPortlet.lastIndexOf( "_" );
 
-            strBasePath = strBasePath + "/" + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) +
-                "PortletJspBean.java";
+            String strPath = strBasePath + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase() ) + "PortletJspBean.java";
 
-            String strSourceCode = SourceCodeGenerator.getPortletJspBean( portlet, pluginModel.getPluginName(  ) );
-            map.put( strBasePath, strSourceCode );
-            strBasePath = strOldPath;
+            String strSourceCode = SourceCodeGenerator.getPortletJspBean( portlet, pluginModel.getPluginName() );
+            map.put( strPath, strSourceCode );
         }
 
         return map;
@@ -82,6 +84,7 @@ public class PortletJspBeanGenerator implements Visitor
 
     /**
      * Returns the value of a string with first letter in caps
+     *
      * @param strValue The value to be transformed
      * @return The first letter is in Capital
      */
@@ -89,7 +92,7 @@ public class PortletJspBeanGenerator implements Visitor
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
+        String strValueCap = strFirstLetter.toUpperCase() + strLettersLeft.toLowerCase();
 
         return strValueCap;
     }

@@ -42,38 +42,38 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 import java.util.HashMap;
 
-
 /**
  *
  * Class generating the Xpages
  *
  */
-public class XPageGenerator implements Visitor
+public class XPageGenerator implements Generator
 {
+
     /**
      * Visit the path and verifies whether xpages are relevant to be generated
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        Collection<PluginApplication> listPluginApplications = PluginApplicationHome.findByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
+        HashMap map = new HashMap();
+        Collection<PluginApplication> listPluginApplications = PluginApplicationHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
 
-        String strOldPath = new String( strPath );
-        String strBasePath = new String( strPath );
+        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
 
-        for ( PluginApplication xpage : listPluginApplications )
+        for (PluginApplication xpage : listPluginApplications)
         {
-            strBasePath = strBasePath + "/" + xpage.getApplicationClass(  ) + ".java";
+            String strPath = strBasePath + "/" + xpage.getApplicationClass() + ".java";
 
-            String strSourceCode = SourceCodeGenerator.getXPageCode( pluginModel.getIdPlugin(  ), plugin,
-                    xpage.getIdPluginApplication(  ) );
-            map.put( strBasePath, strSourceCode );
-            strBasePath = strOldPath;
+            String strSourceCode = SourceCodeGenerator.getXPageCode( pluginModel.getIdPlugin(), plugin,
+                    xpage.getIdPluginApplication() );
+            map.put( strPath, strSourceCode );
         }
 
         return map;

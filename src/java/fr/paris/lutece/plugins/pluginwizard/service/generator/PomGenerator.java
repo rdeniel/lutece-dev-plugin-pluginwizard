@@ -44,7 +44,7 @@ import java.util.HashMap;
  * The Pom generator is responsible of generating a project object model used by maven
  *
  */
-public class PomGenerator implements Visitor
+public class PomGenerator implements Generator
 {
     /**
      * Visits the path and verifies xml plugin description file is needed
@@ -53,10 +53,12 @@ public class PomGenerator implements Visitor
      * @param pluginModel The representation of the plugin to be created
      * @return A hashmap with the filename and the text content of the pom file
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = new String( strPath );
+        String strBasePath = "plugin-{plugin_name}";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
         strBasePath = strBasePath + "/pom.xml";
 
         String strSourceCode = SourceCodeGenerator.getPomXmlCode( pluginModel.getIdPlugin(  ), plugin );

@@ -48,7 +48,7 @@ import java.util.HashMap;
  * The business classes representing the business layer of the plugin is generated
  *
  */
-public class BusinessClassCodeGenerator implements Visitor
+public class BusinessClassCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies if Business class is relevant
@@ -57,11 +57,15 @@ public class BusinessClassCodeGenerator implements Visitor
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
         Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );
+
+        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/";
+                strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
@@ -71,22 +75,20 @@ public class BusinessClassCodeGenerator implements Visitor
                 if ( ( i % 2 ) != 0 )
                 {
                     String strClassName = getBusinessClassName( businessClass.getBusinessClass(  ), i );
-                    String strOldPath = new String( strPath );
-                    String strBasePath = new String( strPath );
+                    String strPath;
+                    
 
+                    strPath = strBasePath + "/" + strClassName + ".java";
                     if ( i == 9 )
                     {
                         // The test source code is in another directory
-                        strBasePath = strBasePath.replace( "src", "src/test" );
+                        strPath = strPath.replace( "src", "src/test" );
                     }
-
-                    strBasePath = strBasePath + "/" + strClassName + ".java";
 
                     String strSourceCode = SourceCodeGenerator.getSourceCode( businessClass, i );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                    map.put( strBasePath, strSourceCode );
-                    strBasePath = strOldPath;
+                    map.put( strPath, strSourceCode );
                 }
             }
         }
@@ -102,7 +104,7 @@ public class BusinessClassCodeGenerator implements Visitor
      */
     private String getBusinessClassName( String strBusinessClass, int nBusinessClassType )
     {
-        String strReturn = strBusinessClass;
+        String strReturn;
 
         switch ( nBusinessClassType )
         {

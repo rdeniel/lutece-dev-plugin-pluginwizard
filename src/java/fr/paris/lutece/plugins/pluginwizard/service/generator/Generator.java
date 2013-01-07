@@ -44,14 +44,13 @@ import java.util.HashMap;
  * Visitor interface to implement visitor pattern
  *
  */
-public interface Visitor
+public interface Generator
 {
     /**
      * Visiting parts of the file tree structure
-     * @param strPath The path
      * @param plugin The plugin
      * @param pluginModel The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
-    HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel );
+    HashMap generate( Plugin plugin, PluginModel pluginModel );
 }

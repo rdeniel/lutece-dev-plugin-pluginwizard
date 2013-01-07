@@ -42,45 +42,46 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.Collection;
 import java.util.HashMap;
 
-
 /**
  *
  * Class generated the jsp files needed to manage portlets
  *
  */
-public class PortletJspFilesGenerator implements Visitor
+public class PortletJspFilesGenerator implements Generator
 {
+
     /**
      * Visits the path and verifies whether portlet jsp files are needed
+     *
      * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    public HashMap visitPath( String strPath, Plugin plugin, PluginModel pluginModel )
+    @Override
+    public HashMap generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap(  );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
+        HashMap map = new HashMap();
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
 
-        for ( PluginPortlet portlet : listPortlets )
+        String strBasePath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+
+        for (PluginPortlet portlet : listPortlets)
         {
-            String strOldPath = new String( strPath );
-            String strBasePath = new String( strPath );
-
-            for ( int i = 1; i < 5; i++ )
+            for (int i = 1; i < 5; i++)
             {
-                String strPortlet = portlet.getPluginPortletTypeName(  );
+                String strPortlet = portlet.getPluginPortletTypeName();
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( 
-                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), pluginModel.getPluginName(  ), i );
+                String strPortletFile = getPortletFileName( getFirstCaps(
+                        strPortlet.substring( 0, nIndex ).toLowerCase() ), pluginModel.getPluginName(), i );
 
-                strBasePath = strBasePath + "/" + strPortletFile;
+                String strPath = strBasePath + "/" + strPortletFile;
 
-                String strSourceCode = SourceCodeGenerator.getPortletJspFile( portlet, pluginModel.getPluginName(  ), i );
+                String strSourceCode = SourceCodeGenerator.getPortletJspFile( portlet, pluginModel.getPluginName(), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                map.put( strBasePath, strSourceCode );
-                strBasePath = strOldPath;
+                map.put( strPath, strSourceCode );
             }
         }
 
@@ -88,17 +89,18 @@ public class PortletJspFilesGenerator implements Visitor
     }
 
     /**
-    * Fetches the name of the portlet jsp
-    * @param strPortletName the name of the portlet
-    * @param nPortletJspFileType The type of jsp
-    * @param strPluginName The name of the plugin
-    * @return The name of the jsp file
-    */
+     * Fetches the name of the portlet jsp
+     *
+     * @param strPortletName the name of the portlet
+     * @param nPortletJspFileType The type of jsp
+     * @param strPluginName The name of the plugin
+     * @return The name of the jsp file
+     */
     private String getPortletFileName( String strPortletName, String strPluginName, int nPortletJspFileType )
     {
-        String strReturn = "";
+        String strReturn;
 
-        switch ( nPortletJspFileType )
+        switch (nPortletJspFileType)
         {
             case 1:
                 strReturn = "ModifyPortlet" + strPortletName + ".jsp";
@@ -131,6 +133,7 @@ public class PortletJspFilesGenerator implements Visitor
 
     /**
      * Returns the value of a string with first letter in caps
+     *
      * @param strValue The value to be transformed
      * @return The first letter is in Capital
      */
@@ -138,7 +141,7 @@ public class PortletJspFilesGenerator implements Visitor
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
+        String strValueCap = strFirstLetter.toUpperCase() + strLettersLeft.toLowerCase();
 
         return strValueCap;
     }
