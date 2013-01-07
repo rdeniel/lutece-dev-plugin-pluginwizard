@@ -852,6 +852,7 @@ public class PluginWizardApp implements XPageApplication
         model.put( MARK_ATTRIBUTE_TYPE_COMBO, AttributeHome.getAttributeListCombo( plugin ) );
         model.put( MARK_ATTRIBUTE, attribute );
 
+        System.out.println( (attribute.getIsPrimary() ? " key " : "no key ") + "-" + (attribute.getIsDescription() ? " description " : "no description "));
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_ATTRIBUTE, request.getLocale(), model );
 
         return template.getHtml();
@@ -2005,17 +2006,6 @@ public class PluginWizardApp implements XPageApplication
         String strPrimaryKey = request.getParameter( PARAM_PRIMARY_KEY );
         String strDescription = request.getParameter( PARAM_CLASS_DESCRIPTION );
 
-        if (strPrimaryKey.equals( "1" ) && BusinessClassHome.hasAlreadyKey( nBusinessClassId, plugin ))
-        {
-            SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_KEY, SiteMessage.TYPE_STOP );
-        }
-
-        //If Business class already has a description
-        if (strDescription.equals( "1" )
-                && BusinessClassHome.hasAlreadyDescription( nBusinessClassId, plugin ))
-        {
-            SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_DESCRIPTION, SiteMessage.TYPE_STOP );
-        }
         //If primary key is not an int
         if (strPrimaryKey.equals( "1" ) && !strAttributeTypeId.equals( "1" ))
         {
@@ -2028,16 +2018,6 @@ public class PluginWizardApp implements XPageApplication
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING, SiteMessage.TYPE_STOP );
         }
 
-        //If attribute is description
-        if (strDescription.equals( "1" ) && BusinessClassHome.hasAlreadyDescription( nBusinessClassId, plugin ))
-        {
-            SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_CANNOT_KEY_DESCRIPTION,
-                    SiteMessage.TYPE_STOP );
-        }
-
-        //TODO If business class has already a key
-
-        //TODO If business class has already a description
         Attribute attribute = AttributeHome.findByPrimaryKey( nIdAttribute, plugin );
         attribute.setAttributeName( strAttributeName );
         attribute.setAttributeTypeId( nAttributeTypeId );

@@ -40,7 +40,7 @@
                         <@comboWithParams name="feature_id" default_value="all" items=combo_admin_features  additionalParameters="class=\"input-xlarge\"" />      
                     </div>                
                 </div>
-                
+
                 <div class="form-actions">                                          
                     <button type="submit" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyClass}
@@ -52,69 +52,61 @@
             </fieldset>
         </form>
 
+        <form class="form pull-right" method="post"
+              action="jsp/site/Portal.jsp"><input
+                type="hidden" name="page" value="pluginwizard" />
+            <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" /> 
+            <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>   
 
+            <button type="submit" name="goToCreateAttribute" class="btn btn-primary">
+                <i class="icon-plus icon-white"></i>
+                #i18n{pluginwizard.pluginwizard_modify_business_class.labelCreateAttribute}
+            </button> 
+        </form>                                                                              
+        <h4>#i18n{pluginwizard.pluginwizard_modify_business_class.labelFielsetAttributes}</h4>
+        <table class="table table-condensed table-striped">
 
-        <div class="pull-right">                                          
-            <form  method="post"
-                   action="jsp/site/Portal.jsp"><input
-                    type="hidden" name="page" value="pluginwizard" />
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" /> 
-                <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>   
+            <thead>
+                <tr>
+                    <th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeName}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeType}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeKey}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeDescription}</th>
+                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeAction}</th>
 
-                <button type="submit" name="goToCreateAttribute" class="btn btn-primary">
-                    <i class="icon-plus icon-white"></i>
-                    #i18n{pluginwizard.pluginwizard_modify_business_class.labelCreateAttribute}
-                </button> 
-            </form>                                                                              
-        </div>
+                </tr>
+            </thead>
 
-        <fieldset>
-            <legend>#i18n{pluginwizard.pluginwizard_modify_business_class.labelFielsetAttributes}</legend>
-            <table class="table table-condensed table-striped">
+            <tbody>
+                <#if business_class.attributes?? >
+                <#list business_class.attributes as attribute>
+                <tr>
+                    <td>${attribute.attributeName}</td>
+                    <td>${attribute.type}</td>
+                    <td><#if attribute.isPrimary>
+                        <span class="label">key</span>
+                        </#if>
+                    </td>
+                    <td><#if attribute.isDescription>
+                        <span class="label">label</span></#if>
+                    </td>
 
-                <thead>
-                    <tr>
-                        <th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeName}</th>
-                        <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeType}</th>
-                        <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeKey}</th>
-                        <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeDescription}</th>
-                        <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeAction}</th>
-
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <#if business_class.attributes?? >
-                    <#list business_class.attributes as attribute>
-                    <tr>
-                        <td>${attribute.attributeName}</td>
-                        <td>${attribute.type}</td>
-                        <td><#if attribute.isPrimary>
-                            <span class="label">key</span>
-                            </#if>
-                        </td>
-                        <td><#if attribute.isDescription>
-                            <span class="label">label</span></#if>
-                        </td>
-
-                        <td>
-                            <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
-                               class="btn btn-primary btn-small"
-                               title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}" >
-                                <i class="icon-edit icon-white"></i>
-                            </a>
-                            <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
-                               class="btn btn-danger btn-small"
-                               title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}" >
-                                <i class="icon-trash icon-white"></i>
-                            </a>
-                        </td>
-                        </#list> 
-                    </tr>
-                    </#if>
-                </tbody>
-
-            </table>
-        </fieldset>
+                    <td>
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                           class="btn btn-primary btn-small"
+                           title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}" >
+                            <i class="icon-edit icon-white"></i>
+                        </a>
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                           class="btn btn-danger btn-small"
+                           title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}" >
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                    </td>
+                    </#list> 
+                </tr>
+                </#if>
+            </tbody>
+        </table>
     </div>                                              
 </div>

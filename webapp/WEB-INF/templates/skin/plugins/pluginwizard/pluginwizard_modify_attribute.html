@@ -11,7 +11,7 @@
 
 
     <div class="span8">
-        <form class="form-horizontal" method="post" name="generate" >   
+        <form class="form-horizontal" method="post" name="generate" action="jsp/site/Portal.jsp">   
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_attribute.pageTitle}</legend>
 
@@ -38,32 +38,38 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * : </label>                            
                     <div class="controls">                                                                                                      
-                        <select class="input-small" name="primary_key">    				                                 				                              
-                            <option <#if attribute.isPrimary=true>selected="selected"</#if>value="1">Vrai                    
-                        </option>    				                              
-                        <option <#if attribute.isPrimary=false>selected="selected"</#if> value="0">Faux                              
-                    </option>    	                          
-                </select>                
-            </div> 
-        </div>
+                        <select class="input-small" name="primary_key">  
+                            <#if attribute.isPrimary>
+                            <option value="0" >#i18n{portal.util.labelNo}</option>    				                              
+                            <option value="1" selected>#i18n{portal.util.labelYes}</option>
+                            <#else>                            
+                            <option value="0" selected >#i18n{portal.util.labelNo}</option>    				                              
+                            <option value="1">#i18n{portal.util.labelYes}</option> 
+                            </#if>
+                        </select>                
+                    </div> 
+                </div>
 
-        <div class="control-group">
-            <label class="control-label">Description * :                        
-            </label>                            
-            <div class="controls">                                                                                                     
-                <select class="input-small" name="class_description">    				                                 				                              
-                    <option <#if attribute.isDescription=true >selected="selected"</#if> value="1">Vrai                    
-                </option>    				                              
-                <option <#if attribute.isDescription=false>selected="selected"</#if> value="0">Faux                              
-            </option>    	                          
-        </select>                
-    </div>  
-</div>
+                <div class="control-group">
+                    <label class="control-label">Description * :                        
+                    </label>                            
+                    <div class="controls">                                                                                                     
+                        <select class="input-small" name="class_description">    
+                            <#if attribute.isDescription >
+                            <option value="0">#i18n{portal.util.labelNo}</option>
+                            <option value="1" selected>#i18n{portal.util.labelYes}</option>
+                            <#else>
+                            <option value="0" selected>#i18n{portal.util.labelNo}</option>
+                            <option value="1" >#i18n{portal.util.labelYes}</option>
+                            </#if>
+                        </select>                
+                    </div>  
+                </div>
 
-<div class="form-actions">                                          
-    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}</button>                    
-    <button type="submit" name="goToModifyBusinessClass" class="btn">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}</button>                                                             
-</div>            
-</form>        
-</div>    
+                <div class="form-actions">                                          
+                    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}</button>                    
+                    <button type="submit" name="goToModifyBusinessClass" class="btn">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}</button>                                                             
+                </div>            
+        </form>        
+    </div>    
 </div>

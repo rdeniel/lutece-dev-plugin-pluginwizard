@@ -53,7 +53,7 @@ public final class AttributeDAO implements IAttributeDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_attribute ) FROM pluginwizard_plugin_attribute";
-    private static final String SQL_QUERY_SELECT = "SELECT id_attribute, attribute_type_id, attribute_name FROM pluginwizard_plugin_attribute WHERE id_attribute = ?";
+    private static final String SQL_QUERY_SELECT = "SELECT id_attribute, attribute_type_id, attribute_name, is_primary_key , is_description FROM pluginwizard_plugin_attribute WHERE id_attribute = ?";
     private static final String SQL_QUERY_SELECT_TYPE_BY_ATTRIBUE_ID = "SELECT b.attribute_type_name FROM pluginwizard_plugin_attribute as a,pluginwizard_plugin_attribute_type as b WHERE id_attribute = ? AND a.attribute_type_id=b.attribute_type_id";
     private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_attribute ( id_attribute, attribute_type_id, attribute_name ,is_primary_key , is_description ) VALUES ( ?, ?, ? ,?, ?) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_attribute WHERE id_attribute = ? ";
@@ -153,6 +153,8 @@ public final class AttributeDAO implements IAttributeDAO
             attribute.setIdAttribute( daoUtil.getInt( 1 ) );
             attribute.setAttributeTypeId( daoUtil.getInt( 2 ) );
             attribute.setAttributeName( daoUtil.getString( 3 ) );
+            attribute.setIsPrimary( daoUtil.getInt( 4 ) != 0 );
+            attribute.setIsDescription( daoUtil.getInt( 5 ) != 0 );
         }
 
         daoUtil.free(  );
