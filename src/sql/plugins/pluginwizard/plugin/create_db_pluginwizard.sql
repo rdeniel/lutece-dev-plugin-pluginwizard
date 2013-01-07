@@ -191,3 +191,16 @@ CREATE TABLE pluginwizard_plugin_resource_key
 	id_resource_key int default 0 NOT NULL,
 	PRIMARY KEY (id_resource_key)
 );
+
+--
+-- Table structure for table pluginwizard_localization_key
+--
+DROP TABLE IF EXISTS pluginwizard_localization_key;
+CREATE TABLE pluginwizard_localization_key
+(
+	id_key int default 0 NOT NULL,
+	key_name varchar(255) default NULL,
+	english_locale varchar(255) default NULL,
+	french_locale varchar(255) default NULL,
+	PRIMARY KEY (id_key)
+);

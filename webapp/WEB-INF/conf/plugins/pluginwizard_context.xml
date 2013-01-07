@@ -21,6 +21,7 @@
     
    <!-- Back Office Config management -->
  <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  
+ <bean id="pluginwizard.localizationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyDAO" />  
 
     
 </beans>

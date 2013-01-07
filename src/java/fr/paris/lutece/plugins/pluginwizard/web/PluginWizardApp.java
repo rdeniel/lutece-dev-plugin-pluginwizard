@@ -496,8 +496,8 @@ public class PluginWizardApp implements XPageApplication
 
         if ((strAction != null) && (strAction.equals( ACTION_DO_CREATE_BUSINESS_CLASS )))
         {
-            doCreateBusinessClass( request, plugin );
-            strContent = getManageBusinessClasses( request, plugin );
+            int nId = doCreateBusinessClass( request, plugin );
+            strContent = getModifyBusinessClass( nId , request, plugin);
             page.setContent( strContent );
         }
 
@@ -729,7 +729,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @return The html code of the plugin
      */
-    public String getCreatePlugin( HttpServletRequest request )
+    private String getCreatePlugin( HttpServletRequest request )
     {
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_PLUGIN, request.getLocale() );
 
@@ -744,7 +744,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The creation form of the plugin description
      */
-    public String getCreatePluginDescription( HttpServletRequest request, String strPluginName, Plugin plugin )
+    private String getCreatePluginDescription( HttpServletRequest request, String strPluginName, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>();
 
@@ -771,7 +771,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    public String getModifyPluginDescription( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginDescription( HttpServletRequest request, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -790,7 +790,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    public String getModifyPlugin( HttpServletRequest request, Plugin plugin )
+    private String getModifyPlugin( HttpServletRequest request, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -811,11 +811,16 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    public String getModifyBusinessClass( HttpServletRequest request, Plugin plugin )
+    private String getModifyBusinessClass( HttpServletRequest request, Plugin plugin )
+    {
+        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
+        return getModifyBusinessClass(nBusinessClassId, request, plugin);
+    }
+    
+    private String getModifyBusinessClass( int nBusinessClassId , HttpServletRequest request, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         BusinessClass bClass = BusinessClassHome.findByPrimaryKey( nBusinessClassId, plugin );
         model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
         model.put( MARK_BUSINESS_CLASS, bClass );
@@ -825,7 +830,7 @@ public class PluginWizardApp implements XPageApplication
                 model );
 
         return template.getHtml();
-    }
+    } 
 
     /**
      * The modification form of an attribute
@@ -834,7 +839,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of attribute description
      */
-    public String getModifyAttribute( HttpServletRequest request, Plugin plugin )
+    private String getModifyAttribute( HttpServletRequest request, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -959,7 +964,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The http request
      * @param plugin The plugin
      */
-    public void doRemoveAllPluginRelated( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAllPluginRelated( HttpServletRequest request, Plugin plugin )
     {
         String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
         int nIdPlugin = PluginModelHome.getPluginModelId( plugin, strPluginName );
@@ -982,7 +987,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doModifyPlugin( HttpServletRequest request, Plugin plugin )
+    private void doModifyPlugin( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1030,7 +1035,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the admin features
      */
-    public String getManageAdminFeatures( HttpServletRequest request, Plugin plugin )
+    private String getManageAdminFeatures( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1052,7 +1057,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the management of the resource keys
      */
-    public String getManageResourceKeys( HttpServletRequest request, Plugin plugin )
+    private String getManageResourceKeys( HttpServletRequest request, Plugin plugin )
     {
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         int nPluginId = Integer.parseInt( strPluginId );
@@ -1095,7 +1100,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    public String getCreateAdminFeature( HttpServletRequest request, Plugin plugin )
+    private String getCreateAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1115,7 +1120,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    public String getCreateAttribute( HttpServletRequest request, Plugin plugin )
+    private String getCreateAttribute( HttpServletRequest request, Plugin plugin )
     {
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
@@ -1135,7 +1140,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doCreateAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doCreateAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1163,7 +1168,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    public String getModifyAdminFeature( HttpServletRequest request, Plugin plugin )
+    private String getModifyAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nIdPlugin = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nAdminFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
@@ -1186,7 +1191,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    public String getViewAdminFeature( HttpServletRequest request, Plugin plugin )
+    private String getViewAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nAdminFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
@@ -1209,7 +1214,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doModifyAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doModifyAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         PluginFeature feature = new PluginFeature();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1240,7 +1245,7 @@ public class PluginWizardApp implements XPageApplication
      * @throws SiteMessageException The front office mechanism for handling the
      * warning
      */
-    public void getConfirmRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -1260,7 +1265,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nFeatureId = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
         PluginFeatureHome.remove( nFeatureId, plugin );
@@ -1273,7 +1278,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the resource key
      */
-    public String getResourceKey( HttpServletRequest request, Plugin plugin )
+    private String getResourceKey( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1292,7 +1297,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doCreateResourceKey( HttpServletRequest request, Plugin plugin )
+    private void doCreateResourceKey( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1320,7 +1325,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the modification
      */
-    public String getModifyResourceKey( HttpServletRequest request, Plugin plugin )
+    private String getModifyResourceKey( HttpServletRequest request, Plugin plugin )
     {
         //TODO Complete getModifyResourceKey
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1343,7 +1348,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doModifyResourceKey( HttpServletRequest request, Plugin plugin )
+    private void doModifyResourceKey( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nIdPluginFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
@@ -1373,7 +1378,7 @@ public class PluginWizardApp implements XPageApplication
      * @throws SiteMessageException The front office mechanism for handling the
      * warning
      */
-    public void getConfirmRemoveResourceKey( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveResourceKey( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         //TODO Complete getConfirmRemoveResourceKey
@@ -1392,7 +1397,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemoveResourceKey( HttpServletRequest request, Plugin plugin )
+    private void doRemoveResourceKey( HttpServletRequest request, Plugin plugin )
     {
         //TODO Complete doRemoveResourceKey
         //  int nFeatureId = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
@@ -1408,7 +1413,7 @@ public class PluginWizardApp implements XPageApplication
      * @return The html code of the management screen of the applications
      * @throws SiteMessageException
      */
-    public String getManagePluginApplications( HttpServletRequest request, Plugin plugin ) throws SiteMessageException
+    private String getManagePluginApplications( HttpServletRequest request, Plugin plugin ) throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         //Fetch the business classes
@@ -1453,7 +1458,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the management screen of the business classes
      */
-    public String getManageBusinessClasses( HttpServletRequest request, Plugin plugin )
+    private String getManageBusinessClasses( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>();
@@ -1473,7 +1478,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of a plugin application
      */
-    public String getCreatePluginApplication( HttpServletRequest request, Plugin plugin )
+    private String getCreatePluginApplication( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>();
@@ -1493,7 +1498,7 @@ public class PluginWizardApp implements XPageApplication
      * @return The html code of the creation of a business class
      * @throws SiteMessageException Front office error handling
      */
-    public String getCreateBusinessClass( HttpServletRequest request, Plugin plugin )
+    private String getCreateBusinessClass( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1520,7 +1525,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doCreatePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doCreatePluginApplication( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         PluginApplication application = new PluginApplication();
@@ -1547,7 +1552,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @exception SiteMessageException Front office error handling
      */
-    public void doCreateAttribute( HttpServletRequest request, Plugin plugin )
+    private void doCreateAttribute( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         String strAttributeName = request.getParameter( PARAM_ATTRIBUTE_NAME );
@@ -1607,7 +1612,7 @@ public class PluginWizardApp implements XPageApplication
      * @return The html code of the modification of an application associated to
      * the generated plugin
      */
-    public String getModifyPluginApplication( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginApplication( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nPluginApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
@@ -1630,7 +1635,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doModifyPluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doModifyPluginApplication( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
@@ -1659,7 +1664,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException The front office exception
      */
-    public void getConfirmRemovePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemovePluginApplication( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -1678,7 +1683,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException The front office exception
      */
-    public void getConfirmRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
@@ -1699,7 +1704,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemovePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doRemovePluginApplication( HttpServletRequest request, Plugin plugin )
     {
         int nApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
         PluginApplicationHome.remove( nApplicationId, plugin );
@@ -1711,7 +1716,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void doRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
 
@@ -1725,7 +1730,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The main management screen of portlets
      */
-    public String getManagePluginPortlets( HttpServletRequest request, Plugin plugin )
+    private String getManagePluginPortlets( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>();
@@ -1745,7 +1750,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of a portlet
      */
-    public String getCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private String getCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>();
@@ -1764,7 +1769,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         PluginPortlet portlet = new PluginPortlet();
@@ -1803,7 +1808,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doCreateBusinessClass( HttpServletRequest request, Plugin plugin )
+    private int doCreateBusinessClass( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         BusinessClass businessClass = new BusinessClass();
@@ -1848,7 +1853,8 @@ public class PluginWizardApp implements XPageApplication
             SiteMessageService.setMessage( request, PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
         }
 
-        BusinessClassHome.create( businessClass, plugin );
+        businessClass = BusinessClassHome.create( businessClass, plugin );
+        return businessClass.getIdBusinessClass();
     }
 
     /**
@@ -1871,7 +1877,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the modification of the portlet
      */
-    public String getModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
     {
         int nPluginPortletId = Integer.parseInt( request.getParameter( PARAM_PORTLET_ID ) );
         Map<String, Object> model = new HashMap<String, Object>();
@@ -1891,7 +1897,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1932,7 +1938,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doModifyBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void doModifyBusinessClass( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
@@ -1979,7 +1985,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    public void doModifyAttribute( HttpServletRequest request, Plugin plugin )
+    private void doModifyAttribute( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         int nIdAttribute = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
@@ -2052,7 +2058,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException The site message exception
      */
-    public void getConfirmRemoveBusinessAttribute( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveBusinessAttribute( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -2072,7 +2078,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException The site message exception
      */
-    public void getConfirmRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
             throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -2090,7 +2096,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
     {
         int nPluginPortletId = Integer.parseInt( request.getParameter( PARAM_PORTLET_ID ) );
         PluginPortletHome.remove( nPluginPortletId, plugin );
@@ -2102,7 +2108,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      */
-    public void doRemoveAttribute( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAttribute( HttpServletRequest request, Plugin plugin )
     {
         int nAttributeId = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
         AttributeHome.remove( nAttributeId, plugin );
@@ -2115,7 +2121,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The Html code of the summary
      */
-    public String getPluginRecapitulate( HttpServletRequest request, Plugin plugin )
+    private String getPluginRecapitulate( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         //Deletes all the keys and regenerate the keys for the generated plugin
@@ -2144,7 +2150,7 @@ public class PluginWizardApp implements XPageApplication
      * @param strErrorMessageProperty The error message property
      * @throws SiteMessageException Front office error handling
      */
-    public void verifyField( HttpServletRequest request, String strFieldInputText, String strRegexProperty,
+    private void verifyField( HttpServletRequest request, String strFieldInputText, String strRegexProperty,
             String strErrorMessageProperty ) throws SiteMessageException
     {
         String strRegex = AppPropertiesService.getProperty( strRegexProperty );
