@@ -49,7 +49,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.user.UserChoice;
 import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.content.XPageAppService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -68,13 +67,11 @@ import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 /**
  * The class manage pluginwizard Page
@@ -85,7 +82,6 @@ public class PluginWizardApp implements XPageApplication
 
     private static final String MARK_PLUGIN_ID = "plugin_id";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
-    private static final String MARK_USER_CHOICE = "user_choice";
     private static final String MARK_PAGINATOR = "paginator";
     private static final String MARK_NB_ITEMS_PER_PAGE = "nb_items_per_page";
     //Management Bookmarks
@@ -158,20 +154,7 @@ public class PluginWizardApp implements XPageApplication
     private static final String PARAM_PORTLET_CREATION_URL = "portlet_creation_url";
     private static final String PARAM_PORTLET_TYPE_NAME = "portlet_type_name";
     private static final String PARAM_PORTLET_CLASS = "portlet_class";
-    //User Choices Parameters
-    private static final String PARAMETER_USER_CHOICE = "user_choice";
-    //Properties for user choices of which files to generate
-    private static final String PROPERTY_ADD_BUSINESS_CLASSES = "add_business_classes";
-    private static final String PROPERTY_ADD_JSP_BEAN = "add_jsp_bean";
-    private static final String PROPERTY_ADD_SQL_FILES = "add_sql_files";
-    private static final String PROPERTY_ADD_BACK_OFFICE_TEMPLATE = "add_back_office_template";
-    private static final String PROPERTY_ADD_RESOURCE_FILES = "add_resource_files";
-    private static final String PROPERTY_ADD_BACK_OFFICE_JSP = "add_back_office_jsp";
-    private static final String PROPERTY_ADD_PLUGIN_PROPERTIES_FILE = "add_plugin_properties_file";
-    private static final String PROPERTY_ADD_PLUGIN_XML_DEFINITION = "add_plugin_xml_definition";
-    private static final String PROPERTY_ADD_MAVEN_POM_XML = "add_maven_pom_xml";
-    private static final String PROPERTY_ADD_SPRING_CONTEXT_XML = "add_spring_context_xml";
-    private static final String PROPERTY_ADD_XPAGES = "add_xpages";
+
     //Portlet
     private static final String PARAM_PORTLET_ID = "portlet_id";
     //Navigation
@@ -794,9 +777,6 @@ public class PluginWizardApp implements XPageApplication
     {
         Map<String, Object> model = new HashMap<String, Object>();
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        HttpSession session = request.getSession();
-        UserChoice choice = (UserChoice) session.getAttribute( "userChoice" );
-        model.put( MARK_USER_CHOICE, choice );
         model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_PLUGIN, request.getLocale(), model );
@@ -878,83 +858,6 @@ public class PluginWizardApp implements XPageApplication
 
             PluginModel pluginModel = new PluginModel();
             pluginModel.setPluginName( strPluginName );
-
-            UserChoice userChoice = new UserChoice();
-            Enumeration enumParameterChoices = request.getParameterNames();
-            Map map = null;
-
-            while (enumParameterChoices.hasMoreElements())
-            {
-                String strParameterName = (String) enumParameterChoices.nextElement();
-
-                if (strParameterName.equals( PARAMETER_USER_CHOICE ))
-                {
-                    String[] str = request.getParameterValues( PARAMETER_USER_CHOICE );
-
-                    for (int i = 0; i < str.length; i++)
-                    {
-                        String strValue = str[i];
-
-                        if (strValue.equals( PROPERTY_ADD_BUSINESS_CLASSES ))
-                        {
-                            userChoice.setBusinessClasses( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_JSP_BEAN ))
-                        {
-                            userChoice.setJspBean( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_SQL_FILES ))
-                        {
-                            userChoice.setSqlFiles( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_BACK_OFFICE_TEMPLATE ))
-                        {
-                            userChoice.setBackOfficeTemplate( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_RESOURCE_FILES ))
-                        {
-                            userChoice.setResourceFiles( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_BACK_OFFICE_JSP ))
-                        {
-                            userChoice.setBackOfficeJsp( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_PLUGIN_PROPERTIES_FILE ))
-                        {
-                            userChoice.setPluginPropertiesFile( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_PLUGIN_XML_DEFINITION ))
-                        {
-                            userChoice.setPluginXmlDefinition( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_MAVEN_POM_XML ))
-                        {
-                            userChoice.setMavenPomXml( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_SPRING_CONTEXT_XML ))
-                        {
-                            userChoice.setSpringContextXml( true );
-                        }
-
-                        if (strValue.equals( PROPERTY_ADD_XPAGES ))
-                        {
-                            userChoice.setXpages( true );
-                        }
-                    }
-                }
-            }
-
-            HttpSession session = request.getSession();
-            session.setAttribute( "userChoice", userChoice );
             PluginModelHome.create( pluginModel, plugin );
         }
     }
