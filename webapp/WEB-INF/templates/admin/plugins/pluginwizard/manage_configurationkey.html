@@ -1,43 +1,45 @@
-<div class="content-box" >    
-<h2>#i18n{pluginwizard.manage_ConfigurationKey.tableLabel}</h2>
-<form method="post" action="jsp/admin/plugins/pluginwizard/ManageConfigurationKeys.jsp">
-        <@pagination paginator=paginator />
+<div class="row-fluid" >    
+    <div class="span12">
         
-        <!-- Number of keys per page selector -->
-        #i18n{pluginwizard.manage_configurationkey.labelItemsPerPage} :
-        <select name="items_per_page">
-            <#list [ "5" , "10" , "20" , "50" ] as nb>
-            <#if nb_items_per_page = nb >
-            <option selected="selected" value="${nb}">${nb}</option>
-            <#else>
-            <option value="${nb}">${nb}</option>
-            </#if>
-            </#list>
-        </select>
-        <input type="submit" class="button" value="#i18n{pluginwizard.manage_configurationkey.buttonItemsPerPage}" />
-    </form>                   
-  <table>        
-    <tr> 			
-    	<th>#i18n{pluginwizard.manage_configurationkey.columnKey_action}
-      </th> 		
-      <th>#i18n{pluginwizard.manage_configurationkey.columnKey_description}
-      </th> 			
-      <th>#i18n{pluginwizard.manage_configurationkey.columnKey_value}
-      </th>        
-    </tr>        
-    <#list configurationkey_list as configurationkey >         
-      <tr> 			 
-                    
-              <td> <a href="jsp/admin/plugins/pluginwizard/ModifyConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}" class="bullet-link">${configurationkey.keyDescription}</a></td>     			
-         <td>${configurationkey.keyValue}</td>
-         <td>                
-          <a href="jsp/admin/plugins/pluginwizard/RemoveConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}" >                    
-            <img src="images/admin/skin/actions/delete.png" alt="#i18n{portal.util.labelDelete}" title="#i18n{portal.util.labelDelete}" />  </a>  
-          </td>        
-      </tr>        
-    </#list>    
-  </table>    
-  <form method="post"  action="jsp/admin/plugins/pluginwizard/CreateConfigurationKey.jsp">        
-    <input type="submit" value="#i18n{pluginwizard.manage_configurationkey.buttonAddConfigurationKey}" class="button" />    
-  </form>
-</div>  
+            <form class="form-horizontal" method="post"  action="jsp/admin/plugins/pluginwizard/CreateConfigurationKey.jsp">        
+                <button class="btn btn-primary pull-right" type="submit" >
+                    <i class="icon-plus icon-white"></i>
+                    #i18n{pluginwizard.manage_configurationkey.buttonAddConfigurationKey}
+                </button>   
+            </form>
+        
+
+        <h4>#i18n{pluginwizard.manage_configurationkeys.tableLabel}</h4>
+        <br>
+        <@paginationAdmin paginator=paginator combo=1 />
+
+        <table class="table table-condensed table-striped">        
+            <thead>
+            <tr> 			
+                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_description}</th> 			
+                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_value}</th>        
+                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_action}</th> 		
+            </tr>  
+            </thead>
+            <tbody>
+            <#list configurationkey_list as configurationkey >    
+            <tr> 			 
+                <td> ${configurationkey.keyDescription}</a></td>     			
+                <td>${configurationkey.keyValue}</td>
+                <td>
+                    <a href="jsp/admin/plugins/pluginwizard/ModifyConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}" 
+                       class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}" >
+                        <i class="icon-edit icon-white"></i>
+                    </a>
+                    <a href="jsp/admin/plugins/pluginwizard/RemoveConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}"                    
+                       class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >  
+                        <i class="icon-trash icon-white"></i>
+                    </a>  
+                </td>        
+            </tr>        
+            </#list>   
+            </tbody>
+        </table> 
+        <@paginationAdmin paginator=paginator  />
+    </div>
+</div>

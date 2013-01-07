@@ -41,6 +41,7 @@ import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.admin.PluginAdminPageJspBean;
 import fr.paris.lutece.portal.web.constants.Messages;
+import fr.paris.lutece.portal.web.util.LocalizedPaginator;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
@@ -121,8 +122,8 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         UrlItem url = new UrlItem( JSP_MANAGE_CONFIGURATIONKEYS );
         String strUrl = url.getUrl(  );
         Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList( getPlugin(  ) );
-        Paginator paginator = new Paginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs, _nItemsPerPage, strUrl,
-                PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
+        LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs, _nItemsPerPage, strUrl,
+                PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale() );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
 
