@@ -155,17 +155,6 @@ CREATE TABLE pluginwizard_plugin_id_portlet
 );
 
 --
--- Table structure for table pluginwizard_plugin_id_resource_key
---
-DROP TABLE IF EXISTS pluginwizard_plugin_id_resource_key;
-CREATE TABLE pluginwizard_plugin_id_resource_key
-(
-	id_resource_key int NOT NULL,
-	id_plugin int NOT NULL,
-	PRIMARY KEY (id_resource_key, id_plugin)
-);
-
---
 -- Table structure for table pluginwizard_plugin_portlet
 --
 DROP TABLE IF EXISTS pluginwizard_plugin_portlet;
@@ -185,10 +174,11 @@ CREATE TABLE pluginwizard_plugin_portlet
 DROP TABLE IF EXISTS pluginwizard_plugin_resource_key;
 CREATE TABLE pluginwizard_plugin_resource_key
 (
+	id_resource_key int default 0 NOT NULL,
 	marker_identifier varchar(255) default NULL,
 	english_locale varchar(255) default NULL,
 	french_locale varchar(255) default NULL,
-	id_resource_key int default 0 NOT NULL,
+        id_plugin int default 0 NOT NULL,
 	PRIMARY KEY (id_resource_key)
 );
 
