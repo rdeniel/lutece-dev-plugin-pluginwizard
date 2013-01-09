@@ -20,8 +20,8 @@
     <#list features as feature >
         <admin-feature>
             <feature-id>${feature.pluginFeatureLabel}</feature-id>
-            <feature-title>${feature.pluginFeatureTitle}</feature-title>
-            <feature-description>${feature.pluginFeatureDescription}</feature-description>
+            <feature-title>${plugin.pluginName}.adminFeature.${feature.pluginFeatureLabel?lower_case}.name</feature-title>
+            <feature-description>${plugin.pluginName}.adminFeature.${feature.pluginFeatureLabel?lower_case}.description</feature-description>
             <feature-level>${feature.pluginFeatureLevel}</feature-level>
             <feature-url>${feature.pluginFeatureUrl}</feature-url>
             <feature-icon-url></feature-icon-url>

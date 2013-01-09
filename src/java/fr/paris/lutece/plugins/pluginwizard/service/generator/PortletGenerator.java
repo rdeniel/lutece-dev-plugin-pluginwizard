@@ -73,7 +73,7 @@ public class PortletGenerator implements Generator
                 String strPortletFile = getPortletFileName( getFirstCaps( 
                             strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), pluginModel.getPluginName(  ), i );
 
-                String strPath = strBasePath + "/" + strPortletFile;
+                String strPath = strBasePath + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );

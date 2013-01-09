@@ -10,27 +10,25 @@
     </div>
 
     <div class="span8">
-        <h2>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageTitle} </h2> 
+        <h3>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageTitle} </h3> 
 
         <div class="well well-large">
 
-            <h3>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h3>
-
+            <h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h4>
             <br>
-            <h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h4>
-            <br>
+            <h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
             <ul>
                 <#if admin_features?? > 
                 <#if admin_features?size gt 0 > 
                 <li>
-                    <h4>
+                    <h5>
                         <span class="badge badge-info">${admin_features?size}</span> &nbsp; 
                         <#if admin_features?size = 1 > 
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
                         <#else>
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
                         </#if>
-                    </h4>
+                    </h5>
                 </li>
                 </#if>
                 </#if>
@@ -38,17 +36,17 @@
                 <#if business_classes?? > 
                 <#if business_classes?size gt 0 > 
                 <li>
-                    <h4>
+                    <h5>
                         <span class="badge badge-info">${business_classes?size}</span> &nbsp; 
                         <#if business_classes?size = 1 > 
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasse}
                         <#else>
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasses}
                         </#if>
-                    </h4>
+                    </h5>
                     <ul>
                         <#list business_classes as business >
-                        <li> <h5> ${business.businessClass} </h5> </li>
+                        <li> <h6> ${business.businessClass} </h6> </li>
                         </#list> 
                     </ul>
                 </li>
@@ -58,14 +56,14 @@
                 <#if plugin_applications?? > 
                 <#if plugin_applications?size gt 0>
                 <li>
-                    <h4>
+                    <h5>
                         <span class="badge badge-info">${plugin_applications?size}</span> &nbsp; 
                         <#if plugin_applications?size = 1 > 
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPage}
                         <#else>
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPages}
                         </#if>
-                    </h4>
+                    </h5>
                 </li>
                 </#if>
                 </#if>
@@ -73,14 +71,14 @@
                 <#if plugin_portlets?? >
                 <#if plugin_portlets?size gt 0>
                 <li>
-                    <h4>
+                    <h5>
                         <span class="badge badge-info">${plugin_portlets?size}</span> &nbsp; 
                         <#if plugin_portlets?size = 1 > 
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlet}
                         <#else>
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlets}
                         </#if>
-                    </h4>
+                    </h5>
                 </li>
                 </#if>
                 </#if>

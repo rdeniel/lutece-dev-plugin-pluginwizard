@@ -1,7 +1,11 @@
 plugin.description
 plugin.provider
-adminFeature.${plugin_name?lower_case}_management.name
-adminFeature.${plugin_name?lower_case}_management.description
+
+<#list features as feature>
+adminFeature.${feature.pluginFeatureLabel?lower_case}.name
+adminFeature.${feature.pluginFeatureLabel?lower_case}.description
+</#list>
+
 manage_${plugin_name?lower_case}s.tableLabel
 manage_${plugin_name?lower_case}.labelManagement
 manage_${plugin_name?lower_case}s.pageTitle

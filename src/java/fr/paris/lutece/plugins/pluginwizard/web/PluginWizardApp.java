@@ -35,6 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
+import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKey;
+import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.AttributeHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
@@ -130,6 +132,8 @@ public class PluginWizardApp implements XPageApplication
     private static final String PARAM_BUSINESS_CLASS_DESCRIPTION = "business_class_description";
     private static final String PARAM_PLUGIN_ID = "plugin_id";
     private static final String PARAM_PLUGIN_NAME = "plugin_name";
+    private static final String PARAM_PLUGIN_DESCRIPTION = "plugin_description";
+    private static final String PARAM_PLUGIN_PROVIDER = "plugin_provider";
     private static final String PARAM_PAGE = "page";
     private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
     private static final String PARAM_PLUGIN_DB_POOL_REQUIRED = "plugin_pool";
@@ -900,6 +904,8 @@ public class PluginWizardApp implements XPageApplication
         //add the attributes from the request hash
         model.setIdPlugin( nId );
         String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
+        String strDescription = request.getParameter( PARAM_PLUGIN_DESCRIPTION );
+        String strProvider = request.getParameter( PARAM_PLUGIN_PROVIDER );
 
 
         String strPoolRequired = request.getParameter( PARAM_PLUGIN_DB_POOL_REQUIRED );
@@ -909,8 +915,9 @@ public class PluginWizardApp implements XPageApplication
 
         model.setPluginName( strPluginName );
         model.setPluginClass( DEFAULT_PLUGIN_CLASS );
-        model.setPluginDescription( strPluginName + SUFFIX_PLUGIN_DESCRIPTION );
-        model.setPluginProvider( strPluginName + SUFFIX_PLUGIN_PROVIDER );
+        model.setPluginDescription( strDescription );
+        model.setPluginProvider( strProvider );
+        model.setPluginVersion( request.getParameter( PARAM_PLUGIN_VERSION ) );
         model.setPluginIconUrl( "images/admin/skin/plugins/" + strPluginName + "/" + strPluginName + ".png" );
         model.setPluginCopyright( request.getParameter( PARAM_PLUGIN_COPYRIGHT ) );
 
@@ -928,8 +935,23 @@ public class PluginWizardApp implements XPageApplication
         model.setPluginInstallation( "" );
         model.setPluginChanges( "" );
 
-        model.setPluginVersion( request.getParameter( PARAM_PLUGIN_VERSION ) );
         PluginModelHome.update( model, plugin );
+        
+        String strKeyNameDescription = strPluginName + ".plugin.description";
+        LocalizationKey keyDescription = new LocalizationKey();
+        keyDescription.setKeyName( strKeyNameDescription );
+        keyDescription.setEnglishLocale(strDescription);
+        keyDescription.setFrenchLocale(strDescription);
+        
+        LocalizationKeyHome.create( keyDescription );
+        String strKeyNameProvider = strPluginName + ".plugin.provider";
+        LocalizationKey keyProvider = new LocalizationKey();
+        keyProvider.setKeyName( strKeyNameProvider );
+        keyProvider.setEnglishLocale(strProvider);
+        keyProvider.setFrenchLocale(strProvider);
+        LocalizationKeyHome.create( keyProvider );
+
+
     }
 
     /**
@@ -1047,22 +1069,37 @@ public class PluginWizardApp implements XPageApplication
     private void doCreateAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-
-        String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
+        PluginModel pluginModel = PluginModelHome.findByPrimaryKey(nPluginId, plugin); 
 
         String strPluginFeatureLabel = request.getParameter( PARAM_FEATURE_LABEL );
-        String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
+        String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
+        String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
         String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_URL );
         PluginFeature pluginFeature = new PluginFeature();
 
         pluginFeature.setIdPlugin( nPluginId );
-        pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
         pluginFeature.setPluginFeatureLabel( strPluginFeatureLabel );
-        pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
         pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
+        pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
+        pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
         pluginFeature.setPluginFeatureUrl( strPluginFeatureUrl );
         PluginFeatureHome.create( pluginFeature, plugin );
+        
+        String strKeyNameTitle = pluginModel.getPluginName() + ".adminFeature." + strPluginFeatureLabel.toLowerCase() + ".name";
+        LocalizationKey keyTitle = new LocalizationKey();
+        keyTitle.setKeyName( strKeyNameTitle );
+        keyTitle.setEnglishLocale(strPluginFeatureTitle);
+        keyTitle.setFrenchLocale(strPluginFeatureTitle);
+        LocalizationKeyHome.create( keyTitle );
+
+        String strKeyNameDescription = pluginModel.getPluginName() + ".adminFeature." + strPluginFeatureLabel.toLowerCase() + ".description";
+        LocalizationKey keyDescription = new LocalizationKey();
+        keyDescription.setKeyName( strKeyNameDescription );
+        keyDescription.setEnglishLocale(strPluginFeatureDescription);
+        keyDescription.setFrenchLocale(strPluginFeatureDescription);
+        LocalizationKeyHome.create( keyDescription );
+        
     }
 
     /**

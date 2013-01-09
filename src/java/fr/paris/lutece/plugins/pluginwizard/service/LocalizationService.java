@@ -56,47 +56,61 @@ public class LocalizationService
         {
             _mapLocalized.put( key.getKeyName() , key );
         }
-            
-
     }
 
+    
     /**
      * Localize a key
-     * @param strKey The key
+     * @param strFullKey The key
      * @return A localized Resource key
      */
-    static ResourceKey localize( String strKey )
+    static ResourceKey localize( String strFullKey , String strPluginName )
     {
         ResourceKey key = new ResourceKey();
-        key.setMarkerIdentifier( strKey );
+        key.setMarkerIdentifier( strFullKey );
         if (!_bInit)
         {
             init();
         }
-        String strKeyname = strKey.substring( strKey.lastIndexOf( "." ) + 1 );
+        String strQualifiedKey = strPluginName + "." + strFullKey;
+        String strKeyname = strFullKey.substring( strFullKey.lastIndexOf( "." ) + 1 );
 
-        LocalizationKey locales = _mapLocalized.get( strKey );
-        if (locales != null)
+        if( ( key = getLocalization( strFullKey , strQualifiedKey )) != null )
         {
-            key.setFrenchLocale( locales.getFrenchLocale() );
-            key.setEnglishLocale( locales.getEnglishLocale() );
+            return key;
+        }
+        if( ( key = getLocalization( strFullKey , strFullKey )) != null )
+        {
+            return key;
+        }
+        if( ( key = getLocalization( strFullKey , strKeyname )) != null )
+        {
             return key;
         }
 
-        locales = _mapLocalized.get( strKeyname );
-        if (locales != null)
-        {
-            key.setFrenchLocale( locales.getFrenchLocale() );
-            key.setEnglishLocale( locales.getEnglishLocale() );
-            return key;
-        }
-
+        key = new ResourceKey();
+        key.setMarkerIdentifier( strFullKey );
         strKeyname = strKeyname.replaceAll( "rowTitle", "" );
         strKeyname = strKeyname.replaceAll( "column", "" );
         strKeyname = strKeyname.replaceAll( "button", "" );
         key.setFrenchLocale( strKeyname );
         key.setEnglishLocale( strKeyname );
+
         return key;
+    }
+    
+    private static ResourceKey getLocalization( String strKey , String strPattern )
+    {
+        LocalizationKey locales = _mapLocalized.get( strPattern );
+        if (locales != null)
+        {
+            ResourceKey key = new ResourceKey();
+            key.setMarkerIdentifier( strKey );
+            key.setFrenchLocale( locales.getFrenchLocale() );
+            key.setEnglishLocale( locales.getEnglishLocale() );
+            return key;
+        }
+        return null;
     }
 
 }

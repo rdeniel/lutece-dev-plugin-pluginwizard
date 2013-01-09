@@ -76,7 +76,7 @@ public class PortletTemplateGenerator implements Generator
                 String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(),
                         pluginModel.getPluginName(), i );
 
-                String strPath = strBasePath + "/" + strPortletFile;
+                String strPath = strBasePath + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletHtmlTemplate( portlet,
                         pluginModel.getPluginName(), i );

@@ -76,7 +76,7 @@ public class BackOfficeJspGenerator implements Generator
                 String strJspFileName = getJspFileName( businessClass.getBusinessClass(),
                         pluginModel.getPluginName(), i );
 
-                String strPath = strBasePath + "/" + strJspFileName;
+                String strPath = strBasePath + strJspFileName;
 
                 String strSourceCode = SourceCodeGenerator.getJspFile( businessClass, pluginModel.getPluginName(), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );

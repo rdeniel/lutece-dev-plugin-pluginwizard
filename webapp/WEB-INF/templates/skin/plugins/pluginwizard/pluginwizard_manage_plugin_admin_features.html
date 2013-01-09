@@ -37,7 +37,7 @@
             <tbody>
                 <#if admin_features?? > <#list admin_features as feature >
                 <tr>
-                    <td><a href="jsp/site/Portal.jsp?page=pluginwizard&action=view_admin_feature&action=view_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.idPluginFeature}" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonViewFeature}">${feature.pluginFeatureLabel}</a></td>
+                    <td>${feature.pluginFeatureLabel}</td>
 
                     <td>${feature.pluginFeatureLevel}</td>
                     <td>

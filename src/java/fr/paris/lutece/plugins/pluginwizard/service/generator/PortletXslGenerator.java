@@ -68,7 +68,7 @@ public class PortletXslGenerator implements Generator
 
         for ( PluginPortlet portlet : listPortlets )
         {
-            String strPath = strBasePath + "/" + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
+            String strPath = strBasePath + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
 
             String strSourceCode = SourceCodeGenerator.getPortletXsl( portlet, pluginModel.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );

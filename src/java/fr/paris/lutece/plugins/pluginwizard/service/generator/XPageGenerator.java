@@ -69,7 +69,7 @@ public class XPageGenerator implements Generator
 
         for (PluginApplication xpage : listPluginApplications)
         {
-            String strPath = strBasePath + "/" + xpage.getApplicationClass() + ".java";
+            String strPath = strBasePath + xpage.getApplicationClass() + ".java";
 
             String strSourceCode = SourceCodeGenerator.getXPageCode( pluginModel.getIdPlugin(), plugin,
                     xpage.getIdPluginApplication() );

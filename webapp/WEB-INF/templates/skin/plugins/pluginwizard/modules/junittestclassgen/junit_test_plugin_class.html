@@ -54,8 +54,6 @@ public class ${businessClass.businessClass}BusinessTest extends LuteceTestCase
 
     public void testBusiness(  )
     {
-        Plugin plugin = PluginService.getPlugin( "${businessClass.businessPluginName}" );
-        
         // Initialize an object
         ${businessClass.businessClass} ${businessClass.instanceName} = new ${businessClass.businessClass}();
         <#list businessClass.attributes as attribute>
@@ -63,8 +61,8 @@ public class ${businessClass.businessClass}BusinessTest extends LuteceTestCase
         </#list>
 
         // Create test
-        ${businessClass.businessClass}Home.create( ${businessClass.instanceName} , plugin );
-        ${businessClass.businessClass} ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() , plugin );
+        ${businessClass.businessClass}Home.create( ${businessClass.instanceName} );
+        ${businessClass.businessClass} ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() );
         <#list businessClass.attributes as attribute>
         assertEquals( ${businessClass.instanceName}Stored.get${attribute.name}() , ${businessClass.instanceName}.get${attribute.name}() );
         </#list>
@@ -73,18 +71,18 @@ public class ${businessClass.businessClass}BusinessTest extends LuteceTestCase
         <#list businessClass.attributes as attribute>
         ${businessClass.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
         </#list>
-        ${businessClass.businessClass}Home.update( ${businessClass.instanceName} , plugin );
-        ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() , plugin );
+        ${businessClass.businessClass}Home.update( ${businessClass.instanceName} );
+        ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() );
         <#list businessClass.attributes as attribute>
         assertEquals( ${businessClass.instanceName}Stored.get${attribute.name}() , ${businessClass.instanceName}.get${attribute.name}() );
         </#list>
 
         // List test
-        ${businessClass.businessClass}Home.get${businessClass.businessClass}sList( plugin );
+        ${businessClass.businessClass}Home.get${businessClass.businessClass}sList();
 
         // Delete test
-        ${businessClass.businessClass}Home.remove( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() , plugin );
-        ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() , plugin );
+        ${businessClass.businessClass}Home.remove( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() );
+        ${businessClass.instanceName}Stored = ${businessClass.businessClass}Home.findByPrimaryKey( ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}() );
         assertNull( ${businessClass.instanceName}Stored );
         
     }

@@ -129,13 +129,9 @@ public final class SourceCodeGenerator
      */
     public static String getSourceCode( BusinessClass businessClass, int nGenerationType )
     {
-        String strPage = "";
-
         Generator generator = new Generator(  );
         generator.setTemplate( getTemplate( nGenerationType ) );
-        strPage = generator.generate( businessClass );
-
-        return strPage;
+        return generator.generate( businessClass );
     }
 
     /**
@@ -484,15 +480,14 @@ public final class SourceCodeGenerator
         ArrayList<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
-        storeKeyList( nPluginId, plugin, listKeys );
+        storeKeyList( nPluginId, pluginModel.getPluginName() , plugin, listKeys );
     }
     
-    private static void storeKeyList( int nPluginId, Plugin plugin , List<String> listKeys )
+    private static void storeKeyList( int nPluginId, String strPluginName , Plugin plugin , List<String> listKeys )
     {
         for( String strKey : listKeys )
         {
-            
-            ResourceKey key = LocalizationService.localize( strKey.trim() );
+            ResourceKey key = LocalizationService.localize( strKey.trim() , strPluginName );
             key.setIdPlugin( nPluginId );
             ResourceKeyHome.create( key, plugin );
             System.out.println( key.getMarkerIdentifier() + " " + key.getFrenchLocale() + " " + key.getEnglishLocale() );
@@ -513,10 +508,12 @@ public final class SourceCodeGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
+        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nPluginId, plugin );
 
         model.put( MARK_LIST_PORTLETS, listPortlets );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
+        model.put( MARK_LIST_FEATURES, listFeatures );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_KEYS, new Locale( "en", "US" ),
                 model );

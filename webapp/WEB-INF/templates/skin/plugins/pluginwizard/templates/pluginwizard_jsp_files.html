@@ -101,7 +101,7 @@ response.sendRedirect( ${plugin_name?lower_case}.getConfirmRemove${business_clas
 <jsp:useBean id="${plugin_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${plugin_name?cap_first}JspBean" />
 
 <% ${plugin_name?lower_case}.init( request, ${plugin_name?lower_case}.RIGHT_MANAGE_${plugin_name?upper_case} ); %>
-<%= ${plugin_name?lower_case}.getManage${plugin_name?cap_first}sHome ( request ) %>
+<%= ${plugin_name?lower_case}.getManage${plugin_name?cap_first}Home ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
  <#break>

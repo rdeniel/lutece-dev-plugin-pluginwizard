@@ -89,7 +89,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
             for ( int i = 1; i < 4; i++ )
             {
 
-                String strPath = strBasePath + "/" + getTemplatePrefix( i ) +
+                String strPath = strBasePath + getTemplatePrefix( i ) +
                     businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
 
                 Collection<BusinessClass> listClass = new ArrayList<BusinessClass>(  );

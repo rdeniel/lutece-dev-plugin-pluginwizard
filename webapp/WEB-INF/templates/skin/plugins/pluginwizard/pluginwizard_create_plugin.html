@@ -16,7 +16,7 @@
 
                 <input type="hidden" name="page" value="wizard" />			
                 <input type="hidden" name="action" value="do_create_plugin" />	
-                
+
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	
                     <div class="controls">
@@ -25,20 +25,25 @@
                     </div>
                 </div>
 
-                <ul>
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBusinessClasses}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddJspBean}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddXPage}</li>
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSqlFiles}</li>           
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeTemplate}</li>            
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddResourceFiles}</li>           
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeJsp}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginPropertiesFile}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginXmlDefinition}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddMavenPom}</li>             
-                    <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSpringContextXml}</li>             
-                </ul>
-                
+                <div class="control-group">
+                    <div class="controls">
+                        <h5>#i18n{pluginwizard.pluginwizard_create_plugin.labelSummary} :</h5>
+                        <ul>
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBusinessClasses}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddJspBean}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddXPage}</li>
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeJsp}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBackOfficeTemplate}</li>            
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddResourceFiles}</li>           
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginPropertiesFile}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSpringContextXml}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddPluginXmlDefinition}</li>             
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddSqlFiles}</li>           
+                            <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddMavenPom}</li>             
+                        </ul>
+                    </div>
+                </div>
+
                 <div class="form-actions">                        
                     <input class="btn btn-primary" name="do_create_plugin" value="#i18n{pluginwizard.pluginwizard_create_plugin.buttonCreatePlugin}" type="submit" />                        
                 </div>	

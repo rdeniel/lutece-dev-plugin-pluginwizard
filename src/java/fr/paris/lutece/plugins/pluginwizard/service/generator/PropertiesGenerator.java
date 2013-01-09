@@ -63,7 +63,7 @@ public class PropertiesGenerator implements Generator
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
 
-        strBasePath = strBasePath + "/" + pluginModel.getPluginName().toLowerCase() + ".properties";
+        strBasePath = strBasePath + pluginModel.getPluginName().toLowerCase() + ".properties";
 
         String strSourceCode = SourceCodeGenerator.getPropertiesFileCode( pluginModel.getIdPlugin(), plugin );
         map.put( strBasePath, strSourceCode );

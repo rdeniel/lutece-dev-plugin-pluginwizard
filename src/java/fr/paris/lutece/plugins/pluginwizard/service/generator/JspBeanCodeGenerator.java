@@ -68,7 +68,7 @@ public class JspBeanCodeGenerator implements Generator
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
                 strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        String strPath = strBasePath + "/" + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+        String strPath = strBasePath + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
 
         Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );

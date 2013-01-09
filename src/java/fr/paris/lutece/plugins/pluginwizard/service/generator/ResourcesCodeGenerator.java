@@ -70,7 +70,7 @@ public class ResourcesCodeGenerator implements Generator
 
         for ( int i = 0; i < _languages.length; i++ )
         {
-            String strPath = strBasePath + "/" + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] + ".properties";
+            String strPath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] + ".properties";
 
             String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ), strLanguage, plugin );
             map.put( strPath, strSourceCode );

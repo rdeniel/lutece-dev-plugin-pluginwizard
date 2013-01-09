@@ -78,7 +78,7 @@ public class BusinessClassCodeGenerator implements Generator
                     String strPath;
                     
 
-                    strPath = strBasePath + "/" + strClassName + ".java";
+                    strPath = strBasePath + strClassName + ".java";
                     if ( i == 9 )
                     {
                         // The test source code is in another directory

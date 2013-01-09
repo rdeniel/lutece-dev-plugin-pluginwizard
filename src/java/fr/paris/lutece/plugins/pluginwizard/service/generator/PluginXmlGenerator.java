@@ -63,7 +63,7 @@ public class PluginXmlGenerator implements Generator
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
 
 
-        strBasePath = strBasePath + "/" + pluginModel.getPluginName().toLowerCase() + ".xml";
+        strBasePath = strBasePath + pluginModel.getPluginName().toLowerCase() + ".xml";
 
         String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(), plugin );
         map.put( strBasePath, strSourceCode );
