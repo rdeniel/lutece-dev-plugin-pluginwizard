@@ -93,10 +93,10 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
 
         pluginFeature.setIdPluginFeature( newPrimaryKey( plugin ) );
         daoUtil.setInt( 1, pluginFeature.getIdPluginFeature(  ) );
-        daoUtil.setString( 2, pluginFeature.getPluginFeatureLabel(  ) );
+        daoUtil.setString( 2, pluginFeature.getPluginFeatureRight(  ) );
         daoUtil.setString( 3, pluginFeature.getPluginFeatureTitle(  ) );
         daoUtil.setString( 4, pluginFeature.getPluginFeatureLevel(  ) );
-        daoUtil.setString( 5, pluginFeature.getPluginFeatureUrl(  ) );
+        daoUtil.setString( 5, pluginFeature.getPluginFeatureName(  ) );
         daoUtil.setString( 6, pluginFeature.getPluginFeatureDescription(  ) );
         insertDependency( pluginFeature.getIdPlugin(  ), pluginFeature.getIdPluginFeature(  ), plugin );
         daoUtil.executeUpdate(  );
@@ -141,10 +141,10 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
             pluginFeature.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginFeature.setIdPluginFeature( daoUtil.getInt( 2 ) );
 
-            pluginFeature.setPluginFeatureLabel( daoUtil.getString( 3 ) );
+            pluginFeature.setPluginFeatureRight( daoUtil.getString( 3 ) );
             pluginFeature.setPluginFeatureTitle( daoUtil.getString( 4 ) );
             pluginFeature.setPluginFeatureLevel( daoUtil.getString( 5 ) );
-            pluginFeature.setPluginFeatureUrl( daoUtil.getString( 6 ) );
+            pluginFeature.setPluginFeatureName( daoUtil.getString( 6 ) );
             pluginFeature.setPluginFeatureDescription( daoUtil.getString( 7 ) );
         }
 
@@ -191,10 +191,10 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
         daoUtil.setInt( 1, pluginFeature.getIdPluginFeature(  ) );
-        daoUtil.setString( 2, pluginFeature.getPluginFeatureLabel(  ) );
+        daoUtil.setString( 2, pluginFeature.getPluginFeatureRight(  ) );
         daoUtil.setString( 3, pluginFeature.getPluginFeatureTitle(  ) );
         daoUtil.setString( 4, pluginFeature.getPluginFeatureLevel(  ) );
-        daoUtil.setString( 5, pluginFeature.getPluginFeatureUrl(  ) );
+        daoUtil.setString( 5, pluginFeature.getPluginFeatureName(  ) );
         daoUtil.setString( 6, pluginFeature.getPluginFeatureDescription(  ) );
         daoUtil.setInt( 7, pluginFeature.getIdPluginFeature(  ) );
 
@@ -221,10 +221,10 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
 
             pluginFeature.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginFeature.setIdPluginFeature( daoUtil.getInt( 2 ) );
-            pluginFeature.setPluginFeatureLabel( daoUtil.getString( 3 ) );
+            pluginFeature.setPluginFeatureRight( daoUtil.getString( 3 ) );
             pluginFeature.setPluginFeatureTitle( daoUtil.getString( 4 ) );
             pluginFeature.setPluginFeatureLevel( daoUtil.getString( 5 ) );
-            pluginFeature.setPluginFeatureUrl( daoUtil.getString( 6 ) );
+            pluginFeature.setPluginFeatureName( daoUtil.getString( 6 ) );
             pluginFeature.setPluginFeatureDescription( daoUtil.getString( 7 ) );
 
             pluginFeatureList.add( pluginFeature );

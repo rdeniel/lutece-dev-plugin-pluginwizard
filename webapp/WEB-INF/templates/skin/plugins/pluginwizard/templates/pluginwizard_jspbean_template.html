@@ -66,14 +66,14 @@ import javax.servlet.http.HttpServletRequest;
  * This class provides the user interface to manage <#list list_business_class as business_class> ${business_class.businessClass}<#if list_business_class?last != business_class>,</#if>  
 </#list> features ( manage, create, modify, remove )
  */
-public class ${plugin_model.nameJspBeanPrefix}JspBean extends PluginAdminPageJspBean
+public class ${feature_name}JspBean extends PluginAdminPageJspBean
 {
 
     ////////////////////////////////////////////////////////////////////////////
     // Constants
 
     // Right
-    public static final String RIGHT_MANAGE_${plugin_model.nameRightSuffixDeclaration} = "${plugin_model.nameRightSuffix}_MANAGEMENT";
+    public static final String RIGHT_${feature_name?upper_case} = "${feature_right}";
     
     // Parameters
 <#list list_business_class as business_class>
@@ -94,7 +94,7 @@ public class ${plugin_model.nameJspBeanPrefix}JspBean extends PluginAdminPageJsp
     private static final String TEMPLATE_MODIFY_${business_class.businessClassTemplateDeclaration}="/admin/plugins/${plugin_model.pluginName}/modify_${business_class.businessClassTemplate}.html";
 </#if>    
 </#list>
-    private static final String TEMPLATE_MANAGE_${plugin_model.nameMainTemplate}S="/admin/plugins/${plugin_model.pluginName}/manage_${plugin_model.pluginName}s.html";
+    private static final String TEMPLATE_MANAGE_${plugin_model.nameMainTemplate}S="/admin/plugins/${plugin_model.pluginName}/manage_${plugin_model.pluginName}.html";
 
 
 // Properties for page titles
@@ -153,7 +153,7 @@ private static final String PROPERTY_PAGE_TITLE_MANAGE_${plugin_model.pluginName
      * @param request The Http request
      * @return the entity list
      */
-    public String getManage${plugin_model.pluginName?cap_first}sHome( HttpServletRequest request )
+    public String get${feature_name}Home( HttpServletRequest request )
     {
         setPageTitleProperty( PROPERTY_PAGE_TITLE_MANAGE_${plugin_model.pluginName?upper_case}S );
 

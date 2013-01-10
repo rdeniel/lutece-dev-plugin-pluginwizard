@@ -21,24 +21,32 @@
                 <input type="hidden" name="feature_id" value="${feature.idPluginFeature}" />   
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} : </label>                     
-                    <div class="controls">               
-                        <input type="text" name="feature_label" value="${feature.pluginFeatureLabel}" size="30" />                                 
-                    </div> 
-                </div>
-
-                <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureTitle} : </label>                           
                     <div class="controls">                                                                                               
-                        <input class="input-xxlarge" type="text" name="feature_title" value="${feature.pluginFeatureTitle}" size="30" />                                                                      
+                        <input class="input-xlarge" type="text" name="feature_title" value="${feature.pluginFeatureTitle}" />                                                                      
                     </div>                                                                                                         
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureDescription} : </label>                        
                     <div class="controls">                                                                                       
-                        <input class="input-xxlarge" type="text" name="feature_description" value="${feature.pluginFeatureDescription}" size="30" />                               
+                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.pluginFeatureDescription}" />                               
                     </div>    
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureName} :                            
+                    </label>                               
+                    <div class="controls">                                                              	                              
+                        <input class="input-xlarge" type="text" name="feature_url" value="${feature.pluginFeatureName}" /> 				                                                                        
+                    </div>                                                                                                                                                                      	  				                     
+                </div>   
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} : </label>                     
+                    <div class="controls">               
+                        <input type="text" name="feature_label" value="${feature.pluginFeatureRight}" />                                 
+                    </div> 
                 </div>
 
                 <div class="control-group">
@@ -61,13 +69,6 @@
     </div>         
 </div>
 
-<div class="control-group">
-    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureUrl} :                            
-    </label>                               
-    <div class="controls">                                                              	                              
-        <input class="input-xxlarge" type="text" name="feature_url" value="${feature.pluginFeatureUrl}" size="30" /> 				                                                                        
-    </div>                                                                                                                                                                      	  				                     
-</div>                                    
 <div class="form-actions">                                                                    
     <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
     <button type="submit" name="goToManageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    

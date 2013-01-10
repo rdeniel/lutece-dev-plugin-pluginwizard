@@ -35,15 +35,17 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.plugins.pluginwizard.web.Constants;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import java.util.ArrayList;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 
 /**
  *
@@ -52,42 +54,41 @@ import java.util.Map;
  */
 public class JspBeanCodeGenerator implements Generator
 {
+
     /**
      * Visits the path and verifies if JspBean is relevant
+     *
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate(Plugin plugin, PluginModel pluginModel)
     {
-        HashMap map = new HashMap(  );
-        String strPluginNameCap = getFirstCaps( pluginModel.getPluginName(  ) );
-
+        HashMap map = new HashMap();
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace("{plugin_name}", pluginModel.getPluginName());
 
-        String strPath = strBasePath + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin(pluginModel.getIdPlugin(), plugin);
 
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-        String strSourceCode = SourceCodeGenerator.getJspBeanCode( pluginModel, listAllBusinessClasses );
-        map.put( strPath, strSourceCode );
+        for (PluginFeature feature : pluginModel.getPluginFeatures())
+        {
+            List<BusinessClass> listBusinessClasses = new ArrayList<BusinessClass>();
+
+            for (BusinessClass businessClass : listAllBusinessClasses)
+            {
+                if (businessClass.getIdFeature() == feature.getIdPluginFeature())
+                {
+                    listBusinessClasses.add(businessClass);
+                }
+            }
+            String strPath = strBasePath + feature.getPluginFeatureName() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+
+            String strSourceCode = SourceCodeGenerator.getJspBeanCode( pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight() , listBusinessClasses);
+            map.put(strPath, strSourceCode);
+        }
 
         return map;
     }
 
-    /**
-     * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
-     */
-    private String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
-
-        return strValueCap;
-    }
 }

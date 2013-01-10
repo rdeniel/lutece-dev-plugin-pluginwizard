@@ -74,7 +74,8 @@ public final class SourceCodeGenerator
     private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_template.html";
     private static final String TEMPLATE_PROPERTIES_KEYS = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys.html";
     private static final String TEMPLATE_PROPERTIES_KEYS_GENERATED = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys_generated.html";
-    private static final String TEMPLATE_JSP_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_files.html";
+    private static final String TEMPLATE_JSP_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_business_files.html";
+    private static final String TEMPLATE_JSP_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_feature_file.html";
     private static final String TEMPLATE_PORTLET_JSP_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jsp_files.html";
     private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
     private static final String TEMPLATE_PORTLET_XSL_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_xsl_files.html";
@@ -91,6 +92,8 @@ public final class SourceCodeGenerator
     private static final String MARK_PLUGIN_APPLICATION = "plugin_application";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
     private static final String MARK_PLUGIN_NAME = "plugin_name";
+    private static final String MARK_FEATURE_NAME = "feature_name";
+    private static final String MARK_FEATURE_RIGHT = "feature_right";
     private static final String MARK_BUSINESS_CLASS = "business_class";
     private static final String MARK_BUSINESS_CLASSES = "business_classes";
     private static final String MARK_JSP_TYPE = "jsp_type";
@@ -142,15 +145,26 @@ public final class SourceCodeGenerator
      * @param nJspType The type of jsp
      * @return The source code of the jsp
      */
-    public static String getJspFile( BusinessClass businessClass, String strPluginName, int nJspType )
+    public static String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_FEATURE_NAME, strFeatureName );
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_JSP_TYPE, nJspType + "" );
+        model.put( MARK_JSP_TYPE, "" + nJspType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_FILE_TEMPLATE, new Locale( "en", "US" ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_BUSINESS_FILES, new Locale( "en", "US" ), model );
+
+        return template.getHtml(  );
+    }
+
+    public static String getFeatureJspFile( String strFeatureName, String strPluginName )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_FEATURE_NAME, strFeatureName );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_FEATURE_FILE, new Locale( "en", "US" ), model );
 
         return template.getHtml(  );
     }
@@ -426,12 +440,14 @@ public final class SourceCodeGenerator
      * @param listBusinessClasses The list of business classes
      * @return the template The source code of the Jsp Bean
      */
-    public static String getJspBeanCode( PluginModel pluginModel, Collection<BusinessClass> listBusinessClasses )
+    public static String getJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight, Collection<BusinessClass> listBusinessClasses )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
         model.put( MARK_PLUGIN_MODEL, pluginModel );
+        model.put( MARK_FEATURE_NAME, strFeatureName );
+        model.put( MARK_FEATURE_RIGHT, strFeatureRight );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSPBEAN_CODE_TEMPLATE,
                 new Locale( "en", "US" ), model );

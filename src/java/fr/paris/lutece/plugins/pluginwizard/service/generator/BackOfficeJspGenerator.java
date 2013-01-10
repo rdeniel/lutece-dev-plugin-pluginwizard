@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -43,7 +44,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * The generator produced the jsp for back office management
@@ -51,6 +51,10 @@ import java.util.Map;
  */
 public class BackOfficeJspGenerator implements Generator
 {
+
+    private static final String EXT_JSP = ".jsp";
+    private static String[] _jsp_prefix = { "Create", "DoCreate", "Remove", "DoRemove" , "Manage", "Modify", "DoModify" };
+
     /**
      * Visits the path and verifies if Portlet templates is relevant to be
      * generated
@@ -60,104 +64,42 @@ public class BackOfficeJspGenerator implements Generator
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate(Plugin plugin, PluginModel pluginModel)
     {
-        HashMap map = new HashMap(  );
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
+        HashMap map = new HashMap();
+        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin(pluginModel.getIdPlugin(), plugin);
+        String strPluginName = pluginModel.getPluginName();
 
         String strBasePath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace("{plugin_name}", strPluginName);
 
-        for ( BusinessClass businessClass : listAllBusinessClasses )
+        for (PluginFeature feature : pluginModel.getPluginFeatures())
         {
-            for ( int i = 1; i < 9; i++ )
+            for (BusinessClass businessClass : listAllBusinessClasses)
             {
-                String strJspFileName = getJspFileName( businessClass.getBusinessClass(  ),
-                        pluginModel.getPluginName(  ), i );
+                if (businessClass.getIdFeature() == feature.getIdPluginFeature())
+                {
+                    for (int i = 0; i < _jsp_prefix.length ; i++)
+                    {
+                        String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass() + EXT_JSP;
 
-                String strPath = strBasePath + strJspFileName;
+                        String strPath = strBasePath + strJspFileName;
 
-                String strSourceCode = SourceCodeGenerator.getJspFile( businessClass, pluginModel.getPluginName(  ), i );
-                strSourceCode = strSourceCode.replace( "&lt;", "<" );
-                strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                map.put( strPath, strSourceCode );
+                        String strSourceCode = SourceCodeGenerator.getJspBusinessFile(businessClass, feature.getPluginFeatureName(), strPluginName, i + 1);
+                        strSourceCode = strSourceCode.replace("&lt;", "<");
+                        strSourceCode = strSourceCode.replace("&gt;", ">");
+                        map.put(strPath, strSourceCode);
+                    }
+                }
             }
-        }
+            String strPath = strBasePath + feature.getPluginFeatureName() + EXT_JSP;
 
+            String strSourceCode = SourceCodeGenerator.getFeatureJspFile( feature.getPluginFeatureName(), strPluginName );
+            strSourceCode = strSourceCode.replace("&lt;", "<");
+            strSourceCode = strSourceCode.replace("&gt;", ">");
+            map.put(strPath, strSourceCode);
+        }
         return map;
     }
 
-    /**
-     * Fetches the name of the Jsp file
-     *
-     * @param strBusinessClass the business class name
-     * @param strPluginName the name of the plugin
-     * @param nJspType The type of Jsp to be generated
-     * @return The name of the backoffice Jsp
-     */
-    private String getJspFileName( String strBusinessClass, String strPluginName, int nJspType )
-    {
-        String strReturn;
-
-        switch ( nJspType )
-        {
-            case 1:
-                strReturn = "Create" + strBusinessClass + ".jsp";
-
-                break;
-
-            case 2:
-                strReturn = "DoCreate" + strBusinessClass + ".jsp";
-
-                break;
-
-            case 3:
-                strReturn = "Remove" + strBusinessClass + ".jsp";
-
-                break;
-
-            case 4:
-                strReturn = "DoRemove" + strBusinessClass + ".jsp";
-
-                break;
-
-            case 5:
-                strReturn = "Manage" + strBusinessClass + "s" + ".jsp";
-
-                break;
-
-            case 6:
-                strReturn = "Modify" + strBusinessClass + ".jsp";
-
-                break;
-
-            case 7:
-                strReturn = "DoModify" + strBusinessClass + ".jsp";
-
-                break;
-
-            default:
-                strReturn = "Manage" + getFirstCaps( strPluginName ) + "sHome.jsp";
-
-                break;
-        }
-
-        return strReturn;
-    }
-
-    /**
-     * Returns the value of a string with first letter in caps
-     *
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
-     */
-    private String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
-
-        return strValueCap;
-    }
 }

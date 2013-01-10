@@ -145,15 +145,12 @@ public class PluginWizardApp implements XPageApplication
     private static final String PARAM_ATTRIBUTE_ID = "attribute_id";
     private static final String PARAM_RESET = "reset";
 
-    //VIEW
-    private static final String TEMPLATE_VIEW_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_view_admin_feature.html";
-
     //Admin feature
     private static final String PARAM_FEATURE_ID = "feature_id";
     private static final String PARAM_FEATURE_LABEL = "feature_label";
     private static final String PARAM_FEATURE_TITLE = "feature_title";
     private static final String PARAM_FEATURE_LEVEL = "feature_level";
-    private static final String PARAM_FEATURE_URL = "feature_url";
+    private static final String PARAM_FEATURE_NAME = "feature_url";
     private static final String PARAM_FEATURE_DESCRITPION = "feature_description";
 
     //Application
@@ -220,7 +217,6 @@ public class PluginWizardApp implements XPageApplication
 
     //MODIFY_ACTIONS
     private static final String ACTION_MODIFY_ADMIN_FEATURE = "modify_admin_feature";
-    private static final String ACTION_VIEW_ADMIN_FEATURE = "view_admin_feature";
     private static final String ACTION_MODIFY_PLUGIN_PORTLET = "modify_portlet";
     private static final String ACTION_MODIFY_PLUGIN_APPLICATION = "modify_plugin_application";
     private static final String ACTION_MODIFY_BUSINESS_CLASS = "modify_business_class";
@@ -447,11 +443,6 @@ public class PluginWizardApp implements XPageApplication
         else if ( strAction.equals( ACTION_MODIFY_ADMIN_FEATURE ) )
         {
             strContent = getModifyAdminFeature( request, plugin );
-            page.setContent( strContent );
-        }
-        else if ( strAction.equals( ACTION_VIEW_ADMIN_FEATURE ) )
-        {
-            strContent = getViewAdminFeature( request, plugin );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_PLUGIN_APPLICATION ) )
@@ -1070,23 +1061,23 @@ public class PluginWizardApp implements XPageApplication
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
 
-        String strPluginFeatureLabel = request.getParameter( PARAM_FEATURE_LABEL );
+        String strPluginFeatureRight = request.getParameter( PARAM_FEATURE_LABEL );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
         String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
         String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
-        String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_URL );
+        String strPluginFeatureName = request.getParameter( PARAM_FEATURE_NAME );
         PluginFeature pluginFeature = new PluginFeature(  );
 
         pluginFeature.setIdPlugin( nPluginId );
-        pluginFeature.setPluginFeatureLabel( strPluginFeatureLabel );
+        pluginFeature.setPluginFeatureRight( strPluginFeatureRight );
         pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
         pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
         pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
-        pluginFeature.setPluginFeatureUrl( strPluginFeatureUrl );
+        pluginFeature.setPluginFeatureName( strPluginFeatureName );
         PluginFeatureHome.create( pluginFeature, plugin );
 
         String strKeyNameTitle = pluginModel.getPluginName(  ) + ".adminFeature." +
-            strPluginFeatureLabel.toLowerCase(  ) + ".name";
+            strPluginFeatureName.toLowerCase(  ) + ".name";
         LocalizationKey keyTitle = new LocalizationKey(  );
         keyTitle.setKeyName( strKeyNameTitle );
         keyTitle.setEnglishLocale( strPluginFeatureTitle );
@@ -1094,7 +1085,7 @@ public class PluginWizardApp implements XPageApplication
         LocalizationKeyHome.create( keyTitle );
 
         String strKeyNameDescription = pluginModel.getPluginName(  ) + ".adminFeature." +
-            strPluginFeatureLabel.toLowerCase(  ) + ".description";
+            strPluginFeatureName.toLowerCase(  ) + ".description";
         LocalizationKey keyDescription = new LocalizationKey(  );
         keyDescription.setKeyName( strKeyNameDescription );
         keyDescription.setEnglishLocale( strPluginFeatureDescription );
@@ -1126,30 +1117,6 @@ public class PluginWizardApp implements XPageApplication
     }
 
     /**
-     * View details of the admin feature
-     *
-     * @param request The Http Request
-     * @param plugin The Plugin
-     * @return The html code of the admin feature
-     */
-    private String getViewAdminFeature( HttpServletRequest request, Plugin plugin )
-    {
-        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        int nAdminFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
-        PluginFeature feature = PluginFeatureHome.findByPrimaryKey( nAdminFeature, plugin );
-
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_FEATURE, feature );
-        model.put( MARK_PLUGIN_ID, nPluginId );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_VIEW_ADMIN_FEATURE, request.getLocale(  ),
-                model );
-
-        return template.getHtml(  );
-    }
-
-    /**
      * The modification action of an admin feature
      *
      * @param request The Http Request
@@ -1164,16 +1131,16 @@ public class PluginWizardApp implements XPageApplication
         String strPluginFeatureLabel = request.getParameter( PARAM_FEATURE_LABEL );
         String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
-        String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_URL );
+        String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_NAME );
 
         PluginFeature pluginFeature = new PluginFeature(  );
         pluginFeature.setIdPluginFeature( nIdPluginFeature );
         pluginFeature.setIdPlugin( nPluginId );
         pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
-        pluginFeature.setPluginFeatureLabel( strPluginFeatureLabel );
+        pluginFeature.setPluginFeatureRight( strPluginFeatureLabel );
         pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
         pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
-        pluginFeature.setPluginFeatureUrl( strPluginFeatureUrl );
+        pluginFeature.setPluginFeatureName( strPluginFeatureUrl );
         PluginFeatureHome.update( pluginFeature, plugin );
     }
 

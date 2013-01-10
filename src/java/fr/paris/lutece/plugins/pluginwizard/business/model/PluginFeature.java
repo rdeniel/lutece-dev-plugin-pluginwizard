@@ -45,10 +45,10 @@ public class PluginFeature
     // Variables declarations 
     private int _nIdPlugin;
     private int _nIdPluginFeature;
-    private String _strPluginFeatureLabel;
+    private String _strPluginFeatureRight;
     private String _strPluginFeatureTitle;
     private String _strPluginFeatureLevel;
-    private String _strPluginFeatureUrl;
+    private String _strPluginFeatureName;
     private String _strPluginFeatureDescription;
     private Collection<BusinessClass> _listBusinessClasses;
 
@@ -100,18 +100,18 @@ public class PluginFeature
      * Returns the PluginFeatureId
      * @return The PluginFeatureId
      */
-    public String getPluginFeatureLabel(  )
+    public String getPluginFeatureRight(  )
     {
-        return _strPluginFeatureLabel;
+        return _strPluginFeatureRight;
     }
 
     /**
-     * Sets the PluginFeatureLabel
-     * @param strPluginFeatureLabel The PluginFeatureLabel
+     * Sets the PluginFeature right
+     * @param strPluginFeatureRight The Plugin Feature right
      */
-    public void setPluginFeatureLabel( String strPluginFeatureLabel )
+    public void setPluginFeatureRight( String strPluginFeatureRight )
     {
-        _strPluginFeatureLabel = strPluginFeatureLabel;
+        _strPluginFeatureRight = strPluginFeatureRight;
     }
 
     /**
@@ -151,21 +151,22 @@ public class PluginFeature
     }
 
     /**
-     * Returns the PluginFeatureUrl
-     * @return The PluginFeatureUrl
+     * Returns the Plugin Feature name
+     * @return The Plugin Feature name
      */
-    public String getPluginFeatureUrl(  )
+    public String getPluginFeatureName(  )
     {
-        return _strPluginFeatureUrl;
+        return _strPluginFeatureName;
     }
 
     /**
-     * Sets the PluginFeatureUrl
-     * @param strPluginFeatureUrl The PluginFeatureUrl
+     * Sets the PluginFeatureName
+     * 
+     * @param strPluginFeatureName The PluginFeature name
      */
-    public void setPluginFeatureUrl( String strPluginFeatureUrl )
+    public void setPluginFeatureName( String strPluginFeatureName )
     {
-        _strPluginFeatureUrl = strPluginFeatureUrl;
+        _strPluginFeatureName = strPluginFeatureName;
     }
 
     /**

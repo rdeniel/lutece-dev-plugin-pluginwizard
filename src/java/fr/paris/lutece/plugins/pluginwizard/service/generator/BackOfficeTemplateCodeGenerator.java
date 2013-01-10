@@ -96,7 +96,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
             }
 
             //Add the main template where all the business management interface will be accessible
-            String strPath = strBasePath + "/" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
+            String strPath = strBasePath + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + ".html";
 
             String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4,
                     plugin );

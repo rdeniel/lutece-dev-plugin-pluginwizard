@@ -15,32 +15,41 @@
                 <legend>#i18n{pluginwizard.pluginwizard_create_admin_feature.pageTitle}</legend>                           
                 <input type="hidden" name="page" value="pluginwizard" />                         
                 <input type="hidden" name="action" value="do_create_feature" />                           
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />       
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
-                    <div class="controls">    
-                        <input type="text" name="feature_label" value="${plugin_model.pluginName?upper_case}_MANAGEMENT" size="30" />      
-                    </div>    
-                </div>
+                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />  
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
                     <div class="controls">      
-                        <input class="input-xxlarge" type="text" name="feature_title" value="" size="30" />                <br />                                           
+                        <input class="input-xlarge" type="text" name="feature_title" value="" />                                         
                     </div>
                 </div>
 
                 <div class="control-group">                                                         
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureDescription} : </label>                 
                     <div class="controls">        
-                        <input class="input-xxlarge" type="text" name="feature_description" value="" size="30" />                <br />                            
+                        <input class="input-xlarge" type="text" name="feature_description" value="" size="30" />                           
                     </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
+                    </label>          
+                    <div class="controls">            
+                        <input class="input-xlarge" type="text" name="feature_url" value="Manage${plugin_model.pluginName?cap_first}" />                     
+                    </div>             
+                </div> 
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
+                    <div class="controls">    
+                        <input type="text" name="feature_label" value="${plugin_model.pluginName?upper_case}_MANAGEMENT"  />      
+                    </div>    
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureLevel} :  </label>               
                     <div class="controls">             
-                        <select class="input-xxlarge" name="feature_level">    				           
+                        <select class="input-xlarge" name="feature_level">    				           
                             <option value="0" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelLevel0}           
                             </option>    				           
                             <option value="1" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelLevel1}           
@@ -52,13 +61,6 @@
                         </select>               
                     </div> 
                 </div>
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureUrl} :         
-                    </label>          
-                    <div class="controls">            
-                        <input class="input-xxlarge" type="text" name="feature_url" value="jsp/admin/plugins/${plugin_model.pluginName}/Manage${plugin_model.pluginName?cap_first}.jsp" size="30" />                     
-                    </div>             
-                </div>                    
                 <div class="form-actions">                                                  
                     <button type="submit" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_admin_feature.buttonCreateFeature}       
