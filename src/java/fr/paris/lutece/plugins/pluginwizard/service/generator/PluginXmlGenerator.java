@@ -33,13 +33,23 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplication;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplicationHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -48,6 +58,8 @@ import java.util.Map;
  */
 public class PluginXmlGenerator implements Generator
 {
+    private static final String TEMPLATE_PLUGIN_XML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xml_template.html";
+
     /**
      * Visits the path and verifies xml plugin description file is needed
      *
@@ -64,9 +76,36 @@ public class PluginXmlGenerator implements Generator
 
         strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
 
-        String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;
+    }
+
+    /**
+    * Returns the text content of the plugin xml file
+    * @param nPluginId The id of the plugin
+    * @param plugin The plugin
+    * @return The plugin xml file content of the plugin
+    */
+    private String getPluginXmlCode( int nPluginId, Plugin plugin )
+    {
+        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pluginModel );
+
+        int nIdPlugin = pluginModel.getIdPlugin(  );
+        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nIdPlugin, plugin );
+
+        Collection<PluginApplication> listApplcations = PluginApplicationHome.findByPlugin( nIdPlugin, plugin );
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
+        model.put( MARK_LIST_FEATURES, listFeatures );
+        model.put( MARK_LIST_APPLICATIONS, listApplcations );
+        model.put( MARK_LIST_PORTLETS, listPortlets );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PLUGIN_XML_TEMPLATE, Locale.getDefault(  ),
+                model );
+
+        return template.getHtml(  );
     }
 }

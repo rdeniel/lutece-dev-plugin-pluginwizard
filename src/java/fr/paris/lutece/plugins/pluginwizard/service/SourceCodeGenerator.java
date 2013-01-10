@@ -69,25 +69,18 @@ import java.util.StringTokenizer;
  */
 public final class SourceCodeGenerator
 {
-    private static final String PROPERTY_GENERATOR = "pluginwizard.generator";
     private static final String TEMPLATE_DATABASE_SQL_SCRIPT = "/skin/plugins/pluginwizard/templates/pluginwizard_create_db.html";
-    private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_template.html";
     private static final String TEMPLATE_PROPERTIES_KEYS = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys.html";
     private static final String TEMPLATE_PROPERTIES_KEYS_GENERATED = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys_generated.html";
-    private static final String TEMPLATE_JSP_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_business_files.html";
-    private static final String TEMPLATE_JSP_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_feature_file.html";
     private static final String TEMPLATE_PORTLET_JSP_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jsp_files.html";
     private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
     private static final String TEMPLATE_PORTLET_XSL_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_xsl_files.html";
     private static final String TEMPLATE_PORTLET_JSPBEAN_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jspbean.html";
     private static final String TEMPLATE_PORTLET_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_files.html";
-    private static final String TEMPLATE_HTML_TEMPLATE_MODEL = "/skin/plugins/pluginwizard/templates/pluginwizard_html_template_model.html";
     private static final String TEMPLATE_PROPERTIES_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_file.html";
-    private static final String TEMPLATE_POM_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_pom_xml.html";
     private static final String TEMPLATE_PORTLET_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template.html";
     private static final String TEMPLATE_XPAGE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xpage_template.html";
     private static final String TEMPLATE_SPRING_CONTEXT_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_spring_context_xml.html";
-    private static final String TEMPLATE_PLUGIN_XML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xml_template.html";
     private static final String MARK_LIST_BUSINESS_CLASS = "list_business_class";
     private static final String MARK_PLUGIN_APPLICATION = "plugin_application";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
@@ -122,51 +115,6 @@ public final class SourceCodeGenerator
      */
     private SourceCodeGenerator(  )
     {
-    }
-
-    /**
-     * Returns the source code of a business object
-     * @param businessClass The business class
-     * @param nGenerationType The type of generation(DAO,Home,etc)
-     * @return The java source code of the business object
-     */
-    public static String getSourceCode( BusinessClass businessClass, int nGenerationType )
-    {
-        Generator generator = new Generator(  );
-        generator.setTemplate( getTemplate( nGenerationType ) );
-
-        return generator.generate( businessClass );
-    }
-
-    /**
-     * Gets the Jsp File of a business class
-     * @param businessClass The business class
-     * @param strPluginName The generated plugin name
-     * @param nJspType The type of jsp
-     * @return The source code of the jsp
-     */
-    public static String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType )
-    {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_JSP_TYPE, "" + nJspType );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_BUSINESS_FILES, new Locale( "en", "US" ), model );
-
-        return template.getHtml(  );
-    }
-
-    public static String getFeatureJspFile( String strFeatureName, String strPluginName )
-    {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_FEATURE_FILE, new Locale( "en", "US" ), model );
-
-        return template.getHtml(  );
     }
 
     /**
@@ -237,18 +185,6 @@ public final class SourceCodeGenerator
     }
 
     /**
-     * Return template of generation
-     * @param nIndex the index
-     * @return the template
-     */
-    private static String getTemplate( int nIndex )
-    {
-        String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
-
-        return strTemplate;
-    }
-
-    /**
      * The properties file content
      * @param nPluginId The id of the plugin
      * @param plugin The plugin
@@ -276,45 +212,6 @@ public final class SourceCodeGenerator
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_FILE, new Locale( "en", "US" ),
                 model );
-
-        return template.getHtml(  );
-    }
-
-    /**
-     * Produces content of the maven pom.xml file
-     * @param nPluginId The id of the plugin
-     * @param plugin The plugin
-     * @return The content of the pom.xml
-     */
-    public static String getPomXmlCode( int nPluginId, Plugin plugin )
-    {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( plugin );
-
-        //Fetches the actual configuration values to be replaced in the templates
-        for ( ConfigurationKey key : listKeys )
-        {
-            model.put( key.getKeyDescription(  ).trim(  ), key.getKeyValue(  ) );
-        }
-
-        model.put( MARK_PLUGIN, pluginModel );
-
-        Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
-
-        Collection<PluginFeature> listFeaturesPlugin = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-
-        for ( PluginFeature feature : listFeaturesPlugin )
-        {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
-            listClasses.addAll( listBusinessClasses );
-        }
-
-        model.put( MARK_BUSINESS_CLASSES, listClasses );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_XML, new Locale( "en", "US" ), model );
 
         return template.getHtml(  );
     }
@@ -403,54 +300,6 @@ public final class SourceCodeGenerator
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, new Locale( "en", "US" ),
                 model );
-
-        return template.getHtml(  );
-    }
-
-    /**
-     * Returns the text content of the plugin xml file
-     * @param nPluginId The id of the plugin
-     * @param plugin The plugin
-     * @return The plugin xml file content of the plugin
-     */
-    public static String getPluginXmlCode( int nPluginId, Plugin plugin )
-    {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pluginModel );
-
-        int nIdPlugin = pluginModel.getIdPlugin(  );
-        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nIdPlugin, plugin );
-
-        Collection<PluginApplication> listApplcations = PluginApplicationHome.findByPlugin( nIdPlugin, plugin );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
-        model.put( MARK_LIST_FEATURES, listFeatures );
-        model.put( MARK_LIST_APPLICATIONS, listApplcations );
-        model.put( MARK_LIST_PORTLETS, listPortlets );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PLUGIN_XML_TEMPLATE, new Locale( "en", "US" ),
-                model );
-
-        return template.getHtml(  );
-    }
-
-    /**
-     * Return JspBean code
-     * @param pluginModel The plugin model
-     * @param listBusinessClasses The list of business classes
-     * @return the template The source code of the Jsp Bean
-     */
-    public static String getJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight, Collection<BusinessClass> listBusinessClasses )
-    {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-
-        model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
-        model.put( MARK_PLUGIN_MODEL, pluginModel );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_FEATURE_RIGHT, strFeatureRight );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSPBEAN_CODE_TEMPLATE,
-                new Locale( "en", "US" ), model );
 
         return template.getHtml(  );
     }
@@ -549,37 +398,6 @@ public final class SourceCodeGenerator
         }
 
         return listKeys;
-    }
-
-    /**
-     * Gets the code of a create template for a specific business object
-     * @param listAllBusinessClasses A list of business classes attached to plugin
-     * @param businessClass The instance of the business class
-     * @param nTemplateType The type of template
-     * @param plugin The plugin
-     * @return The html code of the create template
-     */
-    public static String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses,
-        BusinessClass businessClass, int nTemplateType, Plugin plugin )
-    {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-
-        model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
-        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
-        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
-        model.put( MARK_MACRO, "@" );
-        model.put( MARK_VARIABLE, "@@" );
-        model.put( MARK_BRACKETS_OPEN, "${" );
-        model.put( MARK_BRACKETS_CLOSE, "}" );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
-
-        model.put( MARK_TEMPLATE_TYPE, nTemplateType + "" );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_TEMPLATE_MODEL, new Locale( "en", "US" ),
-                model );
-
-        return template.getHtml(  ).replace( "@@", "#" );
     }
 
     /**

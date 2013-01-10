@@ -37,14 +37,15 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.plugins.pluginwizard.web.Constants;
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import java.util.ArrayList;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -54,6 +55,7 @@ import java.util.Map;
  */
 public class JspBeanCodeGenerator implements Generator
 {
+    private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_template.html";
 
     /**
      * Visits the path and verifies if JspBean is relevant
@@ -63,32 +65,46 @@ public class JspBeanCodeGenerator implements Generator
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public Map generate(Plugin plugin, PluginModel pluginModel)
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
+        HashMap map = new HashMap(  );
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace("{plugin_name}", pluginModel.getPluginName());
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin(pluginModel.getIdPlugin(), plugin);
-
-        for (PluginFeature feature : pluginModel.getPluginFeatures())
+        for ( PluginFeature feature : pluginModel.getPluginFeatures(  ) )
         {
-            List<BusinessClass> listBusinessClasses = new ArrayList<BusinessClass>();
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
+                    pluginModel.getIdPlugin(  ), plugin );
+            String strPath = strBasePath + feature.getPluginFeatureName(  ) + Constants.PROPERTY_JSP_BEAN_SUFFIX +
+                ".java";
 
-            for (BusinessClass businessClass : listAllBusinessClasses)
-            {
-                if (businessClass.getIdFeature() == feature.getIdPluginFeature())
-                {
-                    listBusinessClasses.add(businessClass);
-                }
-            }
-            String strPath = strBasePath + feature.getPluginFeatureName() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
-
-            String strSourceCode = SourceCodeGenerator.getJspBeanCode( pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight() , listBusinessClasses);
-            map.put(strPath, strSourceCode);
+            String strSourceCode = getJspBeanCode( pluginModel, feature.getPluginFeatureName(  ),
+                    feature.getPluginFeatureRight(  ), listBusinessClasses );
+            map.put( strPath, strSourceCode );
         }
 
         return map;
     }
 
+    /**
+     * Return JspBean code
+     * @param pluginModel The plugin model
+     * @param listBusinessClasses The list of business classes
+     * @return the template The source code of the Jsp Bean
+     */
+    private String getJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight,
+        Collection<BusinessClass> listBusinessClasses )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+
+        model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
+        model.put( MARK_PLUGIN_MODEL, pluginModel );
+        model.put( MARK_FEATURE_NAME, strFeatureName );
+        model.put( MARK_FEATURE_RIGHT, strFeatureRight );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSPBEAN_CODE_TEMPLATE, Locale.getDefault(  ),
+                model );
+
+        return template.getHtml(  );
+    }
 }

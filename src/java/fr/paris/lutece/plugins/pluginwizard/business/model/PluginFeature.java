@@ -161,7 +161,7 @@ public class PluginFeature
 
     /**
      * Sets the PluginFeatureName
-     * 
+     *
      * @param strPluginFeatureName The PluginFeature name
      */
     public void setPluginFeatureName( String strPluginFeatureName )

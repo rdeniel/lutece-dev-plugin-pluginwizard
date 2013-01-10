@@ -36,8 +36,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -51,6 +51,8 @@ import java.util.Map;
  */
 public class BusinessClassCodeGenerator implements Generator
 {
+    private static final String PROPERTY_GENERATOR = "pluginwizard.generator";
+
     /**
      * Visits the path and verifies if Business class is relevant
      * @param plugin The plugin
@@ -85,7 +87,7 @@ public class BusinessClassCodeGenerator implements Generator
                         strPath = strPath.replace( "src", "src/test" );
                     }
 
-                    String strSourceCode = SourceCodeGenerator.getSourceCode( businessClass, i );
+                    String strSourceCode = getSourceCode( businessClass, i );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
                     map.put( strPath, strSourceCode );
@@ -140,5 +142,31 @@ public class BusinessClassCodeGenerator implements Generator
         }
 
         return strReturn;
+    }
+
+    /**
+     * Returns the source code of a business object
+     * @param businessClass The business class
+     * @param nGenerationType The type of generation(DAO,Home,etc)
+     * @return The java source code of the business object
+     */
+    private String getSourceCode( BusinessClass businessClass, int nGenerationType )
+    {
+        fr.paris.lutece.plugins.pluginwizard.service.Generator generator = new fr.paris.lutece.plugins.pluginwizard.service.Generator(  );
+        generator.setTemplate( getTemplate( nGenerationType ) );
+
+        return generator.generate( businessClass );
+    }
+
+    /**
+     * Return template of generation
+     * @param nIndex the index
+     * @return the template
+     */
+    private String getTemplate( int nIndex )
+    {
+        String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
+
+        return strTemplate;
     }
 }

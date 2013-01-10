@@ -38,12 +38,14 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -54,8 +56,12 @@ import java.util.Map;
  */
 public class BackOfficeTemplateCodeGenerator implements Generator
 {
+    private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
+    private static String[] _template_prefix = { "create_", "modify_", "manage_" };
+
     /**
      * Visits the path and verifies if Back office tempklate is relevant
+     *
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
@@ -64,8 +70,6 @@ public class BackOfficeTemplateCodeGenerator implements Generator
     public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-
-        Collection<BusinessClass> listAllBusinessClasses = new ArrayList<BusinessClass>(  );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
@@ -78,71 +82,62 @@ public class BackOfficeTemplateCodeGenerator implements Generator
         {
             Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
                     nPluginId, plugin );
-            listAllBusinessClasses.addAll( listBusinessClasses );
-        }
+            String strFeatureName = feature.getPluginFeatureName(  );
 
-        for ( BusinessClass businessClass : listAllBusinessClasses )
-        {
-            businessClass.setPluginName( pluginModel.getPluginName(  ) );
-
-            for ( int i = 1; i < 4; i++ )
+            for ( BusinessClass businessClass : listBusinessClasses )
             {
-                String strPath = strBasePath + getTemplatePrefix( i ) +
-                    businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
+                businessClass.setPluginName( pluginModel.getPluginName(  ) );
 
-                String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, i,
-                        plugin );
+                for ( int i = 0; i < _template_prefix.length; i++ )
+                {
+                    String strPath = strBasePath + _template_prefix[i] +
+                        businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
+
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1, plugin );
+                    map.put( strPath, strSourceCode );
+                }
+
+                //Add the main template where all the business management interface will be accessible
+                String strPath = strBasePath + strFeatureName.toLowerCase(  ) + ".html";
+
+                String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, 4, plugin );
                 map.put( strPath, strSourceCode );
             }
-
-            //Add the main template where all the business management interface will be accessible
-            String strPath = strBasePath + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + ".html";
-
-            String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4,
-                    plugin );
-            map.put( strPath, strSourceCode );
         }
 
         return map;
     }
 
     /**
-     * The method will return the prefix needed for naming of the template
-     * @param nTemplateType The template type
-     * @return The prefix needed for the naming of the template
+     * Gets the code of a create template for a specific business object
+     *
+     * @param listAllBusinessClasses A list of business classes attached to
+     * plugin
+     * @param businessClass The instance of the business class
+     * @param nTemplateType The type of template
+     * @param plugin The plugin
+     * @return The html code of the create template
      */
-    private static String getTemplatePrefix( int nTemplateType )
+    public static String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses,
+        BusinessClass businessClass, int nTemplateType, Plugin plugin )
     {
-        String strReturn;
+        Map<String, Object> model = new HashMap<String, Object>(  );
 
-        switch ( nTemplateType )
-        {
-            case 1:
-                strReturn = "create_";
+        model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
+        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
+        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
+        model.put( MARK_MACRO, "@" );
+        model.put( MARK_VARIABLE, "@@" );
+        model.put( MARK_BRACKETS_OPEN, "${" );
+        model.put( MARK_BRACKETS_CLOSE, "}" );
+        model.put( MARK_BUSINESS_CLASS, businessClass );
+        model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
 
-                break;
+        model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
 
-            case 2:
-                strReturn = "modify_";
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_BUSINESS_FILES, Locale.getDefault(  ),
+                model );
 
-                break;
-
-            case 3:
-                strReturn = "manage_";
-
-                break;
-
-            case 4:
-                strReturn = "manage_";
-
-                break;
-
-            default:
-                strReturn = "";
-
-                break;
-        }
-
-        return strReturn;
+        return template.getHtml(  ).replace( "@@", "#" );
     }
 }
