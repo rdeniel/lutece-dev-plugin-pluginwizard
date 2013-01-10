@@ -853,7 +853,6 @@ public class PluginWizardApp implements XPageApplication
         model.put(MARK_ATTRIBUTE_TYPE_COMBO, AttributeHome.getAttributeListCombo(plugin));
         model.put(MARK_ATTRIBUTE, attribute);
 
-        System.out.println((attribute.getIsPrimary() ? " key " : "no key ") + "-" + (attribute.getIsDescription() ? " description " : "no description "));
         HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_MODIFY_ATTRIBUTE, request.getLocale(), model);
 
         return template.getHtml();

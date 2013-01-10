@@ -490,7 +490,7 @@ public final class SourceCodeGenerator
             ResourceKey key = LocalizationService.localize( strKey.trim() , strPluginName );
             key.setIdPlugin( nPluginId );
             ResourceKeyHome.create( key, plugin );
-            System.out.println( key.getMarkerIdentifier() + " " + key.getFrenchLocale() + " " + key.getEnglishLocale() );
+            AppLogService.debug( key.getMarkerIdentifier() + " " + key.getFrenchLocale() + " " + key.getEnglishLocale() );
         }
     }
     
@@ -527,7 +527,6 @@ public final class SourceCodeGenerator
             if( strKey.trim().length() > 2 )
             {    
                 listKeys.add( strKey );
-                System.out.println( strKey );
             }
         }
 
