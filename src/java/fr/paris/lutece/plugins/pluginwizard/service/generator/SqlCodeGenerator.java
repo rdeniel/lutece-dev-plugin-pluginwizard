@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,6 +47,8 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -55,33 +57,33 @@ import java.util.HashMap;
  */
 public class SqlCodeGenerator implements Generator
 {
+    private static final String EXT_SQL = ".sql";
 
     /**
      * Visit the path and verifies if sql files are relevant to be generated
      *
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
-        int nIdPlugin = pluginModel.getIdPlugin();
+        HashMap map = new HashMap(  );
+        int nIdPlugin = pluginModel.getIdPlugin(  );
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nIdPlugin, plugin );
 
         Collection<PluginApplication> listApplcations = PluginApplicationHome.findByPlugin( nIdPlugin, plugin );
         Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nIdPlugin, plugin );
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(),
+        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );
 
         String strBasePath = "plugin-{plugin_name}/src/sql/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for (int i = 1; i < 6; i++)
+        for ( int i = 1; i < 6; i++ )
         {
-            String strSqlFile = getSqlFileName( pluginModel.getPluginName().toLowerCase(), i );
+            String strSqlFile = getSqlFileName( pluginModel.getPluginName(  ).toLowerCase(  ), i );
 
             String strPath = strBasePath + strSqlFile;
 
@@ -106,35 +108,35 @@ public class SqlCodeGenerator implements Generator
     {
         String strReturn;
 
-        switch (nSqlType)
+        switch ( nSqlType )
         {
             case 1:
-                strReturn = "plugin/create_db_" + strPluginName + ".sql";
+                strReturn = "plugin/create_db_" + strPluginName + EXT_SQL;
 
                 break;
 
             case 2:
-                strReturn = "plugin/init_db_" + strPluginName + ".sql";
+                strReturn = "plugin/init_db_" + strPluginName + EXT_SQL;
 
                 break;
 
             case 3:
-                strReturn = "plugin/init_db_" + strPluginName + "_sample.sql";
+                strReturn = "plugin/init_db_" + strPluginName + "_sample" + EXT_SQL;
 
                 break;
 
             case 4:
-                strReturn = "core/init_core_" + strPluginName + ".sql";
+                strReturn = "core/init_core_" + strPluginName + EXT_SQL;
 
                 break;
 
             case 5:
-                strReturn = "core/create_" + strPluginName + "_portlet.sql";
+                strReturn = "core/create_" + strPluginName + "_portlet" + EXT_SQL;
 
                 break;
 
             default:
-                strReturn = "plugin/create_db_" + strPluginName + ".sql";
+                strReturn = "plugin/create_db_" + strPluginName + EXT_SQL;
 
                 break;
         }

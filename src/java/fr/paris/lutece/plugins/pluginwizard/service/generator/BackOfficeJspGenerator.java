@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,6 +41,8 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -49,36 +51,34 @@ import java.util.HashMap;
  */
 public class BackOfficeJspGenerator implements Generator
 {
-
     /**
      * Visits the path and verifies if Portlet templates is relevant to be
      * generated
      *
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(),
+        HashMap map = new HashMap(  );
+        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );
 
         String strBasePath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for (BusinessClass businessClass : listAllBusinessClasses)
+        for ( BusinessClass businessClass : listAllBusinessClasses )
         {
-            for (int i = 1; i < 9; i++)
+            for ( int i = 1; i < 9; i++ )
             {
-                String strJspFileName = getJspFileName( businessClass.getBusinessClass(),
-                        pluginModel.getPluginName(), i );
+                String strJspFileName = getJspFileName( businessClass.getBusinessClass(  ),
+                        pluginModel.getPluginName(  ), i );
 
                 String strPath = strBasePath + strJspFileName;
 
-                String strSourceCode = SourceCodeGenerator.getJspFile( businessClass, pluginModel.getPluginName(), i );
+                String strSourceCode = SourceCodeGenerator.getJspFile( businessClass, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -100,7 +100,7 @@ public class BackOfficeJspGenerator implements Generator
     {
         String strReturn;
 
-        switch (nJspType)
+        switch ( nJspType )
         {
             case 1:
                 strReturn = "Create" + strBusinessClass + ".jsp";
@@ -156,7 +156,7 @@ public class BackOfficeJspGenerator implements Generator
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase() + strLettersLeft.toLowerCase();
+        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
     }

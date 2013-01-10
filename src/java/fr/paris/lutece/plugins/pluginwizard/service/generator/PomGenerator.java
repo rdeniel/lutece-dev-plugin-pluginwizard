@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -48,13 +49,12 @@ public class PomGenerator implements Generator
 {
     /**
      * Visits the path and verifies xml plugin description file is needed
-     * @param strPath The path in the tree structure where the pom file will be placed
      * @param plugin The pluginwizard plugin
      * @param pluginModel The representation of the plugin to be created
      * @return A hashmap with the filename and the text content of the pom file
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
         String strBasePath = "plugin-{plugin_name}";

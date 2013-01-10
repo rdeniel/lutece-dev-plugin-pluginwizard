@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,10 +50,8 @@ public interface IResourceKeyDAO
      */
     void insert( ResourceKey resourceKey, Plugin plugin );
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Finders
-
 
     /**
      * Select a list of resource keys
@@ -62,7 +60,6 @@ public interface IResourceKeyDAO
      * @return A collection of all the resource keys related to a generated plugin
      */
     Collection<ResourceKey> selectResourceKeysList( int nPluginId, Plugin plugin );
-
 
     /**
      * Deletes all the resources from a Plugin

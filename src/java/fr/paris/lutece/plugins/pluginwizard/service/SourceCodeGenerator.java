@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -131,6 +131,7 @@ public final class SourceCodeGenerator
     {
         Generator generator = new Generator(  );
         generator.setTemplate( getTemplate( nGenerationType ) );
+
         return generator.generate( businessClass );
     }
 
@@ -477,23 +478,23 @@ public final class SourceCodeGenerator
         }
 
         String strPluginName = pluginModel.getPluginName(  );
-        ArrayList<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
+        List<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
-        storeKeyList( nPluginId, pluginModel.getPluginName() , plugin, listKeys );
+        storeKeyList( nPluginId, pluginModel.getPluginName(  ), plugin, listKeys );
     }
-    
-    private static void storeKeyList( int nPluginId, String strPluginName , Plugin plugin , List<String> listKeys )
+
+    private static void storeKeyList( int nPluginId, String strPluginName, Plugin plugin, List<String> listKeys )
     {
-        for( String strKey : listKeys )
+        for ( String strKey : listKeys )
         {
-            ResourceKey key = LocalizationService.localize( strKey.trim() , strPluginName );
+            ResourceKey key = LocalizationService.localize( strKey.trim(  ), strPluginName );
             key.setIdPlugin( nPluginId );
             ResourceKeyHome.create( key, plugin );
-            AppLogService.debug( key.getMarkerIdentifier() + " " + key.getFrenchLocale() + " " + key.getEnglishLocale() );
+            AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " +
+                key.getEnglishLocale(  ) );
         }
     }
-    
 
     /**
      * Fetches all the resource keys
@@ -503,7 +504,7 @@ public final class SourceCodeGenerator
      * @param nPluginId The id of the plugin to be generated
      * @return A list of the resource keys
      */
-    public static ArrayList<String> findResourceKeys( List<BusinessClass> listBusinessClasses, String strPluginName,
+    public static List<String> findResourceKeys( List<BusinessClass> listBusinessClasses, String strPluginName,
         int nPluginId, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -519,13 +520,14 @@ public final class SourceCodeGenerator
                 model );
 
         StringTokenizer st = new StringTokenizer( template.getHtml(  ), "\n" );
-        ArrayList<String> listKeys = new ArrayList<String>(  );
+        List<String> listKeys = new ArrayList<String>(  );
 
         while ( st.hasMoreTokens(  ) )
         {
             String strKey = (String) st.nextElement(  );
-            if( strKey.trim().length() > 2 )
-            {    
+
+            if ( strKey.trim(  ).length(  ) > 2 )
+            {
                 listKeys.add( strKey );
             }
         }

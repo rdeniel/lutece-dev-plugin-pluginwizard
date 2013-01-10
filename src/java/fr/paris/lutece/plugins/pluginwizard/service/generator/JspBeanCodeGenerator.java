@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,6 +42,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -53,20 +54,18 @@ public class JspBeanCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies if JspBean is relevant
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
         String strPluginNameCap = getFirstCaps( pluginModel.getPluginName(  ) );
-        
-        
+
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-                strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
         String strPath = strBasePath + strPluginNameCap + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
 

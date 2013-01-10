@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -47,8 +47,6 @@ public class Attribute
     private String _strAttributeName;
     private String _strAttributeType;
     private String _strJavaType;
-    private String _strVariableName;
-    private String _strName;
 
     /**
     * Returns the IdAttribute
@@ -229,7 +227,7 @@ public class Attribute
     {
         int nIndex = 0;
         boolean bUpper = true;
-        StringBuffer strBuffer = new StringBuffer(  );
+        StringBuilder strBuffer = new StringBuilder(  );
 
         while ( nIndex < strSource.length(  ) )
         {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,45 +41,45 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
 public class PortletTemplateGenerator implements Generator
 {
-
     /**
      * Visit the path and verifies if Portlet templates is relevant to be
      * generated
      *
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
+        HashMap map = new HashMap(  );
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for (PluginPortlet portlet : listPortlets)
+        for ( PluginPortlet portlet : listPortlets )
         {
-            for (int i = 1; i < 4; i++)
+            for ( int i = 1; i < 4; i++ )
             {
-                String strPortlet = portlet.getPluginPortletTypeName();
+                String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
 
-                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(),
-                        pluginModel.getPluginName(), i );
+                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ),
+                        pluginModel.getPluginName(  ), i );
 
                 String strPath = strBasePath + strPortletFile;
 
                 String strSourceCode = SourceCodeGenerator.getPortletHtmlTemplate( portlet,
-                        pluginModel.getPluginName(), i );
+                        pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@@", "#" );
@@ -100,9 +100,9 @@ public class PortletTemplateGenerator implements Generator
      */
     private String getPortletTemplateName( String strPortletName, String strPluginName, int nTemplate )
     {
-        String strReturn = "";
+        String strReturn;
 
-        switch (nTemplate)
+        switch ( nTemplate )
         {
             case 1:
                 strReturn = "combo_feed_" + strPortletName + ".html";

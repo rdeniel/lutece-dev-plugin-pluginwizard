@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -122,8 +122,8 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         UrlItem url = new UrlItem( JSP_MANAGE_CONFIGURATIONKEYS );
         String strUrl = url.getUrl(  );
         Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList( getPlugin(  ) );
-        LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs, _nItemsPerPage, strUrl,
-                PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale() );
+        LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs,
+                _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
 

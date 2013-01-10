@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
@@ -32,47 +31,37 @@
  *
  * License 1.0
  */
- 
 package fr.paris.lutece.plugins.pluginwizard.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+
 import java.util.Collection;
 
 
-
- /**
- * ILocalizationKeyDAO Interface
- */
-
+/**
+* ILocalizationKeyDAO Interface
+*/
 public interface ILocalizationKeyDAO
 {
-
-
     /**
      * Insert a new record in the table.
      * @param localizationKey instance of the LocalizationKey object to inssert
      * @param plugin the Plugin
      */
-
     void insert( LocalizationKey localizationKey, Plugin plugin );
 
-
-
-     /**
-     * Update the record in the table
-     * @param localizationKey the reference of the LocalizationKey
-     * @param plugin the Plugin
-     */
-
+    /**
+    * Update the record in the table
+    * @param localizationKey the reference of the LocalizationKey
+    * @param plugin the Plugin
+    */
     void store( LocalizationKey localizationKey, Plugin plugin );
-
 
     /**
      * Delete a record from the table
      * @param nIdLocalizationKey int identifier of the LocalizationKey to delete
      * @param plugin the Plugin
      */
-
     void delete( int nIdLocalizationKey, Plugin plugin );
 
     ///////////////////////////////////////////////////////////////////////////
@@ -84,18 +73,12 @@ public interface ILocalizationKeyDAO
      * @param plugin the Plugin
      * @return The instance of the localizationKey
      */
-
     LocalizationKey load( int nKey, Plugin plugin );
 
-
-
-     /**
-     * Load the data of all the localizationKey objects and returns them as a collection
-     * @param plugin the Plugin
-     * @return The collection which contains the data of all the localizationKey objects
-     */
-
+    /**
+    * Load the data of all the localizationKey objects and returns them as a collection
+    * @param plugin the Plugin
+    * @return The collection which contains the data of all the localizationKey objects
+    */
     Collection<LocalizationKey> selectLocalizationKeysList( Plugin plugin );
-    
 }
-

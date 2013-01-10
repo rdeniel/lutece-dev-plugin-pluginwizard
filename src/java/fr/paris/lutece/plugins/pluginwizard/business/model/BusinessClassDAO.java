@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -433,7 +433,7 @@ public final class BusinessClassDAO implements IBusinessClassDAO
     {
         boolean bValue = false;
         int nCount = 0;
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY , plugin );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY, plugin );
         daoUtil.setInt( 1, nIdBusinessClass );
         daoUtil.executeQuery(  );
 

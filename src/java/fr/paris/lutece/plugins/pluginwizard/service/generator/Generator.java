@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
-import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -52,5 +52,5 @@ public interface Generator
      * @param pluginModel The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
-    HashMap generate( Plugin plugin, PluginModel pluginModel );
+    Map generate( Plugin plugin, PluginModel pluginModel );
 }

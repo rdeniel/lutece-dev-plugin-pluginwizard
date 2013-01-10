@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -89,11 +89,10 @@ public final class ResourceKeyDAO implements IResourceKeyDAO
         daoUtil.setString( 2, resourceKey.getMarkerIdentifier(  ) );
         daoUtil.setString( 3, resourceKey.getEnglishLocale(  ) );
         daoUtil.setString( 4, resourceKey.getFrenchLocale(  ) );
-        daoUtil.setInt( 5 , resourceKey.getIdPlugin(  ) );
+        daoUtil.setInt( 5, resourceKey.getIdPlugin(  ) );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
-
 
     /**
     * Delete all records from the table
@@ -108,7 +107,6 @@ public final class ResourceKeyDAO implements IResourceKeyDAO
         daoUtil.free(  );
     }
 
- 
     /**
      * Returns all the resource keys related to a generated plugin
      * @param nPluginId The identifier of the plugin
@@ -139,7 +137,6 @@ public final class ResourceKeyDAO implements IResourceKeyDAO
 
         return resourceKeyList;
     }
-
 
     /**
      * Delete all resources related to plugin record from the table

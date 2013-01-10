@@ -31,8 +31,6 @@
  *
  * License 1.0
  */
-
-
 package fr.paris.lutece.plugins.pluginwizard.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -45,165 +43,146 @@ import java.util.Collection;
 /**
  * This class provides Data Access methods for LocalizationKey objects
  */
-
 public final class LocalizationKeyDAO implements ILocalizationKeyDAO
 {
-	
-	// Constants
-	
-	private static final String SQL_QUERY_NEW_PK = "SELECT max( id_key ) FROM pluginwizard_localization_key";
-	private static final String SQL_QUERY_SELECT = "SELECT id_key, key_name, english_locale, french_locale FROM pluginwizard_localization_key WHERE id_key = ?";
-	private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_localization_key ( id_key, key_name, english_locale, french_locale ) VALUES ( ?, ?, ?, ? ) ";
-	private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_localization_key WHERE id_key = ? ";
-	private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_localization_key SET id_key = ?, key_name = ?, english_locale = ?, french_locale = ? WHERE id_key = ?";
-	private static final String SQL_QUERY_SELECTALL = "SELECT id_key, key_name, english_locale, french_locale FROM pluginwizard_localization_key";
+    // Constants
+    private static final String SQL_QUERY_NEW_PK = "SELECT max( id_key ) FROM pluginwizard_localization_key";
+    private static final String SQL_QUERY_SELECT = "SELECT id_key, key_name, english_locale, french_locale FROM pluginwizard_localization_key WHERE id_key = ?";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_localization_key ( id_key, key_name, english_locale, french_locale ) VALUES ( ?, ?, ?, ? ) ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_localization_key WHERE id_key = ? ";
+    private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_localization_key SET id_key = ?, key_name = ?, english_locale = ?, french_locale = ? WHERE id_key = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_key, key_name, english_locale, french_locale FROM pluginwizard_localization_key";
 
+    /**
+     * Generates a new primary key
+     * @param plugin The Plugin
+     * @return The new primary key
+     */
+    public int newPrimaryKey( Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
+        daoUtil.executeQuery(  );
 
-	
-	/**
-	 * Generates a new primary key
-         * @param plugin The Plugin
-	 * @return The new primary key
-	 */
-    
-	public int newPrimaryKey( Plugin plugin)
-	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
-		daoUtil.executeQuery();
+        int nKey;
 
-		int nKey;
+        if ( !daoUtil.next(  ) )
+        {
+            // if the table is empty
+            nKey = 1;
+        }
 
-		if( !daoUtil.next() )
-		{
-			// if the table is empty
-			nKey = 1;
-		}
+        nKey = daoUtil.getInt( 1 ) + 1;
+        daoUtil.free(  );
 
-		nKey = daoUtil.getInt( 1 ) + 1;
-		daoUtil.free();
+        return nKey;
+    }
 
-		return nKey;
-	}
+    /**
+     * Insert a new record in the table.
+     * @param localizationKey instance of the LocalizationKey object to insert
+     * @param plugin The plugin
+     */
+    public void insert( LocalizationKey localizationKey, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
+        localizationKey.setIdKey( newPrimaryKey( plugin ) );
 
+        daoUtil.setInt( 1, localizationKey.getIdKey(  ) );
+        daoUtil.setString( 2, localizationKey.getKeyName(  ) );
+        daoUtil.setString( 3, localizationKey.getEnglishLocale(  ) );
+        daoUtil.setString( 4, localizationKey.getFrenchLocale(  ) );
 
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
+    }
 
-	/**
-	 * Insert a new record in the table.
-	 * @param localizationKey instance of the LocalizationKey object to insert
-         * @param plugin The plugin
-	 */
+    /**
+     * Load the data of the localizationKey from the table
+     * @param nId The identifier of the localizationKey
+     * @param plugin The plugin
+     * @return the instance of the LocalizationKey
+     */
+    public LocalizationKey load( int nId, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setInt( 1, nId );
+        daoUtil.executeQuery(  );
 
-	public void insert( LocalizationKey localizationKey, Plugin plugin )
-	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , plugin );
-                
-		localizationKey.setIdKey( newPrimaryKey( plugin ) );
-                
-                daoUtil.setInt ( 1, localizationKey.getIdKey ( ) );
-                daoUtil.setString ( 2, localizationKey.getKeyName ( ) );
-                daoUtil.setString ( 3, localizationKey.getEnglishLocale ( ) );
-                daoUtil.setString ( 4, localizationKey.getFrenchLocale ( ) );
+        LocalizationKey localizationKey = null;
 
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+        if ( daoUtil.next(  ) )
+        {
+            localizationKey = new LocalizationKey(  );
 
+            localizationKey.setIdKey( daoUtil.getInt( 1 ) );
+            localizationKey.setKeyName( daoUtil.getString( 2 ) );
+            localizationKey.setEnglishLocale( daoUtil.getString( 3 ) );
+            localizationKey.setFrenchLocale( daoUtil.getString( 4 ) );
+        }
 
-	/**
-	 * Load the data of the localizationKey from the table
-	 * @param nId The identifier of the localizationKey
-         * @param plugin The plugin
-	 * @return the instance of the LocalizationKey
-	 */
+        daoUtil.free(  );
 
+        return localizationKey;
+    }
 
-        public LocalizationKey load( int nId, Plugin plugin )
-	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
-		daoUtil.setInt( 1 , nId );
-		daoUtil.executeQuery();
+    /**
+     * Delete a record from the table
+     * @param nLocalizationKeyId The identifier of the localizationKey
+     * @param plugin The plugin
+     */
+    public void delete( int nLocalizationKeyId, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
+        daoUtil.setInt( 1, nLocalizationKeyId );
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
+    }
 
-		LocalizationKey localizationKey = null;
+    /**
+     * Update the record in the table
+     * @param localizationKey The reference of the localizationKey
+     * @param plugin The plugin
+     */
+    public void store( LocalizationKey localizationKey, Plugin plugin )
+    {
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-		if ( daoUtil.next() )
-		{
-			localizationKey = new LocalizationKey();
+        daoUtil.setInt( 1, localizationKey.getIdKey(  ) );
+        daoUtil.setString( 2, localizationKey.getKeyName(  ) );
+        daoUtil.setString( 3, localizationKey.getEnglishLocale(  ) );
+        daoUtil.setString( 4, localizationKey.getFrenchLocale(  ) );
+        daoUtil.setInt( 5, localizationKey.getIdKey(  ) );
 
-                        localizationKey.setIdKey( daoUtil.getInt(  1 ) );
-                        localizationKey.setKeyName( daoUtil.getString(  2 ) );
-                        localizationKey.setEnglishLocale( daoUtil.getString(  3 ) );
-                        localizationKey.setFrenchLocale( daoUtil.getString(  4 ) );
-		}
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
+    }
 
-		daoUtil.free();
-		return localizationKey;
-	}
+    /**
+     * Load the data of all the localizationKeys and returns them as a collection
+     * @param plugin The plugin
+     * @return The Collection which contains the data of all the localizationKeys
+     */
+    public Collection<LocalizationKey> selectLocalizationKeysList( Plugin plugin )
+    {
+        Collection<LocalizationKey> localizationKeyList = new ArrayList<LocalizationKey>(  );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+        daoUtil.executeQuery(  );
 
+        while ( daoUtil.next(  ) )
+        {
+            LocalizationKey localizationKey = new LocalizationKey(  );
 
-	/**
-	 * Delete a record from the table
-         * @param nLocalizationKeyId The identifier of the localizationKey
-         * @param plugin The plugin
-	 */
+            localizationKey.setIdKey( daoUtil.getInt( 1 ) );
+            localizationKey.setKeyName( daoUtil.getString( 2 ) );
+            localizationKey.setEnglishLocale( daoUtil.getString( 3 ) );
+            localizationKey.setFrenchLocale( daoUtil.getString( 4 ) );
 
-	public void delete( int nLocalizationKeyId, Plugin plugin )
-	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
-		daoUtil.setInt( 1 , nLocalizationKeyId );
-		daoUtil.executeUpdate();
-		daoUtil.free();
-	}
+            localizationKeyList.add( localizationKey );
+        }
 
+        daoUtil.free(  );
 
-	/**
-	 * Update the record in the table
-	 * @param localizationKey The reference of the localizationKey
-         * @param plugin The plugin
-	 */
-
-	public void store( LocalizationKey localizationKey, Plugin plugin )
-	{
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
-                
-        daoUtil.setInt( 1, localizationKey.getIdKey( ) );
-        daoUtil.setString( 2, localizationKey.getKeyName( ) );
-        daoUtil.setString( 3, localizationKey.getEnglishLocale( ) );
-        daoUtil.setString( 4, localizationKey.getFrenchLocale( ) );
-        daoUtil.setInt( 5, localizationKey.getIdKey( ) );
-                
-		daoUtil.executeUpdate( );
-		daoUtil.free( );
-	}
-
-
-
-	/**
-	 * Load the data of all the localizationKeys and returns them as a collection
-         * @param plugin The plugin
-	 * @return The Collection which contains the data of all the localizationKeys
-	 */
-
-        public Collection<LocalizationKey> selectLocalizationKeysList( Plugin plugin )
-	{
-		Collection<LocalizationKey> localizationKeyList = new ArrayList<LocalizationKey>(  );
-		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
-		daoUtil.executeQuery(  );
-
-		while ( daoUtil.next(  ) )
-		{
-                LocalizationKey localizationKey = new LocalizationKey(  );
-
-                    localizationKey.setIdKey( daoUtil.getInt( 1 ) );
-                    localizationKey.setKeyName( daoUtil.getString( 2 ) );
-                    localizationKey.setEnglishLocale( daoUtil.getString( 3 ) );
-                    localizationKey.setFrenchLocale( daoUtil.getString( 4 ) );
-
-                localizationKeyList.add( localizationKey );
-		}
-
-		daoUtil.free();
-		return localizationKeyList;
-	}
-
+        return localizationKeyList;
+    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -90,7 +90,7 @@ public class PluginWizardZipService
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         int nPluginId = Integer.parseInt( strPluginId );
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, _plugin );
-        GeneratorService generator = new GeneratorService();
+        GeneratorService generator = new GeneratorService(  );
         Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel );
 
         try
@@ -122,6 +122,4 @@ public class PluginWizardZipService
 
         return fos.toByteArray(  );
     }
-    
-    
 }

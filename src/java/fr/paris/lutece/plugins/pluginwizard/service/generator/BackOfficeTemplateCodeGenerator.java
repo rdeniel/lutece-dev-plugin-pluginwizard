@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,6 +44,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -55,21 +56,19 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies if Back office tempklate is relevant
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
 
         Collection<BusinessClass> listAllBusinessClasses = new ArrayList<BusinessClass>(  );
-        
+
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
-
 
         //for each feature,which business classes are attached to
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
@@ -88,21 +87,19 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 
             for ( int i = 1; i < 4; i++ )
             {
-
                 String strPath = strBasePath + getTemplatePrefix( i ) +
                     businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
 
-                Collection<BusinessClass> listClass = new ArrayList<BusinessClass>(  );
-                listClass.add( businessClass );
-                String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, i, plugin );
+                String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, i,
+                        plugin );
                 map.put( strPath, strSourceCode );
-
             }
 
             //Add the main template where all the business management interface will be accessible
             String strPath = strBasePath + "/" + getTemplatePrefix( 4 ) + pluginModel.getPluginName(  ) + "s.html";
 
-            String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4, plugin );
+            String strSourceCode = SourceCodeGenerator.getCreateHtmlCode( listAllBusinessClasses, businessClass, 4,
+                    plugin );
             map.put( strPath, strSourceCode );
         }
 

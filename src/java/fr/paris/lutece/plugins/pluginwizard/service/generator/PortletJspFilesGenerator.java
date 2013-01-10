@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -41,6 +41,8 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -49,36 +51,36 @@ import java.util.HashMap;
  */
 public class PortletJspFilesGenerator implements Generator
 {
+    private static final String EXT_JSP = ".jsp";
 
     /**
      * Visits the path and verifies whether portlet jsp files are needed
      *
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(), plugin );
+        HashMap map = new HashMap(  );
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
         String strBasePath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for (PluginPortlet portlet : listPortlets)
+        for ( PluginPortlet portlet : listPortlets )
         {
-            for (int i = 1; i < 5; i++)
+            for ( int i = 1; i < 5; i++ )
             {
-                String strPortlet = portlet.getPluginPortletTypeName();
+                String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps(
-                        strPortlet.substring( 0, nIndex ).toLowerCase() ), pluginModel.getPluginName(), i );
+                String strPortletFile = getPortletFileName( getFirstCaps( 
+                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
 
                 String strPath = strBasePath + strPortletFile;
 
-                String strSourceCode = SourceCodeGenerator.getPortletJspFile( portlet, pluginModel.getPluginName(), i );
+                String strSourceCode = SourceCodeGenerator.getPortletJspFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -93,37 +95,36 @@ public class PortletJspFilesGenerator implements Generator
      *
      * @param strPortletName the name of the portlet
      * @param nPortletJspFileType The type of jsp
-     * @param strPluginName The name of the plugin
      * @return The name of the jsp file
      */
-    private String getPortletFileName( String strPortletName, String strPluginName, int nPortletJspFileType )
+    private String getPortletFileName( String strPortletName, int nPortletJspFileType )
     {
         String strReturn;
 
-        switch (nPortletJspFileType)
+        switch ( nPortletJspFileType )
         {
             case 1:
-                strReturn = "ModifyPortlet" + strPortletName + ".jsp";
+                strReturn = "ModifyPortlet" + strPortletName + EXT_JSP;
 
                 break;
 
             case 2:
-                strReturn = "DoModifyPortlet" + strPortletName + ".jsp";
+                strReturn = "DoModifyPortlet" + strPortletName + EXT_JSP;
 
                 break;
 
             case 3:
-                strReturn = "CreatePortlet" + strPortletName + ".jsp";
+                strReturn = "CreatePortlet" + strPortletName + EXT_JSP;
 
                 break;
 
             case 4:
-                strReturn = "DoCreatePortlet" + strPortletName + ".jsp";
+                strReturn = "DoCreatePortlet" + strPortletName + EXT_JSP;
 
                 break;
 
             default:
-                strReturn = "CreatePortlet" + strPortletName + ".jsp";
+                strReturn = "CreatePortlet" + strPortletName + EXT_JSP;
 
                 break;
         }
@@ -141,7 +142,7 @@ public class PortletJspFilesGenerator implements Generator
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase() + strLettersLeft.toLowerCase();
+        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
     }

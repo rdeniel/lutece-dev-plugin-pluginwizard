@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -408,15 +408,6 @@ public class BusinessClass
     public String getPrimaryKeyName(  )
     {
         return getProperName( _strPrimaryAttributeName );
-    }
-
-    /**
-     * The plugin name associated
-     * @return The plugin name
-     */
-    private String getPluginName(  )
-    {
-        return _strPluginName;
     }
 
     /**

@@ -31,30 +31,28 @@
  *
  * License 1.0
  */
- 
 package fr.paris.lutece.plugins.pluginwizard.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+
 import java.util.Collection;
+
 
 /**
  * This class provides instances management methods (create, find, ...) for LocalizationKey objects
  */
-
 public final class LocalizationKeyHome
 {
-
     // Static variable pointed at the DAO instance
-
-    private static ILocalizationKeyDAO _dao = ( ILocalizationKeyDAO ) SpringContextService.getBean( "pluginwizard.localizationKeyDAO" );
+    private static ILocalizationKeyDAO _dao = (ILocalizationKeyDAO) SpringContextService.getBean( 
+            "pluginwizard.localizationKeyDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-
     private LocalizationKeyHome(  )
     {
     }
@@ -64,7 +62,6 @@ public final class LocalizationKeyHome
      * @param localizationKey The instance of the LocalizationKey which contains the informations to store
      * @return The  instance of localizationKey which has been created with its primary key.
      */
-
     public static LocalizationKey create( LocalizationKey localizationKey )
     {
         _dao.insert( localizationKey, _plugin );
@@ -72,13 +69,11 @@ public final class LocalizationKeyHome
         return localizationKey;
     }
 
-
     /**
      * Update of the localizationKey which is specified in parameter
      * @param localizationKey The instance of the LocalizationKey which contains the data to store
      * @return The instance of the  localizationKey which has been updated
      */
-
     public static LocalizationKey update( LocalizationKey localizationKey )
     {
         _dao.store( localizationKey, _plugin );
@@ -86,18 +81,14 @@ public final class LocalizationKeyHome
         return localizationKey;
     }
 
-
     /**
      * Remove the localizationKey whose identifier is specified in parameter
      * @param nLocalizationKeyId The localizationKey Id
      */
-
-
     public static void remove( int nLocalizationKeyId )
     {
         _dao.delete( nLocalizationKeyId, _plugin );
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Finders
@@ -107,22 +98,17 @@ public final class LocalizationKeyHome
      * @param nKey The localizationKey primary key
      * @return an instance of LocalizationKey
      */
-
     public static LocalizationKey findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
-
 
     /**
      * Load the data of all the localizationKey objects and returns them in form of a collection
      * @return the collection which contains the data of all the localizationKey objects
      */
-
-    public static Collection<LocalizationKey> getLocalizationKeysList( )
+    public static Collection<LocalizationKey> getLocalizationKeysList(  )
     {
         return _dao.selectLocalizationKeysList( _plugin );
     }
-
 }
-

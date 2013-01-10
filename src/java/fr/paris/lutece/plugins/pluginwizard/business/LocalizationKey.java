@@ -1,4 +1,3 @@
-
 /*
  * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
@@ -31,85 +30,90 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ 
+ */
 package fr.paris.lutece.plugins.pluginwizard.business;
+
 
 /**
  * This is the business class for the object LocalizationKey
- */ 
+ */
 public class LocalizationKey
 {
-	// Variables declarations 
-	private int _nIdKey;
-	private String _strKeyName;
-	private String _strEnglishLocale;
-	private String _strFrenchLocale;
-	/**
-	 * Returns the IdKey
-	 * @return The IdKey
-	 */
-	public int getIdKey()
-	{
-		return _nIdKey;
-	}
+    // Variables declarations 
+    private int _nIdKey;
+    private String _strKeyName;
+    private String _strEnglishLocale;
+    private String _strFrenchLocale;
 
-	/**
-	 * Sets the IdKey
-	 * @param nIdKey The IdKey
-	 */ 
-	public void setIdKey( int nIdKey )
-	{
-		_nIdKey = nIdKey;
-	}
-	/**
-	 * Returns the KeyName
-	 * @return The KeyName
-	 */
-	public String getKeyName()
-	{
-		return _strKeyName;
-	}
+    /**
+     * Returns the IdKey
+     * @return The IdKey
+     */
+    public int getIdKey(  )
+    {
+        return _nIdKey;
+    }
 
-	/**
-	 * Sets the KeyName
-	 * @param strKeyName The KeyName
-	 */ 
-	public void setKeyName( String strKeyName )
-	{
-		_strKeyName = strKeyName;
-	}
-	/**
-	 * Returns the EnglishLocale
-	 * @return The EnglishLocale
-	 */
-	public String getEnglishLocale()
-	{
-		return _strEnglishLocale;
-	}
+    /**
+     * Sets the IdKey
+     * @param nIdKey The IdKey
+     */
+    public void setIdKey( int nIdKey )
+    {
+        _nIdKey = nIdKey;
+    }
 
-	/**
-	 * Sets the EnglishLocale
-	 * @param strEnglishLocale The EnglishLocale
-	 */ 
-	public void setEnglishLocale( String strEnglishLocale )
-	{
-		_strEnglishLocale = strEnglishLocale;
-	}
-	/**
-	 * Returns the FrenchLocale
-	 * @return The FrenchLocale
-	 */
-	public String getFrenchLocale()
-	{
-		return _strFrenchLocale;
-	}
+    /**
+     * Returns the KeyName
+     * @return The KeyName
+     */
+    public String getKeyName(  )
+    {
+        return _strKeyName;
+    }
 
-	/**
-	 * Sets the FrenchLocale
-	 * @param strFrenchLocale The FrenchLocale
-	 */ 
-	public void setFrenchLocale( String strFrenchLocale )
-	{
-		_strFrenchLocale = strFrenchLocale;
-	}
+    /**
+     * Sets the KeyName
+     * @param strKeyName The KeyName
+     */
+    public void setKeyName( String strKeyName )
+    {
+        _strKeyName = strKeyName;
+    }
+
+    /**
+     * Returns the EnglishLocale
+     * @return The EnglishLocale
+     */
+    public String getEnglishLocale(  )
+    {
+        return _strEnglishLocale;
+    }
+
+    /**
+     * Sets the EnglishLocale
+     * @param strEnglishLocale The EnglishLocale
+     */
+    public void setEnglishLocale( String strEnglishLocale )
+    {
+        _strEnglishLocale = strEnglishLocale;
+    }
+
+    /**
+     * Returns the FrenchLocale
+     * @return The FrenchLocale
+     */
+    public String getFrenchLocale(  )
+    {
+        return _strFrenchLocale;
+    }
+
+    /**
+     * Sets the FrenchLocale
+     * @param strFrenchLocale The FrenchLocale
+     */
+    public void setFrenchLocale( String strFrenchLocale )
+    {
+        _strFrenchLocale = strFrenchLocale;
+    }
 }

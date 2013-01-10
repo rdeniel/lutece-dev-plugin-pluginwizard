@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,10 +36,12 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppLogService;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  *
@@ -47,52 +49,63 @@ import java.util.Map;
  */
 public class GeneratorService
 {
+    private List<Generator> _listGenerators = new ArrayList<Generator>(  );
 
-    private List<Generator> _listGenerators = new ArrayList<Generator>();
-
+    /**
+     * Generate Sources
+     * @param plugin The plugin (pluginwizard)
+     * @param model The plugin model to generate
+     * @return Map that contains sources
+     */
     public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model )
     {
-        initGenerators();
+        initGenerators(  );
+
         return generateSources( plugin, model );
     }
 
-    private void initGenerators()
+    private void initGenerators(  )
     {
-        _listGenerators.add( new BackOfficeJspGenerator() );
-        _listGenerators.add( new BackOfficeTemplateCodeGenerator() );
-        _listGenerators.add( new BusinessClassCodeGenerator() );
-        _listGenerators.add( new JspBeanCodeGenerator() );
-        _listGenerators.add( new PluginXmlGenerator() );
-        _listGenerators.add( new PomGenerator() );
-        _listGenerators.add( new PortletGenerator() );
-        _listGenerators.add( new PortletJspBeanGenerator() );
-        _listGenerators.add( new PortletJspFilesGenerator() );
-        _listGenerators.add( new PortletTemplateGenerator() );
-        _listGenerators.add( new PortletXslGenerator() );
-        _listGenerators.add( new PropertiesGenerator() );
-        _listGenerators.add( new ResourcesCodeGenerator() );
-        _listGenerators.add( new SpringContextXmlGenerator() );
-        _listGenerators.add( new SqlCodeGenerator() );
-        _listGenerators.add( new XPageGenerator() );
-
+        _listGenerators.add( new BackOfficeJspGenerator(  ) );
+        _listGenerators.add( new BackOfficeTemplateCodeGenerator(  ) );
+        _listGenerators.add( new BusinessClassCodeGenerator(  ) );
+        _listGenerators.add( new JspBeanCodeGenerator(  ) );
+        _listGenerators.add( new PluginXmlGenerator(  ) );
+        _listGenerators.add( new PomGenerator(  ) );
+        _listGenerators.add( new PortletGenerator(  ) );
+        _listGenerators.add( new PortletJspBeanGenerator(  ) );
+        _listGenerators.add( new PortletJspFilesGenerator(  ) );
+        _listGenerators.add( new PortletTemplateGenerator(  ) );
+        _listGenerators.add( new PortletXslGenerator(  ) );
+        _listGenerators.add( new PropertiesGenerator(  ) );
+        _listGenerators.add( new ResourcesCodeGenerator(  ) );
+        _listGenerators.add( new SpringContextXmlGenerator(  ) );
+        _listGenerators.add( new SqlCodeGenerator(  ) );
+        _listGenerators.add( new XPageGenerator(  ) );
     }
 
+    /**
+     * Generate Sources
+     * @param plugin The plugin (pluginwizard)
+     * @param model The plugin model to generate
+     * @return Map that contains sources
+     */
     private Map<String, String> generateSources( Plugin plugin, PluginModel model )
     {
-        Map<String, String> mapSources = new HashMap<String, String>();
+        Map<String, String> mapSources = new HashMap<String, String>(  );
 
-        for (Generator generator : _listGenerators)
+        for ( Generator generator : _listGenerators )
         {
             try
             {
                 mapSources.putAll( generator.generate( plugin, model ) );
             }
-            catch (Exception e)
+            catch ( Exception e )
             {
                 AppLogService.error( e );
             }
         }
+
         return mapSources;
     }
 }
-

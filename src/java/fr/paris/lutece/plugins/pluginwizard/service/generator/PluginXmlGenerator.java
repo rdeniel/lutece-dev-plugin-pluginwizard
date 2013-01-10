@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,8 @@ import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  *
@@ -46,26 +48,23 @@ import java.util.HashMap;
  */
 public class PluginXmlGenerator implements Generator
 {
-
     /**
      * Visits the path and verifies xml plugin description file is needed
      *
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
-        HashMap map = new HashMap();
+        HashMap map = new HashMap(  );
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName() );
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
+        strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
 
-        strBasePath = strBasePath + pluginModel.getPluginName().toLowerCase() + ".xml";
-
-        String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(), plugin );
+        String strSourceCode = SourceCodeGenerator.getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;

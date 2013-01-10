@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -49,30 +50,29 @@ public class ResourcesCodeGenerator implements Generator
 {
     /**
      * Visits the path and verifies whether resouce files are needed
-     * @param strPath The path representing the file structure of the zip
      * @param plugin The plugin
      * @param pluginModel the representation of the created plugin
      * @return The map with the name of the file and its corresponding content
      */
-    
-    private static String[] _languages = { "_en" , "_fr" };
-    
+    private static String[] _languages = { "_en", "_fr" };
+
     @Override
-    public HashMap generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-        
-                        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
-                strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
+        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
+        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
         String strLanguage = "_en";
 
         for ( int i = 0; i < _languages.length; i++ )
         {
-            String strPath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] + ".properties";
+            String strPath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] +
+                ".properties";
 
-            String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ), strLanguage, plugin );
+            String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ),
+                    strLanguage, plugin );
             map.put( strPath, strSourceCode );
         }
 

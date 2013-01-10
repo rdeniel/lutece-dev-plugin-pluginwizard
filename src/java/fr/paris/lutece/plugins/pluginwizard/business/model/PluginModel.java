@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2012, Mairie de Paris
+ * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -382,9 +383,9 @@ public class PluginModel
      * Returns the list of business classes attached to the generated plugin
      * @return The list of business classes
      */
-    public ArrayList<BusinessClass> getBusinessClasses(  )
+    public List<BusinessClass> getBusinessClasses(  )
     {
-        ArrayList listBusinessClasses = new ArrayList<BusinessClass>(  );
+        List listBusinessClasses = new ArrayList<BusinessClass>(  );
 
         for ( PluginFeature feature : _listPluginFeatures )
         {
