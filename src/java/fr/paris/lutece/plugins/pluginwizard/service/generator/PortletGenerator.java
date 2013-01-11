@@ -36,24 +36,26 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  * The portlet generator  generates all the java files needed for portlet creation
  */
 public class PortletGenerator implements Generator
 {
+    private static final String TEMPLATE_PORTLET_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_files.html";
+
     /**
-     * Visits the path and verifies if Portlet files is relevant to be generated
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -75,7 +77,7 @@ public class PortletGenerator implements Generator
 
                 String strPath = strBasePath + strPortletFile;
 
-                String strSourceCode = SourceCodeGenerator.getPortletFile( portlet, pluginModel.getPluginName(  ), i );
+                String strSourceCode = getPortletFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -139,5 +141,27 @@ public class PortletGenerator implements Generator
         String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
+    }
+
+    /**
+    * Produces text content of java file used to build a portlet
+    * @param portlet The instance of a portlet
+    * @param strPluginName The plugin name
+    * @param nPortletFileType The type of portlet file
+    * @return The content of the portlet file
+    */
+    private String getPortletFile( PluginPortlet portlet, String strPluginName, int nPortletFileType )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+
+        model.put( MARK_PORTLET, portlet );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( MARK_PORTLET_FILE_TYPE, nPortletFileType + "" );
+        AppLogService.info( portlet );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_FILE_TEMPLATE,
+                new Locale( "en", "US" ), model );
+
+        return template.getHtml(  );
     }
 }

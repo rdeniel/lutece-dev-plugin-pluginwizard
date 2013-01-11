@@ -33,13 +33,22 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -48,12 +57,10 @@ import java.util.Map;
  */
 public class PropertiesGenerator implements Generator
 {
+    private static final String TEMPLATE_PROPERTIES_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_file.html";
+
     /**
-     * Visits the path and verifies whether properties file is needed
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -65,9 +72,40 @@ public class PropertiesGenerator implements Generator
 
         strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + ".properties";
 
-        String strSourceCode = SourceCodeGenerator.getPropertiesFileCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getPropertiesFileCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;
+    }
+
+    /**
+    * The properties file content
+    * @param nPluginId The id of the plugin
+    * @param plugin The plugin
+    * @return The content of configuration properties file
+    */
+    private String getPropertiesFileCode( int nPluginId, Plugin plugin )
+    {
+        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pluginModel );
+
+        Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
+
+        Collection<PluginFeature> listFeaturesPlugin = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
+                plugin );
+
+        for ( PluginFeature feature : listFeaturesPlugin )
+        {
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
+                    nPluginId, plugin );
+            listClasses.addAll( listBusinessClasses );
+        }
+
+        model.put( MARK_BUSINESS_CLASSES, listClasses );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_FILE, Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

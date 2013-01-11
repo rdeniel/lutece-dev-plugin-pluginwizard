@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  *
  * The generator produced the jsp for back office management
@@ -60,12 +61,7 @@ public class BackOfficeJspGenerator implements Generator
     private static String[] _jsp_prefix = { "Create", "DoCreate", "Remove", "DoRemove", "Manage", "Modify", "DoModify" };
 
     /**
-     * Visits the path and verifies if Portlet templates is relevant to be
-     * generated
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )

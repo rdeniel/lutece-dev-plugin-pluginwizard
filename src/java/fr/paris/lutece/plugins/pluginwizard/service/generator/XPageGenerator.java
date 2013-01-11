@@ -36,11 +36,15 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplication;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplicationHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -51,12 +55,10 @@ import java.util.Map;
  */
 public class XPageGenerator implements Generator
 {
+    private static final String TEMPLATE_XPAGE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xpage_template.html";
+
     /**
-     * Visit the path and verifies whether xpages are relevant to be generated
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -72,11 +74,31 @@ public class XPageGenerator implements Generator
         {
             String strPath = strBasePath + xpage.getApplicationClass(  ) + ".java";
 
-            String strSourceCode = SourceCodeGenerator.getXPageCode( pluginModel.getIdPlugin(  ), plugin,
-                    xpage.getIdPluginApplication(  ) );
+            String strSourceCode = getXPageCode( pluginModel.getIdPlugin(  ), plugin, xpage.getIdPluginApplication(  ) );
             map.put( strPath, strSourceCode );
         }
 
         return map;
+    }
+
+    /**
+    * Generates the XPage source code
+    * @param nPluginId The id of the plugin
+    * @param plugin The plugin
+    * @param nIdPluginApplication id of the plugin application
+    * @return The code of the XPage generated
+    */
+    private String getXPageCode( int nPluginId, Plugin plugin, int nIdPluginApplication )
+    {
+        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pluginModel );
+
+        model.put( MARK_PLUGIN_MODEL, pluginModel );
+        model.put( MARK_PLUGIN_APPLICATION, PluginApplicationHome.findByPrimaryKey( nIdPluginApplication, plugin ) );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_XPAGE_TEMPLATE, Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

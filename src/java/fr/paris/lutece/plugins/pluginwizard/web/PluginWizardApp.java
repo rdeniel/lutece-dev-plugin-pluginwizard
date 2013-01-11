@@ -49,10 +49,8 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
-import fr.paris.lutece.portal.service.content.XPageAppService;
+import fr.paris.lutece.plugins.pluginwizard.service.ResourceKeyService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
@@ -60,17 +58,14 @@ import fr.paris.lutece.portal.service.message.SiteMessageService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
-import fr.paris.lutece.portal.service.util.AppPathService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.web.xpages.XPageApplication;
 import fr.paris.lutece.util.html.HtmlTemplate;
-import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,14 +80,11 @@ public class PluginWizardApp implements XPageApplication
     private static final String MARK_PLUGIN_ID = "plugin_id";
     private static final String MARK_PLUGIN_NAME = "plugin_name";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
-    private static final String MARK_PAGINATOR = "paginator";
-    private static final String MARK_NB_ITEMS_PER_PAGE = "nb_items_per_page";
 
     //Management Bookmarks
     private static final String MARK_PLUGIN_PORTLETS = "plugin_portlets";
     private static final String MARK_PLUGIN_APPLICATIONS = "plugin_applications";
     private static final String MARK_ADMIN_FEATURES = "admin_features";
-    private static final String MARK_RESOURCE_KEYS = "resource_keys";
     private static final String MARK_BUSINESS_CLASSES = "business_classes";
     private static final String MARK_BUSINESS_CLASS = "business_class";
     private static final String MARK_BUSINESS_CLASS_ID = "business_class_id";
@@ -114,7 +106,6 @@ public class PluginWizardApp implements XPageApplication
     private static final String TEMPLATE_MANAGE_PLUGIN_PORTLETS = "/skin/plugins/pluginwizard/pluginwizard_manage_plugin_portlets.html";
     private static final String TEMPLATE_MANAGE_PLUGIN_APPLICATIONS = "/skin/plugins/pluginwizard/pluginwizard_manage_plugin_applications.html";
     private static final String TEMPLATE_MANAGE_BUSINESS_CLASSES = "/skin/plugins/pluginwizard/pluginwizard_manage_business_classes.html";
-    private static final String TEMPLATE_MANAGE_RESOURCE_KEYS = "/skin/plugins/pluginwizard/pluginwizard_manage_resource_keys.html";
     private static final String TEMPLATE_GET_RECAPITULATE = "/skin/plugins/pluginwizard/pluginwizard_plugin_recapitulate.html";
 
     //CREATE
@@ -465,11 +456,6 @@ public class PluginWizardApp implements XPageApplication
         else if ( strAction.equals( ACTION_MANAGE_PLUGIN_PORTLETS ) )
         {
             strContent = getManagePluginPortlets( request, plugin );
-            page.setContent( strContent );
-        }
-        else if ( strAction.equals( ACTION_MANAGE_RESOURCE_KEYS ) )
-        {
-            strContent = getManageResourceKeys( request, plugin );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_ADMIN_FEATURE ) )
@@ -961,49 +947,6 @@ public class PluginWizardApp implements XPageApplication
         model.put( MARK_ADMIN_FEATURES, PluginFeatureHome.findByPlugin( nPluginId, plugin ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_ADMIN_FEATURES, request.getLocale(  ),
-                model );
-
-        return template.getHtml(  );
-    }
-
-    /**
-     * The management screen of the management of the keys
-     *
-     * @param request The Http Request
-     * @param plugin The Plugin
-     * @return The html code of the management of the resource keys
-     */
-    private String getManageResourceKeys( HttpServletRequest request, Plugin plugin )
-    {
-        String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
-        int nPluginId = Integer.parseInt( strPluginId );
-        //Deletes all the keys and regenerate the keys for the generated plugin
-        ResourceKeyHome.deleteKeysByPlugin( nPluginId, plugin );
-        SourceCodeGenerator.storeKeys( nPluginId, plugin );
-
-        _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
-        _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_RESOURCE_PER_PAGE, 30 );
-        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
-                _nDefaultItemsPerPage );
-
-        String strPortalUrl = AppPathService.getPortalUrl(  );
-        UrlItem urlWizardXpage = new UrlItem( strPortalUrl );
-        urlWizardXpage.addParameter( XPageAppService.PARAM_XPAGE_APP, PROPERTY_PLUGIN_NAME );
-        urlWizardXpage.addParameter( PARAM_PLUGIN_ID, strPluginId );
-        urlWizardXpage.addParameter( PARAM_ACTION, ACTION_MANAGE_RESOURCE_KEYS );
-
-        Collection<ResourceKey> listResourceKeys = ResourceKeyHome.getResourceKeysList( nPluginId, plugin );
-        Paginator paginator = new Paginator( (List) listResourceKeys, _nItemsPerPage, urlWizardXpage.getUrl(  ),
-                PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
-
-        Map<String, Object> model = new HashMap<String, Object>(  );
-
-        model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_PAGINATOR, paginator );
-        model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
-        model.put( MARK_RESOURCE_KEYS, paginator.getPageItems(  ) );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_RESOURCE_KEYS, request.getLocale(  ),
                 model );
 
         return template.getHtml(  );
@@ -1879,7 +1822,7 @@ public class PluginWizardApp implements XPageApplication
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         //Deletes all the keys and regenerate the keys for the generated plugin
         ResourceKeyHome.deleteKeysByPlugin( nPluginId, plugin );
-        SourceCodeGenerator.storeKeys( nPluginId, plugin );
+        ResourceKeyService.storeKeys( nPluginId, plugin );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );

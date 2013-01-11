@@ -52,6 +52,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  * The Pom generator is responsible of generating a project object model used by maven
  *
@@ -61,10 +62,7 @@ public class PomGenerator implements Generator
     private static final String TEMPLATE_POM_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_pom_xml.html";
 
     /**
-     * Visits the path and verifies xml plugin description file is needed
-     * @param plugin The pluginwizard plugin
-     * @param pluginModel The representation of the plugin to be created
-     * @return A hashmap with the filename and the text content of the pom file
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )

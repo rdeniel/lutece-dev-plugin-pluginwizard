@@ -36,13 +36,15 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -51,13 +53,10 @@ import java.util.Map;
  */
 public class PortletJspBeanGenerator implements Generator
 {
+    private static final String TEMPLATE_PORTLET_JSPBEAN_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jspbean.html";
+
     /**
-     * Visits the path and verifies if PortletJspBean is relevant to be
-     * generated
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -76,7 +75,7 @@ public class PortletJspBeanGenerator implements Generator
             String strPath = strBasePath + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) +
                 "PortletJspBean.java";
 
-            String strSourceCode = SourceCodeGenerator.getPortletJspBean( portlet, pluginModel.getPluginName(  ) );
+            String strSourceCode = getPortletJspBean( portlet, pluginModel.getPluginName(  ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -96,5 +95,23 @@ public class PortletJspBeanGenerator implements Generator
         String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
+    }
+
+    /**
+    * Gets the Portlet Jsp Bean
+    * @param portlet The portlet
+    * @param strPluginName The generated plugin name
+    * @return The source code of the jsp
+    */
+    private String getPortletJspBean( PluginPortlet portlet, String strPluginName )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PORTLET, portlet );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_JSPBEAN_FILE_TEMPLATE,
+                Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

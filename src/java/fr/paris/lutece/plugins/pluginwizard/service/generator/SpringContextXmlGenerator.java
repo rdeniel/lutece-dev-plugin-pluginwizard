@@ -33,11 +33,24 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
+import fr.paris.lutece.plugins.pluginwizard.service.ResourceKeyService;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -48,12 +61,10 @@ import java.util.Map;
  */
 public class SpringContextXmlGenerator implements Generator
 {
+    private static final String TEMPLATE_SPRING_CONTEXT_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_spring_context_xml.html";
+
     /**
-     * Visits the path and verifies whether spring context is needed
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -64,9 +75,45 @@ public class SpringContextXmlGenerator implements Generator
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
         strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_context.xml";
 
-        String strSourceCode = SourceCodeGenerator.getSpringContextCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getSpringContextCode( pluginModel.getIdPlugin(  ), plugin );
         map.put( strBasePath, strSourceCode );
 
         return map;
+    }
+
+    /**
+     * Produces the spring context xml file
+     *
+     * @param nPluginId The id of the plugin
+     * @param plugin the plugin
+     * @return the content if the spring context file
+     */
+    private String getSpringContextCode( int nPluginId, Plugin plugin )
+    {
+        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pluginModel );
+
+        Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
+
+        Collection<PluginFeature> listFeaturesPlugin = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
+                plugin );
+
+        for ( PluginFeature feature : listFeaturesPlugin )
+        {
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
+                    nPluginId, plugin );
+            listClasses.addAll( listBusinessClasses );
+        }
+
+        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
+
+        model.put( MARK_LIST_PORTLETS, listPortlets );
+        model.put( MARK_BUSINESS_CLASSES, listClasses );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, Locale.getDefault(  ),
+                model );
+
+        return template.getHtml(  );
     }
 }

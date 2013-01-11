@@ -42,11 +42,14 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -57,14 +60,11 @@ import java.util.Map;
  */
 public class SqlCodeGenerator implements Generator
 {
+    private static final String TEMPLATE_DATABASE_SQL_SCRIPT = "/skin/plugins/pluginwizard/templates/pluginwizard_create_db.html";
     private static final String EXT_SQL = ".sql";
 
     /**
-     * Visit the path and verifies if sql files are relevant to be generated
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -87,8 +87,8 @@ public class SqlCodeGenerator implements Generator
 
             String strPath = strBasePath + strSqlFile;
 
-            String strSourceCode = SourceCodeGenerator.getSqlScript( i, pluginModel, listAllBusinessClasses,
-                    listFeatures, listApplcations, listPortlets );
+            String strSourceCode = getSqlScript( i, pluginModel, listAllBusinessClasses, listFeatures, listApplcations,
+                    listPortlets );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
@@ -142,5 +142,34 @@ public class SqlCodeGenerator implements Generator
         }
 
         return strReturn;
+    }
+
+    /**
+    * Returns the necessary sql dump of creation of plugin and core
+    * @param nSqlType The type of the sql
+    * @param pluginModel The plugin Model
+    * @param listBusinessClasses The list of business classes
+    * @param listFeatures The list of admin features
+    * @param listApplcations The list of XPages
+    * @param listPortlets The list of portlets
+    * @return The corresponding sql output
+    */
+    private String getSqlScript( int nSqlType, PluginModel pluginModel, Collection<BusinessClass> listBusinessClasses,
+        Collection<PluginFeature> listFeatures, Collection<PluginApplication> listApplcations,
+        Collection<PluginPortlet> listPortlets )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pluginModel );
+
+        model.put( MARK_LIST_FEATURES, listFeatures );
+        model.put( MARK_LIST_APPLICATIONS, listApplcations );
+        model.put( MARK_LIST_PORTLETS, listPortlets );
+        model.put( MARK_LIST_BUSINESS_CLASSES, listBusinessClasses );
+        model.put( MARK_SQL_TYPE, nSqlType + "" );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_DATABASE_SQL_SCRIPT, Locale.getDefault(  ),
+                model );
+
+        return template.getHtml(  );
     }
 }

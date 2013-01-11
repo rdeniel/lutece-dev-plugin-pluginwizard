@@ -51,6 +51,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  *
  * Class produces the xml file describing the generated plugin
@@ -61,11 +62,7 @@ public class PluginXmlGenerator implements Generator
     private static final String TEMPLATE_PLUGIN_XML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xml_template.html";
 
     /**
-     * Visits the path and verifies xml plugin description file is needed
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )

@@ -34,12 +34,17 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
+import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -48,14 +53,12 @@ import java.util.Map;
  */
 public class ResourcesCodeGenerator implements Generator
 {
-    /**
-     * Visits the path and verifies whether resouce files are needed
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
-     */
+    private static final String TEMPLATE_PROPERTIES_KEYS_GENERATED = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys_generated.html";
     private static String[] _languages = { "_en", "_fr" };
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
     {
@@ -71,11 +74,30 @@ public class ResourcesCodeGenerator implements Generator
             String strPath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] +
                 ".properties";
 
-            String strSourceCode = SourceCodeGenerator.getLocalePropertiesKeys( pluginModel.getIdPlugin(  ),
-                    strLanguage, plugin );
+            String strSourceCode = getLocalePropertiesKeys( pluginModel.getIdPlugin(  ), strLanguage, plugin );
             map.put( strPath, strSourceCode );
         }
 
         return map;
+    }
+
+    /**
+    * Fetches the locale keys needed by front and back office
+    * @param nPluginId The id of the plugin
+    * @param strLanguage The language needed
+    * @param plugin The plugin
+    * @return The Locale keys
+    */
+    private String getLocalePropertiesKeys( int nPluginId, String strLanguage, Plugin plugin )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        Collection<ResourceKey> listResourceKey = ResourceKeyHome.getResourceKeysList( nPluginId, plugin );
+        model.put( MARK_RESOURCE_KEY_LIST, listResourceKey );
+        model.put( MARK_LANGUAGE, strLanguage );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_KEYS_GENERATED,
+                Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

@@ -36,13 +36,15 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -51,11 +53,10 @@ import java.util.Map;
  */
 public class PortletXslGenerator implements Generator
 {
+    private static final String TEMPLATE_PORTLET_XSL_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_xsl_files.html";
+
     /**
-     * Visits the path and verifies whether portlet xsl files needed
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -70,7 +71,7 @@ public class PortletXslGenerator implements Generator
         {
             String strPath = strBasePath + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
 
-            String strSourceCode = SourceCodeGenerator.getPortletXsl( portlet, pluginModel.getPluginName(  ) );
+            String strSourceCode = getPortletXsl( portlet, pluginModel.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
@@ -91,5 +92,22 @@ public class PortletXslGenerator implements Generator
         String strValueCap = strFirstLetter.toLowerCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
+    }
+
+    /**
+    * Fetches the xsl corresponding to a portlet
+    * @param portlet The instance of a portlet
+    * @param strPluginName The plugin name
+    * @return The content of the xsl file
+    */
+    private String getPortletXsl( PluginPortlet portlet, String strPluginName )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PORTLET, portlet );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_XSL_FILE, Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

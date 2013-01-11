@@ -36,13 +36,15 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
@@ -51,14 +53,11 @@ import java.util.Map;
  */
 public class PortletJspFilesGenerator implements Generator
 {
+    private static final String TEMPLATE_PORTLET_JSP_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jsp_files.html";
     private static final String EXT_JSP = ".jsp";
 
     /**
-     * Visits the path and verifies whether portlet jsp files are needed
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -80,7 +79,7 @@ public class PortletJspFilesGenerator implements Generator
 
                 String strPath = strBasePath + strPortletFile;
 
-                String strSourceCode = SourceCodeGenerator.getPortletJspFile( portlet, pluginModel.getPluginName(  ), i );
+                String strSourceCode = getPortletJspFile( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -145,5 +144,25 @@ public class PortletJspFilesGenerator implements Generator
         String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
 
         return strValueCap;
+    }
+
+    /**
+    * Gets the portlet Jsp File
+    * @param portlet The portlet
+    * @param strPluginName the plugin name
+    * @param nPortletJspType The type of portlet
+    * @return The source code of the portlet jsp
+    */
+    private String getPortletJspFile( PluginPortlet portlet, String strPluginName, int nPortletJspType )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PORTLET, portlet );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( MARK_PORTLET_JSP_TYPE, nPortletJspType + "" );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_JSP_FILE_TEMPLATE,
+                Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
     }
 }

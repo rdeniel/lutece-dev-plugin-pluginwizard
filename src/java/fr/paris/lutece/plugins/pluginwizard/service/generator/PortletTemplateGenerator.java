@@ -36,26 +36,25 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
-import fr.paris.lutece.plugins.pluginwizard.service.SourceCodeGenerator;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
-
 
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
 public class PortletTemplateGenerator implements Generator
 {
+    private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
+
     /**
-     * Visit the path and verifies if Portlet templates is relevant to be
-     * generated
-     *
-     * @param plugin The plugin
-     * @param pluginModel the representation of the created plugin
-     * @return The map with the name of the file and its corresponding content
+     * {@inheritDoc }
      */
     @Override
     public Map generate( Plugin plugin, PluginModel pluginModel )
@@ -78,8 +77,7 @@ public class PortletTemplateGenerator implements Generator
 
                 String strPath = strBasePath + strPortletFile;
 
-                String strSourceCode = SourceCodeGenerator.getPortletHtmlTemplate( portlet,
-                        pluginModel.getPluginName(  ), i );
+                String strSourceCode = getPortletHtmlTemplate( portlet, pluginModel.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@@", "#" );
@@ -126,5 +124,30 @@ public class PortletTemplateGenerator implements Generator
         }
 
         return strReturn;
+    }
+
+    /**
+    * Produces text content of the html template for a portlet
+    * @param portlet The instance of a portlet
+    * @param strPluginName The plugin name
+    * @param nPortletTemplateType The type of portlet
+    * @return The content of the html template
+    */
+    private String getPortletHtmlTemplate( PluginPortlet portlet, String strPluginName, int nPortletTemplateType )
+    {
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
+        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
+        model.put( MARK_BRACKETS_OPEN, "${" );
+        model.put( MARK_BRACKETS_CLOSE, "}" );
+        model.put( MARK_MACRO, "@" );
+        model.put( MARK_PORTLET, portlet );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( MARK_PORTLET_TEMPLATE_TYPE, nPortletTemplateType + "" );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_HTML_TEMPLATE, Locale.getDefault(  ),
+                model );
+
+        return template.getHtml(  );
     }
 }
