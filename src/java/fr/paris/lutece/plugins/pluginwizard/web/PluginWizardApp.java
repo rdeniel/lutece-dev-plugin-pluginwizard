@@ -35,8 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
-import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKey;
-import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.AttributeHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
@@ -282,14 +280,7 @@ public class PluginWizardApp implements XPageApplication
     private static final String PROPERTY_CLASS_KEY_NOT_DEFINED = "pluginwizard.siteMessage.keyNotDefined.alertMessage";
 
     // Properties
-    private static final String PROPERTY_DEFAULT_LIST_RESOURCE_PER_PAGE = "pluginwizard.listResources.itemsPerPage";
-    private static final String PARAMETER_PAGE_INDEX = "page_index";
     private static final String DEFAULT_PLUGIN_CLASS = "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation";
-
-    //Variables
-    private int _nDefaultItemsPerPage;
-    private String _strCurrentPageIndex;
-    private int _nItemsPerPage;
 
     /**
      * getPage
@@ -485,27 +476,27 @@ public class PluginWizardApp implements XPageApplication
         }
         else if ( strAction.equals( ACTION_REMOVE_ADMIN_FEATURE ) )
         {
-            getConfirmRemoveAdminFeature( request, plugin );
+            getConfirmRemoveAdminFeature( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_REMOVE_PLUGIN_APPLICATION ) )
         {
-            getConfirmRemovePluginApplication( request, plugin );
+            getConfirmRemovePluginApplication( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_REMOVE_BUSINESS_CLASS ) )
         {
-            getConfirmRemoveBusinessClass( request, plugin );
+            getConfirmRemoveBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_REMOVE_BUSINESS_ATTRIBUTE ) )
         {
-            getConfirmRemoveBusinessAttribute( request, plugin );
+            getConfirmRemoveBusinessAttribute( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_REMOVE_PLUGIN_PORTLET ) )
         {
-            getConfirmRemovePluginPortlet( request, plugin );
+            getConfirmRemovePluginPortlet( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_GET_RECAPITULATE ) )
@@ -914,20 +905,6 @@ public class PluginWizardApp implements XPageApplication
 
         PluginModelHome.update( model, plugin );
 
-        String strKeyNameDescription = strPluginName + ".plugin.description";
-        LocalizationKey keyDescription = new LocalizationKey(  );
-        keyDescription.setKeyName( strKeyNameDescription );
-        keyDescription.setEnglishLocale( strDescription );
-        keyDescription.setFrenchLocale( strDescription );
-
-        LocalizationKeyHome.create( keyDescription );
-
-        String strKeyNameProvider = strPluginName + ".plugin.provider";
-        LocalizationKey keyProvider = new LocalizationKey(  );
-        keyProvider.setKeyName( strKeyNameProvider );
-        keyProvider.setEnglishLocale( strProvider );
-        keyProvider.setFrenchLocale( strProvider );
-        LocalizationKeyHome.create( keyProvider );
     }
 
     /**
@@ -1002,7 +979,6 @@ public class PluginWizardApp implements XPageApplication
     private void doCreateAdminFeature( HttpServletRequest request, Plugin plugin )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
 
         String strPluginFeatureRight = request.getParameter( PARAM_FEATURE_RIGHT );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
@@ -1019,21 +995,6 @@ public class PluginWizardApp implements XPageApplication
         pluginFeature.setPluginFeatureName( strPluginFeatureName );
         PluginFeatureHome.create( pluginFeature, plugin );
 
-        String strKeyNameTitle = pluginModel.getPluginName(  ) + ".adminFeature." +
-            strPluginFeatureName.toLowerCase(  ) + ".name";
-        LocalizationKey keyTitle = new LocalizationKey(  );
-        keyTitle.setKeyName( strKeyNameTitle );
-        keyTitle.setEnglishLocale( strPluginFeatureTitle );
-        keyTitle.setFrenchLocale( strPluginFeatureTitle );
-        LocalizationKeyHome.create( keyTitle );
-
-        String strKeyNameDescription = pluginModel.getPluginName(  ) + ".adminFeature." +
-            strPluginFeatureName.toLowerCase(  ) + ".description";
-        LocalizationKey keyDescription = new LocalizationKey(  );
-        keyDescription.setKeyName( strKeyNameDescription );
-        keyDescription.setEnglishLocale( strPluginFeatureDescription );
-        keyDescription.setFrenchLocale( strPluginFeatureDescription );
-        LocalizationKeyHome.create( keyDescription );
     }
 
     /**
@@ -1091,11 +1052,10 @@ public class PluginWizardApp implements XPageApplication
      * The confirmation of the removal of an admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException The front office mechanism for handling the
      * warning
      */
-    private void getConfirmRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveAdminFeature( HttpServletRequest request )
         throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -1382,10 +1342,9 @@ public class PluginWizardApp implements XPageApplication
      * The confirmation of an application removal
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException The front office exception
      */
-    private void getConfirmRemovePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemovePluginApplication( HttpServletRequest request )
         throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -1401,10 +1360,9 @@ public class PluginWizardApp implements XPageApplication
      * The confirmation of a business class removal
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException The front office exception
      */
-    private void getConfirmRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveBusinessClass( HttpServletRequest request )
         throws SiteMessageException
     {
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
@@ -1750,10 +1708,9 @@ public class PluginWizardApp implements XPageApplication
      * The confirmation of the attribute removal
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException The site message exception
      */
-    private void getConfirmRemoveBusinessAttribute( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemoveBusinessAttribute( HttpServletRequest request )
         throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
@@ -1770,10 +1727,9 @@ public class PluginWizardApp implements XPageApplication
      * The confirmation of the plugin removal
      *
      * @param request The Http Request
-     * @param plugin The Plugin
-     * @throws SiteMessageException The site message exception
+      * @throws SiteMessageException The site message exception
      */
-    private void getConfirmRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void getConfirmRemovePluginPortlet( HttpServletRequest request )
         throws SiteMessageException
     {
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );

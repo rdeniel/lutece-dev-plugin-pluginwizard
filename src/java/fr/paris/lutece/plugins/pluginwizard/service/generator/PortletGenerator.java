@@ -72,8 +72,7 @@ public class PortletGenerator implements Generator
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( 
-                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), pluginModel.getPluginName(  ), i );
+                String strPortletFile = getPortletFileName( getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
 
                 String strPath = strBasePath + strPortletFile;
 
@@ -94,7 +93,7 @@ public class PortletGenerator implements Generator
      * @param nPortletFileType The portlet file type
      * @return The name of the file
      */
-    private String getPortletFileName( String strPortletName, String strPluginName, int nPortletFileType )
+    private String getPortletFileName( String strPortletName, int nPortletFileType )
     {
         String strReturn;
 

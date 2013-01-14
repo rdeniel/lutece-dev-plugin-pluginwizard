@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service;
 
+import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKey;
+import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
@@ -89,20 +91,25 @@ public final class ResourceKeyService
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
         ArrayList<BusinessClass> listBusinessClasses = new ArrayList<BusinessClass>(  );
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nPluginId, plugin );
+        String strPluginName = pluginModel.getPluginName(  );
+        localizePlugin(pluginModel);
 
         for ( PluginFeature feature : listFeatures )
         {
-            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
+            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), nPluginId, plugin );
             listBusinessClasses.addAll( listClassesFeature );
+            
+            localizeFeature( strPluginName , feature ); 
         }
 
-        String strPluginName = pluginModel.getPluginName(  );
         List<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
+        
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
         storeKeyList( nPluginId, pluginModel.getPluginName(  ), plugin, listKeys );
     }
+    
+    
 
     private static void storeKeyList( int nPluginId, String strPluginName, Plugin plugin, List<String> listKeys )
     {
@@ -153,4 +160,50 @@ public final class ResourceKeyService
 
         return listKeys;
     }
+
+    /**
+     * Creates localized keys for Plugin (description, provider)
+     * @param pluginModel 
+     */
+    private static void localizePlugin ( PluginModel pluginModel )
+    {
+        String strKeyNameDescription = pluginModel.getPluginName() + ".plugin.description";
+        LocalizationKey keyDescription = new LocalizationKey(  );
+        keyDescription.setKeyName( strKeyNameDescription );
+        keyDescription.setEnglishLocale( pluginModel.getPluginDescription() );
+        keyDescription.setFrenchLocale( pluginModel.getPluginDescription() );
+
+        LocalizationKeyHome.create( keyDescription );
+
+        String strKeyNameProvider = pluginModel.getPluginName() + ".plugin.provider";
+        LocalizationKey keyProvider = new LocalizationKey(  );
+        keyProvider.setKeyName( strKeyNameProvider );
+        keyProvider.setEnglishLocale( pluginModel.getPluginProvider() );
+        keyProvider.setFrenchLocale( pluginModel.getPluginProvider() );
+        LocalizationKeyHome.create( keyProvider );
+
+    }
+
+    /**
+     * Creates localized keys for Admin Feature (title and description)
+     * @param strPluginName The plugin's name
+     * @param feature The feature
+     */
+    private static void localizeFeature( String strPluginName , PluginFeature feature)
+    {
+        String strKeyNameTitle = strPluginName + ".adminFeature." + feature.getPluginFeatureName().toLowerCase(  ) + ".name";
+        LocalizationKey keyTitle = new LocalizationKey(  );
+        keyTitle.setKeyName( strKeyNameTitle );
+        keyTitle.setEnglishLocale( feature.getPluginFeatureTitle() );
+        keyTitle.setFrenchLocale( feature.getPluginFeatureTitle() );
+        LocalizationKeyHome.create( keyTitle );
+
+        String strKeyNameDescription = strPluginName + ".adminFeature." + feature.getPluginFeatureName().toLowerCase(  ) + ".description";
+        LocalizationKey keyDescription = new LocalizationKey(  );
+        keyDescription.setKeyName( strKeyNameDescription );
+        keyDescription.setEnglishLocale( feature.getPluginFeatureDescription() );
+        keyDescription.setFrenchLocale( feature.getPluginFeatureDescription() );
+        LocalizationKeyHome.create( keyDescription );
+    }
+    
 }

@@ -78,7 +78,6 @@ public class BackOfficeTemplateCodeGenerator implements Generator
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin(pluginModel.getIdPlugin(), plugin);
         int nPluginId = pluginModel.getIdPlugin();
 
-        System.out.println( "Html generator : nb features = " + listFeatures.size() );
         for (PluginFeature feature : listFeatures)
         {
             Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature(feature.getIdPluginFeature(), nPluginId, plugin);

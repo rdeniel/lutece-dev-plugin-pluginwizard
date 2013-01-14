@@ -52,7 +52,7 @@ import java.util.Map;
 public class PortletTemplateGenerator implements Generator
 {
     private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
-
+    private static final String EXT_HTML = ".html";
     /**
      * {@inheritDoc }
      */
@@ -72,8 +72,7 @@ public class PortletTemplateGenerator implements Generator
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
 
-                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ),
-                        pluginModel.getPluginName(  ), i );
+                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ), i );
 
                 String strPath = strBasePath + strPortletFile;
 
@@ -92,33 +91,32 @@ public class PortletTemplateGenerator implements Generator
      * Chooses the name of the template
      *
      * @param strPortletName The name of the portlet
-     * @param strPluginName The plugin name
      * @param nTemplate The type of template
      * @return The name of the tempate
      */
-    private String getPortletTemplateName( String strPortletName, String strPluginName, int nTemplate )
+    private String getPortletTemplateName( String strPortletName, int nTemplate )
     {
         String strReturn;
 
         switch ( nTemplate )
         {
             case 1:
-                strReturn = "combo_feed_" + strPortletName + ".html";
+                strReturn = "combo_feed_" + strPortletName + EXT_HTML;
 
                 break;
 
             case 2:
-                strReturn = "modify_portlet_" + strPortletName + ".html";
+                strReturn = "modify_portlet_" + strPortletName + EXT_HTML;
 
                 break;
 
             case 3:
-                strReturn = "create_portlet_" + strPortletName + ".html";
+                strReturn = "create_portlet_" + strPortletName + EXT_HTML;
 
                 break;
 
             default:
-                strReturn = "combo_feed_" + strPortletName + ".html";
+                strReturn = "combo_feed_" + strPortletName + EXT_HTML;
 
                 break;
         }

@@ -17,6 +17,7 @@
             <h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h4>
             <br>
             <h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
+            <div class="offset1">
             <ul>
                 <#if admin_features?? > 
                 <#if admin_features?size gt 0 > 
@@ -28,6 +29,11 @@
                         <#else>
                         #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
                         </#if>
+                        <ul>
+                        <#list admin_features as feature>
+                        <li> <h6> ${feature.pluginFeatureTitle} </h6> </li>
+                        </#list>
+                        </ul>
                     </h5>
                 </li>
                 </#if>
@@ -84,6 +90,7 @@
                 </#if>
 
             </ul>
+            </div>
             <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&plugin_id=${plugin_id}&goToManagePluginPortlets" >
                 <i class="icon-chevron-left icon-white"></i>
                 #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
