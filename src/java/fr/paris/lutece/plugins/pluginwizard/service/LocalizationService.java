@@ -76,6 +76,8 @@ public class LocalizationService
 
         String strQualifiedKey = strPluginName + "." + strFullKey;
         String strKeyname = strFullKey.substring( strFullKey.lastIndexOf( "." ) + 1 );
+        
+        System.out.println( "localizing " + strFullKey );
 
         if ( ( key = getLocalization( strFullKey, strQualifiedKey ) ) != null )
         {

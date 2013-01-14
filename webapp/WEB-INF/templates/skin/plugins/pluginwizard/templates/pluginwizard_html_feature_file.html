@@ -1,12 +1,12 @@
 <div class="row-fluid" >
     <div class="span12">
-        <h2>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessPluginName?lower_case}.tableLabel${i18n_close}</h2>
+        <h2>${i18n_open}${plugin_name}.adminFeature.${feature.pluginFeatureName?lower_case}.name${i18n_close}</h2>
 
         <ul>
             <#if business_classes?? > 
             <#list business_classes as business_class>
             <li>
-                <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Manage${business_class.businessClass?cap_first}s.jsp" class="bullet-link">
+                <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Manage${business_class.businessClass?cap_first}.jsp" >
                     ${business_class.businessClass?cap_first}  ${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessPluginName?lower_case}.labelManagement${i18n_close}
                 </a>
             </li>

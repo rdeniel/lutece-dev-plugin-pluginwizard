@@ -111,8 +111,7 @@ public final class ResourceKeyService
             ResourceKey key = LocalizationService.localize( strKey.trim(  ), strPluginName );
             key.setIdPlugin( nPluginId );
             ResourceKeyHome.create( key, plugin );
-            AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " +
-                key.getEnglishLocale(  ) );
+            AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " + key.getEnglishLocale(  ) );
         }
     }
 

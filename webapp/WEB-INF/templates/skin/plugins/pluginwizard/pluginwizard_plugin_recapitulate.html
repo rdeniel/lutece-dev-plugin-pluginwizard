@@ -84,18 +84,19 @@
                 </#if>
 
             </ul>
+            <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&plugin_id=${plugin_id}&goToManagePluginPortlets" >
+                <i class="icon-chevron-left icon-white"></i>
+                #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
+            </a>
+            <br>
         </div>
+
         <div class="alert alert-block">
             #i18n{pluginwizard.pluginwizard_plugin_recapitulate.alertProperties}
         </div>
 
-
         <div class="form-actions">
-            <a class="btn btn-primary" href="jsp/site/Portal.jsp?page=pluginwizard&plugin_id=${plugin_id}&goToManagePluginPortlets" >
-                <i class="icon-chevron-left icon-white"></i>
-                #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
-            </a>
-            <a class="btn btn-success btn-large" href="jsp/site/plugins/pluginwizard/DownloadZip.jsp?page=wizard&action=zip&plugin_id=${plugin_id}" >
+            <a class="btn btn-success btn-large offset2" href="jsp/site/plugins/pluginwizard/DownloadZip.jsp?page=wizard&action=zip&plugin_id=${plugin_id}" >
                 <i class=" icon-download-alt icon-white">  </i>
                 #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
             </a>

@@ -81,9 +81,9 @@ CREATE TABLE pluginwizard_plugin_feature
 	id_plugin_feature int NOT NULL,
 	plugin_feature_title varchar(255) default NULL,
 	plugin_feature_level varchar(255) default NULL,
-	plugin_feature_url varchar(255) default NULL,
+	plugin_feature_name varchar(255) default NULL,
 	plugin_feature_description varchar(255) default NULL,
-	plugin_feature_label varchar(255) default NULL,
+	plugin_feature_right varchar(255) default NULL,
 	PRIMARY KEY (id_plugin_feature)
 );
 

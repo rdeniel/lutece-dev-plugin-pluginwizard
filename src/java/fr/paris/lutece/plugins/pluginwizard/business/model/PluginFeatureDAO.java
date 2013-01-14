@@ -48,14 +48,14 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_feature ) FROM pluginwizard_plugin_feature";
-    private static final String SQL_QUERY_SELECT = "SELECT b.id_plugin, a.id_plugin_feature,a.plugin_feature_label, a.plugin_feature_title, a.plugin_feature_level, a.plugin_feature_url, a.plugin_feature_description FROM pluginwizard_plugin_feature as a,pluginwizard_plugin_id_feature as b  WHERE a.id_plugin_feature = ? ";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_feature ( id_plugin_feature,plugin_feature_label, plugin_feature_title, plugin_feature_level, plugin_feature_url, plugin_feature_description ) VALUES (?, ?, ?, ?, ? ,?) ";
+    private static final String SQL_QUERY_SELECT = "SELECT b.id_plugin, a.id_plugin_feature,a.plugin_feature_right, a.plugin_feature_title, a.plugin_feature_level, a.plugin_feature_name, a.plugin_feature_description FROM pluginwizard_plugin_feature as a,pluginwizard_plugin_id_feature as b  WHERE a.id_plugin_feature = ? ";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_feature ( id_plugin_feature,plugin_feature_right, plugin_feature_title, plugin_feature_level, plugin_feature_name, plugin_feature_description ) VALUES (?, ?, ?, ?, ? ,?) ";
     private static final String SQL_QUERY_INSERT_PLUGIN_FEATURE_DEPENDENCY = "INSERT INTO pluginwizard_plugin_id_feature ( id_plugin, id_plugin_feature) VALUES ( ?, ?)";
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_feature WHERE id_plugin_feature = ? ";
     private static final String SQL_QUERY_DELETE_PLUGIN_FEATURE_DEPENDENCY = "DELETE FROM pluginwizard_plugin_id_feature WHERE id_plugin_feature = ?";
-    private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_feature SET id_plugin_feature = ?, plugin_feature_label =?, plugin_feature_title = ?, plugin_feature_level = ?, plugin_feature_url = ?, plugin_feature_description = ? WHERE  id_plugin_feature = ?";
-    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN = "SELECT b.id_plugin,a.id_plugin_feature,a.plugin_feature_label, a.plugin_feature_title, a.plugin_feature_level, a.plugin_feature_url, a.plugin_feature_description FROM pluginwizard_plugin_feature as a , pluginwizard_plugin_id_feature as b  WHERE a.id_plugin_feature=b.id_plugin_feature AND b.id_plugin = ?";
-    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN_COMBO = "SELECT a.id_plugin_feature,a.plugin_feature_label FROM pluginwizard_plugin_feature as a, pluginwizard_plugin_id_feature as b WHERE a.id_plugin_feature=b.id_plugin_feature AND id_plugin= ?";
+    private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_feature SET id_plugin_feature = ?, plugin_feature_right =?, plugin_feature_title = ?, plugin_feature_level = ?, plugin_feature_name = ?, plugin_feature_description = ? WHERE  id_plugin_feature = ?";
+    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN = "SELECT b.id_plugin,a.id_plugin_feature,a.plugin_feature_right, a.plugin_feature_title, a.plugin_feature_level, a.plugin_feature_name, a.plugin_feature_description FROM pluginwizard_plugin_feature as a , pluginwizard_plugin_id_feature as b  WHERE a.id_plugin_feature=b.id_plugin_feature AND b.id_plugin = ?";
+    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN_COMBO = "SELECT a.id_plugin_feature,a.plugin_feature_right FROM pluginwizard_plugin_feature as a, pluginwizard_plugin_id_feature as b WHERE a.id_plugin_feature=b.id_plugin_feature AND id_plugin= ?";
     private static final String SQL_QUERY_SELECTALL_FEATURE_ID_BY_PLUGIN = "SELECT id_plugin_feature FROM pluginwizard_plugin_id_feature where id_plugin= ?";
 
     /**

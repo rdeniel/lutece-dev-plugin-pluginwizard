@@ -48,7 +48,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  *
  * Generates Html files used as template to construct back office UI
@@ -56,49 +55,53 @@ import java.util.Map;
  */
 public class BackOfficeTemplateCodeGenerator implements Generator
 {
+
     private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
-    private static String[] _template_prefix = { "create_", "modify_", "manage_" };
+    private static final String TEMPLATE_HTML_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_feature_file.html";
+    private static String[] _template_prefix =
+    {
+        "create_", "modify_", "manage_"
+    };
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate(Plugin plugin, PluginModel pluginModel)
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap();
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace("{plugin_name}", pluginModel.getPluginName());
 
         //for each feature,which business classes are attached to
-        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
-        int nPluginId = pluginModel.getIdPlugin(  );
+        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin(pluginModel.getIdPlugin(), plugin);
+        int nPluginId = pluginModel.getIdPlugin();
 
-        for ( PluginFeature feature : listFeatures )
+        System.out.println( "Html generator : nb features = " + listFeatures.size() );
+        for (PluginFeature feature : listFeatures)
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
-            String strFeatureName = feature.getPluginFeatureName(  );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature(feature.getIdPluginFeature(), nPluginId, plugin);
+            String strFeatureName = feature.getPluginFeatureName();
 
-            for ( BusinessClass businessClass : listBusinessClasses )
+            for (BusinessClass businessClass : listBusinessClasses)
             {
-                businessClass.setPluginName( pluginModel.getPluginName(  ) );
+                businessClass.setPluginName(pluginModel.getPluginName());
 
-                for ( int i = 0; i < _template_prefix.length; i++ )
+                for (int i = 0; i < _template_prefix.length; i++)
                 {
-                    String strPath = strBasePath + _template_prefix[i] +
-                        businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
+                    String strPath = strBasePath + _template_prefix[i]
+                            + businessClass.getBusinessClass().toLowerCase() + ".html";
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1, plugin );
-                    map.put( strPath, strSourceCode );
+                    String strSourceCode = getCreateHtmlCode(listBusinessClasses, businessClass, i + 1);
+                    map.put(strPath, strSourceCode);
                 }
-
-                //Add the main template where all the business management interface will be accessible
-                String strPath = strBasePath + strFeatureName.toLowerCase(  ) + ".html";
-
-                String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, 4, plugin );
-                map.put( strPath, strSourceCode );
             }
+            //Add the main template where all the business management interface will be accessible
+            String strPath = strBasePath + strFeatureName.toLowerCase() + ".html";
+
+            String strSourceCode = getFeatureHtmlCode(listBusinessClasses , pluginModel.getPluginName() , feature );
+            map.put(strPath, strSourceCode);
         }
 
         return map;
@@ -111,29 +114,55 @@ public class BackOfficeTemplateCodeGenerator implements Generator
      * plugin
      * @param businessClass The instance of the business class
      * @param nTemplateType The type of template
-     * @param plugin The plugin
      * @return The html code of the create template
      */
-    public static String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses,
-        BusinessClass businessClass, int nTemplateType, Plugin plugin )
+    private String getCreateHtmlCode(Collection<BusinessClass> listAllBusinessClasses,
+            BusinessClass businessClass, int nTemplateType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>();
 
-        model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
-        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
-        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
-        model.put( MARK_MACRO, "@" );
-        model.put( MARK_VARIABLE, "@@" );
-        model.put( MARK_BRACKETS_OPEN, "${" );
-        model.put( MARK_BRACKETS_CLOSE, "}" );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
+        model.put(MARK_PLUGIN_NAME, businessClass.getBusinessPluginName());
+        model.put(MARK_I18N_BRACKETS_OPEN, "@@i18n{");
+        model.put(MARK_I18N_BRACKETS_CLOSE, "}");
+        model.put(MARK_MACRO, "@");
+        model.put(MARK_VARIABLE, "@@");
+        model.put(MARK_BRACKETS_OPEN, "${");
+        model.put(MARK_BRACKETS_CLOSE, "}");
+        model.put(MARK_BUSINESS_CLASS, businessClass);
+        model.put(MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses);
 
-        model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
+        model.put(MARK_TEMPLATE_TYPE, "" + nTemplateType);
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_BUSINESS_FILES, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_BUSINESS_FILES, Locale.getDefault(), model);
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml().replace("@@", "#");
     }
+    
+    
+        /**
+     * Gets the code of a create template for a specific business object
+     *
+     * @param listAllBusinessClasses A list of business classes attached to
+     * plugin
+     * @return The html code of the create template
+     */
+    private String getFeatureHtmlCode(Collection<BusinessClass> listAllBusinessClasses , String strPluginName , PluginFeature feature )
+    {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        model.put(MARK_PLUGIN_NAME, strPluginName );
+        model.put(MARK_FEATURE, feature );
+        model.put(MARK_I18N_BRACKETS_OPEN, "@@i18n{");
+        model.put(MARK_I18N_BRACKETS_CLOSE, "}");
+        model.put(MARK_MACRO, "@");
+        model.put(MARK_VARIABLE, "@@");
+        model.put(MARK_BRACKETS_OPEN, "${");
+        model.put(MARK_BRACKETS_CLOSE, "}");
+        model.put(MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses);
+
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_FEATURE_FILE, Locale.getDefault(), model);
+
+        return template.getHtml().replace("@@", "#");
+    }
+
 }

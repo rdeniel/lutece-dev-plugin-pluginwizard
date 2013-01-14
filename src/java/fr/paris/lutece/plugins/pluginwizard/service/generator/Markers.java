@@ -34,6 +34,7 @@ public class Markers
     public static final String MARK_BRACKETS_CLOSE = "bra_close";
     public static final String MARK_MACRO = "macro";
     public static final String MARK_PLUGIN = "plugin";
+    public static final String MARK_FEATURE = "feature";
     public static final String MARK_LIST_BUSINESS_CLASSES = "business_classes";
     public static final String MARK_RESOURCE_KEY_LIST = "list_resource";
     public static final String MARK_LIST_FEATURES = "features";

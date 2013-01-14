@@ -138,10 +138,10 @@ public class PluginWizardApp implements XPageApplication
 
     //Admin feature
     private static final String PARAM_FEATURE_ID = "feature_id";
-    private static final String PARAM_FEATURE_LABEL = "feature_label";
+    private static final String PARAM_FEATURE_RIGHT = "feature_right";
     private static final String PARAM_FEATURE_TITLE = "feature_title";
     private static final String PARAM_FEATURE_LEVEL = "feature_level";
-    private static final String PARAM_FEATURE_NAME = "feature_url";
+    private static final String PARAM_FEATURE_NAME = "feature_name";
     private static final String PARAM_FEATURE_DESCRITPION = "feature_description";
 
     //Application
@@ -1004,7 +1004,7 @@ public class PluginWizardApp implements XPageApplication
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
 
-        String strPluginFeatureRight = request.getParameter( PARAM_FEATURE_LABEL );
+        String strPluginFeatureRight = request.getParameter( PARAM_FEATURE_RIGHT );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
         String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
         String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
@@ -1071,7 +1071,7 @@ public class PluginWizardApp implements XPageApplication
         int nIdPluginFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
         String strPluginFeatureDescription = request.getParameter( PARAM_FEATURE_DESCRITPION );
 
-        String strPluginFeatureLabel = request.getParameter( PARAM_FEATURE_LABEL );
+        String strPluginFeatureLabel = request.getParameter( PARAM_FEATURE_RIGHT );
         String strPluginFeatureLevel = request.getParameter( PARAM_FEATURE_LEVEL );
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
         String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_NAME );
@@ -1715,7 +1715,6 @@ public class PluginWizardApp implements XPageApplication
         }
 
         String strAttributeTypeId = request.getParameter( PARAM_ATTRIBUTE_TYPE_ID );
-        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         Integer nAttributeTypeId = Integer.parseInt( strAttributeTypeId );
 
         //If Business class already has a primary key
