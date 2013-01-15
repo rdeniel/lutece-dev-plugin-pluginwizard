@@ -701,6 +701,13 @@ public class PluginWizardApp implements XPageApplication
         return template.getHtml(  );
     }
 
+    /**
+     * Gets the create plugin description page
+     * @param request The HTTP request
+     * @param strPluginName The plugin name
+     * @param plugin The plugin
+     * @return The page
+     */
     private String getCreatePluginDescription( HttpServletRequest request, String strPluginName, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -773,6 +780,13 @@ public class PluginWizardApp implements XPageApplication
         return getModifyBusinessClass( nBusinessClassId, request, plugin );
     }
 
+    /**
+     * Gets the modify business class page
+     * @param nBusinessClassId The business class id
+     * @param request The HTTP request
+     * @param plugin The plugin
+     * @return The page
+     */
     private String getModifyBusinessClass( int nBusinessClassId, HttpServletRequest request, Plugin plugin )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -904,7 +918,6 @@ public class PluginWizardApp implements XPageApplication
         model.setPluginChanges( "" );
 
         PluginModelHome.update( model, plugin );
-
     }
 
     /**
@@ -994,7 +1007,6 @@ public class PluginWizardApp implements XPageApplication
         pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
         pluginFeature.setPluginFeatureName( strPluginFeatureName );
         PluginFeatureHome.create( pluginFeature, plugin );
-
     }
 
     /**
@@ -1088,19 +1100,13 @@ public class PluginWizardApp implements XPageApplication
     * @param request The Http Request
     * @param plugin The Plugin
     * @return The html code of the management screen of the applications
-    * @throws SiteMessageException
+    * @throws SiteMessageException if an error occurs
     */
     private String getManagePluginApplications( HttpServletRequest request, Plugin plugin )
         throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
-        //Fetch the business classes
-        //1.Business class must have at least 2 attributes
-        //2.Business class must have 1 Key(count)
-        //3.Business class must have 1 Description(count)
-        //4.The type of the key must be int
-        //5.The type of the description must be String
         Collection<BusinessClass> listBusinessClass = BusinessClassHome.getBusinessClassesByPlugin( nPluginId, plugin );
 
         for ( BusinessClass businessClass : listBusinessClass )
@@ -1486,6 +1492,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The Http Request
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
+     * @return The business class id
      */
     private int doCreateBusinessClass( HttpServletRequest request, Plugin plugin )
         throws SiteMessageException

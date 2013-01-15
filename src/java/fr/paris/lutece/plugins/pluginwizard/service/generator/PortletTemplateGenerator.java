@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
@@ -53,6 +54,7 @@ public class PortletTemplateGenerator implements Generator
 {
     private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
     private static final String EXT_HTML = ".html";
+
     /**
      * {@inheritDoc }
      */

@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  *
  * The class generated the portlet jspbean needed to manage portlets

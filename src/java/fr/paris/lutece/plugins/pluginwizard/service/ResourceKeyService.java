@@ -92,24 +92,23 @@ public final class ResourceKeyService
         ArrayList<BusinessClass> listBusinessClasses = new ArrayList<BusinessClass>(  );
         Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nPluginId, plugin );
         String strPluginName = pluginModel.getPluginName(  );
-        localizePlugin(pluginModel);
+        localizePlugin( pluginModel );
 
         for ( PluginFeature feature : listFeatures )
         {
-            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), nPluginId, plugin );
+            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
+                    nPluginId, plugin );
             listBusinessClasses.addAll( listClassesFeature );
-            
-            localizeFeature( strPluginName , feature ); 
+
+            localizeFeature( strPluginName, feature );
         }
 
         List<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
-        
+
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
         storeKeyList( nPluginId, pluginModel.getPluginName(  ), plugin, listKeys );
     }
-    
-    
 
     private static void storeKeyList( int nPluginId, String strPluginName, Plugin plugin, List<String> listKeys )
     {
@@ -118,7 +117,8 @@ public final class ResourceKeyService
             ResourceKey key = LocalizationService.localize( strKey.trim(  ), strPluginName );
             key.setIdPlugin( nPluginId );
             ResourceKeyHome.create( key, plugin );
-            AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " + key.getEnglishLocale(  ) );
+            AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " +
+                key.getEnglishLocale(  ) );
         }
     }
 
@@ -163,25 +163,24 @@ public final class ResourceKeyService
 
     /**
      * Creates localized keys for Plugin (description, provider)
-     * @param pluginModel 
+     * @param pluginModel
      */
-    private static void localizePlugin ( PluginModel pluginModel )
+    private static void localizePlugin( PluginModel pluginModel )
     {
-        String strKeyNameDescription = pluginModel.getPluginName() + ".plugin.description";
+        String strKeyNameDescription = pluginModel.getPluginName(  ) + ".plugin.description";
         LocalizationKey keyDescription = new LocalizationKey(  );
         keyDescription.setKeyName( strKeyNameDescription );
-        keyDescription.setEnglishLocale( pluginModel.getPluginDescription() );
-        keyDescription.setFrenchLocale( pluginModel.getPluginDescription() );
+        keyDescription.setEnglishLocale( pluginModel.getPluginDescription(  ) );
+        keyDescription.setFrenchLocale( pluginModel.getPluginDescription(  ) );
 
         LocalizationKeyHome.create( keyDescription );
 
-        String strKeyNameProvider = pluginModel.getPluginName() + ".plugin.provider";
+        String strKeyNameProvider = pluginModel.getPluginName(  ) + ".plugin.provider";
         LocalizationKey keyProvider = new LocalizationKey(  );
         keyProvider.setKeyName( strKeyNameProvider );
-        keyProvider.setEnglishLocale( pluginModel.getPluginProvider() );
-        keyProvider.setFrenchLocale( pluginModel.getPluginProvider() );
+        keyProvider.setEnglishLocale( pluginModel.getPluginProvider(  ) );
+        keyProvider.setFrenchLocale( pluginModel.getPluginProvider(  ) );
         LocalizationKeyHome.create( keyProvider );
-
     }
 
     /**
@@ -189,21 +188,22 @@ public final class ResourceKeyService
      * @param strPluginName The plugin's name
      * @param feature The feature
      */
-    private static void localizeFeature( String strPluginName , PluginFeature feature)
+    private static void localizeFeature( String strPluginName, PluginFeature feature )
     {
-        String strKeyNameTitle = strPluginName + ".adminFeature." + feature.getPluginFeatureName().toLowerCase(  ) + ".name";
+        String strKeyNameTitle = strPluginName + ".adminFeature." + feature.getPluginFeatureName(  ).toLowerCase(  ) +
+            ".name";
         LocalizationKey keyTitle = new LocalizationKey(  );
         keyTitle.setKeyName( strKeyNameTitle );
-        keyTitle.setEnglishLocale( feature.getPluginFeatureTitle() );
-        keyTitle.setFrenchLocale( feature.getPluginFeatureTitle() );
+        keyTitle.setEnglishLocale( feature.getPluginFeatureTitle(  ) );
+        keyTitle.setFrenchLocale( feature.getPluginFeatureTitle(  ) );
         LocalizationKeyHome.create( keyTitle );
 
-        String strKeyNameDescription = strPluginName + ".adminFeature." + feature.getPluginFeatureName().toLowerCase(  ) + ".description";
+        String strKeyNameDescription = strPluginName + ".adminFeature." +
+            feature.getPluginFeatureName(  ).toLowerCase(  ) + ".description";
         LocalizationKey keyDescription = new LocalizationKey(  );
         keyDescription.setKeyName( strKeyNameDescription );
-        keyDescription.setEnglishLocale( feature.getPluginFeatureDescription() );
-        keyDescription.setFrenchLocale( feature.getPluginFeatureDescription() );
+        keyDescription.setEnglishLocale( feature.getPluginFeatureDescription(  ) );
+        keyDescription.setFrenchLocale( feature.getPluginFeatureDescription(  ) );
         LocalizationKeyHome.create( keyDescription );
     }
-    
 }

@@ -86,6 +86,8 @@ public class JspBeanCodeGenerator implements Generator
     /**
      * Return JspBean code
      * @param pluginModel The plugin model
+     * @param strFeatureName The feature name
+     * @param strFeatureRight The feature right
      * @param listBusinessClasses The list of business classes
      * @return the template The source code of the Jsp Bean
      */

@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
 
 import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -45,8 +46,13 @@ import java.util.HashMap;
  */
 public class LocalizationService
 {
-    private static HashMap<String, LocalizationKey> _mapLocalized = new HashMap<String, LocalizationKey>(  );
-    private static boolean _bInit = false;
+    private static Map<String, LocalizationKey> _mapLocalized = new HashMap<String, LocalizationKey>(  );
+    private static boolean _bInit;
+
+    /** Private constructor */
+    private LocalizationService(  )
+    {
+    }
 
     /**
      * Initialize service
@@ -57,11 +63,14 @@ public class LocalizationService
         {
             _mapLocalized.put( key.getKeyName(  ), key );
         }
+
+        _bInit = true;
     }
 
     /**
      * Localize a key
      * @param strFullKey The key
+     * @param strPluginName  The plugin name
      * @return A localized Resource key
      */
     static ResourceKey localize( String strFullKey, String strPluginName )
@@ -76,18 +85,24 @@ public class LocalizationService
 
         String strQualifiedKey = strPluginName + "." + strFullKey;
         String strKeyname = strFullKey.substring( strFullKey.lastIndexOf( "." ) + 1 );
-        
-        if ( ( key = getLocalization( strFullKey, strQualifiedKey ) ) != null )
+
+        key = getLocalization( strFullKey, strQualifiedKey );
+
+        if ( key != null )
         {
             return key;
         }
 
-        if ( ( key = getLocalization( strFullKey, strFullKey ) ) != null )
+        key = getLocalization( strFullKey, strFullKey );
+
+        if ( key != null )
         {
             return key;
         }
 
-        if ( ( key = getLocalization( strFullKey, strKeyname ) ) != null )
+        key = getLocalization( strFullKey, strKeyname );
+
+        if ( key != null )
         {
             return key;
         }
@@ -103,6 +118,12 @@ public class LocalizationService
         return key;
     }
 
+    /**
+     * Get localization
+     * @param strKey The key name
+     * @param strPattern The pattern
+     * @return The key
+     */
     private static ResourceKey getLocalization( String strKey, String strPattern )
     {
         LocalizationKey locales = _mapLocalized.get( strPattern );

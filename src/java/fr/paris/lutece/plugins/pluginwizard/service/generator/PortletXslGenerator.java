@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  *
  * Class generates the xsl associated to every generated portlet

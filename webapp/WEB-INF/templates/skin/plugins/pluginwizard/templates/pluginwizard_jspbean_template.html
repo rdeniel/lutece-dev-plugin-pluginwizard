@@ -42,18 +42,21 @@ import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_cl
 <#if business_object?? > 
 </#if>    
 </#list>
+
+<#if (list_business_class?size > 0) >
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
-import fr.paris.lutece.portal.web.admin.PluginAdminPageJspBean;
 import fr.paris.lutece.portal.web.constants.Messages;
 import fr.paris.lutece.portal.web.util.LocalizedPaginator;
-import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
+</#if>
 
-import java.util.Collection;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.web.admin.PluginAdminPageJspBean;
+import fr.paris.lutece.util.html.HtmlTemplate;
+
 import java.util.HashMap;
 
 import java.util.List;
@@ -81,10 +84,11 @@ public class ${feature_name}JspBean extends PluginAdminPageJspBean
 <#list business_class.attributes as attribute>
     private static final String PARAMETER_${business_class.businessClassParamDeclaration}_${attribute.attributeName?upper_case}="${business_class.businessClassParam}_${attribute.attributeName?lower_case}";
 </#list>
-    private static final String PARAMETER_${business_class.businessClassParamDeclaration}_PAGE_INDEX = "${business_class.businessClassParam}_page_index";  
 </#if>    
 </#list>
+<#if (list_business_class?size > 0) >
     private static final String PARAMETER_PAGE_INDEX = "page_index";   
+</#if>
 
     // templates
 <#list list_business_class as business_class>
@@ -114,10 +118,11 @@ private static final String PROPERTY_PAGE_TITLE_MANAGE_${plugin_model.pluginName
     private static final String MARK_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
 </#if>    
 </#list>   
-    private static final String MARK_PAGINATOR = "paginator";
     private static final String MARK_BUSINESS_CLASSES = "business_classes";
+<#if (list_business_class?size > 0) >
+    private static final String MARK_PAGINATOR = "paginator";
     private static final String MARK_NB_ITEMS_PER_PAGE = "nb_items_per_page";    
-    
+</#if>
     
     // Jsp Definition
         <#list list_business_class as business_class>
@@ -141,12 +146,14 @@ private static final String PROPERTY_PAGE_TITLE_MANAGE_${plugin_model.pluginName
     private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName}.message.confirmRemove${business_class.businessClass?cap_first}";
 </#if>    
 </#list>  
-  
+ 
+<#if (list_business_class?size > 0) >
     //Variables
     private int _nDefaultItemsPerPage;
     private String _strCurrentPageIndex;
     private int _nItemsPerPage;    
-    
+</#if>
+
     /**
      * Returns the list of the different management screens
      *

@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  *
  * Class generated the jsp files needed to manage portlets

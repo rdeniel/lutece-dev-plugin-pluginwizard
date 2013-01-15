@@ -107,6 +107,7 @@ public class BackOfficeJspGenerator implements Generator
     /**
      * Gets the Jsp File of a business class
      * @param businessClass The business class
+     * @param strFeatureName The feature name
      * @param strPluginName The generated plugin name
      * @param nJspType The type of jsp
      * @return The source code of the jsp
@@ -126,6 +127,12 @@ public class BackOfficeJspGenerator implements Generator
         return template.getHtml(  );
     }
 
+    /**
+     * Gets the JSP feature file code
+     * @param strFeatureName The feature name
+     * @param strPluginName The plugin name
+     * @return The source code of the JSP
+     */
     private String getFeatureJspFile( String strFeatureName, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );

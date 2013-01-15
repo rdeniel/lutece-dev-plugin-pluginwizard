@@ -47,6 +47,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  * The portlet generator  generates all the java files needed for portlet creation
  */
@@ -72,7 +73,8 @@ public class PortletGenerator implements Generator
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
+                String strPortletFile = getPortletFileName( getFirstCaps( 
+                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
 
                 String strPath = strBasePath + strPortletFile;
 

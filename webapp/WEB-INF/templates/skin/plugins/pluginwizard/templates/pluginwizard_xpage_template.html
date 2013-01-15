@@ -36,13 +36,10 @@
 package fr.paris.lutece.plugins.${plugin_model.pluginName}.web;
 
 import javax.servlet.http.HttpServletRequest;
-import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
-import fr.paris.lutece.portal.service.message.SiteMessageService;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.web.xpages.XPageApplication;
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
 
@@ -55,22 +52,19 @@ public class ${plugin_application.applicationClass} implements XPageApplication
  
  private static final String PROPERTY_PAGE_PATH = "${plugin_application.applicationName}.pagePathLabel";
  private static final String PROPERTY_PAGE_TITLE = "${plugin_application.applicationName}.pageTitle";
-     // private fields
-    private Plugin _plugin;   
-     /**
+
+    /**
      * Returns the content of the page ${plugin_application.applicationName}. 
      * @param request The http request
      * @param nMode The current mode
      * @param plugin The plugin object
      * @throws fr.paris.lutece.portal.service.message.SiteMessageException Message displayed if an exception occurs
      */
+    @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
         throws SiteMessageException
     {
         XPage page = new XPage(  );
-
-        String strPluginName = request.getParameter( PARAMETER_PAGE );
-        _plugin = PluginService.getPlugin( strPluginName );
 
         page.setTitle( AppPropertiesService.getProperty( PROPERTY_PAGE_TITLE ) );
         page.setPathLabel( AppPropertiesService.getProperty( PROPERTY_PAGE_PATH ) );
