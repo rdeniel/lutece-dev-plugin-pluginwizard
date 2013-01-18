@@ -52,13 +52,6 @@ public interface IBusinessClassDAO
     boolean containsAttributes( int nBusinessClassId, Plugin plugin );
 
     /**
-     *  Deletes all the classes attached to aplugin
-     * @param nIdPlugin The id of the plugin
-     * @param plugin The plugin
-     */
-    void deleteAllClassesByPluginId( int nIdPlugin, Plugin plugin );
-
-    /**
      * Checks whether class has a description
      * @param nBusinessId The identifier of the business class
      * @param plugin The plugin
@@ -95,13 +88,6 @@ public interface IBusinessClassDAO
      */
     void delete( int nBusinessClassId, Plugin plugin );
 
-    /**
-     * Delete business classes by admin feature
-     * @param nFeatureId identifier of the Admin feature
-     * @param plugin the Plugin
-     */
-    void deleteByFeature( int nFeatureId, Plugin plugin );
-
     ///////////////////////////////////////////////////////////////////////////
     // Finders
 
@@ -124,11 +110,10 @@ public interface IBusinessClassDAO
     /**
      * Returns the business classes chosen by feature
      * @param nFeatureId The id of the feature
-     * @param nPluginId The id of the plugin
      * @param plugin The Plugin
      * @return A collection of the business classes
      */
-    Collection<BusinessClass> selectBusinessClassesByFeature( int nFeatureId, int nPluginId, Plugin plugin );
+    Collection<BusinessClass> selectBusinessClassesByFeature( int nFeatureId, Plugin plugin );
 
     /**
      * Verifies if key exists for business class

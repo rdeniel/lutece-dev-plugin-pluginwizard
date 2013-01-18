@@ -36,21 +36,12 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.ReferenceList;
 
-import java.util.List;
-
 
 /**
 * IAttributeDAO Interface
 */
 public interface IAttributeDAO
 {
-    /**
-     * Deletes all the attributes related to a plugin
-     * @param nIdPlugin The id of the plugin
-     * @param plugin The plugin
-     */
-    void deleteAllAttributesByPluginId( int nIdPlugin, Plugin plugin );
-
     /**
      * Fetches the type name
     * @param nIdAttribute int identifier of the Attribute
@@ -85,10 +76,9 @@ public interface IAttributeDAO
     /**
      * Insert a new record in the table.
      * @param attribute instance of the Attribute object to insert
-     * @param nBusinessClassId The business class identifier
      * @param plugin the Plugin
      */
-    void insert( int nBusinessClassId, Attribute attribute, Plugin plugin );
+    void insert( Attribute attribute, Plugin plugin );
 
     /**
      * Delete a record from the table
@@ -108,12 +98,6 @@ public interface IAttributeDAO
      */
     Attribute load( int nKey, Plugin plugin );
 
-    /**
-    * Load the data of all the attribute objects and returns them as a List
-    * @param plugin the Plugin
-    * @return The List which contains the data of all the attribute objects
-    */
-    List<Attribute> selectAttributesList( Plugin plugin );
 
     /**
     * Load the data of all the attributes type

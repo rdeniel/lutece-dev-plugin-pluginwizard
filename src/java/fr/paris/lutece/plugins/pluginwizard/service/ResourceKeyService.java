@@ -96,8 +96,7 @@ public final class ResourceKeyService
 
         for ( PluginFeature feature : listFeatures )
         {
-            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
+            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             listBusinessClasses.addAll( listClassesFeature );
 
             localizeFeature( strPluginName, feature );

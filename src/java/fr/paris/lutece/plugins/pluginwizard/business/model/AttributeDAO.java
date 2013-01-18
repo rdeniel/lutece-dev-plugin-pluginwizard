@@ -55,17 +55,10 @@ public final class AttributeDAO implements IAttributeDAO
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_attribute ) FROM pluginwizard_plugin_attribute";
     private static final String SQL_QUERY_SELECT = "SELECT id_attribute, attribute_type_id, attribute_name, is_primary_key , is_description FROM pluginwizard_plugin_attribute WHERE id_attribute = ?";
     private static final String SQL_QUERY_SELECT_TYPE_BY_ATTRIBUE_ID = "SELECT b.attribute_type_name FROM pluginwizard_plugin_attribute as a,pluginwizard_plugin_attribute_type as b WHERE id_attribute = ? AND a.attribute_type_id=b.attribute_type_id";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_attribute ( id_attribute, attribute_type_id, attribute_name ,is_primary_key , is_description ) VALUES ( ?, ?, ? ,?, ?) ";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_attribute ( id_attribute, attribute_type_id, attribute_name ,is_primary_key , is_description, id_business_class ) VALUES ( ?, ?, ? ,?, ?, ?) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_attribute WHERE id_attribute = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_attribute SET id_attribute = ?, attribute_type_id = ?, attribute_name = ? , is_primary_key = ? , is_description =  ? WHERE id_attribute = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_attribute, attribute_type_id, attribute_name FROM pluginwizard_plugin_attribute";
     private static final String SQL_QUERY_SELECTALL_ATTTIBUTE_TYPE_COMBO = "select attribute_type_id,attribute_type_name from pluginwizard_plugin_attribute_type";
-    private static final String SQL_QUERY_DELETE_BUSINESS_ATTRIBUTE_DEPENDENCY = "DELETE FROM pluginwizard_plugin_business_attribute WHERE id_attribute= ?";
-    private static final String SQL_QUERY_INSERT_BUSINESS_ATTRIBUTE_DEPENDENCY = "INSERT INTO pluginwizard_plugin_business_attribute ( id_business_class , id_attribute ) VALUES ( ?, ?)";
-    private static final String SQL_QUERY_SELECTALL_ATTRIBUTE_ID_BY_PLUGIN = "SELECT d.id_attribute FROM pluginwizard_plugin_business as a ," +
-        "pluginwizard_plugin_feature_business as b , pluginwizard_plugin_id_feature as c ,pluginwizard_plugin_business_attribute as d " +
-        "where b.id_plugin_feature = c.id_plugin_feature AND b.id_business_class=a.id_business_class AND" +
-        " d.id_business_class=a.id_business_class AND c.id_plugin= ? ";
     private static final String SQL_QUERY_SELECT_CLASS_KEY_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_business_attribute as b  WHERE a.id_attribute=b.id_attribute and b.id_business_class= ? and a.is_primary_key=1";
     private static final String SQL_QUERY_SELECT_CLASS_DESCRIPTION_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_business_attribute as b  WHERE a.id_attribute=b.id_attribute and b.id_business_class=? and a.is_description=1";
 
@@ -95,11 +88,10 @@ public final class AttributeDAO implements IAttributeDAO
 
     /**
      * Insert a new record in the table.
-     * @param nBusinessId The id of the business class
      * @param attribute instance of the Attribute object to insert
      * @param plugin The plugin
      */
-    public void insert( int nBusinessId, Attribute attribute, Plugin plugin )
+    public void insert( Attribute attribute, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
@@ -110,24 +102,7 @@ public final class AttributeDAO implements IAttributeDAO
         daoUtil.setString( 3, attribute.getAttributeName(  ) );
         daoUtil.setBoolean( 4, attribute.getIsPrimary(  ) );
         daoUtil.setBoolean( 5, attribute.getIsDescription(  ) );
-        insertDependency( nBusinessId, attribute.getIdAttribute(  ), plugin );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
-    }
-
-    /**
-     * Inserts the dependency between the business class and the attributes
-     * @param nBusinessClassId The business class id
-     * @param nAttributeId The attribute identifier
-     * @param plugin The plugin
-     */
-    public void insertDependency( int nBusinessClassId, int nAttributeId, Plugin plugin )
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_BUSINESS_ATTRIBUTE_DEPENDENCY, plugin );
-
-        daoUtil.setInt( 1, nBusinessClassId );
-        daoUtil.setInt( 2, nAttributeId );
-
+        daoUtil.setInt( 6, attribute.getBusinessClassId() );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
@@ -171,21 +146,6 @@ public final class AttributeDAO implements IAttributeDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nAttributeId );
-        deleteDependency( nAttributeId, plugin );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
-    }
-
-    /**
-    * Delete the dependency
-    * @param nIdAttribute The identifier of the attribute
-    * @param plugin The plugin
-    */
-    public void deleteDependency( int nIdAttribute, Plugin plugin )
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BUSINESS_ATTRIBUTE_DEPENDENCY, plugin );
-        daoUtil.setInt( 1, nIdAttribute );
-
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
@@ -208,33 +168,6 @@ public final class AttributeDAO implements IAttributeDAO
 
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
-    }
-
-    /**
-     * Load the data of all the attributes and returns them as a List
-     * @param plugin The plugin
-     * @return The List which contains the data of all the attributes
-     */
-    public List<Attribute> selectAttributesList( Plugin plugin )
-    {
-        List<Attribute> attributeList = new ArrayList<Attribute>(  );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
-
-        while ( daoUtil.next(  ) )
-        {
-            Attribute attribute = new Attribute(  );
-
-            attribute.setIdAttribute( daoUtil.getInt( 1 ) );
-            attribute.setAttributeTypeId( daoUtil.getInt( 2 ) );
-            attribute.setAttributeName( daoUtil.getString( 3 ) );
-
-            attributeList.add( attribute );
-        }
-
-        daoUtil.free(  );
-
-        return attributeList;
     }
 
     /**
@@ -280,25 +213,6 @@ public final class AttributeDAO implements IAttributeDAO
         daoUtil.free(  );
 
         return attributeList;
-    }
-
-    /**
-    * Deletes all the attribute related to a plugin
-    * @param nIdPlugin The id of the plugin
-    * @param plugin The plugin
-    */
-    public void deleteAllAttributesByPluginId( int nIdPlugin, Plugin plugin )
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ATTRIBUTE_ID_BY_PLUGIN, plugin );
-        daoUtil.setInt( 1, nIdPlugin );
-        daoUtil.executeQuery(  );
-
-        while ( daoUtil.next(  ) )
-        {
-            delete( daoUtil.getInt( 1 ), plugin );
-        }
-
-        daoUtil.free(  );
     }
 
     /**

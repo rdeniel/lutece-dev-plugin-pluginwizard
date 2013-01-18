@@ -57,16 +57,6 @@ public final class PluginFeatureHome
     }
 
     /**
-     * Removes the features attached to a plugin
-     * @param nIdPlugin The identifier of the plugin
-     * @param plugin The plugin
-     */
-    public static void removePluginFeaturesByPlugin( int nIdPlugin, Plugin plugin )
-    {
-        _dao.deleteAllPluginFeaturesByPluginId( nIdPlugin, plugin );
-    }
-
-    /**
      * Create an instance of the pluginFeature class
      * @param pluginFeature The instance of the PluginFeature which contains the informations to store
      * @param plugin the Plugin
@@ -99,7 +89,21 @@ public final class PluginFeatureHome
      */
     public static void remove( int nPluginFeatureId, Plugin plugin )
     {
+        BusinessClassHome.removeByFeature( nPluginFeatureId, plugin );
         _dao.delete( nPluginFeatureId, plugin );
+    }
+
+    /**
+     * Removes the features attached to a plugin
+     * @param nIdPlugin The identifier of the plugin
+     * @param plugin The plugin
+     */
+    public static void removeFeaturesByPlugin( int nIdPlugin, Plugin plugin )
+    {
+        for( PluginFeature feature : findByPlugin( nIdPlugin, plugin ))
+        {
+            remove( feature.getIdPlugin() , plugin);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

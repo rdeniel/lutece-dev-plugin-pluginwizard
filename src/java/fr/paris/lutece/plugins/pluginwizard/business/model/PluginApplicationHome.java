@@ -60,9 +60,9 @@ public final class PluginApplicationHome
      * @param nIdPlugin The id of the plugin
      * @param plugin The plugin
      */
-    public static void removePluginApplicationByPlugin( int nIdPlugin, Plugin plugin )
+    public static void removeApplicationsByPlugin( int nIdPlugin, Plugin plugin )
     {
-        throw new UnsupportedOperationException( "Not yet implemented" ); //TODO
+        _dao.deleteByPlugin( nIdPlugin, plugin );
     }
 
     /**

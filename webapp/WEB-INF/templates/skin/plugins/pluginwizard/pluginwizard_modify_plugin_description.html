@@ -30,21 +30,21 @@
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_description" value="<#if plugin_model.pluginName??>${plugin_model.pluginDescription}</#if>" />
+                        <input class="input-xlarge" type="text" name="plugin_description" value="<#if plugin_model.pluginDescription??>${plugin_model.pluginDescription}</#if>" />
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProvider} : </label>
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_provider" value="<#if plugin_model.pluginName??>${plugin_model.pluginProvider}</#if>" />
+                        <input class="input-xlarge" type="text" name="plugin_provider" value="<#if plugin_model.pluginProvider??>${plugin_model.pluginProvider}</#if>" />
                     </div>
                 </div>
 
                <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
                     <div class="controls">
-                        <input class="input-small" type="text" name="version"  value="${plugin_model.pluginVersion}" size="30" />
+                        <input class="input-small" type="text" name="version"  value="<#if plugin_model.pluginVersion??>${plugin_model.pluginVersion}</#if>" size="30" />
                     </div>                                                                              
                 </div>
 

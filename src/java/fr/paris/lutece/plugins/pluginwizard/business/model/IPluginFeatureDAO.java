@@ -45,26 +45,11 @@ import java.util.Collection;
 public interface IPluginFeatureDAO
 {
     /**
-     * Deletes all the features attached to a specified plugin
-     * @param nIdPlugin The id of the plugin
-     * @param plugin The plugin
-     */
-    void deleteAllPluginFeaturesByPluginId( int nIdPlugin, Plugin plugin );
-
-    /**
      * Insert a new record in the table.
      * @param pluginFeature instance of the PluginFeature object to inssert
      * @param plugin the Plugin
      */
     void insert( PluginFeature pluginFeature, Plugin plugin );
-
-    /**
-     * Add the dependency
-     * @param idPlugin The id of the plugin
-     * @param idPluginFeature The id of the admin feature
-     * @param  plugin the Plugin
-     */
-    void insertDependency( int idPlugin, int idPluginFeature, Plugin plugin );
 
     /**
     * Update the record in the table

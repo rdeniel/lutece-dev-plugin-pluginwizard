@@ -60,9 +60,9 @@ public final class PluginPortletHome
      * @param nIdPlugin The id of the generated plugin
      * @param plugin The plugin
      */
-    public static void removePluginPortlets( int nIdPlugin, Plugin plugin )
+    public static void removePortletsByPlugin( int nIdPlugin, Plugin plugin )
     {
-        throw new UnsupportedOperationException( "Not yet implemented" ); //TODO
+        _dao.deleteByPlugin( nIdPlugin, plugin );
     }
 
     /**

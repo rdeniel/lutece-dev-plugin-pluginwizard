@@ -863,12 +863,9 @@ public class PluginWizardApp implements XPageApplication
         int nIdPlugin = PluginModelHome.getPluginModelId( plugin, strPluginName );
 
         //Order Attribute,BusinessClass and PluginFeature must be in the same order
-        AttributeHome.removeAttributesByPlugin( nIdPlugin, plugin );
-        BusinessClassHome.removeBusinessClassesByPlugin( nIdPlugin, plugin );
-        PluginFeatureHome.removePluginFeaturesByPlugin( nIdPlugin, plugin );
-
-        PluginApplicationHome.removePluginApplicationByPlugin( nIdPlugin, plugin );
-        PluginPortletHome.removePluginPortlets( nIdPlugin, plugin );
+        PluginFeatureHome.removeFeaturesByPlugin( nIdPlugin, plugin );
+        PluginApplicationHome.removeApplicationsByPlugin( nIdPlugin, plugin );
+        PluginPortletHome.removePortletsByPlugin( nIdPlugin, plugin );
         ResourceKeyHome.deleteKeysByPlugin( nIdPlugin, plugin );
     }
 
@@ -1287,8 +1284,9 @@ public class PluginWizardApp implements XPageApplication
             strDescription.equals( "0" ) ) ? true : false );
         attribute.setIsDescription( ( ( strDescription != null ) && strDescription.equals( "1" ) &&
             strPrimaryKey.equals( "0" ) ) ? true : false );
+        attribute.setBusinessClassId( nBusinessClassId );
 
-        AttributeHome.create( nBusinessClassId, attribute, plugin );
+        AttributeHome.create( attribute, plugin );
     }
 
     /**

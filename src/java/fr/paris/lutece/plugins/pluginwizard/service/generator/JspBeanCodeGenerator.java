@@ -70,8 +70,7 @@ public class JspBeanCodeGenerator implements Generator
 
         for ( PluginFeature feature : pluginModel.getPluginFeatures(  ) )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    pluginModel.getIdPlugin(  ), plugin );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             String strPath = strBasePath + feature.getPluginFeatureName(  ) + Constants.PROPERTY_JSP_BEAN_SUFFIX +
                 ".java";
 

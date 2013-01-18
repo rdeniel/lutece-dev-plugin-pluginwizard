@@ -47,14 +47,13 @@ public final class PluginPortletDAO implements IPluginPortletDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_portlet ) FROM pluginwizard_plugin_portlet";
-    private static final String SQL_QUERY_SELECT = "SELECT b.id_plugin, a.id_plugin_portlet, plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url FROM pluginwizard_plugin_portlet as a, pluginwizard_plugin_id_portlet as b  WHERE a.id_plugin_portlet = ? AND a.id_plugin_portlet=b.id_plugin_portlet";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_portlet ( id_plugin_portlet, plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url ) VALUES ( ?, ?, ?, ?, ? ) ";
+    private static final String SQL_QUERY_SELECT = "SELECT b.id_plugin, a.id_plugin_portlet, plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url, id_plugin FROM pluginwizard_plugin_portlet as a, pluginwizard_plugin_id_portlet as b  WHERE a.id_plugin_portlet = ? AND a.id_plugin_portlet=b.id_plugin_portlet";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_portlet ( id_plugin_portlet, plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url, id_plugin ) VALUES ( ?, ?, ?, ?, ?, ? ) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_portlet WHERE id_plugin_portlet = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_portlet SET  id_plugin_portlet = ?, plugin_portlet_class = ?, plugin_portlet_type_name = ?, plugin_portlet_creation_url = ?, plugin_portlet_update_url = ? WHERE id_plugin_portlet = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_plugin,id_plugin_portlet ,plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url FROM pluginwizard_plugin_portlet";
-    private static final String SQL_QUERY_SELECT_BY_PLUGIN = "SELECT a.id_plugin_portlet, a.plugin_portlet_class, a.plugin_portlet_type_name, a.plugin_portlet_creation_url, a.plugin_portlet_update_url FROM pluginwizard_plugin_portlet as a , pluginwizard_plugin_id_portlet as b  WHERE a.id_plugin_portlet=b.id_plugin_portlet AND b.id_plugin= ?";
-    private static final String SQL_QUERY_INSERT_PLUGIN_PORTLET_DEPENDENCY = "INSERT INTO pluginwizard_plugin_id_portlet ( id_plugin, id_plugin_portlet) VALUES ( ?, ?)";
-    private static final String SQL_QUERY_DELETE_PLUGIN_PORTLET_DEPENDENCY = "DELETE FROM pluginwizard_plugin_id_portlet WHERE id_plugin_portlet = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_plugin,id_plugin_portlet ,plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url, id_plugin FROM pluginwizard_plugin_portlet";
+    private static final String SQL_QUERY_SELECT_BY_PLUGIN = "SELECT id_plugin_portlet, plugin_portlet_class, plugin_portlet_type_name, plugin_portlet_creation_url, plugin_portlet_update_url, id_plugin FROM pluginwizard_plugin_portlet WHERE id_plugin= ?";
+    private static final String SQL_QUERY_DELETE_BY_PLUGIN = "DELETE FROM pluginwizard_plugin_portlet WHERE id_plugin = ?";
 
     /**
      * Generates a new primary key
@@ -95,27 +94,11 @@ public final class PluginPortletDAO implements IPluginPortletDAO
         daoUtil.setString( 3, pluginPortlet.getPluginPortletTypeName(  ) );
         daoUtil.setString( 4, pluginPortlet.getPluginPortletCreationUrl(  ) );
         daoUtil.setString( 5, pluginPortlet.getPluginPortletUpdateUrl(  ) );
-        insertDependency( pluginPortlet.getIdPlugin(  ), pluginPortlet.getPluginPortletId(  ), plugin );
+        daoUtil.setInt( 6, pluginPortlet.getIdPlugin() );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
 
-    /**
-     * Add the dependency
-     * @param nIdPlugin The id of the plugin
-     * @param nIdPortlet The id of the portlet
-     * @param plugin The plugin
-     */
-    public void insertDependency( int nIdPlugin, int nIdPortlet, Plugin plugin )
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_PLUGIN_PORTLET_DEPENDENCY, plugin );
-
-        daoUtil.setInt( 1, nIdPlugin );
-        daoUtil.setInt( 2, nIdPortlet );
-
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
-    }
 
     /**
      * Load the data of the pluginPortlet from the table
@@ -140,6 +123,7 @@ public final class PluginPortletDAO implements IPluginPortletDAO
             pluginPortlet.setPluginPortletTypeName( daoUtil.getString( 4 ) );
             pluginPortlet.setPluginPortletCreationUrl( daoUtil.getString( 5 ) );
             pluginPortlet.setPluginPortletUpdateUrl( daoUtil.getString( 6 ) );
+            pluginPortlet.setIdPlugin( daoUtil.getInt( 7 ) );
         }
 
         daoUtil.free(  );
@@ -156,19 +140,18 @@ public final class PluginPortletDAO implements IPluginPortletDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nPluginPortletId );
-        deleteDependency( nPluginPortletId, plugin );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
 
     /**
-     * Delete the dependency
-     * @param nIdPortlet The identifier of the portlet
+     * Delete portlets from a given plugin
+     * @param nIdPortlet The identifier of the plugin
      * @param plugin The plugin
      */
-    public void deleteDependency( int nIdPortlet, Plugin plugin )
+    public void deleteByPlugin( int nIdPortlet, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_PLUGIN_PORTLET_DEPENDENCY, plugin );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_PLUGIN, plugin );
         daoUtil.setInt( 1, nIdPortlet );
 
         daoUtil.executeUpdate(  );
@@ -215,6 +198,7 @@ public final class PluginPortletDAO implements IPluginPortletDAO
             pluginPortlet.setPluginPortletTypeName( daoUtil.getString( 4 ) );
             pluginPortlet.setPluginPortletCreationUrl( daoUtil.getString( 5 ) );
             pluginPortlet.setPluginPortletUpdateUrl( daoUtil.getString( 6 ) );
+            pluginPortlet.setIdPlugin( daoUtil.getInt( 7 ) );
 
             pluginPortletList.add( pluginPortlet );
         }
@@ -247,6 +231,7 @@ public final class PluginPortletDAO implements IPluginPortletDAO
             pluginPortlet.setPluginPortletTypeName( daoUtil.getString( 3 ) );
             pluginPortlet.setPluginPortletCreationUrl( daoUtil.getString( 4 ) );
             pluginPortlet.setPluginPortletUpdateUrl( daoUtil.getString( 5 ) );
+            pluginPortlet.setIdPlugin( daoUtil.getInt( 6 ) );
 
             pluginPortletList.add( pluginPortlet );
         }

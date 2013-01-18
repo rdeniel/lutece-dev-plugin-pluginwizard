@@ -125,13 +125,16 @@ public final class BusinessClassHome
     }
 
     /**
-     * Removes all the business classes attached to a plugin
-     * @param nIdPlugin the id of the plugin to be generated
+     * Removes all the business classes attached to a feature
+     * @param nFeatureId the id of the feature
      * @param plugin The plugin
      */
-    public static void removeBusinessClassesByPlugin( int nIdPlugin, Plugin plugin )
+    public static void removeByFeature( int nFeatureId, Plugin plugin )
     {
-        _dao.deleteAllClassesByPluginId( nIdPlugin, plugin );
+        for( BusinessClass bc : getBusinessClassesByFeature( nFeatureId, plugin ))
+        {
+            remove( bc.getIdBusinessClass() , plugin );
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -166,9 +169,9 @@ public final class BusinessClassHome
      * @param plugin The Plugin
      * @return A collection of business classes selected by feature
      */
-    public static Collection<BusinessClass> getBusinessClassesByFeature( int nFeatureId, int nPluginId, Plugin plugin )
+    public static Collection<BusinessClass> getBusinessClassesByFeature( int nFeatureId, Plugin plugin )
     {
-        return _dao.selectBusinessClassesByFeature( nFeatureId, nPluginId, plugin );
+        return _dao.selectBusinessClassesByFeature( nFeatureId, plugin );
     }
 
     /**

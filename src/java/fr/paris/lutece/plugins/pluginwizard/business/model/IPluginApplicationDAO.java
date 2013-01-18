@@ -89,4 +89,11 @@ public interface IPluginApplicationDAO
      * @return A collection of plugin applications
      */
     Collection<PluginApplication> selectByPlugin( int nKey, Plugin plugin );
+
+    /**
+     * Delete applications of a given plugin
+     * @param nIdPlugin The identifier of the plugin
+     * @param plugin The plugin
+     */
+    void deleteByPlugin( int nIdPlugin, Plugin plugin );
 }

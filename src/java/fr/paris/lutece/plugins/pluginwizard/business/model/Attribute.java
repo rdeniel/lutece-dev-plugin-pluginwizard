@@ -42,6 +42,7 @@ public class Attribute
     // Variables declarations
     private int _nIdAttribute;
     private int _nAttributeTypeId;
+    private int _nBusinessClassId;
     private boolean _bIsPrimary;
     private boolean _bIsDescription;
     private String _strAttributeName;
@@ -82,6 +83,24 @@ public class Attribute
     public void setAttributeTypeId( int nAttributeTypeId )
     {
         _nAttributeTypeId = nAttributeTypeId;
+    }
+
+    /**
+     * Returns the BusinessClassId
+     * @return The BusinessClassId
+     */
+    public int getBusinessClassId(  )
+    {
+        return _nBusinessClassId;
+    }
+
+    /**
+     * Sets the BusinessClassId
+     * @param nBusinessClassId The BusinessClassId
+     */
+    public void setBusinessClassId( int nBusinessClassId )
+    {
+        _nBusinessClassId = nBusinessClassId;
     }
 
     /**

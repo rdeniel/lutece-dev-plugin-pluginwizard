@@ -100,8 +100,7 @@ public class SpringContextXmlGenerator implements Generator
 
         for ( PluginFeature feature : listFeaturesPlugin )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             listClasses.addAll( listBusinessClasses );
         }
 
@@ -110,8 +109,7 @@ public class SpringContextXmlGenerator implements Generator
         model.put( MARK_LIST_PORTLETS, listPortlets );
         model.put( MARK_BUSINESS_CLASSES, listClasses );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

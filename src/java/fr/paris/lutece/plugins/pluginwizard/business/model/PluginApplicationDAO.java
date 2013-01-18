@@ -47,14 +47,13 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_application ) FROM pluginwizard_plugin_application";
-    private static final String SQL_QUERY_SELECT = "SELECT id_plugin_application, application_name, application_class FROM pluginwizard_plugin_application WHERE id_plugin_application = ?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_application ( id_plugin_application, application_name, application_class ) VALUES ( ?, ?,? ) ";
+    private static final String SQL_QUERY_SELECT = "SELECT id_plugin_application, application_name, application_class , id_plugin FROM pluginwizard_plugin_application WHERE id_plugin_application = ?";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO pluginwizard_plugin_application ( id_plugin_application, application_name, application_class, id_plugin ) VALUES ( ?, ?, ?, ? ) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_application WHERE id_plugin_application = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_application SET id_plugin_application =? ,  application_name = ?, application_class = ? WHERE id_plugin_application = ?";
-    private static final String SQL_QUERY_SELECTALL = "SELECT id_plugin,id_plugin_application, application_name, application_class FROM pluginwizard_plugin_application";
-    private static final String SQL_QUERY_SELECT_BY_PLUGIN = "SELECT a.id_plugin_application, a.application_name, a.application_class FROM pluginwizard_plugin_application as a  , pluginwizard_plugin_id_application as b WHERE a.id_plugin_application = b.id_plugin_application AND b.id_plugin = ? ";
-    private static final String SQL_QUERY_INSERT_PLUGIN_APPLICATION_DEPENDENCY = "INSERT INTO pluginwizard_plugin_id_application ( id_plugin, id_plugin_application) VALUES ( ?, ?)";
-    private static final String SQL_QUERY_DELETE_PLUGIN_APPLICATION_DEPENDENCY = "DELETE FROM pluginwizard_plugin_id_application WHERE id_plugin_application = ?";
+    private static final String SQL_QUERY_SELECTALL = "SELECT id_plugin,id_plugin_application, application_name, application_class, id_plugin FROM pluginwizard_plugin_application";
+    private static final String SQL_QUERY_SELECT_BY_PLUGIN = "SELECT id_plugin_application, application_name, application_class, id_plugin FROM pluginwizard_plugin_application WHERE id_plugin = ? ";
+    private static final String SQL_QUERY_DELETE_BY_PLUGIN = "DELETE FROM pluginwizard_plugin_application WHERE id_plugin = ?";
 
     /**
      * Generates a new primary key
@@ -94,24 +93,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
         daoUtil.setInt( 1, pluginApplication.getIdPluginApplication(  ) );
         daoUtil.setString( 2, pluginApplication.getApplicationName(  ) );
         daoUtil.setString( 3, pluginApplication.getApplicationClass(  ) );
-        insertDependency( pluginApplication.getIdPlugin(  ), pluginApplication.getIdPluginApplication(  ), plugin );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
-    }
-
-    /**
-     * Adds the dependency
-     * @param nIdPlugin The id of the plugin
-     * @param nPluginApplication The id of the application
-     * @param plugin The plugin
-     */
-    public void insertDependency( int nIdPlugin, int nPluginApplication, Plugin plugin )
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT_PLUGIN_APPLICATION_DEPENDENCY, plugin );
-
-        daoUtil.setInt( 1, nIdPlugin );
-        daoUtil.setInt( 2, nPluginApplication );
-
+        daoUtil.setInt( 4, pluginApplication.getIdPlugin() );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
@@ -137,6 +119,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 1 ) );
             pluginApplication.setApplicationName( daoUtil.getString( 2 ) );
             pluginApplication.setApplicationClass( daoUtil.getString( 3 ) );
+            pluginApplication.setIdPlugin( daoUtil.getInt( 4 ) );
         }
 
         daoUtil.free(  );
@@ -153,20 +136,19 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nPluginApplicationId );
-        deleteDependency( nPluginApplicationId, plugin );
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
     }
 
     /**
-     * Delete the dependency
-     * @param nIdApplication The identifier of the application
+     * Delete applications of a given plugin
+     * @param nIdPlugin The identifier of the plugin
      * @param plugin The plugin
      */
-    public void deleteDependency( int nIdApplication, Plugin plugin )
+    public void deleteByPlugin( int nIdPlugin, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_PLUGIN_APPLICATION_DEPENDENCY, plugin );
-        daoUtil.setInt( 1, nIdApplication );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE_BY_PLUGIN, plugin );
+        daoUtil.setInt( 1, nIdPlugin );
 
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
@@ -210,6 +192,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 2 ) );
             pluginApplication.setApplicationName( daoUtil.getString( 3 ) );
             pluginApplication.setApplicationClass( daoUtil.getString( 4 ) );
+            pluginApplication.setIdPlugin( daoUtil.getInt( 5 ) );
 
             pluginApplicationList.add( pluginApplication );
         }
@@ -239,6 +222,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 1 ) );
             pluginApplication.setApplicationName( daoUtil.getString( 2 ) );
             pluginApplication.setApplicationClass( daoUtil.getString( 3 ) );
+            pluginApplication.setIdPlugin( daoUtil.getInt( 4 ) );
 
             pluginApplicationList.add( pluginApplication );
         }

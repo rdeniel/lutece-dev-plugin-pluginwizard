@@ -105,8 +105,7 @@ public class PomGenerator implements Generator
 
         for ( PluginFeature feature : listFeaturesPlugin )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    nPluginId, plugin );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             listClasses.addAll( listBusinessClasses );
         }
 

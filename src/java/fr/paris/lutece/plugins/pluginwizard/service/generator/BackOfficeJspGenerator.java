@@ -74,8 +74,7 @@ public class BackOfficeJspGenerator implements Generator
 
         for ( PluginFeature feature : pluginModel.getPluginFeatures(  ) )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ),
-                    pluginModel.getIdPlugin(  ), plugin );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {

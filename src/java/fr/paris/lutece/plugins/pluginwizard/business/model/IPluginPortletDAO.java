@@ -89,4 +89,11 @@ public interface IPluginPortletDAO
      * @return A list of portlets for the generated plugin
      */
     Collection<PluginPortlet> selectPluginPortletsList( int nKey, Plugin plugin );
+
+    /**
+     * Delete portlets from a given plugin
+     * @param nIdPortlet The identifier of the plugin
+     * @param plugin The plugin
+     */
+    void deleteByPlugin( int nIdPlugin, Plugin plugin );
 }

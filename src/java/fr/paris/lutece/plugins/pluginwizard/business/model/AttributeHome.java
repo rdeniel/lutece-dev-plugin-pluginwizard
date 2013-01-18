@@ -37,7 +37,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
-import java.util.List;
 
 
 /**
@@ -46,24 +45,13 @@ import java.util.List;
 public final class AttributeHome
 {
     // Static variable pointed at the DAO instance
-    private static IAttributeDAO _dao = (IAttributeDAO) SpringContextService.getPluginBean( "pluginwizard",
-            "pluginwizard.attributeDAO" );
+    private static IAttributeDAO _dao = (IAttributeDAO) SpringContextService.getBean( "pluginwizard.attributeDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
     private AttributeHome(  )
     {
-    }
-
-    /**
-     * Removes all the attibutes of the specified plugin
-     * @param nIdPlugin The id of the plugin
-     * @param plugin The plugin
-     */
-    public static void removeAttributesByPlugin( int nIdPlugin, Plugin plugin )
-    {
-        _dao.deleteAllAttributesByPluginId( nIdPlugin, plugin );
     }
 
     /**
@@ -90,14 +78,13 @@ public final class AttributeHome
 
     /**
      * Create an instance of the attribute class
-     * @param nPluginId The identifier of the plugin
      * @param attribute The instance of the Attribute which contains the informations to store
      * @param plugin the Plugin
      * @return The  instance of attribute which has been created with its primary key.
      */
-    public static Attribute create( int nPluginId, Attribute attribute, Plugin plugin )
+    public static Attribute create( Attribute attribute, Plugin plugin )
     {
-        _dao.insert( nPluginId, attribute, plugin );
+        _dao.insert( attribute, plugin );
 
         return attribute;
     }
@@ -148,16 +135,6 @@ public final class AttributeHome
     public static String getAttributeTypeName( int nAttributeId, Plugin plugin )
     {
         return _dao.getTypeName( nAttributeId, plugin );
-    }
-
-    /**
-     * Load the data of all the attribute objects and returns them in form of a list
-     * @param plugin the Plugin
-     * @return the list which contains the data of all the attribute objects
-     */
-    public static List<Attribute> getAttributesList( Plugin plugin )
-    {
-        return _dao.selectAttributesList( plugin );
     }
 
     /**
