@@ -49,7 +49,7 @@ public class BusinessClassTest extends LuteceTestCase
     private final static String BUSINESSTABLENAME1 = "BusinessTableName1";
     private final static String BUSINESSTABLENAME2 = "BusinessTableName2";
     private final static int IDPLUGINFEATURE1 = 1;
-    private final static int IDPLUGINFEATURE2 = 2;
+    private final static int IDPLUGIN = 1;
 
     public void testBusiness(  )
     {
@@ -79,7 +79,12 @@ public class BusinessClassTest extends LuteceTestCase
 
         // List test
         BusinessClassHome.getBusinessClassesByFeature( IDPLUGINFEATURE1, plugin );
+        BusinessClassHome.getBusinessClassesByPlugin( IDPLUGIN, plugin );
 
+        BusinessClassHome.hasAlreadyKey( businessClass.getIdBusinessClass(), plugin );
+        BusinessClassHome.hasAlreadyDescription( businessClass.getIdBusinessClass(), plugin );
+        BusinessClassHome.hasAttributes( businessClass.getIdBusinessClass(), plugin );
+        
         // Delete test
         BusinessClassHome.remove( businessClass.getIdBusinessClass() , plugin );
         businessClassStored = BusinessClassHome.findByPrimaryKey( businessClass.getIdBusinessClass() , plugin );

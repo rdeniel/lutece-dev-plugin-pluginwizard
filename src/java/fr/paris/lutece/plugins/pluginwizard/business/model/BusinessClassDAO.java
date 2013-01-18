@@ -61,9 +61,9 @@ public final class BusinessClassDAO implements IBusinessClassDAO
             + " WHERE id_plugin_feature = ?";
     private static final String SQL_QUERY_SELECT_ATTRIBUTES_BY_BUSINESS_CLASS_ID = "select a.id_attribute,a.attribute_type_id,a.attribute_name,a.is_primary_key,a.is_description, b.attribute_type_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_attribute_type as b WHERE a.attribute_type_id=b.attribute_type_id AND a.id_business_class = ? ";
     private static final String SQL_QUERY_COUNT_FIND_BY_FEATURE_AND_CLASS = "SELECT COUNT(a.id_business_class) FROM pluginwizard_plugin_business as a ,pluginwizard_plugin_feature_business as b WHERE a.business_class= ? AND b.id_plugin_feature= ? AND b.id_business_class=a.id_business_class";
-    private static final String SQL_QUERY_CHECK_ATTRIBUTES_RELATED = "SELECT id_business_class FROM pluginwizard_plugin_business_attribute WHERE id_business_class= ?";
-    private static final String SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY = "select count(d.attribute_name) FROM pluginwizard_plugin_feature_business as b ,pluginwizard_plugin_business_attribute as c,pluginwizard_plugin_attribute as d, pluginwizard_plugin_attribute_type as e WHERE b.id_business_class = ? AND b.id_business_class=c.id_business_class AND c.id_attribute=d.id_attribute AND d.attribute_type_id=e.attribute_type_id AND d.is_primary_key= 1";
-    private static final String SQL_QUERY_CHECK_BUSINESS_DESCRIPTION = "select count(d.attribute_name) FROM pluginwizard_plugin_feature_business as b ,pluginwizard_plugin_business_attribute as c,pluginwizard_plugin_attribute as d, pluginwizard_plugin_attribute_type as e WHERE b.id_business_class = ? AND b.id_business_class=c.id_business_class AND c.id_attribute=d.id_attribute AND d.attribute_type_id=e.attribute_type_id AND d.is_description= 1";
+    private static final String SQL_QUERY_CHECK_ATTRIBUTES = "SELECT id_business_class FROM pluginwizard_plugin_attribute WHERE id_business_class= ?";
+    private static final String SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY = "select count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_primary_key= 1";
+    private static final String SQL_QUERY_CHECK_BUSINESS_DESCRIPTION = "select count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_description= 1";
 
     /**
      * Generates a new primary key
@@ -214,7 +214,6 @@ public final class BusinessClassDAO implements IBusinessClassDAO
             businessClass.setIdBusinessClass( nIdBusinessClass );
             businessClass.setBusinessClass( daoUtil.getString( 3 ) );
             businessClass.setBusinessTableName( daoUtil.getString( 4 ) );
-            businessClass.setIdFeature( daoUtil.getInt( 5 ) );
             businessClass.setPackageName( pluginModel.getPluginName() );
             businessClass.setPluginName( pluginModel.getPluginName() );
 
@@ -360,7 +359,7 @@ public final class BusinessClassDAO implements IBusinessClassDAO
     {
         boolean bValue = false;
         int nCount = 0;
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CHECK_ATTRIBUTES_RELATED, plugin );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CHECK_ATTRIBUTES, plugin );
         daoUtil.setInt( 1, nBusinessClassId );
         daoUtil.executeQuery();
 
