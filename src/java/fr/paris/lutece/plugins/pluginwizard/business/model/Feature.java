@@ -40,7 +40,7 @@ import java.util.Collection;
 /**
  * This is the business class for the object PluginFeature
  */
-public class PluginFeature
+public class Feature
 {
     // Variables declarations 
     private int _nIdPlugin;
@@ -55,7 +55,7 @@ public class PluginFeature
     /**
      * Constructor initializing a collection of business class
      */
-    public PluginFeature(  )
+    public Feature(  )
     {
         _listBusinessClasses = new ArrayList<BusinessClass>(  );
     }

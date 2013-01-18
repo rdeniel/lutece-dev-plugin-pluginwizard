@@ -43,7 +43,7 @@ import java.util.Collection;
 /**
  * This class provides Data Access methods for PluginPortlet objects
  */
-public final class PluginPortletDAO implements IPluginPortletDAO
+public final class PortletDAO implements IPortletDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_portlet ) FROM pluginwizard_plugin_portlet";
@@ -84,7 +84,7 @@ public final class PluginPortletDAO implements IPluginPortletDAO
      * @param pluginPortlet instance of the PluginPortlet object to insert
      * @param plugin The plugin
      */
-    public void insert( PluginPortlet pluginPortlet, Plugin plugin )
+    public void insert( Portlet pluginPortlet, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
@@ -106,17 +106,17 @@ public final class PluginPortletDAO implements IPluginPortletDAO
      * @param plugin The plugin
      * @return the instance of the PluginPortlet
      */
-    public PluginPortlet load( int nId, Plugin plugin )
+    public Portlet load( int nId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nId );
         daoUtil.executeQuery(  );
 
-        PluginPortlet pluginPortlet = null;
+        Portlet pluginPortlet = null;
 
         if ( daoUtil.next(  ) )
         {
-            pluginPortlet = new PluginPortlet(  );
+            pluginPortlet = new Portlet(  );
             pluginPortlet.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginPortlet.setPluginPortletId( daoUtil.getInt( 2 ) );
             pluginPortlet.setPluginPortletClass( daoUtil.getString( 3 ) );
@@ -163,7 +163,7 @@ public final class PluginPortletDAO implements IPluginPortletDAO
      * @param pluginPortlet The reference of the pluginPortlet
      * @param plugin The plugin
      */
-    public void store( PluginPortlet pluginPortlet, Plugin plugin )
+    public void store( Portlet pluginPortlet, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
@@ -182,15 +182,15 @@ public final class PluginPortletDAO implements IPluginPortletDAO
      * @param plugin The plugin
      * @return The Collection which contains the data of all the pluginPortlets
      */
-    public Collection<PluginPortlet> selectPluginPortletsList( Plugin plugin )
+    public Collection<Portlet> selectPluginPortletsList( Plugin plugin )
     {
-        Collection<PluginPortlet> pluginPortletList = new ArrayList<PluginPortlet>(  );
+        Collection<Portlet> pluginPortletList = new ArrayList<Portlet>(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )
         {
-            PluginPortlet pluginPortlet = new PluginPortlet(  );
+            Portlet pluginPortlet = new Portlet(  );
 
             pluginPortlet.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginPortlet.setPluginPortletId( daoUtil.getInt( 2 ) );
@@ -214,16 +214,16 @@ public final class PluginPortletDAO implements IPluginPortletDAO
      * @param plugin The Plugin
      * @return A collection of plugin portlets
      */
-    public Collection<PluginPortlet> selectPluginPortletsList( int nPluginId, Plugin plugin )
+    public Collection<Portlet> selectPluginPortletsList( int nPluginId, Plugin plugin )
     {
-        Collection<PluginPortlet> pluginPortletList = new ArrayList<PluginPortlet>(  );
+        Collection<Portlet> pluginPortletList = new ArrayList<Portlet>(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_PLUGIN, plugin );
         daoUtil.setInt( 1, nPluginId );
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )
         {
-            PluginPortlet pluginPortlet = new PluginPortlet(  );
+            Portlet pluginPortlet = new Portlet(  );
 
             pluginPortlet.setIdPlugin( nPluginId );
             pluginPortlet.setPluginPortletId( daoUtil.getInt( 1 ) );

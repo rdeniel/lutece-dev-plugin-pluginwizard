@@ -60,9 +60,9 @@ public class PluginModel
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
     private Locale _locale;
-    private Collection<PluginApplication> _listPluginApplications;
-    private Collection<PluginFeature> _listPluginFeatures;
-    private Collection<PluginPortlet> _listPluginPortlets;
+    private Collection<Application> _listPluginApplications;
+    private Collection<Feature> _listPluginFeatures;
+    private Collection<Portlet> _listPluginPortlets;
 
     /**
      * Returns the IdPlugin
@@ -329,7 +329,7 @@ public class PluginModel
      * Sets the list of plugin applications
      * @param listPluginApplications The list of plugin applications
      */
-    public void setPluginApplications( Collection<PluginApplication> listPluginApplications )
+    public void setPluginApplications( Collection<Application> listPluginApplications )
     {
         _listPluginApplications = listPluginApplications;
     }
@@ -338,7 +338,7 @@ public class PluginModel
      * Returns the list of plugin applications
      * @return The collection of applications
      */
-    public Collection<PluginApplication> getPluginApplications(  )
+    public Collection<Application> getPluginApplications(  )
     {
         return _listPluginApplications;
     }
@@ -347,7 +347,7 @@ public class PluginModel
      *  Sets the list of plugin features
      * @param listPluginFeatures The list of plugi features
      */
-    public void setPluginFeatures( Collection<PluginFeature> listPluginFeatures )
+    public void setPluginFeatures( Collection<Feature> listPluginFeatures )
     {
         _listPluginFeatures = listPluginFeatures;
     }
@@ -356,7 +356,7 @@ public class PluginModel
      * Returns the list of plugin features
      * @return The plugin features
      */
-    public Collection<PluginFeature> getPluginFeatures(  )
+    public Collection<Feature> getPluginFeatures(  )
     {
         return _listPluginFeatures;
     }
@@ -365,7 +365,7 @@ public class PluginModel
      * Sets the list of plugin portlets
      * @param listPluginPortlets The list of plugin portlets
      */
-    public void setPluginPortlets( Collection<PluginPortlet> listPluginPortlets )
+    public void setPluginPortlets( Collection<Portlet> listPluginPortlets )
     {
         _listPluginPortlets = listPluginPortlets;
     }
@@ -374,7 +374,7 @@ public class PluginModel
      *  Returns the list of plugin portlets
      * @return The list of portlets
      */
-    public Collection<PluginPortlet> getPluginPortlets(  )
+    public Collection<Portlet> getPluginPortlets(  )
     {
         return _listPluginPortlets;
     }
@@ -387,7 +387,7 @@ public class PluginModel
     {
         List listBusinessClasses = new ArrayList<BusinessClass>(  );
 
-        for ( PluginFeature feature : _listPluginFeatures )
+        for ( Feature feature : _listPluginFeatures )
         {
             listBusinessClasses.addAll( feature.getBusinessClasses(  ) );
         }

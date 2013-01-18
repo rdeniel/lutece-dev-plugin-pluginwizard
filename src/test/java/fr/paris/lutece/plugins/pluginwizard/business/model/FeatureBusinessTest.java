@@ -58,7 +58,7 @@ public class FeatureBusinessTest extends LuteceTestCase
         Plugin plugin = PluginService.getPlugin( "pluginwizard" );
         
         // Initialize an object
-        PluginFeature pluginFeature = new PluginFeature();
+        Feature pluginFeature = new Feature();
         pluginFeature.setPluginFeatureTitle( PLUGINFEATURETITLE1 );
         pluginFeature.setPluginFeatureLevel( PLUGINFEATURELEVEL1 );
         pluginFeature.setPluginFeatureName( PLUGINFEATURENAME1 );
@@ -67,8 +67,8 @@ public class FeatureBusinessTest extends LuteceTestCase
         pluginFeature.setIdPlugin( IDPLUGIN1 );
 
         // Create test
-        PluginFeatureHome.create( pluginFeature , plugin );
-        PluginFeature pluginFeatureStored = PluginFeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
+        FeatureHome.create( pluginFeature , plugin );
+        Feature pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
         assertEquals( pluginFeatureStored.getIdPluginFeature() , pluginFeature.getIdPluginFeature() );
         assertEquals( pluginFeatureStored.getPluginFeatureTitle() , pluginFeature.getPluginFeatureTitle() );
         assertEquals( pluginFeatureStored.getPluginFeatureLevel() , pluginFeature.getPluginFeatureLevel() );
@@ -83,8 +83,8 @@ public class FeatureBusinessTest extends LuteceTestCase
         pluginFeature.setPluginFeatureName( PLUGINFEATURENAME2 );
         pluginFeature.setPluginFeatureDescription( PLUGINFEATUREDESCRIPTION2 );
         pluginFeature.setPluginFeatureRight( PLUGINFEATURERIGHT2 );
-        PluginFeatureHome.update( pluginFeature , plugin );
-        pluginFeatureStored = PluginFeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
+        FeatureHome.update( pluginFeature , plugin );
+        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
         assertEquals( pluginFeatureStored.getIdPluginFeature() , pluginFeature.getIdPluginFeature() );
         assertEquals( pluginFeatureStored.getPluginFeatureTitle() , pluginFeature.getPluginFeatureTitle() );
         assertEquals( pluginFeatureStored.getPluginFeatureLevel() , pluginFeature.getPluginFeatureLevel() );
@@ -93,11 +93,11 @@ public class FeatureBusinessTest extends LuteceTestCase
         assertEquals( pluginFeatureStored.getPluginFeatureRight() , pluginFeature.getPluginFeatureRight() );
 
         // List test
-        PluginFeatureHome.getAdminFeaturesForPlugin( IDPLUGIN1, plugin );
+        FeatureHome.getAdminFeaturesForPlugin( IDPLUGIN1, plugin );
 
         // Delete test
-        PluginFeatureHome.remove( pluginFeature.getIdPluginFeature() , plugin );
-        pluginFeatureStored = PluginFeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
+        FeatureHome.remove( pluginFeature.getIdPluginFeature() , plugin );
+        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
         assertNull( pluginFeatureStored );
         
     }

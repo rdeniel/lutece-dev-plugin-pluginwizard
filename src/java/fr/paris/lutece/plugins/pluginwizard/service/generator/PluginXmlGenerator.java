@@ -33,14 +33,14 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplication;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplicationHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
+import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -92,10 +92,10 @@ public class PluginXmlGenerator implements Generator
         model.put( MARK_PLUGIN, pluginModel );
 
         int nIdPlugin = pluginModel.getIdPlugin(  );
-        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( nIdPlugin, plugin );
+        Collection<Feature> listFeatures = FeatureHome.findByPlugin( nIdPlugin, plugin );
 
-        Collection<PluginApplication> listApplcations = PluginApplicationHome.findByPlugin( nIdPlugin, plugin );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( nPluginId, plugin );
+        Collection<Application> listApplcations = ApplicationHome.findByPlugin( nIdPlugin, plugin );
+        Collection<Portlet> listPortlets = PortletHome.findByPlugin( nPluginId, plugin );
         model.put( MARK_LIST_FEATURES, listFeatures );
         model.put( MARK_LIST_APPLICATIONS, listApplcations );
         model.put( MARK_LIST_PORTLETS, listPortlets );

@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplication;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginApplicationHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
+import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
@@ -64,13 +64,13 @@ public class XPageGenerator implements Generator
     public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-        Collection<PluginApplication> listPluginApplications = PluginApplicationHome.findByPlugin( pluginModel.getIdPlugin(  ),
+        Collection<Application> listPluginApplications = ApplicationHome.findByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );
 
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for ( PluginApplication xpage : listPluginApplications )
+        for ( Application xpage : listPluginApplications )
         {
             String strPath = strBasePath + xpage.getApplicationClass(  ) + ".java";
 
@@ -95,7 +95,7 @@ public class XPageGenerator implements Generator
         model.put( MARK_PLUGIN, pluginModel );
 
         model.put( MARK_PLUGIN_MODEL, pluginModel );
-        model.put( MARK_PLUGIN_APPLICATION, PluginApplicationHome.findByPrimaryKey( nIdPluginApplication, plugin ) );
+        model.put( MARK_PLUGIN_APPLICATION, ApplicationHome.findByPrimaryKey( nIdPluginApplication, plugin ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_XPAGE_TEMPLATE, Locale.getDefault(  ), model );
 

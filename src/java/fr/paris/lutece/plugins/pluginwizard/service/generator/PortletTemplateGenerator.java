@@ -34,8 +34,8 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -62,12 +62,12 @@ public class PortletTemplateGenerator implements Generator
     public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
+        Collection<Portlet> listPortlets = PortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for ( PluginPortlet portlet : listPortlets )
+        for ( Portlet portlet : listPortlets )
         {
             for ( int i = 1; i < 4; i++ )
             {
@@ -133,7 +133,7 @@ public class PortletTemplateGenerator implements Generator
     * @param nPortletTemplateType The type of portlet
     * @return The content of the html template
     */
-    private String getPortletHtmlTemplate( PluginPortlet portlet, String strPluginName, int nPortletTemplateType )
+    private String getPortletHtmlTemplate( Portlet portlet, String strPluginName, int nPortletTemplateType )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );

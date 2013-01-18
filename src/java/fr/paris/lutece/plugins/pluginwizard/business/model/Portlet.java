@@ -37,7 +37,7 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 /**
  * This is the business class for the object PluginPortlet
  */
-public class PluginPortlet
+public class Portlet
 {
     // Variables declarations 
     private int _nIdPlugin;

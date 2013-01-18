@@ -44,7 +44,7 @@ import java.util.Collection;
 /**
  * This class provides Data Access methods for PluginFeature objects
  */
-public final class PluginFeatureDAO implements IPluginFeatureDAO
+public final class FeatureDAO implements IFeatureDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_feature ) FROM pluginwizard_plugin_feature";
@@ -53,7 +53,7 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_feature WHERE id_plugin_feature = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_feature SET id_plugin_feature = ?, plugin_feature_right =?, plugin_feature_title = ?, plugin_feature_level = ?, plugin_feature_name = ?, plugin_feature_description = ? WHERE  id_plugin_feature = ?";
     private static final String SQL_QUERY_SELECTALL_BY_PLUGIN = "SELECT id_plugin_feature, plugin_feature_right, plugin_feature_title, plugin_feature_level, plugin_feature_name, plugin_feature_description , id_plugin FROM pluginwizard_plugin_feature  WHERE id_plugin = ?";
-    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN_COMBO = "SELECT id_plugin_feature, plugin_feature_right FROM pluginwizard_plugin_feature WHERE id_plugin= ?";
+    private static final String SQL_QUERY_SELECTALL_BY_PLUGIN_COMBO = "SELECT id_plugin_feature, plugin_feature_name FROM pluginwizard_plugin_feature WHERE id_plugin= ?";
 
     /**
      * Generates a new primary key
@@ -80,7 +80,7 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
      * @param plugin The plugin
      */
     @Override
-    public void insert( PluginFeature pluginFeature, Plugin plugin )
+    public void insert( Feature pluginFeature, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
@@ -103,17 +103,17 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
      * @return the instance of the PluginFeature
      */
     @Override
-    public PluginFeature load( int nIdFeature, Plugin plugin )
+    public Feature load( int nIdFeature, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nIdFeature );
         daoUtil.executeQuery(  );
 
-        PluginFeature pluginFeature = null;
+        Feature pluginFeature = null;
 
         if ( daoUtil.next(  ) )
         {
-            pluginFeature = new PluginFeature(  );
+            pluginFeature = new Feature(  );
 
             pluginFeature.setIdPluginFeature( daoUtil.getInt( 1 ) );
             pluginFeature.setPluginFeatureRight( daoUtil.getString( 2 ) );
@@ -149,7 +149,7 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
      * @param plugin The plugin
      */
     @Override
-    public void store( PluginFeature pluginFeature, Plugin plugin )
+    public void store( Feature pluginFeature, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
@@ -172,16 +172,16 @@ public final class PluginFeatureDAO implements IPluginFeatureDAO
     * @return The Collection which contains the data of all the pluginFeatures
     */
     @Override
-    public Collection<PluginFeature> selectFeatureByPlugin( int nPluginId, Plugin plugin )
+    public Collection<Feature> selectFeatureByPlugin( int nPluginId, Plugin plugin )
     {
-        Collection<PluginFeature> pluginFeatureList = new ArrayList<PluginFeature>(  );
+        Collection<Feature> pluginFeatureList = new ArrayList<Feature>(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_BY_PLUGIN, plugin );
         daoUtil.setInt( 1, nPluginId );
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )
         {
-            PluginFeature pluginFeature = new PluginFeature(  );
+            Feature pluginFeature = new Feature(  );
 
             pluginFeature.setIdPluginFeature( daoUtil.getInt( 1 ) );
             pluginFeature.setPluginFeatureRight( daoUtil.getString( 2 ) );

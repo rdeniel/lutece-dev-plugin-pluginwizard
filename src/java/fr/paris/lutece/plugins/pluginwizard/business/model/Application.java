@@ -33,62 +33,87 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.util.ReferenceList;
-
-import java.util.Collection;
-
 
 /**
-* IPluginFeatureDAO Interface
-*/
-public interface IPluginFeatureDAO
+ * This is the business class for the object PluginApplication
+ */
+public class Application
 {
+    // Variables declarations 
+    private int _nIdPlugin;
+    private int _nIdPluginApplication;
+    private String _strApplicationName;
+    private String _strApplicationClass;
+
     /**
-     * Insert a new record in the table.
-     * @param pluginFeature instance of the PluginFeature object to inssert
-     * @param plugin the Plugin
+     * Returns the IdPlugin
+     * @return The IdPlugin
      */
-    void insert( PluginFeature pluginFeature, Plugin plugin );
+    public int getIdPlugin(  )
+    {
+        return _nIdPlugin;
+    }
 
     /**
-    * Update the record in the table
-    * @param pluginFeature the reference of the PluginFeature
-    * @param plugin the Plugin
-    */
-    void store( PluginFeature pluginFeature, Plugin plugin );
-
-    /**
-     * Delete a record from the table
-     * @param nIdPluginFeature int identifier of the PluginFeature to delete
-     * @param plugin the Plugin
+     * Sets the IdPlugin
+     * @param nIdPlugin The IdPlugin
      */
-    void delete( int nIdPluginFeature, Plugin plugin );
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Finders
-
-    /**
-     * Load the data from the table
-     * @param nKey The identifier of the plugin feature
-     * @param plugin the Plugin
-     * @return The instance of the pluginFeature
-     */
-    PluginFeature load( int nKey, Plugin plugin );
+    public void setIdPlugin( int nIdPlugin )
+    {
+        _nIdPlugin = nIdPlugin;
+    }
 
     /**
-     * Returns a list of features by plugin
-     * @param nPluginId The id of the generated plugin
-     * @param plugin The plugin
-     * @return A collection of features related to the plugin
+     * Returns the IdPlugin
+     * @return The IdPlugin
      */
-    Collection<PluginFeature> selectFeatureByPlugin( int nPluginId, Plugin plugin );
+    public int getIdPluginApplication(  )
+    {
+        return _nIdPluginApplication;
+    }
 
     /**
-     * Returns the list of admin features associated with the generated plugin
-     * @param nPluginId The generated plugin id
-     * @param plugin The plugin
-     * @return The referencelist of features by plugin
+     * Sets the nIdPluginApplication
+     * @param nIdPluginApplication The IdPluginApplication
      */
-    ReferenceList selectFeatureByPluginCombo( int nPluginId, Plugin plugin );
+    public void setIdPluginApplication( int nIdPluginApplication )
+    {
+        _nIdPluginApplication = nIdPluginApplication;
+    }
+
+    /**
+     * Returns the ApplicationName
+     * @return The ApplicationName
+     */
+    public String getApplicationName(  )
+    {
+        return _strApplicationName;
+    }
+
+    /**
+     * Sets the ApplicationName
+     * @param strApplicationName The ApplicationName
+     */
+    public void setApplicationName( String strApplicationName )
+    {
+        _strApplicationName = strApplicationName;
+    }
+
+    /**
+     * Returns the ApplicationClass
+     * @return The ApplicationClass
+     */
+    public String getApplicationClass(  )
+    {
+        return _strApplicationClass;
+    }
+
+    /**
+     * Sets the ApplicationClass
+     * @param strApplicationClass The ApplicationClass
+     */
+    public void setApplicationClass( String strApplicationClass )
+    {
+        _strApplicationClass = strApplicationClass;
+    }
 }

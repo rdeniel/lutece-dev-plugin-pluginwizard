@@ -41,21 +41,21 @@ import java.util.Collection;
 /**
 * IPluginPortletDAO Interface
 */
-public interface IPluginPortletDAO
+public interface IPortletDAO
 {
     /**
      * Insert a new record in the table.
      * @param pluginPortlet instance of the PluginPortlet object to inssert
      * @param plugin the Plugin
      */
-    void insert( PluginPortlet pluginPortlet, Plugin plugin );
+    void insert( Portlet pluginPortlet, Plugin plugin );
 
     /**
     * Update the record in the table
     * @param pluginPortlet the reference of the PluginPortlet
     * @param plugin the Plugin
     */
-    void store( PluginPortlet pluginPortlet, Plugin plugin );
+    void store( Portlet pluginPortlet, Plugin plugin );
 
     /**
      * Delete a record from the table
@@ -73,14 +73,14 @@ public interface IPluginPortletDAO
      * @param plugin the Plugin
      * @return The instance of the pluginPortlet
      */
-    PluginPortlet load( int nKey, Plugin plugin );
+    Portlet load( int nKey, Plugin plugin );
 
     /**
     * Load the data of all the pluginPortlet objects and returns them as a collection
     * @param plugin the Plugin
     * @return The collection which contains the data of all the pluginPortlet objects
     */
-    Collection<PluginPortlet> selectPluginPortletsList( Plugin plugin );
+    Collection<Portlet> selectPluginPortletsList( Plugin plugin );
 
     /**
      * A collection of portlets related to the generated plugin
@@ -88,7 +88,7 @@ public interface IPluginPortletDAO
      * @param plugin The plugin
      * @return A list of portlets for the generated plugin
      */
-    Collection<PluginPortlet> selectPluginPortletsList( int nKey, Plugin plugin );
+    Collection<Portlet> selectPluginPortletsList( int nKey, Plugin plugin );
 
     /**
      * Delete portlets from a given plugin

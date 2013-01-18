@@ -35,8 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
@@ -93,10 +93,10 @@ public class PropertiesGenerator implements Generator
 
         Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
 
-        Collection<PluginFeature> listFeaturesPlugin = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
+        Collection<Feature> listFeaturesPlugin = FeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
                 plugin );
 
-        for ( PluginFeature feature : listFeaturesPlugin )
+        for ( Feature feature : listFeaturesPlugin )
         {
             Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             listClasses.addAll( listBusinessClasses );

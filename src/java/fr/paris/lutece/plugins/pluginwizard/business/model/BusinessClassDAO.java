@@ -282,7 +282,7 @@ public final class BusinessClassDAO implements IBusinessClassDAO
         daoUtil.setInt( 1, nFeatureId );
         daoUtil.executeQuery();
 
-        PluginFeature feature = PluginFeatureHome.findByPrimaryKey( nFeatureId, plugin );
+        Feature feature = FeatureHome.findByPrimaryKey( nFeatureId, plugin );
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( feature.getIdPlugin(), plugin );
 
         while (daoUtil.next())

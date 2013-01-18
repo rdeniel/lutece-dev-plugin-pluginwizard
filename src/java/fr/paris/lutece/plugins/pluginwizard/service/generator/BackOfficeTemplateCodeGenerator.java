@@ -35,8 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginFeatureHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
+import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
@@ -72,10 +72,10 @@ public class BackOfficeTemplateCodeGenerator implements Generator
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
         //for each feature,which business classes are attached to
-        Collection<PluginFeature> listFeatures = PluginFeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
+        Collection<Feature> listFeatures = FeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
         int nPluginId = pluginModel.getIdPlugin(  );
 
-        for ( PluginFeature feature : listFeatures )
+        for ( Feature feature : listFeatures )
         {
             Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
             String strFeatureName = feature.getPluginFeatureName(  );
@@ -145,7 +145,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
     * @return The html code of the create template
     */
     private String getFeatureHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName,
-        PluginFeature feature )
+        Feature feature )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 

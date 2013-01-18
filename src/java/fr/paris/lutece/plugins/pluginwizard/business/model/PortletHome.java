@@ -42,16 +42,16 @@ import java.util.Collection;
 /**
  * This class provides instances management methods (create, find, ...) for PluginPortlet objects
  */
-public final class PluginPortletHome
+public final class PortletHome
 {
     // Static variable pointed at the DAO instance
-    private static IPluginPortletDAO _dao = (IPluginPortletDAO) SpringContextService.getPluginBean( "pluginwizard",
+    private static IPortletDAO _dao = (IPortletDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.pluginPortletDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private PluginPortletHome(  )
+    private PortletHome(  )
     {
     }
 
@@ -71,7 +71,7 @@ public final class PluginPortletHome
      * @param plugin the Plugin
      * @return The  instance of pluginPortlet which has been created with its primary key.
      */
-    public static PluginPortlet create( PluginPortlet pluginPortlet, Plugin plugin )
+    public static Portlet create( Portlet pluginPortlet, Plugin plugin )
     {
         _dao.insert( pluginPortlet, plugin );
 
@@ -84,7 +84,7 @@ public final class PluginPortletHome
      * @param plugin the Plugin
      * @return The instance of the  pluginPortlet which has been updated
      */
-    public static PluginPortlet update( PluginPortlet pluginPortlet, Plugin plugin )
+    public static Portlet update( Portlet pluginPortlet, Plugin plugin )
     {
         _dao.store( pluginPortlet, plugin );
 
@@ -110,7 +110,7 @@ public final class PluginPortletHome
      * @param plugin the Plugin
      * @return an instance of PluginPortlet
      */
-    public static PluginPortlet findByPrimaryKey( int nKey, Plugin plugin )
+    public static Portlet findByPrimaryKey( int nKey, Plugin plugin )
     {
         return _dao.load( nKey, plugin );
     }
@@ -121,7 +121,7 @@ public final class PluginPortletHome
      * @param plugin the Plugin
      * @return an instance of PluginPortlet
      */
-    public static Collection<PluginPortlet> findByPlugin( int nKey, Plugin plugin )
+    public static Collection<Portlet> findByPlugin( int nKey, Plugin plugin )
     {
         return _dao.selectPluginPortletsList( nKey, plugin );
     }
@@ -131,7 +131,7 @@ public final class PluginPortletHome
      * @param plugin the Plugin
      * @return the collection which contains the data of all the pluginPortlet objects
      */
-    public static Collection<PluginPortlet> getPluginPortletsList( Plugin plugin )
+    public static Collection<Portlet> getPluginPortletsList( Plugin plugin )
     {
         return _dao.selectPluginPortletsList( plugin );
     }

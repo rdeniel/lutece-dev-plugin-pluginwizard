@@ -34,8 +34,8 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginPortletHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -63,12 +63,12 @@ public class PortletXslGenerator implements Generator
     public Map generate( Plugin plugin, PluginModel pluginModel )
     {
         HashMap map = new HashMap(  );
-        Collection<PluginPortlet> listPortlets = PluginPortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
+        Collection<Portlet> listPortlets = PortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/xsl/normal/";
         strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
 
-        for ( PluginPortlet portlet : listPortlets )
+        for ( Portlet portlet : listPortlets )
         {
             String strPath = strBasePath + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
 
@@ -101,7 +101,7 @@ public class PortletXslGenerator implements Generator
     * @param strPluginName The plugin name
     * @return The content of the xsl file
     */
-    private String getPortletXsl( PluginPortlet portlet, String strPluginName )
+    private String getPortletXsl( Portlet portlet, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PORTLET, portlet );

@@ -43,16 +43,16 @@ import java.util.Collection;
 /**
  * This class provides instances management methods (create, find, ...) for PluginFeature objects
  */
-public final class PluginFeatureHome
+public final class FeatureHome
 {
     // Static variable pointed at the DAO instance
-    private static IPluginFeatureDAO _dao = (IPluginFeatureDAO) SpringContextService.getPluginBean( "pluginwizard",
+    private static IFeatureDAO _dao = (IFeatureDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.pluginFeatureDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private PluginFeatureHome(  )
+    private FeatureHome(  )
     {
     }
 
@@ -62,7 +62,7 @@ public final class PluginFeatureHome
      * @param plugin the Plugin
      * @return The  instance of pluginFeature which has been created with its primary key.
      */
-    public static PluginFeature create( PluginFeature pluginFeature, Plugin plugin )
+    public static Feature create( Feature pluginFeature, Plugin plugin )
     {
         _dao.insert( pluginFeature, plugin );
 
@@ -75,7 +75,7 @@ public final class PluginFeatureHome
      * @param plugin the Plugin
      * @return The instance of the  pluginFeature which has been updated
      */
-    public static PluginFeature update( PluginFeature pluginFeature, Plugin plugin )
+    public static Feature update( Feature pluginFeature, Plugin plugin )
     {
         _dao.store( pluginFeature, plugin );
 
@@ -100,7 +100,7 @@ public final class PluginFeatureHome
      */
     public static void removeFeaturesByPlugin( int nIdPlugin, Plugin plugin )
     {
-        for( PluginFeature feature : findByPlugin( nIdPlugin, plugin ))
+        for( Feature feature : findByPlugin( nIdPlugin, plugin ))
         {
             remove( feature.getIdPlugin() , plugin);
         }
@@ -115,7 +115,7 @@ public final class PluginFeatureHome
      * @param plugin the Plugin
      * @return an instance of PluginFeature
      */
-    public static PluginFeature findByPrimaryKey( int nKey, Plugin plugin )
+    public static Feature findByPrimaryKey( int nKey, Plugin plugin )
     {
         return _dao.load( nKey, plugin );
     }
@@ -126,7 +126,7 @@ public final class PluginFeatureHome
      * @param plugin The plugin
      * @return The collection of the plugin features
      */
-    public static Collection<PluginFeature> findByPlugin( int nPluginId, Plugin plugin )
+    public static Collection<Feature> findByPlugin( int nPluginId, Plugin plugin )
     {
         return _dao.selectFeatureByPlugin( nPluginId, plugin );
     }

@@ -41,21 +41,21 @@ import java.util.Collection;
 /**
 * IPluginApplicationDAO Interface
 */
-public interface IPluginApplicationDAO
+public interface IApplicationDAO
 {
     /**
      * Insert a new record in the table.
      * @param pluginApplication instance of the PluginApplication object to inssert
      * @param plugin the Plugin
      */
-    void insert( PluginApplication pluginApplication, Plugin plugin );
+    void insert( Application pluginApplication, Plugin plugin );
 
     /**
     * Update the record in the table
     * @param pluginApplication the reference of the PluginApplication
     * @param plugin the Plugin
     */
-    void store( PluginApplication pluginApplication, Plugin plugin );
+    void store( Application pluginApplication, Plugin plugin );
 
     /**
      * Delete a record from the table
@@ -73,14 +73,14 @@ public interface IPluginApplicationDAO
      * @param plugin the Plugin
      * @return The instance of the pluginApplication
      */
-    PluginApplication load( int nKey, Plugin plugin );
+    Application load( int nKey, Plugin plugin );
 
     /**
     * Load the data of all the pluginApplication objects and returns them as a collection
     * @param plugin the Plugin
     * @return The collection which contains the data of all the pluginApplication objects
     */
-    Collection<PluginApplication> selectPluginApplicationsList( Plugin plugin );
+    Collection<Application> selectPluginApplicationsList( Plugin plugin );
 
     /**
      * Returns a collection of plugin application
@@ -88,7 +88,7 @@ public interface IPluginApplicationDAO
      * @param plugin The Plugin
      * @return A collection of plugin applications
      */
-    Collection<PluginApplication> selectByPlugin( int nKey, Plugin plugin );
+    Collection<Application> selectByPlugin( int nKey, Plugin plugin );
 
     /**
      * Delete applications of a given plugin

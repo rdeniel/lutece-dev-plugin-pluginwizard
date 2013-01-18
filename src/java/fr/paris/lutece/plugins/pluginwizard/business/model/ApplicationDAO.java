@@ -43,7 +43,7 @@ import java.util.Collection;
 /**
  * This class provides Data Access methods for PluginApplication objects
  */
-public final class PluginApplicationDAO implements IPluginApplicationDAO
+public final class ApplicationDAO implements IApplicationDAO
 {
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin_application ) FROM pluginwizard_plugin_application";
@@ -84,7 +84,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
      * @param pluginApplication instance of the PluginApplication object to insert
      * @param plugin The plugin
      */
-    public void insert( PluginApplication pluginApplication, Plugin plugin )
+    public void insert( Application pluginApplication, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
@@ -104,17 +104,17 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
      * @param plugin The plugin
      * @return the instance of the PluginApplication
      */
-    public PluginApplication load( int nId, Plugin plugin )
+    public Application load( int nId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nId );
         daoUtil.executeQuery(  );
 
-        PluginApplication pluginApplication = null;
+        Application pluginApplication = null;
 
         if ( daoUtil.next(  ) )
         {
-            pluginApplication = new PluginApplication(  );
+            pluginApplication = new Application(  );
 
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 1 ) );
             pluginApplication.setApplicationName( daoUtil.getString( 2 ) );
@@ -159,7 +159,7 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
      * @param pluginApplication The reference of the pluginApplication
      * @param plugin The plugin
      */
-    public void store( PluginApplication pluginApplication, Plugin plugin )
+    public void store( Application pluginApplication, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
@@ -178,15 +178,15 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
      * @param plugin The plugin
      * @return The Collection which contains the data of all the pluginApplications
      */
-    public Collection<PluginApplication> selectPluginApplicationsList( Plugin plugin )
+    public Collection<Application> selectPluginApplicationsList( Plugin plugin )
     {
-        Collection<PluginApplication> pluginApplicationList = new ArrayList<PluginApplication>(  );
+        Collection<Application> pluginApplicationList = new ArrayList<Application>(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )
         {
-            PluginApplication pluginApplication = new PluginApplication(  );
+            Application pluginApplication = new Application(  );
 
             pluginApplication.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 2 ) );
@@ -208,16 +208,16 @@ public final class PluginApplicationDAO implements IPluginApplicationDAO
      * @param plugin The plugin
      * @return A list of plugin applications
      */
-    public Collection<PluginApplication> selectByPlugin( int nIdPlugin, Plugin plugin )
+    public Collection<Application> selectByPlugin( int nIdPlugin, Plugin plugin )
     {
-        Collection<PluginApplication> pluginApplicationList = new ArrayList<PluginApplication>(  );
+        Collection<Application> pluginApplicationList = new ArrayList<Application>(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_PLUGIN, plugin );
         daoUtil.setInt( 1, nIdPlugin );
         daoUtil.executeQuery(  );
 
         while ( daoUtil.next(  ) )
         {
-            PluginApplication pluginApplication = new PluginApplication(  );
+            Application pluginApplication = new Application(  );
 
             pluginApplication.setIdPluginApplication( daoUtil.getInt( 1 ) );
             pluginApplication.setApplicationName( daoUtil.getString( 2 ) );

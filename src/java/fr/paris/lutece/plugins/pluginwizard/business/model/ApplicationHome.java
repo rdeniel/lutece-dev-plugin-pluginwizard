@@ -42,16 +42,16 @@ import java.util.Collection;
 /**
  * This class provides instances management methods (create, find, ...) for PluginApplication objects
  */
-public final class PluginApplicationHome
+public final class ApplicationHome
 {
     // Static variable pointed at the DAO instance
-    private static IPluginApplicationDAO _dao = (IPluginApplicationDAO) SpringContextService.getPluginBean( "pluginwizard",
+    private static IApplicationDAO _dao = (IApplicationDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.pluginApplicationDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private PluginApplicationHome(  )
+    private ApplicationHome(  )
     {
     }
 
@@ -71,7 +71,7 @@ public final class PluginApplicationHome
      * @param plugin the Plugin
      * @return The  instance of pluginApplication which has been created with its primary key.
      */
-    public static PluginApplication create( PluginApplication pluginApplication, Plugin plugin )
+    public static Application create( Application pluginApplication, Plugin plugin )
     {
         _dao.insert( pluginApplication, plugin );
 
@@ -84,7 +84,7 @@ public final class PluginApplicationHome
      * @param plugin the Plugin
      * @return The instance of the  pluginApplication which has been updated
      */
-    public static PluginApplication update( PluginApplication pluginApplication, Plugin plugin )
+    public static Application update( Application pluginApplication, Plugin plugin )
     {
         _dao.store( pluginApplication, plugin );
 
@@ -110,7 +110,7 @@ public final class PluginApplicationHome
      * @param plugin the Plugin
      * @return an instance of PluginApplication
      */
-    public static PluginApplication findByPrimaryKey( int nKey, Plugin plugin )
+    public static Application findByPrimaryKey( int nKey, Plugin plugin )
     {
         return _dao.load( nKey, plugin );
     }
@@ -121,7 +121,7 @@ public final class PluginApplicationHome
      * @param plugin the Plugin
      * @return an instance of PluginApplication
      */
-    public static Collection<PluginApplication> findByPlugin( int nKey, Plugin plugin )
+    public static Collection<Application> findByPlugin( int nKey, Plugin plugin )
     {
         return _dao.selectByPlugin( nKey, plugin );
     }
@@ -131,7 +131,7 @@ public final class PluginApplicationHome
      * @param plugin the Plugin
      * @return the collection which contains the data of all the pluginApplication objects
      */
-    public static Collection<PluginApplication> getPluginApplicationsList( Plugin plugin )
+    public static Collection<Application> getPluginApplicationsList( Plugin plugin )
     {
         return _dao.selectPluginApplicationsList( plugin );
     }
