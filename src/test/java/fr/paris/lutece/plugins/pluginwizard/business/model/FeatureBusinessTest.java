@@ -40,8 +40,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 public class FeatureBusinessTest extends LuteceTestCase
 {
-    private final static int IDPLUGINFEATURE1 = 1;
-    private final static int IDPLUGINFEATURE2 = 2;
     private final static String PLUGINFEATURETITLE1 = "PluginFeatureTitle1";
     private final static String PLUGINFEATURETITLE2 = "PluginFeatureTitle2";
     private final static String PLUGINFEATURELEVEL1 = "PluginFeatureLevel1";
@@ -61,7 +59,6 @@ public class FeatureBusinessTest extends LuteceTestCase
         
         // Initialize an object
         PluginFeature pluginFeature = new PluginFeature();
-        pluginFeature.setIdPluginFeature( IDPLUGINFEATURE1 );
         pluginFeature.setPluginFeatureTitle( PLUGINFEATURETITLE1 );
         pluginFeature.setPluginFeatureLevel( PLUGINFEATURELEVEL1 );
         pluginFeature.setPluginFeatureName( PLUGINFEATURENAME1 );
@@ -81,7 +78,6 @@ public class FeatureBusinessTest extends LuteceTestCase
         assertEquals( pluginFeatureStored.getIdPlugin() , pluginFeature.getIdPlugin() );
 
         // Update test
-        pluginFeature.setIdPluginFeature( IDPLUGINFEATURE2 );
         pluginFeature.setPluginFeatureTitle( PLUGINFEATURETITLE2 );
         pluginFeature.setPluginFeatureLevel( PLUGINFEATURELEVEL2 );
         pluginFeature.setPluginFeatureName( PLUGINFEATURENAME2 );

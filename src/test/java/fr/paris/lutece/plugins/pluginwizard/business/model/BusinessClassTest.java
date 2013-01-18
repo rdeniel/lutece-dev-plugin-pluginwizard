@@ -44,8 +44,6 @@ import static org.junit.Assert.*;
  */
 public class BusinessClassTest extends LuteceTestCase
 {
-    private final static int IDBUSINESSCLASS1 = 1;
-    private final static int IDBUSINESSCLASS2 = 2;
     private final static String BUSINESSCLASS1 = "BusinessClass1";
     private final static String BUSINESSCLASS2 = "BusinessClass2";
     private final static String BUSINESSTABLENAME1 = "BusinessTableName1";
@@ -59,7 +57,6 @@ public class BusinessClassTest extends LuteceTestCase
         
         // Initialize an object
         BusinessClass businessClass = new BusinessClass();
-        businessClass.setIdBusinessClass( IDBUSINESSCLASS1 );
         businessClass.setBusinessClass( BUSINESSCLASS1 );
         businessClass.setBusinessTableName( BUSINESSTABLENAME1 );
         businessClass.setIdFeature( IDPLUGINFEATURE1 );
@@ -73,12 +70,10 @@ public class BusinessClassTest extends LuteceTestCase
         assertEquals( businessClassStored.getIdFeature() , businessClass.getIdFeature() );
 
         // Update test
-        businessClass.setIdBusinessClass( IDBUSINESSCLASS2 );
         businessClass.setBusinessClass( BUSINESSCLASS2 );
         businessClass.setBusinessTableName( BUSINESSTABLENAME2 );
         BusinessClassHome.update( businessClass , plugin );
         businessClassStored = BusinessClassHome.findByPrimaryKey( businessClass.getIdBusinessClass() , plugin );
-        assertEquals( businessClassStored.getIdBusinessClass() , businessClass.getIdBusinessClass() );
         assertEquals( businessClassStored.getBusinessClass() , businessClass.getBusinessClass() );
         assertEquals( businessClassStored.getBusinessTableName() , businessClass.getBusinessTableName() );
 

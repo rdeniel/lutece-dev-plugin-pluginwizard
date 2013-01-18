@@ -59,8 +59,8 @@ public final class AttributeDAO implements IAttributeDAO
     private static final String SQL_QUERY_DELETE = "DELETE FROM pluginwizard_plugin_attribute WHERE id_attribute = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE pluginwizard_plugin_attribute SET id_attribute = ?, attribute_type_id = ?, attribute_name = ? , is_primary_key = ? , is_description =  ? WHERE id_attribute = ?";
     private static final String SQL_QUERY_SELECTALL_ATTTIBUTE_TYPE_COMBO = "select attribute_type_id,attribute_type_name from pluginwizard_plugin_attribute_type";
-    private static final String SQL_QUERY_SELECT_CLASS_KEY_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_business_attribute as b  WHERE a.id_attribute=b.id_attribute and b.id_business_class= ? and a.is_primary_key=1";
-    private static final String SQL_QUERY_SELECT_CLASS_DESCRIPTION_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_business_attribute as b  WHERE a.id_attribute=b.id_attribute and b.id_business_class=? and a.is_description=1";
+    private static final String SQL_QUERY_SELECT_CLASS_KEY_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute as b WHERE id_business_class= ? and is_primary_key=1";
+    private static final String SQL_QUERY_SELECT_CLASS_DESCRIPTION_BY_CLASS_ID = "select attribute_name FROM pluginwizard_plugin_attribute WHERE id_business_class=? and is_description=1";
 
     /**
      * Generates a new primary key
