@@ -60,10 +60,10 @@ public final class BusinessClassDAO implements IBusinessClassDAO
     private static final String SQL_QUERY_SELECTALL_BY_FEATURE = "SELECT id_plugin_feature, id_business_class, business_class, business_table_name  FROM pluginwizard_plugin_business "
             + " WHERE id_plugin_feature = ?";
     private static final String SQL_QUERY_SELECT_ATTRIBUTES_BY_BUSINESS_CLASS_ID = "select a.id_attribute,a.attribute_type_id,a.attribute_name,a.is_primary_key,a.is_description, b.attribute_type_name FROM pluginwizard_plugin_attribute as a , pluginwizard_plugin_attribute_type as b WHERE a.attribute_type_id=b.attribute_type_id AND a.id_business_class = ? ";
-    private static final String SQL_QUERY_COUNT_FIND_BY_FEATURE_AND_CLASS = "SELECT COUNT(a.id_business_class) FROM pluginwizard_plugin_business as a ,pluginwizard_plugin_feature_business as b WHERE a.business_class= ? AND b.id_plugin_feature= ? AND b.id_business_class=a.id_business_class";
+    private static final String SQL_QUERY_COUNT_FIND_BY_FEATURE_AND_CLASS = "SELECT COUNT(id_business_class) FROM pluginwizard_plugin_business WHERE id_plugin_feature= ? AND business_class = ?";
     private static final String SQL_QUERY_CHECK_ATTRIBUTES = "SELECT id_business_class FROM pluginwizard_plugin_attribute WHERE id_business_class= ?";
-    private static final String SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY = "select count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_primary_key= 1";
-    private static final String SQL_QUERY_CHECK_BUSINESS_DESCRIPTION = "select count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_description= 1";
+    private static final String SQL_QUERY_CHECK_BUSINESS_PRIMARY_KEY = "SELECT count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_primary_key= 1";
+    private static final String SQL_QUERY_CHECK_BUSINESS_DESCRIPTION = "SELECT count( id_attribute ) FROM pluginwizard_plugin_attribute WHERE id_business_class = ? AND is_description= 1";
 
     /**
      * Generates a new primary key

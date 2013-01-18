@@ -84,6 +84,7 @@ public class BusinessClassTest extends LuteceTestCase
         BusinessClassHome.hasAlreadyKey( businessClass.getIdBusinessClass(), plugin );
         BusinessClassHome.hasAlreadyDescription( businessClass.getIdBusinessClass(), plugin );
         BusinessClassHome.hasAttributes( businessClass.getIdBusinessClass(), plugin );
+        BusinessClassHome.keyExists( IDPLUGIN, BUSINESSCLASS1, plugin );
         
         // Delete test
         BusinessClassHome.remove( businessClass.getIdBusinessClass() , plugin );
