@@ -70,6 +70,7 @@ public class GeneratorService
         _listGenerators.add( new BackOfficeTemplateCodeGenerator(  ) );
         _listGenerators.add( new BusinessClassCodeGenerator(  ) );
         _listGenerators.add( new JspBeanCodeGenerator(  ) );
+//        _listGenerators.add( new MultiJspBeanGenerator(  ) );
         _listGenerators.add( new PluginXmlGenerator(  ) );
         _listGenerators.add( new PomGenerator(  ) );
         _listGenerators.add( new PortletGenerator(  ) );

@@ -45,8 +45,7 @@ import java.util.Collection;
 public final class ApplicationHome
 {
     // Static variable pointed at the DAO instance
-    private static IApplicationDAO _dao = (IApplicationDAO) SpringContextService.getPluginBean( "pluginwizard",
-            "pluginwizard.pluginApplicationDAO" );
+    private static IApplicationDAO _dao = (IApplicationDAO) SpringContextService.getBean( "pluginwizard.pluginApplicationDAO" );
 
     /**
      * Private constructor - this class need not be instantiated

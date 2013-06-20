@@ -46,8 +46,7 @@ import java.util.Collection;
 public final class FeatureHome
 {
     // Static variable pointed at the DAO instance
-    private static IFeatureDAO _dao = (IFeatureDAO) SpringContextService.getPluginBean( "pluginwizard",
-            "pluginwizard.pluginFeatureDAO" );
+    private static IFeatureDAO _dao = (IFeatureDAO) SpringContextService.getBean( "pluginwizard.pluginFeatureDAO" );
 
     /**
      * Private constructor - this class need not be instantiated

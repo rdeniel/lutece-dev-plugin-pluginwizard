@@ -45,8 +45,7 @@ import java.util.Collection;
 public final class PortletHome
 {
     // Static variable pointed at the DAO instance
-    private static IPortletDAO _dao = (IPortletDAO) SpringContextService.getPluginBean( "pluginwizard",
-            "pluginwizard.pluginPortletDAO" );
+    private static IPortletDAO _dao = (IPortletDAO) SpringContextService.getBean( "pluginwizard.pluginPortletDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
