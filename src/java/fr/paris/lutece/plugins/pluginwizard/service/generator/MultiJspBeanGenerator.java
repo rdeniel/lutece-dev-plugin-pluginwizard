@@ -39,7 +39,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_NAME;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_RIGHT;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_LIST_BUSINESS_CLASS;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_BUSINESS_CLASS;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN_MODEL;
 import fr.paris.lutece.plugins.pluginwizard.web.Constants;
@@ -58,6 +57,7 @@ public class MultiJspBeanGenerator implements Generator
 {
 
     private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html";
+    private static final String TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_abstract_template.html";
 
     /**
      * {@inheritDoc }
@@ -80,6 +80,10 @@ public class MultiJspBeanGenerator implements Generator
                 String strSourceCode = getJspBeanCode(pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight(), business );
                 map.put(strPath, strSourceCode);
             }
+            
+            String strPath = strBasePath + feature.getPluginFeatureName() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+            String strSourceCode = getAbstractJspBeanCode(pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight() );
+            map.put(strPath, strSourceCode);
 
 
         }
@@ -111,4 +115,28 @@ public class MultiJspBeanGenerator implements Generator
 
         return template.getHtml();
     }
+    
+    
+        /**
+     * Return JspBean code
+     *
+     * @param pluginModel The plugin model
+     * @param strFeatureName The feature name
+     * @param strFeatureRight The feature right
+     * @return the template The source code of the Jsp Bean
+     */
+    private String getAbstractJspBeanCode(PluginModel pluginModel, String strFeatureName, String strFeatureRight)
+    {
+        Map<String, Object> model = new HashMap<String, Object>();
+
+        model.put(MARK_PLUGIN_MODEL, pluginModel);
+        model.put(MARK_FEATURE_NAME, strFeatureName);
+        model.put(MARK_FEATURE_RIGHT, strFeatureRight);
+
+        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE, Locale.getDefault(),
+                model);
+
+        return template.getHtml();
+    }
+
 }

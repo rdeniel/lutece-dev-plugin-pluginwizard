@@ -119,6 +119,8 @@ public class BackOfficeJspGenerator implements Generator
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_JSP_TYPE, "" + nJspType );
+        String strBeanName = strFeatureName.toLowerCase() + businessClass.getBusinessClassCapsFirst();
+        model.put( MARK_BEAN_NAME , strBeanName );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_BUSINESS_FILES, new Locale( "en", "US" ),
                 model );

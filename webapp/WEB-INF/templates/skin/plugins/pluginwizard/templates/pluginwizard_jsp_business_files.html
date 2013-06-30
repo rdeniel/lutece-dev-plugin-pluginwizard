@@ -7,10 +7,10 @@
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
-<% ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} ); %>
-<%= ${feature_name?lower_case}.getCreate${business_class.businessClass?cap_first} ( request ) %>
+<% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
+<%= ${bean_name}.getCreate${business_class.businessClass?cap_first} ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
  <#break>
@@ -20,11 +20,11 @@
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
 <%
-    ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} );
-    response.sendRedirect( ${feature_name?lower_case}.doCreate${business_class.businessClass?cap_first}( request ) );
+    ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );
+    response.sendRedirect( ${bean_name}.doCreate${business_class.businessClass?cap_first}( request ) );
 %>
  <#break>
 
@@ -32,10 +32,10 @@
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
-<% ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} ); 
-response.sendRedirect( ${feature_name?lower_case}.getConfirmRemove${business_class.businessClass?cap_first} ( request ) ); %>
+<% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); 
+response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessClass?cap_first} ( request ) ); %>
 
  <#break>
 
@@ -43,11 +43,11 @@ response.sendRedirect( ${feature_name?lower_case}.getConfirmRemove${business_cla
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
 <%
-    ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} );
-    response.sendRedirect( ${feature_name?lower_case}.doRemove${business_class.businessClass?cap_first}( request ) );
+    ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );
+    response.sendRedirect( ${bean_name}.doRemove${business_class.businessClass?cap_first}( request ) );
 %>
 
  <#break>
@@ -58,10 +58,10 @@ response.sendRedirect( ${feature_name?lower_case}.getConfirmRemove${business_cla
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
-<% ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} ); %>
-<%= ${feature_name?lower_case}.getManage${business_class.businessClass?cap_first}s ( request ) %>
+<% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
+<%= ${bean_name}.getManage${business_class.businessClass?cap_first}s ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
 
@@ -73,10 +73,10 @@ response.sendRedirect( ${feature_name?lower_case}.getConfirmRemove${business_cla
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
-<% ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} ); %>
-<%= ${feature_name?lower_case}.getModify${business_class.businessClass?cap_first} ( request ) %>
+<% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
+<%= ${bean_name}.getModify${business_class.businessClass?cap_first} ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
  <#break>
@@ -85,11 +85,11 @@ response.sendRedirect( ${feature_name?lower_case}.getConfirmRemove${business_cla
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${feature_name?lower_case}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
 
 <%
-    ${feature_name?lower_case}.init( request, ${feature_name?lower_case}.RIGHT_${feature_name?upper_case} );
-    response.sendRedirect( ${feature_name?lower_case}.doModify${business_class.businessClass?cap_first}( request ) );
+    ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );
+    response.sendRedirect( ${bean_name}.doModify${business_class.businessClass?cap_first}( request ) );
 %>
 <#break>
  

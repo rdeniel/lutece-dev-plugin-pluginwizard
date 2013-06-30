@@ -68,6 +68,7 @@ public class Markers
     public static final String MARK_LIST_FEATURES = "features";
     public static final String MARK_LIST_APPLICATIONS = "applications";
     public static final String MARK_LIST_PORTLETS = "portlets";
+    public static final String MARK_BEAN_NAME = "bean_name";
 
     /** Private constructor */
     private Markers(  )
