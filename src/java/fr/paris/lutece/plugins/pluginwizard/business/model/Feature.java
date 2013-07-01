@@ -50,6 +50,7 @@ public class Feature
     private String _strPluginFeatureLevel;
     private String _strPluginFeatureName;
     private String _strPluginFeatureDescription;
+    private String _strJspName;
     private Collection<BusinessClass> _listBusinessClasses;
 
     /**
@@ -79,21 +80,21 @@ public class Feature
     }
 
     /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
+     * Returns the Id
+     * @return The Id
      */
-    public int getIdPluginFeature(  )
+    public int getId(  )
     {
         return _nIdPluginFeature;
     }
 
     /**
      * Sets the nIdPluginFeature
-     * @param nIdPluginFeature The IdPluginFeature
+     * @param nId The IdPluginFeature
      */
-    public void setIdPluginFeature( int nIdPluginFeature )
+    public void setId( int nId )
     {
-        _nIdPluginFeature = nIdPluginFeature;
+        _nIdPluginFeature = nId;
     }
 
     /**
@@ -204,4 +205,24 @@ public class Feature
     {
         return _listBusinessClasses;
     }
+    
+    /**
+     * Returns the JspName
+     * @return The JspName
+     */
+    public String getJspName(  )
+    {
+        return _strJspName;
+    }
+
+    /**
+     * Sets the JspName
+     * @param strJspName The JspName
+     */
+    public void setJspName( String strJspName )
+    {
+        _strJspName = strJspName;
+    }
+
+
 }

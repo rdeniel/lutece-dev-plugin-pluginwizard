@@ -84,8 +84,8 @@ public final class FeatureDAO implements IFeatureDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
-        pluginFeature.setIdPluginFeature( newPrimaryKey( plugin ) );
-        daoUtil.setInt( 1, pluginFeature.getIdPluginFeature(  ) );
+        pluginFeature.setId( newPrimaryKey( plugin ) );
+        daoUtil.setInt( 1, pluginFeature.getId(  ) );
         daoUtil.setString( 2, pluginFeature.getPluginFeatureRight(  ) );
         daoUtil.setString( 3, pluginFeature.getPluginFeatureTitle(  ) );
         daoUtil.setString( 4, pluginFeature.getPluginFeatureLevel(  ) );
@@ -115,7 +115,7 @@ public final class FeatureDAO implements IFeatureDAO
         {
             pluginFeature = new Feature(  );
 
-            pluginFeature.setIdPluginFeature( daoUtil.getInt( 1 ) );
+            pluginFeature.setId( daoUtil.getInt( 1 ) );
             pluginFeature.setPluginFeatureRight( daoUtil.getString( 2 ) );
             pluginFeature.setPluginFeatureTitle( daoUtil.getString( 3 ) );
             pluginFeature.setPluginFeatureLevel( daoUtil.getString( 4 ) );
@@ -153,13 +153,13 @@ public final class FeatureDAO implements IFeatureDAO
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-        daoUtil.setInt( 1, pluginFeature.getIdPluginFeature(  ) );
+        daoUtil.setInt( 1, pluginFeature.getId(  ) );
         daoUtil.setString( 2, pluginFeature.getPluginFeatureRight(  ) );
         daoUtil.setString( 3, pluginFeature.getPluginFeatureTitle(  ) );
         daoUtil.setString( 4, pluginFeature.getPluginFeatureLevel(  ) );
         daoUtil.setString( 5, pluginFeature.getPluginFeatureName(  ) );
         daoUtil.setString( 6, pluginFeature.getPluginFeatureDescription(  ) );
-        daoUtil.setInt( 7, pluginFeature.getIdPluginFeature(  ) );
+        daoUtil.setInt( 7, pluginFeature.getId(  ) );
 
         daoUtil.executeUpdate(  );
         daoUtil.free(  );
@@ -183,7 +183,7 @@ public final class FeatureDAO implements IFeatureDAO
         {
             Feature pluginFeature = new Feature(  );
 
-            pluginFeature.setIdPluginFeature( daoUtil.getInt( 1 ) );
+            pluginFeature.setId( daoUtil.getInt( 1 ) );
             pluginFeature.setPluginFeatureRight( daoUtil.getString( 2 ) );
             pluginFeature.setPluginFeatureTitle( daoUtil.getString( 3 ) );
             pluginFeature.setPluginFeatureLevel( daoUtil.getString( 4 ) );

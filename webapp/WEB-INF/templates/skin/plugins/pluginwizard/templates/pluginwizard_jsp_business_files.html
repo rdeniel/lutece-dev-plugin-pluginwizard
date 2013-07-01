@@ -7,7 +7,7 @@
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
 <%= ${bean_name}.getCreate${business_class.businessClass?cap_first} ( request ) %>
@@ -20,7 +20,7 @@
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <%
     ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );
@@ -32,7 +32,7 @@
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); 
 response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessClass?cap_first} ( request ) ); %>
@@ -43,7 +43,7 @@ response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessCla
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <%
     ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );
@@ -58,7 +58,7 @@ response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessCla
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
 <%= ${bean_name}.getManage${business_class.businessClass?cap_first}s ( request ) %>
@@ -73,7 +73,7 @@ response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessCla
 
 <jsp:include page="../../AdminHeader.jsp" />
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <% ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} ); %>
 <%= ${bean_name}.getModify${business_class.businessClass?cap_first} ( request ) %>
@@ -85,7 +85,7 @@ response.sendRedirect( ${bean_name}.getConfirmRemove${business_class.businessCla
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${feature_name?cap_first}JspBean" />
+<jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 
 <%
     ${bean_name}.init( request, ${bean_name}.RIGHT_${feature_name?upper_case} );

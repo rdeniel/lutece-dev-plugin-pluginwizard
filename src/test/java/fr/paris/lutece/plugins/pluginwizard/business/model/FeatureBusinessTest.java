@@ -68,8 +68,8 @@ public class FeatureBusinessTest extends LuteceTestCase
 
         // Create test
         FeatureHome.create( pluginFeature , plugin );
-        Feature pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
-        assertEquals( pluginFeatureStored.getIdPluginFeature() , pluginFeature.getIdPluginFeature() );
+        Feature pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getId() , plugin );
+        assertEquals( pluginFeatureStored.getId() , pluginFeature.getId() );
         assertEquals( pluginFeatureStored.getPluginFeatureTitle() , pluginFeature.getPluginFeatureTitle() );
         assertEquals( pluginFeatureStored.getPluginFeatureLevel() , pluginFeature.getPluginFeatureLevel() );
         assertEquals( pluginFeatureStored.getPluginFeatureName() , pluginFeature.getPluginFeatureName() );
@@ -84,8 +84,8 @@ public class FeatureBusinessTest extends LuteceTestCase
         pluginFeature.setPluginFeatureDescription( PLUGINFEATUREDESCRIPTION2 );
         pluginFeature.setPluginFeatureRight( PLUGINFEATURERIGHT2 );
         FeatureHome.update( pluginFeature , plugin );
-        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
-        assertEquals( pluginFeatureStored.getIdPluginFeature() , pluginFeature.getIdPluginFeature() );
+        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getId() , plugin );
+        assertEquals( pluginFeatureStored.getId() , pluginFeature.getId() );
         assertEquals( pluginFeatureStored.getPluginFeatureTitle() , pluginFeature.getPluginFeatureTitle() );
         assertEquals( pluginFeatureStored.getPluginFeatureLevel() , pluginFeature.getPluginFeatureLevel() );
         assertEquals( pluginFeatureStored.getPluginFeatureName() , pluginFeature.getPluginFeatureName() );
@@ -96,8 +96,8 @@ public class FeatureBusinessTest extends LuteceTestCase
         FeatureHome.getAdminFeaturesForPlugin( IDPLUGIN1, plugin );
 
         // Delete test
-        FeatureHome.remove( pluginFeature.getIdPluginFeature() , plugin );
-        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getIdPluginFeature() , plugin );
+        FeatureHome.remove( pluginFeature.getId() , plugin );
+        pluginFeatureStored = FeatureHome.findByPrimaryKey( pluginFeature.getId() , plugin );
         assertNull( pluginFeatureStored );
         
     }

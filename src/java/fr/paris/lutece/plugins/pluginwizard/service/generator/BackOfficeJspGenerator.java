@@ -74,13 +74,14 @@ public class BackOfficeJspGenerator implements Generator
 
         for ( Feature feature : pluginModel.getPluginFeatures(  ) )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
                 for ( int i = 0; i < _jsp_prefix.length; i++ )
                 {
-                    String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass(  ) + EXT_JSP;
+                    String strSuffix = ( i == 4 ) ? "s" + EXT_JSP : EXT_JSP;
+                    String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass(  ) + strSuffix;
 
                     String strPath = strBasePath + strJspFileName;
 

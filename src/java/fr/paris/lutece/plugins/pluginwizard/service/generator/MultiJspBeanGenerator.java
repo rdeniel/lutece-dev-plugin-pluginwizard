@@ -71,7 +71,7 @@ public class MultiJspBeanGenerator implements Generator
 
         for (Feature feature : pluginModel.getPluginFeatures())
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature(feature.getIdPluginFeature(), plugin);
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature(feature.getId(), plugin);
             System.out.println( "######################## Nombre classes métier : " + listBusinessClasses.size() ) ;
 
             for (BusinessClass business : listBusinessClasses)

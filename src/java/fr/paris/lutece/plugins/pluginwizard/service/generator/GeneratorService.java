@@ -103,7 +103,7 @@ public class GeneratorService
             }
             catch ( Exception e )
             {
-                AppLogService.error( e );
+                AppLogService.error( e.getMessage() , e );
             }
         }
 

@@ -1047,7 +1047,7 @@ public class PluginWizardApp implements XPageApplication
         String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_NAME );
 
         Feature pluginFeature = new Feature(  );
-        pluginFeature.setIdPluginFeature( nIdPluginFeature );
+        pluginFeature.setId( nIdPluginFeature );
         pluginFeature.setIdPlugin( nPluginId );
         pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
         pluginFeature.setPluginFeatureRight( strPluginFeatureLabel );

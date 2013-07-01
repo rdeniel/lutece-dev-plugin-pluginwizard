@@ -7,24 +7,24 @@ adminFeature.${feature.pluginFeatureName?lower_case}.description
 </#list>
 
 manage_${plugin_name?lower_case}s.tableLabel
-manage_${plugin_name?lower_case}.labelManagement
+manage_${plugin_name?lower_case}s.labelManagement
 manage_${plugin_name?lower_case}s.pageTitle
 <#list list_business_class as business_class>
 <#if business_class?? > 
-manage_${business_class.businessClassTemplate}.pageTitle
-manage_${business_class.businessClassTemplate}.tableLabel
-manage_${business_class.businessClassTemplate}.labelManagement
-manage_${business_class.businessClassTemplate}.columnAction
+manage_${business_class.businessClassTemplate}s.pageTitle
+manage_${business_class.businessClassTemplate}s.tableLabel
+manage_${business_class.businessClassTemplate}s.labelManagement
+manage_${business_class.businessClassTemplate}s.columnAction
 
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
-manage_${business_class.businessClassTemplate}.column${attribute.attributeName?cap_first}
+manage_${business_class.businessClassTemplate}s.column${attribute.attributeName?cap_first}
 </#list>
 </#if>
 
-manage_${business_class.businessClassTemplate}.buttonAdd${business_class.businessClassTemplate?cap_first}
-manage_${business_class.businessClassTemplate}.actionDelete
-manage_${business_class.businessClassTemplate}.actionModify
+manage_${business_class.businessClassTemplate}s.buttonAdd${business_class.businessClassTemplate?cap_first}
+manage_${business_class.businessClassTemplate}s.actionDelete
+manage_${business_class.businessClassTemplate}s.actionModify
 create_${business_class.businessClassTemplate}.pageTitle
 create_${business_class.businessClassTemplate}.tableLabel
 

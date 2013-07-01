@@ -35,6 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
@@ -48,6 +50,7 @@ import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -93,6 +96,20 @@ public class PluginXmlGenerator implements Generator
 
         int nIdPlugin = pluginModel.getIdPlugin(  );
         Collection<Feature> listFeatures = FeatureHome.findByPlugin( nIdPlugin, plugin );
+        
+        for( Feature feature : listFeatures )
+        {
+            List<BusinessClass> listBusiness = (List<BusinessClass>) BusinessClassHome.getBusinessClassesByFeature( feature.getId(), plugin);
+            if( ( listBusiness != null ) && (listBusiness.size() > 0 ))
+            {
+                BusinessClass businessClass = listBusiness.get( 0 );
+                feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst() + "s.jsp" );
+            }
+            else
+            {
+                feature.setJspName( feature.getPluginFeatureName() + ".jsp" );
+            }
+        }
 
         Collection<Application> listApplcations = ApplicationHome.findByPlugin( nIdPlugin, plugin );
         Collection<Portlet> listPortlets = PortletHome.findByPlugin( nPluginId, plugin );

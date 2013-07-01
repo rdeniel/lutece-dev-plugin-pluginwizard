@@ -57,7 +57,7 @@ import java.util.Map;
 public class BackOfficeTemplateCodeGenerator implements Generator
 {
     private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
-    private static final String TEMPLATE_HTML_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_feature_file.html";
+    private static final String TEMPLATE_HTML_TABS_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_tabs_file.html";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
 
     /**
@@ -77,8 +77,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 
         for ( Feature feature : listFeatures )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getIdPluginFeature(  ), plugin );
-            String strFeatureName = feature.getPluginFeatureName(  );
+            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
@@ -86,8 +85,8 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
-                    String strPath = strBasePath + _template_prefix[i] +
-                        businessClass.getBusinessClass(  ).toLowerCase(  ) + ".html";
+                    String strSuffix = ( i == 2 )?  "s.html" :  ".html";
+                    String strPath = strBasePath + _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix;
 
                     String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1 );
                     map.put( strPath, strSourceCode );
@@ -95,9 +94,9 @@ public class BackOfficeTemplateCodeGenerator implements Generator
             }
 
             //Add the main template where all the business management interface will be accessible
-            String strPath = strBasePath + strFeatureName.toLowerCase(  ) + ".html";
+            String strPath = strBasePath + "tabs.html";
 
-            String strSourceCode = getFeatureHtmlCode( listBusinessClasses, pluginModel.getPluginName(  ), feature );
+            String strSourceCode = getTabsHtmlCode( listBusinessClasses, pluginModel.getPluginName(  ), feature );
             map.put( strPath, strSourceCode );
         }
 
@@ -127,6 +126,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
         model.put( MARK_BRACKETS_CLOSE, "}" );
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
+        model.put( MARK_INCLUDE , "@@include" );
 
         model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
 
@@ -144,7 +144,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
     * @param feature The feature
     * @return The html code of the create template
     */
-    private String getFeatureHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName,
+    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName,
         Feature feature )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -157,9 +157,10 @@ public class BackOfficeTemplateCodeGenerator implements Generator
         model.put( MARK_VARIABLE, "@@" );
         model.put( MARK_BRACKETS_OPEN, "${" );
         model.put( MARK_BRACKETS_CLOSE, "}" );
+        model.put( MARK_MACRO_DEF, "@@macro" );
         model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_FEATURE_FILE, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_TABS_FILE, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }

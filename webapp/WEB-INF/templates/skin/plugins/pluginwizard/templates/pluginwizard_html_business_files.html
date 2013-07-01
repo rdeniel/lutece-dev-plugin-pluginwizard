@@ -1,8 +1,12 @@
 <#switch template_type>
 
 <#case "1">
-<div class="content-box" >
-    <#if business_class?? >
+<#if business_class?? >
+<${include} "tabs.html" /> 
+<${macro}tabs tab="${business_class.businessClass?lower_case}" />
+
+<div class="row-fluid" >
+    <div class="span12">
 
     <form class="form-horizontal" method="post"  name="create_${business_class.businessClass?lower_case}" id="create_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/DoCreate${business_class.businessClass?cap_first}.jsp">
         <fieldset>
@@ -26,18 +30,20 @@
             </div>
         </fieldset>
     </form>
-
-    </#if>  
-
+    </div>
 </div>
-
+</#if>  
 <#break>
 
 
-<#case "2">
 
-<div class="content-box">
-    <#if business_class?? > 
+<#case "2">
+<#if business_class?? >
+<${include} "tabs.html" /> 
+<${macro}tabs tab="${business_class.businessClass?lower_case}" />
+
+<div class="row-fluid" >
+    <div class="span12">
 
     <form class="form-horizontal" method="post"  name="modify_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/DoModify${business_class.businessClass?cap_first}.jsp">
         <fieldset>
@@ -66,14 +72,16 @@
 
         </fieldset>
     </form>
-    </#if>  
+    </div>  
 
 </div>
-
+</#if>
 <#break>
 
 <#case "3">
 <#if business_class?? > 
+<${include} "tabs.html" /> 
+<${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row-fluid" >
     <div class="span12">
@@ -81,11 +89,11 @@
         <form method="post"  action="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Create${business_class.businessClass?cap_first}.jsp">
             <button class="btn btn-primary pull-right" type="submit">
                 <i class="icon-plus icon-white"></i>
-                ${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.buttonAdd${business_class.businessClass?cap_first}${i18n_close}
+                ${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}s.buttonAdd${business_class.businessClass?cap_first}${i18n_close}
             </button>
         </form>
 
-    <h4>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</h4>    
+    <h4>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}s.tableLabel${i18n_close}</h4>    
 
     <${macro}paginationAdmin paginator=paginator combo=1 />
     
@@ -95,7 +103,7 @@
                 <#if attribute.attributeName = business_class.primaryKey>
                     <input type="hidden" id="${business_class.businessClassParam}_${attribute.attributeName?lower_case}" name="${business_class.businessClassParam}_${attribute.attributeName?lower_case}"  />
                 <#else>
-                    <th>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}.column${attribute.attributeName?cap_first}${i18n_close}</th>
+                    <th>${i18n_open}${business_class.businessPluginName?lower_case}.manage_${business_class.businessClass?lower_case}s.column${attribute.attributeName?cap_first}${i18n_close}</th>
                 </#if>
             </#list>
             <th>${i18n_open}portal.util.labelActions${i18n_close}</th>
@@ -119,12 +127,12 @@
         </#list>
         <td>
             <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Modify${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClassParam?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
-               class="btn btn-primary" title="${i18n_open}portal.util.labelModify${i18n_close}">
+               class="btn btn-primary btn-small" title="${i18n_open}portal.util.labelModify${i18n_close}">
                 <i class="icon-edit icon-white"></i>
             </a>
 
             <a href="jsp/admin/plugins/${business_class.businessPluginName?lower_case}/Remove${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClassParam?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
-               class="btn btn-danger" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
+               class="btn btn-danger btn-small" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
                 <i class="icon-trash icon-white"></i>
             </a>
         </td>
@@ -138,9 +146,6 @@
 </div>
 
 </#if>  
-
-
-
 <#break>
 
 

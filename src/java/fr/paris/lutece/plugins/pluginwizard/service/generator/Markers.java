@@ -61,6 +61,8 @@ public class Markers
     public static final String MARK_BRACKETS_OPEN = "bra_open";
     public static final String MARK_BRACKETS_CLOSE = "bra_close";
     public static final String MARK_MACRO = "macro";
+    public static final String MARK_MACRO_DEF = "macro_def";
+    public static final String MARK_INCLUDE = "include";
     public static final String MARK_PLUGIN = "plugin";
     public static final String MARK_FEATURE = "feature";
     public static final String MARK_LIST_BUSINESS_CLASSES = "business_classes";
@@ -69,6 +71,7 @@ public class Markers
     public static final String MARK_LIST_APPLICATIONS = "applications";
     public static final String MARK_LIST_PORTLETS = "portlets";
     public static final String MARK_BEAN_NAME = "bean_name";
+    
 
     /** Private constructor */
     private Markers(  )
