@@ -23,18 +23,56 @@
     <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  
     <bean id="pluginwizard.localizationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyDAO" />  
 
+    <!-- Plugins files -->
+    <bean id="pluginwizard.generator.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" />
+    <bean id="pluginwizard.generator.pluginXml" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PluginXmlGenerator" />
+    <bean id="pluginwizard.generator.context" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SpringContextXmlGenerator" />
+    <bean id="pluginwizard.generator.properties" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PropertiesGenerator" />
+    <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesCodeGenerator" />
+    <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" />
     
-    <bean id="pluginwizard.generator.jspBeanClassic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.MultiJspBeanGenerator">
-        <property name="template">
-            <value>/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</value>
-        </property>
+    <!-- Admin features generators -->
+    <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassCodeGenerator" />
+    <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BackOfficeJspGenerator" />
+    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BackOfficeTemplateCodeGenerator" />
+
+    <bean id="pluginwizard.generator.admin.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.MultiJspBeanGenerator" >
+        <property name="template"><value>/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</value></property>
     </bean>
     
-    <bean id="pluginwizard.list1" class="fr.paris.lutece.plugins.pluginwizard.service.GeneratorsList" >
-        <property name="name">Génération Classique (modèle core)</property>
+    <!-- XPage -->
+    <bean id="pluginwizard.generator.xpage.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" />
+    
+    <!-- Portlet -->
+    <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" />
+    <bean id="pluginwizard.generator.portlet.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspBeanGenerator" />
+    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspFilesGenerator" />
+    <bean id="pluginwizard.generator.portlet.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletTemplateGenerator" />
+    <bean id="pluginwizard.generator.portlet.xsl" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletXslGenerator" />
+
+    
+    <bean id="pluginwizard.list1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorsList" >
+        <property name="name">
+            <value>Génération Classique (modèle core)</value>
+        </property>
         <property name="generatorsList">
             <list>
-                <ref bean="pluginwizard.generator.jspBeanClassic" />
+                <ref bean="pluginwizard.generator.pom" />
+                <ref bean="pluginwizard.generator.pluginXml" />
+                <ref bean="pluginwizard.generator.context" />
+                <ref bean="pluginwizard.generator.properties" />
+                <ref bean="pluginwizard.generator.resources" />
+                <ref bean="pluginwizard.generator.sql" />
+                <ref bean="pluginwizard.generator.admin.java.business" />
+                <ref bean="pluginwizard.generator.admin.java.jspbean" />
+                <ref bean="pluginwizard.generator.admin.jsp" />
+                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.xpage.java" />
+                <ref bean="pluginwizard.generator.portlet.java.business" />
+                <ref bean="pluginwizard.generator.portlet.java.jspbean" />
+                <ref bean="pluginwizard.generator.portlet.jsp" />
+                <ref bean="pluginwizard.generator.portlet.html" />
+                <ref bean="pluginwizard.generator.portlet.xsl" />
             </list>
         </property>
     </bean>

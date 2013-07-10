@@ -70,36 +70,8 @@ public class GeneratorService
     {
         List<GeneratorsList> list = SpringContextService.getBeansOfType( GeneratorsList.class );
         
-        for( GeneratorsList listGenerators : list )
-        {
-            _mapGenerators.put( listGenerators.getName() , listGenerators.getGeneratorsList() );
-            
-            for( Generator generator : listGenerators.getGeneratorsList() )
-            {
-                _listGenerators.add( generator );
-            }
-            
-        }
+        _listGenerators = list.get(0).getGeneratorsList();
         
-/*        
-        _listGenerators.add( new BackOfficeJspGenerator(  ) );
-        _listGenerators.add( new BackOfficeTemplateCodeGenerator(  ) );
-        _listGenerators.add( new BusinessClassCodeGenerator(  ) );
-//        _listGenerators.add( new JspBeanCodeGenerator(  ) );
-        _listGenerators.add( new MultiJspBeanGenerator(  ) );
-        _listGenerators.add( new PluginXmlGenerator(  ) );
-        _listGenerators.add( new PomGenerator(  ) );
-        _listGenerators.add( new PortletGenerator(  ) );
-        _listGenerators.add( new PortletJspBeanGenerator(  ) );
-        _listGenerators.add( new PortletJspFilesGenerator(  ) );
-        _listGenerators.add( new PortletTemplateGenerator(  ) );
-        _listGenerators.add( new PortletXslGenerator(  ) );
-        _listGenerators.add( new PropertiesGenerator(  ) );
-        _listGenerators.add( new ResourcesCodeGenerator(  ) );
-        _listGenerators.add( new SpringContextXmlGenerator(  ) );
-        _listGenerators.add( new SqlCodeGenerator(  ) );
-        _listGenerators.add( new XPageGenerator(  ) );
-  */
     }
 
     /**
