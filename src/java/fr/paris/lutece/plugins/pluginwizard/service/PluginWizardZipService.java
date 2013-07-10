@@ -57,6 +57,7 @@ public class PluginWizardZipService
 {
     private static PluginWizardZipService _singleton;
     private static final String PARAM_PLUGIN_ID = "plugin_id";
+    private static final String PARAM_SCHEME = "scheme";
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
@@ -89,9 +90,11 @@ public class PluginWizardZipService
 
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         int nPluginId = Integer.parseInt( strPluginId );
+        String strScheme = request.getParameter( PARAM_SCHEME );
+        int nScheme = Integer.parseInt( strScheme );
         PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, _plugin );
         GeneratorService generator = new GeneratorService(  );
-        Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel );
+        Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel , nScheme );
 
         try
         {

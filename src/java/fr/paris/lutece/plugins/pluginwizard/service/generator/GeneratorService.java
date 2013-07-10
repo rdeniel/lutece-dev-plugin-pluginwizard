@@ -37,21 +37,21 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
+import fr.paris.lutece.util.ReferenceList;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 /**
- *
- * @author pierre
+ * Generator Service
  */
+
+
 public class GeneratorService
 {
-    private List<Generator> _listGenerators = new ArrayList<Generator>(  );
-    private Map<String , List<Generator>> _mapGenerators = new HashMap<String , List<Generator>>();
+    private static List<GenerationScheme> _listSchemes;
 
     /**
      * Generate Sources
@@ -59,32 +59,13 @@ public class GeneratorService
      * @param model The plugin model to generate
      * @return Map that contains sources
      */
-    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model )
-    {
-        initGenerators(  );
-
-        return generateSources( plugin, model );
-    }
-
-    private void initGenerators(  )
-    {
-        List<GeneratorsList> list = SpringContextService.getBeansOfType( GeneratorsList.class );
-        
-        _listGenerators = list.get(0).getGeneratorsList();
-        
-    }
-
-    /**
-     * Generate Sources
-     * @param plugin The plugin (pluginwizard)
-     * @param model The plugin model to generate
-     * @return Map that contains sources
-     */
-    private Map<String, String> generateSources( Plugin plugin, PluginModel model )
+    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model , int nScheme )
     {
         Map<String, String> mapSources = new HashMap<String, String>(  );
+        
+        List<Generator> listGenerators = _listSchemes.get( nScheme ).getGeneratorsList();
 
-        for ( Generator generator : _listGenerators )
+        for ( Generator generator : listGenerators )
         {
             try
             {
@@ -98,4 +79,17 @@ public class GeneratorService
 
         return mapSources;
     }
+
+    
+    public static ReferenceList getGenerationSchemes()
+    {
+        _listSchemes = SpringContextService.getBeansOfType( GenerationScheme.class );
+        ReferenceList list = new ReferenceList();
+        for( int i = 0 ; i < _listSchemes.size() ; i++ )
+        {    
+            list.addItem( i , _listSchemes.get(i).getName());
+        }
+        return list;
+    }
+
 }

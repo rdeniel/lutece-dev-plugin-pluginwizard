@@ -18,79 +18,81 @@
             <br>
             <h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
             <div class="offset1">
-            <ul>
-                <#if admin_features?? > 
-                <#if admin_features?size gt 0 > 
-                <li>
-                    <h5>
-                        <span class="badge badge-info">${admin_features?size}</span> &nbsp; 
-                        <#if admin_features?size = 1 > 
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
-                        <#else>
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
-                        </#if>
+                <ul>
+                    <#if admin_features?? > 
+                    <#if admin_features?size gt 0 > 
+                    <li>
+                        <h5>
+                            <span class="badge badge-info">${admin_features?size}</span> &nbsp; 
+                            <#if admin_features?size = 1 > 
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
+                            <#else>
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
+                            </#if>
+                            <ul>
+                                <#list admin_features as feature>
+                                <li> <h6> ${feature.pluginFeatureTitle} </h6> </li>
+                                </#list>
+                            </ul>
+                        </h5>
+                    </li>
+                    </#if>
+                    </#if>
+
+                    <#if business_classes?? > 
+                    <#if business_classes?size gt 0 > 
+                    <li>
+                        <h5>
+                            <span class="badge badge-info">${business_classes?size}</span> &nbsp; 
+                            <#if business_classes?size = 1 > 
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasse}
+                            <#else>
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasses}
+                            </#if>
+                        </h5>
                         <ul>
-                        <#list admin_features as feature>
-                        <li> <h6> ${feature.pluginFeatureTitle} </h6> </li>
-                        </#list>
+                            <#list business_classes as business >
+                            <li> <h6> ${business.businessClass} </h6> </li>
+                            </#list> 
                         </ul>
-                    </h5>
-                </li>
-                </#if>
-                </#if>
+                    </li>
+                    </#if>
+                    </#if>
 
-                <#if business_classes?? > 
-                <#if business_classes?size gt 0 > 
-                <li>
-                    <h5>
-                        <span class="badge badge-info">${business_classes?size}</span> &nbsp; 
-                        <#if business_classes?size = 1 > 
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasse}
-                        <#else>
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasses}
-                        </#if>
-                    </h5>
-                    <ul>
-                        <#list business_classes as business >
-                        <li> <h6> ${business.businessClass} </h6> </li>
-                        </#list> 
-                    </ul>
-                </li>
-                </#if>
-                </#if>
+                    <#if plugin_applications?? > 
+                    <#if plugin_applications?size gt 0>
+                    <li>
+                        <h5>
+                            <span class="badge badge-info">${plugin_applications?size}</span> &nbsp; 
+                            <#if plugin_applications?size = 1 > 
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPage}
+                            <#else>
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPages}
+                            </#if>
+                        </h5>
+                    </li>
+                    </#if>
+                    </#if>
 
-                <#if plugin_applications?? > 
-                <#if plugin_applications?size gt 0>
-                <li>
-                    <h5>
-                        <span class="badge badge-info">${plugin_applications?size}</span> &nbsp; 
-                        <#if plugin_applications?size = 1 > 
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPage}
-                        <#else>
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPages}
-                        </#if>
-                    </h5>
-                </li>
-                </#if>
-                </#if>
+                    <#if plugin_portlets?? >
+                    <#if plugin_portlets?size gt 0>
+                    <li>
+                        <h5>
+                            <span class="badge badge-info">${plugin_portlets?size}</span> &nbsp; 
+                            <#if plugin_portlets?size = 1 > 
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlet}
+                            <#else>
+                            #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlets}
+                            </#if>
+                        </h5>
+                    </li>
+                    </#if>
+                    </#if>
 
-                <#if plugin_portlets?? >
-                <#if plugin_portlets?size gt 0>
-                <li>
-                    <h5>
-                        <span class="badge badge-info">${plugin_portlets?size}</span> &nbsp; 
-                        <#if plugin_portlets?size = 1 > 
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlet}
-                        <#else>
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlets}
-                        </#if>
-                    </h5>
-                </li>
-                </#if>
-                </#if>
-
-            </ul>
+                </ul>
             </div>
+
+
             <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&plugin_id=${plugin_id}&goToManagePluginPortlets" >
                 <i class="icon-chevron-left icon-white"></i>
                 #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
@@ -98,15 +100,22 @@
             <br>
         </div>
 
+
         <div class="alert alert-block">
             #i18n{pluginwizard.pluginwizard_plugin_recapitulate.alertProperties}
         </div>
 
         <div class="form-actions">
-            <a class="btn btn-success btn-large offset2" href="jsp/site/plugins/pluginwizard/DownloadZip.jsp?page=wizard&action=zip&plugin_id=${plugin_id}" >
-                <i class=" icon-download-alt icon-white">  </i>
-                #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
-            </a>
+            <form action="jsp/site/plugins/pluginwizard/DownloadZip.jsp" method="post">                
+                <input type="hidden" name="plugin_id" value="${plugin_id}" />
+                <div class="well">
+                     Modèle de génération : <@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-xxlarge"' />       
+                </div>
+                <button class="btn btn-success btn-large offset2" type="submit" >
+                    <i class=" icon-download-alt icon-white">  </i>
+                    #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
+                </button>
+            </form>
         </div>
     </div>
 </div>

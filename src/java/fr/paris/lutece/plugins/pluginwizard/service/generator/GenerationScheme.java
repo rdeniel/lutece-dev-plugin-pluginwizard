@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * GeneratorsList
  */
-public class GeneratorsList
+public class GenerationScheme
 {
     private String _strName;
     private List<Generator> _listGenerators;

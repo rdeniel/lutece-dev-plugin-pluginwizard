@@ -49,6 +49,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.service.ResourceKeyService;
+import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
@@ -88,6 +89,7 @@ public class PluginWizardApp implements XPageApplication
     private static final String MARK_BUSINESS_CLASS_ID = "business_class_id";
     private static final String MARK_ADMIN_FEATURES_COMBO = "combo_admin_features";
     private static final String MARK_ATTRIBUTE_TYPE_COMBO = "combo_attribute_type";
+    private static final String MARK_SCHEMES_COMBO = "combo_schemes";
 
     //Modification bookmarks
     private static final String MARK_FEATURE = "feature";
@@ -1791,6 +1793,7 @@ public class PluginWizardApp implements XPageApplication
         model.put( MARK_ADMIN_FEATURES, FeatureHome.findByPlugin( nPluginId, plugin ) );
         model.put( MARK_PLUGIN_PORTLETS, PortletHome.findByPlugin( nPluginId, plugin ) );
         model.put( MARK_BUSINESS_CLASSES, BusinessClassHome.getBusinessClassesByPlugin( nPluginId, plugin ) );
+        model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_GET_RECAPITULATE, request.getLocale(  ), model );
 
