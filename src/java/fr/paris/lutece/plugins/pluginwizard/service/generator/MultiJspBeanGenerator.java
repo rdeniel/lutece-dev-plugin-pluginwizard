@@ -59,6 +59,14 @@ public class MultiJspBeanGenerator implements Generator
     private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html";
     private static final String TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_abstract_template.html";
 
+    
+    private String _strTemplate;
+    
+    public void setTemplate( String strTemplate )
+    {
+        _strTemplate = strTemplate;
+    }
+    
     /**
      * {@inheritDoc }
      */
@@ -110,8 +118,7 @@ public class MultiJspBeanGenerator implements Generator
         model.put(MARK_FEATURE_NAME, strFeatureName);
         model.put(MARK_FEATURE_RIGHT, strFeatureRight);
 
-        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_JSPBEAN_CODE_TEMPLATE, Locale.getDefault(),
-                model);
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(), model);
 
         return template.getHtml();
     }

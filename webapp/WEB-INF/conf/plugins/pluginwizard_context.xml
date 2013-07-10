@@ -24,4 +24,17 @@
     <bean id="pluginwizard.localizationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyDAO" />  
 
     
+    <bean id="pluginwizard.generator.jspBeanClassic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.MultiJspBeanGenerator">
+        <property name="template">/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</property>
+    </bean>
+    
+    <bean id="pluginwizard.list1" class="fr.paris.lutece.plugins.pluginwizard.service.GeneratorsList" >
+        <property name="name">Génération Classique (modèle core)</property>
+        <property name="generatorsList">
+            <list>
+                <ref bean="pluginwizard.generator.jspBeanClassic" />
+            </list>
+        </property>
+    </bean>
+    
 </beans>

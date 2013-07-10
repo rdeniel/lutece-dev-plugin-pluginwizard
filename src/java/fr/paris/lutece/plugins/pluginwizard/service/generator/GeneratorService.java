@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
 import java.util.ArrayList;
@@ -50,6 +51,7 @@ import java.util.Map;
 public class GeneratorService
 {
     private List<Generator> _listGenerators = new ArrayList<Generator>(  );
+    private Map<String , List<Generator>> _mapGenerators = new HashMap<String , List<Generator>>();
 
     /**
      * Generate Sources
@@ -66,6 +68,20 @@ public class GeneratorService
 
     private void initGenerators(  )
     {
+        List<GeneratorsList> list = SpringContextService.getBeansOfType( GeneratorsList.class );
+        
+        for( GeneratorsList listGenerators : list )
+        {
+            _mapGenerators.put( listGenerators.getName() , listGenerators.getGeneratorsList() );
+            
+            for( Generator generator : listGenerators.getGeneratorsList() )
+            {
+                _listGenerators.add( generator );
+            }
+            
+        }
+        
+/*        
         _listGenerators.add( new BackOfficeJspGenerator(  ) );
         _listGenerators.add( new BackOfficeTemplateCodeGenerator(  ) );
         _listGenerators.add( new BusinessClassCodeGenerator(  ) );
@@ -83,6 +99,7 @@ public class GeneratorService
         _listGenerators.add( new SpringContextXmlGenerator(  ) );
         _listGenerators.add( new SqlCodeGenerator(  ) );
         _listGenerators.add( new XPageGenerator(  ) );
+  */
     }
 
     /**
