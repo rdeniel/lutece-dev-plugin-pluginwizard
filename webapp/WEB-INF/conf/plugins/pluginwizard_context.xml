@@ -25,7 +25,9 @@
 
     
     <bean id="pluginwizard.generator.jspBeanClassic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.MultiJspBeanGenerator">
-        <property name="template">/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</value>
+        </property>
     </bean>
     
     <bean id="pluginwizard.list1" class="fr.paris.lutece.plugins.pluginwizard.service.GeneratorsList" >
