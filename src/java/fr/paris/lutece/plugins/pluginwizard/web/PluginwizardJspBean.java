@@ -121,7 +121,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
 
         UrlItem url = new UrlItem( JSP_MANAGE_CONFIGURATIONKEYS );
         String strUrl = url.getUrl(  );
-        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList( getPlugin(  ) );
+        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList();
         LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs,
                 _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
 
@@ -179,7 +179,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         configurationkey.setKeyDescription( strKeyDescription );
         configurationkey.setKeyValue( strKeyValue );
 
-        ConfigurationKeyHome.create( configurationkey, getPlugin(  ) );
+        ConfigurationKeyHome.create( configurationkey );
 
         return JSP_REDIRECT_TO_MANAGE_CONFIGURATIONKEYS;
     }
@@ -209,7 +209,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     public String doRemoveConfigurationKey( HttpServletRequest request )
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_KEY ) );
-        ConfigurationKeyHome.remove( nId, getPlugin(  ) );
+        ConfigurationKeyHome.remove( nId );
 
         return JSP_REDIRECT_TO_MANAGE_CONFIGURATIONKEYS;
     }
@@ -225,7 +225,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         setPageTitleProperty( PROPERTY_PAGE_TITLE_MODIFY_CONFIGURATIONKEY );
 
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_KEY ) );
-        ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId, getPlugin(  ) );
+        ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_CONFIGURATIONKEY, configurationkey );
@@ -246,7 +246,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_KEY ) );
         String strKeyDescription = request.getParameter( PARAMETER_KEY_DESCRIPTION );
         String strValue = request.getParameter( PARAMETER_KEY_VALUE );
-        ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId, getPlugin(  ) );
+        ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId );
 
         if ( ( nId == 0 ) || ( strValue == null ) || ( strKeyDescription == null ) || strValue.equals( "" ) ||
                 strKeyDescription.equals( "" ) )
@@ -257,7 +257,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         configurationkey.setIdKey( nId );
         configurationkey.setKeyDescription( strKeyDescription );
         configurationkey.setKeyValue( strValue );
-        ConfigurationKeyHome.update( configurationkey, getPlugin(  ) );
+        ConfigurationKeyHome.update( configurationkey );
 
         return JSP_REDIRECT_TO_MANAGE_CONFIGURATIONKEYS;
     }

@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 import java.util.Collection;
@@ -48,6 +49,7 @@ public final class ResourceKeyHome
     private static IResourceKeyDAO _dao = (IResourceKeyDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.resourceKeyDAO" );
 
+    private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
     /**
      * Private constructor - this class need not be instantiated
      */
@@ -61,9 +63,9 @@ public final class ResourceKeyHome
      * @param plugin the Plugin
      * @return The  instance of resourceKey which has been created with its primary key.
      */
-    public static ResourceKey create( ResourceKey resourceKey, Plugin plugin )
+    public static ResourceKey create( ResourceKey resourceKey )
     {
-        _dao.insert( resourceKey, plugin );
+        _dao.insert( resourceKey, _plugin );
 
         return resourceKey;
     }
@@ -74,21 +76,19 @@ public final class ResourceKeyHome
     /**
      * Load the data of all the resourceKey objects and returns them in form of a collection
      * @param nPluginId The identifier of the generated plugin
-     * @param plugin the Plugin
      * @return the collection which contains the data of all the resourceKey objects
      */
-    public static Collection<ResourceKey> getResourceKeysList( int nPluginId, Plugin plugin )
+    public static Collection<ResourceKey> getResourceKeysList( int nPluginId )
     {
-        return _dao.selectResourceKeysList( nPluginId, plugin );
+        return _dao.selectResourceKeysList( nPluginId, _plugin );
     }
 
     /**
      * Deletes all the resources for a generated plugin
      * @param nPluginId The Plugin Id
-     * @param plugin The Plugin
      */
-    public static void deleteKeysByPlugin( int nPluginId, Plugin plugin )
+    public static void deleteKeysByPlugin( int nPluginId )
     {
-        _dao.deleteByPlugin( nPluginId, plugin );
+        _dao.deleteByPlugin( nPluginId, _plugin );
     }
 }

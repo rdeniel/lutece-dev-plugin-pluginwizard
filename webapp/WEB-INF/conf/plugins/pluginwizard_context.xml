@@ -11,13 +11,9 @@
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
     
     <!-- package pluginwizard -->
+    <bean id="pluginwizard.modelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ModelDAO" />  
     <bean id="pluginwizard.pluginModelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelDAO" />  
-    <bean id="pluginwizard.pluginPortletDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.PortletDAO" />
-    <bean id="pluginwizard.pluginApplicationDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationDAO" />
-    <bean id="pluginwizard.pluginFeatureDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.FeatureDAO" />
-    <bean id="pluginwizard.businessClassDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassDAO" />
     <bean id="pluginwizard.resourceKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyDAO" />
-    <bean id="pluginwizard.attributeDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.AttributeDAO" />
     
     <!-- Back Office Config management -->
     <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  

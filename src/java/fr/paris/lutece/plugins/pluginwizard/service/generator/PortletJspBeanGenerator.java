@@ -35,13 +35,10 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -60,23 +57,21 @@ public class PortletJspBeanGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
 
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
-        for ( Portlet portlet : listPortlets )
+        for ( Portlet portlet : pm.getPortlets() )
         {
             String strPortlet = portlet.getPluginPortletTypeName(  );
             int nIndex = strPortlet.lastIndexOf( "_" );
 
-            String strPath = strBasePath + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) +
-                "PortletJspBean.java";
+            String strPath = strBasePath + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) + "PortletJspBean.java";
 
-            String strSourceCode = getPortletJspBean( portlet, pluginModel.getPluginName(  ) );
+            String strSourceCode = getPortletJspBean( portlet, pm.getPluginName(  ) );
             map.put( strPath, strSourceCode );
         }
 

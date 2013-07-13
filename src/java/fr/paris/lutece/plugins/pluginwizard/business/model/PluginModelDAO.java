@@ -142,9 +142,7 @@ public final class PluginModelDAO implements IPluginModelDAO
             pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
             pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
 
-            //TODO XPage pluginModel.setPluginApplications( PluginApplicationHome.findByPlugin( nId, plugin ) );
-            pluginModel.setPluginFeatures( FeatureHome.findByPlugin( nId, plugin ) );
-
+ 
             // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
         }
 

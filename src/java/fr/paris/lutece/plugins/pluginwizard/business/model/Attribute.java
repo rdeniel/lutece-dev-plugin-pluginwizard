@@ -53,7 +53,7 @@ public class Attribute
     * Returns the IdAttribute
     * @return The IdAttribute
     */
-    public int getIdAttribute(  )
+    public int getId(  )
     {
         return _nIdAttribute;
     }

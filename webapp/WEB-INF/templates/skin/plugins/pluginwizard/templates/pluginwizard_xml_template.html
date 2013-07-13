@@ -15,9 +15,9 @@
     <db-pool-required>${plugin.pluginDbPoolRequired}</db-pool-required>
     
     <!-- Admin features parameters -->
-    <#if features??>
+    <#if plugin.features??>
     <admin-features>
-    <#list features as feature >
+    <#list plugin.features as feature >
         <admin-feature>
             <feature-id>${feature.pluginFeatureRight}</feature-id>
             <feature-title>${plugin.pluginName}.adminFeature.${feature.pluginFeatureName?lower_case}.name</feature-title>
@@ -30,9 +30,9 @@
     </admin-features>    
   </#if>
   	<!-- XPages parameters -->
-    <#if applications??>
+    <#if plugin.applications??>
     <applications>
-    <#list applications as application>
+    <#list plugin.applications as application>
         <application>
             <application-id>${application.applicationName}</application-id>
             <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationClass}</application-class>
@@ -41,9 +41,9 @@
     </applications>
     </#if>
 	<!-- Portlet parameters -->
-    <#if portlets??>
+    <#if plugin.portlets??>
     <portlets>
-    <#list portlets as portlet>
+    <#list plugin.portlets as portlet>
     	<#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")>
 	<#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
      <portlet>
@@ -66,4 +66,3 @@
    </portlets>
    </#if>
 </plug-in>
-

@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 import java.util.Collection;
@@ -47,7 +48,8 @@ public final class ConfigurationKeyHome
     // Static variable pointed at the DAO instance
     private static IConfigurationKeyDAO _dao = (IConfigurationKeyDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.configurationKeyDAO" );
-
+    private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
+    
     /**
      * Private constructor - this class need not be instantiated
      */
@@ -58,12 +60,11 @@ public final class ConfigurationKeyHome
     /**
      * Create an instance of the configurationKey class
      * @param configurationKey The instance of the ConfigurationKey which contains the informations to store
-     * @param plugin the Plugin
      * @return The  instance of configurationKey which has been created with its primary key.
      */
-    public static ConfigurationKey create( ConfigurationKey configurationKey, Plugin plugin )
+    public static ConfigurationKey create( ConfigurationKey configurationKey )
     {
-        _dao.insert( configurationKey, plugin );
+        _dao.insert( configurationKey, _plugin );
 
         return configurationKey;
     }
@@ -71,12 +72,11 @@ public final class ConfigurationKeyHome
     /**
      * Update of the configurationKey which is specified in parameter
      * @param configurationKey The instance of the ConfigurationKey which contains the data to store
-     * @param plugin the Plugin
-     * @return The instance of the  configurationKey which has been updated
+      * @return The instance of the  configurationKey which has been updated
      */
-    public static ConfigurationKey update( ConfigurationKey configurationKey, Plugin plugin )
+    public static ConfigurationKey update( ConfigurationKey configurationKey )
     {
-        _dao.store( configurationKey, plugin );
+        _dao.store( configurationKey, _plugin );
 
         return configurationKey;
     }
@@ -84,11 +84,10 @@ public final class ConfigurationKeyHome
     /**
      * Remove the configurationKey whose identifier is specified in parameter
      * @param nConfigurationKeyId The configurationKey Id
-     * @param plugin the Plugin
      */
-    public static void remove( int nConfigurationKeyId, Plugin plugin )
+    public static void remove( int nConfigurationKeyId )
     {
-        _dao.delete( nConfigurationKeyId, plugin );
+        _dao.delete( nConfigurationKeyId, _plugin );
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -97,21 +96,19 @@ public final class ConfigurationKeyHome
     /**
      * Returns an instance of a configurationKey whose identifier is specified in parameter
      * @param nKey The configurationKey primary key
-     * @param plugin the Plugin
      * @return an instance of ConfigurationKey
      */
-    public static ConfigurationKey findByPrimaryKey( int nKey, Plugin plugin )
+    public static ConfigurationKey findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, plugin );
+        return _dao.load( nKey, _plugin );
     }
 
     /**
      * Load the data of all the configurationKey objects and returns them in form of a collection
-     * @param plugin the Plugin
      * @return the collection which contains the data of all the configurationKey objects
      */
-    public static Collection<ConfigurationKey> getConfigurationKeysList( Plugin plugin )
+    public static Collection<ConfigurationKey> getConfigurationKeysList()
     {
-        return _dao.selectConfigurationKeysList( plugin );
+        return _dao.selectConfigurationKeysList( _plugin );
     }
 }

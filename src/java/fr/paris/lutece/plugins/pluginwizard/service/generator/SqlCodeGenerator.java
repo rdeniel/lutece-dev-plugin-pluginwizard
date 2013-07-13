@@ -33,21 +33,11 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -67,28 +57,19 @@ public class SqlCodeGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        int nIdPlugin = pluginModel.getIdPlugin(  );
-        Collection<Feature> listFeatures = FeatureHome.findByPlugin( nIdPlugin, plugin );
-
-        Collection<Application> listApplcations = ApplicationHome.findByPlugin( nIdPlugin, plugin );
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( nIdPlugin, plugin );
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-
         String strBasePath = "plugin-{plugin_name}/src/sql/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( int i = 1; i < 6; i++ )
         {
-            String strSqlFile = getSqlFileName( pluginModel.getPluginName(  ).toLowerCase(  ), i );
+            String strSqlFile = getSqlFileName( pm.getPluginName(  ).toLowerCase(  ), i );
 
             String strPath = strBasePath + strSqlFile;
 
-            String strSourceCode = getSqlScript( i, pluginModel, listAllBusinessClasses, listFeatures, listApplcations,
-                    listPortlets );
+            String strSourceCode = getSqlScript( i, pm );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
@@ -147,24 +128,18 @@ public class SqlCodeGenerator implements Generator
     /**
     * Returns the necessary sql dump of creation of plugin and core
     * @param nSqlType The type of the sql
-    * @param pluginModel The plugin Model
-    * @param listBusinessClasses The list of business classes
-    * @param listFeatures The list of admin features
-    * @param listApplcations The list of XPages
-    * @param listPortlets The list of portlets
+    * @param pm The plugin Model
     * @return The corresponding sql output
     */
-    private String getSqlScript( int nSqlType, PluginModel pluginModel, Collection<BusinessClass> listBusinessClasses,
-        Collection<Feature> listFeatures, Collection<Application> listApplcations,
-        Collection<Portlet> listPortlets )
+    private String getSqlScript( int nSqlType, PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pluginModel );
+        model.put( MARK_PLUGIN, pm );
 
-        model.put( MARK_LIST_FEATURES, listFeatures );
-        model.put( MARK_LIST_APPLICATIONS, listApplcations );
-        model.put( MARK_LIST_PORTLETS, listPortlets );
-        model.put( MARK_LIST_BUSINESS_CLASSES, listBusinessClasses );
+        model.put( MARK_LIST_FEATURES, pm.getFeatures() );
+        model.put( MARK_LIST_APPLICATIONS, pm.getApplications() );
+        model.put( MARK_LIST_PORTLETS, pm.getPortlets() );
+        model.put( MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses() );
         model.put( MARK_SQL_TYPE, nSqlType + "" );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_DATABASE_SQL_SCRIPT, Locale.getDefault(  ),

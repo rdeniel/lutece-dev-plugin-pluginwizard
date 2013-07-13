@@ -69,7 +69,7 @@ public class GeneratorService
         {
             try
             {
-                mapSources.putAll( generator.generate( plugin, model ) );
+                mapSources.putAll( generator.generate( model ) );
             }
             catch ( Exception e )
             {

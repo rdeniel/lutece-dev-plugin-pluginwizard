@@ -67,7 +67,7 @@ public class Application
      * Returns the IdPlugin
      * @return The IdPlugin
      */
-    public int getIdPluginApplication(  )
+    public int getId(  )
     {
         return _nIdPluginApplication;
     }
@@ -76,7 +76,7 @@ public class Application
      * Sets the nIdPluginApplication
      * @param nIdPluginApplication The IdPluginApplication
      */
-    public void setIdPluginApplication( int nIdPluginApplication )
+    public void setId( int nIdPluginApplication )
     {
         _nIdPluginApplication = nIdPluginApplication;
     }

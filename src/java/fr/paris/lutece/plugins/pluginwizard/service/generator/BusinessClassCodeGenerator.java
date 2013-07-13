@@ -34,9 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
 import java.util.Collection;
@@ -57,14 +55,13 @@ public class BusinessClassCodeGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        Collection<BusinessClass> listAllBusinessClasses = BusinessClassHome.getBusinessClassesByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
+        Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses();
 
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {

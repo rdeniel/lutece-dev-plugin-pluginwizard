@@ -35,23 +35,15 @@ package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -68,10 +60,7 @@ import java.util.StringTokenizer;
 public final class ResourceKeyService
 {
     private static final String TEMPLATE_PROPERTIES_KEYS = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys.html";
-    private static final String MARK_LIST_BUSINESS_CLASS = "list_business_class";
-    private static final String MARK_PLUGIN_NAME = "plugin_name";
-    private static final String MARK_LIST_FEATURES = "features";
-    private static final String MARK_LIST_PORTLETS = "portlets";
+    private static final String MARK_PLUGIN = "plugin";
 
     /**
      * Constructor is private
@@ -83,39 +72,31 @@ public final class ResourceKeyService
     /**
      * The method will store all relevant i18n keys in the database
      *
-     * @param nPluginId The id of the generated plugin
-     * @param plugin The Plugin
+     * @param pm The Plugin model
      */
-    public static void storeKeys( int nPluginId, Plugin plugin )
+    public static void storeKeys( PluginModel pm )
     {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
-        ArrayList<BusinessClass> listBusinessClasses = new ArrayList<BusinessClass>(  );
-        Collection<Feature> listFeatures = FeatureHome.findByPlugin( nPluginId, plugin );
-        String strPluginName = pluginModel.getPluginName(  );
-        localizePlugin( pluginModel );
+        localizePlugin( pm );
 
-        for ( Feature feature : listFeatures )
+        for ( Feature feature : pm.getFeatures() )
         {
-            Collection<BusinessClass> listClassesFeature = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
-            listBusinessClasses.addAll( listClassesFeature );
-
-            localizeFeature( strPluginName, feature );
+            localizeFeature( pm.getPluginName(), feature );
         }
 
-        List<String> listKeys = findResourceKeys( listBusinessClasses, strPluginName, nPluginId, plugin );
+        List<String> listKeys = findResourceKeys( pm );
 
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
-        storeKeyList( nPluginId, pluginModel.getPluginName(  ), plugin, listKeys );
+        storeKeyList( pm , listKeys );
     }
 
-    private static void storeKeyList( int nPluginId, String strPluginName, Plugin plugin, List<String> listKeys )
+    private static void storeKeyList( PluginModel pm, List<String> listKeys )
     {
         for ( String strKey : listKeys )
         {
-            ResourceKey key = LocalizationService.localize( strKey.trim(  ), strPluginName );
-            key.setIdPlugin( nPluginId );
-            ResourceKeyHome.create( key, plugin );
+            ResourceKey key = LocalizationService.localize( strKey.trim(  ), pm.getPluginName() );
+            key.setIdPlugin( pm.getIdPlugin() );
+            ResourceKeyHome.create( key );
             AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " +
                 key.getEnglishLocale(  ) );
         }
@@ -125,22 +106,14 @@ public final class ResourceKeyService
      * Fetches all the resource keys
      *
      * @param listBusinessClasses The list of business classes
-     * @param strPluginName The plugin name
-     * @param plugin The plugin
-     * @param nPluginId The id of the plugin to be generated
+     * @param pm The plugin model
      * @return A list of the resource keys
      */
-    private static List<String> findResourceKeys( List<BusinessClass> listBusinessClasses, String strPluginName,
-        int nPluginId, Plugin plugin )
+    private static List<String> findResourceKeys( PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( nPluginId, plugin );
-        Collection<Feature> listFeatures = FeatureHome.findByPlugin( nPluginId, plugin );
 
-        model.put( MARK_LIST_PORTLETS, listPortlets );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_LIST_BUSINESS_CLASS, listBusinessClasses );
-        model.put( MARK_LIST_FEATURES, listFeatures );
+        model.put( MARK_PLUGIN, pm );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_KEYS, Locale.getDefault(  ), model );
 

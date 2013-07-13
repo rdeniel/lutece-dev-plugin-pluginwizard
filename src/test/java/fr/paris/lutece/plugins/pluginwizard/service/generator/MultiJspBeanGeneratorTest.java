@@ -8,15 +8,12 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Multi Jsp Bean Generator Test
@@ -31,7 +28,6 @@ public class MultiJspBeanGeneratorTest extends LuteceTestCase
     public void testGenerate()
     {
         System.out.println("generate");
-        Plugin plugin = PluginService.getPlugin("pluginwizard");
         PluginModel pluginModel = new PluginModel();
         pluginModel.setIdPlugin(1);
         pluginModel.setPluginName("MyPlugin");
@@ -63,7 +59,7 @@ public class MultiJspBeanGeneratorTest extends LuteceTestCase
         feature.addBusinessClass(business);
        
         MultiJspBeanGenerator instance = new MultiJspBeanGenerator();
-        Map map = instance.generate(plugin, pluginModel);
+        Map map = instance.generate(pluginModel);
 
         Iterator i = map.keySet().iterator();
         while (i.hasNext())

@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -61,21 +60,21 @@ public class ResourcesCodeGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
 
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         String strLanguage = "_en";
 
         for ( int i = 0; i < _languages.length; i++ )
         {
-            String strPath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] +
+            String strPath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] +
                 ".properties";
 
-            String strSourceCode = getLocalePropertiesKeys( pluginModel.getIdPlugin(  ), strLanguage, plugin );
+            String strSourceCode = getLocalePropertiesKeys( pm.getIdPlugin(  ), strLanguage );
             map.put( strPath, strSourceCode );
         }
 
@@ -89,10 +88,10 @@ public class ResourcesCodeGenerator implements Generator
     * @param plugin The plugin
     * @return The Locale keys
     */
-    private String getLocalePropertiesKeys( int nPluginId, String strLanguage, Plugin plugin )
+    private String getLocalePropertiesKeys( int nPluginId, String strLanguage )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ResourceKey> listResourceKey = ResourceKeyHome.getResourceKeysList( nPluginId, plugin );
+        Collection<ResourceKey> listResourceKey = ResourceKeyHome.getResourceKeysList( nPluginId );
         model.put( MARK_RESOURCE_KEY_LIST, listResourceKey );
         model.put( MARK_LANGUAGE, strLanguage );
 

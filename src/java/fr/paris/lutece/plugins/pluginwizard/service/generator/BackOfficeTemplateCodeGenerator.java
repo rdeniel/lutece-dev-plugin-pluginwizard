@@ -34,12 +34,10 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -64,24 +62,23 @@ public class BackOfficeTemplateCodeGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         //for each feature,which business classes are attached to
-        Collection<Feature> listFeatures = FeatureHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
-        int nPluginId = pluginModel.getIdPlugin(  );
+        Collection<Feature> listFeatures = pm.getFeatures();
 
         for ( Feature feature : listFeatures )
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm.getIdPlugin() , feature.getId() );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                businessClass.setPluginName( pluginModel.getPluginName(  ) );
+                businessClass.setPluginName( pm.getPluginName(  ) );
 
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
@@ -96,7 +93,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
             //Add the main template where all the business management interface will be accessible
             String strPath = strBasePath + "tabs.html";
 
-            String strSourceCode = getTabsHtmlCode( listBusinessClasses, pluginModel.getPluginName(  ), feature );
+            String strSourceCode = getTabsHtmlCode( listBusinessClasses, pm.getPluginName(  ), feature );
             map.put( strPath, strSourceCode );
         }
 

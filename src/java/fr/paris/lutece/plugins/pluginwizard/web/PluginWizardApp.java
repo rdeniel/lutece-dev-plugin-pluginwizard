@@ -35,19 +35,15 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
+import fr.paris.lutece.plugins.pluginwizard.business.ModelHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
-import fr.paris.lutece.plugins.pluginwizard.business.model.AttributeHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.ResourceKeyService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -65,6 +61,7 @@ import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -316,8 +313,8 @@ public class PluginWizardApp implements XPageApplication
 
         if ( strAction.equals( ACTION_DO_REMOVE_FEATURE ) )
         {
-            doRemoveAdminFeature( request, plugin );
-            strContent = getManageAdminFeatures( request, plugin );
+            doRemoveAdminFeature( request );
+            strContent = getManageAdminFeatures( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_GET_MODIFY_PLUGIN_DESCRIPTION ) )
@@ -332,148 +329,148 @@ public class PluginWizardApp implements XPageApplication
         }
         else if ( strAction.equals( ACTION_DO_REMOVE_PLUGIN_APPLICATION ) )
         {
-            doRemovePluginApplication( request, plugin );
-            strContent = getManagePluginApplications( request, plugin );
+            doRemovePluginApplication( request );
+            strContent = getManagePluginApplications( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_REMOVE_PLUGIN_PORTLET ) )
         {
-            doRemovePluginPortlet( request, plugin );
-            strContent = getManagePluginPortlets( request, plugin );
+            doRemovePluginPortlet( request );
+            strContent = getManagePluginPortlets( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_REMOVE_BUSINESS_ATTRIBUTE ) )
         {
-            doRemoveAttribute( request, plugin );
-            strContent = getModifyBusinessClass( request, plugin );
+            doRemoveAttribute( request );
+            strContent = getModifyBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_REMOVE_BUSINESS_CLASS ) )
         {
-            doRemoveBusinessClass( request, plugin );
-            strContent = getManageBusinessClasses( request, plugin );
+            doRemoveBusinessClass( request );
+            strContent = getManageBusinessClasses( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MANAGE_ADMIN_FEATURES ) )
         {
-            strContent = getManageAdminFeatures( request, plugin );
+            strContent = getManageAdminFeatures( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MANAGE_BUSINESS_CLASSES ) )
         {
-            strContent = getManageBusinessClasses( request, plugin );
+            strContent = getManageBusinessClasses( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_FEATURE ) )
         {
-            doCreateAdminFeature( request, plugin );
-            strContent = getManageAdminFeatures( request, plugin );
+            doCreateAdminFeature( request );
+            strContent = getManageAdminFeatures( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_PLUGIN_APPLICATION ) )
         {
-            doCreatePluginApplication( request, plugin );
-            strContent = getManagePluginApplications( request, plugin );
+            doCreatePluginApplication( request );
+            strContent = getManagePluginApplications( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_ATTRIBUTE ) )
         {
-            doCreateAttribute( request, plugin );
-            strContent = getModifyBusinessClass( request, plugin );
+            doCreateAttribute( request );
+            strContent = getModifyBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_PLUGIN_PORTLET ) )
         {
-            doCreatePluginPortlet( request, plugin );
-            strContent = getManagePluginPortlets( request, plugin );
+            doCreatePluginPortlet( request );
+            strContent = getManagePluginPortlets( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_BUSINESS_CLASS ) )
         {
-            int nId = doCreateBusinessClass( request, plugin );
-            strContent = getModifyBusinessClass( nId, request, plugin );
+            int nId = doCreateBusinessClass( request );
+            strContent = getModifyBusinessClass( nId, request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_FEATURE ) )
         {
-            doModifyAdminFeature( request, plugin );
-            strContent = getManageAdminFeatures( request, plugin );
+            doModifyAdminFeature( request );
+            strContent = getManageAdminFeatures( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_BUSINESS_CLASS ) )
         {
-            doModifyBusinessClass( request, plugin );
-            strContent = getManageBusinessClasses( request, plugin );
+            doModifyBusinessClass( request );
+            strContent = getManageBusinessClasses( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_ATTRIBUTE ) )
         {
-            doModifyAttribute( request, plugin );
-            strContent = getModifyBusinessClass( request, plugin );
+            doModifyAttribute( request );
+            strContent = getModifyBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_PLUGIN_APPLICATION ) )
         {
-            doModifyPluginApplication( request, plugin );
-            strContent = getManagePluginApplications( request, plugin );
+            doModifyPluginApplication( request );
+            strContent = getManagePluginApplications( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_PLUGIN_PORTLET ) )
         {
-            doModifyPluginPortlet( request, plugin );
-            strContent = getManagePluginPortlets( request, plugin );
+            doModifyPluginPortlet( request );
+            strContent = getManagePluginPortlets( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_ADMIN_FEATURE ) )
         {
-            strContent = getModifyAdminFeature( request, plugin );
+            strContent = getModifyAdminFeature( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_PLUGIN_APPLICATION ) )
         {
-            strContent = getModifyPluginApplication( request, plugin );
+            strContent = getModifyPluginApplication( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_PLUGIN_PORTLET ) )
         {
-            strContent = getModifyPluginPortlet( request, plugin );
+            strContent = getModifyPluginPortlet( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MANAGE_PLUGIN_APPLICATIONS ) )
         {
             //If a business class has been defined, verify that key has
             //one and only one key also one and only one description
-            strContent = getManagePluginApplications( request, plugin );
+            strContent = getManagePluginApplications( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MANAGE_PLUGIN_PORTLETS ) )
         {
-            strContent = getManagePluginPortlets( request, plugin );
+            strContent = getManagePluginPortlets( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_ADMIN_FEATURE ) )
         {
-            strContent = getCreateAdminFeature( request, plugin );
+            strContent = getCreateAdminFeature( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_ATTRIBUTE ) )
         {
-            strContent = getCreateAttribute( request, plugin );
+            strContent = getCreateAttribute( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_ATTRIBUTE ) )
         {
-            strContent = getModifyAttribute( request, plugin );
+            strContent = getModifyAttribute( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_PLUGIN_APPLICATION ) )
         {
-            strContent = getCreatePluginApplication( request, plugin );
+            strContent = getCreatePluginApplication( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_PLUGIN_PORTLET ) )
         {
-            strContent = getCreatePluginPortlet( request, plugin );
+            strContent = getCreatePluginPortlet( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_REMOVE_ADMIN_FEATURE ) )
@@ -503,33 +500,34 @@ public class PluginWizardApp implements XPageApplication
         }
         else if ( strAction.equals( ACTION_GET_RECAPITULATE ) )
         {
-            strContent = getPluginRecapitulate( request, plugin );
+            strContent = getPluginRecapitulate( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_CREATE_BUSINESS_CLASS ) )
         {
             //If no admin feature present warn user
-            strContent = getCreateBusinessClass( request, plugin );
+            strContent = getCreateBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_BUSINESS_CLASS ) )
         {
-            strContent = getModifyBusinessClass( request, plugin );
+            strContent = getModifyBusinessClass( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_MODIFY_ATTRIBUTE ) )
         {
-            strContent = getModifyAttribute( request, plugin );
+            strContent = getModifyAttribute( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_CREATE_PLUGIN ) )
         {
             String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
 
-            if ( !PluginModelHome.pluginExists( strPluginName, plugin ) )
+            int nIdPlugin = ModelHome.exists( strPluginName );
+            if ( nIdPlugin != -1 )
             {
                 doCreatePlugin( request, plugin );
-                page.setContent( getCreatePluginDescription( request, strPluginName, plugin ) );
+                page.setContent( getCreatePluginDescription( request , nIdPlugin ) );
             }
             else
             {
@@ -551,8 +549,8 @@ public class PluginWizardApp implements XPageApplication
                 doCreatePlugin( request, plugin );
 
                 String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-
-                strContent = getCreatePluginDescription( request, strPluginName, plugin );
+                int nPluginId = ModelHome.exists(strPluginName);
+                strContent = getCreatePluginDescription( request , nPluginId );
             }
             else
             {
@@ -565,7 +563,7 @@ public class PluginWizardApp implements XPageApplication
         {
             doModifyPlugin( request, plugin );
 
-            page.setContent( getManageAdminFeatures( request, plugin ) );
+            page.setContent( getManageAdminFeatures( request ) );
             page.setTitle( I18nService.getLocalizedString( Constants.PROPERTY_PAGE_TITLE_CREATE_PLUGIN_DESCRIPTION,
                     request.getLocale(  ) ) );
             page.setPathLabel( I18nService.getLocalizedString( 
@@ -573,7 +571,7 @@ public class PluginWizardApp implements XPageApplication
         }
         else if ( strAction.equals( ACTION_MANAGE_PLUGIN_APPLICATIONS ) )
         {
-            page.setContent( getManagePluginApplications( request, plugin ) );
+            page.setContent( getManagePluginApplications( request ) );
             page.setTitle( I18nService.getLocalizedString( Constants.PROPERTY_PAGE_TITLE_CREATE_PLUGIN_DESCRIPTION,
                     request.getLocale(  ) ) );
             page.setPathLabel( I18nService.getLocalizedString( 
@@ -693,7 +691,7 @@ public class PluginWizardApp implements XPageApplication
      */
     private String getPluginExists( HttpServletRequest request, String strPluginName, Plugin plugin )
     {
-        int nPluginId = PluginModelHome.getPluginModelId( plugin, strPluginName );
+        int nPluginId = ModelHome.exists( strPluginName );
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_PLUGIN_ID, nPluginId );
@@ -706,18 +704,16 @@ public class PluginWizardApp implements XPageApplication
     /**
      * Gets the create plugin description page
      * @param request The HTTP request
-     * @param strPluginName The plugin name
-     * @param plugin The plugin
      * @return The page
      */
-    private String getCreatePluginDescription( HttpServletRequest request, String strPluginName, Plugin plugin )
+    private String getCreatePluginDescription( HttpServletRequest request , int nPluginId )
     {
+//        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_PLUGIN_MODEL,
-            PluginModelHome.findByPrimaryKey( PluginModelHome.getPluginModelId( plugin, strPluginName ), plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId));
 
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( plugin );
+        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
 
         for ( ConfigurationKey key : listKeys )
         {
@@ -742,7 +738,7 @@ public class PluginWizardApp implements XPageApplication
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION,
                 request.getLocale(  ), model );
@@ -761,7 +757,7 @@ public class PluginWizardApp implements XPageApplication
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_PLUGIN, request.getLocale(  ), model );
 
@@ -772,31 +768,30 @@ public class PluginWizardApp implements XPageApplication
      * The modification form of the plugin
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    private String getModifyBusinessClass( HttpServletRequest request, Plugin plugin )
+    private String getModifyBusinessClass( HttpServletRequest request )
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
 
-        return getModifyBusinessClass( nBusinessClassId, request, plugin );
+        return getModifyBusinessClass( nBusinessClassId, request );
     }
 
     /**
      * Gets the modify business class page
      * @param nBusinessClassId The business class id
      * @param request The HTTP request
-     * @param plugin The plugin
      * @return The page
      */
-    private String getModifyBusinessClass( int nBusinessClassId, HttpServletRequest request, Plugin plugin )
+    private String getModifyBusinessClass( int nBusinessClassId, HttpServletRequest request )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        BusinessClass bClass = BusinessClassHome.findByPrimaryKey( nBusinessClassId, plugin );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        BusinessClass bClass = ModelService.getBusinessClass(nPluginId, nBusinessClassId);
+        PluginModel pm = ModelService.getPluginModel(nPluginId);
+        model.put( MARK_PLUGIN_MODEL, pm );
         model.put( MARK_BUSINESS_CLASS, bClass );
-        model.put( MARK_ADMIN_FEATURES_COMBO, FeatureHome.getAdminFeaturesForPlugin( nPluginId, plugin ) );
+        model.put( MARK_ADMIN_FEATURES_COMBO, pm.getFeatures() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_BUSINESS_CLASS, request.getLocale(  ),
                 model );
@@ -808,20 +803,19 @@ public class PluginWizardApp implements XPageApplication
      * The modification form of an attribute
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of attribute description
      */
-    private String getModifyAttribute( HttpServletRequest request, Plugin plugin )
+    private String getModifyAttribute( HttpServletRequest request )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nIdBusinessClass = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         int nIdAttribute = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
-        Attribute attribute = AttributeHome.findByPrimaryKey( nIdAttribute, plugin );
+        Attribute attribute = ModelService.getAttribute(nPluginId, nIdBusinessClass, nIdAttribute);
 
         model.put( MARK_PLUGIN_ID, nPluginId );
         model.put( MARK_BUSINESS_CLASS_ID, nIdBusinessClass );
-        model.put( MARK_ATTRIBUTE_TYPE_COMBO, AttributeHome.getAttributeListCombo( plugin ) );
+        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes() );
         model.put( MARK_ATTRIBUTE, attribute );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_ATTRIBUTE, request.getLocale(  ), model );
@@ -841,7 +835,7 @@ public class PluginWizardApp implements XPageApplication
     {
         //Confirm for deletion of plugin if exists
         String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-
+/*
         if ( !PluginModelHome.pluginExists( strPluginName, plugin ) )
         {
             verifyField( request, strPluginName, PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME,
@@ -851,6 +845,7 @@ public class PluginWizardApp implements XPageApplication
             pluginModel.setPluginName( strPluginName );
             PluginModelHome.create( pluginModel, plugin );
         }
+    */
     }
 
     /**
@@ -862,13 +857,10 @@ public class PluginWizardApp implements XPageApplication
     private void doRemoveAllPluginRelated( HttpServletRequest request, Plugin plugin )
     {
         String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-        int nIdPlugin = PluginModelHome.getPluginModelId( plugin, strPluginName );
+        int nPluginId = ModelHome.exists( strPluginName );
 
-        //Order Attribute,BusinessClass and PluginFeature must be in the same order
-        FeatureHome.removeFeaturesByPlugin( nIdPlugin, plugin );
-        ApplicationHome.removeApplicationsByPlugin( nIdPlugin, plugin );
-        PortletHome.removePortletsByPlugin( nIdPlugin, plugin );
-        ResourceKeyHome.deleteKeysByPlugin( nIdPlugin, plugin );
+          
+        ModelService.removeAll( nPluginId );
     }
 
     /**
@@ -882,7 +874,7 @@ public class PluginWizardApp implements XPageApplication
         throws SiteMessageException
     {
         int nId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        PluginModel model = new PluginModel(  );
+        PluginModel model = ModelService.getPluginModel(nId);
 
         //add the attributes from the request hash
         model.setIdPlugin( nId );
@@ -916,24 +908,25 @@ public class PluginWizardApp implements XPageApplication
         model.setPluginInstallation( "" );
         model.setPluginChanges( "" );
 
-        PluginModelHome.update( model, plugin );
+        
+        ModelService.savePluginModel(model);
     }
 
     /**
      * The management screen of the admin features
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the admin features
      */
-    private String getManageAdminFeatures( HttpServletRequest request, Plugin plugin )
+    private String getManageAdminFeatures( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-
+        PluginModel pm = ModelService.getPluginModel(nPluginId);
+        
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_ADMIN_FEATURES, FeatureHome.findByPlugin( nPluginId, plugin ) );
+        model.put( MARK_ADMIN_FEATURES, pm.getFeatures() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_ADMIN_FEATURES, request.getLocale(  ),
                 model );
@@ -945,15 +938,14 @@ public class PluginWizardApp implements XPageApplication
      * The creation form of the admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    private String getCreateAdminFeature( HttpServletRequest request, Plugin plugin )
+    private String getCreateAdminFeature( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_ADMIN_FEATURE, request.getLocale(  ),
                 model );
@@ -965,17 +957,16 @@ public class PluginWizardApp implements XPageApplication
      * The creation form of the attribute associated to a business class
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    private String getCreateAttribute( HttpServletRequest request, Plugin plugin )
+    private String getCreateAttribute( HttpServletRequest request )
     {
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_BUSINESS_CLASS_ID, strBusinessClassId );
         model.put( MARK_PLUGIN_ID, strPluginId );
-        model.put( MARK_ATTRIBUTE_TYPE_COMBO, AttributeHome.getAttributeListCombo( plugin ) );
+        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_ATTRIBUTE, request.getLocale(  ), model );
 
@@ -986,9 +977,8 @@ public class PluginWizardApp implements XPageApplication
      * The creation of an admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doCreateAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doCreateAdminFeature( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
@@ -1005,25 +995,24 @@ public class PluginWizardApp implements XPageApplication
         pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
         pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
         pluginFeature.setPluginFeatureName( strPluginFeatureName );
-        FeatureHome.create( pluginFeature, plugin );
+        ModelService.addFeature( nPluginId , pluginFeature );
     }
 
     /**
      * The modification screen of the admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the admin feature
      */
-    private String getModifyAdminFeature( HttpServletRequest request, Plugin plugin )
+    private String getModifyAdminFeature( HttpServletRequest request )
     {
-        int nIdPlugin = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        int nAdminFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
-        Feature feature = FeatureHome.findByPrimaryKey( nAdminFeature, plugin );
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
+        int nFeatureId = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
+        Feature feature = ModelService.getFeature(nPluginId, nFeatureId);
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_FEATURE, feature );
-        model.put( MARK_PLUGIN_ID, nIdPlugin );
+        model.put( MARK_PLUGIN_ID, nPluginId );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_ADMIN_FEATURE, request.getLocale(  ),
                 model );
@@ -1035,9 +1024,8 @@ public class PluginWizardApp implements XPageApplication
      * The modification action of an admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doModifyAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doModifyAdminFeature( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nIdPluginFeature = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
@@ -1048,15 +1036,15 @@ public class PluginWizardApp implements XPageApplication
         String strPluginFeatureTitle = request.getParameter( PARAM_FEATURE_TITLE );
         String strPluginFeatureUrl = request.getParameter( PARAM_FEATURE_NAME );
 
-        Feature pluginFeature = new Feature(  );
-        pluginFeature.setId( nIdPluginFeature );
-        pluginFeature.setIdPlugin( nPluginId );
-        pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
-        pluginFeature.setPluginFeatureRight( strPluginFeatureLabel );
-        pluginFeature.setPluginFeatureLevel( strPluginFeatureLevel );
-        pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
-        pluginFeature.setPluginFeatureName( strPluginFeatureUrl );
-        FeatureHome.update( pluginFeature, plugin );
+        Feature feature = new Feature(  );
+        feature.setId( nIdPluginFeature );
+        feature.setIdPlugin( nPluginId );
+        feature.setPluginFeatureDescription( strPluginFeatureDescription );
+        feature.setPluginFeatureRight( strPluginFeatureLabel );
+        feature.setPluginFeatureLevel( strPluginFeatureLevel );
+        feature.setPluginFeatureTitle( strPluginFeatureTitle );
+        feature.setPluginFeatureName( strPluginFeatureUrl );
+        ModelService.updateFeature( nPluginId , feature );
     }
 
     /**
@@ -1084,12 +1072,12 @@ public class PluginWizardApp implements XPageApplication
      * The removal screen of an admin feature
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doRemoveAdminFeature( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAdminFeature( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nFeatureId = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
-        FeatureHome.remove( nFeatureId, plugin );
+        ModelService.removeFeature( nPluginId , nFeatureId );
     }
 
     /**
@@ -1097,16 +1085,15 @@ public class PluginWizardApp implements XPageApplication
     * plugin
     *
     * @param request The Http Request
-    * @param plugin The Plugin
     * @return The html code of the management screen of the applications
     * @throws SiteMessageException if an error occurs
     */
-    private String getManagePluginApplications( HttpServletRequest request, Plugin plugin )
+    private String getManagePluginApplications( HttpServletRequest request )
         throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
-        Collection<BusinessClass> listBusinessClass = BusinessClassHome.getBusinessClassesByPlugin( nPluginId, plugin );
+        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel(nPluginId).getBusinessClasses();
 
         for ( BusinessClass businessClass : listBusinessClass )
         {
@@ -1115,23 +1102,23 @@ public class PluginWizardApp implements XPageApplication
                 SiteMessageService.setMessage( request, PROPERTY_CLASS_TWO_ATTRIBUTES_MINIMUM, SiteMessage.TYPE_STOP );
             }
 
-            if ( !BusinessClassHome.hasAlreadyDescription( businessClass.getIdBusinessClass(  ), plugin ) )
+/*            if ( !BusinessClassHome.hasAlreadyDescription( businessClass.getId(  ), plugin ) )
             {
                 SiteMessageService.setMessage( request, PROPERTY_CLASS_DESCRIPTION_NOT_DEFINED, SiteMessage.TYPE_STOP );
             }
 
-            if ( !BusinessClassHome.hasAlreadyKey( businessClass.getIdBusinessClass(  ), plugin ) )
+            if ( !BusinessClassHome.hasAlreadyKey( businessClass.getId(  ), plugin ) )
             {
                 SiteMessageService.setMessage( request, PROPERTY_CLASS_KEY_NOT_DEFINED, SiteMessage.TYPE_STOP );
             }
+*/
         }
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_PLUGIN_APPLICATIONS, ApplicationHome.findByPlugin( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_APPLICATIONS, ModelService.getPluginModel(nPluginId).getApplications() );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_PLUGIN_APPLICATIONS,
-                request.getLocale(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_PLUGIN_APPLICATIONS, request.getLocale(  ), model );
 
         return template.getHtml(  );
     }
@@ -1141,15 +1128,14 @@ public class PluginWizardApp implements XPageApplication
      * is generated
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the management screen of the business classes
      */
-    private String getManageBusinessClasses( HttpServletRequest request, Plugin plugin )
+    private String getManageBusinessClasses( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_BUSINESS_CLASSES, BusinessClassHome.getBusinessClassesByPlugin( nPluginId, plugin ) );
+        model.put( MARK_BUSINESS_CLASSES, ModelService.getPluginModel(nPluginId).getBusinessClasses() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_BUSINESS_CLASSES,
                 request.getLocale(  ), model );
@@ -1161,14 +1147,13 @@ public class PluginWizardApp implements XPageApplication
      * The creation screen of a plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of a plugin application
      */
-    private String getCreatePluginApplication( HttpServletRequest request, Plugin plugin )
+    private String getCreatePluginApplication( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_PLUGIN_APPLICATION,
                 request.getLocale(  ), model );
@@ -1180,23 +1165,23 @@ public class PluginWizardApp implements XPageApplication
      * The creation form of a business class
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of a business class
      * @throws SiteMessageException Front office error handling
      */
-    private String getCreateBusinessClass( HttpServletRequest request, Plugin plugin )
+    private String getCreateBusinessClass( HttpServletRequest request )
         throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
 
-        if ( FeatureHome.getAdminFeaturesForPlugin( nPluginId, plugin ).isEmpty(  ) )
+        List<Feature> listFeatures = ModelService.getPluginModel(nPluginId).getFeatures();
+        if ( listFeatures.isEmpty(  ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_FEATURE_NOT_DEFINE_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
         }
 
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
-        model.put( MARK_ADMIN_FEATURES_COMBO, FeatureHome.getAdminFeaturesForPlugin( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
+        model.put( MARK_ADMIN_FEATURES_COMBO, listFeatures );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_BUSINESS_CLASS, request.getLocale(  ),
                 model );
@@ -1208,10 +1193,9 @@ public class PluginWizardApp implements XPageApplication
      * The creation action of the plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doCreatePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doCreatePluginApplication( HttpServletRequest request )
         throws SiteMessageException
     {
         Application application = new Application(  );
@@ -1228,19 +1212,19 @@ public class PluginWizardApp implements XPageApplication
         application.setApplicationClass( strApplicationClass );
         application.setApplicationName( strApplicationName );
         application.setIdPlugin( nPluginId );
-        ApplicationHome.create( application, plugin );
+        ModelService.addApplication( nPluginId , application );
     }
 
     /**
      * The creation action of an attribute
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @exception SiteMessageException Front office error handling
      */
-    private void doCreateAttribute( HttpServletRequest request, Plugin plugin )
+    private void doCreateAttribute( HttpServletRequest request )
         throws SiteMessageException
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         String strAttributeName = request.getParameter( PARAM_ATTRIBUTE_NAME );
 
         if ( ( strAttributeName == null ) || strAttributeName.equals( "" ) )
@@ -1269,7 +1253,7 @@ public class PluginWizardApp implements XPageApplication
         }
 
         //If Business class already has a description
-        if ( strDescription.equals( "1" ) && BusinessClassHome.hasAlreadyDescription( nBusinessClassId, plugin ) )
+/*        if ( strDescription.equals( "1" ) && BusinessClassHome.hasAlreadyDescription( nBusinessClassId, plugin ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_DESCRIPTION, SiteMessage.TYPE_STOP );
         }
@@ -1278,36 +1262,34 @@ public class PluginWizardApp implements XPageApplication
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_KEY, SiteMessage.TYPE_STOP );
         }
-
+*/
         Attribute attribute = new Attribute(  );
         attribute.setAttributeName( strAttributeName );
         attribute.setAttributeTypeId( nAttributeTypeId );
-        attribute.setIsPrimary( ( ( strPrimaryKey != null ) && strPrimaryKey.equals( "1" ) &&
-            strDescription.equals( "0" ) ) ? true : false );
-        attribute.setIsDescription( ( ( strDescription != null ) && strDescription.equals( "1" ) &&
-            strPrimaryKey.equals( "0" ) ) ? true : false );
+        attribute.setIsPrimary( ( strPrimaryKey.equals( "1" ) && strDescription.equals( "0" ) ) ? true : false );
+        attribute.setIsDescription( ( strDescription.equals( "1" ) && strPrimaryKey.equals( "0" ) ) ? true : false );
         attribute.setBusinessClassId( nBusinessClassId );
 
-        AttributeHome.create( attribute, plugin );
+        ModelService.addAttribute( nPluginId , nBusinessClassId , attribute );
     }
 
     /**
      * The modification screen of a plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the modification of an application associated to
      * the generated plugin
      */
-    private String getModifyPluginApplication( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginApplication( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nPluginApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
-        Application application = ApplicationHome.findByPrimaryKey( nPluginApplicationId, plugin );
+        
+        Application application = ModelService.getApplication(nPluginId, nPluginApplicationId);
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_APPLICATION, application );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_PLUGIN_APPLICATION,
                 request.getLocale(  ), model );
@@ -1319,15 +1301,14 @@ public class PluginWizardApp implements XPageApplication
      * The modification action of the plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyPluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doModifyPluginApplication( HttpServletRequest request )
         throws SiteMessageException
     {
         int nApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
-        Application application = ApplicationHome.findByPrimaryKey( nApplicationId, plugin );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
+        Application application = ModelService.getApplication(nPluginId, nApplicationId);
         String strApplicationClass = request.getParameter( PARAM_APPLICATION_CLASS );
         String strApplicationName = request.getParameter( PARAM_APPLICATION_NAME );
 
@@ -1341,7 +1322,7 @@ public class PluginWizardApp implements XPageApplication
         application.setApplicationName( strApplicationName );
         application.setIdPlugin( nPluginId );
 
-        ApplicationHome.update( application, plugin );
+        ModelService.updateApplication(nPluginId, application);
     }
 
     /**
@@ -1387,40 +1368,39 @@ public class PluginWizardApp implements XPageApplication
      * The removal action of a plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doRemovePluginApplication( HttpServletRequest request, Plugin plugin )
+    private void doRemovePluginApplication( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
-        ApplicationHome.remove( nApplicationId, plugin );
+        ModelService.removeApplication(nPluginId, nApplicationId);
     }
 
     /**
      * The removal action of a plugin application
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doRemoveBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void doRemoveBusinessClass( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
 
-        BusinessClassHome.remove( nBusinessClassId, plugin );
+        ModelService.removeBusinessClass(nPluginId, nBusinessClassId);
     }
 
     /**
      * The screen for management of portlets associated to the generated plugin
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The main management screen of portlets
      */
-    private String getManagePluginPortlets( HttpServletRequest request, Plugin plugin )
+    private String getManagePluginPortlets( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_PLUGIN_PORTLETS, PortletHome.findByPlugin( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_PORTLETS, ModelService.getPluginModel(nPluginId).getPortlets() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MANAGE_PLUGIN_PORTLETS, request.getLocale(  ),
                 model );
@@ -1432,14 +1412,13 @@ public class PluginWizardApp implements XPageApplication
      * The creation screen of a portlet
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of a portlet
      */
-    private String getCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private String getCreatePluginPortlet( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL,ModelService.getPluginModel(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_PLUGIN_PORTLET, request.getLocale(  ),
                 model );
@@ -1451,10 +1430,9 @@ public class PluginWizardApp implements XPageApplication
      * The creation action of the portlet
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doCreatePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doCreatePluginPortlet( HttpServletRequest request )
         throws SiteMessageException
     {
         Portlet portlet = new Portlet(  );
@@ -1483,18 +1461,17 @@ public class PluginWizardApp implements XPageApplication
         portlet.setPluginPortletTypeName( strPluginPortletTypeName );
         portlet.setPluginPortletUpdateUrl( strPluginPortletUpdateUrl );
 
-        PortletHome.create( portlet, plugin );
+        ModelService.addPortlet(nPluginId, portlet);
     }
 
     /**
      * The creation action of the business class
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      * @return The business class id
      */
-    private int doCreateBusinessClass( HttpServletRequest request, Plugin plugin )
+    private int doCreateBusinessClass( HttpServletRequest request )
         throws SiteMessageException
     {
         BusinessClass businessClass = new BusinessClass(  );
@@ -1520,6 +1497,7 @@ public class PluginWizardApp implements XPageApplication
         int nFeatureId = Integer.parseInt( strFeatureId );
         businessClass.setIdFeature( nFeatureId );
 
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         String strTableName = request.getParameter( PARAM_TABLE );
 
         if ( ( strBusinessClassName == null ) || ( strTableName == null ) || strBusinessClassName.equals( "" ) ||
@@ -1532,14 +1510,14 @@ public class PluginWizardApp implements XPageApplication
         businessClass.setBusinessTableName( strTableName );
 
         //Verify if name already exists for the same admin feature
-        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
+/*        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
         }
+*/
+        businessClass = ModelService.addBusinessClass(nPluginId, businessClass);
 
-        businessClass = BusinessClassHome.create( businessClass, plugin );
-
-        return businessClass.getIdBusinessClass(  );
+        return businessClass.getId(  );
     }
 
     /**
@@ -1559,15 +1537,14 @@ public class PluginWizardApp implements XPageApplication
      * The modification page of the portlet
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the modification of the portlet
      */
-    private String getModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginPortlet( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nPluginPortletId = Integer.parseInt( request.getParameter( PARAM_PORTLET_ID ) );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN_PORTLET, PortletHome.findByPrimaryKey( nPluginPortletId, plugin ) );
-        AppLogService.info( PortletHome.findByPrimaryKey( nPluginPortletId, plugin ) );
+        model.put( MARK_PLUGIN_PORTLET, ModelService.getPortlet( nPluginId, nPluginPortletId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_PLUGIN_PORTLET, request.getLocale(  ),
                 model );
@@ -1579,10 +1556,9 @@ public class PluginWizardApp implements XPageApplication
      * The modification action of the portlet
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyPluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doModifyPluginPortlet( HttpServletRequest request )
         throws SiteMessageException
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -1608,25 +1584,26 @@ public class PluginWizardApp implements XPageApplication
         Portlet portlet = new Portlet(  );
         portlet.setPluginPortletClass( strPluginPortletClass );
         portlet.setPluginPortletCreationUrl( strPluginPortletCreationUrl );
-        portlet.setPluginPortletId( nPluginPortletId );
+        portlet.setId( nPluginPortletId );
         portlet.setPluginPortletTypeName( strPluginPortletTypeName );
         portlet.setPluginPortletUpdateUrl( strPluginPortletUpdateUrl );
         portlet.setIdPlugin( nPluginId );
-        PortletHome.update( portlet, plugin );
+        ModelService.updatePortlet(nPluginId, portlet);
+        
     }
 
     /**
      * The modification action for the business class
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyBusinessClass( HttpServletRequest request, Plugin plugin )
+    private void doModifyBusinessClass( HttpServletRequest request )
         throws SiteMessageException
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
-        BusinessClass businessClass = BusinessClassHome.findByPrimaryKey( nBusinessClassId, plugin );
+        BusinessClass businessClass = ModelService.getBusinessClass( nPluginId, nBusinessClassId);
 
         String strFeatureId = request.getParameter( PARAM_FEATURE_ID );
 
@@ -1652,24 +1629,25 @@ public class PluginWizardApp implements XPageApplication
         businessClass.setBusinessTableName( strTableName );
 
         //Verify if name already exists for the same admin feature
-        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
+/*        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
         }
-
-        BusinessClassHome.update( businessClass, plugin );
+*/
+        ModelService.updateBusinessClass(nPluginId, businessClass);
     }
 
     /**
      * The modification action for the attribute
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyAttribute( HttpServletRequest request, Plugin plugin )
+    private void doModifyAttribute( HttpServletRequest request )
         throws SiteMessageException
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
+        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         int nIdAttribute = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
 
         String strAttributeName = request.getParameter( PARAM_ATTRIBUTE_NAME );
@@ -1698,17 +1676,15 @@ public class PluginWizardApp implements XPageApplication
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING, SiteMessage.TYPE_STOP );
         }
 
-        Attribute attribute = AttributeHome.findByPrimaryKey( nIdAttribute, plugin );
+        Attribute attribute = ModelService.getAttribute( nPluginId, nBusinessClassId, nIdAttribute );
         attribute.setAttributeName( strAttributeName );
         attribute.setAttributeTypeId( nAttributeTypeId );
-        attribute.setIsPrimary( ( ( strPrimaryKey != null ) && strPrimaryKey.equals( "1" ) &&
-            strDescription.equals( "0" ) ) ? true : false );
-        attribute.setIsDescription( ( ( strDescription != null ) && strDescription.equals( "1" ) &&
-            strPrimaryKey.equals( "0" ) ) ? true : false );
+        attribute.setIsPrimary( (  strPrimaryKey.equals( "1" ) && strDescription.equals( "0" ) ) ? true : false );
+        attribute.setIsDescription( ( strDescription.equals( "1" ) && strPrimaryKey.equals( "0" ) ) ? true : false );
         AppLogService.error( "strAttributeName:" + strAttributeName + "\nAttributeTypeId:" + nAttributeTypeId +
             "\nstrPrimaryKey:" + strPrimaryKey + "\nstrDescription:" + strDescription );
 
-        AttributeHome.update( attribute, plugin );
+        ModelService.updateAttribute( nPluginId, nBusinessClassId, attribute);
     }
 
     /**
@@ -1752,24 +1728,25 @@ public class PluginWizardApp implements XPageApplication
      * Remove Portlet Action
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doRemovePluginPortlet( HttpServletRequest request, Plugin plugin )
+    private void doRemovePluginPortlet( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         int nPluginPortletId = Integer.parseInt( request.getParameter( PARAM_PORTLET_ID ) );
-        PortletHome.remove( nPluginPortletId, plugin );
+        ModelService.removePortlet(nPluginId, nPluginPortletId);
     }
 
     /**
      * Remove Business Attribute
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      */
-    private void doRemoveAttribute( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAttribute( HttpServletRequest request )
     {
+        int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
+        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         int nAttributeId = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
-        AttributeHome.remove( nAttributeId, plugin );
+        ModelService.removeAttribute(nPluginId, nBusinessClassId, nAttributeId);
     }
 
     /**
@@ -1779,20 +1756,22 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The Html code of the summary
      */
-    private String getPluginRecapitulate( HttpServletRequest request, Plugin plugin )
+    private String getPluginRecapitulate( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
         //Deletes all the keys and regenerate the keys for the generated plugin
-        ResourceKeyHome.deleteKeysByPlugin( nPluginId, plugin );
-        ResourceKeyService.storeKeys( nPluginId, plugin );
+        ResourceKeyHome.deleteKeysByPlugin( nPluginId );
+        PluginModel pm = ModelService.getPluginModel(nPluginId);
+        ResourceKeyService.storeKeys( pm );
 
+        
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
-        model.put( MARK_PLUGIN_MODEL, PluginModelHome.findByPrimaryKey( nPluginId, plugin ) );
-        model.put( MARK_PLUGIN_APPLICATIONS, ApplicationHome.findByPlugin( nPluginId, plugin ) );
-        model.put( MARK_ADMIN_FEATURES, FeatureHome.findByPlugin( nPluginId, plugin ) );
-        model.put( MARK_PLUGIN_PORTLETS, PortletHome.findByPlugin( nPluginId, plugin ) );
-        model.put( MARK_BUSINESS_CLASSES, BusinessClassHome.getBusinessClassesByPlugin( nPluginId, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, pm );
+        model.put( MARK_PLUGIN_APPLICATIONS, pm.getApplications() );  // FIXME can be found in the model
+        model.put( MARK_ADMIN_FEATURES, pm.getFeatures() );
+        model.put( MARK_PLUGIN_PORTLETS, pm.getPortlets() );
+        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses() );
         model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_GET_RECAPITULATE, request.getLocale(  ), model );

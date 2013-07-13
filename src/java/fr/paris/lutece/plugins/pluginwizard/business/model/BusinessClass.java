@@ -33,7 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -47,7 +47,7 @@ public class BusinessClass
     private String _strBusinessClass;
     private String _strBusinessTableName;
     private String _strPluginName;
-    private Collection<Attribute> _listAttributes;
+    private List<Attribute> _listAttributes;
     private String _strPrimaryAttributeName;
     private String _strDescriptionAttributeName;
     private String _strPackageName;
@@ -74,7 +74,7 @@ public class BusinessClass
     * Returns the nIdBusinessClass
     * @return The nIdBusinessClass
     */
-    public int getIdBusinessClass(  )
+    public int getId(  )
     {
         return _nIdBusinessClass;
     }
@@ -83,7 +83,7 @@ public class BusinessClass
      * Sets the nIdBusinessClass
      * @param nIdBusinessClass The IdPlugin
      */
-    public void setIdBusinessClass( int nIdBusinessClass )
+    public void setId( int nIdBusinessClass )
     {
         _nIdBusinessClass = nIdBusinessClass;
     }
@@ -320,7 +320,7 @@ public class BusinessClass
     {
         int nIndex = 0;
         boolean bUpper = true;
-        StringBuffer strBuffer = new StringBuffer(  );
+        StringBuilder strBuffer = new StringBuilder(  );
 
         while ( nIndex < strSource.length(  ) )
         {
@@ -351,7 +351,7 @@ public class BusinessClass
      * Sets the list of attributes associated to business class
      * @param listAttributes The collection of attributes associated to the class
      */
-    public void setAttributes( Collection<Attribute> listAttributes )
+    public void setAttributes( List<Attribute> listAttributes )
     {
         _listAttributes = listAttributes;
     }
@@ -360,7 +360,7 @@ public class BusinessClass
      * Returns the collection of attributes
      * @return the collection of child attributes
      */
-    public Collection<Attribute> getAttributes(  )
+    public List<Attribute> getAttributes(  )
     {
         return _listAttributes;
     }

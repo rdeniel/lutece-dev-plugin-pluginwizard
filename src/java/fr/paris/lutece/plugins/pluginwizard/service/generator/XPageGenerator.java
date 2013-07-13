@@ -34,15 +34,12 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -61,20 +58,17 @@ public class XPageGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        Collection<Application> listPluginApplications = ApplicationHome.findByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
-        for ( Application xpage : listPluginApplications )
+        for ( Application xpage : pm.getApplications() )
         {
             String strPath = strBasePath + xpage.getApplicationClass(  ) + ".java";
 
-            String strSourceCode = getXPageCode( pluginModel.getIdPlugin(  ), plugin, xpage.getIdPluginApplication(  ) );
+            String strSourceCode = getXPageCode( pm , xpage.getId(  ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -83,19 +77,17 @@ public class XPageGenerator implements Generator
 
     /**
     * Generates the XPage source code
-    * @param nPluginId The id of the plugin
-    * @param plugin The plugin
-    * @param nIdPluginApplication id of the plugin application
+    * @param pm The plugin model
+    * @param nApplicationId id of the plugin application
     * @return The code of the XPage generated
     */
-    private String getXPageCode( int nPluginId, Plugin plugin, int nIdPluginApplication )
+    private String getXPageCode( PluginModel pm, int nApplicationId )
     {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pluginModel );
+        model.put( MARK_PLUGIN, pm );
 
-        model.put( MARK_PLUGIN_MODEL, pluginModel );
-        model.put( MARK_PLUGIN_APPLICATION, ApplicationHome.findByPrimaryKey( nIdPluginApplication, plugin ) );
+        model.put( MARK_PLUGIN_MODEL, pm );
+        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm.getIdPlugin(), nApplicationId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_XPAGE_TEMPLATE, Locale.getDefault(  ), model );
 

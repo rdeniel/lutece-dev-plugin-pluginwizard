@@ -141,7 +141,7 @@ public class Portlet
      * Sets the IdPortletPlugin
      * @param nIdPortletPlugin The IdPlugin
      */
-    public void setPluginPortletId( int nIdPortletPlugin )
+    public void setId( int nIdPortletPlugin )
     {
         _nIdPortletPlugin = nIdPortletPlugin;
     }
@@ -150,7 +150,7 @@ public class Portlet
      * Returns the IdPortletPlugin
      * @return The IdPortletPlugin
      */
-    public int getPluginPortletId(  )
+    public int getId(  )
     {
         return _nIdPortletPlugin;
     }

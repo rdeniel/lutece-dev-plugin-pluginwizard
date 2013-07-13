@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,10 +59,18 @@ public class PluginModel
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
     private Locale _locale;
-    private Collection<Application> _listPluginApplications;
-    private Collection<Feature> _listPluginFeatures;
-    private Collection<Portlet> _listPluginPortlets;
+    private List<Application> _listPluginApplications;
+    private List<Feature> _listPluginFeatures;
+    private List<Portlet> _listPluginPortlets;
+    private List<BusinessClass> _listBusinessClasses;
 
+    public PluginModel()
+    {
+        _listPluginApplications = new ArrayList<Application>();
+        _listPluginFeatures = new ArrayList<Feature>();
+        _listPluginPortlets = new ArrayList<Portlet>();
+        _listBusinessClasses = new ArrayList<BusinessClass>();
+    }
     /**
      * Returns the IdPlugin
      * @return The IdPlugin
@@ -326,10 +333,19 @@ public class PluginModel
     }
 
     /**
+     * Gets the locale of the plugin
+     * @return The Locale
+     */
+    public void setLocale( Locale locale )
+    {
+        _locale = locale;
+    }
+
+    /**
      * Sets the list of plugin applications
      * @param listPluginApplications The list of plugin applications
      */
-    public void setPluginApplications( Collection<Application> listPluginApplications )
+    public void setPluginApplications( List<Application> listPluginApplications )
     {
         _listPluginApplications = listPluginApplications;
     }
@@ -338,7 +354,7 @@ public class PluginModel
      * Returns the list of plugin applications
      * @return The collection of applications
      */
-    public Collection<Application> getPluginApplications(  )
+    public List<Application> getApplications(  )
     {
         return _listPluginApplications;
     }
@@ -347,7 +363,7 @@ public class PluginModel
      *  Sets the list of plugin features
      * @param listPluginFeatures The list of plugi features
      */
-    public void setPluginFeatures( Collection<Feature> listPluginFeatures )
+    public void setPluginFeatures( List<Feature> listPluginFeatures )
     {
         _listPluginFeatures = listPluginFeatures;
     }
@@ -356,7 +372,7 @@ public class PluginModel
      * Returns the list of plugin features
      * @return The plugin features
      */
-    public Collection<Feature> getPluginFeatures(  )
+    public List<Feature> getFeatures(  )
     {
         return _listPluginFeatures;
     }
@@ -365,7 +381,7 @@ public class PluginModel
      * Sets the list of plugin portlets
      * @param listPluginPortlets The list of plugin portlets
      */
-    public void setPluginPortlets( Collection<Portlet> listPluginPortlets )
+    public void setPluginPortlets( List<Portlet> listPluginPortlets )
     {
         _listPluginPortlets = listPluginPortlets;
     }
@@ -374,7 +390,7 @@ public class PluginModel
      *  Returns the list of plugin portlets
      * @return The list of portlets
      */
-    public Collection<Portlet> getPluginPortlets(  )
+    public List<Portlet> getPortlets(  )
     {
         return _listPluginPortlets;
     }
@@ -385,81 +401,7 @@ public class PluginModel
      */
     public List<BusinessClass> getBusinessClasses(  )
     {
-        List listBusinessClasses = new ArrayList<BusinessClass>(  );
-
-        for ( Feature feature : _listPluginFeatures )
-        {
-            listBusinessClasses.addAll( feature.getBusinessClasses(  ) );
-        }
-
-        return listBusinessClasses;
+        return _listBusinessClasses;
     }
 
-    /////////////////////////////////////////////////////////////
-    /**
-     * Returns the Plugin Name in Upper case
-     * @return The Plugin Name
-     */
-    public String getPluginNameUpperCase(  )
-    {
-        return _strPluginName.toUpperCase(  );
-    }
-
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getPluginNameLowerCase(  )
-    {
-        return _strPluginName.toLowerCase(  );
-    }
-
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getPluginNameCapsFirst(  )
-    {
-        char[] characters = _strPluginName.toCharArray(  );
-        characters[0] = Character.toTitleCase( characters[0] );
-
-        return String.valueOf( characters );
-    }
-
-    //////////////////////////////////////////////////////////////
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getNameJspBeanPrefix(  )
-    {
-        return getPluginNameCapsFirst(  );
-    }
-
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getNameRightSuffixDeclaration(  )
-    {
-        return getPluginNameUpperCase(  );
-    }
-
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getNameRightSuffix(  )
-    {
-        return getPluginNameUpperCase(  );
-    }
-
-    /**
-     * Returns the BusinessClass
-     * @return The BusinessClass
-     */
-    public String getNameMainTemplate(  )
-    {
-        return getPluginNameUpperCase(  );
-    }
-}
+ }

@@ -48,9 +48,8 @@ public interface Generator
 {
     /**
      * Visiting parts of the file tree structure
-     * @param plugin The plugin
      * @param pluginModel The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
-    Map generate( Plugin plugin, PluginModel pluginModel );
+    Map generate( PluginModel pluginModel );
 }

@@ -33,22 +33,14 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ApplicationHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -68,15 +60,15 @@ public class PluginXmlGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
-        strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + ".xml";
+        strBasePath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + ".xml";
 
-        String strSourceCode = getPluginXmlCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getPluginXmlCode( pm );
         map.put( strBasePath, strSourceCode );
 
         return map;
@@ -88,18 +80,13 @@ public class PluginXmlGenerator implements Generator
     * @param plugin The plugin
     * @return The plugin xml file content of the plugin
     */
-    private String getPluginXmlCode( int nPluginId, Plugin plugin )
+    private String getPluginXmlCode( PluginModel pm )
     {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pluginModel );
 
-        int nIdPlugin = pluginModel.getIdPlugin(  );
-        Collection<Feature> listFeatures = FeatureHome.findByPlugin( nIdPlugin, plugin );
-        
-        for( Feature feature : listFeatures )
+        for( Feature feature : pm.getFeatures() )
         {
-            List<BusinessClass> listBusiness = (List<BusinessClass>) BusinessClassHome.getBusinessClassesByFeature( feature.getId(), plugin);
+            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm.getIdPlugin(), feature.getId() );
             if( ( listBusiness != null ) && (listBusiness.size() > 0 ))
             {
                 BusinessClass businessClass = listBusiness.get( 0 );
@@ -110,12 +97,8 @@ public class PluginXmlGenerator implements Generator
                 feature.setJspName( feature.getPluginFeatureName() + ".jsp" );
             }
         }
+        model.put( MARK_PLUGIN, pm );
 
-        Collection<Application> listApplcations = ApplicationHome.findByPlugin( nIdPlugin, plugin );
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( nPluginId, plugin );
-        model.put( MARK_LIST_FEATURES, listFeatures );
-        model.put( MARK_LIST_APPLICATIONS, listApplcations );
-        model.put( MARK_LIST_PORTLETS, listPortlets );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PLUGIN_XML_TEMPLATE, Locale.getDefault(  ),
                 model );

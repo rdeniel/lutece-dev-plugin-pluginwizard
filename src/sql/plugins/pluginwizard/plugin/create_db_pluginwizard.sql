@@ -1,4 +1,17 @@
 --
+-- Table structure for table pluginwizard_plugin_model
+--
+DROP TABLE IF EXISTS pluginwizard_plugin_model;
+CREATE TABLE pluginwizard_plugin_model
+(
+
+    id_plugin int NOT NULL,
+    name varchar(255) default NULL,
+    model_json long varchar default NULL,
+    PRIMARY KEY (id_plugin)
+);
+
+--
 -- Table structure for table pluginwizard_configuration_key
 --
 DROP TABLE IF EXISTS pluginwizard_configuration_key;
@@ -10,114 +23,6 @@ CREATE TABLE pluginwizard_configuration_key
 	PRIMARY KEY (id_key)
 );
 
---
--- Table structure for table pluginwizard_plugin_application
---
-DROP TABLE IF EXISTS pluginwizard_plugin_application;
-CREATE TABLE pluginwizard_plugin_application
-(
-	id_plugin_application int NOT NULL,
-	application_name varchar(255) default NULL,
-	application_class varchar(255) default NULL,
-        id_plugin int default 0 NOT NULL,
-	PRIMARY KEY (id_plugin_application)
-);
-
---
--- Table structure for table pluginwizard_plugin_attribute
---
-DROP TABLE IF EXISTS pluginwizard_plugin_attribute;
-CREATE TABLE pluginwizard_plugin_attribute
-(
-	id_attribute int NOT NULL,
-	attribute_type_id int default NULL,
-	attribute_name varchar(255) default NULL,
-	is_primary_key smallint default NULL,
-	is_description smallint default NULL,
-	id_business_class int NOT NULL,
-	PRIMARY KEY (id_attribute)
-);
-
---
--- Table structure for table pluginwizard_plugin_attribute_type
---
-DROP TABLE IF EXISTS pluginwizard_plugin_attribute_type;
-CREATE TABLE pluginwizard_plugin_attribute_type
-(
-	attribute_type_id int NOT NULL,
-	attribute_type_name varchar(20) default NULL,
-	PRIMARY KEY (attribute_type_id)
-);
-
---
--- Table structure for table pluginwizard_plugin_business
---
-DROP TABLE IF EXISTS pluginwizard_plugin_business;
-CREATE TABLE pluginwizard_plugin_business
-(
-	id_business_class int default 0 NOT NULL,
-	business_class varchar(255) default '' NOT NULL,
-	business_table_name varchar(255) default NULL,
-	business_class_primary_key varchar(100) default NULL,
-	business_class_description varchar(100) default NULL,
-	id_plugin_feature int default NULL,
-	PRIMARY KEY (id_business_class)
-);
-
---
--- Table structure for table pluginwizard_plugin_feature
---
-DROP TABLE IF EXISTS pluginwizard_plugin_feature;
-CREATE TABLE pluginwizard_plugin_feature
-(
-	id_plugin_feature int NOT NULL,
-	plugin_feature_title varchar(255) default NULL,
-	plugin_feature_level varchar(255) default NULL,
-	plugin_feature_name varchar(255) default NULL,
-	plugin_feature_description varchar(255) default NULL,
-	plugin_feature_right varchar(255) default NULL,
-        id_plugin int default 0 NOT NULL,
-	PRIMARY KEY (id_plugin_feature)
-);
-
---
--- Table structure for table pluginwizard_plugin_id
---
-DROP TABLE IF EXISTS pluginwizard_plugin_id;
-CREATE TABLE pluginwizard_plugin_id
-(
-	id_plugin int NOT NULL,
-	plugin_name varchar(255) default '' NOT NULL,
-	plugin_class varchar(255) default NULL,
-	plugin_description varchar(255) default NULL,
-	plugin_documentation varchar(255) default NULL,
-	plugin_installation varchar(255) default NULL,
-	plugin_changes varchar(255) default NULL,
-	plugin_user_guide varchar(255) default NULL,
-	plugin_version varchar(255) default NULL,
-	plugin_copyright varchar(255) default NULL,
-	plugin_icon_url varchar(255) default NULL,
-	plugin_provider varchar(255) default NULL,
-	plugin_provider_url varchar(255) default NULL,
-	plugin_db_pool_required varchar(255) default NULL,
-	PRIMARY KEY (id_plugin)
-);
-
-
---
--- Table structure for table pluginwizard_plugin_portlet
---
-DROP TABLE IF EXISTS pluginwizard_plugin_portlet;
-CREATE TABLE pluginwizard_plugin_portlet
-(
-	id_plugin_portlet int NOT NULL,
-	plugin_portlet_class varchar(255) default NULL,
-	plugin_portlet_type_name varchar(255) default NULL,
-	plugin_portlet_creation_url varchar(255) default NULL,
-	plugin_portlet_update_url varchar(255) default NULL,
-        id_plugin int default 0 NOT NULL,
-	PRIMARY KEY (id_plugin_portlet)
-);
 
 --
 -- Table structure for table pluginwizard_plugin_resource_key
@@ -145,3 +50,12 @@ CREATE TABLE pluginwizard_localization_key
 	french_locale varchar(255) default NULL,
 	PRIMARY KEY (id_key)
 );
+
+
+DROP TABLE IF EXISTS pluginwizard_plugin_application;
+DROP TABLE IF EXISTS pluginwizard_plugin_attribute;
+DROP TABLE IF EXISTS pluginwizard_plugin_attribute_type;
+DROP TABLE IF EXISTS pluginwizard_plugin_business;
+DROP TABLE IF EXISTS pluginwizard_plugin_feature;
+DROP TABLE IF EXISTS pluginwizard_plugin_id;
+DROP TABLE IF EXISTS pluginwizard_plugin_portlet;

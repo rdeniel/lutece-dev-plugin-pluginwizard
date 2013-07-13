@@ -47,6 +47,7 @@ public final class PluginModelHome
     // Static variable pointed at the DAO instance
     private static IPluginModelDAO _dao = (IPluginModelDAO) SpringContextService.getBean( "pluginwizard.pluginModelDAO" );
 
+
     /**
      * Private constructor - this class need not be instantiated
      */
@@ -99,7 +100,7 @@ public final class PluginModelHome
      * @param plugin the Plugin
      * @return an instance of PluginModel
      */
-    public static PluginModel findByPrimaryKey( int nKey, Plugin plugin )
+/*    public static PluginModel findByPrimaryKey( int nKey, Plugin plugin )
     {
         return _dao.load( nKey, plugin );
     }

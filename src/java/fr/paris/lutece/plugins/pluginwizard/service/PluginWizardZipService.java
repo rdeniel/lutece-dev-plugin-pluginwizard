@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
@@ -92,7 +91,7 @@ public class PluginWizardZipService
         int nPluginId = Integer.parseInt( strPluginId );
         String strScheme = request.getParameter( PARAM_SCHEME );
         int nScheme = Integer.parseInt( strScheme );
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, _plugin );
+        PluginModel pluginModel = ModelService.getPluginModel(nPluginId);
         GeneratorService generator = new GeneratorService(  );
         Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel , nScheme );
 

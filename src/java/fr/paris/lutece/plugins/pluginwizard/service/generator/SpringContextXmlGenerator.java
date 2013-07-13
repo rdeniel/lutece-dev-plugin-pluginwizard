@@ -33,21 +33,11 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -66,15 +56,15 @@ public class SpringContextXmlGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
 
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
-        strBasePath = strBasePath + pluginModel.getPluginName(  ).toLowerCase(  ) + "_context.xml";
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+        strBasePath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + "_context.xml";
 
-        String strSourceCode = getSpringContextCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getSpringContextCode( pm );
         map.put( strBasePath, strSourceCode );
 
         return map;
@@ -83,31 +73,15 @@ public class SpringContextXmlGenerator implements Generator
     /**
      * Produces the spring context xml file
      *
-     * @param nPluginId The id of the plugin
-     * @param plugin the plugin
+     * @param pm the plugin model
      * @return the content if the spring context file
      */
-    private String getSpringContextCode( int nPluginId, Plugin plugin )
+    private String getSpringContextCode( PluginModel pm )
     {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pluginModel );
-
-        Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
-
-        Collection<Feature> listFeaturesPlugin = FeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-
-        for ( Feature feature : listFeaturesPlugin )
-        {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
-            listClasses.addAll( listBusinessClasses );
-        }
-
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( nPluginId, plugin );
-
-        model.put( MARK_LIST_PORTLETS, listPortlets );
-        model.put( MARK_BUSINESS_CLASSES, listClasses );
+        model.put( MARK_PLUGIN, pm );
+        model.put( MARK_LIST_PORTLETS, pm.getPortlets() );
+        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses() );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, Locale.getDefault(  ), model );
 

@@ -34,15 +34,14 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_NAME;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_RIGHT;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_BUSINESS_CLASS;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN_MODEL;
 import fr.paris.lutece.plugins.pluginwizard.web.Constants;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import java.util.Collection;
@@ -71,26 +70,26 @@ public class MultiJspBeanGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate(Plugin plugin, PluginModel pluginModel)
+    public Map generate( PluginModel pm)
     {
         HashMap map = new HashMap();
         String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace("{plugin_name}", pluginModel.getPluginName());
+        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
 
-        for (Feature feature : pluginModel.getPluginFeatures())
+        for (Feature feature : pm.getFeatures())
         {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature(feature.getId(), plugin);
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm.getIdPlugin(), feature.getId() );
             System.out.println( "######################## Nombre classes métier : " + listBusinessClasses.size() ) ;
 
             for (BusinessClass business : listBusinessClasses)
             {
                 String strPath = strBasePath + business.getBusinessClassCapsFirst() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
-                String strSourceCode = getJspBeanCode(pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight(), business );
+                String strSourceCode = getJspBeanCode(pm, feature.getPluginFeatureName(), feature.getPluginFeatureRight(), business );
                 map.put(strPath, strSourceCode);
             }
             
             String strPath = strBasePath + feature.getPluginFeatureName() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
-            String strSourceCode = getAbstractJspBeanCode(pluginModel, feature.getPluginFeatureName(), feature.getPluginFeatureRight() );
+            String strSourceCode = getAbstractJspBeanCode(pm, feature.getPluginFeatureName(), feature.getPluginFeatureRight() );
             map.put(strPath, strSourceCode);
 
 

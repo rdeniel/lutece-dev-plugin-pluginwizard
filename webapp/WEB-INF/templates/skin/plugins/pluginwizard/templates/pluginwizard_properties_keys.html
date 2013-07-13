@@ -1,7 +1,7 @@
 plugin.description
 plugin.provider
 
-<#list features as feature>
+<#list plugin.features as feature>
 adminFeature.${feature.pluginFeatureName?lower_case}.name
 adminFeature.${feature.pluginFeatureName?lower_case}.description
 </#list>
@@ -9,7 +9,7 @@ adminFeature.${feature.pluginFeatureName?lower_case}.description
 manage_${plugin_name?lower_case}s.tableLabel
 manage_${plugin_name?lower_case}s.labelManagement
 manage_${plugin_name?lower_case}s.pageTitle
-<#list list_business_class as business_class>
+<#list plugin.businessClasses as business_class>
 <#if business_class?? > 
 manage_${business_class.businessClassTemplate}s.pageTitle
 manage_${business_class.businessClassTemplate}s.tableLabel
@@ -48,7 +48,7 @@ modify_${business_class.businessClassTemplate}.buttonValidate
 message.confirmRemove${business_class.businessClassTemplate?cap_first}
 </#if>    
 </#list>
-<#list portlets as portlet>
+<#list plugin.portlets as portlet>
 <#if portlet?? >
 <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
 

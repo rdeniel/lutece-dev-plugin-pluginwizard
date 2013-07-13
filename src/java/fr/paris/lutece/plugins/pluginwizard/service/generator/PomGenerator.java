@@ -35,18 +35,11 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClassHome;
-import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
-import fr.paris.lutece.plugins.pluginwizard.business.model.FeatureHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
@@ -65,14 +58,14 @@ public class PomGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
         String strBasePath = "plugin-{plugin_name}";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
         strBasePath = strBasePath + "/pom.xml";
 
-        String strSourceCode = getPomXmlCode( pluginModel.getIdPlugin(  ), plugin );
+        String strSourceCode = getPomXmlCode( pm );
         map.put( strBasePath, strSourceCode );
 
         return map;
@@ -84,11 +77,10 @@ public class PomGenerator implements Generator
     * @param plugin The plugin
     * @return The content of the pom.xml
     */
-    private String getPomXmlCode( int nPluginId, Plugin plugin )
+    private String getPomXmlCode( PluginModel pm )
     {
-        PluginModel pluginModel = PluginModelHome.findByPrimaryKey( nPluginId, plugin );
         Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( plugin );
+        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
 
         //Fetches the actual configuration values to be replaced in the templates
         for ( ConfigurationKey key : listKeys )
@@ -96,21 +88,7 @@ public class PomGenerator implements Generator
             model.put( key.getKeyDescription(  ).trim(  ), key.getKeyValue(  ) );
         }
 
-        model.put( MARK_PLUGIN, pluginModel );
-
-        Collection<BusinessClass> listClasses = new ArrayList<BusinessClass>(  );
-
-        Collection<Feature> listFeaturesPlugin = FeatureHome.findByPlugin( pluginModel.getIdPlugin(  ),
-                plugin );
-
-        for ( Feature feature : listFeaturesPlugin )
-        {
-            Collection<BusinessClass> listBusinessClasses = BusinessClassHome.getBusinessClassesByFeature( feature.getId(  ), plugin );
-            listClasses.addAll( listBusinessClasses );
-        }
-
-        model.put( MARK_BUSINESS_CLASSES, listClasses );
-
+        model.put( MARK_PLUGIN, pm );
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_XML, Locale.getDefault(  ), model );
 
         return template.getHtml(  );

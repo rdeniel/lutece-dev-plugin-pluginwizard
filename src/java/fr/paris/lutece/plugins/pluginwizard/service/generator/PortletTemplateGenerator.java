@@ -35,13 +35,10 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PortletHome;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -59,15 +56,13 @@ public class PortletTemplateGenerator implements Generator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( Plugin plugin, PluginModel pluginModel )
+    public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        Collection<Portlet> listPortlets = PortletHome.findByPlugin( pluginModel.getIdPlugin(  ), plugin );
-
         String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pluginModel.getPluginName(  ) );
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
-        for ( Portlet portlet : listPortlets )
+        for ( Portlet portlet : pm.getPortlets() )
         {
             for ( int i = 1; i < 4; i++ )
             {
@@ -78,7 +73,7 @@ public class PortletTemplateGenerator implements Generator
 
                 String strPath = strBasePath + strPortletFile;
 
-                String strSourceCode = getPortletHtmlTemplate( portlet, pluginModel.getPluginName(  ), i );
+                String strSourceCode = getPortletHtmlTemplate( portlet, pm.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@@", "#" );

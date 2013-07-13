@@ -14,10 +14,4 @@ INSERT INTO pluginwizard_localization_key (id_key, key_name, english_locale, fre
 INSERT INTO pluginwizard_localization_key (id_key, key_name, english_locale, french_locale ) VALUES ( 2 , "pageTitle", "Page's title","Titre de la page" );
 INSERT INTO pluginwizard_localization_key (id_key, key_name, english_locale, french_locale ) VALUES ( 3 , "tableLabel", "List of elements", "Liste des éléments" );
 
---
--- Dumping data for table `pluginwizard_plugin_attribute_type`
---
-INSERT INTO pluginwizard_plugin_attribute_type (attribute_type_id, attribute_type_name) VALUES (1,'int');
-INSERT INTO pluginwizard_plugin_attribute_type (attribute_type_id, attribute_type_name) VALUES (2,'String');
-
  
