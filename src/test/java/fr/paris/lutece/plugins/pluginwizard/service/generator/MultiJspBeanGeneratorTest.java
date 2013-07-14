@@ -41,22 +41,20 @@ public class MultiJspBeanGeneratorTest extends LuteceTestCase
         pluginModel.setPluginFeatures(listFeatures);
         BusinessClass business = new BusinessClass();
         business.setBusinessClass("MyClass");
-        business.setPackageName("mypackage");
-       
+        
         List<Attribute> listAttributes = new ArrayList<Attribute>();
         Attribute attributeKey = new Attribute();
         attributeKey.setAttributeName("mykey");
         attributeKey.setIsPrimary(true);
-        attributeKey.setAttributeType("String");
+        attributeKey.setType("String");
         listAttributes.add(attributeKey);
         Attribute attributeDesc = new Attribute();
         attributeDesc.setAttributeName("myDesc");
         attributeDesc.setIsPrimary(true);
-        attributeDesc.setAttributeType("String");
+        attributeDesc.setType("String");
         listAttributes.add(attributeDesc);
         business.setAttributes(listAttributes);
 
-        feature.addBusinessClass(business);
        
         MultiJspBeanGenerator instance = new MultiJspBeanGenerator();
         Map map = instance.generate(pluginModel);

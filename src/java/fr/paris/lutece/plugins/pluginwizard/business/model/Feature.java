@@ -33,9 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 
 /**
  * This is the business class for the object PluginFeature
@@ -51,14 +48,27 @@ public class Feature
     private String _strPluginFeatureName;
     private String _strPluginFeatureDescription;
     private String _strJspName;
-    private Collection<BusinessClass> _listBusinessClasses;
 
     /**
      * Constructor initializing a collection of business class
      */
-    public Feature(  )
+
+    /**
+     * Returns the Id
+     * @return The Id
+     */
+    public int getId(  )
     {
-        _listBusinessClasses = new ArrayList<BusinessClass>(  );
+        return _nIdPluginFeature;
+    }
+
+    /**
+     * Sets the nIdPluginFeature
+     * @param nId The IdPluginFeature
+     */
+    public void setId( int nId )
+    {
+        _nIdPluginFeature = nId;
     }
 
     /**
@@ -77,24 +87,6 @@ public class Feature
     public void setIdPlugin( int nIdPlugin )
     {
         _nIdPlugin = nIdPlugin;
-    }
-
-    /**
-     * Returns the Id
-     * @return The Id
-     */
-    public int getId(  )
-    {
-        return _nIdPluginFeature;
-    }
-
-    /**
-     * Sets the nIdPluginFeature
-     * @param nId The IdPluginFeature
-     */
-    public void setId( int nId )
-    {
-        _nIdPluginFeature = nId;
     }
 
     /**
@@ -188,24 +180,6 @@ public class Feature
         _strPluginFeatureDescription = strPluginFeatureDescription;
     }
 
-    /**
-     * Adds a business class to the plugin feature
-     * @param businessClass The business class
-     */
-    public void addBusinessClass( BusinessClass businessClass )
-    {
-        _listBusinessClasses.add( businessClass );
-    }
-
-    /**
-     *  Fetches the list of business classes
-     * @return The collection of business class attached to the feature
-     */
-    public Collection<BusinessClass> getBusinessClasses(  )
-    {
-        return _listBusinessClasses;
-    }
-    
     /**
      * Returns the JspName
      * @return The JspName

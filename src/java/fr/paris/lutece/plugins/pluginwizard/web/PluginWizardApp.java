@@ -524,9 +524,10 @@ public class PluginWizardApp implements XPageApplication
             String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
 
             int nIdPlugin = ModelHome.exists( strPluginName );
-            if ( nIdPlugin != -1 )
+            if ( nIdPlugin == -1 )
             {
-                doCreatePlugin( request, plugin );
+                // The plugin doesn't exists
+                doCreatePlugin( request, strPluginName );
                 page.setContent( getCreatePluginDescription( request , nIdPlugin ) );
             }
             else
@@ -546,9 +547,9 @@ public class PluginWizardApp implements XPageApplication
             if ( strReset != null )
             {
                 doRemoveAllPluginRelated( request, plugin );
-                doCreatePlugin( request, plugin );
-
                 String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
+                doCreatePlugin( request, strPluginName );
+
                 int nPluginId = ModelHome.exists(strPluginName);
                 strContent = getCreatePluginDescription( request , nPluginId );
             }
@@ -791,7 +792,7 @@ public class PluginWizardApp implements XPageApplication
         PluginModel pm = ModelService.getPluginModel(nPluginId);
         model.put( MARK_PLUGIN_MODEL, pm );
         model.put( MARK_BUSINESS_CLASS, bClass );
-        model.put( MARK_ADMIN_FEATURES_COMBO, pm.getFeatures() );
+        model.put( MARK_ADMIN_FEATURES_COMBO, ModelService.getComboFeatures(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_BUSINESS_CLASS, request.getLocale(  ),
                 model );
@@ -830,22 +831,14 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doCreatePlugin( HttpServletRequest request, Plugin plugin )
+    private void doCreatePlugin( HttpServletRequest request, String strPluginName )
         throws SiteMessageException
     {
-        //Confirm for deletion of plugin if exists
-        String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-/*
-        if ( !PluginModelHome.pluginExists( strPluginName, plugin ) )
-        {
             verifyField( request, strPluginName, PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME,
                 PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME_MESSAGE );
+            
+            ModelService.createModel( strPluginName );
 
-            PluginModel pluginModel = new PluginModel(  );
-            pluginModel.setPluginName( strPluginName );
-            PluginModelHome.create( pluginModel, plugin );
-        }
-    */
     }
 
     /**
@@ -1181,7 +1174,7 @@ public class PluginWizardApp implements XPageApplication
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId) );
-        model.put( MARK_ADMIN_FEATURES_COMBO, listFeatures );
+        model.put( MARK_ADMIN_FEATURES_COMBO, ModelService.getComboFeatures(nPluginId) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_BUSINESS_CLASS, request.getLocale(  ),
                 model );

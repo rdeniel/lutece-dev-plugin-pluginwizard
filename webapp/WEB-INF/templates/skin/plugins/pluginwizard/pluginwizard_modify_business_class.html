@@ -19,7 +19,7 @@
                 <input type="hidden" name="page" value="pluginwizard" />        
                 <input type="hidden" name="action" value="do_modify_class" />        
                 <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />
-                <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>                                                              
+                <input type="hidden" name="business_class_id" value="${business_class.id}"/>                                                              
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
                     <div class="controls">    
@@ -56,7 +56,7 @@
               action="jsp/site/Portal.jsp"><input
                 type="hidden" name="page" value="pluginwizard" />
             <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" /> 
-            <input type="hidden" name="business_class_id" value="${business_class.idBusinessClass}"/>   
+            <input type="hidden" name="business_class_id" value="${business_class.id}"/>   
 
             <button type="submit" name="goToCreateAttribute" class="btn btn-primary">
                 <i class="icon-plus icon-white"></i>
@@ -92,12 +92,12 @@
                     </td>
 
                     <td>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.id}&business_class_id=${business_class.id}"   
                            class="btn btn-primary btn-small"
                            title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}" >
                             <i class="icon-edit icon-white"></i>
                         </a>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.idAttribute}&business_class_id=${business_class.idBusinessClass}"   
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_attribute&plugin_id=${plugin_model.idPlugin}&attribute_id=${attribute.id}&business_class_id=${business_class.id}"   
                            class="btn btn-danger btn-small"
                            title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}" >
                             <i class="icon-trash icon-white"></i>

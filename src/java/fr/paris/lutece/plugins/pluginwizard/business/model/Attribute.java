@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  * This is the business class for the object Attribute
@@ -46,7 +48,6 @@ public class Attribute
     private boolean _bIsPrimary;
     private boolean _bIsDescription;
     private String _strAttributeName;
-    private String _strAttributeType;
     private String _strJavaType;
 
     /**
@@ -62,7 +63,7 @@ public class Attribute
     * Sets the IdAttribute
     * @param nIdAttribute The IdAttribute
     */
-    public void setIdAttribute( int nIdAttribute )
+    public void setId( int nIdAttribute )
     {
         _nIdAttribute = nIdAttribute;
     }
@@ -122,24 +123,6 @@ public class Attribute
     }
 
     /**
-    * Returns the AttributeName
-    * @return The AttributeName
-    */
-    public String getAttributeType(  )
-    {
-        return _strAttributeType;
-    }
-
-    /**
-     * Sets the AttributeType
-     * @param strAttributeType The AttributeType
-     */
-    public void setAttributeType( String strAttributeType )
-    {
-        _strAttributeType = strAttributeType;
-    }
-
-    /**
     * Returns the IdAttribute
     * @return The IdAttribute
     */
@@ -189,27 +172,29 @@ public class Attribute
     * Sets the type of an attribute
     * @param strAttributeTypeName The attribute type name
     */
-    void setType( String strAttributeTypeName )
+    public void setType( String strAttributeTypeName )
     {
         _strJavaType = strAttributeTypeName;
-    }
-
-    /**
-     * Returns the VariableName
-     * @return  _strVariableName The VariableName
-     */
-    public String getVariableName(  )
-    {
-        return getPrefix( _strJavaType ) + getProperName( _strAttributeName );
     }
 
     /**
     * Returns the Name
     * @return The Name
     */
+    @JsonIgnore
     public String getName(  )
     {
         return getProperName( _strAttributeName );
+    }
+
+    /**
+     * Returns the VariableName
+     * @return  _strVariableName The VariableName
+     */
+    @JsonIgnore
+    public String getVariableName(  )
+    {
+        return getPrefix( _strJavaType ) + getProperName( _strAttributeName );
     }
 
     /**
@@ -237,7 +222,7 @@ public class Attribute
         return "";
     }
 
-    /**
+   /**
     * Returns the Proper Name
     * @param strSource the source
     * @return source name

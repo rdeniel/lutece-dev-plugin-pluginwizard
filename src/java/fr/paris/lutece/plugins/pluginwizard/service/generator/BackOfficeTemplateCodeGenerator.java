@@ -78,14 +78,12 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                businessClass.setPluginName( pm.getPluginName(  ) );
-
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
                     String strSuffix = ( i == 2 )?  "s.html" :  ".html";
                     String strPath = strBasePath + _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix;
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1 );
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1 , pm.getPluginName(  ));
                     map.put( strPath, strSourceCode );
                 }
             }
@@ -110,11 +108,11 @@ public class BackOfficeTemplateCodeGenerator implements Generator
      * @return The html code of the create template
      */
     private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, BusinessClass businessClass,
-        int nTemplateType )
+        int nTemplateType, String strPluginName  )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_PLUGIN_NAME, businessClass.getBusinessPluginName(  ) );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
         model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
         model.put( MARK_MACRO, "@" );
