@@ -1,4 +1,5 @@
 /*
+/*
  * Copyright (c) 2002-2013, Mairie de Paris
  * All rights reserved.
  *
@@ -42,18 +43,18 @@ import org.junit.Test;
  *
  * @author pierre
  */
-public class PomGeneratorTest extends LuteceTestCase
+public class AdminTemplateGeneratorTest extends LuteceTestCase
 {
- 
+    
     /**
-     * Test of generate method, of class PomGenerator.
+     * Test of generate method, of class AdminTemplateGenerator.
      */
     @Test
     public void testGenerate()
     {
-        System.out.println("generate POM file");
+        System.out.println("generate AdminTemplateGenerator");
         PluginModel pm = GeneratorUtils.getTestModel();
-        PomGenerator instance = new PomGenerator();
+        AdminTemplateGenerator instance = new AdminTemplateGenerator();
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

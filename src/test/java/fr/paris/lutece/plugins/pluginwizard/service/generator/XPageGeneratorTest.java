@@ -42,18 +42,18 @@ import org.junit.Test;
  *
  * @author pierre
  */
-public class PomGeneratorTest extends LuteceTestCase
+public class XPageGeneratorTest extends LuteceTestCase
 {
  
     /**
-     * Test of generate method, of class PomGenerator.
+     * Test of generate method, of class XPageGenerator.
      */
     @Test
     public void testGenerate()
     {
-        System.out.println("generate POM file");
+        System.out.println("generate XPage files");
         PluginModel pm = GeneratorUtils.getTestModel();
-        PomGenerator instance = new PomGenerator();
+        XPageGenerator instance = new XPageGenerator();
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

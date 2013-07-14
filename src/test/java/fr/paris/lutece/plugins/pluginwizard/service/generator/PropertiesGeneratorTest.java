@@ -42,18 +42,18 @@ import org.junit.Test;
  *
  * @author pierre
  */
-public class PomGeneratorTest extends LuteceTestCase
+public class PropertiesGeneratorTest extends LuteceTestCase
 {
  
     /**
-     * Test of generate method, of class PomGenerator.
+     * Test of generate method, of class PropertiesGenerator.
      */
     @Test
     public void testGenerate()
     {
-        System.out.println("generate POM file");
+        System.out.println("generate Properties file");
         PluginModel pm = GeneratorUtils.getTestModel();
-        PomGenerator instance = new PomGenerator();
+        PropertiesGenerator instance = new PropertiesGenerator();
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

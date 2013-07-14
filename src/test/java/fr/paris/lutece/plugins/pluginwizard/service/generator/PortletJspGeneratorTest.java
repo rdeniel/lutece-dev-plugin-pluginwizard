@@ -42,18 +42,18 @@ import org.junit.Test;
  *
  * @author pierre
  */
-public class PomGeneratorTest extends LuteceTestCase
+public class PortletJspGeneratorTest extends LuteceTestCase
 {
  
     /**
-     * Test of generate method, of class PomGenerator.
+     * Test of generate method, of class PortletJspGenerator.
      */
     @Test
     public void testGenerate()
     {
-        System.out.println("generate POM file");
+        System.out.println("generate PortletJsp file");
         PluginModel pm = GeneratorUtils.getTestModel();
-        PomGenerator instance = new PomGenerator();
+        PortletJspGenerator instance = new PortletJspGenerator();
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }
