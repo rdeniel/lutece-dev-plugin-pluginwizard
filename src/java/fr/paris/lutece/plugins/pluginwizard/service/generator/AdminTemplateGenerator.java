@@ -52,7 +52,7 @@ import java.util.Map;
  * Generates Html files used as template to construct back office UI
  *
  */
-public class BackOfficeTemplateCodeGenerator implements Generator
+public class AdminTemplateGenerator implements Generator
 {
     private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
     private static final String TEMPLATE_HTML_TABS_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_tabs_file.html";
@@ -74,7 +74,7 @@ public class BackOfficeTemplateCodeGenerator implements Generator
 
         for ( Feature feature : listFeatures )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm.getIdPlugin() , feature.getId() );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm , feature.getId() );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {

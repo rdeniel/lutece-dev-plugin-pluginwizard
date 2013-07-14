@@ -42,7 +42,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.portal.service.util.AppException;
-import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 import java.util.ArrayList;
@@ -408,7 +407,7 @@ public class ModelService
     ////////////////////////////////////////////////////////////////////////////
     // BUSINESS CLASSES
     /**
-     * Get a given businessClass
+     * Get a given bc
      *
      * @param nPluginId The plugin's ID
      * @param nBusinessClassId
@@ -422,11 +421,11 @@ public class ModelService
 
     private static BusinessClass getBusinessClass(PluginModel pm, int nBusinessClassId)
     {
-        for (BusinessClass businessClass : pm.getBusinessClasses())
+        for (BusinessClass bc : pm.getBusinessClasses())
         {
-            if (businessClass.getId() == nBusinessClassId)
+            if (bc.getId() == nBusinessClassId)
             {
-                return businessClass;
+                return bc;
             }
         }
         return null;
@@ -434,23 +433,23 @@ public class ModelService
     }
 
     /**
-     * Add an businessClass to the model
+     * Add an bc to the model
      *
      * @param nPluginId The plugin's ID
-     * @param businessClass The businessClass
+     * @param bc The bc
      * @return The business class with its ID
      */
-    public static BusinessClass addBusinessClass(int nPluginId, BusinessClass businessClass)
+    public static BusinessClass addBusinessClass(int nPluginId, BusinessClass bc)
     {
         PluginModel pm = getPluginModel(nPluginId);
-        businessClass.setId(getMaxBusinessClassId(pm) + 1);
-        pm.getBusinessClasses().add(businessClass);
+        bc.setId(getMaxBusinessClassId(pm) + 1);
+        pm.getBusinessClasses().add(bc);
         savePluginModel(pm);
-        return businessClass;
+        return bc;
     }
 
     /**
-     * Get The max businessClass ID
+     * Get The max bc ID
      *
      * @param pm The Plugin Model
      * @return The max used ID
@@ -458,11 +457,11 @@ public class ModelService
     private static int getMaxBusinessClassId(PluginModel pm)
     {
         int nMax = 0;
-        for (BusinessClass businessClass : pm.getBusinessClasses())
+        for (BusinessClass bc : pm.getBusinessClasses())
         {
-            if (businessClass.getId() > nMax)
+            if (bc.getId() > nMax)
             {
-                nMax = businessClass.getId();
+                nMax = bc.getId();
             }
         }
         return nMax;
@@ -483,7 +482,7 @@ public class ModelService
             BusinessClass bc = list.get(i);
             if (bc.getId() == businessClass.getId())
             {
-                list.set(i, businessClass);
+                list.set(i, bc);
                 savePluginModel(pm);
                 break;
             }
@@ -491,10 +490,10 @@ public class ModelService
     }
 
     /**
-     * Remove an businessClass
+     * Remove an bc
      *
      * @param nPluginId The plugin's ID
-     * @param nBusinessClassId The businessClass's ID
+     * @param nBusinessClassId The bc's ID
      */
     public static void removeBusinessClass(int nPluginId, int nBusinessClassId)
     {
@@ -557,10 +556,18 @@ public class ModelService
     public static void addAttribute(int nPluginId, int nBusinessClassId, Attribute attribute)
     {
         PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass businessClass = getBusinessClass(pm, nBusinessClassId);
-        List<Attribute> listAttributes = businessClass.getAttributes();
+        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
+        List<Attribute> listAttributes = bc.getAttributes();
         attribute.setId(getMaxAttributeId(listAttributes) + 1);
         attribute.setType(getAttributeType(attribute.getAttributeTypeId()));
+        if (attribute.getIsPrimary())
+        {
+            bc.setPrimaryKey(attribute.getAttributeName());
+        }
+        if (attribute.getIsDescription())
+        {
+            bc.setClassDescription(attribute.getAttributeName());
+        }
         listAttributes.add(attribute);
         savePluginModel(pm);
     }
@@ -594,7 +601,7 @@ public class ModelService
     public static void updateAttribute(int nPluginId, int nBusinessClassId, Attribute attribute)
     {
         PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass( pm, nBusinessClassId);
+        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
         List<Attribute> list = bc.getAttributes();
         for (int i = 0; i < list.size(); i++)
         {
@@ -602,6 +609,14 @@ public class ModelService
             if (attr.getId() == attribute.getId())
             {
                 list.set(i, attribute);
+                if (attribute.getIsPrimary())
+                {
+                    bc.setPrimaryKey(attribute.getAttributeName());
+                }
+                if (attribute.getIsDescription())
+                {
+                    bc.setClassDescription(attribute.getAttributeName());
+                }
                 savePluginModel(pm);
                 break;
             }
@@ -618,7 +633,7 @@ public class ModelService
     public static void removeAttribute(int nPluginId, int nBusinessClassId, int nAttributeId)
     {
         PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass( pm, nBusinessClassId);
+        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
         List<Attribute> list = bc.getAttributes();
         for (int i = 0; i < list.size(); i++)
         {
@@ -632,10 +647,10 @@ public class ModelService
         }
     }
 
-    public static List<BusinessClass> getBusinessClassesByFeature(int nPluginId, int nFeatureId)
+    public static List<BusinessClass> getBusinessClassesByFeature(PluginModel pm, int nFeatureId)
     {
         List<BusinessClass> list = new ArrayList<BusinessClass>();
-        List<BusinessClass> listAll = getPluginModel(nPluginId).getBusinessClasses();
+        List<BusinessClass> listAll = pm.getBusinessClasses();
         for (BusinessClass bc : listAll)
         {
             if (bc.getIdFeature() == nFeatureId)

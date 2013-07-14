@@ -52,7 +52,7 @@ import java.util.Map;
 /**
  * Multi Jsp Bean Generator
  */
-public class MultiJspBeanGenerator implements Generator
+public class AdminJspBeanGenerator implements Generator
 {
 
     private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html";
@@ -78,7 +78,7 @@ public class MultiJspBeanGenerator implements Generator
 
         for (Feature feature : pm.getFeatures())
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm.getIdPlugin(), feature.getId() );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId() );
             System.out.println( "######################## Nombre classes métier : " + listBusinessClasses.size() ) ;
 
             for (BusinessClass business : listBusinessClasses)

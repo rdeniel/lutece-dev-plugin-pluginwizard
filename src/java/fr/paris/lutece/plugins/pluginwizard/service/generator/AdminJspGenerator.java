@@ -52,7 +52,7 @@ import java.util.Map;
  * The generator produced the jsp for back office management
  *
  */
-public class BackOfficeJspGenerator implements Generator
+public class AdminJspGenerator implements Generator
 {
     private static final String TEMPLATE_JSP_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_business_files.html";
     private static final String TEMPLATE_JSP_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_feature_file.html";
@@ -73,7 +73,7 @@ public class BackOfficeJspGenerator implements Generator
 
         for ( Feature feature : pm.getFeatures(  ) )
         {
-            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm.getIdPlugin() , feature.getId(  ) );
+            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm , feature.getId(  ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {

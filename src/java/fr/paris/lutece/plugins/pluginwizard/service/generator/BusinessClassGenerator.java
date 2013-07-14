@@ -47,7 +47,7 @@ import java.util.Map;
  * The business classes representing the business layer of the plugin is generated
  *
  */
-public class BusinessClassCodeGenerator implements Generator
+public class BusinessClassGenerator implements Generator
 {
     private static final String PROPERTY_GENERATOR = "pluginwizard.generator";
 

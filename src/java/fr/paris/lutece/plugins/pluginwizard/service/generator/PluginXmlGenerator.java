@@ -86,7 +86,7 @@ public class PluginXmlGenerator implements Generator
 
         for( Feature feature : pm.getFeatures() )
         {
-            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm.getIdPlugin(), feature.getId() );
+            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm , feature.getId() );
             if( ( listBusiness != null ) && (listBusiness.size() > 0 ))
             {
                 BusinessClass businessClass = listBusiness.get( 0 );

@@ -68,7 +68,7 @@ public class ${plugin_application.applicationClass} implements XPageApplication
 
         page.setTitle( AppPropertiesService.getProperty( PROPERTY_PAGE_TITLE ) );
         page.setPathLabel( AppPropertiesService.getProperty( PROPERTY_PAGE_PATH ) );
-        page.setContent( " ${plugin_model.nameJspBeanPrefix} has been installed and this is the ${plugin_application.applicationName} XPage"  );
+        page.setContent( " The plugin ${plugin_model.pluginName} has been installed and this is the ${plugin_application.applicationName} XPage"  );
         
         return page;
     }

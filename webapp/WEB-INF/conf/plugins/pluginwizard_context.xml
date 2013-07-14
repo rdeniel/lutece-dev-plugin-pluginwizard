@@ -24,15 +24,15 @@
     <bean id="pluginwizard.generator.pluginXml" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PluginXmlGenerator" />
     <bean id="pluginwizard.generator.context" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SpringContextXmlGenerator" />
     <bean id="pluginwizard.generator.properties" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PropertiesGenerator" />
-    <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesCodeGenerator" />
+    <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" />
     <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" />
     
     <!-- Admin features generators -->
-    <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassCodeGenerator" />
-    <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BackOfficeJspGenerator" />
-    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BackOfficeTemplateCodeGenerator" />
+    <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" />
+    <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspGenerator" />
+    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" />
 
-    <bean id="pluginwizard.generator.admin.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.MultiJspBeanGenerator" >
+    <bean id="pluginwizard.generator.admin.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
         <property name="template"><value>/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</value></property>
     </bean>
     
@@ -42,7 +42,7 @@
     <!-- Portlet -->
     <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" />
     <bean id="pluginwizard.generator.portlet.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspBeanGenerator" />
-    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspFilesGenerator" />
+    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator" />
     <bean id="pluginwizard.generator.portlet.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletTemplateGenerator" />
     <bean id="pluginwizard.generator.portlet.xsl" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletXslGenerator" />
 

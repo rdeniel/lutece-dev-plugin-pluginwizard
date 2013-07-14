@@ -49,7 +49,7 @@ import java.util.Map;
  * Class generated the jsp files needed to manage portlets
  *
  */
-public class PortletJspFilesGenerator implements Generator
+public class PortletJspGenerator implements Generator
 {
     private static final String TEMPLATE_PORTLET_JSP_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jsp_files.html";
     private static final String EXT_JSP = ".jsp";

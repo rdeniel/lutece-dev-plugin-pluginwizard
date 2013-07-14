@@ -51,7 +51,7 @@ import java.util.Map;
  * Class generated needed resource files for i18n implementation
  *
  */
-public class ResourcesCodeGenerator implements Generator
+public class ResourcesGenerator implements Generator
 {
     private static final String TEMPLATE_PROPERTIES_KEYS_GENERATED = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys_generated.html";
     private static String[] _languages = { "_en", "_fr" };
