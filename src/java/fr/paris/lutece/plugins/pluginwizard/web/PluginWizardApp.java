@@ -982,7 +982,6 @@ public class PluginWizardApp implements XPageApplication
         String strPluginFeatureName = request.getParameter( PARAM_FEATURE_NAME );
         Feature pluginFeature = new Feature(  );
 
-        pluginFeature.setIdPlugin( nPluginId );
         pluginFeature.setPluginFeatureRight( strPluginFeatureRight );
         pluginFeature.setPluginFeatureTitle( strPluginFeatureTitle );
         pluginFeature.setPluginFeatureDescription( strPluginFeatureDescription );
@@ -1031,7 +1030,6 @@ public class PluginWizardApp implements XPageApplication
 
         Feature feature = new Feature(  );
         feature.setId( nIdPluginFeature );
-        feature.setIdPlugin( nPluginId );
         feature.setPluginFeatureDescription( strPluginFeatureDescription );
         feature.setPluginFeatureRight( strPluginFeatureLabel );
         feature.setPluginFeatureLevel( strPluginFeatureLevel );
@@ -1204,7 +1202,6 @@ public class PluginWizardApp implements XPageApplication
 
         application.setApplicationClass( strApplicationClass );
         application.setApplicationName( strApplicationName );
-        application.setIdPlugin( nPluginId );
         ModelService.addApplication( nPluginId , application );
     }
 
@@ -1313,7 +1310,6 @@ public class PluginWizardApp implements XPageApplication
 
         application.setApplicationClass( strApplicationClass );
         application.setApplicationName( strApplicationName );
-        application.setIdPlugin( nPluginId );
 
         ModelService.updateApplication(nPluginId, application);
     }

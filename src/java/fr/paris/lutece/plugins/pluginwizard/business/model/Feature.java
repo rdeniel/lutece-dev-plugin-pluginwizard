@@ -40,8 +40,7 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 public class Feature
 {
     // Variables declarations 
-    private int _nIdPlugin;
-    private int _nIdPluginFeature;
+    private int _nId;
     private String _strPluginFeatureRight;
     private String _strPluginFeatureTitle;
     private String _strPluginFeatureLevel;
@@ -59,7 +58,7 @@ public class Feature
      */
     public int getId(  )
     {
-        return _nIdPluginFeature;
+        return _nId;
     }
 
     /**
@@ -68,26 +67,9 @@ public class Feature
      */
     public void setId( int nId )
     {
-        _nIdPluginFeature = nId;
+        _nId = nId;
     }
 
-    /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
-     */
-    public int getIdPlugin(  )
-    {
-        return _nIdPlugin;
-    }
-
-    /**
-     * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
-     */
-    public void setIdPlugin( int nIdPlugin )
-    {
-        _nIdPlugin = nIdPlugin;
-    }
 
     /**
      * Returns the PluginFeatureId

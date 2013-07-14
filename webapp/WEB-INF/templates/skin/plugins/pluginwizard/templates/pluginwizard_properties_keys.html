@@ -6,27 +6,27 @@ adminFeature.${feature.pluginFeatureName?lower_case}.name
 adminFeature.${feature.pluginFeatureName?lower_case}.description
 </#list>
 
-manage_${plugin_name?lower_case}s.tableLabel
-manage_${plugin_name?lower_case}s.labelManagement
-manage_${plugin_name?lower_case}s.pageTitle
+manage_${plugin.pluginName?lower_case}s.tableLabel
+manage_${plugin.pluginName?lower_case}s.labelManagement
+manage_${plugin.pluginName?lower_case}s.pageTitle
 <#list plugin.businessClasses as business_class>
 <#if business_class?? > 
-manage_${business_class.businessClassTemplate}s.pageTitle
-manage_${business_class.businessClassTemplate}s.tableLabel
-manage_${business_class.businessClassTemplate}s.labelManagement
-manage_${business_class.businessClassTemplate}s.columnAction
+manage_${business_class.businessClass?lower_case}s.pageTitle
+manage_${business_class.businessClass?lower_case}s.tableLabel
+manage_${business_class.businessClass?lower_case}s.labelManagement
+manage_${business_class.businessClass?lower_case}s.columnAction
 
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
-manage_${business_class.businessClassTemplate}s.column${attribute.attributeName?cap_first}
+manage_${business_class.businessClass?lower_case}s.column${attribute.attributeName?cap_first}
 </#list>
 </#if>
 
-manage_${business_class.businessClassTemplate}s.buttonAdd${business_class.businessClassTemplate?cap_first}
-manage_${business_class.businessClassTemplate}s.actionDelete
-manage_${business_class.businessClassTemplate}s.actionModify
-create_${business_class.businessClassTemplate}.pageTitle
-create_${business_class.businessClassTemplate}.tableLabel
+manage_${business_class.businessClass?lower_case}s.buttonAdd${business_class.businessClass?lower_case?cap_first}
+manage_${business_class.businessClass?lower_case}s.actionDelete
+manage_${business_class.businessClass?lower_case}s.actionModify
+create_${business_class.businessClass?lower_case}.pageTitle
+create_${business_class.businessClass?lower_case}.tableLabel
 
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
@@ -35,17 +35,17 @@ create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeN
 </#if>
 
 create_${business_class.businessClass?lower_case}.buttonValidate
-create_${business_class.businessClassTemplate}.buttonValidate
-modify_${business_class.businessClassTemplate}.pageTitle
-modify_${business_class.businessClassTemplate}.tableLabel
-modify_${business_class.businessClassTemplate}.buttonModify${business_class.businessClassTemplate?cap_first}
+create_${business_class.businessClass?lower_case}.buttonValidate
+modify_${business_class.businessClass?lower_case}.pageTitle
+modify_${business_class.businessClass?lower_case}.tableLabel
+modify_${business_class.businessClass?lower_case}.buttonModify${business_class.businessClass?lower_case?cap_first}
 <#if business_class.attributes??>
 <#list business_class.attributes as attribute>
-modify_${business_class.businessClassTemplate}.rowTitle${attribute.attributeName?cap_first}
+modify_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}
 </#list>
 </#if>
-modify_${business_class.businessClassTemplate}.buttonValidate
-message.confirmRemove${business_class.businessClassTemplate?cap_first}
+modify_${business_class.businessClass?lower_case}.buttonValidate
+message.confirmRemove${business_class.businessClass?lower_case?cap_first}
 </#if>    
 </#list>
 <#list plugin.portlets as portlet>

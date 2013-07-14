@@ -40,28 +40,10 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 public class Application
 {
     // Variables declarations 
-    private int _nIdPlugin;
-    private int _nIdPluginApplication;
+    private int _nId;
     private String _strApplicationName;
     private String _strApplicationClass;
 
-    /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
-     */
-    public int getIdPlugin(  )
-    {
-        return _nIdPlugin;
-    }
-
-    /**
-     * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
-     */
-    public void setIdPlugin( int nIdPlugin )
-    {
-        _nIdPlugin = nIdPlugin;
-    }
 
     /**
      * Returns the IdPlugin
@@ -69,16 +51,16 @@ public class Application
      */
     public int getId(  )
     {
-        return _nIdPluginApplication;
+        return _nId;
     }
 
     /**
      * Sets the nIdPluginApplication
-     * @param nIdPluginApplication The IdPluginApplication
+     * @param nId The IdPluginApplication
      */
-    public void setId( int nIdPluginApplication )
+    public void setId( int nId )
     {
-        _nIdPluginApplication = nIdPluginApplication;
+        _nId = nId;
     }
 
     /**
