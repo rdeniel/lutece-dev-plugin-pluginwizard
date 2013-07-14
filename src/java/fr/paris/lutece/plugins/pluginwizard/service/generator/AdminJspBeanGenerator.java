@@ -50,12 +50,10 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Multi Jsp Bean Generator
+ * Admin Jsp Bean Generator
  */
 public class AdminJspBeanGenerator implements Generator
 {
-
-    private static final String TEMPLATE_JSPBEAN_CODE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html";
     private static final String TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_abstract_template.html";
 
     

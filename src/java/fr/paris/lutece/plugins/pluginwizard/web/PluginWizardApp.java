@@ -319,12 +319,12 @@ public class PluginWizardApp implements XPageApplication
         }
         else if ( strAction.equals( ACTION_GET_MODIFY_PLUGIN_DESCRIPTION ) )
         {
-            strContent = getModifyPluginDescription( request, plugin );
+            strContent = getModifyPluginDescription( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_GET_MODIFY_PLUGIN ) )
         {
-            strContent = getModifyPlugin( request, plugin );
+            strContent = getModifyPlugin( request );
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_REMOVE_PLUGIN_APPLICATION ) )
@@ -532,7 +532,7 @@ public class PluginWizardApp implements XPageApplication
             }
             else
             {
-                page.setContent( getPluginExists( request, strPluginName, plugin ) );
+                page.setContent( getPluginExists( request, strPluginName ) );
             }
 
             page.setTitle( I18nService.getLocalizedString( Constants.PROPERTY_PAGE_TITLE_CREATE_PLUGIN_DESCRIPTION,
@@ -546,7 +546,7 @@ public class PluginWizardApp implements XPageApplication
 
             if ( strReset != null )
             {
-                doRemoveAllPluginRelated( request, plugin );
+                doRemoveAllPluginRelated( request );
                 String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
                 doCreatePlugin( request, strPluginName );
 
@@ -555,14 +555,14 @@ public class PluginWizardApp implements XPageApplication
             }
             else
             {
-                strContent = getModifyPluginDescription( request, plugin );
+                strContent = getModifyPluginDescription( request );
             }
 
             page.setContent( strContent );
         }
         else if ( strAction.equals( ACTION_DO_MODIFY_PLUGIN_DESCRIPTION ) )
         {
-            doModifyPlugin( request, plugin );
+            doModifyPlugin( request );
 
             page.setContent( getManageAdminFeatures( request ) );
             page.setTitle( I18nService.getLocalizedString( Constants.PROPERTY_PAGE_TITLE_CREATE_PLUGIN_DESCRIPTION,
@@ -690,7 +690,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The creation form of the plugin description
      */
-    private String getPluginExists( HttpServletRequest request, String strPluginName, Plugin plugin )
+    private String getPluginExists( HttpServletRequest request, String strPluginName )
     {
         int nPluginId = ModelHome.exists( strPluginName );
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -734,7 +734,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    private String getModifyPluginDescription( HttpServletRequest request, Plugin plugin )
+    private String getModifyPluginDescription( HttpServletRequest request )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
@@ -754,7 +754,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
-    private String getModifyPlugin( HttpServletRequest request, Plugin plugin )
+    private String getModifyPlugin( HttpServletRequest request )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
@@ -847,7 +847,7 @@ public class PluginWizardApp implements XPageApplication
      * @param request The http request
      * @param plugin The plugin
      */
-    private void doRemoveAllPluginRelated( HttpServletRequest request, Plugin plugin )
+    private void doRemoveAllPluginRelated( HttpServletRequest request )
     {
         String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
         int nPluginId = ModelHome.exists( strPluginName );
@@ -863,7 +863,7 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyPlugin( HttpServletRequest request, Plugin plugin )
+    private void doModifyPlugin( HttpServletRequest request )
         throws SiteMessageException
     {
         int nId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );

@@ -54,6 +54,7 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
         System.out.println("generate AdminJspBean file");
         PluginModel pm = GeneratorUtils.getTestModel();
         AdminJspBeanGenerator instance = new AdminJspBeanGenerator();
+        instance.setTemplate( "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html" );
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }
