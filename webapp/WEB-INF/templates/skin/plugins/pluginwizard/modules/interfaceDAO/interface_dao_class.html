@@ -34,62 +34,62 @@
  * License 1.0
  */
  </font>
-<font class="keyword">package</font> ${businessClass.packageName};
+<font class="keyword">package</font> fr.paris.lutece.plugins.${plugin_name}.business;
 
 <font class="keyword">import</font> java.util.Collection;
 
 <font class="comment">
  /**
- * I${businessClass.businessClass}DAO Interface
+ * I${business_class.businessClass}DAO Interface
  */
 </font>
-<font class="modify">public interface </font>I${businessClass.businessClass}DAO
+<font class="modify">public interface </font>I${business_class.businessClass}DAO
 {
 
 <font class="comment">
     /**
      * Insert a new record in the table.
-     * @param ${businessClass.instanceName} instance of the ${businessClass.businessClass} object to inssert
+     * @param ${business_class.instanceName} instance of the ${business_class.businessClass} object to inssert
      */
 </font>
-    <font class="modify">void</font> insert( ${businessClass.businessClass} ${businessClass.instanceName} );
+    <font class="modify">void</font> insert( ${business_class.businessClass} ${business_class.instanceName} );
 
 
 <font class="comment">
      /**
      * Update the record in the table
-     * @param ${businessClass.instanceName} the reference of the ${businessClass.businessClass}
+     * @param ${business_class.instanceName} the reference of the ${business_class.businessClass}
      */
 </font>
-    <font class="modify">void</font> store( ${businessClass.businessClass} ${businessClass.instanceName} );
+    <font class="modify">void</font> store( ${business_class.businessClass} ${business_class.instanceName} );
 
 <font class="comment">
     /**
      * Delete a record from the table
-     * @param nId${businessClass.businessClass} int identifier of the ${businessClass.businessClass} to delete
+     * @param nId${business_class.businessClass} int identifier of the ${business_class.businessClass} to delete
      */
 </font>
-    <font class="modify">void</font> delete( int nId${businessClass.businessClass} );
+    <font class="modify">void</font> delete( int nId${business_class.businessClass} );
 <font class="comment">
     ///////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The identifier of the ${businessClass.instanceName}
-     * @return The instance of the ${businessClass.instanceName}
+     * @param nKey The identifier of the ${business_class.instanceName}
+     * @return The instance of the ${business_class.instanceName}
      */
 </font>
-    <font class="modify">${businessClass.businessClass}</font> load( int nKey );
+    <font class="modify">${business_class.businessClass}</font> load( int nKey );
 
 
 <font class="comment">
      /**
-     * Load the data of all the ${businessClass.instanceName} objects and returns them as a collection
-     * @return the collection which contains the data of all the ${businessClass.instanceName} objects
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a collection
+     * @return the collection which contains the data of all the ${business_class.instanceName} objects
      */
 </font>
-    <font class="modify">Collection&lt;${businessClass.businessClass}&gt;</font> select${businessClass.businessClass}sList();
+    <font class="modify">Collection&lt;${business_class.businessClass}&gt;</font> select${business_class.businessClass}sList();
     
 }
 </pre>

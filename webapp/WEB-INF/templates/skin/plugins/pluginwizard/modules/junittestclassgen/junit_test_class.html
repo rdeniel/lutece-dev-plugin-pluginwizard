@@ -34,15 +34,15 @@
  * License 1.0
  */
 </font>
-<font class="keyword">package</font> ${businessClass.packageName};
+<font class="keyword">package</font> fr.paris.lutece.plugins.${plugin_name}.business;
 
 <font class="keyword">import</font> fr.paris.lutece.test.LuteceTestCase;
-<font class="keyword">import</font> fr.paris.lutece.portal.${businessClass.pluginName}.business.${businessClass.className};
-<font class="keyword">import</font> fr.paris.lutece.portal.${businessClass.pluginName}.business.${businessClass.className}Home;
+<font class="keyword">import</font> fr.paris.lutece.portal.${business_class.pluginName}.business.${business_class.className};
+<font class="keyword">import</font> fr.paris.lutece.portal.${business_class.pluginName}.business.${business_class.className}Home;
 
-<font class="modify">public class</font> ${businessClass.className}Test <font class="keyword">extends</font> LuteceTestCase
+<font class="modify">public class</font> ${business_class.className}Test <font class="keyword">extends</font> LuteceTestCase
 {
-<#list businessClass.listAttributes as attribute>
+<#list business_class.listAttributes as attribute>
 <#if attribute.type = "String"> 
     <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
     <font class="modify">private final static</font> ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
@@ -55,35 +55,35 @@
     <font class="modify">public void</font> testBusiness(  )
     {
         <font class="comment">// Initialize an object</font>
-        ${businessClass.className} ${businessClass.instanceName} = new ${businessClass.className}();
-        <#list businessClass.listAttributes as attribute>
-        ${businessClass.instanceName}.set${attribute.name}( ${attribute.name?upper_case}1 );
+        ${business_class.className} ${business_class.instanceName} = new ${business_class.className}();
+        <#list business_class.listAttributes as attribute>
+        ${business_class.instanceName}.set${attribute.name}( ${attribute.name?upper_case}1 );
         </#list>
 
         <font class="comment">// Create test</font>
-        ${businessClass.className}Home.create( ${businessClass.instanceName} );
-        ${businessClass.className} ${businessClass.instanceName}Stored = ${businessClass.className}Home.findByPrimaryKey( ${businessClass.instanceName}.getId() );
-        <#list businessClass.listAttributes as attribute>
-        assertEquals( ${businessClass.instanceName}Stored.get${attribute.name}() , ${businessClass.instanceName}.get${attribute.name}() );
+        ${business_class.className}Home.create( ${business_class.instanceName} );
+        ${business_class.className} ${business_class.instanceName}Stored = ${business_class.className}Home.findByPrimaryKey( ${business_class.instanceName}.getId() );
+        <#list business_class.listAttributes as attribute>
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}() );
         </#list>
 
         <font class="comment">// Update test</font>
-        <#list businessClass.listAttributes as attribute>
-        ${businessClass.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
+        <#list business_class.listAttributes as attribute>
+        ${business_class.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
         </#list>
-        ${businessClass.className}Home.update( ${businessClass.instanceName} );
-        ${businessClass.instanceName}Stored = ${businessClass.className}Home.findByPrimaryKey( ${businessClass.instanceName}.getId() );
-        <#list businessClass.listAttributes as attribute>
-        assertEquals( ${businessClass.instanceName}Stored.get${attribute.name}() , ${businessClass.instanceName}.get${attribute.name}() );
+        ${business_class.className}Home.update( ${business_class.instanceName} );
+        ${business_class.instanceName}Stored = ${business_class.className}Home.findByPrimaryKey( ${business_class.instanceName}.getId() );
+        <#list business_class.listAttributes as attribute>
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}() );
         </#list>
 
         <font class="comment">// List test</font>
-        ${businessClass.className}Home.findAll();
+        ${business_class.className}Home.findAll();
         
         <font class="comment">// Delete test</font>
-        ${businessClass.className}Home.remove( ${businessClass.instanceName}.getId() );
-        ${businessClass.instanceName}Stored = ${businessClass.className}Home.findByPrimaryKey( ${businessClass.instanceName}.getId() );
-        assertNull( ${businessClass.instanceName}Stored );
+        ${business_class.className}Home.remove( ${business_class.instanceName}.getId() );
+        ${business_class.instanceName}Stored = ${business_class.className}Home.findByPrimaryKey( ${business_class.instanceName}.getId() );
+        assertNull( ${business_class.instanceName}Stored );
         
     }
 

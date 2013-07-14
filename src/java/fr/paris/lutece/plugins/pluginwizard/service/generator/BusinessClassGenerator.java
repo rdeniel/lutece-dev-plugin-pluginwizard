@@ -35,10 +35,14 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.util.html.HtmlTemplate;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -81,7 +85,7 @@ public class BusinessClassGenerator implements Generator
                         strPath = strPath.replace( "src", "src/test" );
                     }
 
-                    String strSourceCode = getSourceCode( businessClass, i );
+                    String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, i );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
                     map.put( strPath, strSourceCode );
@@ -144,12 +148,15 @@ public class BusinessClassGenerator implements Generator
      * @param nGenerationType The type of generation(DAO,Home,etc)
      * @return The java source code of the business object
      */
-    private String getSourceCode( BusinessClass businessClass, int nGenerationType )
+    private String getSourceCode( String strPluginName, BusinessClass businessClass, int nGenerationType )
     {
-        fr.paris.lutece.plugins.pluginwizard.service.Generator generator = new fr.paris.lutece.plugins.pluginwizard.service.Generator(  );
-        generator.setTemplate( getTemplate( nGenerationType ) );
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_BUSINESS_CLASS, businessClass );
+        model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        return generator.generate( businessClass );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( nGenerationType ), new Locale( "en", "US" ), model );
+
+        return template.getHtml(  );
     }
 
     /**

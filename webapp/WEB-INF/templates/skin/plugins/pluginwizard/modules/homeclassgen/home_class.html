@@ -34,7 +34,7 @@
  * License 1.0
  */
  </font>
-<font class="keyword">package</font> ${businessClass.packageName};
+<font class="keyword">package</font> fr.paris.lutece.plugins.${plugin_name}.business;
 
 <font class="keyword">import</font> fr.paris.lutece.portal.service.spring.SpringContextService;
 <font class="keyword">import</font> java.util.Collection;
@@ -42,61 +42,61 @@
 
 <font class="comment">
 /**
- * This class provides instances management methods (create, find, ...) for ${businessClass.businessClass} objects
+ * This class provides instances management methods (create, find, ...) for ${business_class.businessClass} objects
  */
 </font>
-<font class="modify">public final class </font>${businessClass.businessClass}Home
+<font class="modify">public final class </font>${business_class.businessClass}Home
 {
 <font class="comment">
     // Static variable pointed at the DAO instance</font>
-    <font class="modify">private static </font>I${businessClass.businessClass}DAO _dao = ( I${businessClass.businessClass}DAO ) SpringContextService.getBean( "${businessClass.instanceName}DAO" );
+    <font class="modify">private static </font>I${business_class.businessClass}DAO _dao = ( I${business_class.businessClass}DAO ) SpringContextService.getBean( "${business_class.instanceName}DAO" );
 
 <font class="comment">
     /**
      * Private constructor - this class need not be instantiated
      */
 </font>
-    <font class="modify">private</font> ${businessClass.businessClass}Home(  )
+    <font class="modify">private</font> ${business_class.businessClass}Home(  )
     {
     }
 <font class="comment">
     /**
-     * Create an instance of the ${businessClass.instanceName} class
-     * @param ${businessClass.instanceName} The instance of the ${businessClass.businessClass} which contains the informations to store
-     * @return The  instance of ${businessClass.instanceName} which has been created with its primary key.
+     * Create an instance of the ${business_class.instanceName} class
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the informations to store
+     * @return The  instance of ${business_class.instanceName} which has been created with its primary key.
      */
 </font>
-    <font class="modify">public static</font> ${businessClass.businessClass} create( ${businessClass.businessClass} ${businessClass.instanceName} )
+    <font class="modify">public static</font> ${business_class.businessClass} create( ${business_class.businessClass} ${business_class.instanceName} )
     {
-        _dao.insert( ${businessClass.instanceName} );
+        _dao.insert( ${business_class.instanceName} );
 
-        <font class="keyword">return</font> ${businessClass.instanceName};
+        <font class="keyword">return</font> ${business_class.instanceName};
     }
 
 <font class="comment">
     /**
-     * Update of the ${businessClass.instanceName} data specified in parameter
-     * @param ${businessClass.instanceName} The instance of the ${businessClass.businessClass} which contains the data to store
-     * @return The instance of the  ${businessClass.instanceName} which has been updated
+     * Update of the ${business_class.instanceName} data specified in parameter
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the data to store
+     * @return The instance of the  ${business_class.instanceName} which has been updated
      */
 </font>
-    <font class="modify">public static</font> ${businessClass.businessClass} update( ${businessClass.businessClass} ${businessClass.instanceName} )
+    <font class="modify">public static</font> ${business_class.businessClass} update( ${business_class.businessClass} ${business_class.instanceName} )
     {
-        _dao.store( ${businessClass.instanceName} );
+        _dao.store( ${business_class.instanceName} );
 
-        <font class="keyword">return</font> ${businessClass.instanceName};
+        <font class="keyword">return</font> ${business_class.instanceName};
     }
 
 <font class="comment">
     /**
-     * Remove the ${businessClass.instanceName} whose identifier is specified in parameter
-     * @param n${businessClass.businessClass}Id The ${businessClass.instanceName} Id
+     * Remove the ${business_class.instanceName} whose identifier is specified in parameter
+     * @param n${business_class.businessClass}Id The ${business_class.instanceName} Id
      */
 </font>
 
-    <font class="modify">public static void</font> remove( int n${businessClass.businessClass}Id )
+    <font class="modify">public static void</font> remove( int n${business_class.businessClass}Id )
     {
-        _dao.delete( n${businessClass.businessClass}Id );
+        _dao.delete( n${business_class.businessClass}Id );
     }
 
 <font class="comment">
@@ -104,25 +104,25 @@
     // Finders
 
     /**
-     * Returns an instance of a ${businessClass.instanceName} whose identifier is specified in parameter
-     * @param nKey The ${businessClass.instanceName} primary key
-     * @return an instance of ${businessClass.businessClass}
+     * Returns an instance of a ${business_class.instanceName} whose identifier is specified in parameter
+     * @param nKey The ${business_class.instanceName} primary key
+     * @return an instance of ${business_class.businessClass}
      */
 </font>
-    <font class="modify">public static</font> ${businessClass.businessClass} findByPrimaryKey( int nKey )
+    <font class="modify">public static</font> ${business_class.businessClass} findByPrimaryKey( int nKey )
     {
         <font class="keyword">return</font> _dao.load( nKey );
     }
 
 <font class="comment">
     /**
-     * Load the data of all the ${businessClass.instanceName} objects and returns them in form of a collection
-     * @return the collection which contains the data of all the ${businessClass.instanceName} objects
+     * Load the data of all the ${business_class.instanceName} objects and returns them in form of a collection
+     * @return the collection which contains the data of all the ${business_class.instanceName} objects
      */
 </font>
-    <font class="modify">public static</font> Collection&lt;${businessClass.businessClass}&gt; findAll()
+    <font class="modify">public static</font> Collection&lt;${business_class.businessClass}&gt; findAll()
     {
-        <font class="keyword">return</font> _dao.select${businessClass.businessClass}sList();
+        <font class="keyword">return</font> _dao.select${business_class.businessClass}sList();
     }
 
 }

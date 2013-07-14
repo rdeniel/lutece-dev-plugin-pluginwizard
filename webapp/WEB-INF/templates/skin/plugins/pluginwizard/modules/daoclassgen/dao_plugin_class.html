@@ -33,7 +33,7 @@
  */
 
 
-package ${businessClass.packageName};
+package fr.paris.lutece.plugins.${plugin_name}.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
@@ -43,20 +43,20 @@ import java.util.Collection;
 
 
 /**
- * This class provides Data Access methods for ${businessClass.businessClass} objects
+ * This class provides Data Access methods for ${business_class.businessClass} objects
  */
 
-public final class ${businessClass.businessClass}DAO implements I${businessClass.businessClass}DAO
+public final class ${business_class.businessClass}DAO implements I${business_class.businessClass}DAO
 {
 	
 	// Constants
 	
-	private static final String SQL_QUERY_NEW_PK = "SELECT max( ${businessClass.primaryKey} ) FROM ${businessClass.businessTableName}";
-	private static final String SQL_QUERY_SELECT = "SELECT <#list businessClass.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> FROM ${businessClass.businessTableName} WHERE ${businessClass.primaryKey} = ?";
-	private static final String SQL_QUERY_INSERT = "INSERT INTO ${businessClass.businessTableName} ( <#list businessClass.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list businessClass.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
-	private static final String SQL_QUERY_DELETE = "DELETE FROM ${businessClass.businessTableName} WHERE ${businessClass.primaryKey} = ? ";
-	private static final String SQL_QUERY_UPDATE = "UPDATE ${businessClass.businessTableName} SET <#list businessClass.attributes as attribute>${attribute.attributeName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${businessClass.primaryKey} = ?";
-	private static final String SQL_QUERY_SELECTALL = "SELECT <#list businessClass.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> FROM ${businessClass.businessTableName}";
+	private static final String SQL_QUERY_NEW_PK = "SELECT max( ${business_class.primaryKey} ) FROM ${business_class.businessTableName}";
+	private static final String SQL_QUERY_SELECT = "SELECT <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> FROM ${business_class.businessTableName} WHERE ${business_class.primaryKey} = ?";
+	private static final String SQL_QUERY_INSERT = "INSERT INTO ${business_class.businessTableName} ( <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> ) VALUES ( <#list business_class.attributes as attribute>?<#if attribute_has_next>, </#if></#list> ) ";
+	private static final String SQL_QUERY_DELETE = "DELETE FROM ${business_class.businessTableName} WHERE ${business_class.primaryKey} = ? ";
+	private static final String SQL_QUERY_UPDATE = "UPDATE ${business_class.businessTableName} SET <#list business_class.attributes as attribute>${attribute.attributeName} = ?<#if attribute_has_next>, </#if></#list> WHERE ${business_class.primaryKey} = ?";
+	private static final String SQL_QUERY_SELECTALL = "SELECT <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list> FROM ${business_class.businessTableName}";
 
 
 	
@@ -90,18 +90,18 @@ public final class ${businessClass.businessClass}DAO implements I${businessClass
 
 	/**
 	 * Insert a new record in the table.
-	 * @param ${businessClass.instanceName} instance of the ${businessClass.businessClass} object to insert
+	 * @param ${business_class.instanceName} instance of the ${business_class.businessClass} object to insert
          * @param plugin The plugin
 	 */
 
-	public void insert( ${businessClass.businessClass} ${businessClass.instanceName}, Plugin plugin )
+	public void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT , plugin );
                 
-		${businessClass.instanceName}.set${businessClass.primaryKeyName?cap_first}( newPrimaryKey( plugin ) );
+		${business_class.instanceName}.set${business_class.primaryKeyName?cap_first}( newPrimaryKey( plugin ) );
                 
-            <#list businessClass.attributes as attribute>
-                daoUtil.set${attribute.type?cap_first} ( ${attribute_index + 1}, ${businessClass.instanceName}.get${attribute.name} ( ) );
+            <#list business_class.attributes as attribute>
+                daoUtil.set${attribute.type?cap_first} ( ${attribute_index + 1}, ${business_class.instanceName}.get${attribute.name} ( ) );
             </#list>
 
 		daoUtil.executeUpdate();
@@ -110,45 +110,45 @@ public final class ${businessClass.businessClass}DAO implements I${businessClass
 
 
 	/**
-	 * Load the data of the ${businessClass.instanceName} from the table
-	 * @param nId The identifier of the ${businessClass.instanceName}
+	 * Load the data of the ${business_class.instanceName} from the table
+	 * @param nId The identifier of the ${business_class.instanceName}
          * @param plugin The plugin
-	 * @return the instance of the ${businessClass.businessClass}
+	 * @return the instance of the ${business_class.businessClass}
 	 */
 
 
-        public ${businessClass.businessClass} load( int nId, Plugin plugin )
+        public ${business_class.businessClass} load( int nId, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT , plugin );
 		daoUtil.setInt( 1 , nId );
 		daoUtil.executeQuery();
 
-		${businessClass.businessClass} ${businessClass.instanceName} = null;
+		${business_class.businessClass} ${business_class.instanceName} = null;
 
 		if ( daoUtil.next() )
 		{
-			${businessClass.instanceName} = new ${businessClass.businessClass}();
+			${business_class.instanceName} = new ${business_class.businessClass}();
 
-                    <#list businessClass.attributes as attribute>
-                        ${businessClass.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}(  ${attribute_index + 1} ) );
+                    <#list business_class.attributes as attribute>
+                        ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}(  ${attribute_index + 1} ) );
                     </#list>
 		}
 
 		daoUtil.free();
-		return ${businessClass.instanceName};
+		return ${business_class.instanceName};
 	}
 
 
 	/**
 	 * Delete a record from the table
-         * @param n${businessClass.businessClass}Id The identifier of the ${businessClass.instanceName}
+         * @param n${business_class.businessClass}Id The identifier of the ${business_class.instanceName}
          * @param plugin The plugin
 	 */
 
-	public void delete( int n${businessClass.businessClass}Id, Plugin plugin )
+	public void delete( int n${business_class.businessClass}Id, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE , plugin );
-		daoUtil.setInt( 1 , n${businessClass.businessClass}Id );
+		daoUtil.setInt( 1 , n${business_class.businessClass}Id );
 		daoUtil.executeUpdate();
 		daoUtil.free();
 	}
@@ -156,19 +156,19 @@ public final class ${businessClass.businessClass}DAO implements I${businessClass
 
 	/**
 	 * Update the record in the table
-	 * @param ${businessClass.instanceName} The reference of the ${businessClass.instanceName}
+	 * @param ${business_class.instanceName} The reference of the ${business_class.instanceName}
          * @param plugin The plugin
 	 */
 
-	public void store( ${businessClass.businessClass} ${businessClass.instanceName}, Plugin plugin )
+	public void store( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE , plugin );
                 
-        <#list businessClass.attributes as attribute>
+        <#list business_class.attributes as attribute>
         <#assign nIndex=attribute_index+1 >
-        daoUtil.set${attribute.type?cap_first}( ${nIndex}, ${businessClass.instanceName}.get${attribute.name}( ) );
+        daoUtil.set${attribute.type?cap_first}( ${nIndex}, ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
-        daoUtil.setInt( ${nIndex+1}, ${businessClass.instanceName}.get${businessClass.primaryKeyName?cap_first}( ) );
+        daoUtil.setInt( ${nIndex+1}, ${business_class.instanceName}.get${business_class.primaryKeyName?cap_first}( ) );
                 
 		daoUtil.executeUpdate( );
 		daoUtil.free( );
@@ -177,30 +177,30 @@ public final class ${businessClass.businessClass}DAO implements I${businessClass
 
 
 	/**
-	 * Load the data of all the ${businessClass.instanceName}s and returns them as a collection
+	 * Load the data of all the ${business_class.instanceName}s and returns them as a collection
          * @param plugin The plugin
-	 * @return The Collection which contains the data of all the ${businessClass.instanceName}s
+	 * @return The Collection which contains the data of all the ${business_class.instanceName}s
 	 */
 
-        public Collection&lt;${businessClass.businessClass}&gt; select${businessClass.businessClass}sList( Plugin plugin )
+        public Collection&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin )
 	{
-		Collection&lt;${businessClass.businessClass}&gt; ${businessClass.instanceName}List = new ArrayList&lt;${businessClass.businessClass}&gt;(  );
+		Collection&lt;${business_class.businessClass}&gt; ${business_class.instanceName}List = new ArrayList&lt;${business_class.businessClass}&gt;(  );
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL , plugin );
 		daoUtil.executeQuery(  );
 
 		while ( daoUtil.next(  ) )
 		{
-                ${businessClass.businessClass} ${businessClass.instanceName} = new ${businessClass.businessClass}(  );
+                ${business_class.businessClass} ${business_class.instanceName} = new ${business_class.businessClass}(  );
 
-                <#list businessClass.attributes as attribute>
-                    ${businessClass.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
+                <#list business_class.attributes as attribute>
+                    ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+1} ) );
                 </#list>
 
-                ${businessClass.instanceName}List.add( ${businessClass.instanceName} );
+                ${business_class.instanceName}List.add( ${business_class.instanceName} );
 		}
 
 		daoUtil.free();
-		return ${businessClass.instanceName}List;
+		return ${business_class.instanceName}List;
 	}
 
 }

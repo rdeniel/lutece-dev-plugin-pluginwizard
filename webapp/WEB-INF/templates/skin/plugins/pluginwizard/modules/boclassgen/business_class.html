@@ -32,19 +32,19 @@
  *
  * License 1.0
  */ 
-package ${businessClass.packageName};
+package fr.paris.lutece.plugins.${plugin_name}.business;
 
 /**
- * This is the business class for the object ${businessClass.businessClass}
+ * This is the business class for the object ${business_class.businessClass}
  */ 
-public class ${businessClass.businessClass}
+public class ${business_class.businessClass}
 {
 	// Variables declarations 
-	<#list businessClass.attributes as attribute>
+	<#list business_class.attributes as attribute>
 	private ${attribute.type} _${attribute.variableName};
 	</#list>
-  <#if businessClass.attributes??>
-	<#list businessClass.attributes as attribute>
+  <#if business_class.attributes??>
+	<#list business_class.attributes as attribute>
 	/**
 	 * Returns the ${attribute.name}
 	 * @return The ${attribute.name}
