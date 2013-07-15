@@ -31,8 +31,8 @@
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-lgpl</artifactId>
-            <version>1.7.4</version>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.12</version>
         </dependency>
                 
                 
