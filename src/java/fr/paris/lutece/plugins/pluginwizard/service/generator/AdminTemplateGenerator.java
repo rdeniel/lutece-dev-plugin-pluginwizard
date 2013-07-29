@@ -57,7 +57,9 @@ public class AdminTemplateGenerator implements Generator
     private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
     private static final String TEMPLATE_HTML_TABS_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_tabs_file.html";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
-
+    private String _strTemplate;
+    private String _strTabsTemplate;
+    
     /**
      * {@inheritDoc }
      */
@@ -158,5 +160,37 @@ public class AdminTemplateGenerator implements Generator
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_TABS_FILE, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
+    }
+
+    /**
+     * @return the template
+     */
+    public String getTemplate()
+    {
+        return _strTemplate;
+    }
+
+    /**
+     * @param template the template to set
+     */
+    public void setTemplate(String template)
+    {
+        _strTemplate = template;
+    }
+
+    /**
+     * @return the tabsTemplate
+     */
+    public String getTabsTemplate()
+    {
+        return _strTabsTemplate;
+    }
+
+    /**
+     * @param tabsTemplate the tabsTemplate to set
+     */
+    public void setTabsTemplate(String tabsTemplate)
+    {
+        _strTabsTemplate = tabsTemplate;
     }
 }

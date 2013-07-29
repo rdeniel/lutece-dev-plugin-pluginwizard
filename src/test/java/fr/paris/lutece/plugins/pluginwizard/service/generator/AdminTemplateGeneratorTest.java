@@ -55,6 +55,8 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
         System.out.println("generate AdminTemplateGenerator");
         PluginModel pm = GeneratorUtils.getTestModel();
         AdminTemplateGenerator instance = new AdminTemplateGenerator();
+        instance.setTemplate( "/skin/plugins/pluginwizard/generators/classic/gt_html_admin_classic.html" );
+        instance.setTabsTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

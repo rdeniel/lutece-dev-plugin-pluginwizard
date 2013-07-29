@@ -30,7 +30,14 @@
     <!-- Admin features generators -->
     <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" />
     <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspGenerator" />
-    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" />
+    <bean id="pluginwizard.generator.admin.html.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
+        <property name="template"><value>/skin/plugins/pluginwizard/generators/classic/gt_html_admin_classic.html</value></property>
+        <property name="tabsTemplate"><value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value></property>
+    </bean>
+    <bean id="pluginwizard.generator.admin.html.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
+        <property name="template"><value>/skin/plugins/pluginwizard/generators/classic/gt_html_admin_alternative.html</value></property>
+        <property name="tabsTemplate"><value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value></property>
+    </bean>
 
     <bean id="pluginwizard.generator.admin.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
         <property name="template"><value>/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_business_template.html</value></property>
@@ -62,7 +69,7 @@
                 <ref bean="pluginwizard.generator.admin.java.business" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.admin.html.classic" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
@@ -88,7 +95,7 @@
                 <ref bean="pluginwizard.generator.admin.java.business" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.admin.html.alternative" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
@@ -114,7 +121,7 @@
                 <ref bean="pluginwizard.generator.admin.java.business" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.admin.html.alternative" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
