@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.test.LuteceTestCase;
+import java.io.IOException;
 import java.util.Map;
 import org.junit.Test;
 
@@ -51,6 +52,7 @@ public class PluginXmlGeneratorTest extends LuteceTestCase
     @Test
     public void testGenerate()
     {
+        
         System.out.println("generate Plugin XML file");
         PluginModel pm = GeneratorUtils.getTestModel();
         PluginXmlGenerator instance = new PluginXmlGenerator();

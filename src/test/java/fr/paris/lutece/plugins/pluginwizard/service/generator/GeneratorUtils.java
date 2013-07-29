@@ -35,6 +35,11 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.MapperService;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -44,22 +49,43 @@ import java.util.Map;
  */
 public class GeneratorUtils
 {
-    private static final String TEST_JSON = "{\"pluginClass\":\"fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation\",\"portlets\":[{\"pluginPortletClass\":\"fr.paris.lutece.plugins.monplugin.business.portlet.ExamplePortletHome\",\"pluginPortletCreationUrl\":\"plugins/monplugin/CreatePortletExample.jsp\",\"pluginPortletUpdateUrl\":\"plugins/monplugin/ModifyPortletExample.jsp\",\"idPlugin\":1,\"pluginPortletTypeName\":\"EXAMPLE_PORTLET\",\"id\":2}],\"pluginName\":\"monplugin\",\"idPlugin\":1,\"pluginDescription\":\"ma description\",\"pluginDocumentation\":\"\",\"pluginInstallation\":\"\",\"pluginChanges\":\"\",\"pluginUserGuide\":\"\",\"pluginVersion\":\"1.0.0\",\"pluginCopyright\":\"Copyright (c) 2013 Your Company\",\"pluginIconUrl\":\"images/admin/skin/plugins/monplugin/monplugin.png\",\"pluginProvider\":\"Mairie de Paris\",\"pluginProviderUrl\":\"http://your.web.site.com\",\"pluginDbPoolRequired\":\"1\",\"applications\":[{\"applicationName\":\"monplugin\",\"applicationClass\":\"MonpluginApp\",\"id\":1}],\"businessClasses\":[{\"idFeature\":1,\"businessTableName\":\"monplugin_personne\",\"classDescription\":\"nom\",\"primaryKey\":\"id_personne\",\"businessClass\":\"Personne\",\"id\":1,\"attributes\":[{\"attributeTypeId\":1,\"businessClassId\":1,\"isDescription\":false,\"isPrimary\":true,\"id\":2,\"type\":\"int\",\"attributeName\":\"id_personne\"},{\"attributeTypeId\":2,\"businessClassId\":1,\"isDescription\":true,\"isPrimary\":false,\"id\":3,\"type\":\"String\",\"attributeName\":\"nom\"}]}],\"features\":[{\"pluginFeatureTitle\":\"Ma Feature\",\"pluginFeatureLevel\":\"0\",\"pluginFeatureDescription\":\"Ma Feature description\",\"jspName\":null,\"pluginFeatureName\":\"ManageMonplugin\",\"pluginFeatureRight\":\"MONPLUGIN_MANAGEMENT\",\"id\":1}],\"locale\":null}";
-        
-    
+
     public static PluginModel getTestModel()
     {
-        return MapperService.readJson( TEST_JSON );
+        try
+        {
+            URL url = Thread.currentThread().getContextClassLoader().getResource("model.json");
+            File file = new File(url.getPath());
+            String strJson;
+            strJson = readFile(file);
+            return MapperService.readJson(strJson);
+        }
+        catch (IOException ex)
+        {
+            throw new RuntimeException( "Unable to load test file : "  + ex.getMessage() );
+        }
     }
 
-    static void outputMap(Map map )
+    static void outputMap(Map map)
     {
         for (Iterator it = map.keySet().iterator(); it.hasNext();)
         {
             String strKey = (String) it.next();
-            System.out.println( "######################### file : " + strKey + "#########################");
-            System.out.println( map.get( strKey ));
+            System.out.println("######################### file : " + strKey + "#########################");
+            System.out.println(map.get(strKey));
         }
     }
 
+    private static String readFile(File file) throws IOException
+    {
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String strLine;
+        StringBuilder sbString = new StringBuilder();
+        while ((strLine = reader.readLine()) != null)
+        {
+            sbString.append(strLine);
+        }
+
+        return sbString.toString();
+    }
 }

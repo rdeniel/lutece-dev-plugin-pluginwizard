@@ -1,0 +1,98 @@
+{
+    "idPlugin": 2,
+    "pluginName": "myplugin",
+    "locale": null,
+    "pluginClass": "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation",
+    "pluginDescription": "Plugin description",
+    "pluginDocumentation": "",
+    "pluginInstallation": "",
+    "pluginChanges": "",
+    "pluginUserGuide": "",
+    "pluginVersion": "1.0.0",
+    "pluginCopyright": "Copyright (c) 2013 Your Company",
+    "pluginIconUrl": "images/admin/skin/plugins/myplugin/myplugin.png",
+    "pluginProvider": "Provider",
+    "pluginProviderUrl": "http://your.web.site.com",
+    "pluginDbPoolRequired": "1",
+    "portlets": [
+        {
+            "id": 1,
+            "idPlugin": 2,
+            "pluginPortletTypeName": "MY_PORTLET",
+            "pluginPortletClass": "fr.paris.lutece.plugins.myplugin.business.portlet.ExamplePortletHome",
+            "pluginPortletCreationUrl": "plugins/myplugin/CreatePortletExample.jsp",
+            "pluginPortletUpdateUrl": "plugins/myplugin/ModifyPortletExample.jsp"
+        }],
+    "features": [
+        {
+            "id": 1,
+            "jspName": null,
+            "pluginFeatureName": "ManageMyplugin",
+            "pluginFeatureRight": "MYPLUGIN_MANAGEMENT",
+            "pluginFeatureTitle": "My Feature",
+            "pluginFeatureLevel": "0",
+            "pluginFeatureDescription": "My Feature description"
+        }],
+    "businessClasses": [
+        {
+            "id": 1,
+            "businessClass": "Person",
+            "idFeature": 1,
+            "businessTableName": "myplugin_person",
+            "classDescription": "person_name",
+            "primaryKey": "id_person",
+            "attributes": [
+                {
+                    "id": 1,
+                    "type": "int",
+                    "attributeName": "id_person",
+                    "attributeTypeId": 1,
+                    "isPrimary": true,
+                    "isDescription": false,
+                    "businessClassId": 1
+                },
+                {
+                    "id": 2,
+                    "type": "String",
+                    "attributeName": "person_name",
+                    "attributeTypeId": 2,
+                    "isPrimary": false,
+                    "isDescription": true,
+                    "businessClassId": 1
+                }]
+        },
+        {
+            "id": 2, 
+            "businessClass": "Product",
+            "idFeature": 1,
+            "businessTableName": "myplugin_product",
+            "classDescription": "product_name",
+            "primaryKey": "id_product",
+            "attributes": [
+                {
+                    "id": 1,
+                    "type": "int",
+                    "attributeName": "id_product",
+                    "attributeTypeId": 1,
+                    "isPrimary": true,
+                    "isDescription": false,
+                    "businessClassId": 2
+                },
+                {
+                    "id": 2,
+                    "type": "String",
+                    "attributeName": "product_name",
+                    "attributeTypeId": 2,
+                    "isPrimary": false,
+                    "isDescription": true,
+                    "businessClassId": 2
+                }]
+        }],
+    "applications": [
+        {
+            "id": 1,
+            "applicationClass": "MyPluginApp",
+            "applicationName": "myplugin"
+        }
+    ]
+}
