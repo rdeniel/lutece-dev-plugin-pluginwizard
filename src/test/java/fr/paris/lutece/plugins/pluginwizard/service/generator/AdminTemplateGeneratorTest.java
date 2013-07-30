@@ -49,10 +49,11 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
     /**
      * Test of generate method, of class AdminTemplateGenerator.
      */
+    
     @Test
-    public void testGenerate()
+    public void testGenerateClassic()
     {
-        System.out.println("generate AdminTemplateGenerator");
+        System.out.println("generate AdminTemplateGeneratorClassic");
         PluginModel pm = GeneratorUtils.getTestModel();
         AdminTemplateGenerator instance = new AdminTemplateGenerator();
         instance.setTemplate( "/skin/plugins/pluginwizard/generators/classic/gt_html_admin_classic.html" );
@@ -60,4 +61,32 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }
+  
+    /**
+     * Test of generate method, of class AdminTemplateGenerator.
+     */
+    @Test
+    public void testGenerateAlternative()
+    {
+        
+        try
+        {
+            System.out.println("generate AdminTemplateGeneratorAlternative");
+            PluginModel pm = GeneratorUtils.getTestModel();
+            AdminTemplateGenerator instance = new AdminTemplateGenerator();
+            instance.setTemplate("/skin/plugins/pluginwizard/generators/alternative/gt_html_admin_alternative.html");
+            instance.setTabsTemplate("/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html");
+            Map result = instance.generate(pm);
+            GeneratorUtils.outputMap(result);
+        }
+        catch (Exception e)
+        {
+            if( e.getCause() != null )
+            {
+                System.out.println( e.getCause().getMessage());
+            }
+            System.out.println( e.getMessage());
+        }
+    }
+    
 }

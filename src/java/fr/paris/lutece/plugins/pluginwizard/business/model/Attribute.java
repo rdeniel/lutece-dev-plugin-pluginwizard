@@ -49,6 +49,7 @@ public class Attribute
     private boolean _bIsDescription;
     private String _strAttributeName;
     private String _strJavaType;
+    private int _nMaxLength = 255;  //FIXME
 
     /**
     * Returns the IdAttribute
@@ -196,6 +197,18 @@ public class Attribute
     {
         return getPrefix( _strJavaType ) + getProperName( _strAttributeName );
     }
+    
+    /**
+     * Returns the VariableName
+     * @return  _strVariableName The VariableName
+     */
+    @JsonIgnore
+    public String getParamName(  )
+    {
+        return getProperName( _strAttributeName ).substring( 0 , 1 ).toLowerCase() + getProperName( _strAttributeName ).substring( 1 );
+    }
+    
+    
 
     /**
     * Returns the Prefix of variable
@@ -256,5 +269,21 @@ public class Attribute
         }
 
         return strBuffer.toString(  );
+    }
+
+    /**
+     * @return the maxLength
+     */
+    public int getMaxLength()
+    {
+        return _nMaxLength;
+    }
+
+    /**
+     * @param maxLength the maxLength to set
+     */
+    public void setMaxLength(int maxLength)
+    {
+        _nMaxLength = maxLength;
     }
 }

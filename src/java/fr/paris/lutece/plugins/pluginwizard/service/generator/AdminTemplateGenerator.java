@@ -54,8 +54,6 @@ import java.util.Map;
  */
 public class AdminTemplateGenerator implements Generator
 {
-    private static final String TEMPLATE_HTML_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_html_business_files.html";
-    private static final String TEMPLATE_HTML_TABS_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_html_tabs_file.html";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
     private String _strTemplate;
     private String _strTabsTemplate;
@@ -127,8 +125,7 @@ public class AdminTemplateGenerator implements Generator
 
         model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_BUSINESS_FILES, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }
@@ -157,7 +154,7 @@ public class AdminTemplateGenerator implements Generator
         model.put( MARK_MACRO_DEF, "@@macro" );
         model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_HTML_TABS_FILE, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }

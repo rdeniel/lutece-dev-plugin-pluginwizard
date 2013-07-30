@@ -15,18 +15,18 @@
 
             <#list business_class.attributes as attribute>
             <#if attribute.attributeName = business_class.primaryKey>
-            <input type="hidden" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}"  />
+            <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
             <#else>
             <div class="control-group">
-                <label class="control-label" for="${business_class.businessClass?lower_case}_${attribute.name?uncap_first}" >${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
                 <div class="controls">
-                    <input type="text" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" size="60" maxlength="50" tabindex="1" />
+                    <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" tabindex="${attribute_index}" />
                 </div>
             </div>
             </#if>
             </#list>
             <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.buttonValidate${i18n_close}" tabindex="3" />
+                <input class="btn btn-primary" type="submit" value="${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.buttonValidate${i18n_close}" tabindex="${business_class.attributes?size}" />
             </div>
         </fieldset>
     </form>
@@ -52,13 +52,13 @@
             <#list business_class.attributes as attribute>
             <#if attribute.attributeName = business_class.primaryKey>
 
-            <input type="hidden" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}"/>
+            <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}"/>
             <#else>
 
             <div class="control-group">
-                <label class="control-label" for="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" >${i18n_open}${plugin_name?lower_case}.modify_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.modify_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
                 <div class="controls">
-                    <input type="text" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" size="60" maxlength="50" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
+                    <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
                 </div>
             </div>
             </#if>
@@ -101,7 +101,7 @@
         <tr>
             <#list business_class.attributes as attribute>
                 <#if attribute.attributeName = business_class.primaryKey>
-                    <input type="hidden" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}"  />
+                    <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
                 <#else>
                     <th>${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.column${attribute.attributeName?cap_first}${i18n_close}</th>
                 </#if>
@@ -112,7 +112,7 @@
         <tr>
             <#list business_class.attributes as attribute>
                 <#if attribute.attributeName = business_class.primaryKey>
-                    <input type="hidden" id="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}" name="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}"  />
+                    <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
                 <#else>
                     <#if attribute.attributeName = business_class.classDescription>
                         <td>
