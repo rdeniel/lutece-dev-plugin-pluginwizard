@@ -77,7 +77,6 @@ public class AdminJspBeanGenerator implements Generator
         for (Feature feature : pm.getFeatures())
         {
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId() );
-            System.out.println( "######################## Nombre classes métier : " + listBusinessClasses.size() ) ;
 
             for (BusinessClass business : listBusinessClasses)
             {
