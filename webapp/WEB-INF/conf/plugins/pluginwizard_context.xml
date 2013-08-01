@@ -19,6 +19,66 @@
     <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  
     <bean id="pluginwizard.localizationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyDAO" />  
 
+    <bean id="pluginwizard.business.class.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/classic/gt_business_class_classic.html</value>
+        </property>
+    </bean>
+    
+    <bean id="pluginwizard.business.dao.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix">
+            <value>DAO</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/classic/gt_business_dao_classic.html</value>
+        </property>
+    </bean>
+    
+    <bean id="pluginwizard.business.idao.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="prefix">
+            <value>I</value>
+        </property>
+        <property name="suffix">
+            <value>DAO</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/classic/gt_business_idao_classic.html</value>
+        </property>
+    </bean>
+    
+    <bean id="pluginwizard.business.home.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix">
+            <value>Home</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/classic/gt_business_home_classic.html</value>
+        </property>
+    </bean>
+    
+    <bean id="pluginwizard.business.test" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix">
+            <value>BusinessTest</value>
+        </property>
+        <property name="sourcePath">
+            <value>src/test</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_business_test.html</value>
+        </property>
+    </bean>
+    
+    <bean id="pluginwizard.list.files.business.classic" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginwizard.business.class.classic" />
+                <ref bean="pluginwizard.business.dao.classic" />                
+                <ref bean="pluginwizard.business.idao.classic" />                
+                <ref bean="pluginwizard.business.home.classic" />                
+                <ref bean="pluginwizard.business.test" />                
+            </list>
+        </constructor-arg>
+    </bean>
+    
     <!-- Plugins files -->
     <bean id="pluginwizard.generator.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" />
     <bean id="pluginwizard.generator.pluginXml" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PluginXmlGenerator" />
@@ -28,22 +88,29 @@
     <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" />
     
     <!-- Admin features generators -->
-    <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" />
-    <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspGenerator" />
-    <bean id="pluginwizard.generator.admin.html.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
-        <property name="template"><value>/skin/plugins/pluginwizard/generators/classic/gt_html_admin_classic.html</value></property>
-        <property name="tabsTemplate"><value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value></property>
+    <bean id="pluginwizard.generator.admin.java.business.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" >
+        <property name="files"><ref bean="pluginwizard.list.files.business.classic" /></property>
     </bean>
-    <bean id="pluginwizard.generator.admin.html.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
-        <property name="template"><value>/skin/plugins/pluginwizard/generators/alternative/gt_html_admin_alternative.html</value></property>
-        <property name="tabsTemplate"><value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value></property>
+    
+    <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspGenerator" />
+    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html</value>
+        </property>
+        <property name="tabsTemplate">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value>
+        </property>
     </bean>
 
     <bean id="pluginwizard.generator.admin.java.jspbean.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
-        <property name="template"><value>/skin/plugins/pluginwizard/generators/classic/gt_jspbean_admin_classic.html</value></property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/classic/gt_jspbean_admin_classic.html</value>
+        </property>
     </bean>
     <bean id="pluginwizard.generator.admin.java.jspbean.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
-        <property name="template"><value>/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_admin_alternative.html</value></property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_admin_alternative.html</value>
+        </property>
     </bean>
     
     <!-- XPage -->
@@ -69,10 +136,10 @@
                 <ref bean="pluginwizard.generator.properties" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
-                <ref bean="pluginwizard.generator.admin.java.business" />
+                <ref bean="pluginwizard.generator.admin.java.business.classic" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean.classic" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html.classic" />
+                <ref bean="pluginwizard.generator.admin.html" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
@@ -95,10 +162,10 @@
                 <ref bean="pluginwizard.generator.properties" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
-                <ref bean="pluginwizard.generator.admin.java.business" />
+                <ref bean="pluginwizard.generator.admin.java.business.classic" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean.alternative" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html.alternative" />
+                <ref bean="pluginwizard.generator.admin.html" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
@@ -121,10 +188,10 @@
                 <ref bean="pluginwizard.generator.properties" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
-                <ref bean="pluginwizard.generator.admin.java.business" />
+                <ref bean="pluginwizard.generator.admin.java.business.classic" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean.alternative" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html.alternative" />
+                <ref bean="pluginwizard.generator.admin.html" />
                 <ref bean="pluginwizard.generator.xpage.java" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />

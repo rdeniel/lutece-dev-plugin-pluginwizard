@@ -51,33 +51,17 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
      */
     
     @Test
-    public void testGenerateClassic()
+    public void testGenerate()
     {
-        System.out.println("generate AdminTemplateGeneratorClassic");
+        try
+        {
+        System.out.println("generate AdminTemplateGenerator");
         PluginModel pm = GeneratorUtils.getTestModel();
         AdminTemplateGenerator instance = new AdminTemplateGenerator();
-        instance.setTemplate( "/skin/plugins/pluginwizard/generators/classic/gt_html_admin_classic.html" );
+        instance.setTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html" );
         instance.setTabsTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
-    }
-  
-    /**
-     * Test of generate method, of class AdminTemplateGenerator.
-     */
-    @Test
-    public void testGenerateAlternative()
-    {
-        
-        try
-        {
-            System.out.println("generate AdminTemplateGeneratorAlternative");
-            PluginModel pm = GeneratorUtils.getTestModel();
-            AdminTemplateGenerator instance = new AdminTemplateGenerator();
-            instance.setTemplate("/skin/plugins/pluginwizard/generators/alternative/gt_html_admin_alternative.html");
-            instance.setTabsTemplate("/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html");
-            Map result = instance.generate(pm);
-            GeneratorUtils.outputMap(result);
         }
         catch (Exception e)
         {
@@ -87,6 +71,5 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
             }
             System.out.println( e.getMessage());
         }
-    }
-    
+    }    
 }

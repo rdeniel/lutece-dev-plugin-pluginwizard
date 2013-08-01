@@ -205,7 +205,7 @@ public class Attribute
     @JsonIgnore
     public String getParamName(  )
     {
-        return getProperName( _strAttributeName ).substring( 0 , 1 ).toLowerCase() + getProperName( _strAttributeName ).substring( 1 );
+        return _strAttributeName.toLowerCase();
     }
     
     

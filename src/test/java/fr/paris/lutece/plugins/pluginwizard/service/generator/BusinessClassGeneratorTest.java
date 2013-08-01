@@ -34,7 +34,9 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
+import java.util.List;
 import java.util.Map;
 import org.junit.Test;
 
@@ -53,7 +55,9 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate BusinessClass file");
         PluginModel pm = GeneratorUtils.getTestModel();
+        List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.classic" );
         BusinessClassGenerator instance = new BusinessClassGenerator();
+        instance.setFiles(listFiles);
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

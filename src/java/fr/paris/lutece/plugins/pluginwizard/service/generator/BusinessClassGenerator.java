@@ -36,12 +36,12 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -53,8 +53,13 @@ import java.util.Map;
  */
 public class BusinessClassGenerator implements Generator
 {
-    private static final String PROPERTY_GENERATOR = "pluginwizard.generator";
-
+    private List<BusinessFileConfig> _listFiles;
+    
+    public void setFiles( List<BusinessFileConfig> listFiles )
+    {
+        _listFiles = listFiles;
+    }
+    
     /**
      * {@inheritDoc }
      */
@@ -64,32 +69,18 @@ public class BusinessClassGenerator implements Generator
         HashMap map = new HashMap(  );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses();
 
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/";
+        String strBasePath = "plugin-{plugin_name}/SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
         strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
-            for ( int i = 1; i < 10; i++ )
+            for( BusinessFileConfig file : _listFiles )
             {
-                // Odd numbers for plugin
-                if ( ( i % 2 ) != 0 )
-                {
-                    String strClassName = getBusinessClassName( businessClass.getBusinessClass(  ), i );
-                    String strPath;
-
-                    strPath = strBasePath + strClassName + ".java";
-
-                    if ( i == 9 )
-                    {
-                        // The test source code is in another directory
-                        strPath = strPath.replace( "src", "src/test" );
-                    }
-
-                    String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, i );
-                    strSourceCode = strSourceCode.replace( "&lt;", "<" );
-                    strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                    map.put( strPath, strSourceCode );
-                }
+                String strClassName = file.getPrefix() + businessClass.getBusinessClass(  ) + file.getSuffix();
+                String strPath = strBasePath + strClassName + ".java";
+                String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, file.getTemplate() );
+                strPath = strPath.replace( "SOURCE", file.getSourcePath() );
+                map.put( strPath, strSourceCode );
             }
         }
 
@@ -97,77 +88,20 @@ public class BusinessClassGenerator implements Generator
     }
 
     /**
-     * Returns the name of the business class file
-     * @param strBusinessClass The business class
-     * @param nBusinessClassType The business class type
-     * @return The name of the business class file
-     */
-    private String getBusinessClassName( String strBusinessClass, int nBusinessClassType )
-    {
-        String strReturn;
-
-        switch ( nBusinessClassType )
-        {
-            case 1:
-                strReturn = strBusinessClass;
-
-                break;
-
-            case 3:
-                strReturn = strBusinessClass + "DAO";
-
-                break;
-
-            case 5:
-                strReturn = "I" + strBusinessClass + "DAO";
-
-                break;
-
-            case 7:
-                strReturn = strBusinessClass + "Home";
-
-                break;
-
-            case 9:
-                strReturn = strBusinessClass + "BusinessTest";
-
-                break;
-
-            default:
-                strReturn = strBusinessClass;
-
-                break;
-        }
-
-        return strReturn;
-    }
-
-    /**
      * Returns the source code of a business object
+     * @param strPluginName  The plugin name
      * @param businessClass The business class
-     * @param nGenerationType The type of generation(DAO,Home,etc)
+     * @param strTemplate The type of generation(DAO,Home,etc)
      * @return The java source code of the business object
      */
-    private String getSourceCode( String strPluginName, BusinessClass businessClass, int nGenerationType )
+    private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( nGenerationType ), new Locale( "en", "US" ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate , Locale.getDefault(), model );
 
         return template.getHtml(  );
-    }
-
-    /**
-     * Return template of generation
-     * @param nIndex the index
-     * @return the template
-     */
-    private String getTemplate( int nIndex )
-    {
-        String strTemplate = AppPropertiesService.getProperty( PROPERTY_GENERATOR + nIndex + ".template" );
-
-        return strTemplate;
     }
 }

@@ -44,7 +44,6 @@ import fr.paris.lutece.portal.web.constants.Messages;
 import fr.paris.lutece.portal.web.util.LocalizedPaginator;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
-import fr.paris.lutece.util.beanvalidation.BeanValidationUtil;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -160,11 +159,11 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
         populate( ${business_class.businessClass?lower_case}, request );
 
         // Check constraints
-        Set<ConstraintViolation<${business_class.businessClass?cap_first}>> constraintViolations = BeanValidationUtil.validate( ${business_class.businessClass?lower_case} );
+        Set<ConstraintViolation<${business_class.businessClass?cap_first}>> errors = validate( ${business_class.businessClass?lower_case} );
 
-        if ( constraintViolations.size(  ) > 0 )
+        if ( errors.size(  ) > 0 )
         {
-            return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
+            return AdminMessageService.getMessageUrl( request, Messages.MESSAGE_INVALID_ENTRY, errors );
         }
 
       ${business_class.businessClass?cap_first}Home.create( ${business_class.businessClass?lower_case} );
@@ -233,9 +232,9 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
       populate( ${business_class.businessClass?lower_case}, request );
 
       // Check constraints
-      Set<ConstraintViolation<${business_class.businessClass?cap_first}>> constraintViolations = BeanValidationUtil.validate( ${business_class.businessClass?lower_case} );
+      Set<ConstraintViolation<${business_class.businessClass?cap_first}>> errors = validate( ${business_class.businessClass?lower_case} );
 
-      if ( constraintViolations.size(  ) > 0 )
+      if ( errors.size(  ) > 0 )
       {
           return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
       }
