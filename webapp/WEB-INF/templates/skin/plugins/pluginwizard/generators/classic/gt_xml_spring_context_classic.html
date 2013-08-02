@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+<#list plugin.businessClasses as business_class>
+<#if business_class?? > 
+    <bean id="${plugin.pluginName}.${business_class.businessClass?uncap_first}DAO"  class="fr.paris.lutece.plugins.${plugin.pluginName}.business.${business_class.businessClass?cap_first}DAO" />  
+</#if>    
+</#list>
+<#list plugin.portlets as portlet>
+<#if portlet?? >
+<#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+    <bean id="${plugin.pluginName}.${portletName?lower_case}PortletDAO"  class="fr.paris.lutece.plugins.${plugin.pluginName}.business.portlet.${portletName?cap_first}PortletDAO" />    
+</#if>    
+</#list>
+</beans>

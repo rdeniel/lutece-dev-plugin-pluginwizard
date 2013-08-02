@@ -52,26 +52,16 @@ import java.util.Map;
  * Class produces the xml file describing the generated plugin
  *
  */
-public class PluginXmlGenerator implements Generator
+public class PluginXmlGenerator extends AbstractFileGenerator
 {
-    private static final String TEMPLATE_PLUGIN_XML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xml_template.html";
-
+    private static final String PATH = "webapp/WEB-INF/plugins/";
     /**
      * {@inheritDoc }
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
-
-        strBasePath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + ".xml";
-
-        String strSourceCode = getPluginXmlCode( pm );
-        map.put( strBasePath, strSourceCode );
-
-        return map;
+        return generateFile(pm);
     }
 
     /**
@@ -80,7 +70,8 @@ public class PluginXmlGenerator implements Generator
     * @param plugin The plugin
     * @return The plugin xml file content of the plugin
     */
-    private String getPluginXmlCode( PluginModel pm )
+    @Override
+    protected String getCode( PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
@@ -99,10 +90,22 @@ public class PluginXmlGenerator implements Generator
         }
         model.put( MARK_PLUGIN, pm );
 
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PLUGIN_XML_TEMPLATE, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
+
+    @Override
+    protected String getFilename(PluginModel pm)
+    {
+        return pm.getPluginName(  ).toLowerCase(  ) + ".xml";
+    }
+
+    @Override
+    public String getPath()
+    {
+        return PATH;
+    }
+    
+    
 }

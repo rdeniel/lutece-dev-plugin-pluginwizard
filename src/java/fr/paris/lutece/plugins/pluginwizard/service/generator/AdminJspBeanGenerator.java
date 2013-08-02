@@ -41,7 +41,6 @@ import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MAR
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_RIGHT;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_BUSINESS_CLASS;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN_MODEL;
-import fr.paris.lutece.plugins.pluginwizard.web.Constants;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import java.util.Collection;
@@ -52,16 +51,22 @@ import java.util.Map;
 /**
  * Admin Jsp Bean Generator
  */
-public class AdminJspBeanGenerator implements Generator
+public class AdminJspBeanGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_jspbean_abstract_template.html";
-
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String SUFFIX_JSPBEAN = "JspBean.java";
     
     private String _strTemplate;
+    private String _strAbstractParentBeanTemplate;
     
     public void setTemplate( String strTemplate )
     {
         _strTemplate = strTemplate;
+    }
+    
+    public void setAbstractParentBeanTemplate( String strParent )
+    {
+        _strAbstractParentBeanTemplate = strParent;
     }
     
     /**
@@ -71,8 +76,6 @@ public class AdminJspBeanGenerator implements Generator
     public Map generate( PluginModel pm)
     {
         HashMap map = new HashMap();
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
 
         for (Feature feature : pm.getFeatures())
         {
@@ -80,15 +83,15 @@ public class AdminJspBeanGenerator implements Generator
 
             for (BusinessClass business : listBusinessClasses)
             {
-                String strPath = strBasePath + business.getBusinessClassCapsFirst() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+                String strFilename = business.getBusinessClassCapsFirst() + SUFFIX_JSPBEAN;
+                String strPath = getFilePath( pm , PATH , strFilename );
                 String strSourceCode = getJspBeanCode(pm, feature.getPluginFeatureName(), feature.getPluginFeatureRight(), business );
                 map.put(strPath, strSourceCode);
             }
             
-            String strPath = strBasePath + feature.getPluginFeatureName() + Constants.PROPERTY_JSP_BEAN_SUFFIX + ".java";
+            String strPath = getFilePath( pm , PATH , feature.getPluginFeatureName() + SUFFIX_JSPBEAN );
             String strSourceCode = getAbstractJspBeanCode(pm, feature.getPluginFeatureName(), feature.getPluginFeatureRight() );
             map.put(strPath, strSourceCode);
-
 
         }
 
@@ -136,7 +139,7 @@ public class AdminJspBeanGenerator implements Generator
         model.put(MARK_FEATURE_NAME, strFeatureName);
         model.put(MARK_FEATURE_RIGHT, strFeatureRight);
 
-        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_JSPBEAN_ABSTRACT_TEMPLATE, Locale.getDefault(),
+        HtmlTemplate template = AppTemplateService.getTemplate( _strAbstractParentBeanTemplate, Locale.getDefault(),
                 model);
 
         return template.getHtml();

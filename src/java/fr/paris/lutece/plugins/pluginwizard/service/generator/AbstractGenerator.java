@@ -30,46 +30,22 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ 
-package fr.paris.lutece.plugins.${plugin_name}.business;
+ */
+package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 /**
- * This is the business class for the object ${business_class.businessClass}
- */ 
-public class ${business_class.businessClass}
+ * AbstractGenerator
+ *
+ */
+public abstract class AbstractGenerator implements Generator
 {
-	// Variables declarations 
-	<#list business_class.attributes as attribute>
-        <#if attribute.couldNotBeEmpty >
-        @NotEmpty( message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.notEmpty}" )
-        </#if>
-        <#if attribute.maxLength &gt; 0 > 
-        @Size( max = ${attribute.maxLength} , message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.size}" ) 
-        </#if>
-	private ${attribute.type} _${attribute.variableName};
-	</#list>
-  <#if business_class.attributes??>
-	<#list business_class.attributes as attribute>
-	/**
-	 * Returns the ${attribute.name}
-	 * @return The ${attribute.name}
-	 */
-	public ${attribute.type} get${attribute.name}()
-	{
-		return _${attribute.variableName};
-	}
-
-	/**
-	 * Sets the ${attribute.name}
-	 * @param ${attribute.variableName} The ${attribute.name}
-	 */ 
-	public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
-	{
-		_${attribute.variableName} = ${attribute.variableName};
-	}
-	</#list>
-	</#if>
+    protected String getFilePath( PluginModel pm , String strPath , String strFilename )
+    {
+        String strBasePath = "plugin-{plugin_name}/" + strPath;
+        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
+        return strBasePath + strFilename;      
+    }
+    
 }

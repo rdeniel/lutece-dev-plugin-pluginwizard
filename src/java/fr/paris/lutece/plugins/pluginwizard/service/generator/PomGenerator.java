@@ -50,10 +50,8 @@ import java.util.Map;
  * The Pom generator is responsible of generating a project object model used by maven
  *
  */
-public class PomGenerator implements Generator
+public class PomGenerator extends AbstractFileGenerator
 {
-    private static final String TEMPLATE_POM_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_pom_xml.html";
-
     /**
      * {@inheritDoc }
      */
@@ -61,23 +59,16 @@ public class PomGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
-        strBasePath = strBasePath + "/pom.xml";
-
-        String strSourceCode = getPomXmlCode( pm );
-        map.put( strBasePath, strSourceCode );
+        map.put( getFilePath( pm ), getCode( pm ) );
 
         return map;
     }
 
     /**
-    * Produces content of the maven pom.xml file
-    * @param nPluginId The id of the plugin
-    * @param plugin The plugin
-    * @return The content of the pom.xml
-    */
-    private String getPomXmlCode( PluginModel pm )
+     * {@inheritDoc }
+     */
+    @Override
+    protected String getCode( PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
@@ -89,8 +80,28 @@ public class PomGenerator implements Generator
         }
 
         model.put( MARK_PLUGIN, pm );
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_POM_XML, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    protected String getFilename(PluginModel pm)
+    {
+        return "pom.xml";
+    }
+
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String getPath()
+    {
+        return "";
+    }
+    
+    
 }

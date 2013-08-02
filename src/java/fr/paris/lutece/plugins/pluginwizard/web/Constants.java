@@ -54,7 +54,6 @@ public final class Constants
 
     //File Naming
     public static final String PROPERTY_DATABASE_PREFIX = "create_db_";
-    public static final String PROPERTY_JSP_BEAN_SUFFIX = "JspBean";
     public static final String PROPERTY_XPAGE_SUFFIX = "App";
 
     //The parameters for handling conditional generation

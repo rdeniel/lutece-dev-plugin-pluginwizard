@@ -79,6 +79,9 @@ public class BusinessClassGenerator implements Generator
                 String strClassName = file.getPrefix() + businessClass.getBusinessClass(  ) + file.getSuffix();
                 String strPath = strBasePath + strClassName + ".java";
                 String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, file.getTemplate() );
+                strSourceCode = strSourceCode.replace( "&lt;", "<" );
+                strSourceCode = strSourceCode.replace( "&gt;", ">" );
+                strSourceCode = strSourceCode.replace( "@i18n" , "#i18n" );
                 strPath = strPath.replace( "SOURCE", file.getSourcePath() );
                 map.put( strPath, strSourceCode );
             }

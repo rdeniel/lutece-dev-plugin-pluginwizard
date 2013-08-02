@@ -34,12 +34,8 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -48,43 +44,35 @@ import java.util.Map;
  * Class generates the spring context file
  *
  */
-public class SpringContextXmlGenerator implements Generator
+public class SpringContextXmlGenerator extends AbstractFileGenerator
 {
-    private static final String TEMPLATE_SPRING_CONTEXT_XML = "/skin/plugins/pluginwizard/templates/pluginwizard_spring_context_xml.html";
-
+    private static final String PATH = "webapp/WEB-INF/conf/plugins/";
+    private static final String EXT = "_context.xml";
+    
     /**
      * {@inheritDoc }
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
-
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
-        strBasePath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + "_context.xml";
-
-        String strSourceCode = getSpringContextCode( pm );
-        map.put( strBasePath, strSourceCode );
-
-        return map;
+        return generateFile( pm );
     }
-
+    
     /**
-     * Produces the spring context xml file
-     *
-     * @param pm the plugin model
-     * @return the content if the spring context file
+     * {@inheritDoc }
      */
-    private String getSpringContextCode( PluginModel pm )
+    @Override
+    protected String getFilename( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pm );
-        model.put( MARK_LIST_PORTLETS, pm.getPortlets() );
-        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses() );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_SPRING_CONTEXT_XML, Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return pm.getPluginName(  ).toLowerCase(  ) + EXT;
+    }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public String getPath()
+    {
+        return PATH;
     }
 }

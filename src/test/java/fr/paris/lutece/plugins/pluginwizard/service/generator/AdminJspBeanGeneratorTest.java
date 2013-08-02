@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,8 +54,7 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate Admin JspBean files (classic)");
         PluginModel pm = GeneratorUtils.getTestModel();
-        AdminJspBeanGenerator instance = new AdminJspBeanGenerator();
-        instance.setTemplate( "/skin/plugins/pluginwizard/generators/classic/gt_jspbean_admin_classic.html" );
+        AdminJspBeanGenerator instance = SpringContextService.getBean("pluginwizard.generator.admin.java.jspbean.classic");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }
@@ -67,8 +67,7 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate Admin JspBean files (alternative)");
         PluginModel pm = GeneratorUtils.getTestModel();
-        AdminJspBeanGenerator instance = new AdminJspBeanGenerator();
-        instance.setTemplate( "/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_admin_alternative.html" );
+        AdminJspBeanGenerator instance = SpringContextService.getBean("pluginwizard.generator.admin.java.jspbean.alternative");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

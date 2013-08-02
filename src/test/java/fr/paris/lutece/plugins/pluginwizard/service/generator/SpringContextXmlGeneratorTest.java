@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class SpringContextXmlGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate SpringContextXml file");
         PluginModel pm = GeneratorUtils.getTestModel();
-        SpringContextXmlGenerator instance = new SpringContextXmlGenerator();
+        SpringContextXmlGenerator instance = SpringContextService.getBean("pluginwizard.generator.context.classic");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

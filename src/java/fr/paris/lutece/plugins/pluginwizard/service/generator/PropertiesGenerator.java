@@ -34,23 +34,14 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
-
-import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-
 /**
- *
  * Class generates properties needed by the plugin
- *
  */
-public class PropertiesGenerator implements Generator
+public class PropertiesGenerator extends AbstractFileGenerator
 {
-    private static final String TEMPLATE_PROPERTIES_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_file.html";
+    private static final String PATH = "webapp/WEB-INF/conf/plugins/";
 
     /**
      * {@inheritDoc }
@@ -58,32 +49,26 @@ public class PropertiesGenerator implements Generator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        return generateFile(pm);
+    }
 
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/conf/plugins/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
-        strBasePath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + ".properties";
-
-        String strSourceCode = getPropertiesFileCode( pm );
-        map.put( strBasePath, strSourceCode );
-
-        return map;
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    protected String getFilename(PluginModel pm)
+    {
+        return pm.getPluginName(  ).toLowerCase(  ) + ".properties";
     }
 
     /**
-    * The properties file content
-    * @param pm the plugin model
-    * @return The content of configuration properties file
-    */
-    private String getPropertiesFileCode( PluginModel pm )
+     * {@inheritDoc }
+     */
+    @Override
+    public String getPath()
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pm );
-        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses() );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_FILE, Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return PATH;
     }
+        
 }

@@ -50,6 +50,7 @@ public class Attribute
     private String _strAttributeName;
     private String _strJavaType;
     private int _nMaxLength = 255;  //FIXME
+    private boolean _bCouldNotBeEmpty = true; //FIXME
 
     /**
     * Returns the IdAttribute
@@ -208,7 +209,16 @@ public class Attribute
         return _strAttributeName.toLowerCase();
     }
     
-    
+    /**
+     * Returns the java name of the attribute
+     * @return 
+     */
+    @JsonIgnore
+    public String getJavaName( )
+    {
+ 	return getProperName( _strAttributeName ).substring( 0 , 1 ).toLowerCase() + getProperName( _strAttributeName ).substring( 1 );
+    }
+ 	    
 
     /**
     * Returns the Prefix of variable
@@ -286,4 +296,24 @@ public class Attribute
     {
         _nMaxLength = maxLength;
     }
+    
+   /**
+    * Returns the bCouldNotBeEmpty
+    * @return The CouldNotBeEmpty
+    */
+    public boolean getCouldNotBeEmpty(  )
+    {
+        return _bCouldNotBeEmpty;
+    }
+
+    /**
+    * Sets the Description
+    * @param bCouldNotBeEmpty The Description
+    */
+    public void setCouldNotBeEmpty( boolean bCouldNotBeEmpty )
+    {
+        _bCouldNotBeEmpty = bCouldNotBeEmpty;
+    }
+
+
 }
