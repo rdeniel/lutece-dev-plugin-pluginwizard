@@ -50,9 +50,16 @@ import java.util.Map;
  * Class generating the Xpages
  *
  */
-public class XPageGenerator implements Generator
+public class XPageGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_XPAGE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_xpage_template.html";
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private String _strTemplate;
+    
+    
+    public void setTemplate( String strTemplate )
+    {
+        _strTemplate = strTemplate;
+    }
 
     /**
      * {@inheritDoc }
@@ -61,12 +68,10 @@ public class XPageGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( Application xpage : pm.getApplications() )
         {
-            String strPath = strBasePath + xpage.getApplicationClass(  ) + ".java";
+            String strPath = getFilePath( pm, PATH, xpage.getApplicationClass(  ) + ".java" );
 
             String strSourceCode = getXPageCode( pm , xpage.getId(  ) );
             map.put( strPath, strSourceCode );
@@ -87,10 +92,11 @@ public class XPageGenerator implements Generator
         model.put( MARK_PLUGIN, pm );
 
         model.put( MARK_PLUGIN_MODEL, pm );
-        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm.getIdPlugin(), nApplicationId) );
+        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm , nApplicationId) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_XPAGE_TEMPLATE, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
+
 }

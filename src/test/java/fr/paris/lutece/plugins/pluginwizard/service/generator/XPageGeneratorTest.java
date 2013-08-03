@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class XPageGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate XPage files");
         PluginModel pm = GeneratorUtils.getTestModel();
-        XPageGenerator instance = new XPageGenerator();
+        XPageGenerator instance = SpringContextService.getBean("pluginwizard.generator.xpage.java");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

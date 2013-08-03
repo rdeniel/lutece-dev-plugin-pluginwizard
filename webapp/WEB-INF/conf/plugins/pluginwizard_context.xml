@@ -177,7 +177,12 @@
     </bean>
     
     <!-- XPage -->
-    <bean id="pluginwizard.generator.xpage.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" />
+    <bean id="pluginwizard.generator.xpage.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_xpage.html</value>
+        </property>
+
+    </bean>
     
     <!-- Portlet -->
     <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" />

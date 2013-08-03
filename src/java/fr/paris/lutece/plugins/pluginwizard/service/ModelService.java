@@ -209,6 +209,7 @@ public class ModelService
 
     ////////////////////////////////////////////////////////////////////////////
     // APPLICATIONS
+
     /**
      * Get a given application
      *
@@ -219,7 +220,19 @@ public class ModelService
     public static Application getApplication(int nPluginId, int nApplicationId)
     {
         PluginModel pm = getPluginModel(nPluginId);
-        for (Application application : pm.getApplications())
+        return getApplication( pm, nApplicationId);
+    }
+    
+    /**
+     * Get a given application
+     *
+     * @parampm The plugin's Model
+     * @param nApplicationId
+     * @return
+     */
+    public static Application getApplication( PluginModel pm, int nApplicationId)
+    {
+       for (Application application : pm.getApplications())
         {
             if (application.getId() == nApplicationId)
             {
