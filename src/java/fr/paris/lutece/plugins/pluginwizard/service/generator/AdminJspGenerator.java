@@ -52,13 +52,27 @@ import java.util.Map;
  * The generator produced the jsp for back office management
  *
  */
-public class AdminJspGenerator implements Generator
+public class AdminJspGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_JSP_BUSINESS_FILES = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_business_files.html";
-    private static final String TEMPLATE_JSP_FEATURE_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_jsp_feature_file.html";
+    private static final String PATH = "webapp/jsp/admin/plugins/{plugin_name}/";
     private static final String EXT_JSP = ".jsp";
     private static String[] _jsp_prefix = { "Create", "DoCreate", "Remove", "DoRemove", "Manage", "Modify", "DoModify" };
 
+    private String _strBusinessTemplate;
+    private String _strFeatureTemplate;
+    
+    public void setBusinessTemplate( String strTemplate )
+    {
+        _strBusinessTemplate = strTemplate;
+    }
+    
+    public void setFeatureTemplate( String strTemplate )
+    {
+        _strFeatureTemplate = strTemplate;
+    }
+    
+    
+    
     /**
      * {@inheritDoc }
      */
@@ -67,9 +81,6 @@ public class AdminJspGenerator implements Generator
     {
         HashMap map = new HashMap(  );
         String strPluginName = pm.getPluginName(  );
-
-        String strBasePath = "plugin-{plugin_name}/webapp/jsp/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", strPluginName );
 
         for ( Feature feature : pm.getFeatures(  ) )
         {
@@ -82,7 +93,7 @@ public class AdminJspGenerator implements Generator
                     String strSuffix = ( i == 4 ) ? "s" + EXT_JSP : EXT_JSP;
                     String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass(  ) + strSuffix;
 
-                    String strPath = strBasePath + strJspFileName;
+                    String strPath = getFilePath( pm, PATH, strJspFileName);
 
                     String strSourceCode = getJspBusinessFile( businessClass, feature.getPluginFeatureName(  ),
                             strPluginName, i + 1 );
@@ -92,7 +103,7 @@ public class AdminJspGenerator implements Generator
                 }
             }
 
-            String strPath = strBasePath + feature.getPluginFeatureName(  ) + EXT_JSP;
+            String strPath = getFilePath( pm, PATH, feature.getPluginFeatureName(  ) + EXT_JSP );
 
             String strSourceCode = getFeatureJspFile( feature.getPluginFeatureName(  ), strPluginName );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -122,8 +133,7 @@ public class AdminJspGenerator implements Generator
         String strBeanName = strFeatureName.toLowerCase() + businessClass.getBusinessClassCapsFirst();
         model.put( MARK_BEAN_NAME , strBeanName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_BUSINESS_FILES, new Locale( "en", "US" ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strBusinessTemplate, Locale.getDefault(), model );
 
         return template.getHtml(  );
     }
@@ -140,8 +150,7 @@ public class AdminJspGenerator implements Generator
         model.put( MARK_FEATURE_NAME, strFeatureName );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_JSP_FEATURE_FILE, new Locale( "en", "US" ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strFeatureTemplate, Locale.getDefault(), model );
 
         return template.getHtml(  );
     }

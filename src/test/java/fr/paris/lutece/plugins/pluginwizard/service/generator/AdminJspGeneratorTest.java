@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class AdminJspGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate AdminJspGenerator");
         PluginModel pm = GeneratorUtils.getTestModel();
-        AdminJspGenerator instance = new AdminJspGenerator();
+        AdminJspGenerator instance = SpringContextService.getBean("pluginwizard.generator.admin.jsp");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

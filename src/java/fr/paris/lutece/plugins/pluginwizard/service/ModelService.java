@@ -53,7 +53,7 @@ import java.util.List;
 public class ModelService
 {
 
-    public static void createModel(String strPluginName)
+    public static int createModel(String strPluginName)
     {
         Model model = new Model();
         model.setName(strPluginName);
@@ -62,6 +62,7 @@ public class ModelService
         model = ModelHome.create(model);
         pm.setIdPlugin(model.getIdPlugin());
         savePluginModel(pm);
+        return pm.getIdPlugin();
     }
 
     /**

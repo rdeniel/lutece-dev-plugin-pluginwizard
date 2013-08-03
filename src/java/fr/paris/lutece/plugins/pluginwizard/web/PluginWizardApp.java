@@ -527,7 +527,7 @@ public class PluginWizardApp implements XPageApplication
             if ( nIdPlugin == -1 )
             {
                 // The plugin doesn't exists
-                doCreatePlugin( request, strPluginName );
+                nIdPlugin = doCreatePlugin( request, strPluginName );
                 page.setContent( getCreatePluginDescription( request , nIdPlugin ) );
             }
             else
@@ -548,9 +548,7 @@ public class PluginWizardApp implements XPageApplication
             {
                 doRemoveAllPluginRelated( request );
                 String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-                doCreatePlugin( request, strPluginName );
-
-                int nPluginId = ModelHome.exists(strPluginName);
+                int nPluginId = doCreatePlugin( request, strPluginName );
                 strContent = getCreatePluginDescription( request , nPluginId );
             }
             else
@@ -831,13 +829,13 @@ public class PluginWizardApp implements XPageApplication
      * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
-    private void doCreatePlugin( HttpServletRequest request, String strPluginName )
+    private int doCreatePlugin( HttpServletRequest request, String strPluginName )
         throws SiteMessageException
     {
             verifyField( request, strPluginName, PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME,
                 PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME_MESSAGE );
             
-            ModelService.createModel( strPluginName );
+            return ModelService.createModel( strPluginName );
 
     }
 
