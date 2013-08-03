@@ -48,9 +48,9 @@ import java.util.Map;
  * The sql files generator
  *
  */
-public class SqlCodeGenerator implements Generator
+public class SqlCodeGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_DATABASE_SQL_SCRIPT = "/skin/plugins/pluginwizard/templates/pluginwizard_create_db.html";
+    private static final String PATH = "src/sql/plugins/{plugin_name}/";
     private static final String EXT_SQL = ".sql";
 
     /**
@@ -60,14 +60,12 @@ public class SqlCodeGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/src/sql/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( int i = 1; i < 6; i++ )
         {
             String strSqlFile = getSqlFileName( pm.getPluginName(  ).toLowerCase(  ), i );
 
-            String strPath = strBasePath + strSqlFile;
+            String strPath = getFilePath(pm, PATH, strSqlFile);
 
             String strSourceCode = getSqlScript( i, pm );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -142,8 +140,7 @@ public class SqlCodeGenerator implements Generator
         model.put( MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses() );
         model.put( MARK_SQL_TYPE, nSqlType + "" );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_DATABASE_SQL_SCRIPT, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

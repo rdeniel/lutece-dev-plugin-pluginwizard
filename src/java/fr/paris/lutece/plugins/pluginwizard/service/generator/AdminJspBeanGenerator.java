@@ -59,11 +59,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     private String _strTemplate;
     private String _strAbstractParentBeanTemplate;
     
-    public void setTemplate( String strTemplate )
-    {
-        _strTemplate = strTemplate;
-    }
-    
     public void setAbstractParentBeanTemplate( String strParent )
     {
         _strAbstractParentBeanTemplate = strParent;

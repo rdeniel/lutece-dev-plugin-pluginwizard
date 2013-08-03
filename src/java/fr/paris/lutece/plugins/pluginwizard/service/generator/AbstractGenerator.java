@@ -41,6 +41,36 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
  */
 public abstract class AbstractGenerator implements Generator
 {
+    private String _strTemplate;
+    
+    
+    /**
+     * Returns the Template
+     *
+     * @return The Template
+     */
+    public String getTemplate()
+    {
+        return _strTemplate;
+    }
+
+    /**
+     * Sets the Template
+     *
+     * @param strTemplate The Template
+     */
+    public void setTemplate(String strTemplate)
+    {
+        _strTemplate = strTemplate;
+    }
+
+    /**
+     * Build the file path
+     * @param pm The Plugin Model
+     * @param strPath The relative path
+     * @param strFilename The file name
+     * @return The full path
+     */
     protected String getFilePath( PluginModel pm , String strPath , String strFilename )
     {
         String strBasePath = "plugin-{plugin_name}/" + strPath;

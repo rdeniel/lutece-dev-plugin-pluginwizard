@@ -53,14 +53,8 @@ import java.util.Map;
 public class XPageGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-    private String _strTemplate;
-    
-    
-    public void setTemplate( String strTemplate )
-    {
-        _strTemplate = strTemplate;
-    }
 
+    
     /**
      * {@inheritDoc }
      */
@@ -94,7 +88,7 @@ public class XPageGenerator extends AbstractGenerator
         model.put( MARK_PLUGIN_MODEL, pm );
         model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm , nApplicationId) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

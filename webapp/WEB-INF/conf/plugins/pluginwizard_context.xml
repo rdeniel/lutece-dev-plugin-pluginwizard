@@ -125,8 +125,14 @@
             <value>/skin/plugins/pluginwizard/generators/commons/gt_properties_file.html</value>
         </property>
     </bean>
+
     <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" />
-    <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" />
+
+    <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_sql_db.html</value>
+        </property>
+    </bean>
     
     <!-- Admin features generators -->
     <bean id="pluginwizard.generator.admin.java.business.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" >

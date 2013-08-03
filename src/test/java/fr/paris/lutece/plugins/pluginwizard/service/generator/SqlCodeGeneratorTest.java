@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class SqlCodeGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate SqlCode file");
         PluginModel pm = GeneratorUtils.getTestModel();
-        SqlCodeGenerator instance = new SqlCodeGenerator();
+        SqlCodeGenerator instance = SpringContextService.getBean("pluginwizard.generator.sql");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

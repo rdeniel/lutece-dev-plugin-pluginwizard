@@ -49,31 +49,9 @@ import java.util.Map;
 public abstract class AbstractFileGenerator extends AbstractGenerator
 {
     // Variables declarations 
-
-    private String _strTemplate;
     private String _strPath;
 
     protected abstract String getFilename(PluginModel pm);
-
-    /**
-     * Returns the Template
-     *
-     * @return The Template
-     */
-    public String getTemplate()
-    {
-        return _strTemplate;
-    }
-
-    /**
-     * Sets the Template
-     *
-     * @param strTemplate The Template
-     */
-    public void setTemplate(String strTemplate)
-    {
-        _strTemplate = strTemplate;
-    }
 
     /**
      * Returns the Path

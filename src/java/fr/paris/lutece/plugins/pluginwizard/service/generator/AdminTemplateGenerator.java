@@ -52,8 +52,9 @@ import java.util.Map;
  * Generates Html files used as template to construct back office UI
  *
  */
-public class AdminTemplateGenerator implements Generator
+public class AdminTemplateGenerator extends AbstractGenerator
 {
+    private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
     private String _strTemplate;
     private String _strTabsTemplate;
@@ -65,9 +66,6 @@ public class AdminTemplateGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         //for each feature,which business classes are attached to
         Collection<Feature> listFeatures = pm.getFeatures();
@@ -81,7 +79,7 @@ public class AdminTemplateGenerator implements Generator
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
                     String strSuffix = ( i == 2 )?  "s.html" :  ".html";
-                    String strPath = strBasePath + _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix;
+                    String strPath = getFilePath( pm, PATH, _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix);
 
                     String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1 , pm.getPluginName(  ));
                     map.put( strPath, strSourceCode );
@@ -89,7 +87,7 @@ public class AdminTemplateGenerator implements Generator
             }
 
             //Add the main template where all the business management interface will be accessible
-            String strPath = strBasePath + "tabs.html";
+            String strPath = getFilePath( pm, PATH, "tabs.html" );
 
             String strSourceCode = getTabsHtmlCode( listBusinessClasses, pm.getPluginName(  ), feature );
             map.put( strPath, strSourceCode );
@@ -157,22 +155,6 @@ public class AdminTemplateGenerator implements Generator
         HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
-    }
-
-    /**
-     * @return the template
-     */
-    public String getTemplate()
-    {
-        return _strTemplate;
-    }
-
-    /**
-     * @param template the template to set
-     */
-    public void setTemplate(String template)
-    {
-        _strTemplate = template;
     }
 
     /**

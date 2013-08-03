@@ -51,8 +51,9 @@ import java.util.Map;
  * The business classes representing the business layer of the plugin is generated
  *
  */
-public class BusinessClassGenerator implements Generator
+public class BusinessClassGenerator extends AbstractGenerator
 {
+    private static final String PATH = "SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
     private List<BusinessFileConfig> _listFiles;
     
     public void setFiles( List<BusinessFileConfig> listFiles )
@@ -69,21 +70,19 @@ public class BusinessClassGenerator implements Generator
         HashMap map = new HashMap(  );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses();
 
-        String strBasePath = "plugin-{plugin_name}/SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
-
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
             for( BusinessFileConfig file : _listFiles )
             {
                 String strClassName = file.getPrefix() + businessClass.getBusinessClass(  ) + file.getSuffix();
-                String strPath = strBasePath + strClassName + ".java";
+                String strFilename = strClassName + ".java";
                 String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, file.getTemplate() );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@i18n" , "#i18n" );
-                strPath = strPath.replace( "SOURCE", file.getSourcePath() );
-                map.put( strPath, strSourceCode );
+                String strPath = PATH.replace( "SOURCE", file.getSourcePath() );
+                
+                map.put( getFilePath( pm, strPath, strFilename), strSourceCode );
             }
         }
 
