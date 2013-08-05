@@ -54,6 +54,11 @@ public final class ModelHome
     {
     }
 
+    /**
+     *
+     * @param strPluginName
+     * @return
+     */
     public static int exists( String strPluginName )
     {
         for ( Model model : _dao.selectModelsList( _plugin ) )

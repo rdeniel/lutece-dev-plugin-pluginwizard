@@ -64,6 +64,9 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     // Constants
 
     // Right
+    /**
+     *
+     */
     public static final String RIGHT_MANAGE_PLUGINWIZARD = "PLUGINWIZARD_MANAGEMENT";
 
     // Parameters

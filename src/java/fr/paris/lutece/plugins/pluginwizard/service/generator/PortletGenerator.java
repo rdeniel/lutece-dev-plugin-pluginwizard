@@ -56,6 +56,10 @@ public class PortletGenerator extends AbstractGenerator
     private static final String EXT_JAVA = ".java";
     private static List<BusinessFileConfig> _listFiles;
 
+    /**
+     *
+     * @param listFiles
+     */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
         _listFiles = listFiles;
@@ -63,6 +67,7 @@ public class PortletGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

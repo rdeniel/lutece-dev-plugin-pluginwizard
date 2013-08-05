@@ -59,6 +59,10 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     private static final String SUFFIX_JSPBEAN = "JspBean.java";
     private String _strAbstractParentBeanTemplate;
 
+    /**
+     *
+     * @param strParent
+     */
     public void setAbstractParentBeanTemplate( String strParent )
     {
         _strAbstractParentBeanTemplate = strParent;
@@ -66,6 +70,7 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

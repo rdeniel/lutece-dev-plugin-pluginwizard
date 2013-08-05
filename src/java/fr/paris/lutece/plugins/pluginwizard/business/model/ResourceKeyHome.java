@@ -60,7 +60,6 @@ public final class ResourceKeyHome
     /**
      * Create an instance of the resourceKey class
      * @param resourceKey The instance of the ResourceKey which contains the informations to store
-     * @param plugin the Plugin
      * @return The  instance of resourceKey which has been created with its primary key.
      */
     public static ResourceKey create( ResourceKey resourceKey )

@@ -95,7 +95,6 @@ public final class PluginModelHome
 
     /**
      * Returns an instance of a pluginModel whose identifier is specified in parameter
-     * @param nKey The pluginModel primary key
      * @param plugin the Plugin
      * @return an instance of PluginModel
      */

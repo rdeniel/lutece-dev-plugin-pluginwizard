@@ -60,6 +60,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

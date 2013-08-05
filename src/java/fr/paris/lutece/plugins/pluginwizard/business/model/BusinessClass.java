@@ -53,6 +53,9 @@ public class BusinessClass
     private String _strPrimaryAttributeName;
     private String _strDescriptionAttributeName;
 
+    /**
+     *
+     */
     public BusinessClass(  )
     {
         _listAttributes = new ArrayList<Attribute>(  );

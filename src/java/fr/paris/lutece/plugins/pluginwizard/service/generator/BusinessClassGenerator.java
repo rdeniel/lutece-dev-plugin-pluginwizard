@@ -56,6 +56,10 @@ public class BusinessClassGenerator extends AbstractGenerator
     private static final String PATH = "SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
     private List<BusinessFileConfig> _listFiles;
 
+    /**
+     *
+     * @param listFiles
+     */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
         _listFiles = listFiles;
@@ -63,6 +67,7 @@ public class BusinessClassGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

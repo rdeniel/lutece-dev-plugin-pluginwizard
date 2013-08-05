@@ -77,7 +77,12 @@ public class ResourcesGenerator extends AbstractGenerator
         return map;
     }
 
-    
+    /**
+     * Build the code
+     * @param pm The Plugin Model
+     * @param strLanguage The language
+     * @return The code
+     */
     private String getCode( PluginModel pm , String strLanguage )
     {
         StringBuilder sb = new StringBuilder();
@@ -87,6 +92,11 @@ public class ResourcesGenerator extends AbstractGenerator
         return sb.toString();
     }
 
+    /**
+     * Writes in the buffer resources keys for the plugin
+     * @param sb The buffer
+     * @param pm The plugin model
+     */
     private void generatePluginKeys(StringBuilder sb, PluginModel pm)
     {
         sb.append("# Plugin's keys\n");
@@ -96,6 +106,11 @@ public class ResourcesGenerator extends AbstractGenerator
 
     }
 
+    /**
+     * Writes in the buffer resources keys for features
+     * @param sb The buffer
+     * @param pm The plugin model
+     */
     private void generateFeaturesKeys(StringBuilder sb, PluginModel pm)
     {
         sb.append("\n# Admin features keys\n\n");
@@ -107,6 +122,12 @@ public class ResourcesGenerator extends AbstractGenerator
         sb.append("\n");
     }
     
+    /**
+     * Writes in the buffer resources keys for business classes
+     * @param sb The buffer
+     * @param pm The plugin model
+     * @param strLanguage The language
+     */
     private void generateBusinessClassKeys( StringBuilder sb, PluginModel pm , String strLanguage )
     {
         sb.append("\n# Business classes keys\n\n");
@@ -155,12 +176,25 @@ public class ResourcesGenerator extends AbstractGenerator
         }
     }
 
+    /**
+     * Gets a label for a given language from the pluginwizard.properties file
+     * @param strKey The key of the label
+     * @param strLanguage The language
+     * @return The value of the label
+     */
     private String getLabel(String strKey, String strLanguage)
     {
         String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;
         return AppPropertiesService.getProperty( strFullKey , "Label not found for key " + strFullKey );
     }
 
+    /**
+     * Gets a label for a given language from the pluginwizard.properties file
+     * @param strKey The key of the label
+     * @param strLanguage The language
+     * @param arguments arguments of the label
+     * @return The value of the label
+     */
     private String getLabel(String strKey, String strLanguage, String...arguments)
     {
         String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;

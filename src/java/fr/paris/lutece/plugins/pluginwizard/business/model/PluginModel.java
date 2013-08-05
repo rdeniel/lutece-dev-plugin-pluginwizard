@@ -64,6 +64,9 @@ public class PluginModel
     private List<Portlet> _listPluginPortlets;
     private List<BusinessClass> _listBusinessClasses;
 
+    /**
+     *
+     */
     public PluginModel(  )
     {
         _listPluginApplications = new ArrayList<Application>(  );
@@ -335,7 +338,7 @@ public class PluginModel
 
     /**
      * Gets the locale of the plugin
-     * @return The Locale
+     * @param locale 
      */
     public void setLocale( Locale locale )
     {

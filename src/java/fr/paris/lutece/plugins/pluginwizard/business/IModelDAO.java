@@ -69,7 +69,7 @@ public interface IModelDAO
 
     /**
      * Load the data from the table
-     * @param strId The identifier of the model
+     * @param nKey 
      * @param plugin the Plugin
      * @return The instance of the model
      */

@@ -54,6 +54,11 @@ import java.util.List;
  */
 public class ModelService
 {
+    /**
+     *
+     * @param strPluginName
+     * @return
+     */
     public static int createModel( String strPluginName )
     {
         Model model = new Model(  );
@@ -92,6 +97,10 @@ public class ModelService
         return pm;
     }
 
+    /**
+     *
+     * @param pm
+     */
     public static void savePluginModel( PluginModel pm )
     {
         Model model = new Model(  );
@@ -242,6 +251,7 @@ public class ModelService
      * Get a given application
      *
      * @parampm The plugin's Model
+     * @param pm 
      * @param nApplicationId
      * @return
      */
@@ -569,6 +579,10 @@ public class ModelService
         }
     }
 
+    /**
+     *
+     * @param nPluginId
+     */
     public static void removeAll( int nPluginId )
     {
         PluginModel pm = getPluginModel( nPluginId );
@@ -721,6 +735,12 @@ public class ModelService
         }
     }
 
+    /**
+     *
+     * @param pm
+     * @param nFeatureId
+     * @return
+     */
     public static List<BusinessClass> getBusinessClassesByFeature( PluginModel pm, int nFeatureId )
     {
         List<BusinessClass> list = new ArrayList<BusinessClass>(  );
@@ -737,6 +757,11 @@ public class ModelService
         return list;
     }
 
+    /**
+     *
+     * @param nPluginId
+     * @return
+     */
     public static ReferenceList getComboFeatures( int nPluginId )
     {
         ReferenceList list = new ReferenceList(  );
@@ -762,6 +787,10 @@ public class ModelService
         throw new AppException( "Invalide Attribute type" );
     }
 
+    /**
+     *
+     * @return
+     */
     public static ReferenceList getAttributeTypes(  )
     {
         // FIXME load list from spring context

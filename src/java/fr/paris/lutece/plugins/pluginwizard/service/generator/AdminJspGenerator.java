@@ -60,11 +60,19 @@ public class AdminJspGenerator extends AbstractGenerator
     private String _strBusinessTemplate;
     private String _strFeatureTemplate;
 
+    /**
+     *
+     * @param strTemplate
+     */
     public void setBusinessTemplate( String strTemplate )
     {
         _strBusinessTemplate = strTemplate;
     }
 
+    /**
+     *
+     * @param strTemplate
+     */
     public void setFeatureTemplate( String strTemplate )
     {
         _strFeatureTemplate = strTemplate;
@@ -72,6 +80,7 @@ public class AdminJspGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

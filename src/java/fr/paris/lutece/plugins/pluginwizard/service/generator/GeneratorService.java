@@ -55,6 +55,7 @@ public class GeneratorService
      * Generate Sources
      * @param plugin The plugin (pluginwizard)
      * @param model The plugin model to generate
+     * @param nScheme The Scheme
      * @return Map that contains sources
      */
     public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model, int nScheme )
@@ -78,6 +79,10 @@ public class GeneratorService
         return mapSources;
     }
 
+    /**
+     * Returns Generation schemes 
+     * @return Generation schemes
+     */
     public static ReferenceList getGenerationSchemes(  )
     {
         _listSchemes = SpringContextService.getBeansOfType( GenerationScheme.class );
