@@ -82,8 +82,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
                     String strPath = getFilePath( pm, PATH,
                             _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1,
-                            pm.getPluginName(  ) );
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i , pm.getPluginName(  ) );
                     map.put( strPath, strSourceCode );
                 }
             }
@@ -123,7 +122,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
         model.put( MARK_INCLUDE, "@@include" );
 
-        model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
+        model.put( MARK_TEMPLATE_TYPE, nTemplateType );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

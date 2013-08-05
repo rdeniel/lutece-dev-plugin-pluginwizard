@@ -1,6 +1,6 @@
 <#switch template_type>
 
-<#case "1">
+<#case 0>
 <#if business_class?? >
 <${include} "tabs.html" /> 
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
@@ -18,7 +18,7 @@
             <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
             <#else>
             <div class="control-group">
-                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
                 <div class="controls">
                     <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" tabindex="${attribute_index}" />
                 </div>
@@ -26,7 +26,8 @@
             </#if>
             </#list>
             <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.buttonValidate${i18n_close}" tabindex="${business_class.attributes?size}" />
+                <input class="btn btn-primary" type="submit" value="${i18n_open}portal.util.labelCreate${i18n_close}" tabindex="${business_class.attributes?size}" />
+                <input class="btn" type="button" onclick="javascript:history.go(-1)" value="${i18n_open}portal.util.labelCancel${i18n_close}" />
             </div>
         </fieldset>
     </form>
@@ -37,7 +38,7 @@
 
 
 
-<#case "2">
+<#case 1>
 <#if business_class?? >
 <${include} "tabs.html" /> 
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
@@ -56,7 +57,7 @@
             <#else>
 
             <div class="control-group">
-                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.modify_${business_class.businessClass?lower_case}.rowTitle${attribute.attributeName?cap_first}${i18n_close} * :</label>
+                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
                 <div class="controls">
                     <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
                 </div>
@@ -66,8 +67,8 @@
 
 
             <div class="form-actions">   
-                <input class="btn btn-primary" type="submit" value="${i18n_open}${plugin_name?lower_case}.modify_${business_class.businessClass?lower_case}.buttonModify${business_class.businessClass?cap_first}${i18n_close}" tabindex="3" />
-                <input class="btn" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.admin.message.buttonCancel}" />	
+                <input class="btn btn-primary" type="submit" value="${i18n_open}portal.util.labelModify${i18n_close}" tabindex="3" />
+                <input class="btn" type="button" onclick="javascript:history.go(-1)" value="${i18n_open}portal.util.labelCancel${i18n_close}" />	
             </div>
 
         </fieldset>
@@ -78,7 +79,7 @@
 </#if>
 <#break>
 
-<#case "3">
+<#case 2>
 <#if business_class?? > 
 <${include} "tabs.html" /> 
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
@@ -89,7 +90,7 @@
         <form method="post"  action="jsp/admin/plugins/${plugin_name?lower_case}/Create${business_class.businessClass?cap_first}.jsp">
             <button class="btn btn-primary pull-right" type="submit">
                 <i class="icon-plus icon-white"></i>
-                ${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.buttonAdd${business_class.businessClass?cap_first}${i18n_close}
+                ${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}
             </button>
         </form>
 
@@ -103,7 +104,7 @@
                 <#if attribute.attributeName = business_class.primaryKey>
                     <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
                 <#else>
-                    <th>${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.column${attribute.attributeName?cap_first}${i18n_close}</th>
+                    <th>${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
                 </#if>
             </#list>
             <th>${i18n_open}portal.util.labelActions${i18n_close}</th>
@@ -126,12 +127,12 @@
                 </#if>                
         </#list>
         <td>
-            <a href="jsp/admin/plugins/${plugin_name?lower_case}/Modify${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
+            <a href="jsp/admin/plugins/${plugin_name?lower_case}/Modify${business_class.businessClass?cap_first}.jsp?${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-primary btn-small" title="${i18n_open}portal.util.labelModify${i18n_close}">
                 <i class="icon-edit icon-white"></i>
             </a>
 
-            <a href="jsp/admin/plugins/${plugin_name?lower_case}/Remove${business_class.businessClass?cap_first}.jsp?${business_class.businessClass?lower_case}_${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
+            <a href="jsp/admin/plugins/${plugin_name?lower_case}/Remove${business_class.businessClass?cap_first}.jsp?${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-danger btn-small" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
                 <i class="icon-trash icon-white"></i>
             </a>

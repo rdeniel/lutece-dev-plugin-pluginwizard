@@ -33,71 +33,141 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKey;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
-
-import java.util.Collection;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import java.text.MessageFormat;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-
 
 /**
  *
  * Class generated needed resource files for i18n implementation
  *
  */
-public class ResourcesGenerator implements Generator
+public class ResourcesGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_PROPERTIES_KEYS_GENERATED = "/skin/plugins/pluginwizard/templates/pluginwizard_properties_keys_generated.html";
-    private static String[] _languages = { "_en", "_fr" };
+
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
+    private static String[] _languages =
+    {
+        "en", "fr"
+    };
+    
+    private static String[] _prefix = { "create" , "modify" };
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate(PluginModel pm)
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap();
 
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
-
-        String strLanguage = "_en";
-
-        for ( int i = 0; i < _languages.length; i++ )
+        for (int i = 0; i < _languages.length; i++)
         {
-            String strPath = strBasePath + pm.getPluginName(  ).toLowerCase(  ) + "_messages" + _languages[i] +
-                ".properties";
+            String strPath = getFilePath( pm, PATH , pm.getPluginName().toLowerCase() + "_messages_" + _languages[i] + ".properties");
 
-            String strSourceCode = getLocalePropertiesKeys( pm.getIdPlugin(  ), strLanguage );
-            map.put( strPath, strSourceCode );
+            String strSourceCode = getCode( pm,  _languages[i] );
+            map.put(strPath, strSourceCode);
         }
 
         return map;
     }
 
-    /**
-    * Fetches the locale keys needed by front and back office
-    * @param nPluginId The id of the plugin
-    * @param strLanguage The language needed
-    * @param plugin The plugin
-    * @return The Locale keys
-    */
-    private String getLocalePropertiesKeys( int nPluginId, String strLanguage )
+    
+    private String getCode( PluginModel pm , String strLanguage )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ResourceKey> listResourceKey = ResourceKeyHome.getResourceKeysList( nPluginId );
-        model.put( MARK_RESOURCE_KEY_LIST, listResourceKey );
-        model.put( MARK_LANGUAGE, strLanguage );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PROPERTIES_KEYS_GENERATED,
-                Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        StringBuilder sb = new StringBuilder();
+        generatePluginKeys(sb, pm);
+        generateFeaturesKeys(sb, pm);
+        generateBusinessClassKeys(sb, pm, strLanguage );
+        return sb.toString();
     }
+
+    private void generatePluginKeys(StringBuilder sb, PluginModel pm)
+    {
+        sb.append("# Plugin's keys\n");
+        sb.append("plugin.provider=").append(pm.getPluginProvider()).append("\n");
+        sb.append("plugin.description=").append(pm.getPluginDescription()).append("\n");
+        sb.append("\n");
+
+    }
+
+    private void generateFeaturesKeys(StringBuilder sb, PluginModel pm)
+    {
+        sb.append("\n# Admin features keys\n\n");
+        for (Feature feature : pm.getFeatures())
+        {
+            sb.append( "adminFeature.").append( feature.getPluginFeatureName()).append(".name=").append(feature.getPluginFeatureName()).append("\n");
+            sb.append( "adminFeature.").append( feature.getPluginFeatureName()).append(".description=").append(feature.getPluginFeatureDescription()).append("\n");
+        }
+        sb.append("\n");
+    }
+    
+    private void generateBusinessClassKeys( StringBuilder sb, PluginModel pm , String strLanguage )
+    {
+        sb.append("\n# Business classes keys\n\n");
+        for( BusinessClass bc : pm.getBusinessClasses() )
+        {
+            sb.append("\n# keys for business classes keys : ").append(bc.getBusinessClass()).append( "\n" );
+
+            String strPrefix = "manage_" + bc.getBusinessClass().toLowerCase() + "s.";
+            sb.append( strPrefix ).append( "pageTitle=").append( bc.getBusinessClass()).append("\n");
+            sb.append( strPrefix ).append( "title=").append( getLabel( "title.manage" , strLanguage , bc.getBusinessClass()) ).append("\n");
+            sb.append( strPrefix ).append( "buttonAdd=").append( getLabel( "buttonAdd" , strLanguage , bc.getBusinessClass()) ).append("\n");
+            for( Attribute attribute : bc.getAttributes() )
+            {
+                sb.append( strPrefix ).append( "column").append( attribute.getName()).append("=").append( attribute.getLabelName() ).append("\n");
+            }
+            
+            for( int i = 0 ; i < _prefix.length ; i++ )
+            {
+                strPrefix = _prefix[i] + "_" + bc.getBusinessClass().toLowerCase() + ".";
+                sb.append( strPrefix ).append( "pageTitle=").append( bc.getBusinessClass()).append("\n");
+                sb.append( strPrefix ).append( "title=").append( getLabel( "title." + _prefix[i] , strLanguage , bc.getBusinessClass() )).append("\n");
+                for( Attribute attribute : bc.getAttributes() )
+                {
+                    sb.append( strPrefix ).append( "label").append( attribute.getName()).append("=").append( attribute.getLabelName() ).append("\n");
+                }
+            }
+            
+            sb.append( "\nmessage.confirmRemove").append(bc.getBusinessClass()).append("=").append( getLabel( "confirmRemove", strLanguage )).append( " ?\n");
+
+            sb.append( "\n# JSR 303 constraint validator messages\n");
+            strPrefix = "validation." + bc.getBusinessClass().toLowerCase() + "."; 
+            for( Attribute attribute : bc.getAttributes() )
+            {
+                if( !attribute.getType().equals( "int" ))
+                {
+                    if( attribute.getCouldNotBeEmpty() )
+                    {    
+                        sb.append( strPrefix ).append( attribute.getName()).append(".notEmpty=").append( getLabel( "validation.notEmpty" , strLanguage , attribute.getLabelName() ) ).append("\n");
+                    }
+                    if( attribute.getMaxLength() > 0 )
+                    {
+                        sb.append( strPrefix ).append( attribute.getName()).append(".size=").append( getLabel( "validation.size" , strLanguage , attribute.getLabelName() , "" + attribute.getMaxLength()) ).append("\n");
+                    }
+                }
+            }
+        }
+    }
+
+    private String getLabel(String strKey, String strLanguage)
+    {
+        String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;
+        return AppPropertiesService.getProperty( strFullKey , "Label not found for key " + strFullKey );
+    }
+
+    private String getLabel(String strKey, String strLanguage, String...arguments)
+    {
+        String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;
+        String strLabel = AppPropertiesService.getProperty( strFullKey , "Label not found for key " + strFullKey );
+        return MessageFormat.format( strLabel, (Object[]) arguments);
+    }
+    
+    
 }
+

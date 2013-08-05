@@ -72,7 +72,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
 
     // Parameters
 <#list business_class.attributes as attribute>
-    private static final String PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case}="${business_class.businessClass?lower_case}_${attribute.attributeName?lower_case}";
+    private static final String PARAMETER_${attribute.attributeName?upper_case}="${attribute.attributeName?lower_case}";
 </#list>
 
 
@@ -159,13 +159,13 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
                    	 
              <#else>
         
-        if ( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ).equals( "" ) )
+        if ( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ).equals( "" ) )
         {
             return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
         }
-			<#if attribute.type = "String">${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ) );
+			<#if attribute.type = "String">${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ) );
 			<#elseif attribute.type = "int">
-      int n${attribute.name?cap_first} = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ) );
+      int n${attribute.name?cap_first} = Integer.parseInt( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ) );
       ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( n${attribute.name?cap_first} );
 			</#if>
 			
@@ -183,9 +183,9 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      */
     public String getConfirmRemove${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-        	int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${business_class.primaryKey?upper_case} ) );
+        	int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
           UrlItem url = new UrlItem( JSP_DO_REMOVE_${business_class.businessClass?upper_case} );
-          url.addParameter( PARAMETER_${business_class.businessClass?upper_case}_${business_class.primaryKey?upper_case}, nId );
+          url.addParameter( PARAMETER_${business_class.primaryKey?upper_case}, nId );
           return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, url.getUrl(  ),AdminMessage.TYPE_CONFIRMATION );
     }
 
@@ -197,7 +197,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      */
     public String doRemove${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${business_class.primaryKey?upper_case} ) );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
         ${business_class.businessClass?cap_first}Home.remove( nId );
         
         return JSP_REDIRECT_TO_MANAGE_${business_class.businessClass?upper_case}S;
@@ -212,7 +212,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     public String getModify${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
         setPageTitleProperty( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} );
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${business_class.primaryKey?upper_case} ) );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
         ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} =${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
@@ -231,17 +231,17 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      */
     public String doModify${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-      int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${business_class.primaryKey?upper_case} ) ); 
+      int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) ); 
       ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} =${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
         <#list business_class.attributes as attribute>  
-        if ( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ).equals( "" ) )
+        if ( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ).equals( "" ) )
         {
           return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
         }
 			<#if attribute.type = "String">
-  			 ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ) );
+  			 ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ) );
       <#elseif attribute.type = "int">
-      int n${attribute.name?cap_first} = Integer.parseInt( request.getParameter( PARAMETER_${business_class.businessClass?upper_case}_${attribute.attributeName?upper_case} ) );
+      int n${attribute.name?cap_first} = Integer.parseInt( request.getParameter( PARAMETER_${attribute.attributeName?upper_case} ) );
 			${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( n${attribute.name?cap_first} );
 			</#if>       
      	</#list>

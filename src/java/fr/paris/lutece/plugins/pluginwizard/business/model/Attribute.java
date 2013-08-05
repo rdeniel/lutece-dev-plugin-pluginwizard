@@ -190,6 +190,16 @@ public class Attribute
     }
 
     /**
+    * Returns the Name
+    * @return The Name
+    */
+    @JsonIgnore
+    public String getLabelName(  )
+    {
+        return _strAttributeName.substring( 0, 1 ).toUpperCase() + _strAttributeName.substring(1).replace( "_", " " );
+    }
+
+    /**
      * Returns the VariableName
      * @return  _strVariableName The VariableName
      */
