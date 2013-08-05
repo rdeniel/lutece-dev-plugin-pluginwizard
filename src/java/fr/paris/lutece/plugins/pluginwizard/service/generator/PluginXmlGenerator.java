@@ -58,7 +58,6 @@ public class PluginXmlGenerator extends AbstractFileGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )
@@ -67,9 +66,8 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     }
 
     /**
-    * Returns the text content of the plugin xml file
-    * @return The plugin xml file content of the plugin
-    */
+      * {@inheritDoc }
+      */
     @Override
     protected String getCode( PluginModel pm )
     {
@@ -98,16 +96,17 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     }
 
     /**
-     *
-     * @param pm
-     * @return
-     */
+      * {@inheritDoc }
+      */
     @Override
     protected String getFilename( PluginModel pm )
     {
         return pm.getPluginName(  ).toLowerCase(  ) + ".xml";
     }
 
+    /**
+      * {@inheritDoc }
+      */
     @Override
     public String getPath(  )
     {

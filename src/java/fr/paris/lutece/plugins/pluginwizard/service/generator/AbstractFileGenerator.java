@@ -54,9 +54,9 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     private String _strPath;
 
     /**
-     *
-     * @param pm
-     * @return
+     * Get the filename
+     * @param pm The plugin model
+     * @return The filename
      */
     protected abstract String getFilename( PluginModel pm );
 

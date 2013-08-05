@@ -60,8 +60,8 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     private String _strAbstractParentBeanTemplate;
 
     /**
-     *
-     * @param strParent
+     * Set the parent bean template
+     * @param strParent The parent bean template
      */
     public void setAbstractParentBeanTemplate( String strParent )
     {
@@ -70,7 +70,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )
@@ -106,7 +105,7 @@ public class AdminJspBeanGenerator extends AbstractGenerator
      * @param pluginModel The plugin model
      * @param strFeatureName The feature name
      * @param strFeatureRight The feature right
-     * @param listBusinessClasses The list of business classes
+     * @param business  The business classes
      * @return the template The source code of the Jsp Bean
      */
     private String getJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight,

@@ -57,8 +57,8 @@ public class BusinessClassGenerator extends AbstractGenerator
     private List<BusinessFileConfig> _listFiles;
 
     /**
-     *
-     * @param listFiles
+     * Set the list of files config
+     * @param listFiles The list of files
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
@@ -67,7 +67,6 @@ public class BusinessClassGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )

@@ -57,8 +57,8 @@ public class PortletGenerator extends AbstractGenerator
     private static List<BusinessFileConfig> _listFiles;
 
     /**
-     *
-     * @param listFiles
+     * Set the list of files config
+     * @param listFiles The list of files
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
@@ -67,7 +67,6 @@ public class PortletGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )
@@ -102,6 +101,7 @@ public class PortletGenerator extends AbstractGenerator
     * @param portlet The instance of a portlet
     * @param strPluginName The plugin name
     * @param strTemplate  The template of portlet file
+    * @param strPortletName The portlet name
     * @return The content of the portlet file
     */
     private String getPortletFile( Portlet portlet, String strPluginName, String strTemplate, String strPortletName )

@@ -80,7 +80,7 @@ public class GeneratorService
     }
 
     /**
-     * Returns Generation schemes 
+     * Returns Generation schemes
      * @return Generation schemes
      */
     public static ReferenceList getGenerationSchemes(  )

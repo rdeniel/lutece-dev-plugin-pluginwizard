@@ -55,7 +55,7 @@ public class SqlCodeGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
+     * @param pm
      */
     @Override
     public Map generate( PluginModel pm )

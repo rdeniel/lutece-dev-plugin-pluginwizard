@@ -55,9 +55,9 @@ import java.util.List;
 public class ModelService
 {
     /**
-     *
-     * @param strPluginName
-     * @return
+     * Create a plugin model
+     * @param strPluginName The plugin name
+     * @return The plugin ID
      */
     public static int createModel( String strPluginName )
     {
@@ -74,9 +74,9 @@ public class ModelService
     }
 
     /**
-     *
+     * Returns the plugin model
      * @param nPluginId The plugin's ID
-     * @return
+     * @return The plugin model
      */
     public static PluginModel getPluginModel( int nPluginId )
     {
@@ -98,8 +98,8 @@ public class ModelService
     }
 
     /**
-     *
-     * @param pm
+     * Save the plugin model
+     * @param pm The plugin model
      */
     public static void savePluginModel( PluginModel pm )
     {
@@ -237,8 +237,8 @@ public class ModelService
      * Get a given application
      *
      * @param nPluginId The plugin's ID
-     * @param nApplicationId
-     * @return
+     * @param nApplicationId The application ID
+     * @return The application
      */
     public static Application getApplication( int nPluginId, int nApplicationId )
     {
@@ -250,10 +250,9 @@ public class ModelService
     /**
      * Get a given application
      *
-     * @parampm The plugin's Model
-     * @param pm 
-     * @param nApplicationId
-     * @return
+     * @param pm The plugin model
+     * @param nApplicationId The application ID
+     * @return The application
      */
     public static Application getApplication( PluginModel pm, int nApplicationId )
     {
@@ -355,12 +354,13 @@ public class ModelService
 
     ////////////////////////////////////////////////////////////////////////////
     // PORTLET
+
     /**
      * Get a given portlet
      *
      * @param nPluginId The plugin's ID
-     * @param nPortletId
-     * @return
+     * @param nPortletId The portlet ID
+     * @return The portlet
      */
     public static Portlet getPortlet( int nPluginId, int nPortletId )
     {
@@ -465,11 +465,11 @@ public class ModelService
     ////////////////////////////////////////////////////////////////////////////
     // BUSINESS CLASSES
     /**
-     * Get a given bc
+     * Get a given business class
      *
      * @param nPluginId The plugin's ID
-     * @param nBusinessClassId
-     * @return
+     * @param nBusinessClassId The business class ID
+     * @return The business class
      */
     public static BusinessClass getBusinessClass( int nPluginId, int nBusinessClassId )
     {
@@ -478,6 +478,12 @@ public class ModelService
         return getBusinessClass( pm, nBusinessClassId );
     }
 
+    /**
+     * Get a given business class
+     * @param pm The plugin model
+     * @param nBusinessClassId The business class ID
+     * @return The business class
+     */
     private static BusinessClass getBusinessClass( PluginModel pm, int nBusinessClassId )
     {
         for ( BusinessClass bc : pm.getBusinessClasses(  ) )
@@ -495,7 +501,7 @@ public class ModelService
      * Add an bc to the model
      *
      * @param nPluginId The plugin's ID
-     * @param bc The bc
+     * @param bc The business class
      * @return The business class with its ID
      */
     public static BusinessClass addBusinessClass( int nPluginId, BusinessClass bc )
@@ -555,10 +561,10 @@ public class ModelService
     }
 
     /**
-     * Remove an bc
+     * Remove a business class
      *
      * @param nPluginId The plugin's ID
-     * @param nBusinessClassId The bc's ID
+     * @param nBusinessClassId The business class's ID
      */
     public static void removeBusinessClass( int nPluginId, int nBusinessClassId )
     {
@@ -580,8 +586,8 @@ public class ModelService
     }
 
     /**
-     *
-     * @param nPluginId
+     * Remove all data for a given plugin
+     * @param nPluginId The plugin ID
      */
     public static void removeAll( int nPluginId )
     {
@@ -600,8 +606,8 @@ public class ModelService
      *
      * @param nPluginId The plugin's ID
      * @param nBusinessClassId The business class ID
-     * @param nAttributeId
-     * @return
+     * @param nAttributeId The attribute ID
+     * @return The attribute
      */
     public static Attribute getAttribute( int nPluginId, int nBusinessClassId, int nAttributeId )
     {
@@ -736,10 +742,10 @@ public class ModelService
     }
 
     /**
-     *
-     * @param pm
-     * @param nFeatureId
-     * @return
+     * Gets all business classes for a given Feature
+     * @param pm The plugin model
+     * @param nFeatureId The feature ID
+     * @return The list of business class
      */
     public static List<BusinessClass> getBusinessClassesByFeature( PluginModel pm, int nFeatureId )
     {
@@ -758,9 +764,9 @@ public class ModelService
     }
 
     /**
-     *
-     * @param nPluginId
-     * @return
+     * Get a reference list of features
+     * @param nPluginId The plugin ID
+     * @return the list of features
      */
     public static ReferenceList getComboFeatures( int nPluginId )
     {
@@ -774,6 +780,11 @@ public class ModelService
         return list;
     }
 
+    /**
+     * Returns the attribute type corresponding to an ID
+     * @param nAttributeTypeId The attribute ID
+     * @return The type
+     */
     private static String getAttributeType( int nAttributeTypeId )
     {
         for ( ReferenceItem item : getAttributeTypes(  ) )
@@ -788,8 +799,8 @@ public class ModelService
     }
 
     /**
-     *
-     * @return
+     * Gets all attribute types
+     * @return A list of attributes types
      */
     public static ReferenceList getAttributeTypes(  )
     {

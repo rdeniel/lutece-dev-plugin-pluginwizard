@@ -54,7 +54,6 @@ public class PomGenerator extends AbstractFileGenerator
 {
     /**
      * {@inheritDoc }
-     * @param pm 
      */
     @Override
     public Map generate( PluginModel pm )
@@ -89,8 +88,6 @@ public class PomGenerator extends AbstractFileGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm
-     * @return  
      */
     @Override
     protected String getFilename( PluginModel pm )

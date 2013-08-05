@@ -37,7 +37,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 /**
  * Markers constants
  */
-public class Markers
+public final class Markers
 {
     public static final String MARK_LIST_BUSINESS_CLASS = "list_business_class";
     public static final String MARK_PLUGIN_APPLICATION = "plugin_application";

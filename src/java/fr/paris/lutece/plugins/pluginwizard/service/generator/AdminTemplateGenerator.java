@@ -60,7 +60,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
-     * @param pm 
+     * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
@@ -83,7 +83,8 @@ public class AdminTemplateGenerator extends AbstractGenerator
                     String strPath = getFilePath( pm, PATH,
                             _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i , pm.getPluginName(  ) );
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i,
+                            pm.getPluginName(  ) );
                     map.put( strPath, strSourceCode );
                 }
             }
@@ -105,6 +106,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
      * plugin
      * @param businessClass The instance of the business class
      * @param nTemplateType The type of template
+     * @param strPluginName The plugin name
      * @return The html code of the create template
      */
     private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, BusinessClass businessClass,

@@ -686,7 +686,6 @@ public class PluginWizardApp implements XPageApplication
      *
      * @param request The Http Request
      * @param strPluginName The Plugin Name
-     * @param plugin The Plugin
      * @return The creation form of the plugin description
      */
     private String getPluginExists( HttpServletRequest request, String strPluginName )
@@ -704,6 +703,7 @@ public class PluginWizardApp implements XPageApplication
     /**
      * Gets the create plugin description page
      * @param request The HTTP request
+     * @param nPluginId The plugin ID
      * @return The page
      */
     private String getCreatePluginDescription( HttpServletRequest request, int nPluginId )
@@ -730,7 +730,6 @@ public class PluginWizardApp implements XPageApplication
      * The modification form of the plugin description
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
     private String getModifyPluginDescription( HttpServletRequest request )
@@ -750,7 +749,6 @@ public class PluginWizardApp implements XPageApplication
      * The modification form of the plugin
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The html code of the creation of plugin description
      */
     private String getModifyPlugin( HttpServletRequest request )
@@ -827,7 +825,7 @@ public class PluginWizardApp implements XPageApplication
      * The modification action of the plugin
      *
      * @param request The Http Request
-     * @param plugin The Plugin
+     * @param strPluginName  The Plugin name
      * @throws SiteMessageException Front office error handling
      */
     private int doCreatePlugin( HttpServletRequest request, String strPluginName )
@@ -843,7 +841,6 @@ public class PluginWizardApp implements XPageApplication
      * Removes all the artifacts ralated to the generated plugin
      *
      * @param request The http request
-     * @param plugin The plugin
      */
     private void doRemoveAllPluginRelated( HttpServletRequest request )
     {
@@ -857,7 +854,6 @@ public class PluginWizardApp implements XPageApplication
      * The modification action of the plugin
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @throws SiteMessageException Front office error handling
      */
     private void doModifyPlugin( HttpServletRequest request )
@@ -1093,7 +1089,7 @@ public class PluginWizardApp implements XPageApplication
                         {
                             SiteMessageService.setMessage( request, PROPERTY_CLASS_DESCRIPTION_NOT_DEFINED, SiteMessage.TYPE_STOP );
                         }
-            
+
                         if ( !BusinessClassHome.hasAlreadyKey( businessClass.getId(  ), plugin ) )
                         {
                             SiteMessageService.setMessage( request, PROPERTY_CLASS_KEY_NOT_DEFINED, SiteMessage.TYPE_STOP );
@@ -1245,7 +1241,7 @@ public class PluginWizardApp implements XPageApplication
                 {
                     SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_DESCRIPTION, SiteMessage.TYPE_STOP );
                 }
-        
+
                 if ( strPrimaryKey.equals( "1" ) && BusinessClassHome.hasAlreadyKey( nBusinessClassId, plugin ) )
                 {
                     SiteMessageService.setMessage( request, PROPERTY_BUSINESS_CLASS_HAS_A_KEY, SiteMessage.TYPE_STOP );

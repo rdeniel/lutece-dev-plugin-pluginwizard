@@ -44,9 +44,14 @@ import java.io.StringWriter;
 /**
  * Mapper Service
  */
-public class MapperService
+public final class MapperService
 {
     private static ObjectMapper _mapper = new ObjectMapper(  );
+
+    /** Private constructor */
+    private MapperService(  )
+    {
+    }
 
     /**
      * Transform the model into a JSON String

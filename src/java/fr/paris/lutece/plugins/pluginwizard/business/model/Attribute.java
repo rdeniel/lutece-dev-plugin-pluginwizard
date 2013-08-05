@@ -196,7 +196,8 @@ public class Attribute
     @JsonIgnore
     public String getLabelName(  )
     {
-        return _strAttributeName.substring( 0, 1 ).toUpperCase() + _strAttributeName.substring(1).replace( "_", " " );
+        return _strAttributeName.substring( 0, 1 ).toUpperCase(  ) +
+        _strAttributeName.substring( 1 ).replace( "_", " " );
     }
 
     /**
@@ -221,7 +222,7 @@ public class Attribute
 
     /**
      * Returns the java name of the attribute
-     * @return
+     * @return The java name
      */
     @JsonIgnore
     public String getJavaName(  )
