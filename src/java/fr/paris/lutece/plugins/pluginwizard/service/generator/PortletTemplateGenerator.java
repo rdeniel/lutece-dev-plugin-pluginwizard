@@ -47,11 +47,13 @@ import java.util.Map;
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
-public class PortletTemplateGenerator implements Generator
+public class PortletTemplateGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_PORTLET_HTML_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_template_files.html";
+    private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
     private static final String EXT_HTML = ".html";
+    private static String[] _prefix = { "combo_feed_", "modify_portlet_", "create_portlet_" };
 
+    
     /**
      * {@inheritDoc }
      */
@@ -59,19 +61,17 @@ public class PortletTemplateGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( Portlet portlet : pm.getPortlets() )
         {
-            for ( int i = 1; i < 4; i++ )
+            for ( int i = 0 ; i < _prefix.length ; i++ )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
 
                 String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ), i );
 
-                String strPath = strBasePath + strPortletFile;
+                String strPath = getFilePath( pm, PATH, strPortletFile );
 
                 String strSourceCode = getPortletHtmlTemplate( portlet, pm.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -93,32 +93,7 @@ public class PortletTemplateGenerator implements Generator
      */
     private String getPortletTemplateName( String strPortletName, int nTemplate )
     {
-        String strReturn;
-
-        switch ( nTemplate )
-        {
-            case 1:
-                strReturn = "combo_feed_" + strPortletName + EXT_HTML;
-
-                break;
-
-            case 2:
-                strReturn = "modify_portlet_" + strPortletName + EXT_HTML;
-
-                break;
-
-            case 3:
-                strReturn = "create_portlet_" + strPortletName + EXT_HTML;
-
-                break;
-
-            default:
-                strReturn = "combo_feed_" + strPortletName + EXT_HTML;
-
-                break;
-        }
-
-        return strReturn;
+        return _prefix[ nTemplate ] + strPortletName + EXT_HTML;
     }
 
     /**
@@ -138,10 +113,9 @@ public class PortletTemplateGenerator implements Generator
         model.put( MARK_MACRO, "@" );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_PORTLET_TEMPLATE_TYPE, nPortletTemplateType + "" );
+        model.put( MARK_PORTLET_TEMPLATE_TYPE, nPortletTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_HTML_TEMPLATE, Locale.getDefault(  ),
-                model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

@@ -1,7 +1,7 @@
   <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>	
 <#switch portlet_jsp_type>
  
- <#case "1">
+ <#case 0>
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
 <jsp:include page="../../PortletAdminHeader.jsp" />
@@ -15,7 +15,7 @@
 
  <#break>
  
-  <#case "2">
+  <#case 1>
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
 <jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
@@ -27,7 +27,7 @@
 
  <#break>
  
-  <#case "3">
+  <#case 2>
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 <jsp:include page="../../PortletAdminHeader.jsp" />
@@ -41,7 +41,7 @@
 
  <#break>
 
-  <#case "4">
+  <#case 3>
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 

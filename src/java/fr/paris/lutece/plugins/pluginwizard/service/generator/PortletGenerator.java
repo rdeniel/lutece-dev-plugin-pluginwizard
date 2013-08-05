@@ -41,6 +41,7 @@ import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -48,9 +49,17 @@ import java.util.Map;
 /**
  * The portlet generator  generates all the java files needed for portlet creation
  */
-public class PortletGenerator implements Generator
+public class PortletGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_PORTLET_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_files.html";
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/business/portlet/";
+    private static final String MARK_PORTLET_NAME = "portletName";
+    private static final String EXT_JAVA = ".java";
+    private static List<BusinessFileConfig> _listFiles;
+    
+    public void setFiles( List<BusinessFileConfig> listFiles )
+    {
+        _listFiles = listFiles;
+    }
 
     /**
      * {@inheritDoc }
@@ -59,21 +68,19 @@ public class PortletGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/business/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( Portlet portlet : pm.getPortlets() )
         {
-            for ( int i = 1; i < 5; i++ )
+            for ( BusinessFileConfig file : _listFiles )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( 
-                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
+                String strPortletName = getFirstCaps( strPortlet.substring( 0, nIndex ) ) ;
+                String strPortletFile = file.getPrefix() + strPortletName + "Portlet" + file.getSuffix() + EXT_JAVA;
 
-                String strPath = strBasePath + strPortletFile;
+                String strPath = getFilePath( pm, PATH, strPortletFile );
 
-                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), i );
+                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate() , strPortletName );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -84,79 +91,22 @@ public class PortletGenerator implements Generator
     }
 
     /**
-     * Gets the name of the portlet file
-     * @param strPortletName The portlet name
-     * @param strPluginName The plugin name
-     * @param nPortletFileType The portlet file type
-     * @return The name of the file
-     */
-    private String getPortletFileName( String strPortletName, int nPortletFileType )
-    {
-        String strReturn;
-
-        switch ( nPortletFileType )
-        {
-            case 1:
-                strReturn = strPortletName + "PortletHome.java";
-
-                break;
-
-            case 2:
-                strReturn = "I" + strPortletName + "PortletDAO.java";
-
-                break;
-
-            case 3:
-                strReturn = strPortletName + "Portlet.java";
-
-                break;
-
-            case 4:
-                strReturn = strPortletName + "PortletDAO.java";
-
-                break;
-
-            default:
-                strReturn = strPortletName + "Portlet.java";
-
-                break;
-        }
-
-        return strReturn;
-    }
-
-    /**
-     * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
-     */
-    private String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
-
-        return strValueCap;
-    }
-
-    /**
     * Produces text content of java file used to build a portlet
     * @param portlet The instance of a portlet
     * @param strPluginName The plugin name
-    * @param nPortletFileType The type of portlet file
+    * @param strTemplate  The template of portlet file
     * @return The content of the portlet file
     */
-    private String getPortletFile( Portlet portlet, String strPluginName, int nPortletFileType )
+    private String getPortletFile( Portlet portlet, String strPluginName, String strTemplate, String strPortletName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_PORTLET_FILE_TYPE, nPortletFileType + "" );
+        model.put( MARK_PORTLET_NAME, strPortletName );
         AppLogService.info( portlet );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_FILE_TEMPLATE,
-                new Locale( "en", "US" ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(), model );
 
         return template.getHtml(  );
     }

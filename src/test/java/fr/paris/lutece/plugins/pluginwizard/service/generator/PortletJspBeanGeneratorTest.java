@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 import java.util.Map;
 import org.junit.Test;
@@ -53,7 +54,7 @@ public class PortletJspBeanGeneratorTest extends LuteceTestCase
     {
         System.out.println("generate PortletJspBean file");
         PluginModel pm = GeneratorUtils.getTestModel();
-        PortletJspBeanGenerator instance = new PortletJspBeanGenerator();
+        PortletJspBeanGenerator instance = SpringContextService.getBean("pluginwizard.generator.portlet.java.jspbean");
         Map result = instance.generate(pm);
         GeneratorUtils.outputMap( result );
     }

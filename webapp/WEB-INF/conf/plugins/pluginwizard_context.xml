@@ -98,6 +98,51 @@
         </constructor-arg>
     </bean>
     
+    
+    <bean id="pluginwizard.portlet.class.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_class.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.portlet.idao.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="prefix">
+            <value>I</value>
+        </property>
+        <property name="suffix">
+            <value>DAO</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_idao.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.portlet.dao.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix">
+            <value>DAO</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_dao.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.portlet.home.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix">
+            <value>Home</value>
+        </property>
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_home.html</value>
+        </property>
+    </bean>
+
+    <bean id="pluginwizard.list.files.portlet.classic" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginwizard.portlet.class.classic" />
+                <ref bean="pluginwizard.portlet.dao.classic" />                
+                <ref bean="pluginwizard.portlet.idao.classic" />                
+                <ref bean="pluginwizard.portlet.home.classic" />                
+            </list>
+        </constructor-arg>
+    </bean>
+    
     <!-- Plugins files -->
     <bean id="pluginwizard.generator.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" >
         <property name="template">
@@ -187,15 +232,34 @@
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/commons/gt_xpage.html</value>
         </property>
-
     </bean>
     
     <!-- Portlet -->
-    <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" />
-    <bean id="pluginwizard.generator.portlet.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspBeanGenerator" />
-    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator" />
-    <bean id="pluginwizard.generator.portlet.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletTemplateGenerator" />
-    <bean id="pluginwizard.generator.portlet.xsl" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletXslGenerator" />
+    <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" >
+        <property name="files">
+            <ref bean="pluginwizard.list.files.portlet.classic" />
+        </property>
+    </bean>
+    <bean id="pluginwizard.generator.portlet.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspBeanGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_jspbean.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_jsp.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.generator.portlet.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletTemplateGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_html.html</value>
+        </property>
+    </bean>
+    <bean id="pluginwizard.generator.portlet.xsl" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletXslGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_portlet_xsl.html</value>
+        </property>
+    </bean>
 
     
     <bean id="pluginwizard.scheme1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >

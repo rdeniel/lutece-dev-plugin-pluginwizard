@@ -1,12 +1,12 @@
-  <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+<#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
   
 <#switch template_type>
  
- <#case "1">
+ <#case 0>
 <${macro}combo name="feed_id" default_value="${bra_open}default_feed_id${bra_close}" items=feed_list/>
 
  <#break>
-  <#case "2">
+  <#case 1>
 <p>
     <label>${i18n_open}${plugin_name}.modify_portlet_${portletName}.labelSource${i18n_close}</label>
    ${macro}combo_feeds${macro}
@@ -15,7 +15,7 @@
 
  <#break>
 
-  <#case "3">
+  <#case 2>
 <p>
     <label>${i18n_open}${plugin_name}.create_portlet_${portletName}.labelSource${i18n_close}</label>
    ${macro}combo_feeds${macro}
@@ -25,6 +25,5 @@
  <#break>
 
   <#default>
-  
-  </#switch>  
+</#switch>  
 

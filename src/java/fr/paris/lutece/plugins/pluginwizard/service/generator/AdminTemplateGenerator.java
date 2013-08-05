@@ -56,7 +56,6 @@ public class AdminTemplateGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
-    private String _strTemplate;
     private String _strTabsTemplate;
     
     /**
@@ -123,7 +122,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
 
         model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }
@@ -155,14 +154,6 @@ public class AdminTemplateGenerator extends AbstractGenerator
         HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
-    }
-
-    /**
-     * @return the tabsTemplate
-     */
-    public String getTabsTemplate()
-    {
-        return _strTabsTemplate;
     }
 
     /**

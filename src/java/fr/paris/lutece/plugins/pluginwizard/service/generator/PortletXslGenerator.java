@@ -49,9 +49,9 @@ import java.util.Map;
  * Class generates the xsl associated to every generated portlet
  *
  */
-public class PortletXslGenerator implements Generator
+public class PortletXslGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_PORTLET_XSL_FILE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_xsl_files.html";
+    private static final String PATH = "webapp/WEB-INF/xsl/normal/";
 
     /**
      * {@inheritDoc }
@@ -60,12 +60,10 @@ public class PortletXslGenerator implements Generator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strBasePath = "plugin-{plugin_name}/webapp/WEB-INF/xsl/normal/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( Portlet portlet : pm.getPortlets() )
         {
-            String strPath = strBasePath + "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl";
+            String strPath = getFilePath( pm, PATH, "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl");
 
             String strSourceCode = getPortletXsl( portlet, pm.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -102,7 +100,7 @@ public class PortletXslGenerator implements Generator
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_XSL_FILE, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

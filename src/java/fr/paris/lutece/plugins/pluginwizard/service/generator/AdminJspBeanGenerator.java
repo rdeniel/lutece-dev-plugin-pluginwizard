@@ -56,7 +56,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
     private static final String SUFFIX_JSPBEAN = "JspBean.java";
     
-    private String _strTemplate;
     private String _strAbstractParentBeanTemplate;
     
     public void setAbstractParentBeanTemplate( String strParent )
@@ -112,7 +111,7 @@ public class AdminJspBeanGenerator extends AbstractGenerator
         model.put(MARK_FEATURE_NAME, strFeatureName);
         model.put(MARK_FEATURE_RIGHT, strFeatureRight);
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strTemplate , Locale.getDefault(), model);
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(), model);
 
         return template.getHtml();
     }

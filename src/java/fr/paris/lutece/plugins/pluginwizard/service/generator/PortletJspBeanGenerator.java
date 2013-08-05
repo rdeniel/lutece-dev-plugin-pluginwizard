@@ -49,9 +49,9 @@ import java.util.Map;
  * The class generated the portlet jspbean needed to manage portlets
  *
  */
-public class PortletJspBeanGenerator implements Generator
+public class PortletJspBeanGenerator extends AbstractGenerator
 {
-    private static final String TEMPLATE_PORTLET_JSPBEAN_FILE_TEMPLATE = "/skin/plugins/pluginwizard/templates/pluginwizard_portlet_jspbean.html";
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/portlet/";
 
     /**
      * {@inheritDoc }
@@ -61,36 +61,19 @@ public class PortletJspBeanGenerator implements Generator
     {
         HashMap map = new HashMap(  );
 
-        String strBasePath = "plugin-{plugin_name}/src/java/fr/paris/lutece/plugins/{plugin_name}/web/portlet/";
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
 
         for ( Portlet portlet : pm.getPortlets() )
         {
             String strPortlet = portlet.getPluginPortletTypeName(  );
             int nIndex = strPortlet.lastIndexOf( "_" );
 
-            String strPath = strBasePath + getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ) + "PortletJspBean.java";
+            String strPath = getFilePath( pm, PATH, getFirstCaps( strPortlet.substring( 0, nIndex ) ) + "PortletJspBean.java");
 
             String strSourceCode = getPortletJspBean( portlet, pm.getPluginName(  ) );
             map.put( strPath, strSourceCode );
         }
 
         return map;
-    }
-
-    /**
-     * Returns the value of a string with first letter in caps
-     *
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
-     */
-    private String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
-
-        return strValueCap;
     }
 
     /**
@@ -105,8 +88,7 @@ public class PortletJspBeanGenerator implements Generator
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_PORTLET_JSPBEAN_FILE_TEMPLATE,
-                Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

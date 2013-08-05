@@ -31,66 +31,54 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.pluginwizard.service.generator;
+package fr.paris.lutece.plugins.${plugin_name}.business.portlet;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.business.portlet.IPortletInterfaceDAO;
+import fr.paris.lutece.portal.business.portlet.Portlet;
+
 
 /**
- * AbstractGenerator
  *
+ * @author 
  */
-public abstract class AbstractGenerator implements Generator
+public interface I${portletName?cap_first}PortletDAO extends IPortletInterfaceDAO
 {
-    private String _strTemplate;
-    
-    
     /**
-     * Returns the Template
+     * Delete record from table
      *
-     * @return The Template
-     */
-    public String getTemplate()
-    {
-        return _strTemplate;
-    }
-
-    /**
-     * Sets the Template
      *
-     * @param strTemplate The Template
+     * @param nPortletId The indentifier of the Portlet
      */
-    public void setTemplate(String strTemplate)
-    {
-        _strTemplate = strTemplate;
-    }
+    void delete( int nPortletId );
 
     /**
-     * Build the file path
-     * @param pm The Plugin Model
-     * @param strPath The relative path
-     * @param strFilename The file name
-     * @return The full path
+     * Insert a new record in the table.
+     *
+     *
+     * @param portlet The Instance of the Portlet
      */
-    protected String getFilePath( PluginModel pm , String strPath , String strFilename )
-    {
-        String strBasePath = "plugin-{plugin_name}/" + strPath;
-        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
-        return strBasePath + strFilename;      
-    }
-    
+    void insert( Portlet portlet );
+
     /**
-     * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
+     * load the data of dbpagePortlet from the table
+     *
+     * @param nIdPortlet The identifier of the portlet
+     * @return portlet The instance of the object portlet
      */
-    protected String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
+    Portlet load( int nIdPortlet );
 
-        return strValueCap;
-    }
+    /**
+     * Update the record in the table
+     *
+     *
+     * @param portlet The reference of the portlet
+     */
+    void store( Portlet portlet );
 
-
+    /**
+     * Checks if a feed is linked to a portlet
+     * @return A boolean
+     * @param nId${portletName?cap_first}Feed The identifier of the ${portletName?cap_first} feed
+     */
+    boolean checkNoPortletLinked( int nId${portletName?cap_first}Feed );
 }

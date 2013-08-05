@@ -1,0 +1,125 @@
+/*
+ * Copyright (c) 2002-2013, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+package fr.paris.lutece.plugins.${plugin_name}.business.portlet;
+
+import fr.paris.lutece.portal.business.portlet.Portlet;
+import fr.paris.lutece.util.xml.XmlUtil;
+
+import javax.servlet.http.HttpServletRequest;
+
+
+/**
+ * This class represents business objects ${portletName?cap_first}Portlet
+ */
+public class ${portletName?cap_first}Portlet extends Portlet
+{
+    /////////////////////////////////////////////////////////////////////////////////
+    // Constants
+    private String _str${portletName?cap_first}FeedId;
+    private static final String TAG_${portletName?upper_case}_PORTLET = "${portletName?lower_case}-portlet";
+    private static final String TAG_${portletName?upper_case}_PORTLET_CONTENT = "${portletName?lower_case}-portlet-content";
+
+    /**
+     * Sets the identifier of the portlet type to value specified
+     */
+    public ${portletName?cap_first}Portlet(  )
+    {
+        setPortletTypeId( ${portletName?cap_first}PortletHome.getInstance(  ).getPortletTypeId(  ) );
+    }
+
+    /**
+     * Sets the url of the portlet
+     *
+     * @param str${portletName?cap_first}FeedId the ${portletName?cap_first} portlet url
+     */
+    public void set${portletName?cap_first}FeedId( String str${portletName?cap_first}FeedId )
+    {
+        _str${portletName?cap_first}FeedId = str${portletName?cap_first}FeedId;
+    }
+
+    /**
+     * Returns the ${portletName?cap_first} Feed Id of the ${portletName?cap_first} portlet
+     *
+     * @return the ${portletName?cap_first} Portlet url
+     */
+    public String get${portletName?cap_first}FeedId(  )
+    {
+        return _str${portletName?cap_first}FeedId;
+    }
+
+    /**
+     * Returns the Xml code of the ${portletName?cap_first} portlet with XML heading
+     *
+     * @param request The HTTP servlet request
+     * @return the Xml code of the ${portletName?cap_first} portlet
+     */
+    public String getXmlDocument( HttpServletRequest request )
+    {
+        return XmlUtil.getXmlHeader(  ) + getXml( request );
+    }
+
+    /**
+     * Returns the Xml code of the ${portletName?cap_first} portlet without XML heading
+     *
+     * @param request The HTTP servlet request
+     * @return the Xml code of the ${portletName?cap_first} portlet content
+     */
+    public String getXml( HttpServletRequest request )
+    {
+        StringBuffer strXml = new StringBuffer(  );
+    
+        XmlUtil.beginElement( strXml, TAG_${portletName?upper_case}_PORTLET );
+        XmlUtil.addElementHtml( strXml, TAG_${portletName?upper_case}_PORTLET_CONTENT, _str${portletName?cap_first}FeedId );
+        XmlUtil.endElement( strXml, TAG_${portletName?upper_case}_PORTLET );
+
+        return addPortletTags( strXml );
+    }
+
+    /**
+     * Updates the current instance of the ${portletName?cap_first}Portlet object
+     */
+    public void update(  )
+    {
+        ${portletName?cap_first}PortletHome.getInstance(  ).update( this );
+    }
+
+    /**
+     * Removes the current instance of the ${portletName?cap_first}Portlet object
+     */
+    public void remove(  )
+    {
+        ${portletName?cap_first}PortletHome.getInstance(  ).remove( this );
+    }
+}
+

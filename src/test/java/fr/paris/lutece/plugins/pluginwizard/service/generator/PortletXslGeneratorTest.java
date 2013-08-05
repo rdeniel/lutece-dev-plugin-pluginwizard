@@ -34,63 +34,28 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.test.LuteceTestCase;
+import java.util.Map;
+import org.junit.Test;
 
 /**
- * AbstractGenerator
  *
+ * @author pierre
  */
-public abstract class AbstractGenerator implements Generator
+public class PortletXslGeneratorTest extends LuteceTestCase
 {
-    private String _strTemplate;
-    
-    
+ 
     /**
-     * Returns the Template
-     *
-     * @return The Template
+     * Test of generate method, of class PortletJspGenerator.
      */
-    public String getTemplate()
+    @Test
+    public void testGenerate()
     {
-        return _strTemplate;
+        System.out.println("generate Portlet XSL file");
+        PluginModel pm = GeneratorUtils.getTestModel();
+        PortletXslGenerator instance = SpringContextService.getBean("pluginwizard.generator.portlet.xsl");
+        Map result = instance.generate(pm);
+        GeneratorUtils.outputMap( result );
     }
-
-    /**
-     * Sets the Template
-     *
-     * @param strTemplate The Template
-     */
-    public void setTemplate(String strTemplate)
-    {
-        _strTemplate = strTemplate;
-    }
-
-    /**
-     * Build the file path
-     * @param pm The Plugin Model
-     * @param strPath The relative path
-     * @param strFilename The file name
-     * @return The full path
-     */
-    protected String getFilePath( PluginModel pm , String strPath , String strFilename )
-    {
-        String strBasePath = "plugin-{plugin_name}/" + strPath;
-        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
-        return strBasePath + strFilename;      
-    }
-    
-    /**
-     * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
-     * @return The first letter is in Capital
-     */
-    protected String getFirstCaps( String strValue )
-    {
-        String strFirstLetter = strValue.substring( 0, 1 );
-        String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
-
-        return strValueCap;
-    }
-
-
 }
