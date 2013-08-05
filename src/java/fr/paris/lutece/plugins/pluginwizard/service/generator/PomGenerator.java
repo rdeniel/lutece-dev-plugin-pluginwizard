@@ -71,7 +71,7 @@ public class PomGenerator extends AbstractFileGenerator
     protected String getCode( PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
+        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList(  );
 
         //Fetches the actual configuration values to be replaced in the templates
         for ( ConfigurationKey key : listKeys )
@@ -80,7 +80,8 @@ public class PomGenerator extends AbstractFileGenerator
         }
 
         model.put( MARK_PLUGIN, pm );
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
@@ -89,7 +90,7 @@ public class PomGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    protected String getFilename(PluginModel pm)
+    protected String getFilename( PluginModel pm )
     {
         return "pom.xml";
     }
@@ -98,10 +99,8 @@ public class PomGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    public String getPath()
+    public String getPath(  )
     {
         return "";
     }
-    
-    
 }

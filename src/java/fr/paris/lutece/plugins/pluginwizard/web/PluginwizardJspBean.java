@@ -121,7 +121,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
 
         UrlItem url = new UrlItem( JSP_MANAGE_CONFIGURATIONKEYS );
         String strUrl = url.getUrl(  );
-        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList();
+        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList(  );
         LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs,
                 _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
 

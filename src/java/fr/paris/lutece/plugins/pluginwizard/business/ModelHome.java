@@ -31,44 +31,40 @@
  *
  * License 1.0
  */
- 
 package fr.paris.lutece.plugins.pluginwizard.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
+
 /**
  * This class provides instances management methods (create, find, ...) for Model objects
  */
-
 public final class ModelHome
 {
-
     // Static variable pointed at the DAO instance
-
-    private static IModelDAO _dao = ( IModelDAO ) SpringContextService.getBean( "pluginwizard.modelDAO" );
-    private static Plugin _plugin = PluginService.getPlugin("pluginwizard");
-
-    public static int exists(String strPluginName)
-    {
-        for( Model model : _dao.selectModelsList(_plugin))
-        {
-            if( model.getName().equals( strPluginName ))
-            {
-                return model.getIdPlugin();
-            }
-        }
-        return -1;
-    }
-
+    private static IModelDAO _dao = (IModelDAO) SpringContextService.getBean( "pluginwizard.modelDAO" );
+    private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-
     private ModelHome(  )
     {
+    }
+
+    public static int exists( String strPluginName )
+    {
+        for ( Model model : _dao.selectModelsList( _plugin ) )
+        {
+            if ( model.getName(  ).equals( strPluginName ) )
+            {
+                return model.getIdPlugin(  );
+            }
+        }
+
+        return -1;
     }
 
     /**
@@ -76,7 +72,6 @@ public final class ModelHome
      * @param model The instance of the Model which contains the informations to store
      * @return The  instance of model which has been created with its primary key.
      */
-
     public static Model create( Model model )
     {
         _dao.insert( model, _plugin );
@@ -84,13 +79,11 @@ public final class ModelHome
         return model;
     }
 
-
     /**
      * Update of the model which is specified in parameter
      * @param model The instance of the Model which contains the data to store
      * @return The instance of the  model which has been updated
      */
-
     public static Model update( Model model )
     {
         _dao.store( model, _plugin );
@@ -98,18 +91,14 @@ public final class ModelHome
         return model;
     }
 
-
     /**
      * Remove the model whose identifier is specified in parameter
      * @param nModelId The model Id
      */
-
-
     public static void remove( int nModelId )
     {
         _dao.delete( nModelId, _plugin );
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Finders
@@ -119,10 +108,8 @@ public final class ModelHome
      * @param nKey The model primary key
      * @return an instance of Model
      */
-
     public static Model findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
-
 }

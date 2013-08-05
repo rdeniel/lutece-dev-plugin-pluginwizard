@@ -57,7 +57,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
     private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
     private static String[] _template_prefix = { "create_", "modify_", "manage_" };
     private String _strTabsTemplate;
-    
+
     /**
      * {@inheritDoc }
      */
@@ -67,20 +67,23 @@ public class AdminTemplateGenerator extends AbstractGenerator
         HashMap map = new HashMap(  );
 
         //for each feature,which business classes are attached to
-        Collection<Feature> listFeatures = pm.getFeatures();
+        Collection<Feature> listFeatures = pm.getFeatures(  );
 
         for ( Feature feature : listFeatures )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm , feature.getId() );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm,
+                    feature.getId(  ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
-                    String strSuffix = ( i == 2 )?  "s.html" :  ".html";
-                    String strPath = getFilePath( pm, PATH, _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix);
+                    String strSuffix = ( i == 2 ) ? "s.html" : ".html";
+                    String strPath = getFilePath( pm, PATH,
+                            _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1 , pm.getPluginName(  ));
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i + 1,
+                            pm.getPluginName(  ) );
                     map.put( strPath, strSourceCode );
                 }
             }
@@ -105,7 +108,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
      * @return The html code of the create template
      */
     private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, BusinessClass businessClass,
-        int nTemplateType, String strPluginName  )
+        int nTemplateType, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
@@ -118,11 +121,11 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( MARK_BRACKETS_CLOSE, "}" );
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
-        model.put( MARK_INCLUDE , "@@include" );
+        model.put( MARK_INCLUDE, "@@include" );
 
         model.put( MARK_TEMPLATE_TYPE, "" + nTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }
@@ -159,7 +162,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
     /**
      * @param tabsTemplate the tabsTemplate to set
      */
-    public void setTabsTemplate(String tabsTemplate)
+    public void setTabsTemplate( String tabsTemplate )
     {
         _strTabsTemplate = tabsTemplate;
     }

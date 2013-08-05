@@ -65,7 +65,7 @@ public class SqlCodeGenerator extends AbstractGenerator
         {
             String strSqlFile = getSqlFileName( pm.getPluginName(  ).toLowerCase(  ), i );
 
-            String strPath = getFilePath(pm, PATH, strSqlFile);
+            String strPath = getFilePath( pm, PATH, strSqlFile );
 
             String strSourceCode = getSqlScript( i, pm );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -134,13 +134,13 @@ public class SqlCodeGenerator extends AbstractGenerator
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN, pm );
 
-        model.put( MARK_LIST_FEATURES, pm.getFeatures() );
-        model.put( MARK_LIST_APPLICATIONS, pm.getApplications() );
-        model.put( MARK_LIST_PORTLETS, pm.getPortlets() );
-        model.put( MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses() );
+        model.put( MARK_LIST_FEATURES, pm.getFeatures(  ) );
+        model.put( MARK_LIST_APPLICATIONS, pm.getApplications(  ) );
+        model.put( MARK_LIST_PORTLETS, pm.getPortlets(  ) );
+        model.put( MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
         model.put( MARK_SQL_TYPE, nSqlType + "" );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

@@ -5,7 +5,9 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+
 import junit.framework.TestCase;
+
 
 /**
  *
@@ -13,14 +15,11 @@ import junit.framework.TestCase;
  */
 public class GeneratorUtilsTest extends TestCase
 {
-    
-    public void testGetTestModel()
+    public void testGetTestModel(  )
     {
-        System.out.println("test Generators Utils");
+        System.out.println( "test Generators Utils" );
 
-        PluginModel pm = GeneratorUtils.getTestModel();
-        assertTrue( pm.getApplications().size() > 0 );
-        
+        PluginModel pm = GeneratorUtils.getTestModel(  );
+        assertTrue( pm.getApplications(  ).size(  ) > 0 );
     }
-    
 }

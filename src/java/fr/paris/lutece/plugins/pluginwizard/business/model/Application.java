@@ -44,7 +44,6 @@ public class Application
     private String _strApplicationName;
     private String _strApplicationClass;
 
-
     /**
      * Returns the IdPlugin
      * @return The IdPlugin

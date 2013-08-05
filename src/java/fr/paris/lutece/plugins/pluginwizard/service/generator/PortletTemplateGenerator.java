@@ -53,7 +53,6 @@ public class PortletTemplateGenerator extends AbstractGenerator
     private static final String EXT_HTML = ".html";
     private static String[] _prefix = { "combo_feed_", "modify_portlet_", "create_portlet_" };
 
-    
     /**
      * {@inheritDoc }
      */
@@ -62,9 +61,9 @@ public class PortletTemplateGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-        for ( Portlet portlet : pm.getPortlets() )
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            for ( int i = 0 ; i < _prefix.length ; i++ )
+            for ( int i = 0; i < _prefix.length; i++ )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
@@ -93,7 +92,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
      */
     private String getPortletTemplateName( String strPortletName, int nTemplate )
     {
-        return _prefix[ nTemplate ] + strPortletName + EXT_HTML;
+        return _prefix[nTemplate] + strPortletName + EXT_HTML;
     }
 
     /**
@@ -115,7 +114,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_PORTLET_TEMPLATE_TYPE, nPortletTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

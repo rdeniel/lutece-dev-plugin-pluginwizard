@@ -36,8 +36,11 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.test.LuteceTestCase;
-import java.util.Map;
+
 import org.junit.Test;
+
+import java.util.Map;
+
 
 /**
  *
@@ -45,31 +48,32 @@ import org.junit.Test;
  */
 public class AdminTemplateGeneratorTest extends LuteceTestCase
 {
-    
     /**
      * Test of generate method, of class AdminTemplateGenerator.
      */
-    
     @Test
-    public void testGenerate()
+    public void testGenerate(  )
     {
         try
         {
-        System.out.println("generate AdminTemplateGenerator");
-        PluginModel pm = GeneratorUtils.getTestModel();
-        AdminTemplateGenerator instance = new AdminTemplateGenerator();
-        instance.setTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html" );
-        instance.setTabsTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html");
-        Map result = instance.generate(pm);
-        GeneratorUtils.outputMap( result );
+            System.out.println( "generate AdminTemplateGenerator" );
+
+            PluginModel pm = GeneratorUtils.getTestModel(  );
+            AdminTemplateGenerator instance = new AdminTemplateGenerator(  );
+            instance.setTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html" );
+            instance.setTabsTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html" );
+
+            Map result = instance.generate( pm );
+            GeneratorUtils.outputMap( result );
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
-            if( e.getCause() != null )
+            if ( e.getCause(  ) != null )
             {
-                System.out.println( e.getCause().getMessage());
+                System.out.println( e.getCause(  ).getMessage(  ) );
             }
-            System.out.println( e.getMessage());
+
+            System.out.println( e.getMessage(  ) );
         }
-    }    
+    }
 }

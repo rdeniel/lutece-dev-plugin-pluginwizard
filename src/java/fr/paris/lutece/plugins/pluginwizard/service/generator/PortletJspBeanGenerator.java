@@ -61,13 +61,13 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-
-        for ( Portlet portlet : pm.getPortlets() )
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
             String strPortlet = portlet.getPluginPortletTypeName(  );
             int nIndex = strPortlet.lastIndexOf( "_" );
 
-            String strPath = getFilePath( pm, PATH, getFirstCaps( strPortlet.substring( 0, nIndex ) ) + "PortletJspBean.java");
+            String strPath = getFilePath( pm, PATH,
+                    getFirstCaps( strPortlet.substring( 0, nIndex ) ) + "PortletJspBean.java" );
 
             String strSourceCode = getPortletJspBean( portlet, pm.getPluginName(  ) );
             map.put( strPath, strSourceCode );
@@ -88,7 +88,7 @@ public class PortletJspBeanGenerator extends AbstractGenerator
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

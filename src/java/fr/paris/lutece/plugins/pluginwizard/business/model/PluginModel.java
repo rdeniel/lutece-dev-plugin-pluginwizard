@@ -64,13 +64,14 @@ public class PluginModel
     private List<Portlet> _listPluginPortlets;
     private List<BusinessClass> _listBusinessClasses;
 
-    public PluginModel()
+    public PluginModel(  )
     {
-        _listPluginApplications = new ArrayList<Application>();
-        _listPluginFeatures = new ArrayList<Feature>();
-        _listPluginPortlets = new ArrayList<Portlet>();
-        _listBusinessClasses = new ArrayList<BusinessClass>();
+        _listPluginApplications = new ArrayList<Application>(  );
+        _listPluginFeatures = new ArrayList<Feature>(  );
+        _listPluginPortlets = new ArrayList<Portlet>(  );
+        _listBusinessClasses = new ArrayList<BusinessClass>(  );
     }
+
     /**
      * Returns the IdPlugin
      * @return The IdPlugin
@@ -403,5 +404,4 @@ public class PluginModel
     {
         return _listBusinessClasses;
     }
-
- }
+}

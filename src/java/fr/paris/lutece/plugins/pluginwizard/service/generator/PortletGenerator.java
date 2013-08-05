@@ -55,7 +55,7 @@ public class PortletGenerator extends AbstractGenerator
     private static final String MARK_PORTLET_NAME = "portletName";
     private static final String EXT_JAVA = ".java";
     private static List<BusinessFileConfig> _listFiles;
-    
+
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
         _listFiles = listFiles;
@@ -69,18 +69,20 @@ public class PortletGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-        for ( Portlet portlet : pm.getPortlets() )
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
             for ( BusinessFileConfig file : _listFiles )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletName = getFirstCaps( strPortlet.substring( 0, nIndex ) ) ;
-                String strPortletFile = file.getPrefix() + strPortletName + "Portlet" + file.getSuffix() + EXT_JAVA;
+                String strPortletName = getFirstCaps( strPortlet.substring( 0, nIndex ) );
+                String strPortletFile = file.getPrefix(  ) + strPortletName + "Portlet" + file.getSuffix(  ) +
+                    EXT_JAVA;
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
-                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate() , strPortletName );
+                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate(  ),
+                        strPortletName );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -106,7 +108,7 @@ public class PortletGenerator extends AbstractGenerator
         model.put( MARK_PORTLET_NAME, strPortletName );
         AppLogService.info( portlet );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

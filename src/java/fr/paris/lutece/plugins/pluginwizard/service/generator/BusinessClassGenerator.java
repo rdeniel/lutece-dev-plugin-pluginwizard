@@ -35,9 +35,9 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -55,12 +55,12 @@ public class BusinessClassGenerator extends AbstractGenerator
 {
     private static final String PATH = "SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
     private List<BusinessFileConfig> _listFiles;
-    
+
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
         _listFiles = listFiles;
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -68,21 +68,22 @@ public class BusinessClassGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses();
+        Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses(  );
 
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
-            for( BusinessFileConfig file : _listFiles )
+            for ( BusinessFileConfig file : _listFiles )
             {
-                String strClassName = file.getPrefix() + businessClass.getBusinessClass(  ) + file.getSuffix();
+                String strClassName = file.getPrefix(  ) + businessClass.getBusinessClass(  ) + file.getSuffix(  );
                 String strFilename = strClassName + ".java";
-                String strSourceCode = getSourceCode( pm.getPluginName(), businessClass, file.getTemplate() );
+                String strSourceCode = getSourceCode( pm.getPluginName(  ), businessClass, file.getTemplate(  ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                strSourceCode = strSourceCode.replace( "@i18n" , "#i18n" );
-                String strPath = PATH.replace( "SOURCE", file.getSourcePath() );
-                
-                map.put( getFilePath( pm, strPath, strFilename), strSourceCode );
+                strSourceCode = strSourceCode.replace( "@i18n", "#i18n" );
+
+                String strPath = PATH.replace( "SOURCE", file.getSourcePath(  ) );
+
+                map.put( getFilePath( pm, strPath, strFilename ), strSourceCode );
             }
         }
 
@@ -102,7 +103,7 @@ public class BusinessClassGenerator extends AbstractGenerator
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate , Locale.getDefault(), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

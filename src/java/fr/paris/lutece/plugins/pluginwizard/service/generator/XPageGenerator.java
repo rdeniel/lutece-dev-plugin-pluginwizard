@@ -54,7 +54,6 @@ public class XPageGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
 
-    
     /**
      * {@inheritDoc }
      */
@@ -63,11 +62,11 @@ public class XPageGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-        for ( Application xpage : pm.getApplications() )
+        for ( Application xpage : pm.getApplications(  ) )
         {
             String strPath = getFilePath( pm, PATH, xpage.getApplicationClass(  ) + ".java" );
 
-            String strSourceCode = getXPageCode( pm , xpage.getId(  ) );
+            String strSourceCode = getXPageCode( pm, xpage.getId(  ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -86,11 +85,10 @@ public class XPageGenerator extends AbstractGenerator
         model.put( MARK_PLUGIN, pm );
 
         model.put( MARK_PLUGIN_MODEL, pm );
-        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm , nApplicationId) );
+        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
-
 }

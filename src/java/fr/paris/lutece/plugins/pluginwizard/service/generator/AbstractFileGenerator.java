@@ -39,9 +39,11 @@ import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MAR
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 
 /**
  * Abstract Generator
@@ -51,14 +53,14 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     // Variables declarations 
     private String _strPath;
 
-    protected abstract String getFilename(PluginModel pm);
+    protected abstract String getFilename( PluginModel pm );
 
     /**
      * Returns the Path
      *
      * @return The Path
      */
-    public String getPath()
+    public String getPath(  )
     {
         return _strPath;
     }
@@ -68,7 +70,7 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
      *
      * @param strPath The Path
      */
-    public void setPath(String strPath)
+    public void setPath( String strPath )
     {
         _strPath = strPath;
     }
@@ -77,31 +79,31 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
      * Produces the code
      *
      * @param pm the plugin model
-     * @return the code 
+     * @return the code
      */
-    protected String getCode(PluginModel pm)
+    protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put(MARK_PLUGIN, pm);
-        model.put(MARK_LIST_PORTLETS, pm.getPortlets());
-        model.put(MARK_BUSINESS_CLASSES, pm.getBusinessClasses());
+        Map<String, Object> model = new HashMap<String, Object>(  );
+        model.put( MARK_PLUGIN, pm );
+        model.put( MARK_LIST_PORTLETS, pm.getPortlets(  ) );
+        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate(getTemplate(), Locale.getDefault(), model);
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
-        return template.getHtml();
+        return template.getHtml(  );
     }
 
     /**
      * Produces the code
      *
      * @param pm the plugin model
-     * @return the code 
+     * @return the code
      */
-    protected String getFilePath(PluginModel pm)
+    protected String getFilePath( PluginModel pm )
     {
-        return getFilePath( pm , getPath() , getFilename(pm));
+        return getFilePath( pm, getPath(  ), getFilename( pm ) );
     }
-    
+
     /**
      * Produces the file code in a map
      *
@@ -112,6 +114,7 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
         map.put( getFilePath( pm ), getCode( pm ) );
+
         return map;
     }
 }

@@ -142,7 +142,6 @@ public final class PluginModelDAO implements IPluginModelDAO
             pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
             pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
 
- 
             // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
         }
 

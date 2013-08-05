@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
+
 /**
  * AbstractGenerator
  *
@@ -42,14 +43,13 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 public abstract class AbstractGenerator implements Generator
 {
     private String _strTemplate;
-    
-    
+
     /**
      * Returns the Template
      *
      * @return The Template
      */
-    public String getTemplate()
+    public String getTemplate(  )
     {
         return _strTemplate;
     }
@@ -59,7 +59,7 @@ public abstract class AbstractGenerator implements Generator
      *
      * @param strTemplate The Template
      */
-    public void setTemplate(String strTemplate)
+    public void setTemplate( String strTemplate )
     {
         _strTemplate = strTemplate;
     }
@@ -71,13 +71,14 @@ public abstract class AbstractGenerator implements Generator
      * @param strFilename The file name
      * @return The full path
      */
-    protected String getFilePath( PluginModel pm , String strPath , String strFilename )
+    protected String getFilePath( PluginModel pm, String strPath, String strFilename )
     {
         String strBasePath = "plugin-{plugin_name}/" + strPath;
-        strBasePath = strBasePath.replace("{plugin_name}", pm.getPluginName());
-        return strBasePath + strFilename;      
+        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+
+        return strBasePath + strFilename;
     }
-    
+
     /**
      * Returns the value of a string with first letter in caps
      * @param strValue The value to be transformed
@@ -91,6 +92,4 @@ public abstract class AbstractGenerator implements Generator
 
         return strValueCap;
     }
-
-
 }

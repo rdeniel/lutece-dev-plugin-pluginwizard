@@ -63,13 +63,14 @@ public class PortletJspGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-        for ( Portlet portlet : pm.getPortlets() )
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            for ( int i = 0; i < _prefix.length ; i++ )
+            for ( int i = 0; i < _prefix.length; i++ )
             {
                 String strPortlet = portlet.getPluginPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
+                String strPortletFile = getPortletFileName( getFirstCaps( 
+                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
@@ -89,10 +90,10 @@ public class PortletJspGenerator extends AbstractGenerator
      * @param strPortletName the name of the portlet
      * @param nPortletJspFileType The type of jsp
      * @return The name of the jsp file
-     */        
+     */
     private String getPortletFileName( String strPortletName, int nPortletJspFileType )
     {
-        return _prefix[ nPortletJspFileType ] + strPortletName + EXT_JSP;
+        return _prefix[nPortletJspFileType] + strPortletName + EXT_JSP;
     }
 
     /**
@@ -109,7 +110,7 @@ public class PortletJspGenerator extends AbstractGenerator
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_PORTLET_JSP_TYPE, nPortletJspType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(),  Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

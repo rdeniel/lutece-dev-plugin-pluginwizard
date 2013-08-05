@@ -47,7 +47,7 @@ public class SpringContextXmlGenerator extends AbstractFileGenerator
 {
     private static final String PATH = "webapp/WEB-INF/conf/plugins/";
     private static final String EXT = "_context.xml";
-    
+
     /**
      * {@inheritDoc }
      */
@@ -56,7 +56,7 @@ public class SpringContextXmlGenerator extends AbstractFileGenerator
     {
         return generateFile( pm );
     }
-    
+
     /**
      * {@inheritDoc }
      */
@@ -65,12 +65,12 @@ public class SpringContextXmlGenerator extends AbstractFileGenerator
     {
         return pm.getPluginName(  ).toLowerCase(  ) + EXT;
     }
-    
+
     /**
      * {@inheritDoc }
      */
     @Override
-    public String getPath()
+    public String getPath(  )
     {
         return PATH;
     }

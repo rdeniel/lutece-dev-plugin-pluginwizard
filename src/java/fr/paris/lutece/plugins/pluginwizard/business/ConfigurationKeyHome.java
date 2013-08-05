@@ -49,7 +49,7 @@ public final class ConfigurationKeyHome
     private static IConfigurationKeyDAO _dao = (IConfigurationKeyDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.configurationKeyDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
-    
+
     /**
      * Private constructor - this class need not be instantiated
      */
@@ -107,7 +107,7 @@ public final class ConfigurationKeyHome
      * Load the data of all the configurationKey objects and returns them in form of a collection
      * @return the collection which contains the data of all the configurationKey objects
      */
-    public static Collection<ConfigurationKey> getConfigurationKeysList()
+    public static Collection<ConfigurationKey> getConfigurationKeysList(  )
     {
         return _dao.selectConfigurationKeysList( _plugin );
     }

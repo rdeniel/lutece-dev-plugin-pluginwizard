@@ -33,9 +33,11 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 /**
  * This is the business class for the object BusinessClass
@@ -43,7 +45,6 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class BusinessClass
 {
     // Variables declarations 
-
     private int _nIdFeature;
     private int _nIdBusinessClass;
     private String _strBusinessClass;
@@ -52,17 +53,17 @@ public class BusinessClass
     private String _strPrimaryAttributeName;
     private String _strDescriptionAttributeName;
 
-    public BusinessClass()
+    public BusinessClass(  )
     {
-        _listAttributes = new ArrayList<Attribute>();
+        _listAttributes = new ArrayList<Attribute>(  );
     }
-    
+
     /**
      * Returns the nIdBusinessClass
      *
      * @return The nIdBusinessClass
      */
-    public int getId()
+    public int getId(  )
     {
         return _nIdBusinessClass;
     }
@@ -72,7 +73,7 @@ public class BusinessClass
      *
      * @param nIdBusinessClass The IdPlugin
      */
-    public void setId(int nIdBusinessClass)
+    public void setId( int nIdBusinessClass )
     {
         _nIdBusinessClass = nIdBusinessClass;
     }
@@ -82,7 +83,7 @@ public class BusinessClass
      *
      * @return The IdFeature
      */
-    public int getIdFeature()
+    public int getIdFeature(  )
     {
         return _nIdFeature;
     }
@@ -92,7 +93,7 @@ public class BusinessClass
      *
      * @param nIdFeature The IdPlugin
      */
-    public void setIdFeature(int nIdFeature)
+    public void setIdFeature( int nIdFeature )
     {
         _nIdFeature = nIdFeature;
     }
@@ -102,7 +103,7 @@ public class BusinessClass
      *
      * @return The BusinessClass
      */
-    public String getBusinessClass()
+    public String getBusinessClass(  )
     {
         return _strBusinessClass;
     }
@@ -112,7 +113,7 @@ public class BusinessClass
      *
      * @param strBusinessClass The BusinessClass
      */
-    public void setBusinessClass(String strBusinessClass)
+    public void setBusinessClass( String strBusinessClass )
     {
         _strBusinessClass = strBusinessClass;
     }
@@ -122,7 +123,7 @@ public class BusinessClass
      *
      * @return The BusinessTableName
      */
-    public String getBusinessTableName()
+    public String getBusinessTableName(  )
     {
         return _strBusinessTableName;
     }
@@ -132,7 +133,7 @@ public class BusinessClass
      *
      * @param strBusinessTableName The BusinessTableName
      */
-    public void setBusinessTableName(String strBusinessTableName)
+    public void setBusinessTableName( String strBusinessTableName )
     {
         _strBusinessTableName = strBusinessTableName;
     }
@@ -144,7 +145,7 @@ public class BusinessClass
      * @param listAttributes The collection of attributes associated to the
      * class
      */
-    public void setAttributes(List<Attribute> listAttributes)
+    public void setAttributes( List<Attribute> listAttributes )
     {
         _listAttributes = listAttributes;
     }
@@ -154,7 +155,7 @@ public class BusinessClass
      *
      * @return the collection of child attributes
      */
-    public List<Attribute> getAttributes()
+    public List<Attribute> getAttributes(  )
     {
         return _listAttributes;
     }
@@ -165,7 +166,7 @@ public class BusinessClass
      * @param strDescriptionAttributeName The name of the attribute which the
      * description
      */
-    public void setClassDescription(String strDescriptionAttributeName)
+    public void setClassDescription( String strDescriptionAttributeName )
     {
         _strDescriptionAttributeName = strDescriptionAttributeName;
     }
@@ -175,7 +176,7 @@ public class BusinessClass
      *
      * @return The description of the class
      */
-    public String getClassDescription()
+    public String getClassDescription(  )
     {
         return _strDescriptionAttributeName;
     }
@@ -185,7 +186,7 @@ public class BusinessClass
      *
      * @param strPrimaryAttributeName The key attribute name
      */
-    public void setPrimaryKey(String strPrimaryAttributeName)
+    public void setPrimaryKey( String strPrimaryAttributeName )
     {
         _strPrimaryAttributeName = strPrimaryAttributeName;
     }
@@ -196,7 +197,7 @@ public class BusinessClass
      *
      * @return The key
      */
-    public String getPrimaryKey()
+    public String getPrimaryKey(  )
     {
         return _strPrimaryAttributeName;
     }
@@ -210,25 +211,23 @@ public class BusinessClass
      * @return The name of the key
      */
     @JsonIgnore
-    public String getPrimaryKeyName()
+    public String getPrimaryKeyName(  )
     {
-        return getProperName(_strPrimaryAttributeName);
+        return getProperName( _strPrimaryAttributeName );
     }
 
-
-    
     /**
      * Returns the BusinessClass
      *
      * @return The BusinessClass
      */
     @JsonIgnore
-    public String getBusinessClassCapsFirst()
+    public String getBusinessClassCapsFirst(  )
     {
-        char[] characters = _strBusinessClass.toCharArray();
-        characters[0] = Character.toTitleCase(characters[0]);
+        char[] characters = _strBusinessClass.toCharArray(  );
+        characters[0] = Character.toTitleCase( characters[0] );
 
-        return String.valueOf(characters);
+        return String.valueOf( characters );
     }
 
     /**
@@ -237,10 +236,10 @@ public class BusinessClass
      * @return The InstanceName
      */
     @JsonIgnore
-    public String getInstanceName()
+    public String getInstanceName(  )
     {
-        String strInstanceName = _strBusinessClass.substring(0, 1).toLowerCase()
-                + _strBusinessClass.substring(1, _strBusinessClass.length());
+        String strInstanceName = _strBusinessClass.substring( 0, 1 ).toLowerCase(  ) +
+            _strBusinessClass.substring( 1, _strBusinessClass.length(  ) );
 
         return strInstanceName;
     }
@@ -252,34 +251,34 @@ public class BusinessClass
      * @return source
      */
     @JsonIgnore
-    public static String getProperName(String strSource)
+    public static String getProperName( String strSource )
     {
         int nIndex = 0;
         boolean bUpper = true;
-        StringBuilder strBuffer = new StringBuilder();
+        StringBuilder strBuffer = new StringBuilder(  );
 
-        while (nIndex < strSource.length())
+        while ( nIndex < strSource.length(  ) )
         {
-            char c = strSource.charAt(nIndex);
+            char c = strSource.charAt( nIndex );
 
-            if (c == '_')
+            if ( c == '_' )
             {
                 // skip by reading the next char
                 nIndex++;
                 bUpper = true;
             }
 
-            if (bUpper)
+            if ( bUpper )
             {
-                String strChar = strSource.substring(nIndex, nIndex + 1);
-                c = strChar.toUpperCase().charAt(0);
+                String strChar = strSource.substring( nIndex, nIndex + 1 );
+                c = strChar.toUpperCase(  ).charAt( 0 );
                 bUpper = false;
             }
 
-            strBuffer.append(c);
+            strBuffer.append( c );
             nIndex++;
         }
 
-        return strBuffer.toString();
+        return strBuffer.toString(  );
     }
 }

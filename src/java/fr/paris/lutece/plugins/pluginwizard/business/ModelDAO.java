@@ -39,12 +39,12 @@ import fr.paris.lutece.util.sql.DAOUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * This class provides Data Access methods for Model objects
  */
 public final class ModelDAO implements IModelDAO
 {
-
     // Constants
     private static final String SQL_QUERY_NEW_PK = "SELECT max( id_plugin ) FROM pluginwizard_plugin_model";
     private static final String SQL_QUERY_SELECT = "SELECT id_plugin, name, model_json FROM pluginwizard_plugin_model WHERE id_plugin = ?";
@@ -59,16 +59,16 @@ public final class ModelDAO implements IModelDAO
      * @param plugin The Plugin
      * @return The new primary key
      */
-    public int newPrimaryKey(Plugin plugin)
+    public int newPrimaryKey( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_NEW_PK, plugin);
-        daoUtil.executeQuery();
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
+        daoUtil.executeQuery(  );
 
         int nKey;
 
-        daoUtil.next();
-        nKey = daoUtil.getInt(1) + 1;
-        daoUtil.free();
+        daoUtil.next(  );
+        nKey = daoUtil.getInt( 1 ) + 1;
+        daoUtil.free(  );
 
         return nKey;
     }
@@ -80,18 +80,18 @@ public final class ModelDAO implements IModelDAO
      * @param plugin The plugin
      */
     @Override
-    public void insert(Model model, Plugin plugin)
+    public void insert( Model model, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_INSERT, plugin);
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
 
-        model.setIdPlugin(newPrimaryKey(plugin));
+        model.setIdPlugin( newPrimaryKey( plugin ) );
 
-        daoUtil.setInt(1, model.getIdPlugin());
-        daoUtil.setString(2, model.getName());
-        daoUtil.setString(3, model.getModelJson());
+        daoUtil.setInt( 1, model.getIdPlugin(  ) );
+        daoUtil.setString( 2, model.getName(  ) );
+        daoUtil.setString( 3, model.getModelJson(  ) );
 
-        daoUtil.executeUpdate();
-        daoUtil.free();
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
     }
 
     /**
@@ -102,24 +102,25 @@ public final class ModelDAO implements IModelDAO
      * @return the instance of the Model
      */
     @Override
-    public Model load(int nId, Plugin plugin)
+    public Model load( int nId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECT, plugin);
-        daoUtil.setInt(1, nId);
-        daoUtil.executeQuery();
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setInt( 1, nId );
+        daoUtil.executeQuery(  );
 
         Model model = null;
 
-        if (daoUtil.next())
+        if ( daoUtil.next(  ) )
         {
-            model = new Model();
+            model = new Model(  );
 
-            model.setIdPlugin(daoUtil.getInt(1));
-            model.setName(daoUtil.getString(2));
-            model.setModelJson(daoUtil.getString(3));
+            model.setIdPlugin( daoUtil.getInt( 1 ) );
+            model.setName( daoUtil.getString( 2 ) );
+            model.setModelJson( daoUtil.getString( 3 ) );
         }
 
-        daoUtil.free();
+        daoUtil.free(  );
+
         return model;
     }
 
@@ -130,12 +131,12 @@ public final class ModelDAO implements IModelDAO
      * @param plugin The plugin
      */
     @Override
-    public void delete(int nModelId, Plugin plugin)
+    public void delete( int nModelId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_DELETE, plugin);
-        daoUtil.setInt(1, nModelId);
-        daoUtil.executeUpdate();
-        daoUtil.free();
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
+        daoUtil.setInt( 1, nModelId );
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
     }
 
     /**
@@ -145,17 +146,17 @@ public final class ModelDAO implements IModelDAO
      * @param plugin The plugin
      */
     @Override
-    public void store(Model model, Plugin plugin)
+    public void store( Model model, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_UPDATE, plugin);
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-        daoUtil.setInt(1, model.getIdPlugin());
-        daoUtil.setString(2, model.getName());
-        daoUtil.setString(3, model.getModelJson());
-        daoUtil.setInt(4, model.getIdPlugin());
+        daoUtil.setInt( 1, model.getIdPlugin(  ) );
+        daoUtil.setString( 2, model.getName(  ) );
+        daoUtil.setString( 3, model.getModelJson(  ) );
+        daoUtil.setInt( 4, model.getIdPlugin(  ) );
 
-        daoUtil.executeUpdate();
-        daoUtil.free();
+        daoUtil.executeUpdate(  );
+        daoUtil.free(  );
     }
 
     /**
@@ -165,24 +166,25 @@ public final class ModelDAO implements IModelDAO
      * @return The List which contains the data of all the models
      */
     @Override
-    public List<Model> selectModelsList(Plugin plugin)
+    public List<Model> selectModelsList( Plugin plugin )
     {
-        List<Model> modelList = new ArrayList<Model>();
-        DAOUtil daoUtil = new DAOUtil(SQL_QUERY_SELECTALL, plugin);
-        daoUtil.executeQuery();
+        List<Model> modelList = new ArrayList<Model>(  );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+        daoUtil.executeQuery(  );
 
-        while (daoUtil.next())
+        while ( daoUtil.next(  ) )
         {
-            Model model = new Model();
+            Model model = new Model(  );
 
-            model.setIdPlugin(daoUtil.getInt(1));
-            model.setName(daoUtil.getString(2));
-            model.setModelJson(daoUtil.getString(3));
+            model.setIdPlugin( daoUtil.getInt( 1 ) );
+            model.setName( daoUtil.getString( 2 ) );
+            model.setModelJson( daoUtil.getString( 3 ) );
 
-            modelList.add(model);
+            modelList.add( model );
         }
 
-        daoUtil.free();
+        daoUtil.free(  );
+
         return modelList;
     }
 }

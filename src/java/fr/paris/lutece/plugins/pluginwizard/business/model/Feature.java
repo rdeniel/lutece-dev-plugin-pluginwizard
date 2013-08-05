@@ -70,7 +70,6 @@ public class Feature
         _nId = nId;
     }
 
-
     /**
      * Returns the PluginFeatureId
      * @return The PluginFeatureId
@@ -179,6 +178,4 @@ public class Feature
     {
         _strJspName = strJspName;
     }
-
-
 }

@@ -47,8 +47,6 @@ import java.util.Map;
 /**
  * Generator Service
  */
-
-
 public class GeneratorService
 {
     private static List<GenerationScheme> _listSchemes;
@@ -59,11 +57,11 @@ public class GeneratorService
      * @param model The plugin model to generate
      * @return Map that contains sources
      */
-    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model , int nScheme )
+    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model, int nScheme )
     {
         Map<String, String> mapSources = new HashMap<String, String>(  );
-        
-        List<Generator> listGenerators = _listSchemes.get( nScheme ).getGeneratorsList();
+
+        List<Generator> listGenerators = _listSchemes.get( nScheme ).getGeneratorsList(  );
 
         for ( Generator generator : listGenerators )
         {
@@ -73,23 +71,24 @@ public class GeneratorService
             }
             catch ( Exception e )
             {
-                AppLogService.error( e.getMessage() , e );
+                AppLogService.error( e.getMessage(  ), e );
             }
         }
 
         return mapSources;
     }
 
-    
-    public static ReferenceList getGenerationSchemes()
+    public static ReferenceList getGenerationSchemes(  )
     {
         _listSchemes = SpringContextService.getBeansOfType( GenerationScheme.class );
-        ReferenceList list = new ReferenceList();
-        for( int i = 0 ; i < _listSchemes.size() ; i++ )
-        {    
-            list.addItem( i , _listSchemes.get(i).getName());
+
+        ReferenceList list = new ReferenceList(  );
+
+        for ( int i = 0; i < _listSchemes.size(  ); i++ )
+        {
+            list.addItem( i, _listSchemes.get( i ).getName(  ) );
         }
+
         return list;
     }
-
 }

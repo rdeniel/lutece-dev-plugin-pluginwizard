@@ -91,9 +91,9 @@ public class PluginWizardZipService
         int nPluginId = Integer.parseInt( strPluginId );
         String strScheme = request.getParameter( PARAM_SCHEME );
         int nScheme = Integer.parseInt( strScheme );
-        PluginModel pluginModel = ModelService.getPluginModel(nPluginId);
+        PluginModel pluginModel = ModelService.getPluginModel( nPluginId );
         GeneratorService generator = new GeneratorService(  );
-        Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel , nScheme );
+        Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel, nScheme );
 
         try
         {

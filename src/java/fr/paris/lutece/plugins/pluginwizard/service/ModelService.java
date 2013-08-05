@@ -44,25 +44,28 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Model Service provides all plugin'model manipulations
  */
 public class ModelService
 {
-
-    public static int createModel(String strPluginName)
+    public static int createModel( String strPluginName )
     {
-        Model model = new Model();
-        model.setName(strPluginName);
-        PluginModel pm = new PluginModel();
-        pm.setPluginName(strPluginName);
-        model = ModelHome.create(model);
-        pm.setIdPlugin(model.getIdPlugin());
-        savePluginModel(pm);
-        return pm.getIdPlugin();
+        Model model = new Model(  );
+        model.setName( strPluginName );
+
+        PluginModel pm = new PluginModel(  );
+        pm.setPluginName( strPluginName );
+        model = ModelHome.create( model );
+        pm.setIdPlugin( model.getIdPlugin(  ) );
+        savePluginModel( pm );
+
+        return pm.getIdPlugin(  );
     }
 
     /**
@@ -70,39 +73,42 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @return
      */
-    public static PluginModel getPluginModel(int nPluginId)
+    public static PluginModel getPluginModel( int nPluginId )
     {
         PluginModel pm;
-        Model model = ModelHome.findByPrimaryKey(nPluginId);
-        System.out.println(" #### GetPluginModel : id : " + nPluginId + " model : " + model);
-        if (model != null)
+        Model model = ModelHome.findByPrimaryKey( nPluginId );
+        System.out.println( " #### GetPluginModel : id : " + nPluginId + " model : " + model );
+
+        if ( model != null )
         {
-            pm = MapperService.readJson(model.getModelJson());
+            pm = MapperService.readJson( model.getModelJson(  ) );
         }
         else
         {
-            pm = new PluginModel();
-            pm.setIdPlugin(nPluginId);
+            pm = new PluginModel(  );
+            pm.setIdPlugin( nPluginId );
         }
-        return pm;
 
+        return pm;
     }
 
-    public static void savePluginModel(PluginModel pm)
+    public static void savePluginModel( PluginModel pm )
     {
-        Model model = new Model();
-        model.setIdPlugin(pm.getIdPlugin());
-        model.setName(pm.getPluginName());
-        String strJson = MapperService.getJson(pm);
-        model.setModelJson(strJson);
-        System.out.println("#### save pm : " + strJson);
-        if (ModelHome.findByPrimaryKey(pm.getIdPlugin()) != null)
+        Model model = new Model(  );
+        model.setIdPlugin( pm.getIdPlugin(  ) );
+        model.setName( pm.getPluginName(  ) );
+
+        String strJson = MapperService.getJson( pm );
+        model.setModelJson( strJson );
+        System.out.println( "#### save pm : " + strJson );
+
+        if ( ModelHome.findByPrimaryKey( pm.getIdPlugin(  ) ) != null )
         {
-            ModelHome.update(model);
+            ModelHome.update( model );
         }
         else
         {
-            ModelHome.create(model);
+            ModelHome.create( model );
         }
     }
 
@@ -114,13 +120,12 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param feature The feature
      */
-    public static void addFeature(int nPluginId, Feature feature)
+    public static void addFeature( int nPluginId, Feature feature )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        feature.setId(getMaxFeatureId(pm) + 1);
-        pm.getFeatures().add(feature);
-        savePluginModel(pm);
-
+        PluginModel pm = getPluginModel( nPluginId );
+        feature.setId( getMaxFeatureId( pm ) + 1 );
+        pm.getFeatures(  ).add( feature );
+        savePluginModel( pm );
     }
 
     /**
@@ -130,18 +135,19 @@ public class ModelService
      * @param nFeatureId The feature's ID
      * @return The feature
      */
-    public static Feature getFeature(int nPluginId, int nFeatureId)
+    public static Feature getFeature( int nPluginId, int nFeatureId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        for (Feature feature : pm.getFeatures())
+        PluginModel pm = getPluginModel( nPluginId );
+
+        for ( Feature feature : pm.getFeatures(  ) )
         {
-            if (feature.getId() == nFeatureId)
+            if ( feature.getId(  ) == nFeatureId )
             {
                 return feature;
             }
         }
-        return null;
 
+        return null;
     }
 
     /**
@@ -150,16 +156,18 @@ public class ModelService
      * @param pm The Plugin Model
      * @return The max used ID
      */
-    private static int getMaxFeatureId(PluginModel pm)
+    private static int getMaxFeatureId( PluginModel pm )
     {
         int nMax = 0;
-        for (Feature feature : pm.getFeatures())
+
+        for ( Feature feature : pm.getFeatures(  ) )
         {
-            if (feature.getId() > nMax)
+            if ( feature.getId(  ) > nMax )
             {
-                nMax = feature.getId();
+                nMax = feature.getId(  );
             }
         }
+
         return nMax;
     }
 
@@ -169,17 +177,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param feature The feature
      */
-    public static void updateFeature(int nPluginId, Feature feature)
+    public static void updateFeature( int nPluginId, Feature feature )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Feature> list = pm.getFeatures();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Feature> list = pm.getFeatures(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Feature f = list.get(i);
-            if (f.getId() == feature.getId())
+            Feature f = list.get( i );
+
+            if ( f.getId(  ) == feature.getId(  ) )
             {
-                list.set(i, feature);
-                savePluginModel(pm);
+                list.set( i, feature );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -191,17 +202,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param nFeatureId The feature's ID
      */
-    public static void removeFeature(int nPluginId, int nFeatureId)
+    public static void removeFeature( int nPluginId, int nFeatureId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Feature> list = pm.getFeatures();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Feature> list = pm.getFeatures(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Feature f = list.get(i);
-            if (f.getId() == nFeatureId)
+            Feature f = list.get( i );
+
+            if ( f.getId(  ) == nFeatureId )
             {
-                list.remove(i);
-                savePluginModel(pm);
+                list.remove( i );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -217,12 +231,13 @@ public class ModelService
      * @param nApplicationId
      * @return
      */
-    public static Application getApplication(int nPluginId, int nApplicationId)
+    public static Application getApplication( int nPluginId, int nApplicationId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        return getApplication( pm, nApplicationId);
+        PluginModel pm = getPluginModel( nPluginId );
+
+        return getApplication( pm, nApplicationId );
     }
-    
+
     /**
      * Get a given application
      *
@@ -230,15 +245,16 @@ public class ModelService
      * @param nApplicationId
      * @return
      */
-    public static Application getApplication( PluginModel pm, int nApplicationId)
+    public static Application getApplication( PluginModel pm, int nApplicationId )
     {
-       for (Application application : pm.getApplications())
+        for ( Application application : pm.getApplications(  ) )
         {
-            if (application.getId() == nApplicationId)
+            if ( application.getId(  ) == nApplicationId )
             {
                 return application;
             }
         }
+
         return null;
     }
 
@@ -248,12 +264,12 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param application The application
      */
-    public static void addApplication(int nPluginId, Application application)
+    public static void addApplication( int nPluginId, Application application )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        application.setId(getMaxApplicationId(pm) + 1);
-        pm.getApplications().add(application);
-        savePluginModel(pm);
+        PluginModel pm = getPluginModel( nPluginId );
+        application.setId( getMaxApplicationId( pm ) + 1 );
+        pm.getApplications(  ).add( application );
+        savePluginModel( pm );
     }
 
     /**
@@ -262,16 +278,18 @@ public class ModelService
      * @param pm The Plugin Model
      * @return The max used ID
      */
-    private static int getMaxApplicationId(PluginModel pm)
+    private static int getMaxApplicationId( PluginModel pm )
     {
         int nMax = 0;
-        for (Application application : pm.getApplications())
+
+        for ( Application application : pm.getApplications(  ) )
         {
-            if (application.getId() > nMax)
+            if ( application.getId(  ) > nMax )
             {
-                nMax = application.getId();
+                nMax = application.getId(  );
             }
         }
+
         return nMax;
     }
 
@@ -281,17 +299,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param application The application
      */
-    public static void updateApplication(int nPluginId, Application application)
+    public static void updateApplication( int nPluginId, Application application )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Application> list = pm.getApplications();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Application> list = pm.getApplications(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Application app = list.get(i);
-            if (app.getId() == application.getId())
+            Application app = list.get( i );
+
+            if ( app.getId(  ) == application.getId(  ) )
             {
-                list.set(i, application);
-                savePluginModel(pm);
+                list.set( i, application );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -303,17 +324,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param nApplicationId The application's ID
      */
-    public static void removeApplication(int nPluginId, int nApplicationId)
+    public static void removeApplication( int nPluginId, int nApplicationId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Application> list = pm.getApplications();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Application> list = pm.getApplications(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Application f = list.get(i);
-            if (f.getId() == nApplicationId)
+            Application f = list.get( i );
+
+            if ( f.getId(  ) == nApplicationId )
             {
-                list.remove(i);
-                savePluginModel(pm);
+                list.remove( i );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -328,16 +352,18 @@ public class ModelService
      * @param nPortletId
      * @return
      */
-    public static Portlet getPortlet(int nPluginId, int nPortletId)
+    public static Portlet getPortlet( int nPluginId, int nPortletId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        for (Portlet portlet : pm.getPortlets())
+        PluginModel pm = getPluginModel( nPluginId );
+
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            if (portlet.getId() == nPortletId)
+            if ( portlet.getId(  ) == nPortletId )
             {
                 return portlet;
             }
         }
+
         return null;
     }
 
@@ -347,12 +373,12 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param portlet The portlet
      */
-    public static void addPortlet(int nPluginId, Portlet portlet)
+    public static void addPortlet( int nPluginId, Portlet portlet )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        portlet.setId(getMaxPortletId(pm) + 1);
-        pm.getPortlets().add(portlet);
-        savePluginModel(pm);
+        PluginModel pm = getPluginModel( nPluginId );
+        portlet.setId( getMaxPortletId( pm ) + 1 );
+        pm.getPortlets(  ).add( portlet );
+        savePluginModel( pm );
     }
 
     /**
@@ -361,16 +387,18 @@ public class ModelService
      * @param pm The Plugin Model
      * @return The max used ID
      */
-    private static int getMaxPortletId(PluginModel pm)
+    private static int getMaxPortletId( PluginModel pm )
     {
         int nMax = 0;
-        for (Portlet portlet : pm.getPortlets())
+
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            if (portlet.getId() > nMax)
+            if ( portlet.getId(  ) > nMax )
             {
-                nMax = portlet.getId();
+                nMax = portlet.getId(  );
             }
         }
+
         return nMax;
     }
 
@@ -380,17 +408,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param portlet The portlet
      */
-    public static void updatePortlet(int nPluginId, Portlet portlet)
+    public static void updatePortlet( int nPluginId, Portlet portlet )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Portlet> list = pm.getPortlets();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Portlet> list = pm.getPortlets(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Portlet p = list.get(i);
-            if (p.getId() == portlet.getId())
+            Portlet p = list.get( i );
+
+            if ( p.getId(  ) == portlet.getId(  ) )
             {
-                list.set(i, portlet);
-                savePluginModel(pm);
+                list.set( i, portlet );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -402,17 +433,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param nPortletId The portlet's ID
      */
-    public static void removePortlet(int nPluginId, int nPortletId)
+    public static void removePortlet( int nPluginId, int nPortletId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<Portlet> list = pm.getPortlets();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<Portlet> list = pm.getPortlets(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Portlet p = list.get(i);
-            if (p.getId() == nPortletId)
+            Portlet p = list.get( i );
+
+            if ( p.getId(  ) == nPortletId )
             {
-                list.remove(i);
-                savePluginModel(pm);
+                list.remove( i );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -427,23 +461,24 @@ public class ModelService
      * @param nBusinessClassId
      * @return
      */
-    public static BusinessClass getBusinessClass(int nPluginId, int nBusinessClassId)
+    public static BusinessClass getBusinessClass( int nPluginId, int nBusinessClassId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        return getBusinessClass(pm, nBusinessClassId);
+        PluginModel pm = getPluginModel( nPluginId );
+
+        return getBusinessClass( pm, nBusinessClassId );
     }
 
-    private static BusinessClass getBusinessClass(PluginModel pm, int nBusinessClassId)
+    private static BusinessClass getBusinessClass( PluginModel pm, int nBusinessClassId )
     {
-        for (BusinessClass bc : pm.getBusinessClasses())
+        for ( BusinessClass bc : pm.getBusinessClasses(  ) )
         {
-            if (bc.getId() == nBusinessClassId)
+            if ( bc.getId(  ) == nBusinessClassId )
             {
                 return bc;
             }
         }
-        return null;
 
+        return null;
     }
 
     /**
@@ -453,12 +488,13 @@ public class ModelService
      * @param bc The bc
      * @return The business class with its ID
      */
-    public static BusinessClass addBusinessClass(int nPluginId, BusinessClass bc)
+    public static BusinessClass addBusinessClass( int nPluginId, BusinessClass bc )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        bc.setId(getMaxBusinessClassId(pm) + 1);
-        pm.getBusinessClasses().add(bc);
-        savePluginModel(pm);
+        PluginModel pm = getPluginModel( nPluginId );
+        bc.setId( getMaxBusinessClassId( pm ) + 1 );
+        pm.getBusinessClasses(  ).add( bc );
+        savePluginModel( pm );
+
         return bc;
     }
 
@@ -468,16 +504,18 @@ public class ModelService
      * @param pm The Plugin Model
      * @return The max used ID
      */
-    private static int getMaxBusinessClassId(PluginModel pm)
+    private static int getMaxBusinessClassId( PluginModel pm )
     {
         int nMax = 0;
-        for (BusinessClass bc : pm.getBusinessClasses())
+
+        for ( BusinessClass bc : pm.getBusinessClasses(  ) )
         {
-            if (bc.getId() > nMax)
+            if ( bc.getId(  ) > nMax )
             {
-                nMax = bc.getId();
+                nMax = bc.getId(  );
             }
         }
+
         return nMax;
     }
 
@@ -487,17 +525,20 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param businessClass The businessClass
      */
-    public static void updateBusinessClass(int nPluginId, BusinessClass businessClass)
+    public static void updateBusinessClass( int nPluginId, BusinessClass businessClass )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<BusinessClass> list = pm.getBusinessClasses();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<BusinessClass> list = pm.getBusinessClasses(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            BusinessClass bc = list.get(i);
-            if (bc.getId() == businessClass.getId())
+            BusinessClass bc = list.get( i );
+
+            if ( bc.getId(  ) == businessClass.getId(  ) )
             {
-                list.set(i, bc);
-                savePluginModel(pm);
+                list.set( i, bc );
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -509,30 +550,33 @@ public class ModelService
      * @param nPluginId The plugin's ID
      * @param nBusinessClassId The bc's ID
      */
-    public static void removeBusinessClass(int nPluginId, int nBusinessClassId)
+    public static void removeBusinessClass( int nPluginId, int nBusinessClassId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        List<BusinessClass> list = pm.getBusinessClasses();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        List<BusinessClass> list = pm.getBusinessClasses(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            BusinessClass bc = list.get(i);
-            if (bc.getId() == nBusinessClassId)
+            BusinessClass bc = list.get( i );
+
+            if ( bc.getId(  ) == nBusinessClassId )
             {
-                list.remove(i);
-                savePluginModel(pm);
+                list.remove( i );
+                savePluginModel( pm );
+
                 break;
             }
         }
     }
 
-    public static void removeAll(int nPluginId)
+    public static void removeAll( int nPluginId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        pm.getApplications().clear();
-        pm.getBusinessClasses().clear();
-        pm.getFeatures().clear();
-        pm.getPortlets().clear();
-        savePluginModel(pm);
+        PluginModel pm = getPluginModel( nPluginId );
+        pm.getApplications(  ).clear(  );
+        pm.getBusinessClasses(  ).clear(  );
+        pm.getFeatures(  ).clear(  );
+        pm.getPortlets(  ).clear(  );
+        savePluginModel( pm );
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -545,18 +589,20 @@ public class ModelService
      * @param nAttributeId
      * @return
      */
-    public static Attribute getAttribute(int nPluginId, int nBusinessClassId, int nAttributeId)
+    public static Attribute getAttribute( int nPluginId, int nBusinessClassId, int nAttributeId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
-        List<Attribute> listAttributes = bc.getAttributes();
-        for (Attribute attribute : listAttributes)
+        PluginModel pm = getPluginModel( nPluginId );
+        BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
+        List<Attribute> listAttributes = bc.getAttributes(  );
+
+        for ( Attribute attribute : listAttributes )
         {
-            if (attribute.getId() == nAttributeId)
+            if ( attribute.getId(  ) == nAttributeId )
             {
                 return attribute;
             }
         }
+
         return null;
     }
 
@@ -567,23 +613,26 @@ public class ModelService
      * @param nBusinessClassId The business class ID
      * @param attribute The Attribute
      */
-    public static void addAttribute(int nPluginId, int nBusinessClassId, Attribute attribute)
+    public static void addAttribute( int nPluginId, int nBusinessClassId, Attribute attribute )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
-        List<Attribute> listAttributes = bc.getAttributes();
-        attribute.setId(getMaxAttributeId(listAttributes) + 1);
-        attribute.setType(getAttributeType(attribute.getAttributeTypeId()));
-        if (attribute.getIsPrimary())
+        PluginModel pm = getPluginModel( nPluginId );
+        BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
+        List<Attribute> listAttributes = bc.getAttributes(  );
+        attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
+        attribute.setType( getAttributeType( attribute.getAttributeTypeId(  ) ) );
+
+        if ( attribute.getIsPrimary(  ) )
         {
-            bc.setPrimaryKey(attribute.getAttributeName());
+            bc.setPrimaryKey( attribute.getAttributeName(  ) );
         }
-        if (attribute.getIsDescription())
+
+        if ( attribute.getIsDescription(  ) )
         {
-            bc.setClassDescription(attribute.getAttributeName());
+            bc.setClassDescription( attribute.getAttributeName(  ) );
         }
-        listAttributes.add(attribute);
-        savePluginModel(pm);
+
+        listAttributes.add( attribute );
+        savePluginModel( pm );
     }
 
     /**
@@ -592,16 +641,18 @@ public class ModelService
      * @param pm The Plugin Model
      * @return The max used ID
      */
-    private static int getMaxAttributeId(List<Attribute> listAttributes)
+    private static int getMaxAttributeId( List<Attribute> listAttributes )
     {
         int nMax = 0;
-        for (Attribute attribute : listAttributes)
+
+        for ( Attribute attribute : listAttributes )
         {
-            if (attribute.getId() > nMax)
+            if ( attribute.getId(  ) > nMax )
             {
-                nMax = attribute.getId();
+                nMax = attribute.getId(  );
             }
         }
+
         return nMax;
     }
 
@@ -612,26 +663,32 @@ public class ModelService
      * @param nBusinessClassId The business class ID
      * @param attribute The attribute
      */
-    public static void updateAttribute(int nPluginId, int nBusinessClassId, Attribute attribute)
+    public static void updateAttribute( int nPluginId, int nBusinessClassId, Attribute attribute )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
-        List<Attribute> list = bc.getAttributes();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
+        List<Attribute> list = bc.getAttributes(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Attribute attr = list.get(i);
-            if (attr.getId() == attribute.getId())
+            Attribute attr = list.get( i );
+
+            if ( attr.getId(  ) == attribute.getId(  ) )
             {
-                list.set(i, attribute);
-                if (attribute.getIsPrimary())
+                list.set( i, attribute );
+
+                if ( attribute.getIsPrimary(  ) )
                 {
-                    bc.setPrimaryKey(attribute.getAttributeName());
+                    bc.setPrimaryKey( attribute.getAttributeName(  ) );
                 }
-                if (attribute.getIsDescription())
+
+                if ( attribute.getIsDescription(  ) )
                 {
-                    bc.setClassDescription(attribute.getAttributeName());
+                    bc.setClassDescription( attribute.getAttributeName(  ) );
                 }
-                savePluginModel(pm);
+
+                savePluginModel( pm );
+
                 break;
             }
         }
@@ -644,67 +701,74 @@ public class ModelService
      * @param nBusinessClassId The business class ID
      * @param nAttributeId The attribute's ID
      */
-    public static void removeAttribute(int nPluginId, int nBusinessClassId, int nAttributeId)
+    public static void removeAttribute( int nPluginId, int nBusinessClassId, int nAttributeId )
     {
-        PluginModel pm = getPluginModel(nPluginId);
-        BusinessClass bc = getBusinessClass(pm, nBusinessClassId);
-        List<Attribute> list = bc.getAttributes();
-        for (int i = 0; i < list.size(); i++)
+        PluginModel pm = getPluginModel( nPluginId );
+        BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
+        List<Attribute> list = bc.getAttributes(  );
+
+        for ( int i = 0; i < list.size(  ); i++ )
         {
-            Attribute attr = list.get(i);
-            if (attr.getId() == nAttributeId)
+            Attribute attr = list.get( i );
+
+            if ( attr.getId(  ) == nAttributeId )
             {
-                list.remove(i);
-                savePluginModel(pm);
+                list.remove( i );
+                savePluginModel( pm );
+
                 break;
             }
         }
     }
 
-    public static List<BusinessClass> getBusinessClassesByFeature(PluginModel pm, int nFeatureId)
+    public static List<BusinessClass> getBusinessClassesByFeature( PluginModel pm, int nFeatureId )
     {
-        List<BusinessClass> list = new ArrayList<BusinessClass>();
-        List<BusinessClass> listAll = pm.getBusinessClasses();
-        for (BusinessClass bc : listAll)
+        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<BusinessClass> listAll = pm.getBusinessClasses(  );
+
+        for ( BusinessClass bc : listAll )
         {
-            if (bc.getIdFeature() == nFeatureId)
+            if ( bc.getIdFeature(  ) == nFeatureId )
             {
-                list.add(bc);
+                list.add( bc );
             }
         }
+
         return list;
     }
 
-    public static ReferenceList getComboFeatures(int nPluginId)
+    public static ReferenceList getComboFeatures( int nPluginId )
     {
-        ReferenceList list = new ReferenceList();
+        ReferenceList list = new ReferenceList(  );
 
-        for (Feature feature : getPluginModel(nPluginId).getFeatures())
+        for ( Feature feature : getPluginModel( nPluginId ).getFeatures(  ) )
         {
-            list.addItem(feature.getId(), feature.getPluginFeatureTitle());
+            list.addItem( feature.getId(  ), feature.getPluginFeatureTitle(  ) );
         }
+
         return list;
     }
 
-    private static String getAttributeType(int nAttributeTypeId)
+    private static String getAttributeType( int nAttributeTypeId )
     {
-        for (ReferenceItem item : getAttributeTypes())
+        for ( ReferenceItem item : getAttributeTypes(  ) )
         {
-            if (item.getCode().equals(Integer.toString(nAttributeTypeId)))
+            if ( item.getCode(  ).equals( Integer.toString( nAttributeTypeId ) ) )
             {
-                return item.getName();
+                return item.getName(  );
             }
         }
-        throw new AppException("Invalide Attribute type");
+
+        throw new AppException( "Invalide Attribute type" );
     }
 
-    public static ReferenceList getAttributeTypes()
+    public static ReferenceList getAttributeTypes(  )
     {
         // FIXME load list from spring context
-        ReferenceList list = new ReferenceList();
-        list.addItem(1, "int");
-        list.addItem(2, "String");
-        return list;
+        ReferenceList list = new ReferenceList(  );
+        list.addItem( 1, "int" );
+        list.addItem( 2, "String" );
 
+        return list;
     }
 }

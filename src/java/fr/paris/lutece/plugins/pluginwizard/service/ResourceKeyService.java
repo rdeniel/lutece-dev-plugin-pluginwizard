@@ -78,24 +78,24 @@ public final class ResourceKeyService
     {
         localizePlugin( pm );
 
-        for ( Feature feature : pm.getFeatures() )
+        for ( Feature feature : pm.getFeatures(  ) )
         {
-            localizeFeature( pm.getPluginName(), feature );
+            localizeFeature( pm.getPluginName(  ), feature );
         }
 
         List<String> listKeys = findResourceKeys( pm );
 
         //Method will add all the keys for the generated plugin in the database
         // ResourceKeyHome.addEmptyKeys( pluginModel.getIdPlugin(  ), listKeys, plugin );
-        storeKeyList( pm , listKeys );
+        storeKeyList( pm, listKeys );
     }
 
     private static void storeKeyList( PluginModel pm, List<String> listKeys )
     {
         for ( String strKey : listKeys )
         {
-            ResourceKey key = LocalizationService.localize( strKey.trim(  ), pm.getPluginName() );
-            key.setIdPlugin( pm.getIdPlugin() );
+            ResourceKey key = LocalizationService.localize( strKey.trim(  ), pm.getPluginName(  ) );
+            key.setIdPlugin( pm.getIdPlugin(  ) );
             ResourceKeyHome.create( key );
             AppLogService.debug( key.getMarkerIdentifier(  ) + " " + key.getFrenchLocale(  ) + " " +
                 key.getEnglishLocale(  ) );

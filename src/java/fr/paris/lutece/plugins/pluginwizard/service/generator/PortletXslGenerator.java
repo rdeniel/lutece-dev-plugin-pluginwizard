@@ -61,9 +61,10 @@ public class PortletXslGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap(  );
 
-        for ( Portlet portlet : pm.getPortlets() )
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            String strPath = getFilePath( pm, PATH, "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl");
+            String strPath = getFilePath( pm, PATH,
+                    "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl" );
 
             String strSourceCode = getPortletXsl( portlet, pm.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -100,7 +101,7 @@ public class PortletXslGenerator extends AbstractGenerator
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

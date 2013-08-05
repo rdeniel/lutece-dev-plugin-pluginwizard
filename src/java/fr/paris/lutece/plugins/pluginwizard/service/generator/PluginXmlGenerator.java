@@ -55,13 +55,14 @@ import java.util.Map;
 public class PluginXmlGenerator extends AbstractFileGenerator
 {
     private static final String PATH = "webapp/WEB-INF/plugins/";
+
     /**
      * {@inheritDoc }
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        return generateFile(pm);
+        return generateFile( pm );
     }
 
     /**
@@ -75,37 +76,37 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        for( Feature feature : pm.getFeatures() )
+        for ( Feature feature : pm.getFeatures(  ) )
         {
-            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm , feature.getId() );
-            if( ( listBusiness != null ) && (listBusiness.size() > 0 ))
+            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
+
+            if ( ( listBusiness != null ) && ( listBusiness.size(  ) > 0 ) )
             {
                 BusinessClass businessClass = listBusiness.get( 0 );
-                feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst() + "s.jsp" );
+                feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst(  ) + "s.jsp" );
             }
             else
             {
-                feature.setJspName( feature.getPluginFeatureName() + ".jsp" );
+                feature.setJspName( feature.getPluginFeatureName(  ) + ".jsp" );
             }
         }
+
         model.put( MARK_PLUGIN, pm );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate() , Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
 
     @Override
-    protected String getFilename(PluginModel pm)
+    protected String getFilename( PluginModel pm )
     {
         return pm.getPluginName(  ).toLowerCase(  ) + ".xml";
     }
 
     @Override
-    public String getPath()
+    public String getPath(  )
     {
         return PATH;
     }
-    
-    
 }

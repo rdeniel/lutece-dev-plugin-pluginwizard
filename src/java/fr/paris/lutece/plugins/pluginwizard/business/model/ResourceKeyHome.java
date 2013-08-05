@@ -48,8 +48,8 @@ public final class ResourceKeyHome
     // Static variable pointed at the DAO instance
     private static IResourceKeyDAO _dao = (IResourceKeyDAO) SpringContextService.getPluginBean( "pluginwizard",
             "pluginwizard.resourceKeyDAO" );
-
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
+
     /**
      * Private constructor - this class need not be instantiated
      */

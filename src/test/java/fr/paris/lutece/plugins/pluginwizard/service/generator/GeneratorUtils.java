@@ -35,13 +35,17 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.MapperService;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+
 import java.net.URL;
+
 import java.util.Iterator;
 import java.util.Map;
+
 
 /**
  *
@@ -49,43 +53,44 @@ import java.util.Map;
  */
 public class GeneratorUtils
 {
-
-    public static PluginModel getTestModel()
+    public static PluginModel getTestModel(  )
     {
         try
         {
-            URL url = Thread.currentThread().getContextClassLoader().getResource("model.json");
-            File file = new File(url.getPath());
+            URL url = Thread.currentThread(  ).getContextClassLoader(  ).getResource( "model.json" );
+            File file = new File( url.getPath(  ) );
             String strJson;
-            strJson = readFile(file);
-            return MapperService.readJson(strJson);
+            strJson = readFile( file );
+
+            return MapperService.readJson( strJson );
         }
-        catch (IOException ex)
+        catch ( IOException ex )
         {
-            throw new RuntimeException( "Unable to load test file : "  + ex.getMessage() );
+            throw new RuntimeException( "Unable to load test file : " + ex.getMessage(  ) );
         }
     }
 
-    static void outputMap(Map map)
+    static void outputMap( Map map )
     {
-        for (Iterator it = map.keySet().iterator(); it.hasNext();)
+        for ( Iterator it = map.keySet(  ).iterator(  ); it.hasNext(  ); )
         {
-            String strKey = (String) it.next();
-            System.out.println("######################### file : " + strKey + "#########################");
-            System.out.println(map.get(strKey));
+            String strKey = (String) it.next(  );
+            System.out.println( "######################### file : " + strKey + "#########################" );
+            System.out.println( map.get( strKey ) );
         }
     }
 
-    private static String readFile(File file) throws IOException
+    private static String readFile( File file ) throws IOException
     {
-        BufferedReader reader = new BufferedReader(new FileReader(file));
+        BufferedReader reader = new BufferedReader( new FileReader( file ) );
         String strLine;
-        StringBuilder sbString = new StringBuilder();
-        while ((strLine = reader.readLine()) != null)
+        StringBuilder sbString = new StringBuilder(  );
+
+        while ( ( strLine = reader.readLine(  ) ) != null )
         {
-            sbString.append(strLine);
+            sbString.append( strLine );
         }
 
-        return sbString.toString();
+        return sbString.toString(  );
     }
 }

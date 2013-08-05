@@ -57,22 +57,19 @@ public class AdminJspGenerator extends AbstractGenerator
     private static final String PATH = "webapp/jsp/admin/plugins/{plugin_name}/";
     private static final String EXT_JSP = ".jsp";
     private static String[] _jsp_prefix = { "Create", "DoCreate", "Remove", "DoRemove", "Manage", "Modify", "DoModify" };
-
     private String _strBusinessTemplate;
     private String _strFeatureTemplate;
-    
+
     public void setBusinessTemplate( String strTemplate )
     {
         _strBusinessTemplate = strTemplate;
     }
-    
+
     public void setFeatureTemplate( String strTemplate )
     {
         _strFeatureTemplate = strTemplate;
     }
-    
-    
-    
+
     /**
      * {@inheritDoc }
      */
@@ -84,16 +81,16 @@ public class AdminJspGenerator extends AbstractGenerator
 
         for ( Feature feature : pm.getFeatures(  ) )
         {
-            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm , feature.getId(  ) );
+            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
                 for ( int i = 0; i < _jsp_prefix.length; i++ )
                 {
-                    String strSuffix = ( i == 4 ) ? "s" + EXT_JSP : EXT_JSP;
+                    String strSuffix = ( i == 4 ) ? ( "s" + EXT_JSP ) : EXT_JSP;
                     String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass(  ) + strSuffix;
 
-                    String strPath = getFilePath( pm, PATH, strJspFileName);
+                    String strPath = getFilePath( pm, PATH, strJspFileName );
 
                     String strSourceCode = getJspBusinessFile( businessClass, feature.getPluginFeatureName(  ),
                             strPluginName, i + 1 );
@@ -130,10 +127,11 @@ public class AdminJspGenerator extends AbstractGenerator
         model.put( MARK_BUSINESS_CLASS, businessClass );
         model.put( MARK_PLUGIN_NAME, strPluginName );
         model.put( MARK_JSP_TYPE, "" + nJspType );
-        String strBeanName = strFeatureName.toLowerCase() + businessClass.getBusinessClassCapsFirst();
-        model.put( MARK_BEAN_NAME , strBeanName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strBusinessTemplate, Locale.getDefault(), model );
+        String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClassCapsFirst(  );
+        model.put( MARK_BEAN_NAME, strBeanName );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( _strBusinessTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }
@@ -150,7 +148,7 @@ public class AdminJspGenerator extends AbstractGenerator
         model.put( MARK_FEATURE_NAME, strFeatureName );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strFeatureTemplate, Locale.getDefault(), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strFeatureTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  );
     }

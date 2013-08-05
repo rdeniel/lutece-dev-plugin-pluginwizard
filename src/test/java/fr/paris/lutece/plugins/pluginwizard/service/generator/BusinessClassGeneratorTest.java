@@ -36,9 +36,12 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
+
+import org.junit.Test;
+
 import java.util.List;
 import java.util.Map;
-import org.junit.Test;
+
 
 /**
  *
@@ -46,35 +49,37 @@ import org.junit.Test;
  */
 public class BusinessClassGeneratorTest extends LuteceTestCase
 {
- 
     /**
      * Test of generate method, of class BusinessClassGenerator.
      */
     @Test
-    public void testGenerateClassic()
+    public void testGenerateClassic(  )
     {
-        System.out.println("generate BusinessClass files (classic)");
-        PluginModel pm = GeneratorUtils.getTestModel();
+        System.out.println( "generate BusinessClass files (classic)" );
+
+        PluginModel pm = GeneratorUtils.getTestModel(  );
         List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.classic" );
-        BusinessClassGenerator instance = new BusinessClassGenerator();
-        instance.setFiles(listFiles);
-        Map result = instance.generate(pm);
+        BusinessClassGenerator instance = new BusinessClassGenerator(  );
+        instance.setFiles( listFiles );
+
+        Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
-    
+
     /**
      * Test of generate method, of class BusinessClassGenerator.
      */
     @Test
-    public void testGenerateAlternative()
+    public void testGenerateAlternative(  )
     {
-        System.out.println("generate BusinessClass files (alternative)");
-        PluginModel pm = GeneratorUtils.getTestModel();
+        System.out.println( "generate BusinessClass files (alternative)" );
+
+        PluginModel pm = GeneratorUtils.getTestModel(  );
         List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.alternative" );
-        BusinessClassGenerator instance = new BusinessClassGenerator();
-        instance.setFiles(listFiles);
-        Map result = instance.generate(pm);
+        BusinessClassGenerator instance = new BusinessClassGenerator(  );
+        instance.setFiles( listFiles );
+
+        Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
-    
 }

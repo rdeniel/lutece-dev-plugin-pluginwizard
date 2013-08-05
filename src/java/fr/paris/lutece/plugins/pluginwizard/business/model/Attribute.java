@@ -49,7 +49,7 @@ public class Attribute
     private boolean _bIsDescription;
     private String _strAttributeName;
     private String _strJavaType;
-    private int _nMaxLength = 255;  //FIXME
+    private int _nMaxLength = 255; //FIXME
     private boolean _bCouldNotBeEmpty = true; //FIXME
 
     /**
@@ -198,7 +198,7 @@ public class Attribute
     {
         return getPrefix( _strJavaType ) + getProperName( _strAttributeName );
     }
-    
+
     /**
      * Returns the VariableName
      * @return  _strVariableName The VariableName
@@ -206,19 +206,19 @@ public class Attribute
     @JsonIgnore
     public String getParamName(  )
     {
-        return _strAttributeName.toLowerCase();
+        return _strAttributeName.toLowerCase(  );
     }
-    
+
     /**
      * Returns the java name of the attribute
-     * @return 
+     * @return
      */
     @JsonIgnore
-    public String getJavaName( )
+    public String getJavaName(  )
     {
- 	return getProperName( _strAttributeName ).substring( 0 , 1 ).toLowerCase() + getProperName( _strAttributeName ).substring( 1 );
+        return getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase(  ) +
+        getProperName( _strAttributeName ).substring( 1 );
     }
- 	    
 
     /**
     * Returns the Prefix of variable
@@ -245,11 +245,11 @@ public class Attribute
         return "";
     }
 
-   /**
-    * Returns the Proper Name
-    * @param strSource the source
-    * @return source name
-    */
+    /**
+     * Returns the Proper Name
+     * @param strSource the source
+     * @return source name
+     */
     public static String getProperName( String strSource )
     {
         int nIndex = 0;
@@ -284,7 +284,7 @@ public class Attribute
     /**
      * @return the maxLength
      */
-    public int getMaxLength()
+    public int getMaxLength(  )
     {
         return _nMaxLength;
     }
@@ -292,15 +292,15 @@ public class Attribute
     /**
      * @param maxLength the maxLength to set
      */
-    public void setMaxLength(int maxLength)
+    public void setMaxLength( int maxLength )
     {
         _nMaxLength = maxLength;
     }
-    
-   /**
-    * Returns the bCouldNotBeEmpty
-    * @return The CouldNotBeEmpty
-    */
+
+    /**
+     * Returns the bCouldNotBeEmpty
+     * @return The CouldNotBeEmpty
+     */
     public boolean getCouldNotBeEmpty(  )
     {
         return _bCouldNotBeEmpty;
@@ -314,6 +314,4 @@ public class Attribute
     {
         _bCouldNotBeEmpty = bCouldNotBeEmpty;
     }
-
-
 }

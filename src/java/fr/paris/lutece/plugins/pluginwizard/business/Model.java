@@ -30,71 +30,71 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * License 1.0
- */ 
+ */
 package fr.paris.lutece.plugins.pluginwizard.business;
+
 
 /**
  * This is the business class for the object Model
- */ 
+ */
 public class Model
 {
     // Variables declarations 
     private int _nIdPlugin;
     private String _strName;
     private String _strModelJson;
-    
-    
-       /**
-        * Returns the IdPlugin
-        * @return The IdPlugin
-        */ 
-    public int getIdPlugin()
+
+    /**
+     * Returns the IdPlugin
+     * @return The IdPlugin
+     */
+    public int getIdPlugin(  )
     {
         return _nIdPlugin;
     }
-    
-       /**
-        * Sets the IdPlugin
-        * @param nIdPlugin The IdPlugin
-        */ 
+
+    /**
+     * Sets the IdPlugin
+     * @param nIdPlugin The IdPlugin
+     */
     public void setIdPlugin( int nIdPlugin )
     {
         _nIdPlugin = nIdPlugin;
     }
-    
-       /**
-        * Returns the Name
-        * @return The Name
-        */ 
-    public String getName()
+
+    /**
+     * Returns the Name
+     * @return The Name
+     */
+    public String getName(  )
     {
         return _strName;
     }
-    
-       /**
-        * Sets the Name
-        * @param strName The Name
-        */ 
+
+    /**
+     * Sets the Name
+     * @param strName The Name
+     */
     public void setName( String strName )
     {
         _strName = strName;
     }
-    
-       /**
-        * Returns the ModelJson
-        * @return The ModelJson
-        */ 
-    public String getModelJson()
+
+    /**
+     * Returns the ModelJson
+     * @return The ModelJson
+     */
+    public String getModelJson(  )
     {
         return _strModelJson;
     }
-    
-       /**
-        * Sets the ModelJson
-        * @param strModelJson The ModelJson
-        */ 
+
+    /**
+     * Sets the ModelJson
+     * @param strModelJson The ModelJson
+     */
     public void setModelJson( String strModelJson )
     {
         _strModelJson = strModelJson;
     }
- }
+}
