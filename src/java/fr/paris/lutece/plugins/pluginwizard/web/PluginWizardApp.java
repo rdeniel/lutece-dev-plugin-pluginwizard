@@ -44,7 +44,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.plugins.pluginwizard.service.ResourceKeyService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
@@ -1750,7 +1749,6 @@ public class PluginWizardApp implements XPageApplication
         ResourceKeyHome.deleteKeysByPlugin( nPluginId );
 
         PluginModel pm = ModelService.getPluginModel( nPluginId );
-        ResourceKeyService.storeKeys( pm );
 
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( MARK_PLUGIN_ID, Integer.toString( nPluginId ) );
