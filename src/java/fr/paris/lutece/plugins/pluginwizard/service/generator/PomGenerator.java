@@ -36,7 +36,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -79,7 +78,7 @@ public class PomGenerator extends AbstractFileGenerator
             model.put( key.getKeyDescription(  ).trim(  ), key.getKeyValue(  ) );
         }
 
-        model.put( MARK_PLUGIN, pm );
+        model.put( Markers.MARK_PLUGIN, pm );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

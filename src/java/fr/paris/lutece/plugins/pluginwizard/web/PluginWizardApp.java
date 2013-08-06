@@ -246,14 +246,11 @@ public class PluginWizardApp implements XPageApplication
     private static final String PROPERTY_CONFIRM_REMOVE_APPLICATION_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveApplication.alertMessage";
     private static final String PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveBusinessClass.alertMessage";
     private static final String PROPERTY_PLUGIN_NAME = "pluginwizard";
-    private static final String PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE = "pluginwizard.siteMessage.classExists.alertMessage";
     private static final String PROPERTY_FEATURE_NOT_DEFINE_TITLE_MESSAGE = "pluginwizard.siteMessage.featureNotExists.alertMessage";
     private static final String PROPERTY_CLASS_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotDefined.alertMessage";
     private static final String PROPERTY_CLASS_NOT_BEGIN_CAPITAL_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotBeginCapital.alertMessage";
     private static final String PROPERTY_ATTRIBUTE_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.attributeNotDefined.alertMessage";
     private static final String PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE = "pluginwizard.siteMessage.mandatoryFields.alertMessage";
-    private static final String PROPERTY_BUSINESS_CLASS_HAS_A_DESCRIPTION = "pluginwizard.siteMessage.descriptionAlreadyPresent.alertMessage";
-    private static final String PROPERTY_BUSINESS_CLASS_HAS_A_KEY = "pluginwizard.siteMessage.keyAlreadyPresent.alertMessage";
     private static final String PROPERTY_BUSINESS_PRIMARY_KEY_MUST_BE_INT = "pluginwizard.siteMessage.keyMustBeInt.alertMessage";
     private static final String PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING = "pluginwizard.siteMessage.descriptionIsString.alertMessage";
 
@@ -273,8 +270,6 @@ public class PluginWizardApp implements XPageApplication
     private static final String PROPERTY_DO_CREATE_PORTLET_PARAM_PORTLET_TYPE_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_portlet.portlet_type_name";
     private static final String PROPERTY_DO_MODIFY_PORTLET_PARAM_PORTLET_TYPE_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_portlet.portlet_type_name";
     private static final String PROPERTY_CLASS_TWO_ATTRIBUTES_MINIMUM = "pluginwizard.siteMessage.classTwoAttributes.alertMessage";
-    private static final String PROPERTY_CLASS_DESCRIPTION_NOT_DEFINED = "pluginwizard.siteMessage.descriptionNotDefined.alertMessage";
-    private static final String PROPERTY_CLASS_KEY_NOT_DEFINED = "pluginwizard.siteMessage.keyNotDefined.alertMessage";
 
     // Properties
     private static final String DEFAULT_PLUGIN_CLASS = "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation";
@@ -825,6 +820,7 @@ public class PluginWizardApp implements XPageApplication
      *
      * @param request The Http Request
      * @param strPluginName  The Plugin name
+     * @return The plugin id
      * @throws SiteMessageException Front office error handling
      */
     private int doCreatePlugin( HttpServletRequest request, String strPluginName )
@@ -1734,7 +1730,6 @@ public class PluginWizardApp implements XPageApplication
      * The get page of the plugin recapitulation
      *
      * @param request The Http Request
-     * @param plugin The Plugin
      * @return The Html code of the summary
      */
     private String getPluginRecapitulate( HttpServletRequest request )

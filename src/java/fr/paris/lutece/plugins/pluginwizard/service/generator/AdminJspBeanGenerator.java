@@ -37,10 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_BUSINESS_CLASS;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_NAME;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_FEATURE_RIGHT;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN_MODEL;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -113,10 +109,10 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_BUSINESS_CLASS, business );
-        model.put( MARK_PLUGIN_MODEL, pluginModel );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_FEATURE_RIGHT, strFeatureRight );
+        model.put( Markers.MARK_BUSINESS_CLASS, business );
+        model.put( Markers.MARK_PLUGIN_MODEL, pluginModel );
+        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+        model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
@@ -135,9 +131,9 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_PLUGIN_MODEL, pluginModel );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_FEATURE_RIGHT, strFeatureRight );
+        model.put( Markers.MARK_PLUGIN_MODEL, pluginModel );
+        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+        model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
         HtmlTemplate template = AppTemplateService.getTemplate( _strAbstractParentBeanTemplate, Locale.getDefault(  ),
                 model );

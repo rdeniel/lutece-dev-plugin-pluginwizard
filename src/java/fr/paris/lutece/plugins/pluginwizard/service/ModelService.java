@@ -42,8 +42,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-import fr.paris.lutece.portal.service.util.AppException;
-import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
 
 import java.util.ArrayList;
@@ -53,9 +51,15 @@ import java.util.List;
 /**
  * Model Service provides all plugin'model manipulations
  */
-public class ModelService
+public final class ModelService
 {
-    private static AttributeService _serviceAttribute = SpringContextService.getBean("pluginwizard.attribute.service");
+    private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
+
+    /** private constructor */
+    private ModelService(  )
+    {
+    }
+
     /**
      * Create a plugin model
      * @param strPluginName The plugin name
@@ -84,7 +88,6 @@ public class ModelService
     {
         PluginModel pm;
         Model model = ModelHome.findByPrimaryKey( nPluginId );
-        System.out.println( " #### GetPluginModel : id : " + nPluginId + " model : " + model );
 
         if ( model != null )
         {
@@ -111,7 +114,6 @@ public class ModelService
 
         String strJson = MapperService.getJson( pm );
         model.setModelJson( strJson );
-        System.out.println( "#### save pm : " + strJson );
 
         if ( ModelHome.findByPrimaryKey( pm.getIdPlugin(  ) ) != null )
         {
@@ -659,9 +661,9 @@ public class ModelService
     }
 
     /**
-     * Get The max attribute ID
+     * Get The max attribute ID from a list
      *
-     * @param pm The Plugin Model
+     * @param listAttributes The attribute list
      * @return The max used ID
      */
     private static int getMaxAttributeId( List<Attribute> listAttributes )
@@ -783,16 +785,15 @@ public class ModelService
         return list;
     }
 
-    
     /**
      * Gets all attribute types
      * @return A list of attributes types
      */
     public static ReferenceList getAttributeTypes(  )
     {
-        return _serviceAttribute.getAttributeTypes();
+        return _serviceAttribute.getAttributeTypes(  );
     }
-    
+
     /**
      * Returns the attribute type corresponding to an ID
      * @param nAttributeTypeId The attribute type ID
@@ -801,7 +802,8 @@ public class ModelService
     private static String getAttributeType( int nAttributeTypeId )
     {
         AttributeType type = _serviceAttribute.getType( nAttributeTypeId );
-        return type.getJavaType();
+
+        return type.getJavaType(  );
     }
 
     /**
@@ -809,9 +811,10 @@ public class ModelService
      * @param nAttributeTypeId The attribute type ID
      * @return The max length
      */
-    private static int getAttributeMaxLength(int nAttributeTypeId )
+    private static int getAttributeMaxLength( int nAttributeTypeId )
     {
         AttributeType type = _serviceAttribute.getType( nAttributeTypeId );
-        return type.getMaxLength();
+
+        return type.getMaxLength(  );
     }
 }

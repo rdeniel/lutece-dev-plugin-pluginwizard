@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -85,8 +84,8 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     private String getPortletJspBean( Portlet portlet, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PORTLET, portlet );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_PORTLET, portlet );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

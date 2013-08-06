@@ -36,7 +36,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -83,10 +82,10 @@ public class XPageGenerator extends AbstractGenerator
     private String getXPageCode( PluginModel pm, int nApplicationId )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pm );
+        model.put( Markers.MARK_PLUGIN, pm );
 
-        model.put( MARK_PLUGIN_MODEL, pm );
-        model.put( MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
+        model.put( Markers.MARK_PLUGIN_MODEL, pm );
+        model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

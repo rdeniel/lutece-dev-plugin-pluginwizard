@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 
@@ -186,7 +188,7 @@ public class Attribute
     @JsonIgnore
     public String getName(  )
     {
-        return getProperName( _strAttributeName );
+        return Utils.getProperName( _strAttributeName );
     }
 
     /**
@@ -207,7 +209,7 @@ public class Attribute
     @JsonIgnore
     public String getVariableName(  )
     {
-        return getPrefix( _strJavaType ) + getProperName( _strAttributeName );
+        return getPrefix( _strJavaType ) + Utils.getProperName( _strAttributeName );
     }
 
     /**
@@ -227,8 +229,8 @@ public class Attribute
     @JsonIgnore
     public String getJavaName(  )
     {
-        return getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase(  ) +
-        getProperName( _strAttributeName ).substring( 1 );
+        return Utils.getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase(  ) +
+        Utils.getProperName( _strAttributeName ).substring( 1 );
     }
 
     /**
@@ -254,42 +256,6 @@ public class Attribute
         }
 
         return "";
-    }
-
-    /**
-     * Returns the Proper Name
-     * @param strSource the source
-     * @return source name
-     */
-    public static String getProperName( String strSource )
-    {
-        int nIndex = 0;
-        boolean bUpper = true;
-        StringBuilder strBuffer = new StringBuilder(  );
-
-        while ( nIndex < strSource.length(  ) )
-        {
-            char c = strSource.charAt( nIndex );
-
-            if ( c == '_' )
-            {
-                // skip by reading the next char
-                nIndex++;
-                bUpper = true;
-            }
-
-            if ( bUpper )
-            {
-                String strChar = strSource.substring( nIndex, nIndex + 1 );
-                c = strChar.toUpperCase(  ).charAt( 0 );
-                bUpper = false;
-            }
-
-            strBuffer.append( c );
-            nIndex++;
-        }
-
-        return strBuffer.toString(  );
     }
 
     /**

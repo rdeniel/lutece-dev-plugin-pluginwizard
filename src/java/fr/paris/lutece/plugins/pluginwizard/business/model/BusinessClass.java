@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.util.ArrayList;
@@ -216,7 +218,7 @@ public class BusinessClass
     @JsonIgnore
     public String getPrimaryKeyName(  )
     {
-        return getProperName( _strPrimaryAttributeName );
+        return Utils.getProperName( _strPrimaryAttributeName );
     }
 
     /**
@@ -241,47 +243,6 @@ public class BusinessClass
     @JsonIgnore
     public String getInstanceName(  )
     {
-        String strInstanceName = _strBusinessClass.substring( 0, 1 ).toLowerCase(  ) +
-            _strBusinessClass.substring( 1, _strBusinessClass.length(  ) );
-
-        return strInstanceName;
-    }
-
-    /**
-     * Returns the Proper Name
-     *
-     * @param strSource the source
-     * @return source
-     */
-    @JsonIgnore
-    public static String getProperName( String strSource )
-    {
-        int nIndex = 0;
-        boolean bUpper = true;
-        StringBuilder strBuffer = new StringBuilder(  );
-
-        while ( nIndex < strSource.length(  ) )
-        {
-            char c = strSource.charAt( nIndex );
-
-            if ( c == '_' )
-            {
-                // skip by reading the next char
-                nIndex++;
-                bUpper = true;
-            }
-
-            if ( bUpper )
-            {
-                String strChar = strSource.substring( nIndex, nIndex + 1 );
-                c = strChar.toUpperCase(  ).charAt( 0 );
-                bUpper = false;
-            }
-
-            strBuffer.append( c );
-            nIndex++;
-        }
-
-        return strBuffer.toString(  );
+        return Utils.firstLowerCase( _strBusinessClass );
     }
 }

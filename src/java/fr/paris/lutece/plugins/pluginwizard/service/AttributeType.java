@@ -31,8 +31,8 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.pluginwizard.service;
+
 
 /**
  * AttributeType
@@ -45,96 +45,94 @@ public class AttributeType
     private String _strPrefix;
     private String _strJavaType;
     private int _nMaxLength;
-    
-    
-       /**
-        * Returns the IdAttributeType
-        * @return The IdAttributeType
-        */ 
-    public int getIdAttributeType()
+
+    /**
+     * Returns the IdAttributeType
+     * @return The IdAttributeType
+     */
+    public int getIdAttributeType(  )
     {
         return _nIdAttributeType;
     }
-    
-       /**
-        * Sets the IdAttributeType
-        * @param nIdAttributeType The IdAttributeType
-        */ 
+
+    /**
+     * Sets the IdAttributeType
+     * @param nIdAttributeType The IdAttributeType
+     */
     public void setIdAttributeType( int nIdAttributeType )
     {
         _nIdAttributeType = nIdAttributeType;
     }
-    
-       /**
-        * Returns the Description
-        * @return The Description
-        */ 
-    public String getDescription()
+
+    /**
+     * Returns the Description
+     * @return The Description
+     */
+    public String getDescription(  )
     {
         return _strDescription;
     }
-    
-       /**
-        * Sets the Description
-        * @param strDescription The Description
-        */ 
+
+    /**
+     * Sets the Description
+     * @param strDescription The Description
+     */
     public void setDescription( String strDescription )
     {
         _strDescription = strDescription;
     }
-    
-       /**
-        * Returns the Prefix
-        * @return The Prefix
-        */ 
-    public String getPrefix()
+
+    /**
+     * Returns the Prefix
+     * @return The Prefix
+     */
+    public String getPrefix(  )
     {
         return _strPrefix;
     }
-    
-       /**
-        * Sets the Prefix
-        * @param strPrefix The Prefix
-        */ 
+
+    /**
+     * Sets the Prefix
+     * @param strPrefix The Prefix
+     */
     public void setPrefix( String strPrefix )
     {
         _strPrefix = strPrefix;
     }
-    
-       /**
-        * Returns the JavaType
-        * @return The JavaType
-        */ 
-    public String getJavaType()
+
+    /**
+     * Returns the JavaType
+     * @return The JavaType
+     */
+    public String getJavaType(  )
     {
         return _strJavaType;
     }
-    
-       /**
-        * Sets the JavaType
-        * @param strJavaType The JavaType
-        */ 
+
+    /**
+     * Sets the JavaType
+     * @param strJavaType The JavaType
+     */
     public void setJavaType( String strJavaType )
     {
         _strJavaType = strJavaType;
     }
-    
-       /**
-        * Returns the MaxLength
-        * @return The MaxLength
-        */ 
-    public int getMaxLength()
+
+    /**
+     * Returns the MaxLength
+     * @return The MaxLength
+     */
+    public int getMaxLength(  )
     {
         return _nMaxLength;
     }
-    
-       /**
-        * Sets the MaxLength
-        * @param nMaxLength The MaxLength
-        */ 
+
+    /**
+     * Sets the MaxLength
+     * @param nMaxLength The MaxLength
+     */
     public void setMaxLength( int nMaxLength )
     {
         _nMaxLength = nMaxLength;
     }
- }    
-
+}

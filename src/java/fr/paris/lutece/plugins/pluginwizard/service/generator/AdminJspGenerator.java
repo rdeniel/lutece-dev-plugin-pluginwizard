@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -131,13 +130,13 @@ public class AdminJspGenerator extends AbstractGenerator
         int nJspType )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_JSP_TYPE, "" + nJspType );
+        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+        model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_JSP_TYPE, "" + nJspType );
 
         String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClassCapsFirst(  );
-        model.put( MARK_BEAN_NAME, strBeanName );
+        model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
         HtmlTemplate template = AppTemplateService.getTemplate( _strBusinessTemplate, Locale.getDefault(  ), model );
 
@@ -153,8 +152,8 @@ public class AdminJspGenerator extends AbstractGenerator
     private String getFeatureJspFile( String strFeatureName, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_FEATURE_NAME, strFeatureName );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
 
         HtmlTemplate template = AppTemplateService.getTemplate( _strFeatureTemplate, Locale.getDefault(  ), model );
 

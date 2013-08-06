@@ -34,9 +34,6 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_BUSINESS_CLASSES;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_LIST_PORTLETS;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.MARK_PLUGIN;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -89,9 +86,9 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     protected String getCode( PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pm );
-        model.put( MARK_LIST_PORTLETS, pm.getPortlets(  ) );
-        model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
+        model.put( Markers.MARK_PLUGIN, pm );
+        model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets(  ) );
+        model.put( Markers.MARK_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

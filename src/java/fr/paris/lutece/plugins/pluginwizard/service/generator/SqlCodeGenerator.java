@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -133,13 +132,13 @@ public class SqlCodeGenerator extends AbstractGenerator
     private String getSqlScript( int nSqlType, PluginModel pm )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_PLUGIN, pm );
+        model.put( Markers.MARK_PLUGIN, pm );
 
-        model.put( MARK_LIST_FEATURES, pm.getFeatures(  ) );
-        model.put( MARK_LIST_APPLICATIONS, pm.getApplications(  ) );
-        model.put( MARK_LIST_PORTLETS, pm.getPortlets(  ) );
-        model.put( MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
-        model.put( MARK_SQL_TYPE, nSqlType + "" );
+        model.put( Markers.MARK_LIST_FEATURES, pm.getFeatures(  ) );
+        model.put( Markers.MARK_LIST_APPLICATIONS, pm.getApplications(  ) );
+        model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets(  ) );
+        model.put( Markers.MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
+        model.put( Markers.MARK_SQL_TYPE, nSqlType + "" );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

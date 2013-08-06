@@ -31,54 +31,62 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.pluginwizard.business;
-
-import fr.paris.lutece.portal.service.plugin.Plugin;
-
-import java.util.List;
+package fr.paris.lutece.plugins.pluginwizard.util;
 
 
 /**
-* IModelDAO Interface
-*/
-public interface IModelDAO
+ * Utils for plugin wizard
+ */
+public final class Utils
 {
-    /**
-     * Insert a new record in the table.
-     * @param model instance of the Model object to inssert
-     * @param plugin the Plugin
-     */
-    void insert( Model model, Plugin plugin );
+    /** private constructor */
+    private Utils(  )
+    {
+    }
 
     /**
-    * Update the record in the table
-    * @param model the reference of the Model
-    * @param plugin the Plugin
+    * Returns the Proper Name
+    * @param strSource the source
+    * @return source name
     */
-    void store( Model model, Plugin plugin );
+    public static String getProperName( String strSource )
+    {
+        int nIndex = 0;
+        boolean bUpper = true;
+        StringBuilder strBuffer = new StringBuilder(  );
+
+        while ( nIndex < strSource.length(  ) )
+        {
+            char c = strSource.charAt( nIndex );
+
+            if ( c == '_' )
+            {
+                // skip by reading the next char
+                nIndex++;
+                bUpper = true;
+            }
+
+            if ( bUpper )
+            {
+                String strChar = strSource.substring( nIndex, nIndex + 1 );
+                c = strChar.toUpperCase(  ).charAt( 0 );
+                bUpper = false;
+            }
+
+            strBuffer.append( c );
+            nIndex++;
+        }
+
+        return strBuffer.toString(  );
+    }
 
     /**
-     * Delete a record from the table
-     * @param nIdModel int identifier of the Model to delete
-     * @param plugin the Plugin
+     * Convert first letter to lower case
+     * @param strSource The source
+     * @return the converted string
      */
-    void delete( int nIdModel, Plugin plugin );
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Finders
-
-    /**
-     * Load the data from the table
-     * @param nKey the key
-     * @param plugin the Plugin
-     * @return The instance of the model
-     */
-    Model load( int nKey, Plugin plugin );
-
-    /**
-    * Load the data of all the model objects and returns them as a List
-    * @param plugin the Plugin
-    * @return The List which contains the data of all the model objects
-    */
-    List<Model> selectModelsList( Plugin plugin );
+    public static String firstLowerCase( String strSource )
+    {
+        return strSource.substring( 0, 1 ).toLowerCase(  ) + strSource.substring( 1, strSource.length(  ) );
+    }
 }

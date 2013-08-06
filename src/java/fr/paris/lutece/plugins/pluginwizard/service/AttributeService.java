@@ -34,7 +34,9 @@
 package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.util.ReferenceList;
+
 import java.util.List;
+
 
 /**
  * Attribute Service
@@ -42,7 +44,7 @@ import java.util.List;
 public class AttributeService
 {
     private List<AttributeType> _listAttributeTypes;
-    
+
     /**
      * Sets the list of attribute types
      * @param list The list
@@ -51,19 +53,20 @@ public class AttributeService
     {
         _listAttributeTypes = list;
     }
-    
+
     /**
      * Returns a Reference list with all attribute types available
      * @return The list
      */
-    public ReferenceList getAttributeTypes()
+    public ReferenceList getAttributeTypes(  )
     {
-        ReferenceList list = new ReferenceList();
-        
-        for( AttributeType type : _listAttributeTypes )
+        ReferenceList list = new ReferenceList(  );
+
+        for ( AttributeType type : _listAttributeTypes )
         {
-            list.addItem( type.getIdAttributeType(),  type.getDescription() );
+            list.addItem( type.getIdAttributeType(  ), type.getDescription(  ) );
         }
+
         return list;
     }
 
@@ -72,16 +75,16 @@ public class AttributeService
      * @param nAttributeTypeId The ID
      * @return The object
      */
-    public AttributeType getType(int nAttributeTypeId)
+    public AttributeType getType( int nAttributeTypeId )
     {
-        for( AttributeType type : _listAttributeTypes )
+        for ( AttributeType type : _listAttributeTypes )
         {
-            if( type.getIdAttributeType() == nAttributeTypeId )
+            if ( type.getIdAttributeType(  ) == nAttributeTypeId )
             {
                 return type;
             }
         }
+
         return null;
     }
-    
 }

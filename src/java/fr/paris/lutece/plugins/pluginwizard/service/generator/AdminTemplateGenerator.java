@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -114,18 +113,18 @@ public class AdminTemplateGenerator extends AbstractGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
-        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
-        model.put( MARK_MACRO, "@" );
-        model.put( MARK_VARIABLE, "@@" );
-        model.put( MARK_BRACKETS_OPEN, "${" );
-        model.put( MARK_BRACKETS_CLOSE, "}" );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
-        model.put( MARK_INCLUDE, "@@include" );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
+        model.put( Markers.MARK_I18N_BRACKETS_CLOSE, "}" );
+        model.put( Markers.MARK_MACRO, "@" );
+        model.put( Markers.MARK_VARIABLE, "@@" );
+        model.put( Markers.MARK_BRACKETS_OPEN, "${" );
+        model.put( Markers.MARK_BRACKETS_CLOSE, "}" );
+        model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
+        model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
+        model.put( Markers.MARK_INCLUDE, "@@include" );
 
-        model.put( MARK_TEMPLATE_TYPE, nTemplateType );
+        model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 
@@ -145,16 +144,16 @@ public class AdminTemplateGenerator extends AbstractGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
-        model.put( MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_FEATURE, feature );
-        model.put( MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
-        model.put( MARK_I18N_BRACKETS_CLOSE, "}" );
-        model.put( MARK_MACRO, "@" );
-        model.put( MARK_VARIABLE, "@@" );
-        model.put( MARK_BRACKETS_OPEN, "${" );
-        model.put( MARK_BRACKETS_CLOSE, "}" );
-        model.put( MARK_MACRO_DEF, "@@macro" );
-        model.put( MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_FEATURE, feature );
+        model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
+        model.put( Markers.MARK_I18N_BRACKETS_CLOSE, "}" );
+        model.put( Markers.MARK_MACRO, "@" );
+        model.put( Markers.MARK_VARIABLE, "@@" );
+        model.put( Markers.MARK_BRACKETS_OPEN, "${" );
+        model.put( Markers.MARK_BRACKETS_CLOSE, "}" );
+        model.put( Markers.MARK_MACRO_DEF, "@@macro" );
+        model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
 
         HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
 

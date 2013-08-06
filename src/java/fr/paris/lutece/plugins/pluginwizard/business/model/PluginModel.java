@@ -338,7 +338,7 @@ public class PluginModel
 
     /**
      * Gets the locale of the plugin
-     * @param locale
+     * @param locale The locale
      */
     public void setLocale( Locale locale )
     {

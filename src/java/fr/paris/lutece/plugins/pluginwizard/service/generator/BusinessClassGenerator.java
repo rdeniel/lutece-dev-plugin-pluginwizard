@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -104,8 +103,8 @@ public class BusinessClassGenerator extends AbstractGenerator
     private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_BUSINESS_CLASS, businessClass );
-        model.put( MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
+        model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
 
         HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
 

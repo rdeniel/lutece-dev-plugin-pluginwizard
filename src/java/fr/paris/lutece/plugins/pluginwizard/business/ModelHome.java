@@ -55,9 +55,9 @@ public final class ModelHome
     }
 
     /**
-     *
-     * @param strPluginName
-     * @return
+     * Check if a plugin already exists
+     * @param strPluginName The plugin name
+     * @return -1 if not exists, otherwise the plugin id
      */
     public static int exists( String strPluginName )
     {
