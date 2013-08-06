@@ -13,11 +13,9 @@
     <!-- package pluginwizard -->
     <bean id="pluginwizard.modelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ModelDAO" />  
     <bean id="pluginwizard.pluginModelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelDAO" />  
-    <bean id="pluginwizard.resourceKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyDAO" />
     
     <!-- Back Office Config management -->
     <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  
-    <bean id="pluginwizard.localizationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.LocalizationKeyDAO" />  
 
     <bean id="pluginwizard.business.class.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
