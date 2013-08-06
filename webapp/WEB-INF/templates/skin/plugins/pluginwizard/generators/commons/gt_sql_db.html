@@ -11,7 +11,7 @@
 DROP TABLE IF EXISTS ${business_class.businessTableName};
 CREATE TABLE ${business_class.businessTableName} (		
 <#list business_class.attributes as attribute>
-<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) NOT NULL default '0'</#if><#if attribute.type ='String' >${attribute.attributeName?lower_case} varchar(50) NOT NULL default ''</#if><#if business_class.attributes?size != attribute_index + 1>,</#if>
+<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) NOT NULL default '0'</#if><#if attribute.type ='String' ><#if attribute.maxLength &gt; 0 >${attribute.attributeName?lower_case} varchar(${attribute.maxLength}) NOT NULL default ''<#else>${attribute.attributeName?lower_case} long varchar NOT NULL default ''</#if></#if><#if business_class.attributes?size != attribute_index + 1>,</#if>
 </#list>
 );
 </#if>    

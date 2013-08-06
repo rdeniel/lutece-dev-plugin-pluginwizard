@@ -9,7 +9,11 @@
 		http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
     
+    
+        
+    <!-- ############################### DAO #########################-->
     <!-- package pluginwizard -->
     <bean id="pluginwizard.modelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ModelDAO" />  
     <bean id="pluginwizard.pluginModelDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.model.PluginModelDAO" />  
@@ -17,6 +21,56 @@
     <!-- Back Office Config management -->
     <bean id="pluginwizard.configurationKeyDAO"  class="fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyDAO" />  
 
+    <!-- ############################### ATTRIBUTES #########################-->
+    <bean id="pluginwizard.attribute.integer" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>1</value></property>
+        <property name="description"><value>Entier</value></property>
+        <property name="javaType"><value>int</value></property>
+        <property name="prefix"><value>n</value></property>
+        <property name="maxLength"><value>0</value></property>
+    </bean>
+    <bean id="pluginwizard.attribute.shortText" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>2</value></property>
+        <property name="description"><value>Texte court (50 caractères)</value></property>
+        <property name="javaType"><value>String</value></property>
+        <property name="prefix"><value>str</value></property>
+        <property name="maxLength"><value>50</value></property>
+    </bean>
+    <bean id="pluginwizard.attribute.mediumText" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>3</value></property>
+        <property name="description"><value>Texte moyen (255 caractères)</value></property>
+        <property name="javaType"><value>String</value></property>
+        <property name="prefix"><value>str</value></property>
+        <property name="maxLength"><value>255</value></property>
+    </bean>
+    <bean id="pluginwizard.attribute.longText" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>4</value></property>
+        <property name="description"><value>Texte long ( > 255 caractères)</value></property>
+        <property name="javaType"><value>String</value></property>
+        <property name="prefix"><value>str</value></property>
+        <property name="maxLength"><value>0</value></property>
+    </bean>
+    
+    <bean id="pluginwizard.attribute.types.list" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginwizard.attribute.integer" />
+                <ref bean="pluginwizard.attribute.shortText" />                
+                <ref bean="pluginwizard.attribute.mediumText" />                
+                <ref bean="pluginwizard.attribute.longText" />                
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="pluginwizard.attribute.service" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeService">
+        <property name="attributeTypesList"><ref bean="pluginwizard.attribute.types.list" /></property>
+    </bean>
+
+    
+    
+            
+    <!-- ############################### GENERATORS #########################-->
+    
     <bean id="pluginwizard.business.class.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/classic/gt_business_class_classic.html</value>
@@ -259,6 +313,9 @@
         </property>
     </bean>
 
+
+
+    <!-- ############################### GENERATION SCHEMES #########################-->
     
     <bean id="pluginwizard.scheme1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">

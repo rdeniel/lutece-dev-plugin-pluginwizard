@@ -42,7 +42,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.business.model.ResourceKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
@@ -1741,8 +1740,6 @@ public class PluginWizardApp implements XPageApplication
     private String getPluginRecapitulate( HttpServletRequest request )
     {
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        //Deletes all the keys and regenerate the keys for the generated plugin
-        ResourceKeyHome.deleteKeysByPlugin( nPluginId );
 
         PluginModel pm = ModelService.getPluginModel( nPluginId );
 

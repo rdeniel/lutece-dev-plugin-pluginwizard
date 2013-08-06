@@ -41,6 +41,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.util.ReferenceItem;
 import fr.paris.lutece.util.ReferenceList;
@@ -54,6 +55,7 @@ import java.util.List;
  */
 public class ModelService
 {
+    private static AttributeService _serviceAttribute = SpringContextService.getBean("pluginwizard.attribute.service");
     /**
      * Create a plugin model
      * @param strPluginName The plugin name
@@ -640,6 +642,7 @@ public class ModelService
         List<Attribute> listAttributes = bc.getAttributes(  );
         attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
         attribute.setType( getAttributeType( attribute.getAttributeTypeId(  ) ) );
+        attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId(  ) ) );
 
         if ( attribute.getIsPrimary(  ) )
         {
@@ -780,35 +783,35 @@ public class ModelService
         return list;
     }
 
-    /**
-     * Returns the attribute type corresponding to an ID
-     * @param nAttributeTypeId The attribute ID
-     * @return The type
-     */
-    private static String getAttributeType( int nAttributeTypeId )
-    {
-        for ( ReferenceItem item : getAttributeTypes(  ) )
-        {
-            if ( item.getCode(  ).equals( Integer.toString( nAttributeTypeId ) ) )
-            {
-                return item.getName(  );
-            }
-        }
-
-        throw new AppException( "Invalide Attribute type" );
-    }
-
+    
     /**
      * Gets all attribute types
      * @return A list of attributes types
      */
     public static ReferenceList getAttributeTypes(  )
     {
-        // FIXME load list from spring context
-        ReferenceList list = new ReferenceList(  );
-        list.addItem( 1, "int" );
-        list.addItem( 2, "String" );
+        return _serviceAttribute.getAttributeTypes();
+    }
+    
+    /**
+     * Returns the attribute type corresponding to an ID
+     * @param nAttributeTypeId The attribute type ID
+     * @return The type
+     */
+    private static String getAttributeType( int nAttributeTypeId )
+    {
+        AttributeType type = _serviceAttribute.getType( nAttributeTypeId );
+        return type.getJavaType();
+    }
 
-        return list;
+    /**
+     * Return the attribute type max length
+     * @param nAttributeTypeId The attribute type ID
+     * @return The max length
+     */
+    private static int getAttributeMaxLength(int nAttributeTypeId )
+    {
+        AttributeType type = _serviceAttribute.getType( nAttributeTypeId );
+        return type.getMaxLength();
     }
 }

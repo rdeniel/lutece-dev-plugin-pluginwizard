@@ -76,7 +76,8 @@
                     "attributeTypeId": 1,
                     "isPrimary": true,
                     "isDescription": false,
-                    "businessClassId": 2
+                    "businessClassId": 2,
+                    "maxLength": 0
                 },
                 {
                     "id": 2,
@@ -85,7 +86,28 @@
                     "attributeTypeId": 2,
                     "isPrimary": false,
                     "isDescription": true,
-                    "businessClassId": 2
+                    "businessClassId": 2,
+                    "maxLength": 50
+                },
+                {
+                    "id": 3,
+                    "type": "String",
+                    "attributeName": "product_summary",
+                    "attributeTypeId": 3,
+                    "isPrimary": false,
+                    "isDescription": false,
+                    "businessClassId": 2,
+                    "maxLength": 255
+                },
+                {
+                    "id": 4,
+                    "type": "String",
+                    "attributeName": "product_description",
+                    "attributeTypeId": 4,
+                    "isPrimary": false,
+                    "isDescription": false,
+                    "businessClassId": 2,
+                    "maxLength": 0
                 }]
         }],
     "applications": [

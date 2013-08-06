@@ -68,11 +68,13 @@
 
             <thead>
                 <tr>
-                    <th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeName}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeType}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeKey}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeDescription}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeAction}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeName}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeType}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelNotNull}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelMaxLength}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeKey}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeDescription}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeAction}</th>
 
                 </tr>
             </thead>
@@ -83,6 +85,16 @@
                 <tr>
                     <td>${attribute.attributeName}</td>
                     <td>${attribute.type}</td>
+                    <td>
+                        <#if attribute.couldNotBeEmpty>
+                        <span class="label"><i class="icon-ok icon-white"></span>
+                        </#if>
+                    </td>
+                    <td>
+                        <#if attribute.maxLength &gt; 0 >
+                        ${attribute.maxLength}
+                        </#if>
+                    </td>
                     <td><#if attribute.isPrimary>
                         <span class="label">key</span>
                         </#if>

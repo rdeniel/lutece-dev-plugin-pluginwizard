@@ -49,7 +49,7 @@ public class Attribute
     private boolean _bIsDescription;
     private String _strAttributeName;
     private String _strJavaType;
-    private int _nMaxLength = 255; //FIXME
+    private int _nMaxLength;
     private boolean _bCouldNotBeEmpty = true; //FIXME
 
     /**
