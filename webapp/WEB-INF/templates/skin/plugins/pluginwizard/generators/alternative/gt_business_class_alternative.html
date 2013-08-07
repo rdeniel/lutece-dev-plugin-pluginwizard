@@ -44,7 +44,7 @@ public class ${business_class.businessClass}
 	// Variables declarations 
 	<#list business_class.attributes as attribute>
            <#if attribute.type == "String" > 
-             <#if attribute.couldNotBeEmpty >
+             <#if attribute.notNull >
         @NotEmpty( message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.notEmpty}" )
              </#if>
              <#if attribute.maxLength &gt; 0 > 

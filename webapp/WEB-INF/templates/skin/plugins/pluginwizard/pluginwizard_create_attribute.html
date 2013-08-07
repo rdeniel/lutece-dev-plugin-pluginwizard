@@ -33,22 +33,23 @@
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} * : </label>                            
-                    <div class="controls">                                                                                                     
-                        <select class="input-small" name="primary_key">    				                                 				                              
-                            <option value="0" selected >#i18n{portal.util.labelNo}</option>    	                          
-                            <option value="1">#i18n{portal.util.labelYes}</option>    				                              
-                         </select>                
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelMandatory} * : </label>                            
+                    <div class="controls">  
+                        <input class="checkbox" type="checkbox" name="mandatory" value="1" checked="checked"/>
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">Description * : </label>                            
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} * : </label>                            
+                    <div class="controls">  
+                        <input class="checkbox" type="checkbox" name="primary_key" />
+                    </div>  
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelClassDescription} * : </label>                            
                     <div class="controls">                                                                                                     
-                        <select class="input-small" name="class_description">    				                                 				                              
-                            <option value="0" selected >#i18n{portal.util.labelNo}</option>    	                          
-                            <option value="1" >#i18n{portal.util.labelYes}</option>    				                              
-                        </select>                
+                        <input class="checkbox" type="checkbox" name="class_description" />
                     </div>                         
                 </div>
 

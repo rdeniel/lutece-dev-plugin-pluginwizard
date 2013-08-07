@@ -46,13 +46,12 @@ public class Attribute
     // Variables declarations
     private int _nIdAttribute;
     private int _nAttributeTypeId;
-    private int _nBusinessClassId;
     private boolean _bIsPrimary;
     private boolean _bIsDescription;
     private String _strAttributeName;
     private String _strJavaType;
     private int _nMaxLength;
-    private boolean _bCouldNotBeEmpty = true; //FIXME
+    private boolean _bNotNull; 
 
     /**
     * Returns the IdAttribute
@@ -88,24 +87,6 @@ public class Attribute
     public void setAttributeTypeId( int nAttributeTypeId )
     {
         _nAttributeTypeId = nAttributeTypeId;
-    }
-
-    /**
-     * Returns the BusinessClassId
-     * @return The BusinessClassId
-     */
-    public int getBusinessClassId(  )
-    {
-        return _nBusinessClassId;
-    }
-
-    /**
-     * Sets the BusinessClassId
-     * @param nBusinessClassId The BusinessClassId
-     */
-    public void setBusinessClassId( int nBusinessClassId )
-    {
-        _nBusinessClassId = nBusinessClassId;
     }
 
     /**
@@ -275,20 +256,20 @@ public class Attribute
     }
 
     /**
-     * Returns the bCouldNotBeEmpty
-     * @return The CouldNotBeEmpty
+     * Returns the bNotNull
+     * @return The NotNull
      */
-    public boolean getCouldNotBeEmpty(  )
+    public boolean getNotNull(  )
     {
-        return _bCouldNotBeEmpty;
+        return _bNotNull;
     }
 
     /**
     * Sets the Description
-    * @param bCouldNotBeEmpty The Description
+    * @param bNotNull The Description
     */
-    public void setCouldNotBeEmpty( boolean bCouldNotBeEmpty )
+    public void setNotNull( boolean bNotNull )
     {
-        _bCouldNotBeEmpty = bCouldNotBeEmpty;
+        _bNotNull = bNotNull;
     }
 }

@@ -176,7 +176,7 @@ public class ResourcesGenerator extends AbstractGenerator
             {
                 if ( !attribute.getType(  ).equals( "int" ) )
                 {
-                    if ( attribute.getCouldNotBeEmpty(  ) )
+                    if ( attribute.getNotNull(  ) )
                     {
                         sb.append( strPrefix ).append( attribute.getName(  ) ).append( ".notEmpty=" )
                           .append( getLabel( "validation.notEmpty", strLanguage, attribute.getLabelName(  ) ) )

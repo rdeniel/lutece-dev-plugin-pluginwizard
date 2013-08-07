@@ -49,7 +49,8 @@
                     "attributeTypeId": 1,
                     "isPrimary": true,
                     "isDescription": false,
-                    "businessClassId": 1
+                    "notNull": true,
+                    "maxLength": 0
                 },
                 {
                     "id": 2,
@@ -58,7 +59,8 @@
                     "attributeTypeId": 2,
                     "isPrimary": false,
                     "isDescription": true,
-                    "businessClassId": 1
+                    "notNull": true,
+                    "maxLength": 50
                 }]
         },
         {
@@ -76,7 +78,7 @@
                     "attributeTypeId": 1,
                     "isPrimary": true,
                     "isDescription": false,
-                    "businessClassId": 2,
+                    "notNull": true,
                     "maxLength": 0
                 },
                 {
@@ -86,7 +88,7 @@
                     "attributeTypeId": 2,
                     "isPrimary": false,
                     "isDescription": true,
-                    "businessClassId": 2,
+                    "notNull": true,
                     "maxLength": 50
                 },
                 {
@@ -96,7 +98,7 @@
                     "attributeTypeId": 3,
                     "isPrimary": false,
                     "isDescription": false,
-                    "businessClassId": 2,
+                    "notNull": false,
                     "maxLength": 255
                 },
                 {
@@ -106,7 +108,7 @@
                     "attributeTypeId": 4,
                     "isPrimary": false,
                     "isDescription": false,
-                    "businessClassId": 2,
+                    "notNull": true,
                     "maxLength": 0
                 }]
         }],

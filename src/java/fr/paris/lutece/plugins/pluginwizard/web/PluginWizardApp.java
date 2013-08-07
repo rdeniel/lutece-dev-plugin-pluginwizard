@@ -171,6 +171,7 @@ public class PluginWizardApp implements XPageApplication
     //Plugin
     private static final String PARAM_ATTRIBUTE_NAME = "attribute_name";
     private static final String PARAM_ATTRIBUTE_TYPE_ID = "id_attribute_type";
+    private static final String PARAM_MANDATORY = "mandatory";
     private static final String PARAM_PRIMARY_KEY = "primary_key";
     private static final String PARAM_CLASS_DESCRIPTION = "class_description";
     private static final String ACTION_DO_CREATE_PLUGIN = "do_create_plugin";
@@ -1216,17 +1217,22 @@ public class PluginWizardApp implements XPageApplication
         Integer nAttributeTypeId = Integer.parseInt( strAttributeTypeId );
 
         //If Business class already has a primary key
+        String strMandatory = request.getParameter( PARAM_MANDATORY );
         String strPrimaryKey = request.getParameter( PARAM_PRIMARY_KEY );
         String strDescription = request.getParameter( PARAM_CLASS_DESCRIPTION );
 
+        boolean bMandatory = ( strMandatory != null );
+        boolean bPrimaryKey = ( strPrimaryKey != null );
+        boolean bDescription = ( strDescription != null );
+        
         //If primary key is not an int
-        if ( strPrimaryKey.equals( "1" ) && !strAttributeTypeId.equals( "1" ) )
+        if ( bPrimaryKey && !strAttributeTypeId.equals( "1" ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_PRIMARY_KEY_MUST_BE_INT, SiteMessage.TYPE_STOP );
         }
 
         //If description key is not a string
-        if ( strDescription.equals( "1" ) && !strAttributeTypeId.equals( "2" ) )
+        if ( bDescription && strAttributeTypeId.equals( "1" ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING, SiteMessage.TYPE_STOP );
         }
@@ -1245,9 +1251,9 @@ public class PluginWizardApp implements XPageApplication
         Attribute attribute = new Attribute(  );
         attribute.setAttributeName( strAttributeName );
         attribute.setAttributeTypeId( nAttributeTypeId );
-        attribute.setIsPrimary( ( strPrimaryKey.equals( "1" ) && strDescription.equals( "0" ) ) ? true : false );
-        attribute.setIsDescription( ( strDescription.equals( "1" ) && strPrimaryKey.equals( "0" ) ) ? true : false );
-        attribute.setBusinessClassId( nBusinessClassId );
+        attribute.setNotNull( bMandatory );
+        attribute.setIsPrimary( bPrimaryKey );
+        attribute.setIsDescription( bDescription );
 
         ModelService.addAttribute( nPluginId, nBusinessClassId, attribute );
     }
@@ -1638,17 +1644,22 @@ public class PluginWizardApp implements XPageApplication
         Integer nAttributeTypeId = Integer.parseInt( strAttributeTypeId );
 
         //If Business class already has a primary key
+        String strMandatory = request.getParameter( PARAM_MANDATORY );
         String strPrimaryKey = request.getParameter( PARAM_PRIMARY_KEY );
         String strDescription = request.getParameter( PARAM_CLASS_DESCRIPTION );
+        boolean bMandatory = ( strMandatory != null );
+        boolean bPrimaryKey = ( strPrimaryKey != null );
+        boolean bDescription = ( strDescription != null );
 
+ 
         //If primary key is not an int
-        if ( strPrimaryKey.equals( "1" ) && !strAttributeTypeId.equals( "1" ) )
+        if ( bPrimaryKey && !strAttributeTypeId.equals( "1" ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_PRIMARY_KEY_MUST_BE_INT, SiteMessage.TYPE_STOP );
         }
 
         //If description key is not a string
-        if ( strDescription.equals( "1" ) && !strAttributeTypeId.equals( "2" ) )
+        if ( bDescription && strAttributeTypeId.equals( "1" ) )
         {
             SiteMessageService.setMessage( request, PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING, SiteMessage.TYPE_STOP );
         }
@@ -1656,8 +1667,9 @@ public class PluginWizardApp implements XPageApplication
         Attribute attribute = ModelService.getAttribute( nPluginId, nBusinessClassId, nIdAttribute );
         attribute.setAttributeName( strAttributeName );
         attribute.setAttributeTypeId( nAttributeTypeId );
-        attribute.setIsPrimary( ( strPrimaryKey.equals( "1" ) && strDescription.equals( "0" ) ) ? true : false );
-        attribute.setIsDescription( ( strDescription.equals( "1" ) && strPrimaryKey.equals( "0" ) ) ? true : false );
+        attribute.setNotNull( bMandatory );
+        attribute.setIsPrimary( bPrimaryKey );
+        attribute.setIsDescription( bDescription );
         AppLogService.error( "strAttributeName:" + strAttributeName + "\nAttributeTypeId:" + nAttributeTypeId +
             "\nstrPrimaryKey:" + strPrimaryKey + "\nstrDescription:" + strDescription );
 
