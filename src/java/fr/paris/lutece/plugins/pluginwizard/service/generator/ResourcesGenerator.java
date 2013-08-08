@@ -167,7 +167,7 @@ public class ResourcesGenerator extends AbstractGenerator
             }
 
             sb.append( "\nmessage.confirmRemove" ).append( bc.getBusinessClass(  ) ).append( "=" )
-              .append( getLabel( "confirmRemove", strLanguage ) ).append( " ?\n" );
+              .append( getLabel( "confirmRemove", strLanguage, bc.getBusinessClass(  ) ) ).append( " ?\n" );
 
             sb.append( "\n# JSR 303 constraint validator messages\n" );
             strPrefix = "validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
@@ -192,19 +192,6 @@ public class ResourcesGenerator extends AbstractGenerator
                 }
             }
         }
-    }
-
-    /**
-     * Gets a label for a given language from the pluginwizard.properties file
-     * @param strKey The key of the label
-     * @param strLanguage The language
-     * @return The value of the label
-     */
-    private String getLabel( String strKey, String strLanguage )
-    {
-        String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;
-
-        return AppPropertiesService.getProperty( strFullKey, "Label not found for key " + strFullKey );
     }
 
     /**

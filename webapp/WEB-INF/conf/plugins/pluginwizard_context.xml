@@ -319,7 +319,7 @@
     
     <bean id="pluginwizard.scheme1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Classique (Modèle Core : DAO SQL)</value>
+            <value>Classique (Modèle classic DAO SQL)</value>
         </property>
         <property name="generatorsList">
             <list>
@@ -345,7 +345,7 @@
 
     <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Modèle BeanUtils + DAO SQL</value>
+            <value>Modèle Lutece 4.1 (validation JSR303) + DAO SQL</value>
         </property>
         <property name="generatorsList">
             <list>
@@ -371,7 +371,7 @@
 
     <bean id="pluginwizard.scheme3" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Modèle BeanUtils + DAO JPA</value>
+            <value>Modèle JPA (coming soon)</value>
         </property>
         <property name="generatorsList">
             <list>

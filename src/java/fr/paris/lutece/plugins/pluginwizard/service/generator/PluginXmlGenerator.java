@@ -72,6 +72,16 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
+        setJspName( pm );
+        model.put( Markers.MARK_PLUGIN, pm );
+
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
+
+        return template.getHtml(  );
+    }
+    
+    public static void setJspName( PluginModel pm )
+    {
         for ( Feature feature : pm.getFeatures(  ) )
         {
             List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
@@ -87,11 +97,6 @@ public class PluginXmlGenerator extends AbstractFileGenerator
             }
         }
 
-        model.put( Markers.MARK_PLUGIN, pm );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
     }
 
     /**

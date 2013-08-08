@@ -1,5 +1,5 @@
 {
-    "idPlugin": 2,
+    "idPlugin": 1,
     "pluginName": "myplugin",
     "locale": null,
     "pluginClass": "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation",
@@ -17,7 +17,6 @@
     "portlets": [
         {
             "id": 1,
-            "idPlugin": 2,
             "pluginPortletTypeName": "MY_PORTLET",
             "pluginPortletClass": "fr.paris.lutece.plugins.myplugin.business.portlet.ExamplePortletHome",
             "pluginPortletCreationUrl": "plugins/myplugin/CreatePortletExample.jsp",

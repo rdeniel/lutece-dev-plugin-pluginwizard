@@ -1,7 +1,7 @@
 <#switch sql_type>
  
- <#case "1">
-<#list business_classes as business_class>
+<#case 0>
+<#list plugin.businessClasses as business_class>
 
 <#if business_class?? > 
 --
@@ -11,25 +11,54 @@
 DROP TABLE IF EXISTS ${business_class.businessTableName};
 CREATE TABLE ${business_class.businessTableName} (		
 <#list business_class.attributes as attribute>
-<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) NOT NULL default '0'</#if><#if attribute.type ='String' ><#if attribute.maxLength &gt; 0 >${attribute.attributeName?lower_case} varchar(${attribute.maxLength}) NOT NULL default ''<#else>${attribute.attributeName?lower_case} long varchar NOT NULL default ''</#if></#if><#if business_class.attributes?size != attribute_index + 1>,</#if>
+<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) NOT NULL default '0'</#if><#if attribute.type ='String' ><#if attribute.maxLength &gt; 0 >${attribute.attributeName?lower_case} varchar(${attribute.maxLength}) NOT NULL default ''<#else>${attribute.attributeName?lower_case} long varchar NULL </#if></#if>,
 </#list>
+PRIMARY KEY (${business_class.primaryKey})
 );
 </#if>    
 </#list>
- <#break>
+<#break>
+
+
+
+
+<#case 1>
+<#break>
+
+
+
+
+<#case 2>
+<#break>
+
+
+
+
+<#case 3>
+<#if plugin.features??>
+    <#list plugin.features as feature >
+
+--
+-- Data for table core_admin_right
+--
+DELETE FROM core_admin_right WHERE id_right = 'UPDATER_MANAGEMENT';
+INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
+('${feature.pluginFeatureRight}','${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.name',1,'jsp/admin/plugins/${plugin.pluginName}/${feature.jspName}','${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.description',0,'${plugin.pluginName}',NULL,NULL,NULL,4);
+
+
+--
+-- Data for table core_user_right
+--
+DELETE FROM core_user_right WHERE id_right = '${feature.pluginFeatureRight}';
+INSERT INTO core_user_right (id_right,id_user) VALUES ('${feature.pluginFeatureRight}',1);
+
+</#list>
+</#if>
+<#break>
+
  
-  <#case "2">
- <#break>
-
-  <#case "3">
-
- <#break>
-
-  <#case "4">
-
- <#break>
-  <#case "5">
-  <#list portlets as portlet> 
+ <#case 4>
+  <#list plugin.portlets as portlet> 
   <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
   
 --
@@ -44,6 +73,6 @@ CREATE TABLE ${portletName?lower_case}_portlet (
  </#list>
  <#break>
 
-
+ 
   <#default>
   </#switch>  

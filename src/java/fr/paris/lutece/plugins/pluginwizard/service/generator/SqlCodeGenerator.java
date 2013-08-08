@@ -50,29 +50,29 @@ import java.util.Map;
 public class SqlCodeGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/sql/plugins/{plugin_name}/";
-    private static final String EXT_SQL = ".sql";
-
+    private static String[] _prefix = { "plugin/create_db_", "plugin/init_db_", "plugin/init_db_", "core/init_core_", "core/create_" };
+    private static String[] _suffix = { ".sql" , ".sql" ,  "_sample.sql" , ".sql" ,  "_portlet.sql" };
+    
     /**
      * {@inheritDoc }
-     * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
 
-        for ( int i = 1; i < 6; i++ )
+        for ( int i = 0; i < _prefix.length; i++ )
         {
             String strSqlFile = getSqlFileName( pm.getPluginName(  ).toLowerCase(  ), i );
 
             String strPath = getFilePath( pm, PATH, strSqlFile );
 
-            String strSourceCode = getSqlScript( i, pm );
+            String strSourceCode = getSqlScript( pm , i );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
         }
-
+        
         return map;
     }
 
@@ -85,60 +85,23 @@ public class SqlCodeGenerator extends AbstractGenerator
      */
     private String getSqlFileName( String strPluginName, int nSqlType )
     {
-        String strReturn;
-
-        switch ( nSqlType )
-        {
-            case 1:
-                strReturn = "plugin/create_db_" + strPluginName + EXT_SQL;
-
-                break;
-
-            case 2:
-                strReturn = "plugin/init_db_" + strPluginName + EXT_SQL;
-
-                break;
-
-            case 3:
-                strReturn = "plugin/init_db_" + strPluginName + "_sample" + EXT_SQL;
-
-                break;
-
-            case 4:
-                strReturn = "core/init_core_" + strPluginName + EXT_SQL;
-
-                break;
-
-            case 5:
-                strReturn = "core/create_" + strPluginName + "_portlet" + EXT_SQL;
-
-                break;
-
-            default:
-                strReturn = "plugin/create_db_" + strPluginName + EXT_SQL;
-
-                break;
-        }
-
-        return strReturn;
+        return _prefix[nSqlType] + strPluginName + _suffix[nSqlType];
     }
-
+    
     /**
     * Returns the necessary sql dump of creation of plugin and core
     * @param nSqlType The type of the sql
     * @param pm The plugin Model
     * @return The corresponding sql output
     */
-    private String getSqlScript( int nSqlType, PluginModel pm )
+    private String getSqlScript( PluginModel pm , int nSqlType )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
+        
+        PluginXmlGenerator.setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );
 
-        model.put( Markers.MARK_LIST_FEATURES, pm.getFeatures(  ) );
-        model.put( Markers.MARK_LIST_APPLICATIONS, pm.getApplications(  ) );
-        model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets(  ) );
-        model.put( Markers.MARK_LIST_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
-        model.put( Markers.MARK_SQL_TYPE, nSqlType + "" );
+        model.put( Markers.MARK_SQL_TYPE, nSqlType );
 
         HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
 

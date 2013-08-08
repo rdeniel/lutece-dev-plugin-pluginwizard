@@ -40,30 +40,11 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 public class Portlet
 {
     // Variables declarations 
-    private int _nIdPlugin;
     private int _nIdPortletPlugin;
     private String _strPluginPortletClass;
     private String _strPluginPortletTypeName;
     private String _strPluginPortletCreationUrl;
     private String _strPluginPortletUpdateUrl;
-
-    /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
-     */
-    public int getIdPlugin(  )
-    {
-        return _nIdPlugin;
-    }
-
-    /**
-     * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
-     */
-    public void setIdPlugin( int nIdPlugin )
-    {
-        _nIdPlugin = nIdPlugin;
-    }
 
     /**
      * Returns the PluginPortletClass
