@@ -1421,7 +1421,6 @@ public class PluginWizardApp implements XPageApplication
     {
         Portlet portlet = new Portlet(  );
         int nPluginId = Integer.parseInt( request.getParameter( PARAM_PLUGIN_ID ) );
-        portlet.setIdPlugin( nPluginId );
 
         String strPluginPortletClass = request.getParameter( PARAM_PORTLET_CLASS );
         String strPluginPortletCreationUrl = request.getParameter( PARAM_PORTLET_CREATION_URL );
@@ -1571,7 +1570,6 @@ public class PluginWizardApp implements XPageApplication
         portlet.setId( nPluginPortletId );
         portlet.setPluginPortletTypeName( strPluginPortletTypeName );
         portlet.setPluginPortletUpdateUrl( strPluginPortletUpdateUrl );
-        portlet.setIdPlugin( nPluginId );
         ModelService.updatePortlet( nPluginId, portlet );
     }
 
