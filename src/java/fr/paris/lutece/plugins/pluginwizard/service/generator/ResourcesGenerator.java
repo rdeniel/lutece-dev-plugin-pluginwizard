@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
 import java.text.MessageFormat;
@@ -169,7 +170,10 @@ public class ResourcesGenerator extends AbstractGenerator
             sb.append( "\nmessage.confirmRemove" ).append( bc.getBusinessClass(  ) ).append( "=" )
               .append( getLabel( "confirmRemove", strLanguage, bc.getBusinessClass(  ) ) ).append( " ?\n" );
 
+                    
+            // Constraints messages
             sb.append( "\n# JSR 303 constraint validator messages\n" );
+            
             strPrefix = "validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
 
             for ( Attribute attribute : bc.getAttributes(  ) )
@@ -191,6 +195,15 @@ public class ResourcesGenerator extends AbstractGenerator
                     }
                 }
             }
+            
+            sb.append( "\n# model fields for validation messages\n" );
+            strPrefix = "model.entity." + bc.getBusinessClass().toLowerCase() + ".fields.";
+            
+            for ( Attribute attribute : bc.getAttributes(  ) )
+            {
+                sb.append( strPrefix ).append( Utils.firstLowerCase( attribute.getName(  ))).append( "=" ).append(attribute.getLabelName(  )).append("\n");
+            }
+
         }
     }
 
