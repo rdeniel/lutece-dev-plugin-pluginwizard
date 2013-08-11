@@ -643,7 +643,6 @@ public final class ModelService
         BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
         List<Attribute> listAttributes = bc.getAttributes(  );
         attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
-        attribute.setType( getAttributeType( attribute.getAttributeTypeId(  ) ) );
         attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId(  ) ) );
 
         if ( attribute.getIsPrimary(  ) )
@@ -799,7 +798,7 @@ public final class ModelService
      * @param nAttributeTypeId The attribute type ID
      * @return The type
      */
-    private static String getAttributeType( int nAttributeTypeId )
+    public static String getAttributeType( int nAttributeTypeId )
     {
         AttributeType type = _serviceAttribute.getType( nAttributeTypeId );
 
@@ -817,4 +816,26 @@ public final class ModelService
 
         return type.getMaxLength(  );
     }
+    
+    /**
+     * Returns the attribute prefix corresponding to an ID
+     * @param nAttributeTypeId The attribute type ID
+     * @return The type
+     */
+    public static String getAttributePrefix( int nAttributeTypeId )
+    {
+        return _serviceAttribute.getType(nAttributeTypeId).getPrefix();
+    }
+
+    /**
+     * Returns the attribute constraint corresponding to an ID
+     * @param nAttributeTypeId The attribute type ID
+     * @return The type
+     */
+    public static String getAttributeConstraint( int nAttributeTypeId )
+    {
+        return _serviceAttribute.getType(nAttributeTypeId).getConstraint();
+    }
+
+
 }

@@ -21,6 +21,7 @@
                 <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
                 <div class="controls">
                     <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" tabindex="${attribute_index}" />
+                    <span class="help-block">${i18n_open}${plugin_name?lower_case}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}</span>
                 </div>
             </div>
             </#if>

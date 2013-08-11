@@ -43,7 +43,6 @@
             "attributes": [
                 {
                     "id": 1,
-                    "type": "int",
                     "attributeName": "id_person",
                     "attributeTypeId": 1,
                     "isPrimary": true,
@@ -53,13 +52,21 @@
                 },
                 {
                     "id": 2,
-                    "type": "String",
                     "attributeName": "person_name",
                     "attributeTypeId": 2,
                     "isPrimary": false,
                     "isDescription": true,
                     "notNull": true,
                     "maxLength": 50
+                },
+                {
+                    "id": 3,
+                    "attributeName": "email",
+                    "attributeTypeId": 5,
+                    "isPrimary": false,
+                    "isDescription": false,
+                    "notNull": true,
+                    "maxLength": 255
                 }]
         },
         {
@@ -72,7 +79,6 @@
             "attributes": [
                 {
                     "id": 1,
-                    "type": "int",
                     "attributeName": "id_product",
                     "attributeTypeId": 1,
                     "isPrimary": true,
@@ -82,7 +88,6 @@
                 },
                 {
                     "id": 2,
-                    "type": "String",
                     "attributeName": "product_name",
                     "attributeTypeId": 2,
                     "isPrimary": false,
@@ -92,7 +97,6 @@
                 },
                 {
                     "id": 3,
-                    "type": "String",
                     "attributeName": "product_summary",
                     "attributeTypeId": 3,
                     "isPrimary": false,
@@ -102,7 +106,6 @@
                 },
                 {
                     "id": 4,
-                    "type": "String",
                     "attributeName": "product_description",
                     "attributeTypeId": 4,
                     "isPrimary": false,

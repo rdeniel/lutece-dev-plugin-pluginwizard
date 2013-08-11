@@ -50,6 +50,14 @@
         <property name="prefix"><value>str</value></property>
         <property name="maxLength"><value>0</value></property>
     </bean>
+    <bean id="pluginwizard.attribute.email" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>5</value></property>
+        <property name="description"><value>Email (255 caractères)</value></property>
+        <property name="javaType"><value>String</value></property>
+        <property name="prefix"><value>str</value></property>
+        <property name="maxLength"><value>255</value></property>
+        <property name="constraint"><value>@Email(message = "@i18n{portal.validation.message.email}")</value></property>
+    </bean>
     
     <bean id="pluginwizard.attribute.types.list" class="java.util.ArrayList">
         <constructor-arg>
@@ -58,6 +66,7 @@
                 <ref bean="pluginwizard.attribute.shortText" />                
                 <ref bean="pluginwizard.attribute.mediumText" />                
                 <ref bean="pluginwizard.attribute.longText" />                
+                <ref bean="pluginwizard.attribute.email" />                
             </list>
         </constructor-arg>
     </bean>

@@ -164,6 +164,8 @@ public class ResourcesGenerator extends AbstractGenerator
                 {
                     sb.append( strPrefix ).append( "label" ).append( attribute.getName(  ) ).append( "=" )
                       .append( attribute.getLabelName(  ) ).append( "\n" );
+                    sb.append( strPrefix ).append( "label" ).append( attribute.getName(  ) ).append( ".help=" )
+                      .append( attribute.getLabelName(  ) ).append( " (help text)\n" );
                 }
             }
 
@@ -174,7 +176,7 @@ public class ResourcesGenerator extends AbstractGenerator
             // Constraints messages
             sb.append( "\n# JSR 303 constraint validator messages\n" );
             
-            strPrefix = "validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
+            strPrefix = "#validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
 
             for ( Attribute attribute : bc.getAttributes(  ) )
             {

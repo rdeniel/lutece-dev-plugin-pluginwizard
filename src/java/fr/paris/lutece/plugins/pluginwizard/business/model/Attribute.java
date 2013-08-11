@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -49,7 +50,6 @@ public class Attribute
     private boolean _bIsPrimary;
     private boolean _bIsDescription;
     private String _strAttributeName;
-    private String _strJavaType;
     private int _nMaxLength;
     private boolean _bNotNull; 
 
@@ -148,18 +148,10 @@ public class Attribute
     *
     * @return The Type
     */
+    @JsonIgnore
     public String getType(  )
     {
-        return _strJavaType;
-    }
-
-    /**
-    * Sets the type of an attribute
-    * @param strAttributeTypeName The attribute type name
-    */
-    public void setType( String strAttributeTypeName )
-    {
-        _strJavaType = strAttributeTypeName;
+        return ModelService.getAttributeType( _nAttributeTypeId ) ;
     }
 
     /**
@@ -190,7 +182,7 @@ public class Attribute
     @JsonIgnore
     public String getVariableName(  )
     {
-        return getPrefix( _strJavaType ) + Utils.getProperName( _strAttributeName );
+        return ModelService.getAttributePrefix( _nAttributeTypeId ) + Utils.getProperName( _strAttributeName );
     }
 
     /**
@@ -212,31 +204,6 @@ public class Attribute
     {
         return Utils.getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase(  ) +
         Utils.getProperName( _strAttributeName ).substring( 1 );
-    }
-
-    /**
-    * Returns the Prefix of variable
-    * @param strType the type of variable
-    * @return prefix
-    */
-    private String getPrefix( String strType )
-    {
-        if ( strType.equalsIgnoreCase( "int" ) )
-        {
-            return "n";
-        }
-
-        if ( strType.equalsIgnoreCase( "String" ) )
-        {
-            return "str";
-        }
-
-        if ( strType.equalsIgnoreCase( "Date" ) )
-        {
-            return "date";
-        }
-
-        return "";
     }
 
     /**
@@ -272,4 +239,16 @@ public class Attribute
     {
         _bNotNull = bNotNull;
     }
+
+    /**
+    * Returns the Constraint
+    *
+    * @return The Constraint
+    */
+    @JsonIgnore
+    public String getConstraint(  )
+    {
+        return ModelService.getAttributeConstraint(_nAttributeTypeId ) ;
+    }
+
 }

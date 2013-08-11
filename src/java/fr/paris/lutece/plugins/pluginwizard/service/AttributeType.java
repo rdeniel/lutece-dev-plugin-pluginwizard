@@ -44,6 +44,7 @@ public class AttributeType
     private String _strDescription;
     private String _strPrefix;
     private String _strJavaType;
+    private String _strConstraint;
     private int _nMaxLength;
 
     /**
@@ -135,4 +136,23 @@ public class AttributeType
     {
         _nMaxLength = nMaxLength;
     }
+
+    /**
+     * Returns the Constraint
+     * @return The Constraint
+     */
+    public String getConstraint(  )
+    {
+        return _strConstraint;
+    }
+
+    /**
+     * Sets the Constraint
+     * @param strConstraint The Constraint
+     */
+    public void setConstraint( String strConstraint )
+    {
+        _strConstraint = strConstraint;
+    }
+
 }
