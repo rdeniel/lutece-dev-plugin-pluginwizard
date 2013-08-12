@@ -97,7 +97,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName}.message.confirmRemove${business_class.businessClass?cap_first}";
     private static final String PROPERTY_DEFAULT_LIST_${business_class.businessClass?upper_case}_PER_PAGE = "${plugin_model.pluginName}.list${business_class.businessClass?cap_first}s.itemsPerPage";
  
-    private static final String PREFIX_FIELDS = "${plugin_model.pluginName}.model.entity.${business_class.businessClass?lower_case}.fields.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${plugin_model.pluginName}.model.entity.${business_class.businessClass?lower_case}.attribute.";
 
     /**
      * Returns the list of ${business_class.businessClass?lower_case}
@@ -161,7 +161,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
         populate( ${business_class.businessClass?lower_case}, request );
 
         // Check constraints
-        List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , PREFIX_FIELDS );
+        List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , VALIDATION_ATTRIBUTES_PREFIX );
 
         if (errors.size() > 0)
         {
@@ -234,7 +234,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
       populate( ${business_class.businessClass?lower_case}, request );
 
       // Check constraints
-      List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , PREFIX_FIELDS );
+      List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , VALIDATION_ATTRIBUTES_PREFIX );
 
       if (errors.size() > 0)
       {

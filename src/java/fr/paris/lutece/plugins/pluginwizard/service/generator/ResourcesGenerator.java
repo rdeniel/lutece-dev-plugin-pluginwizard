@@ -198,8 +198,8 @@ public class ResourcesGenerator extends AbstractGenerator
                 }
             }
             
-            sb.append( "\n# model fields for validation messages\n" );
-            strPrefix = "model.entity." + bc.getBusinessClass().toLowerCase() + ".fields.";
+            sb.append( "\n# model attributes for validation messages\n" );
+            strPrefix = "model.entity." + bc.getBusinessClass().toLowerCase() + ".attribute.";
             
             for ( Attribute attribute : bc.getAttributes(  ) )
             {
