@@ -49,7 +49,7 @@ public class SiteDocumentationGenerator extends AbstractGenerator
     private static final String PATH = "src/site/";
     private static String[] _files =
     {
-        "site.xml", "site_fr.xml", "xdoc/index.xml", "fr/xdoc/index.xml"
+        "site.xml", "site_fr.xml", "xdoc/index.xml", "fr/xdoc/index.xml", "resources/images/readme.txt", "fr/resources/images/readme.txt" 
     };
 
     @Override
