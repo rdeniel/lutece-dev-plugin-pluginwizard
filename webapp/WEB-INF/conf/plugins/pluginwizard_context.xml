@@ -240,6 +240,11 @@
             <value>/skin/plugins/pluginwizard/generators/commons/gt_properties_file.html</value>
         </property>
     </bean>
+    <bean id="pluginwizard.generator.site" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SiteDocumentationGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_site_xdoc.html</value>
+        </property>
+    </bean>
 
     <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" />
 
@@ -345,6 +350,7 @@
                 <ref bean="pluginwizard.generator.pluginXml" />
                 <ref bean="pluginwizard.generator.context.classic" />
                 <ref bean="pluginwizard.generator.properties" />
+                <ref bean="pluginwizard.generator.site" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.java.business.classic" />
@@ -371,6 +377,7 @@
                 <ref bean="pluginwizard.generator.pluginXml" />
                 <ref bean="pluginwizard.generator.context.alternative" />
                 <ref bean="pluginwizard.generator.properties" />
+                <ref bean="pluginwizard.generator.site" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.java.business.alternative" />
@@ -397,6 +404,7 @@
                 <ref bean="pluginwizard.generator.pluginXml" />
                 <ref bean="pluginwizard.generator.context.alternative" />
                 <ref bean="pluginwizard.generator.properties" />
+                <ref bean="pluginwizard.generator.site" />
                 <ref bean="pluginwizard.generator.resources" />
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.java.business.alternative" />
