@@ -836,6 +836,18 @@ public final class ModelService
     {
         return _serviceAttribute.getType(nAttributeTypeId).getConstraint();
     }
+    
+    /**
+     * Returns the attribute type description
+     * @param nAttributeTypeId The attribute type ID
+     * @return The type description
+     */
+    public static String getAttributeTypeDescription(int nAttributeTypeId)
+    {
+        return _serviceAttribute.getType(nAttributeTypeId).getDescription();
+    }
+
+
 
 
 }

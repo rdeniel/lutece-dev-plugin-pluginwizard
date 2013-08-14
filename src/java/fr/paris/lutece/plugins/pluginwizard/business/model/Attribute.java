@@ -177,7 +177,7 @@ public class Attribute
 
     /**
      * Returns the VariableName
-     * @return  _strVariableName The VariableName
+     * @return  The VariableName
      */
     @JsonIgnore
     public String getVariableName(  )
@@ -186,8 +186,18 @@ public class Attribute
     }
 
     /**
-     * Returns the VariableName
-     * @return  _strVariableName The VariableName
+     * Returns the type description
+     * @return   The type description
+     */
+    @JsonIgnore
+    public String getTypeDescription(  )
+    {
+        return ModelService.getAttributeTypeDescription( _nAttributeTypeId );
+    }
+
+    /**
+     * Returns the Param Name
+     * @return  The Param VariableName
      */
     @JsonIgnore
     public String getParamName(  )
