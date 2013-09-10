@@ -7,19 +7,28 @@
     </div>
 
     <div class="span8">
-        <form class="form form-horizontal" method="post" name="generate" >               
+        <form action="jsp/site/Portal.jsp" class="form form-horizontal" method="post" >               
             <fieldset>  	 		
                 <legend>
                     #i18n{pluginwizard.pluginwizard_create_plugin.pageTitle}      
                 </legend>                 
 
-                <input type="hidden" name="page" value="wizard" />			
-                <input type="hidden" name="action" value="do_create_plugin" />	
+                <input type="hidden" name="page" value="pluginwizard" />			
+                <input type="hidden" name="action" value="createPlugin" />	
+
+                <!-- Errors handling -->
+                <#if errors?size &gt; 0 >
+                <div class="alert alert-danger">
+                    <#list errors as error >
+                    ${error.message}<br>
+                    </#list>
+                </div>
+                </#if>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	
                     <div class="controls">
-                        <input type="text" name="plugin_name" value="" />
+                        <input type="text" name="name" value="" />
                         <span class="help-block">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginNameHelp}</span>
                     </div>
                 </div>
