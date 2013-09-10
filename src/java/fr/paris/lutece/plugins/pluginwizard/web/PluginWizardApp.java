@@ -40,7 +40,7 @@ import fr.paris.lutece.plugins.mvc.annotations.View;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.ModelHome;
-import fr.paris.lutece.plugins.pluginwizard.business.PluginName;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.FormName;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
@@ -49,23 +49,19 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
-import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.message.SiteMessageService;
-import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.web.xpages.XPage;
-import fr.paris.lutece.portal.web.xpages.XPageApplication;
 import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -163,8 +159,12 @@ public class PluginWizardApp extends MVCApplication
     private static final String VIEW_MANAGE_ADMIN_FEATURES = "manageAdminFeatures";
     private static final String VIEW_CREATE_ADMIN_FEATURE = "createAdminFeature";
     private static final String VIEW_MODIFY_ADMIN_FEATURE = "modifyAdminFeature";
+    private static final String VIEW_MANAGE_BUSINESS_CLASSES = "manageBusinessClasses";
     private static final String VIEW_CREATE_BUSINESS_CLASS = "createBusinessClass";
     private static final String VIEW_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
+    private static final String VIEW_MANAGE_APPLICATIONS = "manageApplications";
+    private static final String VIEW_CREATE_APPLICATION = "createApplication";
+    private static final String VIEW_MODIFY_APPLICATION = "modifyApplication";
     private static final String VIEW_RECAPITULATE = "recapitulate";
 
 
@@ -192,6 +192,13 @@ public class PluginWizardApp extends MVCApplication
     private static final String PARAM_CLASS_DESCRIPTION = "class_description";
     private static final String ACTION_CREATE_PLUGIN = "createPlugin";
     private static final String ACTION_MODIFY_PLUGIN = "modifyPlugin";
+    private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
+    private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
+    
+
+    
+    
+    
     private static final String ACTION_GET_MODIFY_PLUGIN_DESCRIPTION = "get_modify_plugin_description";
     private static final String ACTION_GET_MODIFY_PLUGIN = "get_modify_plugin";
     private static final String ACTION_DO_MODIFY_PLUGIN_DESCRIPTION = "do_modify_plugin_description";
@@ -218,7 +225,7 @@ public class PluginWizardApp extends MVCApplication
     //MODIFY_ACTIONS
     private static final String ACTION_MODIFY_ADMIN_FEATURE = "modify_admin_feature";
     private static final String ACTION_MODIFY_PLUGIN_PORTLET = "modify_portlet";
-    private static final String ACTION_MODIFY_PLUGIN_APPLICATION = "modify_plugin_application";
+    private static final String ACTION_MODIFY_APPLICATION = "modify_plugin_application";
     private static final String ACTION_MODIFY_BUSINESS_CLASS = "modify_business_class";
     //DO MODIFY
     private static final String ACTION_DO_MODIFY_ADMIN_FEATURE = "do_modify_feature";
@@ -279,6 +286,8 @@ public class PluginWizardApp extends MVCApplication
     // Properties
     private static final String DEFAULT_PLUGIN_CLASS = "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation";
 
+    int _nIdPlugin;
+    String _strPluginName;
   
     ////////////////////////////////////////////////////////////////////////////
     // VIEWS
@@ -318,12 +327,11 @@ public class PluginWizardApp extends MVCApplication
      * @return The creation form of the plugin description
      */
     @View(VIEW_PLUGIN_EXISTS)
-    public XPage getPluginExists(HttpServletRequest request, String strPluginName)
+    public XPage getPluginExists( HttpServletRequest request )
     {
-        int nPluginId = ModelHome.exists(strPluginName);
         Map<String, Object> model = getModel();
-        model.put(MARK_PLUGIN_NAME, strPluginName);
-        model.put(MARK_PLUGIN_ID, nPluginId);
+        model.put(MARK_PLUGIN_NAME, _strPluginName);
+        model.put(MARK_PLUGIN_ID, _nIdPlugin);
 
         return getXPage(TEMPLATE_PLUGIN_EXISTS, request.getLocale(), model);
     }
@@ -338,11 +346,9 @@ public class PluginWizardApp extends MVCApplication
     @View(VIEW_CREATE_DESCRIPTION)
     public XPage getCreatePluginDescription(HttpServletRequest request)
     {
-        String strPluginName = request.getParameter( PARAM_PLUGIN_NAME );
-        int nPluginId = ModelHome.exists(strPluginName);
         Map<String, Object> model = getModel();
 
-        model.put(MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId));
+        model.put(MARK_PLUGIN_MODEL, ModelService.getPluginModel( _nIdPlugin ));
 
         Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
 
@@ -429,18 +435,19 @@ public class PluginWizardApp extends MVCApplication
     public XPage doCreatePlugin(HttpServletRequest request)
             throws SiteMessageException
     {
-        PluginName name = new PluginName();
-        populate(name, request);
-        if (!validateBean(name))
+        FormName form = new FormName();
+        populate(form, request);
+        if (!validateBean(form))
         {
             return redirectView(request, VIEW_CREATE_PLUGIN);
         }
-        int nIdPlugin = ModelHome.exists(name.getName());
+        _strPluginName = form.getName();
+        int nIdPlugin = ModelHome.exists(form.getName());
 
         if (nIdPlugin == -1)
         {
             // The plugin doesn't exists
-            ModelService.createModel(name.getName());
+            ModelService.createModel(form.getName());
             return redirectView(request, VIEW_CREATE_DESCRIPTION);
         }
         return redirectView(request, VIEW_PLUGIN_EXISTS);
@@ -551,47 +558,37 @@ public class PluginWizardApp extends MVCApplication
      * @param request The Http Request
      * @throws SiteMessageException Front office error handling
      */
-    @Action(ACTION_MODIFY_PLUGIN)
-    private void doModifyPlugin(HttpServletRequest request)
-            throws SiteMessageException
+    @Action(ACTION_DESCRIPTION_PREVIOUS )
+    public XPage doDescritionPrevious( HttpServletRequest request )
     {
-        int nId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
-        PluginModel model = ModelService.getPluginModel(nId);
-
-        //add the attributes from the request hash
-        model.setIdPlugin(nId);
-
-        String strPluginName = request.getParameter(PARAM_PLUGIN_NAME);
-        String strDescription = request.getParameter(PARAM_PLUGIN_DESCRIPTION);
-        String strProvider = request.getParameter(PARAM_PLUGIN_PROVIDER);
-
-        String strPoolRequired = request.getParameter(PARAM_PLUGIN_DB_POOL_REQUIRED);
-        verifyField(request, strPoolRequired, PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED,
-                PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED_MESSAGE);
-        model.setPluginDbPoolRequired(strPoolRequired);
-
-        model.setPluginName(strPluginName);
-        model.setPluginClass(DEFAULT_PLUGIN_CLASS);
-        model.setPluginDescription(strDescription);
-        model.setPluginProvider(strProvider);
-        model.setPluginVersion(request.getParameter(PARAM_PLUGIN_VERSION));
-        model.setPluginIconUrl("images/admin/skin/plugins/" + strPluginName + "/" + strPluginName + ".png");
+        return doModifyPlugin( request , VIEW_MODIFY_PLUGIN );
+    }
+    
+    @Action(ACTION_DESCRIPTION_NEXT)
+    public XPage doDescritionNext( HttpServletRequest request )
+    {
+        return doModifyPlugin( request , VIEW_MANAGE_ADMIN_FEATURES );
+    }
+    
+    private XPage doModifyPlugin(HttpServletRequest request , String strView )
+    {
+        PluginModel model = ModelService.getPluginModel( _nIdPlugin );
+        
+        populate( model , request );
+        
+        if( ! validateBean( model ))
+        {
+            return redirectView( request,  VIEW_MODIFY_PLUGIN );
+        }
+        model.setPluginIconUrl("images/admin/skin/plugins/" + _strPluginName + "/" + _strPluginName + ".png");
         model.setPluginCopyright(request.getParameter(PARAM_PLUGIN_COPYRIGHT));
 
-        String strPluginProviderUrl = request.getParameter(PARAM_PLUGIN_PROVIDER_URL);
-        verifyField(request, strPluginProviderUrl, PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL,
-                PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL_MESSAGE);
-
-        model.setPluginProviderUrl(request.getParameter(PARAM_PLUGIN_PROVIDER_URL));
-
-        // deprecated
-        model.setPluginUserGuide("");
-        model.setPluginDocumentation("");
-        model.setPluginInstallation("");
-        model.setPluginChanges("");
 
         ModelService.savePluginModel(model);
+        return redirectView( request , strView );
     }
+    
+    
 
     /**
      * The creation of an admin feature
@@ -690,18 +687,17 @@ public class PluginWizardApp extends MVCApplication
      * @return The html code of the management screen of the applications
      * @throws SiteMessageException if an error occurs
      */
-    private String getManagePluginApplications(HttpServletRequest request)
-            throws SiteMessageException
+    @View( VIEW_MANAGE_APPLICATIONS)
+    public XPage getManageApplications(HttpServletRequest request)
     {
-        int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
-
-        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel(nPluginId).getBusinessClasses();
+        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel(_nIdPlugin).getBusinessClasses();
 
         for (BusinessClass businessClass : listBusinessClass)
         {
             if (businessClass.getAttributes().size() < 2)
             {
-                SiteMessageService.setMessage(request, PROPERTY_CLASS_TWO_ATTRIBUTES_MINIMUM, SiteMessage.TYPE_STOP);
+                // TODO add Error
+                return redirectView(request, VIEW_MANAGE_APPLICATIONS );
             }
 
             /*            if ( !BusinessClassHome.hasAlreadyDescription( businessClass.getId(  ), plugin ) )
@@ -716,14 +712,11 @@ public class PluginWizardApp extends MVCApplication
              */
         }
 
-        Map<String, Object> model = new HashMap<String, Object>();
-        model.put(MARK_PLUGIN_ID, Integer.toString(nPluginId));
-        model.put(MARK_PLUGIN_APPLICATIONS, ModelService.getPluginModel(nPluginId).getApplications());
+        Map<String, Object> model = getModel();
+        model.put(MARK_PLUGIN_ID, Integer.toString(_nIdPlugin));
+        model.put(MARK_PLUGIN_APPLICATIONS, ModelService.getPluginModel(_nIdPlugin).getApplications());
 
-        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_MANAGE_PLUGIN_APPLICATIONS,
-                request.getLocale(), model);
-
-        return template.getHtml();
+       return getXPage(TEMPLATE_MANAGE_PLUGIN_APPLICATIONS, request.getLocale(), model);
     }
 
     /**
@@ -733,17 +726,17 @@ public class PluginWizardApp extends MVCApplication
      * @param request The Http Request
      * @return The html code of the management screen of the business classes
      */
-    private String getManageBusinessClasses(HttpServletRequest request)
+    
+    @View( VIEW_MANAGE_BUSINESS_CLASSES )
+    public XPage getManageBusinessClasses(HttpServletRequest request)
     {
         int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = getModel();
         model.put(MARK_PLUGIN_ID, Integer.toString(nPluginId));
         model.put(MARK_BUSINESS_CLASSES, ModelService.getPluginModel(nPluginId).getBusinessClasses());
 
-        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_MANAGE_BUSINESS_CLASSES,
-                request.getLocale(), model);
+        return getXPage( TEMPLATE_MANAGE_BUSINESS_CLASSES, request.getLocale(), model);
 
-        return template.getHtml();
     }
 
     /**
@@ -888,21 +881,18 @@ public class PluginWizardApp extends MVCApplication
      * @return The html code of the modification of an application associated to
      * the generated plugin
      */
-    private String getModifyPluginApplication(HttpServletRequest request)
+    @View( VIEW_MODIFY_APPLICATION )
+    public XPage getModifyApplication(HttpServletRequest request)
     {
-        int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
         int nPluginApplicationId = Integer.parseInt(request.getParameter(PARAM_APPLICATION_ID));
 
-        Application application = ModelService.getApplication(nPluginId, nPluginApplicationId);
+        Application application = ModelService.getApplication( _nIdPlugin, nPluginApplicationId);
         Map<String, Object> model = new HashMap<String, Object>();
         model.put(MARK_APPLICATION, application);
-        model.put(MARK_PLUGIN_ID, Integer.toString(nPluginId));
-        model.put(MARK_PLUGIN_MODEL, ModelService.getPluginModel(nPluginId));
+        model.put(MARK_PLUGIN_ID, Integer.toString(_nIdPlugin));
+        model.put(MARK_PLUGIN_MODEL, ModelService.getPluginModel(_nIdPlugin));
 
-        HtmlTemplate template = AppTemplateService.getTemplate(TEMPLATE_MODIFY_PLUGIN_APPLICATION,
-                request.getLocale(), model);
-
-        return template.getHtml();
+        return getXPage(TEMPLATE_MODIFY_PLUGIN_APPLICATION, request.getLocale(), model);
     }
 
     /**
@@ -911,25 +901,18 @@ public class PluginWizardApp extends MVCApplication
      * @param request The Http Request
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyPluginApplication(HttpServletRequest request)
-            throws SiteMessageException
+    @Action( ACTION_MODIFY_APPLICATION )
+    public XPage doModifyApplication(HttpServletRequest request)
     {
-        int nApplicationId = Integer.parseInt(request.getParameter(PARAM_APPLICATION_ID));
-        int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
-        Application application = ModelService.getApplication(nPluginId, nApplicationId);
-        String strApplicationClass = request.getParameter(PARAM_APPLICATION_CLASS);
-        String strApplicationName = request.getParameter(PARAM_APPLICATION_NAME);
-
-        if ((strApplicationClass == null) || strApplicationClass.equals("") || (strApplicationName == null)
-                || strApplicationName.equals(""))
+        Application application = new Application();
+        populate( application , request);
+        if ( !validateBean( application ))
         {
-            SiteMessageService.setMessage(request, PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
+            return redirectView(request, VIEW_MODIFY_APPLICATION );
         }
 
-        application.setApplicationClass(strApplicationClass);
-        application.setApplicationName(strApplicationName);
-
-        ModelService.updateApplication(nPluginId, application);
+        ModelService.updateApplication( _nIdPlugin, application );
+        return redirectView( request, VIEW_MANAGE_APPLICATIONS );
     }
 
     /**
@@ -1077,53 +1060,20 @@ public class PluginWizardApp extends MVCApplication
      * @throws SiteMessageException Front office error handling
      * @return The business class id
      */
-    private int doCreateBusinessClass(HttpServletRequest request)
-            throws SiteMessageException
+    
+    @Action( ACTION_CREATE_BUSINESS_CLASS )
+    public XPage doCreateBusinessClass(HttpServletRequest request)
     {
         BusinessClass businessClass = new BusinessClass();
-        String strFeatureId = request.getParameter(PARAM_FEATURE_ID);
-        String strBusinessClassName = request.getParameter(PARAM_CLASSNAME);
-
-        if ((strFeatureId == null) || strFeatureId.equals(""))
+        
+        populate( businessClass , request);
+        if( ! validateBean( businessClass ))
         {
-            SiteMessageService.setMessage(request, PROPERTY_FEATURE_NOT_DEFINE_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
+            return redirectView(request, VIEW_CREATE_BUSINESS_CLASS );
         }
+        ModelService.addBusinessClass( _nIdPlugin , businessClass);
 
-        if ((strBusinessClassName == null) || strBusinessClassName.equals(""))
-        {
-            SiteMessageService.setMessage(request, PROPERTY_CLASS_NOT_DEFINED_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
-        }
-
-        if (!beginsWithCapital(strBusinessClassName))
-        {
-            SiteMessageService.setMessage(request, PROPERTY_CLASS_NOT_BEGIN_CAPITAL_TITLE_MESSAGE,
-                    SiteMessage.TYPE_STOP);
-        }
-
-        int nFeatureId = Integer.parseInt(strFeatureId);
-        businessClass.setIdFeature(nFeatureId);
-
-        int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
-        String strTableName = request.getParameter(PARAM_TABLE);
-
-        if ((strBusinessClassName == null) || (strTableName == null) || strBusinessClassName.equals("")
-                || strTableName.equals(""))
-        {
-            SiteMessageService.setMessage(request, PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
-        }
-
-        businessClass.setBusinessClass(strBusinessClassName);
-        businessClass.setBusinessTableName(strTableName);
-
-        //Verify if name already exists for the same admin feature
-        /*        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
-         {
-         SiteMessageService.setMessage( request, PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
-         }
-         */
-        businessClass = ModelService.addBusinessClass(nPluginId, businessClass);
-
-        return businessClass.getId();
+        return redirectView( request, VIEW_MANAGE_BUSINESS_CLASSES );
     }
 
     /**
@@ -1202,8 +1152,8 @@ public class PluginWizardApp extends MVCApplication
      * @param request The Http Request
      * @throws SiteMessageException Front office error handling
      */
-    private void doModifyBusinessClass(HttpServletRequest request)
-            throws SiteMessageException
+    @Action( ACTION_MODIFY_BUSINESS_CLASS )
+    public XPage doModifyBusinessClass(HttpServletRequest request)
     {
         int nPluginId = Integer.parseInt(request.getParameter(PARAM_PLUGIN_ID));
         int nBusinessClassId = Integer.parseInt(request.getParameter(PARAM_BUSINESS_CLASS_ID));
@@ -1213,32 +1163,12 @@ public class PluginWizardApp extends MVCApplication
 
         if ((strFeatureId == null) || strFeatureId.equals(""))
         {
-            SiteMessageService.setMessage(request, PROPERTY_FEATURE_NOT_DEFINE_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
+            return redirectView(request, VIEW_MODIFY_BUSINESS_CLASS );
         }
 
-        int nFeatureId = Integer.parseInt(strFeatureId);
-        businessClass.setIdFeature(nFeatureId);
 
-        String strBusinessClassName = request.getParameter(PARAM_CLASSNAME);
-
-        String strTableName = request.getParameter(PARAM_TABLE);
-
-        if ((strBusinessClassName == null) || (strTableName == null) || strBusinessClassName.equals("")
-                || strTableName.equals(""))
-        {
-            SiteMessageService.setMessage(request, PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE, SiteMessage.TYPE_STOP);
-        }
-
-        businessClass.setBusinessClass(strBusinessClassName);
-        businessClass.setBusinessTableName(strTableName);
-
-        //Verify if name already exists for the same admin feature
-        /*        if ( BusinessClassHome.keyExists( nFeatureId, strBusinessClassName, plugin ) )
-         {
-         SiteMessageService.setMessage( request, PROPERTY_CANNOT_CREATE_CLASS_TITLE_MESSAGE, SiteMessage.TYPE_STOP );
-         }
-         */
         ModelService.updateBusinessClass(nPluginId, businessClass);
+        return redirectView( request , VIEW_MANAGE_BUSINESS_CLASSES );
     }
 
     /**
@@ -1404,7 +1334,7 @@ public class PluginWizardApp extends MVCApplication
         }
     }
     
-        /**
+    /**
      * getPage
      *
      * @param request The Http Request HttpServletRequest
