@@ -5,15 +5,15 @@
     <div class="span3">             
         <@sidebar step="portlet" />
         <div class="portlet-background-content">         
-            #i18n{pluginwizard.pluginwizard_modify_plugin_portlet.pageHelp} 
+            #i18n{pluginwizard.pluginwizard_modify_portlet.pageHelp} 
         </div>  
     </div>
 
     <div class="span8">
 
-        <form class="default-form" method="post" name="generate" >
+        <form class="default-form" method="post" action="jsp/site/Portal.jsp" >
             <fieldset>
-                <legend>#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.pageTitle}</legend>
+                <legend>#i18n{pluginwizard.pluginwizard_modify_portlet.pageTitle}</legend>
 
                 <input type="hidden" name="page" value="pluginwizard" />
                 <input type="hidden" name="action" value="do_modify_portlet" />
@@ -21,36 +21,36 @@
                 <input type="hidden" name="portlet_id" value="${portlet.id}" />  
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelPortletClass} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelPortletClass} :</label>
                     <div class="controls">   
                         <input class="input-xlarge" type="text" name="portlet_class" size="30" value="${portlet.pluginPortletClass}"  />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelPortletTypeName} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelPortletTypeName} :</label>
                     <div class="controls">
                         <input class="input-xlarge" type="text" name="portlet_type_name"  size="30"  value="${portlet.pluginPortletTypeName}"/>
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelCreationUrl} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelCreationUrl} :</label>
                     <div class="controls">
                         <input class="input-xlarge" type="text" name="portlet_creation_url"  size="30" value="${portlet.pluginPortletCreationUrl}"  />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.labelUpdateUrl} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelUpdateUrl} :</label>
                     <div class="controls"> 
                         <input class="input-xlarge" type="text" name="portlet_update_url"  size="30"  value="${portlet.pluginPortletUpdateUrl}" />
                     </div> 
                 </div>
 
                 <div class="form-actions">                                          
-                    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.buttonModifyPortlet} </button>                   
-                    <button type="submit" name="goToManagePortlets" class="btn">#i18n{pluginwizard.pluginwizard_modify_plugin_portlet.buttonBack} </button>                                                             
+                    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_portlet.buttonModifyPortlet} </button>                   
+                    <button type="submit" name="goToManagePortlets" class="btn">#i18n{pluginwizard.pluginwizard_modify_portlet.buttonBack} </button>                                                             
                 </div> 
             </fieldset>
         </form>

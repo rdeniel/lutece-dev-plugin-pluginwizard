@@ -10,12 +10,10 @@
     </div>
 
     <div class="span8">
-        <form class="form form-horizontal well" method="post" name="generate" > 
+        <form class="form form-horizontal well" method="post" action="jsp/site/Portal.jsp" > 
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_create_admin_feature.pageTitle}</legend>                           
                 <input type="hidden" name="page" value="pluginwizard" />                         
-                <input type="hidden" name="action" value="do_create_feature" />                           
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />  
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
@@ -62,10 +60,10 @@
                     </div> 
                 </div>
                 <div class="form-actions">                                                  
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" name="action_createAdminFeature"class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_admin_feature.buttonCreateFeature}       
                     </button>                           
-                    <button type="submit" name="goToManageAdminFeatures" class="btn">
+                    <button type="submit" name="view_manageAdminFeatures" class="btn">
                         #i18n{pluginwizard.pluginwizard_create_admin_feature.buttonBack}       
                     </button>	     
                 </div>  

@@ -13,13 +13,10 @@
         <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageTitle}</h4>
 
         <div class="pull-right"> 
-            <form class="default-form" method="post" name="generate"
-                  action="jsp/site/Portal.jsp"><input
-                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
-                    name="action" value="manage_plugin_portlets" /> <input
-                    type="hidden" name="plugin_id" value="${plugin_id}" />
-
-                <button type="submit" name="goToCreatePluginPortlet" class="btn btn-primary">
+            <form class="default-form" method="post" action="jsp/site/Portal.jsp">
+                <input type="hidden" name="page" value="pluginwizard" />
+                <input type="hidden" name="view" value="createPortlet" /> 
+                <button type="submit" class="btn btn-primary">
                     <i class="icon-plus icon-white"></i>
                     #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonAddPortlet}
                 </button>
@@ -29,11 +26,11 @@
         <table class="table table-condensed table-striped">
             <thead>
                 <tr>
-                    <th scope="col" class="rounded-head-left">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletClass}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletTypeName}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletCreationUrl}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletUpdateUrl}</th>
-                    <th scope="col" class="rounded-head-right">#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletAction}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletClass}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletTypeName}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletCreationUrl}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletUpdateUrl}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletAction}</th>
                 </tr>
             </thead>
 
@@ -66,17 +63,14 @@
         </table>
 
         <div class="form-actions"> 
-            <form class="default-form" method="post" name="generate"
-                  action="jsp/site/Portal.jsp"><input
-                    type="hidden" name="page" value="pluginwizard" /> <input type="hidden"
-                    name="action" value="manage_plugin_portlets" /> <input
-                    type="hidden" name="plugin_id" value="${plugin_id}" />
+            <form class="default-form" method="post" action="jsp/site/Portal.jsp">
+                <input type="hidden" name="page" value="pluginwizard" />
 
-                <button type="submit" name="goToManagePluginApplications" class="btn btn-primary">
+                <button type="submit" name="view_manageApplications" class="btn btn-primary">
                     <i class="icon-chevron-left icon-white"></i>
                     #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonBack}
                 </button>
-                <button type="submit" name="goToGetRecapitulate" class="btn btn-primary">
+                <button type="submit" name="view_recapitulate" class="btn btn-primary">
                     #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonNext}
                     <i class="icon-chevron-right icon-white"></i>
                 </button>

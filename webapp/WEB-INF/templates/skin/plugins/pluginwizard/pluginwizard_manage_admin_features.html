@@ -14,11 +14,10 @@
         <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageTitle}</h4>                 
 
         <div class="pull-right">
-            <form class="default-form" method="post" name="generate" action="jsp/site/Portal.jsp?page=pluginwizard">
+            <form class="default-form" method="post" action="jsp/site/Portal.jsp">
                 <input type="hidden" name="page" value="pluginwizard" /> 
-                <input type="hidden" name="action" value="manage_plugin_applications" /> 
-                <input type="hidden" name="plugin_id" value="${plugin_id}" />                                        
-                <button type="submit" name="goToCreateAdminFeature" class="btn btn-primary">
+                <input type="hidden" name="view" value="createAdminFeature" /> 
+                <button type="submit" class="btn btn-primary">
                     <i class="icon-plus icon-white"></i>
                     #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonAddFeature}
                 </button>                
@@ -28,9 +27,9 @@
         <table class="table table-condensed table-striped">
             <thead>
                 <tr>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
-                    <th scope="col">#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
                 </tr>
             </thead>
 
@@ -60,11 +59,11 @@
         <div class="form-actions">      
             <form class="default-form" method="post" action="jsp/site/Portal.jsp">
                 <input type="hidden" name="page" value="pluginwizard" /> 
-                <button type="submit" name="action_featuresPrevious" class="btn btn-primary">
+                <button type="submit" name="view_modifyDescription" class="btn btn-primary">
                     <i class="icon-chevron-left icon-white"></i>
                     #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonBack}
                 </button>                        
-                <button type="submit" name="action_featuresNext" class="btn btn-primary">
+                <button type="submit" name="view_manageBusinessClasses" class="btn btn-primary">
                     #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonNext}
                     <i class="icon-chevron-right icon-white"></i>
                 </button>  

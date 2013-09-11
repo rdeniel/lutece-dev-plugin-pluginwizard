@@ -100,15 +100,15 @@ public class PluginWizardApp extends MVCApplication
     private static final String TEMPLATE_GET_RECAPITULATE = "/skin/plugins/pluginwizard/pluginwizard_plugin_recapitulate.html";
     //CREATE
     private static final String TEMPLATE_CREATE_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_create_admin_feature.html";
-    private static final String TEMPLATE_CREATE_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_create_plugin_portlet.html";
-    private static final String TEMPLATE_CREATE_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_create_plugin_application.html";
+    private static final String TEMPLATE_CREATE_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_create_portlet.html";
+    private static final String TEMPLATE_CREATE_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_create_application.html";
     private static final String TEMPLATE_CREATE_BUSINESS_CLASS = "/skin/plugins/pluginwizard/pluginwizard_create_business_class.html";
     private static final String TEMPLATE_CREATE_ATTRIBUTE = "/skin/plugins/pluginwizard/pluginwizard_create_attribute.html";
     //MODIFY
     private static final String TEMPLATE_MODIFY_ATTRIBUTE = "/skin/plugins/pluginwizard/pluginwizard_modify_attribute.html";
     private static final String TEMPLATE_MODIFY_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_modify_admin_feature.html";
-    private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin_portlet.html";
-    private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin_application.html";
+    private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_portlet.html";
+    private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_application.html";
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_CLASSNAME = "class";
     private static final String PARAM_TABLE = "table";
@@ -160,15 +160,9 @@ public class PluginWizardApp extends MVCApplication
     private static final String VIEW_MANAGE_PORTLETS = "managePortlets";
     private static final String VIEW_CREATE_PORTLET = "createPortlet";
     private static final String VIEW_MODIFY_PORTLET = "modifyPortlet";
-    
     private static final String VIEW_RECAPITULATE = "recapitulate";
 
     //Plugin
-    private static final String PARAM_ATTRIBUTE_NAME = "attribute_name";
-    private static final String PARAM_ATTRIBUTE_TYPE_ID = "id_attribute_type";
-    private static final String PARAM_MANDATORY = "mandatory";
-    private static final String PARAM_PRIMARY_KEY = "primary_key";
-    private static final String PARAM_CLASS_DESCRIPTION = "class_description";
     private static final String ACTION_CREATE_PLUGIN = "createPlugin";
     private static final String ACTION_MODIFY_PLUGIN = "modifyPlugin";
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
@@ -180,16 +174,6 @@ public class PluginWizardApp extends MVCApplication
     private static final String ACTION_DO_CREATE_ATTRIBUTE = "do_create_attribute";
     private static final String ACTION_MODIFY_ATTRIBUTE = "modify_attribute";
     private static final String ACTION_DO_MODIFY_ATTRIBUTE = "do_modify_attribute";
-    //MANAGEMENT ACTIONS
-    private static final String ACTION_MANAGE_ADMIN_FEATURES = "manage_admin_features";
-    private static final String ACTION_FEATURES_PREVIOUS = "featuresPrevious";
-    private static final String ACTION_FEATURES_NEXT = "featuresNext";
-    private static final String ACTION_MANAGE_PORTLETS = "manage_plugin_portlets";
-    private static final String ACTION_MANAGE_PLUGIN_APPLICATIONS = "manage_plugin_applications";
-    private static final String ACTION_MANAGE_BUSINESS_CLASSES = "manage_business_classes";
-    private static final String ACTION_BUSINESS_CLASSES_PREVIOUS = "businessClassesPrevious";
-    private static final String ACTION_BUSINESS_CLASSES_NEXT = "businessClassesNext";
-    private static final String ACTION_MANAGE_RESOURCE_KEYS = "manage_resources_keys";
     //CREATE ACTIONS
     private static final String ACTION_CREATE_ADMIN_FEATURE = "create_admin_feature";
     private static final String ACTION_CREATE_PORTLET = "create_plugin_portlet";
@@ -615,12 +599,12 @@ public class PluginWizardApp extends MVCApplication
             return redirectView(request, VIEW_CREATE_PLUGIN);
         }
         _strPluginName = form.getName();
-        int nIdPlugin = ModelHome.exists(form.getName());
+        _nPluginId = ModelHome.exists(form.getName());
 
-        if (nIdPlugin == -1)
+        if (_nPluginId == -1)
         {
             // The plugin doesn't exists
-            ModelService.createModel(form.getName());
+            _nPluginId = ModelService.createModel(form.getName());
             return redirectView(request, VIEW_CREATE_DESCRIPTION);
         }
         return redirectView(request, VIEW_PLUGIN_EXISTS);
@@ -700,18 +684,7 @@ public class PluginWizardApp extends MVCApplication
         return redirectView(request, VIEW_MANAGE_ADMIN_FEATURES);
     }
     
-    @Action( ACTION_FEATURES_PREVIOUS )
-    public XPage doFeaturesPrevious( HttpServletRequest request )
-    {
-        return redirectView( request , VIEW_MODIFY_DESCRIPTION );
-    }
-
-    @Action( ACTION_FEATURES_NEXT )
-    public XPage doFeaturesNext( HttpServletRequest request )
-    {
-        return redirectView( request , VIEW_MANAGE_BUSINESS_CLASSES );
-    }
-
+ 
     /**
      * The confirmation of the removal of an admin feature
      *
@@ -757,27 +730,7 @@ public class PluginWizardApp extends MVCApplication
         ModelService.addApplication(_nPluginId, application);
         return redirectView(request, VIEW_MANAGE_APPLICATIONS );
     }
-
-    /**
-     * The creation action of an attribute
-     *
-     * @param request The Http Request
-     */
-    @Action( ACTION_CREATE_ATTRIBUTE )
-    public XPage doCreateAttribute(HttpServletRequest request)
-    {
-        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ));
-        Attribute attribute = new Attribute();
-        populate( attribute , request );
-        if( !validateBean( attribute ))
-        {
-            return redirectView(request, VIEW_CREATE_ATTRIBUTE );
-        }
-        
-        ModelService.addAttribute(_nPluginId, nBusinessClassId, attribute);
-        return redirectView( request, VIEW_MODIFY_BUSINESS_CLASS );
-    }
-
+    
     /**
      * The modification action of the plugin application
      *
@@ -904,17 +857,6 @@ public class PluginWizardApp extends MVCApplication
         return redirectView(request, VIEW_MANAGE_BUSINESS_CLASSES);
     }
     
-    @Action( ACTION_BUSINESS_CLASSES_PREVIOUS )
-    public XPage doBusinessClassesPrevious( HttpServletRequest request )
-    {
-        return redirectView( request , VIEW_MANAGE_ADMIN_FEATURES );
-    }
-
-    @Action( ACTION_BUSINESS_CLASSES_NEXT )
-    public XPage doBusinessClassesNext( HttpServletRequest request )
-    {
-        return redirectView( request , VIEW_MANAGE_APPLICATIONS );
-    }
 
     /**
      * The creation action of the portlet
@@ -951,7 +893,27 @@ public class PluginWizardApp extends MVCApplication
             return redirectView(request, ACTION_MODIFY_PORTLET );
         }
         ModelService.updatePortlet( _nPluginId, portlet);
-        return redirectView(request, ACTION_MANAGE_PORTLETS );
+        return redirectView(request, VIEW_MANAGE_PORTLETS );
+    }
+
+    /**
+     * The creation action of an attribute
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_CREATE_ATTRIBUTE )
+    public XPage doCreateAttribute(HttpServletRequest request)
+    {
+        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ));
+        Attribute attribute = new Attribute();
+        populate( attribute , request );
+        if( !validateBean( attribute ))
+        {
+            return redirectView(request, VIEW_CREATE_ATTRIBUTE );
+        }
+        
+        ModelService.addAttribute(_nPluginId, nBusinessClassId, attribute);
+        return redirectView( request, VIEW_MODIFY_BUSINESS_CLASS );
     }
 
     /**

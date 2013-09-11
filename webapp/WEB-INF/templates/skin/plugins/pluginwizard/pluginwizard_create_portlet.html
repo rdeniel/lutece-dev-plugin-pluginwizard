@@ -5,51 +5,49 @@
     <div class="span3">             
         <@sidebar step="portlet" />
         <div class="portlet-background-content">         
-            #i18n{pluginwizard.pluginwizard_create_plugin_portlet.pageHelp} 
+            #i18n{pluginwizard.pluginwizard_create_portlet.pageHelp} 
         </div>  
     </div>
 
     <div class="span8">
 
-        <form class="form form-horizontal" method="post" name="generate" >
+        <form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >
             <fieldset>
-                <legend>#i18n{pluginwizard.pluginwizard_create_plugin_portlet.pageTitle}</legend>
+                <legend>#i18n{pluginwizard.pluginwizard_create_portlet.pageTitle}</legend>
 
                 <input type="hidden" name="page" value="pluginwizard" />
-                <input type="hidden" name="action" value="do_create_portlet" />
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />  
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.labelPortletClass} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletClass} :</label>
                     <div class="controls">   
                         <input class="input-xlarge" type="text" name="portlet_class" value="fr.paris.lutece.plugins.${plugin_model.pluginName?lower_case}.business.portlet.ExamplePortletHome" size="30" />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.labelPortletTypeName} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletTypeName} :</label>
                     <div class="controls"> 
                         <input class="input-xlarge" type="text" name="portlet_type_name" value="EXAMPLE_PORTLET" size="30" />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.labelCreationUrl} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelCreationUrl} :</label>
                     <div class="controls"> 
                         <input class="input-xlarge" type="text" name="portlet_creation_url" value="plugins/${plugin_model.pluginName?lower_case}/CreatePortletExample.jsp" size="30" />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.labelUpdateUrl} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelUpdateUrl} :</label>
                     <div class="controls">
                         <input class="input-xlarge" type="text" name="portlet_update_url" value="plugins/${plugin_model.pluginName?lower_case}/ModifyPortletExample.jsp" size="30" />
                     </div> 
                 </div>
 
                 <div class="form-actions">                                          
-                    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.buttonCreatePortlet}</button>                   
-                    <button type="submit" name="goToManagePluginApplications" class="btn">#i18n{pluginwizard.pluginwizard_create_plugin_portlet.buttonBack}</button>                                                             
+                    <button type="submit" name="action_createPortlet" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_create_portlet.buttonCreatePortlet}</button>                   
+                    <button type="submit" name="view_managePortlets" class="btn">#i18n{pluginwizard.pluginwizard_create_portlet.buttonBack}</button>                                                             
                 </div> 
             </fieldset>
         </form>

@@ -10,13 +10,11 @@
     </div>
     
     <div class="span8">
-        <form class="form form-horizontal well" method="post" name="generate" action="jsp/site/Portal.jsp" >    
+        <form class="form form-horizontal well" method="post" action="jsp/site/Portal.jsp" >    
             <fieldset>
                 <h4>#i18n{pluginwizard.pluginwizard_create_plugin_description.pageTitle}</h4>                 
 
                 <input type="hidden" name="page" value="pluginwizard" />                
-                <input type="hidden" name="action" value="do_modify_plugin_description" />                  
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />                                                                                                   
                 <div class="control-group">
                     <label class="control-label">                         	            	                        
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
@@ -74,11 +72,11 @@
                 </div>                                                                                   
 
                 <div class="form-actions">                                              
-                    <button type="submit" name="goToModifyPlugin" class="btn btn-primary">
+                    <button type="submit" name="action_descriptionPrevious" class="btn btn-primary">
                         <i class="icon-chevron-left icon-white"></i>
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.buttonBack}
                     </button>                        
-                    <button type="submit" name="goToModifyPluginDescription" class="btn btn-primary">
+                    <button type="submit" name="action_descriptionNext" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.buttonNext}
                         <i class="icon-chevron-right icon-white"></i>
                     </button>                  
