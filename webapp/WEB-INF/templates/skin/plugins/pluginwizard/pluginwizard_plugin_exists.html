@@ -12,9 +12,6 @@
     <div class="span8">
         <form class="form form-horizontal well" method="post" action="jsp/site/Portal.jsp" >    
             <input type="hidden" name="page" value="pluginwizard" />                
-            <input type="hidden" name="action" value="do_plugin_exists" />                  
-            <input type="hidden" name="plugin_id" value="${plugin_id}" />                                                                                                   
-            <input type="hidden" name="plugin_name" value="${plugin_name}" />                                                                                                   
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_plugin_exists.pageTitle} </legend>                 
 
@@ -22,13 +19,13 @@
                     #i18n{pluginwizard.pluginwizard_plugin_exists.alert} : <code><strong>${plugin_name}</strong></code> !
                 </div>
                 <div class="span4 well">
-                    <button class="btn btn-primary" type="submit" name="preserve">
+                    <button class="btn btn-primary" type="submit" name="view_modifyDescription">
                         <i class="icon-chevron-right icon-white"></i>
                         #i18n{pluginwizard.pluginwizard_plugin_exists.buttonPreserve}
                     </button>
                 </div>
                 <div class="span4 well">
-                    <button class="btn btn-danger" type="submit" name="reset">
+                    <button class="btn btn-danger" type="submit" name="action_resetData">
                         <i class="icon-trash icon-white"></i>
                         #i18n{pluginwizard.pluginwizard_plugin_exists.buttonReset}
                     </button>

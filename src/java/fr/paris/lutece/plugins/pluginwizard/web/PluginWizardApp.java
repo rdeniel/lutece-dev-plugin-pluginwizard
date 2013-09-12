@@ -110,34 +110,14 @@ public class PluginWizardApp extends MVCApplication
     private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_portlet.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_application.html";
     private static final String PARAM_ACTION = "action";
-    private static final String PARAM_CLASSNAME = "class";
-    private static final String PARAM_TABLE = "table";
-    private static final String PARAM_PLUGIN_NAME = "plugin_name";
-    private static final String PARAM_PLUGIN_DESCRIPTION = "plugin_description";
-    private static final String PARAM_PLUGIN_PROVIDER = "plugin_provider";
     private static final String PARAM_PAGE = "page";
     private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
-    private static final String PARAM_PLUGIN_DB_POOL_REQUIRED = "plugin_pool";
-    private static final String PARAM_PLUGIN_PROVIDER_URL = "plugin_provider_url";
-    private static final String PARAM_PLUGIN_VERSION = "version";
     private static final String PARAM_BUSINESS_CLASS_ID = "business_class_id";
     private static final String PARAM_ATTRIBUTE_ID = "attribute_id";
-    private static final String PARAM_RESET = "reset";
     //Admin feature
     private static final String PARAM_FEATURE_ID = "feature_id";
-    private static final String PARAM_FEATURE_RIGHT = "feature_right";
-    private static final String PARAM_FEATURE_TITLE = "feature_title";
-    private static final String PARAM_FEATURE_LEVEL = "feature_level";
-    private static final String PARAM_FEATURE_NAME = "feature_name";
-    private static final String PARAM_FEATURE_DESCRITPION = "feature_description";
     //Application
     private static final String PARAM_APPLICATION_ID = "application_id";
-    private static final String PARAM_APPLICATION_NAME = "application_name";
-    private static final String PARAM_APPLICATION_CLASS = "application_class";
-    private static final String PARAM_PORTLET_UPDATE_URL = "portlet_update_url";
-    private static final String PARAM_PORTLET_CREATION_URL = "portlet_creation_url";
-    private static final String PARAM_PORTLET_TYPE_NAME = "portlet_type_name";
-    private static final String PARAM_PORTLET_CLASS = "portlet_class";
     //Portlet
     private static final String PARAM_PORTLET_ID = "portlet_id";
     // Views
@@ -164,16 +144,12 @@ public class PluginWizardApp extends MVCApplication
 
     //Plugin
     private static final String ACTION_CREATE_PLUGIN = "createPlugin";
-    private static final String ACTION_MODIFY_PLUGIN = "modifyPlugin";
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
     private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
-    private static final String ACTION_GET_MODIFY_PLUGIN_DESCRIPTION = "get_modify_plugin_description";
-    private static final String ACTION_GET_MODIFY_PLUGIN = "get_modify_plugin";
-    private static final String ACTION_DO_MODIFY_PLUGIN_DESCRIPTION = "do_modify_plugin_description";
     private static final String ACTION_CREATE_ATTRIBUTE = "create_attribute";
-    private static final String ACTION_DO_CREATE_ATTRIBUTE = "do_create_attribute";
     private static final String ACTION_MODIFY_ATTRIBUTE = "modify_attribute";
-    private static final String ACTION_DO_MODIFY_ATTRIBUTE = "do_modify_attribute";
+    private static final String ACTION_RESET_DATA = "resetData";
+    
     //CREATE ACTIONS
     private static final String ACTION_CREATE_ADMIN_FEATURE = "create_admin_feature";
     private static final String ACTION_CREATE_PORTLET = "create_plugin_portlet";
@@ -195,10 +171,8 @@ public class PluginWizardApp extends MVCApplication
     private static final String ACTION_DO_REMOVE_PLUGIN_APPLICATION = "do_remove_application";
     private static final String ACTION_DO_REMOVE_PLUGIN_PORTLET = "do_remove_portlet";
     private static final String ACTION_DO_REMOVE_BUSINESS_CLASS = "do_remove_class";
-    private static final String ACTION_DO_PLUGIN_EXISTS = "do_plugin_exists";
     private static final String ACTION_DO_REMOVE_BUSINESS_ATTRIBUTE = "do_remove_attribute";
     //Recapitulate
-    private static final String ACTION_GET_RECAPITULATE = "get_recapitulate";
     private static final String PROPERTY_PAGE_TITLE = "pluginwizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "pluginwizard.pagePathLabel";
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
@@ -318,20 +292,7 @@ public class PluginWizardApp extends MVCApplication
         return getXPage(TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, request.getLocale(), getPluginModel() );
     }
 
-    /**
-     * Removes all the artifacts ralated to the generated plugin
-     *
-     * @param request The http request
-     */
-    private void doRemoveAllPluginRelated(HttpServletRequest request)
-    {
-        String strPluginName = request.getParameter(PARAM_PLUGIN_NAME);
-        int nPluginId = ModelHome.exists(strPluginName);
-
-        ModelService.removeAll(nPluginId);
-    }
-
-    /**
+     /**
      * The management screen of the admin features
      *
      * @param request The Http Request
@@ -608,9 +569,15 @@ public class PluginWizardApp extends MVCApplication
             return redirectView(request, VIEW_CREATE_DESCRIPTION);
         }
         return redirectView(request, VIEW_PLUGIN_EXISTS);
-
     }
 
+    @Action( ACTION_RESET_DATA )
+    public XPage doResetData( HttpServletRequest request )
+    {
+        ModelService.removeAll(_nPluginId);
+        return redirectView( request, VIEW_CREATE_DESCRIPTION );
+    }
+    
     /**
      * The modification action of the plugin
      *
