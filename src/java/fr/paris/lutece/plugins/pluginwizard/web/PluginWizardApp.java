@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.web;
 
 import fr.paris.lutece.plugins.mvc.MVCApplication;
+import fr.paris.lutece.plugins.mvc.MVCMessageBox;
 import fr.paris.lutece.plugins.mvc.annotations.Action;
 import fr.paris.lutece.plugins.mvc.annotations.Controller;
 import fr.paris.lutece.plugins.mvc.annotations.View;
@@ -109,6 +110,8 @@ public class PluginWizardApp extends MVCApplication
     private static final String TEMPLATE_MODIFY_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_modify_admin_feature.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_portlet.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_application.html";
+    private static final String TEMPLATE_MESSAGE_BOX = "/skin/plugins/pluginwizard/message.html";
+    
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
     private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
@@ -178,7 +181,7 @@ public class PluginWizardApp extends MVCApplication
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
     //Front Messages
     private static final String PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.title";
-    private static final String PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.alertMessage";
+    private static final String PROPERTY_REMOVE_FEATURE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.alertMessage";
     private static final String PROPERTY_CONFIRM_REMOVE_PORTLET_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemovePortlet.title";
     private static final String PROPERTY_CONFIRM_REMOVE_PORTLET_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemovePortlet.alertMessage";
     private static final String PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemoveAttribute.alertMessage";
@@ -666,10 +669,13 @@ public class PluginWizardApp extends MVCApplication
         url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_FEATURE);
         url.addParameter(PARAM_FEATURE_ID, request.getParameter(PARAM_FEATURE_ID));
 
-       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE, null,
+
+        return redirectMessageBox(request, getConfirmMessageBox(request, PROPERTY_REMOVE_FEATURE_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_ADMIN_FEATURES) ));
+
+/*       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE, null,
                 PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
        return new XPage();
-       
+  */     
     }
 
     /**
@@ -994,5 +1000,25 @@ public class PluginWizardApp extends MVCApplication
         return model;
 
     }
+    
+    private MVCMessageBox getConfirmMessageBox( HttpServletRequest request, String strMessageKey, String strUrlConfirm, String strUrlBack)
+    {
+        MVCMessageBox box = new MVCMessageBox();
+        box.setTemplate( TEMPLATE_MESSAGE_BOX );
+        box.setTitle( "Confirmation" );
+        box.setMessage( "Etes-vous sur de vouloir supprimer ?");
+        box.setStyle( MVCMessageBox.QUESTION );
+        box.setLabelButton1( "Annuler");
+        box.setUrlButton1( strUrlConfirm );
+
+        box.setLabelButton2( "Annuler");
+        box.setUrlButton2( strUrlBack );
+//        box.localize( request );
+        return box;
+    }
+
+     
+    
+    
 
 }
