@@ -117,10 +117,10 @@ public class ResourcesGenerator extends AbstractGenerator
 
         for ( Feature feature : pm.getFeatures(  ) )
         {
-            sb.append( "adminFeature." ).append( feature.getPluginFeatureName(  ) ).append( ".name=" )
-              .append( feature.getPluginFeatureName(  ) ).append( "\n" );
-            sb.append( "adminFeature." ).append( feature.getPluginFeatureName(  ) ).append( ".description=" )
-              .append( feature.getPluginFeatureDescription(  ) ).append( "\n" );
+            sb.append( "adminFeature." ).append( feature.getFeatureName(  ) ).append( ".name=" )
+              .append( feature.getFeatureName(  ) ).append( "\n" );
+            sb.append( "adminFeature." ).append( feature.getFeatureName(  ) ).append( ".description=" )
+              .append( feature.getFeatureDescription(  ) ).append( "\n" );
         }
 
         sb.append( "\n" );

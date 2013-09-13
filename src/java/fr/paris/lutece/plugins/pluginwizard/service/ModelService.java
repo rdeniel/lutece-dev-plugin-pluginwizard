@@ -778,7 +778,7 @@ public final class ModelService
 
         for ( Feature feature : getPluginModel( nPluginId ).getFeatures(  ) )
         {
-            list.addItem( feature.getId(  ), feature.getPluginFeatureTitle(  ) );
+            list.addItem( feature.getId(  ), feature.getFeatureTitle(  ) );
         }
 
         return list;

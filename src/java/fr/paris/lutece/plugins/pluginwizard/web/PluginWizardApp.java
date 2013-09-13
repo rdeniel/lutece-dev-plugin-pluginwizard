@@ -151,21 +151,21 @@ public class PluginWizardApp extends MVCApplication
     private static final String ACTION_RESET_DATA = "resetData";
     
     //CREATE ACTIONS
-    private static final String ACTION_CREATE_ADMIN_FEATURE = "create_admin_feature";
-    private static final String ACTION_CREATE_PORTLET = "create_plugin_portlet";
-    private static final String ACTION_CREATE_APPLICATION = "create_plugin_application";
-    private static final String ACTION_CREATE_BUSINESS_CLASS = "create_business_class";
+    private static final String ACTION_CREATE_ADMIN_FEATURE = "createAdminFeature";
+    private static final String ACTION_CREATE_PORTLET = "createPortlet";
+    private static final String ACTION_CREATE_APPLICATION = "createApplication";
+    private static final String ACTION_CREATE_BUSINESS_CLASS = "createBusinessClass";
     //MODIFY_ACTIONS
-    private static final String ACTION_MODIFY_ADMIN_FEATURE = "modify_admin_feature";
-    private static final String ACTION_MODIFY_PORTLET = "modify_portlet";
-    private static final String ACTION_MODIFY_APPLICATION = "modify_plugin_application";
-    private static final String ACTION_MODIFY_BUSINESS_CLASS = "modify_business_class";
+    private static final String ACTION_MODIFY_ADMIN_FEATURE = "modifyAdminFeature";
+    private static final String ACTION_MODIFY_PORTLET = "modifyPortlet";
+    private static final String ACTION_MODIFY_APPLICATION = "modifyApplication";
+    private static final String ACTION_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
     //REMOVE_ACTIONS
-    private static final String ACTION_REMOVE_ADMIN_FEATURE = "remove_admin_feature";
-    private static final String ACTION_REMOVE_BUSINESS_ATTRIBUTE = "remove_attribute";
-    private static final String ACTION_REMOVE_PLUGIN_PORTLET = "remove_plugin_portlet";
-    private static final String ACTION_REMOVE_APPLICATION = "remove_plugin_application";
-    private static final String ACTION_REMOVE_BUSINESS_CLASS = "remove_business_class";
+    private static final String ACTION_REMOVE_ADMIN_FEATURE = "removeAdminFeature";
+    private static final String ACTION_REMOVE_BUSINESS_ATTRIBUTE = "removeAttribute";
+    private static final String ACTION_REMOVE_PLUGIN_PORTLET = "removePortlet";
+    private static final String ACTION_REMOVE_APPLICATION = "removeApplication";
+    private static final String ACTION_REMOVE_BUSINESS_CLASS = "removeBusinessClass";
     //REMOVE ACTION
     private static final String ACTION_DO_REMOVE_FEATURE = "do_remove_feature";
     private static final String ACTION_DO_REMOVE_PLUGIN_APPLICATION = "do_remove_application";
@@ -657,7 +657,8 @@ public class PluginWizardApp extends MVCApplication
      *
      * @param request The Http Request
      */
-    private void getConfirmRemoveAdminFeature(HttpServletRequest request)
+    @Action( ACTION_REMOVE_ADMIN_FEATURE )
+    public XPage getConfirmRemoveAdminFeature(HttpServletRequest request) throws SiteMessageException
     {
         UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
 
@@ -665,8 +666,10 @@ public class PluginWizardApp extends MVCApplication
         url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_FEATURE);
         url.addParameter(PARAM_FEATURE_ID, request.getParameter(PARAM_FEATURE_ID));
 
- //       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE, null,
-//                PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
+       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE, null,
+                PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
+       return new XPage();
+       
     }
 
     /**

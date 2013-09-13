@@ -4,7 +4,7 @@
 
     <div class="span3">             
         <@sidebar step="administration" />
-        <div class="portlet-background-content">         
+        <div class="well">         
             #i18n{pluginwizard.pluginwizard_modify_admin_feature.pageHelp}     
         </div>  
     </div>
@@ -16,21 +16,19 @@
                 <legend>#i18n{pluginwizard.pluginwizard_modify_admin_feature.pageTitle}</legend>
 
                 <input type="hidden" name="page" value="pluginwizard" />                     
-                <input type="hidden" name="action" value="do_modify_feature" />                     
-                <input type="hidden" name="plugin_id" value="${plugin_id}" />                        
-                <input type="hidden" name="feature_id" value="${feature.id}" />   
+                <input type="hidden" name="id" value="${feature.id}" />   
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureTitle} : </label>                           
                     <div class="controls">                                                                                               
-                        <input class="input-xlarge" type="text" name="feature_title" value="${feature.pluginFeatureTitle}" />                                                                      
+                        <input class="input-xlarge" type="text" name="feature_title" value="${feature.featureTitle}" />                                                                      
                     </div>                                                                                                         
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureDescription} : </label>                        
                     <div class="controls">                                                                                       
-                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.pluginFeatureDescription}" />                               
+                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.featureDescription}" />                               
                     </div>    
                 </div>
 
@@ -38,14 +36,14 @@
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureName} :                            
                     </label>                               
                     <div class="controls">                                                              	                              
-                        <input class="input-xlarge" type="text" name="feature_name" value="${feature.pluginFeatureName}" /> 				                                                                        
+                        <input class="input-xlarge" type="text" name="feature_name" value="${feature.featureName}" /> 				                                                                        
                     </div>                                                                                                                                                                      	  				                     
                 </div>   
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} : </label>                     
                     <div class="controls">               
-                        <input type="text" name="feature_right" value="${feature.pluginFeatureRight}" />                                 
+                        <input type="text" name="feature_right" value="${feature.featureRight}" />                                 
                     </div> 
                 </div>
 
@@ -53,16 +51,16 @@
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureLevel} : </label>                            
                     <div class="controls">                                                                                                     
                         <select class="input-xlarge" name="feature_level">    				                              
-                            <option value="0" <#if feature.pluginFeatureLevel ="0">selected="selected" </#if> >
+                            <option value="0" <#if feature.featureLevel ="0">selected="selected" </#if> >
                                     #i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel0}                              
                         </option>    				                              
-                        <option value="1" <#if feature.pluginFeatureLevel ="1">selected="selected"                              
+                        <option value="1" <#if feature.featureLevel ="1">selected="selected"                              
                                 </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel1}                              
                     </option>    				                              
-                    <option value="2" <#if feature.pluginFeatureLevel ="2">selected="selected"                              
+                    <option value="2" <#if feature.featureLevel ="2">selected="selected"                              
                             </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel2}                              
                 </option>    				                              
-                <option value="3" <#if feature.pluginFeatureLevel ="3">selected="selected"                              
+                <option value="3" <#if feature.featureLevel ="3">selected="selected"                              
                         </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel3}                              
             </option>				                          
         </select>                
@@ -70,8 +68,8 @@
 </div>
 
 <div class="form-actions">                                                                    
-    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
-    <button type="submit" name="goToManageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    
+    <button type="submit" name="action_modifyAdminFeature" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
+    <button type="submit" name="view_manageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    
 </div>  
 </fieldset>
 

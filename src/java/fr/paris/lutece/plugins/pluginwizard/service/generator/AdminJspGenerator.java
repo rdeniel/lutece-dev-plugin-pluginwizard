@@ -99,7 +99,7 @@ public class AdminJspGenerator extends AbstractGenerator
 
                     String strPath = getFilePath( pm, PATH, strJspFileName );
 
-                    String strSourceCode = getJspBusinessFile( businessClass, feature.getPluginFeatureName(  ),
+                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ),
                             strPluginName, i + 1 );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
@@ -107,9 +107,9 @@ public class AdminJspGenerator extends AbstractGenerator
                 }
             }
 
-            String strPath = getFilePath( pm, PATH, feature.getPluginFeatureName(  ) + EXT_JSP );
+            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + EXT_JSP );
 
-            String strSourceCode = getFeatureJspFile( feature.getPluginFeatureName(  ), strPluginName );
+            String strSourceCode = getFeatureJspFile( feature.getFeatureName(  ), strPluginName );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );

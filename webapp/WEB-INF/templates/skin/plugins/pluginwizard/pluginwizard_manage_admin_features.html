@@ -5,7 +5,7 @@
 
     <div class="span3">       
         <@sidebar step="administration" />
-        <div class="portlet-background-content">      
+        <div class="well">      
             #i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageHelp}
         </div>
     </div>
@@ -36,15 +36,15 @@
             <tbody>
                 <#if admin_features?? > <#list admin_features as feature >
                 <tr>
-                    <td>${feature.pluginFeatureTitle} (${feature.pluginFeatureName})</td>
+                    <td>${feature.featureTitle} (${feature.featureName})</td>
 
-                    <td>${feature.pluginFeatureLevel}</td>
+                    <td>${feature.featureLevel}</td>
                     <td>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.id}" 
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyAdminFeature&feature_id=${feature.id}" 
                            class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}">
                             <i class="icon-edit icon-white"></i>
                         </a>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_admin_feature&plugin_id=${plugin_id}&feature_id=${feature.id}" 
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=removeAdminFeature&feature_id=${feature.id}" 
                            class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}">
                             <i class="icon-trash icon-white"></i>
                         </a>

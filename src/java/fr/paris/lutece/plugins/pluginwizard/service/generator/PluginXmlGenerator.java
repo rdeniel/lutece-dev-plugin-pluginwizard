@@ -93,7 +93,7 @@ public class PluginXmlGenerator extends AbstractFileGenerator
             }
             else
             {
-                feature.setJspName( feature.getPluginFeatureName(  ) + ".jsp" );
+                feature.setJspName( feature.getFeatureName(  ) + ".jsp" );
             }
         }
 

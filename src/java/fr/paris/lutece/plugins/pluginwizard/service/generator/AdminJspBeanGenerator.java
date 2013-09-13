@@ -81,14 +81,14 @@ public class AdminJspBeanGenerator extends AbstractGenerator
             {
                 String strFilename = business.getBusinessClassCapsFirst(  ) + SUFFIX_JSPBEAN;
                 String strPath = getFilePath( pm, PATH, strFilename );
-                String strSourceCode = getJspBeanCode( pm, feature.getPluginFeatureName(  ),
-                        feature.getPluginFeatureRight(  ), business );
+                String strSourceCode = getJspBeanCode( pm, feature.getFeatureName(  ),
+                        feature.getFeatureRight(  ), business );
                 map.put( strPath, strSourceCode );
             }
 
-            String strPath = getFilePath( pm, PATH, feature.getPluginFeatureName(  ) + SUFFIX_JSPBEAN );
-            String strSourceCode = getAbstractJspBeanCode( pm, feature.getPluginFeatureName(  ),
-                    feature.getPluginFeatureRight(  ) );
+            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + SUFFIX_JSPBEAN );
+            String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName(  ),
+                    feature.getFeatureRight(  ) );
             map.put( strPath, strSourceCode );
         }
 

@@ -35,17 +35,17 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 
 /**
- * This is the business class for the object PluginFeature
+ * This is the business class for the object Feature
  */
 public class Feature
 {
     // Variables declarations 
     private int _nId;
-    private String _strPluginFeatureRight;
-    private String _strPluginFeatureTitle;
-    private String _strPluginFeatureLevel;
-    private String _strPluginFeatureName;
-    private String _strPluginFeatureDescription;
+    private String _strFeatureRight;
+    private String _strFeatureTitle;
+    private String _strFeatureLevel;
+    private String _strFeatureName;
+    private String _strFeatureDescription;
     private String _strJspName;
 
     /**
@@ -62,8 +62,8 @@ public class Feature
     }
 
     /**
-     * Sets the nIdPluginFeature
-     * @param nId The IdPluginFeature
+     * Sets the nIdFeature
+     * @param nId The IdFeature
      */
     public void setId( int nId )
     {
@@ -71,94 +71,94 @@ public class Feature
     }
 
     /**
-     * Returns the PluginFeatureId
-     * @return The PluginFeatureId
+     * Returns the FeatureId
+     * @return The FeatureId
      */
-    public String getPluginFeatureRight(  )
+    public String getFeatureRight(  )
     {
-        return _strPluginFeatureRight;
+        return _strFeatureRight;
     }
 
     /**
-     * Sets the PluginFeature right
-     * @param strPluginFeatureRight The Plugin Feature right
+     * Sets the Feature right
+     * @param strFeatureRight The  Feature right
      */
-    public void setPluginFeatureRight( String strPluginFeatureRight )
+    public void setFeatureRight( String strFeatureRight )
     {
-        _strPluginFeatureRight = strPluginFeatureRight;
+        _strFeatureRight = strFeatureRight;
     }
 
     /**
-     * Returns the PluginFeatureTitle
-     * @return The PluginFeatureTitle
+     * Returns the FeatureTitle
+     * @return The FeatureTitle
      */
-    public String getPluginFeatureTitle(  )
+    public String getFeatureTitle(  )
     {
-        return _strPluginFeatureTitle;
+        return _strFeatureTitle;
     }
 
     /**
-     * Sets the PluginFeatureTitle
-     * @param strPluginFeatureTitle The PluginFeatureTitle
+     * Sets the FeatureTitle
+     * @param strFeatureTitle The FeatureTitle
      */
-    public void setPluginFeatureTitle( String strPluginFeatureTitle )
+    public void setFeatureTitle( String strFeatureTitle )
     {
-        _strPluginFeatureTitle = strPluginFeatureTitle;
+        _strFeatureTitle = strFeatureTitle;
     }
 
     /**
-     * Returns the PluginFeatureLevel
-     * @return The PluginFeatureLevel
+     * Returns the FeatureLevel
+     * @return The FeatureLevel
      */
-    public String getPluginFeatureLevel(  )
+    public String getFeatureLevel(  )
     {
-        return _strPluginFeatureLevel;
+        return _strFeatureLevel;
     }
 
     /**
-     * Sets the PluginFeatureLevel
-     * @param strPluginFeatureLevel The PluginFeatureLevel
+     * Sets the FeatureLevel
+     * @param strFeatureLevel The FeatureLevel
      */
-    public void setPluginFeatureLevel( String strPluginFeatureLevel )
+    public void setFeatureLevel( String strFeatureLevel )
     {
-        _strPluginFeatureLevel = strPluginFeatureLevel;
+        _strFeatureLevel = strFeatureLevel;
     }
 
     /**
-     * Returns the Plugin Feature name
-     * @return The Plugin Feature name
+     * Returns the  Feature name
+     * @return The  Feature name
      */
-    public String getPluginFeatureName(  )
+    public String getFeatureName(  )
     {
-        return _strPluginFeatureName;
+        return _strFeatureName;
     }
 
     /**
-     * Sets the PluginFeatureName
+     * Sets the FeatureName
      *
-     * @param strPluginFeatureName The PluginFeature name
+     * @param strFeatureName The Feature name
      */
-    public void setPluginFeatureName( String strPluginFeatureName )
+    public void setFeatureName( String strFeatureName )
     {
-        _strPluginFeatureName = strPluginFeatureName;
+        _strFeatureName = strFeatureName;
     }
 
     /**
-     * Returns the PluginFeatureDescription
-     * @return The PluginFeatureDescription
+     * Returns the FeatureDescription
+     * @return The FeatureDescription
      */
-    public String getPluginFeatureDescription(  )
+    public String getFeatureDescription(  )
     {
-        return _strPluginFeatureDescription;
+        return _strFeatureDescription;
     }
 
     /**
-     * Sets the PluginFeatureDescription
-     * @param strPluginFeatureDescription The PluginFeatureDescription
+     * Sets the FeatureDescription
+     * @param strFeatureDescription The FeatureDescription
      */
-    public void setPluginFeatureDescription( String strPluginFeatureDescription )
+    public void setFeatureDescription( String strFeatureDescription )
     {
-        _strPluginFeatureDescription = strPluginFeatureDescription;
+        _strFeatureDescription = strFeatureDescription;
     }
 
     /**
