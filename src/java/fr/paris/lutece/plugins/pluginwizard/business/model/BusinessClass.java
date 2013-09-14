@@ -39,6 +39,8 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -49,7 +51,11 @@ public class BusinessClass
     // Variables declarations 
     private int _nIdFeature;
     private int _nIdBusinessClass;
+    @NotEmpty( message = "Le nom de la classe doit être renseigné." )
+    @Pattern( regexp = "[A-Z][a-zA-Z]*" , message="Le nom de la classe doit commencer par une majuscule et ne contenir que des lettres")
     private String _strBusinessClass;
+    @NotEmpty( message = "Le nom de la table doit être renseigné." )
+    @Pattern( regexp = "[a-z][a-z_]*" , message="Le nom de la table doit être en minucusles avec des underscores")
     private String _strBusinessTableName;
     private List<Attribute> _listAttributes;
     private String _strPrimaryAttributeName;

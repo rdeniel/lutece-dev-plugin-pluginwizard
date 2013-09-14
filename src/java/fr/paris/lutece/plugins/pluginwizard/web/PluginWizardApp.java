@@ -50,6 +50,8 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.FormName;
+import fr.paris.lutece.portal.service.message.SiteMessageException;
+import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
@@ -62,7 +64,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * The class manage pluginwizard Page
  */
-@Controller( xpageName = "pluginwizard", pagePath = "pluginwizard.pagePath", pageTitle = "pluginwizard.pageTitle" )
+@Controller( xpageName = "pluginwizard", pagePathI18nKey = "pluginwizard.pagePathLabel", pageTitleI18nKey = "pluginwizard.pageTitle" )
 public class PluginWizardApp extends MVCApplication
 {
     //Constants
@@ -183,13 +185,27 @@ public class PluginWizardApp extends MVCApplication
 
     // RECAPITULATE
     private static final String VIEW_RECAPITULATE = "recapitulate";
-    private static final String PROPERTY_PAGE_TITLE = "pluginwizard.pageTitle";
-    private static final String PROPERTY_PAGE_PATH_LABEL = "pluginwizard.pagePathLabel";
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
     private static final String PLUGIN_NAME = "pluginwizard";
     int _nPluginId;
     String _strPluginName;
 
+    @Override
+    public XPage getPage(HttpServletRequest request, int nMode, Plugin plugin) throws SiteMessageException
+    {
+        if( _nPluginId == 0 )
+        {
+            String strAction = getAction( request );
+            if( ! ACTION_CREATE_PLUGIN.equals( strAction ) )
+            {
+                return getCreatePlugin(request);
+            }
+        }
+        return super.getPage(request, nMode, plugin);
+    }
+
+    
+    
     ////////////////////////////////////////////////////////////////////////////
     // VIEWS
     /**
@@ -572,7 +588,7 @@ public class PluginWizardApp extends MVCApplication
         Feature feature = new Feature(  );
         populate( feature, request );
 
-        if ( !validateBean( this ) )
+        if ( !validateBean( feature ) )
         {
             return redirectView( request, VIEW_CREATE_ADMIN_FEATURE );
         }
@@ -593,9 +609,11 @@ public class PluginWizardApp extends MVCApplication
         Feature feature = new Feature(  );
         populate( feature, request );
 
-        if ( !validateBean( this ) )
+        if ( !validateBean( feature ) )
         {
-            return redirectView( request, VIEW_MODIFY_ADMIN_FEATURE );
+            UrlItem url = new UrlItem(( getViewUrl( VIEW_MODIFY_ADMIN_FEATURE )));
+            url.addParameter( PARAM_FEATURE_ID,  feature.getId() );
+            return redirect( request, url.getUrl() );
         }
 
         ModelService.updateFeature( _nPluginId, feature );
@@ -649,8 +667,11 @@ public class PluginWizardApp extends MVCApplication
     {
         BusinessClass businessClass = new BusinessClass(  );
         populate( businessClass, request );
-
-        if ( !validateBean( businessClass ) )
+        
+        boolean bValidateBean = validateBean( businessClass );
+        boolean bValidateTablePrefix = validateTablePrefix(businessClass);
+        boolean bValid = bValidateBean && bValidateTablePrefix;
+        if ( !bValid )
         {
             return redirectView( request, VIEW_CREATE_BUSINESS_CLASS );
         }
@@ -668,19 +689,31 @@ public class PluginWizardApp extends MVCApplication
     @Action( ACTION_MODIFY_BUSINESS_CLASS )
     public XPage doModifyBusinessClass( HttpServletRequest request )
     {
-        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
-        BusinessClass businessClass = ModelService.getBusinessClass( _nPluginId, nBusinessClassId );
-
-        String strFeatureId = request.getParameter( PARAM_FEATURE_ID );
-
-        if ( ( strFeatureId == null ) || strFeatureId.equals( "" ) )
+        BusinessClass businessClass = new BusinessClass(  );
+        populate( businessClass, request );
+        
+        boolean bValidateBean = validateBean( businessClass );
+        boolean bValidateTablePrefix = validateTablePrefix(businessClass);
+        boolean bValid = bValidateBean && bValidateTablePrefix;
+        if ( !bValid )
         {
-            return redirectModifyBusinessClass( request, Integer.toString( nBusinessClassId ) );
+            return redirectModifyBusinessClass( request, Integer.toString( businessClass.getId() ) );
         }
 
         ModelService.updateBusinessClass( _nPluginId, businessClass );
 
         return redirectView( request, VIEW_MANAGE_BUSINESS_CLASSES );
+    }
+    
+    private boolean validateTablePrefix( BusinessClass businessClass )
+    {
+        String strTablePrefix = _strPluginName + "_";
+        boolean bValidate = businessClass.getBusinessTableName().startsWith( strTablePrefix );
+        if( !bValidate )
+        {
+            addError( "Le nom de la table doit commencer par le nom du plugin suivi d'un underscore" );
+        }
+        return bValidate;
     }
 
     /**
@@ -732,9 +765,16 @@ public class PluginWizardApp extends MVCApplication
         Attribute attribute = new Attribute(  );
         populate( attribute, request );
 
-        if ( !validateBean( attribute ) )
+        boolean bValidateBean = validateBean( attribute );
+        boolean bValidatePrimary = validatePrimary(attribute);
+        boolean bValidateDescription = validateDescription(attribute);
+        boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
+        
+        if ( !bValid )
         {
-            return redirectView( request, VIEW_CREATE_ATTRIBUTE );
+            UrlItem url = new UrlItem( getViewUrl( VIEW_CREATE_ATTRIBUTE ));
+            url.addParameter( PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
+            return redirect( request, url.getUrl() );
         }
 
         ModelService.addAttribute( _nPluginId, nBusinessClassId, attribute );
@@ -754,7 +794,12 @@ public class PluginWizardApp extends MVCApplication
         Attribute attribute = new Attribute(  );
         populate( attribute, request );
 
-        if ( !validateBean( attribute ) )
+        boolean bValidateBean = validateBean( attribute );
+        boolean bValidatePrimary = validatePrimary(attribute);
+        boolean bValidateDescription = validateDescription(attribute);
+        boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
+        
+        if ( !bValid )
         {
             return redirectView( request, VIEW_MODIFY_ATTRIBUTE );
         }
@@ -762,6 +807,26 @@ public class PluginWizardApp extends MVCApplication
         ModelService.updateAttribute( _nPluginId, nBusinessClassId, attribute );
 
         return redirectModifyBusinessClass( request, Integer.toString( nBusinessClassId ) );
+    }
+    
+    boolean validatePrimary( Attribute attribute )
+    {
+        boolean bValidate = (( !attribute.getIsPrimary()) || ( attribute.getIsPrimary() && attribute.getAttributeTypeId() == 1 ));
+        if( !bValidate )
+        {
+            addError( "La clé primaire doit être un entier.");
+        }
+        return bValidate;
+    }
+
+    boolean validateDescription( Attribute attribute )
+    {
+        boolean bValidate = (( !attribute.getIsDescription()) || ( attribute.getIsDescription() && attribute.getAttributeTypeId() > 1 ));
+        if( !bValidate )
+        {
+            addError( "La description ne peut pas être un entier.");
+        }
+        return bValidate;
     }
 
     /**
@@ -804,11 +869,11 @@ public class PluginWizardApp extends MVCApplication
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
         Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel( _nPluginId ).getBusinessClasses(  );
 
+        clearErrors(  );
         for ( BusinessClass businessClass : listBusinessClass )
         {
             if ( businessClass.getAttributes(  ).size(  ) < 2 )
             {
-                clearErrors(  );
                 addError( "la classe doit contenir au moins deux attributs" );
 
                 return redirectModifyBusinessClass( request, strBusinessClassId );

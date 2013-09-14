@@ -33,6 +33,10 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  * This is the business class for the object Feature
@@ -41,10 +45,18 @@ public class Feature
 {
     // Variables declarations 
     private int _nId;
+    @NotEmpty( message = "Le droit doit être renseigné.")
+    @Pattern( regexp = "[A-Z][A-Z_]*" , message = "Le droit doit être en majuscules et underscores")
     private String _strFeatureRight;
+    @NotEmpty( message = "Le droit doit être renseigné.")
+    @Size( min = 10 , max = 80 , message="Le titre doit contenir entre 10 et 80 caractères")
     private String _strFeatureTitle;
     private String _strFeatureLevel;
+    @NotEmpty( message = "Le nom technique doit être renseigné.")
+    @Pattern( regexp = "[A-Z][a-zA-Z]*" , message = "Le nom technique doit commencer par une majuscules et ne contenir que des lettres")
     private String _strFeatureName;
+    @NotEmpty( message = "La description doit être renseignée.")
+    @Size( min = 10 , max = 255 , message=" La description doit contenir entre 10 et 255 caractères")
     private String _strFeatureDescription;
     private String _strJspName;
 

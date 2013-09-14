@@ -14,9 +14,12 @@
 
         <form class="form form-horizontal" method="post"  action="jsp/site/Portal.jsp">  
             <input type="hidden" name="page" value="pluginwizard" />        
+            <input type="hidden" name="id" value="${business_class.id}"/>                                                              
             <input type="hidden" name="business_class_id" value="${business_class.id}"/>                                                              
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_business_class.pageTitle}</legend>
+
+                <#include "errors_handler.html" />
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
@@ -62,8 +65,6 @@
         </form>                                                                              
         <h4>#i18n{pluginwizard.pluginwizard_modify_business_class.labelFielsetAttributes}</h4>
         
-        <#include "errors_handler.html" />
-
         <table class="table table-condensed table-striped">
 
             <thead>
