@@ -17,7 +17,9 @@
 
                 <input type="hidden" name="page" value="pluginwizard" />
 
-                <div class="control-group">
+                 <#include "errors_handler.html" />
+
+                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletClass} :</label>
                     <div class="controls">   
                         <input class="input-xlarge" type="text" name="portlet_class" value="fr.paris.lutece.plugins.${plugin_model.pluginName?lower_case}.business.portlet.ExamplePortletHome" size="30" />

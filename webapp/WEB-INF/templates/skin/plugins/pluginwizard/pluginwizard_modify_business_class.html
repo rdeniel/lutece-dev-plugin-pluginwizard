@@ -13,39 +13,37 @@
     <div class="span8">
 
         <form class="form form-horizontal" method="post"  action="jsp/site/Portal.jsp">  
+            <input type="hidden" name="page" value="pluginwizard" />        
+            <input type="hidden" name="business_class_id" value="${business_class.id}"/>                                                              
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_business_class.pageTitle}</legend>
 
-                <input type="hidden" name="page" value="pluginwizard" />        
-                <input type="hidden" name="action" value="do_modify_class" />        
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />
-                <input type="hidden" name="business_class_id" value="${business_class.id}"/>                                                              
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
                     <div class="controls">    
-                        <input type="text" name="class" value="${business_class.businessClass}" size="30" />      
+                        <input type="text" name="business_class" value="${business_class.businessClass}" size="30" />      
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessTableName} *: </label>      
                     <div class="controls">  
-                        <input class="input-xlarge" type="text" name="table" value="${business_class.businessTableName}" size="30" />      
+                        <input class="input-xlarge" type="text" name="business_table_name" value="${business_class.businessTableName}" size="30" />      
                     </div>                       
                 </div>              
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelAdminFeatures} : </label>      
                     <div class="controls">       
-                        <@comboWithParams name="feature_id" default_value="all" items=combo_admin_features  additionalParameters="class=\"input-xlarge\"" />      
+                        <@comboWithParams name="id_feature" default_value="all" items=combo_admin_features  additionalParameters="class=\"input-xlarge\"" />      
                     </div>                
                 </div>
 
                 <div class="form-actions">                                          
-                    <button type="submit" class="btn btn-primary">
+                    <button name="action_modifyBusinessClass" class="btn btn-primary" type="submit">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyClass}
                     </button>                    
-                    <button type="submit" name="goToManageBusinessClasses" class="btn">
+                    <button name="action_validateAttributes" class="btn" type="submit">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonBack}
                     </button>                                                             
                 </div>
@@ -64,6 +62,9 @@
             </button> 
         </form>                                                                              
         <h4>#i18n{pluginwizard.pluginwizard_modify_business_class.labelFielsetAttributes}</h4>
+        
+        <#include "errors_handler.html" />
+
         <table class="table table-condensed table-striped">
 
             <thead>

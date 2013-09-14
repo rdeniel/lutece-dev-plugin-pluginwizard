@@ -50,14 +50,10 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
-import fr.paris.lutece.portal.service.message.SiteMessage;
-import fr.paris.lutece.portal.service.message.SiteMessageException;
-import fr.paris.lutece.portal.service.message.SiteMessageService;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -110,110 +106,86 @@ public class PluginWizardApp extends MVCApplication
     private static final String TEMPLATE_MODIFY_ADMIN_FEATURE = "/skin/plugins/pluginwizard/pluginwizard_modify_admin_feature.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_PORTLET = "/skin/plugins/pluginwizard/pluginwizard_modify_portlet.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_APPLICATION = "/skin/plugins/pluginwizard/pluginwizard_modify_application.html";
-    private static final String TEMPLATE_MESSAGE_BOX = "/skin/plugins/pluginwizard/message.html";
+    private static final String TEMPLATE_MESSAGE_BOX_CONFIRMATION = "/skin/plugins/pluginwizard/message_confirmation.html";
     
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
     private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
     private static final String PARAM_BUSINESS_CLASS_ID = "business_class_id";
     private static final String PARAM_ATTRIBUTE_ID = "attribute_id";
-    //Admin feature
     private static final String PARAM_FEATURE_ID = "feature_id";
-    //Application
     private static final String PARAM_APPLICATION_ID = "application_id";
-    //Portlet
     private static final String PARAM_PORTLET_ID = "portlet_id";
-    // Views
+
+    // PLUGIN DESCRIPTION
     private static final String VIEW_CREATE_PLUGIN = "createPlugin";
     private static final String VIEW_MODIFY_PLUGIN = "modifyPlugin";
     private static final String VIEW_PLUGIN_EXISTS = "pluginExists";
     private static final String VIEW_CREATE_DESCRIPTION = "createDescription";
     private static final String VIEW_MODIFY_DESCRIPTION = "modifyDescription";
-    private static final String VIEW_CREATE_ATTRIBUTE = "createAttribute";
-    private static final String VIEW_MODIFY_ATTRIBUTE = "modifyAttribute";
-    private static final String VIEW_MANAGE_ADMIN_FEATURES = "manageAdminFeatures";
-    private static final String VIEW_CREATE_ADMIN_FEATURE = "createAdminFeature";
-    private static final String VIEW_MODIFY_ADMIN_FEATURE = "modifyAdminFeature";
-    private static final String VIEW_MANAGE_BUSINESS_CLASSES = "manageBusinessClasses";
-    private static final String VIEW_CREATE_BUSINESS_CLASS = "createBusinessClass";
-    private static final String VIEW_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
-    private static final String VIEW_MANAGE_APPLICATIONS = "manageApplications";
-    private static final String VIEW_CREATE_APPLICATION = "createApplication";
-    private static final String VIEW_MODIFY_APPLICATION = "modifyApplication";
-    private static final String VIEW_MANAGE_PORTLETS = "managePortlets";
-    private static final String VIEW_CREATE_PORTLET = "createPortlet";
-    private static final String VIEW_MODIFY_PORTLET = "modifyPortlet";
-    private static final String VIEW_RECAPITULATE = "recapitulate";
-
-    //Plugin
     private static final String ACTION_CREATE_PLUGIN = "createPlugin";
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
     private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
-    private static final String ACTION_CREATE_ATTRIBUTE = "create_attribute";
-    private static final String ACTION_MODIFY_ATTRIBUTE = "modify_attribute";
     private static final String ACTION_RESET_DATA = "resetData";
     
-    //CREATE ACTIONS
+    // ADMIN FEATURES
+    private static final String VIEW_MANAGE_ADMIN_FEATURES = "manageAdminFeatures";
+    private static final String VIEW_CREATE_ADMIN_FEATURE = "createAdminFeature";
+    private static final String VIEW_MODIFY_ADMIN_FEATURE = "modifyAdminFeature";
     private static final String ACTION_CREATE_ADMIN_FEATURE = "createAdminFeature";
-    private static final String ACTION_CREATE_PORTLET = "createPortlet";
-    private static final String ACTION_CREATE_APPLICATION = "createApplication";
-    private static final String ACTION_CREATE_BUSINESS_CLASS = "createBusinessClass";
-    //MODIFY_ACTIONS
     private static final String ACTION_MODIFY_ADMIN_FEATURE = "modifyAdminFeature";
-    private static final String ACTION_MODIFY_PORTLET = "modifyPortlet";
-    private static final String ACTION_MODIFY_APPLICATION = "modifyApplication";
-    private static final String ACTION_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
-    //REMOVE_ACTIONS
+    private static final String ACTION_CONFIRM_REMOVE_ADMIN_FEATURE = "confirmRemoveAdminFeature";
     private static final String ACTION_REMOVE_ADMIN_FEATURE = "removeAdminFeature";
-    private static final String ACTION_REMOVE_BUSINESS_ATTRIBUTE = "removeAttribute";
-    private static final String ACTION_REMOVE_PLUGIN_PORTLET = "removePortlet";
-    private static final String ACTION_REMOVE_APPLICATION = "removeApplication";
+    private static final String PROPERTY_CONFIRM_REMOVE_FEATURE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.alertMessage";
+     
+    // BUSINESS CLASS
+    private static final String VIEW_MANAGE_BUSINESS_CLASSES = "manageBusinessClasses";
+    private static final String VIEW_CREATE_BUSINESS_CLASS = "createBusinessClass";
+    private static final String VIEW_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
+    private static final String ACTION_CREATE_BUSINESS_CLASS = "createBusinessClass";
+    private static final String ACTION_MODIFY_BUSINESS_CLASS = "modifyBusinessClass";
+    private static final String ACTION_CONFIRM_REMOVE_BUSINESS_CLASS = "confirmRemoveBusinessClass";
     private static final String ACTION_REMOVE_BUSINESS_CLASS = "removeBusinessClass";
-    //REMOVE ACTION
-    private static final String ACTION_DO_REMOVE_FEATURE = "do_remove_feature";
-    private static final String ACTION_DO_REMOVE_PLUGIN_APPLICATION = "do_remove_application";
-    private static final String ACTION_DO_REMOVE_PLUGIN_PORTLET = "do_remove_portlet";
-    private static final String ACTION_DO_REMOVE_BUSINESS_CLASS = "do_remove_class";
-    private static final String ACTION_DO_REMOVE_BUSINESS_ATTRIBUTE = "do_remove_attribute";
-    //Recapitulate
+    private static final String PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_MESSAGE = "pluginwizard.siteMessage.confirmRemoveBusinessClass.title";
+    
+    // ATTRIBUTE
+    private static final String VIEW_CREATE_ATTRIBUTE = "createAttribute";
+    private static final String VIEW_MODIFY_ATTRIBUTE = "modifyAttribute";
+    private static final String ACTION_CREATE_ATTRIBUTE = "createAttribute";
+    private static final String ACTION_MODIFY_ATTRIBUTE = "modifyAttribute";
+    private static final String ACTION_CONFIRM_REMOVE_ATTRIBUTE = "confirmRemoveAttribute";
+    private static final String ACTION_REMOVE_ATTRIBUTE = "removeAttribute";
+    private static final String ACTION_VALIDATE_ATTRIBUTES = "validateAttributes";
+    private static final String PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveAttribute.alertMessage";
+    
+    // APPLICATION
+    private static final String VIEW_MANAGE_APPLICATIONS = "manageApplications";
+    private static final String VIEW_CREATE_APPLICATION = "createApplication";
+    private static final String VIEW_MODIFY_APPLICATION = "modifyApplication";
+    private static final String ACTION_CREATE_APPLICATION = "createApplication";
+    private static final String ACTION_MODIFY_APPLICATION = "modifyApplication";
+    private static final String ACTION_CONFIRM_REMOVE_APPLICATION = "confirmRemoveApplication";
+    private static final String ACTION_REMOVE_APPLICATION = "removeApplication";
+    private static final String PROPERTY_CONFIRM_REMOVE_APPLICATION_MESSAGE = "pluginwizard.siteMessage.confirmRemoveApplication.title";
+    
+    // PORTLET
+    private static final String VIEW_MANAGE_PORTLETS = "managePortlets";
+    private static final String VIEW_CREATE_PORTLET = "createPortlet";
+    private static final String VIEW_MODIFY_PORTLET = "modifyPortlet";
+    private static final String ACTION_CREATE_PORTLET = "createPortlet";
+    private static final String ACTION_MODIFY_PORTLET = "modifyPortlet";
+    private static final String ACTION_CONFIRM_REMOVE_PORTLET = "confirmRemovePortlet";
+    private static final String ACTION_REMOVE_PORTLET = "removePortlet";
+    private static final String PROPERTY_CONFIRM_REMOVE_PORTLET_MESSAGE = "pluginwizard.siteMessage.confirmRemovePortlet.alertMessage";
+
+    // RECAPITULATE
+    private static final String VIEW_RECAPITULATE = "recapitulate";
     private static final String PROPERTY_PAGE_TITLE = "pluginwizard.pageTitle";
     private static final String PROPERTY_PAGE_PATH_LABEL = "pluginwizard.pagePathLabel";
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
-    //Front Messages
-    private static final String PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.title";
-    private static final String PROPERTY_REMOVE_FEATURE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveFeature.alertMessage";
-    private static final String PROPERTY_CONFIRM_REMOVE_PORTLET_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemovePortlet.title";
-    private static final String PROPERTY_CONFIRM_REMOVE_PORTLET_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemovePortlet.alertMessage";
-    private static final String PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemoveAttribute.alertMessage";
-    private static final String PROPERTY_CONFIRM_REMOVE_APPLICATION_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemoveApplication.title";
-    private static final String PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_ALERT_MESSAGE = "pluginwizard.siteMessage.confirmRemoveBusinessClass.title";
-    private static final String PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveBusinessAttribute.title";
-    private static final String PROPERTY_CONFIRM_REMOVE_APPLICATION_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveApplication.alertMessage";
-    private static final String PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_TITLE_MESSAGE = "pluginwizard.siteMessage.confirmRemoveBusinessClass.alertMessage";
-    private static final String PROPERTY_PLUGIN_NAME = "pluginwizard";
-    private static final String PROPERTY_FEATURE_NOT_DEFINE_TITLE_MESSAGE = "pluginwizard.siteMessage.featureNotExists.alertMessage";
-    private static final String PROPERTY_CLASS_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotDefined.alertMessage";
-    private static final String PROPERTY_CLASS_NOT_BEGIN_CAPITAL_TITLE_MESSAGE = "pluginwizard.siteMessage.classNotBeginCapital.alertMessage";
-    private static final String PROPERTY_ATTRIBUTE_NOT_DEFINED_TITLE_MESSAGE = "pluginwizard.siteMessage.attributeNotDefined.alertMessage";
-    private static final String PROPERTY_MANDATORY_FIELDS_TITLE_MESSAGE = "pluginwizard.siteMessage.mandatoryFields.alertMessage";
-    private static final String PROPERTY_BUSINESS_PRIMARY_KEY_MUST_BE_INT = "pluginwizard.siteMessage.keyMustBeInt.alertMessage";
-    private static final String PROPERTY_BUSINESS_DESCRIPTION_MUST_BE_STRING = "pluginwizard.siteMessage.descriptionIsString.alertMessage";
-    //Input Fields Verification
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED = "pluginwizard.regex.do_modify_plugin.plugin_db_pool_required";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL = "pluginwizard.regex.do_modify_plugin.plugin_provider_url";
-    private static final String PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME = "pluginwizard.regex.do_create_plugin.plugin_name";
-    //Regex property for creation of a portlet
-    private static final String PROPERTY_DO_CREATE_PORTLET_PARAM_PORTLET_TYPE_NAME = "pluginwizard.regex.do_create_portlet.portlet_type_name";
-    private static final String PROPERTY_DO_MODIFY_PORTLET_PARAM_PORTLET_TYPE_NAME = "pluginwizard.regex.do_modify_portlet.portlet_type_name";
-    //Error Messages
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_PROVIDER_URL_MESSAGE = "pluginwizard.siteMessage.regex.do_modify_plugin.plugin_provider_url";
-    private static final String PROPERTY_DO_MODIFY_PLUGIN_PARAM_PLUGIN_DB_POOL_REQUIRED_MESSAGE = "pluginwizard.siteMessage.regex.do_modify_plugin.plugin_db_pool_required";
-    private static final String PROPERTY_DO_CREATE_PLUGIN_PARAM_PLUGIN_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_plugin.plugin_name";
-    private static final String PROPERTY_DO_CREATE_PORTLET_PARAM_PORTLET_TYPE_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_portlet.portlet_type_name";
-    private static final String PROPERTY_DO_MODIFY_PORTLET_PARAM_PORTLET_TYPE_NAME_MESSAGE = "pluginwizard.siteMessage.regex.do_create_portlet.portlet_type_name";
-    private static final String PROPERTY_CLASS_TWO_ATTRIBUTES_MINIMUM = "pluginwizard.siteMessage.classTwoAttributes.alertMessage";
-    // Properties
-    private static final String DEFAULT_PLUGIN_CLASS = "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation";
+    
+    private static final String PLUGIN_NAME = "pluginwizard";
+
     int _nPluginId;
     String _strPluginName;
 
@@ -272,9 +244,7 @@ public class PluginWizardApp extends MVCApplication
     {
         Map<String, Object> model = getPluginModel();
 
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList();
-
-        for (ConfigurationKey key : listKeys)
+        for (ConfigurationKey key : ConfigurationKeyHome.getConfigurationKeysList())
         {
             model.put(key.getKeyDescription().trim(), key.getKeyValue());
         }
@@ -449,17 +419,6 @@ public class PluginWizardApp extends MVCApplication
     @View(VIEW_MANAGE_APPLICATIONS)
     public XPage getManageApplications(HttpServletRequest request)
     {
-        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel(_nPluginId).getBusinessClasses();
-
-        for (BusinessClass businessClass : listBusinessClass)
-        {
-            if (businessClass.getAttributes().size() < 2)
-            {
-                // TODO add Error
-                return redirectView(request, VIEW_MANAGE_APPLICATIONS);
-            }
-        }
-
         Map<String, Object> model = getModel();
         model.put(MARK_PLUGIN_ID, Integer.toString(_nPluginId));
         model.put(MARK_PLUGIN_APPLICATIONS, ModelService.getPluginModel(_nPluginId).getApplications());
@@ -616,6 +575,9 @@ public class PluginWizardApp extends MVCApplication
         return redirectView(request, strView);
     }
 
+    ////////////////////////////////////////////////////////////////////////////
+    // ADMIN FEATURES
+    
     /**
      * The creation of an admin feature
      *
@@ -660,22 +622,16 @@ public class PluginWizardApp extends MVCApplication
      *
      * @param request The Http Request
      */
-    @Action( ACTION_REMOVE_ADMIN_FEATURE )
-    public XPage getConfirmRemoveAdminFeature(HttpServletRequest request) throws SiteMessageException
+    @Action( ACTION_CONFIRM_REMOVE_ADMIN_FEATURE )
+    public XPage doConfirmRemoveAdminFeature(HttpServletRequest request)
     {
         UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
 
-        url.addParameter(PARAM_PAGE, PROPERTY_PLUGIN_NAME);
-        url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_FEATURE);
+        url.addParameter(PARAM_PAGE, PLUGIN_NAME);
+        url.addParameter(PARAM_ACTION, ACTION_REMOVE_ADMIN_FEATURE);
         url.addParameter(PARAM_FEATURE_ID, request.getParameter(PARAM_FEATURE_ID));
 
-
-        return redirectMessageBox(request, getConfirmMessageBox(request, PROPERTY_REMOVE_FEATURE_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_ADMIN_FEATURES) ));
-
-/*       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_FEATURE_ALERT_MESSAGE, null,
-                PROPERTY_CONFIRM_REMOVE_FEATURE_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
-       return new XPage();
-  */     
+        return redirectMessageBox(request, buildConfirmMessageBox(request, PROPERTY_CONFIRM_REMOVE_FEATURE_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_ADMIN_FEATURES) ));
     }
 
     /**
@@ -683,116 +639,21 @@ public class PluginWizardApp extends MVCApplication
      *
      * @param request The Http Request
      */
-    private void doRemoveAdminFeature(HttpServletRequest request)
+    @Action( ACTION_REMOVE_ADMIN_FEATURE )
+    public XPage doRemoveAdminFeature(HttpServletRequest request)
     {
         int nFeatureId = Integer.parseInt(request.getParameter(PARAM_FEATURE_ID));
         ModelService.removeFeature( _nPluginId, nFeatureId);
+        return redirectView(request, VIEW_MANAGE_ADMIN_FEATURES );
     }
 
-    /**
-     * The creation action of the plugin application
-     *
-     * @param request The Http Request
-     */
-    @Action( ACTION_CREATE_APPLICATION )
-    public XPage doCreateApplication(HttpServletRequest request)
-    {
-        Application application = new Application();
-        populate( application , request );
-        if( !validateBean( application ))
-        {
-            return redirectView(request, VIEW_CREATE_APPLICATION );
-        }
-        ModelService.addApplication(_nPluginId, application);
-        return redirectView(request, VIEW_MANAGE_APPLICATIONS );
-    }
+    ////////////////////////////////////////////////////////////////////////////
+    // BUSINESS CLASSES
     
-    /**
-     * The modification action of the plugin application
-     *
-     * @param request The Http Request
-     */
-    @Action(ACTION_MODIFY_APPLICATION)
-    public XPage doModifyApplication(HttpServletRequest request)
-    {
-        Application application = new Application();
-        populate(application, request);
-        if (!validateBean(application))
-        {
-            return redirectView(request, VIEW_MODIFY_APPLICATION);
-        }
-
-        ModelService.updateApplication(_nPluginId, application);
-        return redirectView(request, VIEW_MANAGE_APPLICATIONS);
-    }
-
-    /**
-     * The confirmation of an application removal
-     *
-     * @param request The Http Request
-     */
-    private void getConfirmRemovePluginApplication(HttpServletRequest request)
-    {
-        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
-        url.addParameter(PARAM_PAGE, PROPERTY_PLUGIN_NAME);
-        url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_PLUGIN_APPLICATION);
-        url.addParameter(PARAM_APPLICATION_ID, request.getParameter(PARAM_APPLICATION_ID));
- //       SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_APPLICATION_ALERT_MESSAGE, null,
- //               PROPERTY_CONFIRM_REMOVE_APPLICATION_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
-    }
-
-    /**
-     * The confirmation of a business class removal
-     *
-     * @param request The Http Request
-     * @throws SiteMessageException The front office exception
-     */
-    private void getConfirmRemoveBusinessClass(HttpServletRequest request)
-            throws SiteMessageException
-    {
-        String strBusinessClassId = request.getParameter(PARAM_BUSINESS_CLASS_ID);
-        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
-        url.addParameter(PARAM_PAGE, PROPERTY_PLUGIN_NAME);
-        url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_BUSINESS_CLASS);
-        url.addParameter(PARAM_BUSINESS_CLASS_ID, strBusinessClassId);
-        url.addParameter(PARAM_FEATURE_ID, request.getParameter(PARAM_FEATURE_ID));
-
-        SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_ALERT_MESSAGE, null,
-                PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
-    }
-
-    /**
-     * The removal action of a plugin application
-     *
-     * @param request The Http Request
-     */
-    @Action( ACTION_REMOVE_APPLICATION )
-    public XPage doRemoveApplication(HttpServletRequest request)
-    {
-        int nApplicationId = Integer.parseInt(request.getParameter(PARAM_APPLICATION_ID));
-        ModelService.removeApplication(_nPluginId, nApplicationId);
-        return redirectView( request , VIEW_MANAGE_APPLICATIONS );
-    }
-
-    /**
-     * The removal action of a plugin application
-     *
-     * @param request The Http Request
-     */
-    @Action ( ACTION_REMOVE_BUSINESS_CLASS )
-    public XPage doRemoveBusinessClass(HttpServletRequest request)
-    {
-        int nBusinessClassId = Integer.parseInt(request.getParameter(PARAM_BUSINESS_CLASS_ID));
-
-        ModelService.removeBusinessClass(_nPluginId, nBusinessClassId);
-        return redirectView(request, VIEW_MANAGE_BUSINESS_CLASSES );
-    }
-
     /**
      * The creation action of the business class
      *
      * @param request The Http Request
-     * @throws SiteMessageException Front office error handling
      * @return The business class id
      */
     @Action( ACTION_CREATE_BUSINESS_CLASS )
@@ -813,7 +674,6 @@ public class PluginWizardApp extends MVCApplication
      * The modification action for the business class
      *
      * @param request The Http Request
-     * @throws SiteMessageException Front office error handling
      */
     @Action(ACTION_MODIFY_BUSINESS_CLASS)
     public XPage doModifyBusinessClass(HttpServletRequest request)
@@ -828,50 +688,45 @@ public class PluginWizardApp extends MVCApplication
             return redirectView(request, VIEW_MODIFY_BUSINESS_CLASS);
         }
 
-
         ModelService.updateBusinessClass( _nPluginId, businessClass);
         return redirectView(request, VIEW_MANAGE_BUSINESS_CLASSES);
     }
     
-
     /**
-     * The creation action of the portlet
-     *
-     * @param request The Http Request
-     * @throws SiteMessageException Front office error handling
-     */
-    @Action( ACTION_CREATE_PORTLET )
-    public XPage doCreatePortlet(HttpServletRequest request)
-    {
-        Portlet portlet = new Portlet();
-        populate( portlet , request);
-        if( !validateBean( portlet ))
-        {
-            return redirectView(request, VIEW_CREATE_PORTLET );
-        }
-
-        ModelService.addPortlet(_nPluginId, portlet);
-        return redirectView( request, VIEW_MANAGE_PORTLETS );
-    }
-
-    /**
-     * The modification action of the portlet
+     * The confirmation of a business class removal
      *
      * @param request The Http Request
      */
-    @Action( ACTION_MODIFY_PORTLET )
-    public XPage doModifyPluginPortlet(HttpServletRequest request)
+    @Action( ACTION_CONFIRM_REMOVE_BUSINESS_CLASS )
+    public XPage doConfirmRemoveBusinessClass(HttpServletRequest request)
     {
-        Portlet portlet = new Portlet();
-        populate( portlet , request );
-        if( ! validateBean( portlet ))
-        {
-            return redirectView(request, ACTION_MODIFY_PORTLET );
-        }
-        ModelService.updatePortlet( _nPluginId, portlet);
-        return redirectView(request, VIEW_MANAGE_PORTLETS );
+        String strBusinessClassId = request.getParameter(PARAM_BUSINESS_CLASS_ID);
+        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
+        url.addParameter(PARAM_PAGE, PLUGIN_NAME);
+        url.addParameter(PARAM_ACTION, ACTION_REMOVE_BUSINESS_CLASS);
+        url.addParameter(PARAM_BUSINESS_CLASS_ID, strBusinessClassId);
+        url.addParameter(PARAM_FEATURE_ID, request.getParameter(PARAM_FEATURE_ID));
+
+        return redirectMessageBox(request, buildConfirmMessageBox(request, PROPERTY_CONFIRM_REMOVE_BUSINESS_CLASS_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_BUSINESS_CLASSES) ));
     }
 
+    /**
+     * The removal action of a plugin application
+     *
+     * @param request The Http Request
+     */
+    @Action ( ACTION_REMOVE_BUSINESS_CLASS )
+    public XPage doRemoveBusinessClass(HttpServletRequest request)
+    {
+        int nBusinessClassId = Integer.parseInt(request.getParameter(PARAM_BUSINESS_CLASS_ID));
+
+        ModelService.removeBusinessClass(_nPluginId, nBusinessClassId);
+        return redirectView(request, VIEW_MANAGE_BUSINESS_CLASSES );
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // ATTRIBUTE
+    
     /**
      * The creation action of an attribute
      *
@@ -916,46 +771,16 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of the attribute removal
      *
      * @param request The Http Request
-     * @throws SiteMessageException The site message exception
      */
-    private void getConfirmRemoveBusinessAttribute(HttpServletRequest request)
-            throws SiteMessageException
+    public XPage getConfirmRemoveAttribute(HttpServletRequest request)
     {
         UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
-        url.addParameter(PARAM_PAGE, PROPERTY_PLUGIN_NAME);
-        url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_BUSINESS_ATTRIBUTE);
+        url.addParameter(PARAM_PAGE, PLUGIN_NAME);
+        url.addParameter(PARAM_ACTION, ACTION_REMOVE_ATTRIBUTE);
         url.addParameter(PARAM_ATTRIBUTE_ID, request.getParameter(PARAM_ATTRIBUTE_ID));
         url.addParameter(PARAM_BUSINESS_CLASS_ID, request.getParameter(PARAM_BUSINESS_CLASS_ID));
-        SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_ALERT_MESSAGE, null,
-                PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
-    }
-
-    /**
-     * The confirmation of the plugin removal
-     *
-     * @param request The Http Request
-     * @throws SiteMessageException The site message exception
-     */
-    private void getConfirmRemovePluginPortlet(HttpServletRequest request)
-            throws SiteMessageException
-    {
-        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
-        url.addParameter(PARAM_PAGE, PROPERTY_PLUGIN_NAME);
-        url.addParameter(PARAM_ACTION, ACTION_DO_REMOVE_PLUGIN_PORTLET);
-        url.addParameter(PARAM_PORTLET_ID, request.getParameter(PARAM_PORTLET_ID));
-        SiteMessageService.setMessage(request, PROPERTY_CONFIRM_REMOVE_PORTLET_ALERT_MESSAGE, null,
-                PROPERTY_CONFIRM_REMOVE_PORTLET_TITLE_MESSAGE, url.getUrl(), null, SiteMessage.TYPE_CONFIRMATION);
-    }
-
-    /**
-     * Remove Portlet Action
-     *
-     * @param request The Http Request
-     */
-    private void doRemovePluginPortlet(HttpServletRequest request)
-    {
-        int nPluginPortletId = Integer.parseInt(request.getParameter(PARAM_PORTLET_ID));
-        ModelService.removePortlet( _nPluginId, nPluginPortletId);
+        
+        return redirectMessageBox(request, buildConfirmMessageBox(request, PROPERTY_CONFIRM_REMOVE_ATTRIBUTE_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MODIFY_BUSINESS_CLASS ) ));
     }
 
     /**
@@ -963,11 +788,170 @@ public class PluginWizardApp extends MVCApplication
      *
      * @param request The Http Request
      */
-    private void doRemoveAttribute(HttpServletRequest request)
+    @Action( ACTION_REMOVE_ATTRIBUTE )
+    public XPage doRemoveAttribute(HttpServletRequest request)
     {
         int nBusinessClassId = Integer.parseInt(request.getParameter(PARAM_BUSINESS_CLASS_ID));
         int nAttributeId = Integer.parseInt(request.getParameter(PARAM_ATTRIBUTE_ID));
         ModelService.removeAttribute( _nPluginId, nBusinessClassId, nAttributeId);
+        
+        return redirectView( request , VIEW_MODIFY_BUSINESS_CLASS );
+    }
+    
+    @Action( ACTION_VALIDATE_ATTRIBUTES )
+    public XPage doValidateAttributes( HttpServletRequest request )
+    {
+        String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
+        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel(_nPluginId).getBusinessClasses();
+
+        for (BusinessClass businessClass : listBusinessClass)
+        {
+            if (businessClass.getAttributes().size() < 2)
+            {
+                clearErrors();
+                addError( "la classe doit contenir au moins deux attributs" );
+                UrlItem url = new UrlItem( getViewUrl(VIEW_MODIFY_BUSINESS_CLASS ));
+                url.addParameter( PARAM_BUSINESS_CLASS_ID, strBusinessClassId );
+                return redirect(request,  url.getUrl() );
+            }
+        }
+        return redirectView(request, VIEW_MANAGE_BUSINESS_CLASSES);
+    }
+
+    ////////////////////////////////////////////////////////////////////////////
+    // APPLICATION
+
+    /**
+     * The creation action of the plugin application
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_CREATE_APPLICATION )
+    public XPage doCreateApplication(HttpServletRequest request)
+    {
+        Application application = new Application();
+        populate( application , request );
+        if( !validateBean( application ))
+        {
+            return redirectView(request, VIEW_CREATE_APPLICATION );
+        }
+        ModelService.addApplication(_nPluginId, application);
+        return redirectView(request, VIEW_MANAGE_APPLICATIONS );
+    }
+    
+    /**
+     * The modification action of the plugin application
+     *
+     * @param request The Http Request
+     */
+    @Action(ACTION_MODIFY_APPLICATION)
+    public XPage doModifyApplication(HttpServletRequest request)
+    {
+        Application application = new Application();
+        populate(application, request);
+        if (!validateBean(application))
+        {
+            return redirectView(request, VIEW_MODIFY_APPLICATION);
+        }
+
+        ModelService.updateApplication(_nPluginId, application);
+        return redirectView(request, VIEW_MANAGE_APPLICATIONS);
+    }
+
+    /**
+     * The confirmation of an application removal
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_CONFIRM_REMOVE_APPLICATION )
+    public XPage doConfirmRemoveApplication(HttpServletRequest request)
+    {
+        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
+        url.addParameter(PARAM_PAGE, PLUGIN_NAME);
+        url.addParameter(PARAM_ACTION, ACTION_REMOVE_APPLICATION);
+        url.addParameter(PARAM_APPLICATION_ID, request.getParameter(PARAM_APPLICATION_ID));
+
+        return redirectMessageBox(request, buildConfirmMessageBox(request, PROPERTY_CONFIRM_REMOVE_APPLICATION_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_APPLICATIONS) ));
+    }
+
+    /**
+     * The removal action of a plugin application
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_REMOVE_APPLICATION )
+    public XPage doRemoveApplication(HttpServletRequest request)
+    {
+        int nApplicationId = Integer.parseInt(request.getParameter(PARAM_APPLICATION_ID));
+        ModelService.removeApplication(_nPluginId, nApplicationId);
+        return redirectView( request , VIEW_MANAGE_APPLICATIONS );
+    }
+
+    /**
+     * The creation action of the portlet
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_CREATE_PORTLET )
+    public XPage doCreatePortlet(HttpServletRequest request)
+    {
+        Portlet portlet = new Portlet();
+        populate( portlet , request);
+        if( !validateBean( portlet ))
+        {
+            return redirectView(request, VIEW_CREATE_PORTLET );
+        }
+
+        ModelService.addPortlet(_nPluginId, portlet);
+        return redirectView( request, VIEW_MANAGE_PORTLETS );
+    }
+
+    /**
+     * The modification action of the portlet
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_MODIFY_PORTLET )
+    public XPage doModifyPluginPortlet(HttpServletRequest request)
+    {
+        Portlet portlet = new Portlet();
+        populate( portlet , request );
+        if( ! validateBean( portlet ))
+        {
+            return redirectView(request, ACTION_MODIFY_PORTLET );
+        }
+        ModelService.updatePortlet( _nPluginId, portlet);
+        return redirectView(request, VIEW_MANAGE_PORTLETS );
+    }
+
+    /**
+     * The confirmation of the plugin removal
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_CONFIRM_REMOVE_PORTLET)
+    public XPage doConfirmRemovePortlet(HttpServletRequest request)
+    {
+        UrlItem url = new UrlItem(JSP_PAGE_PORTAL);
+        url.addParameter(PARAM_PAGE, PLUGIN_NAME);
+        url.addParameter(PARAM_ACTION, ACTION_REMOVE_PORTLET);
+        url.addParameter(PARAM_PORTLET_ID, request.getParameter(PARAM_PORTLET_ID));
+        
+        return redirectMessageBox(request, buildConfirmMessageBox(request, PROPERTY_CONFIRM_REMOVE_PORTLET_MESSAGE,  url.getUrl() , getViewFullUrl( VIEW_MANAGE_PORTLETS ) ));
+    }
+
+    /**
+     * Remove Portlet Action
+     *
+     * @param request The Http Request
+     */
+    @Action( ACTION_REMOVE_PORTLET )
+    public XPage doRemovePluginPortlet(HttpServletRequest request)
+    {
+        int nPluginPortletId = Integer.parseInt(request.getParameter(PARAM_PORTLET_ID));
+        ModelService.removePortlet( _nPluginId, nPluginPortletId);
+        
+        return redirectView(request, VIEW_MANAGE_PORTLETS );
     }
 
     /**
@@ -992,33 +976,34 @@ public class PluginWizardApp extends MVCApplication
         return getXPage(TEMPLATE_GET_RECAPITULATE, request.getLocale(), model);
     }
 
-
+    /**
+     * Get a default model for template with the plugin object inside
+     * @return A default model for template
+     */
     private Map<String, Object> getPluginModel()
     {
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = getModel();
         model.put(MARK_PLUGIN_MODEL, ModelService.getPluginModel(_nPluginId));
         return model;
 
     }
     
-    private MVCMessageBox getConfirmMessageBox( HttpServletRequest request, String strMessageKey, String strUrlConfirm, String strUrlBack)
+    /**
+     * Build a message box object
+     * @param request The request
+     * @param strMessageKey The message key
+     * @param strUrlConfirm The Url to process confirmation
+     * @param strUrlCancel The Url to cancel
+     * @return 
+     */
+    private MVCMessageBox buildConfirmMessageBox( HttpServletRequest request, String strMessageKey, String strUrlConfirm, String strUrlBack)
     {
         MVCMessageBox box = new MVCMessageBox();
-        box.setTemplate( TEMPLATE_MESSAGE_BOX );
-        box.setTitle( "Confirmation" );
-        box.setMessage( "Etes-vous sur de vouloir supprimer ?");
+        box.setTemplate( TEMPLATE_MESSAGE_BOX_CONFIRMATION );
+        box.setMessageKey( strMessageKey );
         box.setStyle( MVCMessageBox.QUESTION );
-        box.setLabelButton1( "Annuler");
         box.setUrlButton1( strUrlConfirm );
-
-        box.setLabelButton2( "Annuler");
         box.setUrlButton2( strUrlBack );
-//        box.localize( request );
         return box;
     }
-
-     
-    
-    
-
 }

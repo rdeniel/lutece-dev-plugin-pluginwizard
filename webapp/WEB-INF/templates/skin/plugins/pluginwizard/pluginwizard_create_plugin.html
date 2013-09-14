@@ -16,14 +16,7 @@
                 <input type="hidden" name="page" value="pluginwizard" />			
                 <input type="hidden" name="action" value="createPlugin" />	
 
-                <!-- Errors handling -->
-                <#if errors?size &gt; 0 >
-                <div class="alert alert-danger">
-                    <#list errors as error >
-                    ${error.message}<br>
-                    </#list>
-                </div>
-                </#if>
+<#include "errors_handler.html" />
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	

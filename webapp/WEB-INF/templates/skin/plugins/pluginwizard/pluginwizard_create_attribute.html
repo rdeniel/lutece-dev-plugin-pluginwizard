@@ -15,9 +15,10 @@
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_create_attribute.pageTitle}</legend>
                 <input type="hidden" name="page" value="pluginwizard" />        
-                <input type="hidden" name="action" value="do_create_attribute" />
                 <input type="hidden" name="business_class_id" value="${business_class_id}" />  
-                <input type="hidden" name="plugin_id" value="${plugin_id}" />                                                                      
+
+                 <#include "errors_handler.html" />
+
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeName} * :</label>      
                     <div class="controls">    

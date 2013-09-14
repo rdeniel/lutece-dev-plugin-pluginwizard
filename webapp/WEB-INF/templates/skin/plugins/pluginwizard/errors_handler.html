@@ -1,0 +1,10 @@
+<!-- Errors handling -->
+<#if errors??>
+<#if errors?size &gt; 0 >
+<div class="alert alert-danger">
+    <#list errors as error >
+    ${error.message}<br>
+    </#list>
+</div>
+</#if>
+</#if>
