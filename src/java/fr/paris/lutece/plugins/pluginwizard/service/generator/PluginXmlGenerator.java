@@ -79,7 +79,7 @@ public class PluginXmlGenerator extends AbstractFileGenerator
 
         return template.getHtml(  );
     }
-    
+
     public static void setJspName( PluginModel pm )
     {
         for ( Feature feature : pm.getFeatures(  ) )
@@ -96,7 +96,6 @@ public class PluginXmlGenerator extends AbstractFileGenerator
                 feature.setJspName( feature.getFeatureName(  ) + ".jsp" );
             }
         }
-
     }
 
     /**

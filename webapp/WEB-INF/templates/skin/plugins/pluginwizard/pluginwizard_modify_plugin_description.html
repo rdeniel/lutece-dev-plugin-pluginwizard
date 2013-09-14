@@ -16,7 +16,9 @@
 
                 <#include "errors_handler.html" />
 
-                <input type="hidden" name="page" value="pluginwizard" />                
+                <input type="hidden" name="page" value="pluginwizard" />       
+                <input type="hidden" name="id_plugin" value="${plugin_model.idPlugin}" />       
+                
                 <div class="control-group">
                     <label class="control-label">                         	            	                        
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
@@ -50,21 +52,21 @@
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginCopyright} : </label>       
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_copyright" value="Copyright (c) 2013 Your Company" size="30" />
+                        <input class="input-xlarge" type="text" name="plugin_copyright" value="${plugin_model.pluginCopyright}" size="30" />
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProviderUrl} :</label>       
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_provider_url"  value="http://your.web.site.com"  /> 
+                        <input class="input-xlarge" type="text" name="plugin_provider_url"  value="${plugin_model.pluginProviderUrl}"  /> 
                     </div>              
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPlugindbPoolRequired} :</label>            
                     <div class="controls">
-                        <select class="input-small" name="plugin_pool">    				
+                        <select class="input-small" name="plugin_db_pool_required">    				
                             <option value="1">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelTrue}
                             </option>    				
                             <option value="0">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelFalse}

@@ -816,7 +816,7 @@ public final class ModelService
 
         return type.getMaxLength(  );
     }
-    
+
     /**
      * Returns the attribute prefix corresponding to an ID
      * @param nAttributeTypeId The attribute type ID
@@ -824,7 +824,7 @@ public final class ModelService
      */
     public static String getAttributePrefix( int nAttributeTypeId )
     {
-        return _serviceAttribute.getType(nAttributeTypeId).getPrefix();
+        return _serviceAttribute.getType( nAttributeTypeId ).getPrefix(  );
     }
 
     /**
@@ -834,20 +834,16 @@ public final class ModelService
      */
     public static String getAttributeConstraint( int nAttributeTypeId )
     {
-        return _serviceAttribute.getType(nAttributeTypeId).getConstraint();
+        return _serviceAttribute.getType( nAttributeTypeId ).getConstraint(  );
     }
-    
+
     /**
      * Returns the attribute type description
      * @param nAttributeTypeId The attribute type ID
      * @return The type description
      */
-    public static String getAttributeTypeDescription(int nAttributeTypeId)
+    public static String getAttributeTypeDescription( int nAttributeTypeId )
     {
-        return _serviceAttribute.getType(nAttributeTypeId).getDescription();
+        return _serviceAttribute.getType( nAttributeTypeId ).getDescription(  );
     }
-
-
-
-
 }

@@ -44,14 +44,14 @@
     <#if plugin.portlets??>
     <portlets>
     <#list plugin.portlets as portlet>
-    	<#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")>
-	<#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+    	<#assign nBeginIndex = portlet.portletTypeName?last_index_of("_")>
+	<#assign portletName = portlet.portletTypeName?substring(0, nBeginIndex)?lower_case>
      <portlet>
-       <portlet-class>${portlet.pluginPortletClass}</portlet-class>
-	   <portlet-type-id>${portlet.pluginPortletTypeName}</portlet-type-id>
+       <portlet-class>${portlet.portletClass}</portlet-class>
+	   <portlet-type-id>${portlet.portletTypeName}</portlet-type-id>
 	   <portlet-type-name>${plugin.pluginName}.portlet.${portletName?lower_case}Portlet.name</portlet-type-name>
-	   <portlet-creation-url>${portlet.pluginPortletCreationUrl}</portlet-creation-url>
-	   <portlet-update-url>${portlet.pluginPortletUpdateUrl}</portlet-update-url>
+	   <portlet-creation-url>${portlet.portletCreationUrl}</portlet-creation-url>
+	   <portlet-update-url>${portlet.portletUpdateUrl}</portlet-update-url>
 	   <portlet-create-action-url>plugins/${plugin.pluginName}/DoCreatePortlet${portletName?cap_first}.jsp</portlet-create-action-url>
       <portlet-modify-action-url>plugins/${plugin.pluginName}/DoModifyPortlet${portletName?cap_first}.jsp</portlet-modify-action-url>
 	    <!-- optional entries -->

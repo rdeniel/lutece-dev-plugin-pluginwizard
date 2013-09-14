@@ -50,9 +50,12 @@ import java.util.Map;
 public class SqlCodeGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/sql/plugins/{plugin_name}/";
-    private static String[] _prefix = { "plugin/create_db_", "plugin/init_db_", "plugin/init_db_", "core/init_core_", "core/create_" };
-    private static String[] _suffix = { ".sql" , ".sql" ,  "_sample.sql" , ".sql" ,  "_portlet.sql" };
-    
+    private static String[] _prefix = 
+        {
+            "plugin/create_db_", "plugin/init_db_", "plugin/init_db_", "core/init_core_", "core/create_"
+        };
+    private static String[] _suffix = { ".sql", ".sql", "_sample.sql", ".sql", "_portlet.sql" };
+
     /**
      * {@inheritDoc }
      */
@@ -67,12 +70,12 @@ public class SqlCodeGenerator extends AbstractGenerator
 
             String strPath = getFilePath( pm, PATH, strSqlFile );
 
-            String strSourceCode = getSqlScript( pm , i );
+            String strSourceCode = getSqlScript( pm, i );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
         }
-        
+
         return map;
     }
 
@@ -87,17 +90,17 @@ public class SqlCodeGenerator extends AbstractGenerator
     {
         return _prefix[nSqlType] + strPluginName + _suffix[nSqlType];
     }
-    
+
     /**
     * Returns the necessary sql dump of creation of plugin and core
     * @param nSqlType The type of the sql
     * @param pm The plugin Model
     * @return The corresponding sql output
     */
-    private String getSqlScript( PluginModel pm , int nSqlType )
+    private String getSqlScript( PluginModel pm, int nSqlType )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
-        
+
         PluginXmlGenerator.setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );
 

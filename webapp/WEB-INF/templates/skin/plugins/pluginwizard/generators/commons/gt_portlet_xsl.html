@@ -1,4 +1,4 @@
- <#assign nBeginIndex = portlet.pluginPortletTypeName?last_index_of("_")><#assign portletName = portlet.pluginPortletTypeName?substring(0, nBeginIndex)?lower_case>
+ <#assign nBeginIndex = portlet.portletTypeName?last_index_of("_")><#assign portletName = portlet.portletTypeName?substring(0, nBeginIndex)?lower_case>
  <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template match="portlet">

@@ -36,33 +36,37 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
 
 /**
  * Site Documenation Generator
  */
 public class SiteDocumentationGenerator extends AbstractGenerator
 {
-
     private static final String PATH = "src/site/";
-    private static String[] _files =
-    {
-        "site.xml", "site_fr.xml", "xdoc/index.xml", "fr/xdoc/index.xml", "resources/images/readme.txt", "fr/resources/images/readme.txt" 
-    };
+    private static String[] _files = 
+        {
+            "site.xml", "site_fr.xml", "xdoc/index.xml", "fr/xdoc/index.xml", "resources/images/readme.txt",
+            "fr/resources/images/readme.txt"
+        };
 
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap();
-        for (int i = 0; i < _files.length; i++)
-        {
-            String strPath = getFilePath( pm, PATH, _files[i]);
+        HashMap map = new HashMap(  );
 
-            String strSourceCode = getCode( pm , i );
-            map.put(strPath, strSourceCode);
+        for ( int i = 0; i < _files.length; i++ )
+        {
+            String strPath = getFilePath( pm, PATH, _files[i] );
+
+            String strSourceCode = getCode( pm, i );
+            map.put( strPath, strSourceCode );
         }
+
         return map;
     }
 

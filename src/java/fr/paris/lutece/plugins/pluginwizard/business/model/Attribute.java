@@ -51,7 +51,7 @@ public class Attribute
     private boolean _bIsDescription;
     private String _strAttributeName;
     private int _nMaxLength;
-    private boolean _bNotNull; 
+    private boolean _bNotNull;
 
     /**
     * Returns the IdAttribute
@@ -151,7 +151,7 @@ public class Attribute
     @JsonIgnore
     public String getType(  )
     {
-        return ModelService.getAttributeType( _nAttributeTypeId ) ;
+        return ModelService.getAttributeType( _nAttributeTypeId );
     }
 
     /**
@@ -258,7 +258,6 @@ public class Attribute
     @JsonIgnore
     public String getConstraint(  )
     {
-        return ModelService.getAttributeConstraint(_nAttributeTypeId ) ;
+        return ModelService.getAttributeConstraint( _nAttributeTypeId );
     }
-
 }

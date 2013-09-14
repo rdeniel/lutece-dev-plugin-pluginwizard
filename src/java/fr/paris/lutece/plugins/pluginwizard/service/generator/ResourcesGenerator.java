@@ -172,10 +172,9 @@ public class ResourcesGenerator extends AbstractGenerator
             sb.append( "\nmessage.confirmRemove" ).append( bc.getBusinessClass(  ) ).append( "=" )
               .append( getLabel( "confirmRemove", strLanguage, bc.getBusinessClass(  ) ) ).append( " ?\n" );
 
-                    
             // Constraints messages
             sb.append( "\n# JSR 303 constraint validator messages\n" );
-            
+
             strPrefix = "#validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
 
             for ( Attribute attribute : bc.getAttributes(  ) )
@@ -197,15 +196,15 @@ public class ResourcesGenerator extends AbstractGenerator
                     }
                 }
             }
-            
+
             sb.append( "\n# model attributes for validation messages\n" );
-            strPrefix = "model.entity." + bc.getBusinessClass().toLowerCase() + ".attribute.";
-            
+            strPrefix = "model.entity." + bc.getBusinessClass(  ).toLowerCase(  ) + ".attribute.";
+
             for ( Attribute attribute : bc.getAttributes(  ) )
             {
-                sb.append( strPrefix ).append( Utils.firstLowerCase( attribute.getName(  ))).append( "=" ).append(attribute.getLabelName(  )).append("\n");
+                sb.append( strPrefix ).append( Utils.firstLowerCase( attribute.getName(  ) ) ).append( "=" )
+                  .append( attribute.getLabelName(  ) ).append( "\n" );
             }
-
         }
     }
 

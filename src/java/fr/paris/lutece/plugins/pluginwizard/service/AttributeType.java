@@ -154,5 +154,4 @@ public class AttributeType
     {
         _strConstraint = strConstraint;
     }
-
 }

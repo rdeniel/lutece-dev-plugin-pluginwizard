@@ -64,7 +64,7 @@ public class PortletXslGenerator extends AbstractGenerator
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             String strPath = getFilePath( pm, PATH,
-                    "portlet_" + getFirstLower( portlet.getPluginPortletTypeName(  ) ) + ".xsl" );
+                    "portlet_" + getFirstLower( portlet.getPortletTypeName(  ) ) + ".xsl" );
 
             String strSourceCode = getPortletXsl( portlet, pm.getPluginName(  ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );

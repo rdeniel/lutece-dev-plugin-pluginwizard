@@ -35,87 +35,87 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 
 /**
- * This is the business class for the object PluginPortlet
+ * This is the business class for the object Portlet
  */
 public class Portlet
 {
     // Variables declarations 
     private int _nIdPortletPlugin;
-    private String _strPluginPortletClass;
-    private String _strPluginPortletTypeName;
-    private String _strPluginPortletCreationUrl;
-    private String _strPluginPortletUpdateUrl;
+    private String _strPortletClass;
+    private String _strPortletTypeName;
+    private String _strPortletCreationUrl;
+    private String _strPortletUpdateUrl;
 
     /**
-     * Returns the PluginPortletClass
-     * @return The PluginPortletClass
+     * Returns the PortletClass
+     * @return The PortletClass
      */
-    public String getPluginPortletClass(  )
+    public String getPortletClass(  )
     {
-        return _strPluginPortletClass;
+        return _strPortletClass;
     }
 
     /**
-     * Sets the PluginPortletClass
-     * @param strPluginPortletClass The PluginPortletClass
+     * Sets the PortletClass
+     * @param strPortletClass The PortletClass
      */
-    public void setPluginPortletClass( String strPluginPortletClass )
+    public void setPortletClass( String strPortletClass )
     {
-        _strPluginPortletClass = strPluginPortletClass;
+        _strPortletClass = strPortletClass;
     }
 
     /**
-     * Returns the PluginPortletTypeName
-     * @return The PluginPortletTypeName
+     * Returns the PortletTypeName
+     * @return The PortletTypeName
      */
-    public String getPluginPortletTypeName(  )
+    public String getPortletTypeName(  )
     {
-        return _strPluginPortletTypeName;
+        return _strPortletTypeName;
     }
 
     /**
-     * Sets the PluginPortletTypeName
-     * @param strPluginPortletTypeName The PluginPortletTypeName
+     * Sets the PortletTypeName
+     * @param strPortletTypeName The PortletTypeName
      */
-    public void setPluginPortletTypeName( String strPluginPortletTypeName )
+    public void setPortletTypeName( String strPortletTypeName )
     {
-        _strPluginPortletTypeName = strPluginPortletTypeName;
+        _strPortletTypeName = strPortletTypeName;
     }
 
     /**
-     * Returns the PluginPortletCreationUrl
-     * @return The PluginPortletCreationUrl
+     * Returns the PortletCreationUrl
+     * @return The PortletCreationUrl
      */
-    public String getPluginPortletCreationUrl(  )
+    public String getPortletCreationUrl(  )
     {
-        return _strPluginPortletCreationUrl;
+        return _strPortletCreationUrl;
     }
 
     /**
-     * Sets the PluginPortletCreationUrl
-     * @param strPluginPortletCreationUrl The PluginPortletCreationUrl
+     * Sets the PortletCreationUrl
+     * @param strPortletCreationUrl The PortletCreationUrl
      */
-    public void setPluginPortletCreationUrl( String strPluginPortletCreationUrl )
+    public void setPortletCreationUrl( String strPortletCreationUrl )
     {
-        _strPluginPortletCreationUrl = strPluginPortletCreationUrl;
+        _strPortletCreationUrl = strPortletCreationUrl;
     }
 
     /**
-     * Returns the PluginPortletUpdateUrl
-     * @return The PluginPortletUpdateUrl
+     * Returns the PortletUpdateUrl
+     * @return The PortletUpdateUrl
      */
-    public String getPluginPortletUpdateUrl(  )
+    public String getPortletUpdateUrl(  )
     {
-        return _strPluginPortletUpdateUrl;
+        return _strPortletUpdateUrl;
     }
 
     /**
-     * Sets the PluginPortletUpdateUrl
-     * @param strPluginPortletUpdateUrl The PluginPortletUpdateUrl
+     * Sets the PortletUpdateUrl
+     * @param strPortletUpdateUrl The PortletUpdateUrl
      */
-    public void setPluginPortletUpdateUrl( String strPluginPortletUpdateUrl )
+    public void setPortletUpdateUrl( String strPortletUpdateUrl )
     {
-        _strPluginPortletUpdateUrl = strPluginPortletUpdateUrl;
+        _strPortletUpdateUrl = strPortletUpdateUrl;
     }
 
     /**

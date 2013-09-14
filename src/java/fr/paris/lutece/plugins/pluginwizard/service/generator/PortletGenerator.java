@@ -76,7 +76,7 @@ public class PortletGenerator extends AbstractGenerator
         {
             for ( BusinessFileConfig file : _listFiles )
             {
-                String strPortlet = portlet.getPluginPortletTypeName(  );
+                String strPortlet = portlet.getPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
                 String strPortletName = getFirstCaps( strPortlet.substring( 0, nIndex ) );
                 String strPortletFile = file.getPrefix(  ) + strPortletName + "Portlet" + file.getSuffix(  ) +

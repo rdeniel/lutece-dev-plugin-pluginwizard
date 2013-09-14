@@ -5,12 +5,12 @@
     <div class="span3">             
         <@sidebar step="portlet" />
         <div class="well">         
-            #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageHelp}
+            #i18n{pluginwizard.pluginwizard_manage_portlets.pageHelp}
         </div>  
     </div>
 
     <div class="span8">
-        <h4>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.pageTitle}</h4>
+        <h4>#i18n{pluginwizard.pluginwizard_manage_portlets.pageTitle}</h4>
 
         <div class="pull-right"> 
             <form class="default-form" method="post" action="jsp/site/Portal.jsp">
@@ -18,7 +18,7 @@
                 <input type="hidden" name="view" value="createPortlet" /> 
                 <button type="submit" class="btn btn-primary">
                     <i class="icon-plus icon-white"></i>
-                    #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonAddPortlet}
+                    #i18n{pluginwizard.pluginwizard_manage_portlets.buttonAddPortlet}
                 </button>
             </form>
         </div>
@@ -26,32 +26,32 @@
         <table class="table table-condensed table-striped">
             <thead>
                 <tr>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletClass}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletTypeName}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletCreationUrl}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletUpdateUrl}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_plugin_portlets.labelPortletAction}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletClass}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletTypeName}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletCreationUrl}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletUpdateUrl}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletAction}</th>
                 </tr>
             </thead>
 
             <tbody>
-                <#if plugin_portlets?? > <#list plugin_portlets as plugin_portlet >
+                <#if plugin_portlets?? > <#list plugin_portlets as portlet >
                 <tr>
-                    <#assign nEndIndex = plugin_portlet.pluginPortletClass?length>
-                    <#assign nBeginIndex = plugin_portlet.pluginPortletClass?last_index_of(".")+1>
+                    <#assign nEndIndex = portlet.portletClass?length>
+                    <#assign nBeginIndex = portlet.portletClass?last_index_of(".")+1>
 
-                    <td>${plugin_portlet.pluginPortletClass?substring(nBeginIndex, nEndIndex)}
+                    <td>${portlet.portletClass?substring(nBeginIndex, nEndIndex)}
                     </td>
-                    <td>${plugin_portlet.pluginPortletTypeName}</td>
-                    <td>${plugin_portlet.pluginPortletCreationUrl}</td>
-                    <td>${plugin_portlet.pluginPortletUpdateUrl}</td>
+                    <td>${portlet.portletTypeName}</td>
+                    <td>${portlet.portletCreationUrl}</td>
+                    <td>${portlet.portletUpdateUrl}</td>
 
                     <td>
-                        <a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&action=modify_portlet&plugin_id=${plugin_id}&portlet_id=${plugin_portlet.id}" 
+                        <a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyPortlet&portletId=${portlet.id}" 
                            title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
                             <i class="icon-edit icon-white"></i>
                         </a>
-                        <a class="btn btn-danger btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&action=remove_plugin_portlet&plugin_id=${plugin_id}&portlet_id=${plugin_portlet.id}" 
+                        <a class="btn btn-danger btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemovePortlet&portletId=${portlet.id}" 
                            title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
                             <i class="icon-trash icon-white"></i>
                         </a>
@@ -68,10 +68,10 @@
 
                 <button type="submit" name="view_manageApplications" class="btn btn-primary">
                     <i class="icon-chevron-left icon-white"></i>
-                    #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonBack}
+                    #i18n{pluginwizard.pluginwizard_manage_portlets.buttonBack}
                 </button>
                 <button type="submit" name="view_recapitulate" class="btn btn-primary">
-                    #i18n{pluginwizard.pluginwizard_manage_plugin_portlets.buttonNext}
+                    #i18n{pluginwizard.pluginwizard_manage_portlets.buttonNext}
                     <i class="icon-chevron-right icon-white"></i>
                 </button>
             </form>

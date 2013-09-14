@@ -64,7 +64,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortlet = portlet.getPluginPortletTypeName(  );
+                String strPortlet = portlet.getPortletTypeName(  );
                 int nIndex = strPortlet.lastIndexOf( "_" );
 
                 String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ), i );

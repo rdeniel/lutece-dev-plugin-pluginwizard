@@ -33,22 +33,24 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
-import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
+
 
 /**
  * Form name
  */
 public class FormName
 {
-    @NotEmpty( message = "Le nom du plugin doit être renseigné")
-    @Pattern ( regexp = "[a-z]*" , message = "Le nom du plugin doit être en minuscule sans espaces ou autres caractères")
+    @NotEmpty( message = "Le nom du plugin doit être renseigné" )
+    @Pattern( regexp = "[a-z]*", message = "Le nom du plugin doit être en minuscule sans espaces ou autres caractères" )
     private String _strName;
 
     /**
      * @return the name
      */
-    public String getName()
+    public String getName(  )
     {
         return _strName;
     }
@@ -56,7 +58,7 @@ public class FormName
     /**
      * @param strName the name to set
      */
-    public void setName(String strName)
+    public void setName( String strName )
     {
         _strName = strName;
     }

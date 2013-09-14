@@ -16,9 +16,7 @@
                 <legend>#i18n{pluginwizard.pluginwizard_modify_attribute.pageTitle}</legend>
 
                 <input type="hidden" name="page" value="pluginwizard" />        
-                <input type="hidden" name="action" value="do_modify_attribute" />
                 <input type="hidden" name="business_class_id" value="${business_class_id}" />
-                <input type="hidden" name="plugin_id" value="${plugin_id}" />
                 <input type="hidden" name="attribute_id" value="${attribute.id}" />   
 
                 <div class="control-group">
@@ -31,34 +29,38 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeType} * :</label>      
                     <div class="controls">        
-                        <@combo name="id_attribute_type" default_value="${attribute.attributeTypeId}" items=combo_attribute_type />      
+                        <@combo name="attribute_type_id" default_value="${attribute.attributeTypeId}" items=combo_attribute_type />      
                     </div>     
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelMandatory} * : </label>                            
                     <div class="controls">  
-                        <input class="checkbox" type="checkbox" name="mandatory" value="1" <#if attribute.notNull>checked="checked"</#if>  />
+                        <input class="checkbox" type="checkbox" name="not_null" value="1" <#if attribute.notNull>checked="checked"</#if>  />
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * : </label>                            
                     <div class="controls">  
-                        <input class="checkbox" type="checkbox" name="primary_key" <#if attribute.isPrimary>checked="checked"</#if> />
+                        <input class="checkbox" type="checkbox" name="is_primary" <#if attribute.isPrimary>checked="checked"</#if> />
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelClassDescription} * : </label>                            
                     <div class="controls">                                                                                                     
-                        <input class="checkbox" type="checkbox" name="class_description" <#if attribute.isDescription>checked="checked"</#if> />
+                        <input class="checkbox" type="checkbox" name="is_description" <#if attribute.isDescription>checked="checked"</#if> />
                     </div>                         
                 </div>
 
                 <div class="form-actions">                                          
-                    <button type="submit" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}</button>                    
-                    <button type="submit" name="goToModifyBusinessClass" class="btn">#i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}</button>                                                             
+                    <button type="submit" name="action_modifyAttribute"class="btn btn-primary">
+                        #i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}
+                    </button>                    
+                    <button type="submit" name="view_modifyBusinessClass" class="btn">
+                        #i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}
+                    </button>                                                             
                 </div>            
         </form>        
     </div>    
