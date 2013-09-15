@@ -25,42 +25,42 @@
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
                     </label>       
                     <div class="controls">                
-                        <input type="text" name="plugin_name" value="<#if plugin_model.pluginName??>${plugin_model.pluginName}</#if>" readonly />       
+                        <input type="text" name="plugin_name" value="${plugin_model.pluginName!''}" readonly />       
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_description" value="<#if plugin_model.pluginDescription??>${plugin_model.pluginDescription}</#if>" />
+                        <input class="input-xlarge" type="text" name="plugin_description" value="${plugin_model.pluginDescription!''}" />
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProvider} : </label>
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_provider" value="<#if plugin_model.pluginProvider??>${plugin_model.pluginProvider}</#if>" />
+                        <input class="input-xlarge" type="text" name="plugin_provider" value="${plugin_model.pluginProvider!''}" />
                     </div>
                 </div>
 
                <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
                     <div class="controls">
-                        <input class="input-small" type="text" name="plugin_version"  value="<#if plugin_model.pluginVersion??>${plugin_model.pluginVersion}</#if>" size="30" />
+                        <input class="input-small" type="text" name="plugin_version"  value="${plugin_model.pluginVersion!''}" size="30" />
                     </div>                                                                              
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginCopyright} : </label>       
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_copyright" value="${plugin_model.pluginCopyright}" size="30" />
+                        <input class="input-xlarge" type="text" name="plugin_copyright" value="${plugin_model.pluginCopyright!''}" size="30" />
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProviderUrl} :</label>       
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_provider_url"  value="${plugin_model.pluginProviderUrl}"  /> 
+                        <input class="input-xlarge" type="text" name="plugin_provider_url"  value="${plugin_model.pluginProviderUrl!''}"  /> 
                     </div>              
                 </div>
 

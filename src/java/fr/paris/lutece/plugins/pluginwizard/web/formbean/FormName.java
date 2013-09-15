@@ -43,8 +43,8 @@ import javax.validation.constraints.Pattern;
  */
 public class FormName
 {
-    @NotEmpty( message = "Le nom du plugin doit être renseigné" )
-    @Pattern( regexp = "[a-z]*", message = "Le nom du plugin doit être en minuscule sans espaces ou autres caractères" )
+    @NotEmpty( message = "pluginwizard.error.plugin.name.notEmpty" )
+    @Pattern( regexp = "[a-z]*", message = "pluginwizard.error.plugin.name.pattern" )
     private String _strName;
 
     /**

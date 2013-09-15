@@ -52,21 +52,21 @@ public class PluginModel
     private int _nIdPlugin;
     private String _strPluginName;
     private String _strPluginClass;
-    @NotEmpty( message = "La description doit être renseigné." )
+    @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
     private String _strPluginDescription;
     private String _strPluginDocumentation;
     private String _strPluginInstallation;
     private String _strPluginChanges;
     private String _strPluginUserGuide;
-    @NotEmpty( message = "La version doit être renseigné." )
-    @Pattern( regexp = "[0-9].[0-9].[0-9]", message = "La version doit avoir le format 'n.n.n'." )
+    @NotEmpty( message = "pluginwizard.error.plugin.version.notEmpty" )
+    @Pattern( regexp = "[0-9].[0-9].[0-9]", message = "pluginwizard.error.plugin.version.pattern" )
     private String _strPluginVersion;
-    @NotEmpty( message = "Le copyright doit être renseigné." )
+    @NotEmpty( message = "pluginwizard.error.plugin.copyright.notEmpty" )
     private String _strPluginCopyright;
     private String _strPluginIconUrl;
     private String _strPluginProvider;
-    @NotEmpty( message = "L'url du fournisseur doit être renseigné." )
-    @URL( message = "L'url du fournisseur n'est pas valide." )
+    @NotEmpty( message = "pluginwizard.error.plugin.urlProvider.notEmpty" )
+    @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
     private Locale _locale;
