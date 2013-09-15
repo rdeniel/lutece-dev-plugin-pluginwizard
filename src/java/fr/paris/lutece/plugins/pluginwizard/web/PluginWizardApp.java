@@ -69,7 +69,6 @@ public class PluginWizardApp extends MVCApplication
 {
     //Constants
     private static final String MARK_PLUGIN_ID = "plugin_id";
-    private static final String MARK_PLUGIN_NAME = "plugin_name";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
 
     //Management Bookmarks
@@ -89,7 +88,6 @@ public class PluginWizardApp extends MVCApplication
     private static final String MARK_APPLICATION = "application";
     private static final String MARK_PLUGIN_PORTLET = "portlet";
     private static final String TEMPLATE_CREATE_PLUGIN = "/skin/plugins/pluginwizard/pluginwizard_create_plugin.html";
-    private static final String TEMPLATE_PLUGIN_EXISTS = "/skin/plugins/pluginwizard/pluginwizard_plugin_exists.html";
     private static final String TEMPLATE_CREATE_PLUGIN_DESCRIPTION = "/skin/plugins/pluginwizard/pluginwizard_create_plugin_description.html";
     private static final String TEMPLATE_MODIFY_PLUGIN_DESCRIPTION = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin_description.html";
     private static final String TEMPLATE_MODIFY_PLUGIN = "/skin/plugins/pluginwizard/pluginwizard_modify_plugin.html";
@@ -116,7 +114,6 @@ public class PluginWizardApp extends MVCApplication
     private static final String TEMPLATE_MESSAGE_BOX_EXISTS = "/skin/plugins/pluginwizard/message_exists.html";
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
-    private static final String PARAM_PLUGIN_COPYRIGHT = "plugin_copyright";
     private static final String PARAM_BUSINESS_CLASS_ID = "business_class_id";
     private static final String PARAM_ATTRIBUTE_ID = "attribute_id";
     private static final String PARAM_FEATURE_ID = "feature_id";
@@ -187,25 +184,58 @@ public class PluginWizardApp extends MVCApplication
     private static final String VIEW_RECAPITULATE = "recapitulate";
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
     private static final String PLUGIN_NAME = "pluginwizard";
+
+    // ERRORS
+    public static final String ERROR_TABLE_PREFIX = "pluginwizard.error.attribute.tablePrefix";
+    public static final String ERROR_PRIMARY_TYPE = "pluginwizard.error.attribute.primaryType";
+    public static final String ERROR_DESCRIPTION_TYPE = "pluginwizard.error.attribute.descriptionType";
+    public static final String ERROR_ATTRIBUTE_COUNT = "pluginwizard.error.attributeCount";
+
+    // NOTIFICATIONS
+    public static final String INFO_SESSION_EXPIRED = "pluginwizard.info.sessionExpired";
+    public static final String INFO_PLUGIN_CREATED = "pluginwizard.info.pluginCreated";
+    public static final String INFO_DATA_RESET = "pluginwizard.info.dataReset";
+    public static final String INFO_FEATURE_CREATED = "pluginwizard.info.feature.created";
+    public static final String INFO_FEATURE_UPDATED = "pluginwizard.info.feature.updated";
+    public static final String INFO_FEATURE_DELETED = "pluginwizard.info.feature.deleted";
+    public static final String INFO_BUSINESS_CLASS_CREATED = "pluginwizard.info.businessClass.created";
+    public static final String INFO_BUSINESS_CLASS_UPDATED = "pluginwizard.info.businessClass.updated";
+    public static final String INFO_BUSINESS_CLASS_DELETED = "pluginwizard.info.businessClass.deleted";
+    public static final String INFO_ATTRIBUTE_CREATED = "pluginwizard.info.attribute.created";
+    public static final String INFO_ATTRIBUTE_UPDATED = "pluginwizard.info.attribute.updated";
+    public static final String INFO_ATTRIBUTE_DELETED = "pluginwizard.info.attribute.deleted";
+    public static final String INFO_APPLICATION_CREATED = "pluginwizard.info.application.created";
+    public static final String INFO_APPLICATION_UPDATED = "pluginwizard.info.application.updated";
+    public static final String INFO_APPLICATION_DELETED = "pluginwizard.info.application.deleted";
+    public static final String INFO_PORTLET_CREATED = "pluginwizard.info.portlet.created";
+    public static final String INFO_PORTLET_UPDATED = "pluginwizard.info.portlet.updated";
+    public static final String INFO_PORTLET_DELETED = "pluginwizard.info.portlet.deleted";
     int _nPluginId;
     String _strPluginName;
 
     @Override
-    public XPage getPage(HttpServletRequest request, int nMode, Plugin plugin) throws SiteMessageException
+    public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
+        throws SiteMessageException
     {
-        if( _nPluginId == 0 )
+        if ( _nPluginId == 0 )
         {
             String strAction = getAction( request );
-            if( ! ACTION_CREATE_PLUGIN.equals( strAction ) )
+            String strView = getView( request );
+
+            if ( !ACTION_CREATE_PLUGIN.equals( strAction ) )
             {
-                return getCreatePlugin(request);
+                if ( ( strAction != null ) || ( strView != null ) )
+                {
+                    addInfo( INFO_SESSION_EXPIRED, getLocale( request ) );
+                }
+
+                return getCreatePlugin( request );
             }
         }
-        return super.getPage(request, nMode, plugin);
+
+        return super.getPage( request, nMode, plugin );
     }
 
-    
-    
     ////////////////////////////////////////////////////////////////////////////
     // VIEWS
     /**
@@ -513,7 +543,7 @@ public class PluginWizardApp extends MVCApplication
         FormName form = new FormName(  );
         populate( form, request );
 
-        if ( !validateBean( form ) )
+        if ( !validateBean( form, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_CREATE_PLUGIN );
         }
@@ -524,6 +554,7 @@ public class PluginWizardApp extends MVCApplication
         if ( _nPluginId == -1 )
         {
             // The plugin doesn't exists
+            addInfo( INFO_PLUGIN_CREATED, getLocale( request ) );
             _nPluginId = ModelService.createModel( form.getName(  ) );
 
             return redirectView( request, VIEW_CREATE_DESCRIPTION );
@@ -536,6 +567,7 @@ public class PluginWizardApp extends MVCApplication
     public XPage doResetData( HttpServletRequest request )
     {
         ModelService.removeAll( _nPluginId );
+        addInfo( INFO_DATA_RESET, getLocale( request ) );
 
         return redirectView( request, VIEW_CREATE_DESCRIPTION );
     }
@@ -563,9 +595,9 @@ public class PluginWizardApp extends MVCApplication
 
         populate( model, request );
 
-        if ( !validateBean( model ) )
+        if ( !validateBean( model, getLocale( request ) ) )
         {
-            return redirectView( request, VIEW_MODIFY_PLUGIN );
+            return redirectView( request, VIEW_MODIFY_DESCRIPTION );
         }
 
         model.setPluginIconUrl( "images/admin/skin/plugins/" + _strPluginName + "/" + _strPluginName + ".png" );
@@ -588,12 +620,13 @@ public class PluginWizardApp extends MVCApplication
         Feature feature = new Feature(  );
         populate( feature, request );
 
-        if ( !validateBean( feature ) )
+        if ( !validateBean( feature, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_CREATE_ADMIN_FEATURE );
         }
 
         ModelService.addFeature( _nPluginId, feature );
+        addInfo( INFO_FEATURE_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_ADMIN_FEATURES );
     }
@@ -609,14 +642,16 @@ public class PluginWizardApp extends MVCApplication
         Feature feature = new Feature(  );
         populate( feature, request );
 
-        if ( !validateBean( feature ) )
+        if ( !validateBean( feature, getLocale( request ) ) )
         {
-            UrlItem url = new UrlItem(( getViewUrl( VIEW_MODIFY_ADMIN_FEATURE )));
-            url.addParameter( PARAM_FEATURE_ID,  feature.getId() );
-            return redirect( request, url.getUrl() );
+            UrlItem url = new UrlItem( ( getViewUrl( VIEW_MODIFY_ADMIN_FEATURE ) ) );
+            url.addParameter( PARAM_FEATURE_ID, feature.getId(  ) );
+
+            return redirect( request, url.getUrl(  ) );
         }
 
         ModelService.updateFeature( _nPluginId, feature );
+        addInfo( INFO_FEATURE_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_ADMIN_FEATURES );
     }
@@ -650,6 +685,7 @@ public class PluginWizardApp extends MVCApplication
     {
         int nFeatureId = Integer.parseInt( request.getParameter( PARAM_FEATURE_ID ) );
         ModelService.removeFeature( _nPluginId, nFeatureId );
+        addInfo( INFO_FEATURE_DELETED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_ADMIN_FEATURES );
     }
@@ -667,16 +703,18 @@ public class PluginWizardApp extends MVCApplication
     {
         BusinessClass businessClass = new BusinessClass(  );
         populate( businessClass, request );
-        
-        boolean bValidateBean = validateBean( businessClass );
-        boolean bValidateTablePrefix = validateTablePrefix(businessClass);
+
+        boolean bValidateBean = validateBean( businessClass, getLocale( request ) );
+        boolean bValidateTablePrefix = validateTablePrefix( request, businessClass );
         boolean bValid = bValidateBean && bValidateTablePrefix;
+
         if ( !bValid )
         {
             return redirectView( request, VIEW_CREATE_BUSINESS_CLASS );
         }
 
         ModelService.addBusinessClass( _nPluginId, businessClass );
+        addInfo( INFO_BUSINESS_CLASS_CREATED, getLocale( request ) );
 
         return redirectModifyBusinessClass( request, Integer.toString( businessClass.getId(  ) ) );
     }
@@ -691,28 +729,32 @@ public class PluginWizardApp extends MVCApplication
     {
         BusinessClass businessClass = new BusinessClass(  );
         populate( businessClass, request );
-        
-        boolean bValidateBean = validateBean( businessClass );
-        boolean bValidateTablePrefix = validateTablePrefix(businessClass);
+
+        boolean bValidateBean = validateBean( businessClass, getLocale( request ) );
+        boolean bValidateTablePrefix = validateTablePrefix( request, businessClass );
         boolean bValid = bValidateBean && bValidateTablePrefix;
+
         if ( !bValid )
         {
-            return redirectModifyBusinessClass( request, Integer.toString( businessClass.getId() ) );
+            return redirectModifyBusinessClass( request, Integer.toString( businessClass.getId(  ) ) );
         }
 
         ModelService.updateBusinessClass( _nPluginId, businessClass );
+        addInfo( INFO_BUSINESS_CLASS_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_BUSINESS_CLASSES );
     }
-    
-    private boolean validateTablePrefix( BusinessClass businessClass )
+
+    private boolean validateTablePrefix( HttpServletRequest request, BusinessClass businessClass )
     {
         String strTablePrefix = _strPluginName + "_";
-        boolean bValidate = businessClass.getBusinessTableName().startsWith( strTablePrefix );
-        if( !bValidate )
+        boolean bValidate = businessClass.getBusinessTableName(  ).startsWith( strTablePrefix );
+
+        if ( !bValidate )
         {
-            addError( "Le nom de la table doit commencer par le nom du plugin suivi d'un underscore" );
+            addError( ERROR_TABLE_PREFIX, getLocale( request ) );
         }
+
         return bValidate;
     }
 
@@ -747,6 +789,7 @@ public class PluginWizardApp extends MVCApplication
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
 
         ModelService.removeBusinessClass( _nPluginId, nBusinessClassId );
+        addInfo( INFO_BUSINESS_CLASS_DELETED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_BUSINESS_CLASSES );
     }
@@ -765,19 +808,21 @@ public class PluginWizardApp extends MVCApplication
         Attribute attribute = new Attribute(  );
         populate( attribute, request );
 
-        boolean bValidateBean = validateBean( attribute );
-        boolean bValidatePrimary = validatePrimary(attribute);
-        boolean bValidateDescription = validateDescription(attribute);
+        boolean bValidateBean = validateBean( attribute, getLocale( request ) );
+        boolean bValidatePrimary = validatePrimary( request, attribute );
+        boolean bValidateDescription = validateDescription( request, attribute );
         boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
-        
+
         if ( !bValid )
         {
-            UrlItem url = new UrlItem( getViewUrl( VIEW_CREATE_ATTRIBUTE ));
+            UrlItem url = new UrlItem( getViewUrl( VIEW_CREATE_ATTRIBUTE ) );
             url.addParameter( PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
-            return redirect( request, url.getUrl() );
+
+            return redirect( request, url.getUrl(  ) );
         }
 
         ModelService.addAttribute( _nPluginId, nBusinessClassId, attribute );
+        addInfo( INFO_ATTRIBUTE_CREATED, getLocale( request ) );
 
         return redirectModifyBusinessClass( request, Integer.toString( nBusinessClassId ) );
     }
@@ -794,38 +839,45 @@ public class PluginWizardApp extends MVCApplication
         Attribute attribute = new Attribute(  );
         populate( attribute, request );
 
-        boolean bValidateBean = validateBean( attribute );
-        boolean bValidatePrimary = validatePrimary(attribute);
-        boolean bValidateDescription = validateDescription(attribute);
+        boolean bValidateBean = validateBean( attribute, getLocale( request ) );
+        boolean bValidatePrimary = validatePrimary( request, attribute );
+        boolean bValidateDescription = validateDescription( request, attribute );
         boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
-        
+
         if ( !bValid )
         {
             return redirectView( request, VIEW_MODIFY_ATTRIBUTE );
         }
 
         ModelService.updateAttribute( _nPluginId, nBusinessClassId, attribute );
+        addInfo( INFO_ATTRIBUTE_UPDATED, getLocale( request ) );
 
         return redirectModifyBusinessClass( request, Integer.toString( nBusinessClassId ) );
     }
-    
-    boolean validatePrimary( Attribute attribute )
+
+    boolean validatePrimary( HttpServletRequest request, Attribute attribute )
     {
-        boolean bValidate = (( !attribute.getIsPrimary()) || ( attribute.getIsPrimary() && attribute.getAttributeTypeId() == 1 ));
-        if( !bValidate )
+        boolean bValidate = ( ( !attribute.getIsPrimary(  ) ) ||
+            ( attribute.getIsPrimary(  ) && ( attribute.getAttributeTypeId(  ) == 1 ) ) );
+
+        if ( !bValidate )
         {
-            addError( "La clé primaire doit être un entier.");
+            addError( ERROR_PRIMARY_TYPE, getLocale( request ) );
         }
+
         return bValidate;
     }
 
-    boolean validateDescription( Attribute attribute )
+    boolean validateDescription( HttpServletRequest request, Attribute attribute )
     {
-        boolean bValidate = (( !attribute.getIsDescription()) || ( attribute.getIsDescription() && attribute.getAttributeTypeId() > 1 ));
-        if( !bValidate )
+        boolean bValidate = ( ( !attribute.getIsDescription(  ) ) ||
+            ( attribute.getIsDescription(  ) && ( attribute.getAttributeTypeId(  ) > 1 ) ) );
+
+        if ( !bValidate )
         {
-            addError( "La description ne peut pas être un entier.");
+            addError( ERROR_DESCRIPTION_TYPE, getLocale( request ) );
         }
+
         return bValidate;
     }
 
@@ -859,6 +911,7 @@ public class PluginWizardApp extends MVCApplication
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         int nAttributeId = Integer.parseInt( request.getParameter( PARAM_ATTRIBUTE_ID ) );
         ModelService.removeAttribute( _nPluginId, nBusinessClassId, nAttributeId );
+        addInfo( INFO_ATTRIBUTE_DELETED, getLocale( request ) );
 
         return redirectModifyBusinessClass( request, Integer.toString( nBusinessClassId ) );
     }
@@ -869,12 +922,11 @@ public class PluginWizardApp extends MVCApplication
         String strBusinessClassId = request.getParameter( PARAM_BUSINESS_CLASS_ID );
         Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel( _nPluginId ).getBusinessClasses(  );
 
-        clearErrors(  );
         for ( BusinessClass businessClass : listBusinessClass )
         {
             if ( businessClass.getAttributes(  ).size(  ) < 2 )
             {
-                addError( "la classe doit contenir au moins deux attributs" );
+                addError( ERROR_ATTRIBUTE_COUNT, getLocale( request ) );
 
                 return redirectModifyBusinessClass( request, strBusinessClassId );
             }
@@ -904,12 +956,13 @@ public class PluginWizardApp extends MVCApplication
         Application application = new Application(  );
         populate( application, request );
 
-        if ( !validateBean( application ) )
+        if ( !validateBean( application, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_CREATE_APPLICATION );
         }
 
         ModelService.addApplication( _nPluginId, application );
+        addInfo( INFO_APPLICATION_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_APPLICATIONS );
     }
@@ -925,12 +978,13 @@ public class PluginWizardApp extends MVCApplication
         Application application = new Application(  );
         populate( application, request );
 
-        if ( !validateBean( application ) )
+        if ( !validateBean( application, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_MODIFY_APPLICATION );
         }
 
         ModelService.updateApplication( _nPluginId, application );
+        addInfo( INFO_APPLICATION_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_APPLICATIONS );
     }
@@ -963,6 +1017,7 @@ public class PluginWizardApp extends MVCApplication
     {
         int nApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
         ModelService.removeApplication( _nPluginId, nApplicationId );
+        addInfo( INFO_APPLICATION_DELETED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_APPLICATIONS );
     }
@@ -978,12 +1033,13 @@ public class PluginWizardApp extends MVCApplication
         Portlet portlet = new Portlet(  );
         populate( portlet, request );
 
-        if ( !validateBean( portlet ) )
+        if ( !validateBean( portlet, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_CREATE_PORTLET );
         }
 
         ModelService.addPortlet( _nPluginId, portlet );
+        addInfo( INFO_PORTLET_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_PORTLETS );
     }
@@ -999,12 +1055,13 @@ public class PluginWizardApp extends MVCApplication
         Portlet portlet = new Portlet(  );
         populate( portlet, request );
 
-        if ( !validateBean( portlet ) )
+        if ( !validateBean( portlet, getLocale( request ) ) )
         {
             return redirectView( request, ACTION_MODIFY_PORTLET );
         }
 
         ModelService.updatePortlet( _nPluginId, portlet );
+        addInfo( INFO_PORTLET_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_PORTLETS );
     }
@@ -1037,6 +1094,7 @@ public class PluginWizardApp extends MVCApplication
     {
         int nPluginPortletId = Integer.parseInt( request.getParameter( PARAM_PORTLET_ID ) );
         ModelService.removePortlet( _nPluginId, nPluginPortletId );
+        addInfo( INFO_PORTLET_DELETED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_PORTLETS );
     }
@@ -1097,6 +1155,10 @@ public class PluginWizardApp extends MVCApplication
         return box;
     }
 
+    /**
+     * Build plugin exists message box
+     * @return The message box object
+     */
     private MVCMessageBox buildExistsMessageBox(  )
     {
         MVCMessageBox box = new MVCMessageBox(  );

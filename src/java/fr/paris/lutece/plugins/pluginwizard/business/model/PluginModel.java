@@ -33,12 +33,14 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.URL;
 
 
 /**
@@ -57,14 +59,14 @@ public class PluginModel
     private String _strPluginChanges;
     private String _strPluginUserGuide;
     @NotEmpty( message = "La version doit être renseigné." )
-    @Pattern( regexp = "[0-9].[0-9].[0-9]" , message = "La version doit avoir le format 'n.n.n'.")
+    @Pattern( regexp = "[0-9].[0-9].[0-9]", message = "La version doit avoir le format 'n.n.n'." )
     private String _strPluginVersion;
-    @NotEmpty( message = "Le copyright doit être renseigné.")
+    @NotEmpty( message = "Le copyright doit être renseigné." )
     private String _strPluginCopyright;
     private String _strPluginIconUrl;
     private String _strPluginProvider;
-    @NotEmpty( message = "L'url du fournisseur doit être renseigné.")
-    @URL( message = "L'url du fournisseur n'est pas valide.")
+    @NotEmpty( message = "L'url du fournisseur doit être renseigné." )
+    @URL( message = "L'url du fournisseur n'est pas valide." )
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
     private Locale _locale;

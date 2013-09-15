@@ -7,11 +7,13 @@
     </div>
 
     <div class="span8">
+        <#include "infos_handler.html" />
         <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp" >
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_plugin.pageTitle}</legend>
 
-                <#include "errors_handler.html" />
+                 <#include "infos_handler.html" />
+                 <#include "errors_handler.html" />
 
                 <input type="hidden" name="page" value="pluginwizard" />
                 <input type="hidden" name="action" value="do_create_plugin" />

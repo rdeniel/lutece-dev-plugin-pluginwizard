@@ -33,9 +33,10 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -45,18 +46,18 @@ public class Feature
 {
     // Variables declarations 
     private int _nId;
-    @NotEmpty( message = "Le droit doit être renseigné.")
-    @Pattern( regexp = "[A-Z][A-Z_]*" , message = "Le droit doit être en majuscules et underscores")
+    @NotEmpty( message = "pluginwizard.error.feature.right.notEmpty" )
+    @Pattern( regexp = "[A-Z][A-Z_]*", message = "pluginwizard.error.feature.right.pattern" )
     private String _strFeatureRight;
-    @NotEmpty( message = "Le droit doit être renseigné.")
-    @Size( min = 10 , max = 80 , message="Le titre doit contenir entre 10 et 80 caractères")
+    @NotEmpty( message = "pluginwizard.error.feature.title.notEmpty" )
+    @Size( min = 10, max = 80, message = "pluginwizard.error.feature.title.size" )
     private String _strFeatureTitle;
     private String _strFeatureLevel;
-    @NotEmpty( message = "Le nom technique doit être renseigné.")
-    @Pattern( regexp = "[A-Z][a-zA-Z]*" , message = "Le nom technique doit commencer par une majuscules et ne contenir que des lettres")
+    @NotEmpty( message = "pluginwizard.error.feature.name.notEmpty" )
+    @Pattern( regexp = "[A-Z][a-zA-Z]*", message = "pluginwizard.error.feature.name.pattern" )
     private String _strFeatureName;
-    @NotEmpty( message = "La description doit être renseignée.")
-    @Size( min = 10 , max = 255 , message=" La description doit contenir entre 10 et 255 caractères")
+    @NotEmpty( message = "pluginwizard.error.feature.description.notEmpty" )
+    @Size( min = 10, max = 255, message = "pluginwizard.error.feature.description.size" )
     private String _strFeatureDescription;
     private String _strJspName;
 

@@ -33,8 +33,9 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -44,11 +45,11 @@ public class Application
 {
     // Variables declarations 
     private int _nId;
-    @NotEmpty( message = "Le nom de la XPage doit être renseigné." )
-    @Pattern( regexp = "[a-z]+" , message="Le nom de la XPage doit être en minuscules et ne contenir que des lettres")
+    @NotEmpty( message = "pluginwizard.error.application.name.notEmpty" )
+    @Pattern( regexp = "[a-z]+", message = "pluginwizard.error.application.name.pattern" )
     private String _strApplicationName;
-    @NotEmpty( message = "Le nom de la classe doit être renseigné." )
-    @Pattern( regexp = "[A-Z][a-zA-Z]*" , message="Le nom de la classe doit commencer par une majuscule et ne contenir que des lettres")
+    @NotEmpty( message = "pluginwizard.error.application.class.notEmpty" )
+    @Pattern( regexp = "[A-Z][a-zA-Z]*", message = "pluginwizard.error.application.class.pattern" )
     private String _strApplicationClass;
 
     /**

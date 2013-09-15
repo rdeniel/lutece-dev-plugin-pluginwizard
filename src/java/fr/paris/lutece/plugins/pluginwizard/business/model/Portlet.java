@@ -33,8 +33,9 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -44,11 +45,11 @@ public class Portlet
 {
     // Variables declarations 
     private int _nIdPortletPlugin;
-    @NotEmpty( message = "Le nom de la classe doit être renseigné." )
-    @Pattern( regexp = "[A-Z][a-zA-Z.]*" , message="Le nom de la classe doit commencer par une majuscule et ne contenir que des lettres")
+    @NotEmpty( message = "pluginwizard.error.portlet.class.notEmpty" )
+    @Pattern( regexp = "[A-Z][a-zA-Z.]*", message = "pluginwizard.error.portlet.class.pattern" )
     private String _strPortletClass;
-    @NotEmpty( message = "Le nom du type doit être renseigné." )
-    @Pattern( regexp = "[A-Z]*_PORTLET" , message="Le nom du type doit être en majuscules et finir par _PORTLET")
+    @NotEmpty( message = "pluginwizard.error.portlet.type.notEmpty" )
+    @Pattern( regexp = "[A-Z]*_PORTLET", message = "pluginwizard.error.portlet.type.pattern" )
     private String _strPortletTypeName;
     private String _strPortletCreationUrl;
     private String _strPortletUpdateUrl;

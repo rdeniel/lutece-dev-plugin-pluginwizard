@@ -10,11 +10,12 @@
     </div>
     
     <div class="span8">
+        <#include "infos_handler.html" />
         <form class="form form-horizontal well" method="post" action="jsp/site/Portal.jsp" >    
             <fieldset>
                 <h4>#i18n{pluginwizard.pluginwizard_create_plugin_description.pageTitle}</h4>                 
 
-                <#include "errors_handler.html" />
+                 <#include "errors_handler.html" />
 
                 <input type="hidden" name="page" value="pluginwizard" />       
                 <input type="hidden" name="id_plugin" value="${plugin_model.idPlugin}" />       

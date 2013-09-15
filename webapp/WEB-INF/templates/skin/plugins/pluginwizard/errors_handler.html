@@ -2,11 +2,10 @@
 <#if errors??>
 <#if errors?size &gt; 0 >
 <div class="alert alert-danger">
-    <ul>
-        <#list errors as error >
-        <li>${error.message}</li>
-        </#list>
-    </ul>
+    <a class="close" data-dismiss="alert" href="#">×</a>
+    <#list errors as error >
+    <i class="icon-exclamation-sign"></i> ${error.message} <br>
+    </#list>
 </div>
 </#if>
 </#if>

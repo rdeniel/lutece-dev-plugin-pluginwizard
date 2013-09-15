@@ -37,10 +37,12 @@ import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.validation.constraints.Pattern;
-import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -51,11 +53,11 @@ public class BusinessClass
     // Variables declarations 
     private int _nIdFeature;
     private int _nIdBusinessClass;
-    @NotEmpty( message = "Le nom de la classe doit être renseigné." )
-    @Pattern( regexp = "[A-Z][a-zA-Z]*" , message="Le nom de la classe doit commencer par une majuscule et ne contenir que des lettres")
+    @NotEmpty( message = "pluginwizard.error.businessClass.class.notEmpty" )
+    @Pattern( regexp = "[A-Z][a-zA-Z]*", message = "pluginwizard.error.businessClass.class.pattern" )
     private String _strBusinessClass;
-    @NotEmpty( message = "Le nom de la table doit être renseigné." )
-    @Pattern( regexp = "[a-z][a-z_]*" , message="Le nom de la table doit être en minucusles avec des underscores")
+    @NotEmpty( message = "pluginwizard.error.businessClass.tableName.notEmpty" )
+    @Pattern( regexp = "[a-z][a-z_]*", message = "pluginwizard.error.businessClass.tableName.pattern" )
     private String _strBusinessTableName;
     private List<Attribute> _listAttributes;
     private String _strPrimaryAttributeName;

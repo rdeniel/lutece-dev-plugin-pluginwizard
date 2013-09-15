@@ -35,10 +35,12 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
-import javax.validation.constraints.Pattern;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
 
 
 /**
@@ -51,8 +53,8 @@ public class Attribute
     private int _nAttributeTypeId;
     private boolean _bIsPrimary;
     private boolean _bIsDescription;
-    @NotEmpty( message = "Le nom de l'attribut doit être renseigné." )
-    @Pattern( regexp = "[a-z_]*" , message="Le nom de l'attribut doit être en miniscules et ne contenir que des lettres et underscores")
+    @NotEmpty( message = "pluginwizard.error.attribute.name.notEmpty" )
+    @Pattern( regexp = "[a-z_]*", message = "pluginwizard.error.attribute.name.pattern" )
     private String _strAttributeName;
     private int _nMaxLength;
     private boolean _bNotNull;
