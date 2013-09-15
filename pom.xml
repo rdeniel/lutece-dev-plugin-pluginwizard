@@ -42,7 +42,7 @@
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>library-mvc</artifactId>
-            <version>[0.9.2-SNAPSHOT, )</version>
+            <version>[0.9.2, )</version>
         </dependency>
     </dependencies>
 
