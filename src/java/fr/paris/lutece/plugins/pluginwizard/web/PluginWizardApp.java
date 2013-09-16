@@ -915,7 +915,10 @@ public class PluginWizardApp extends MVCApplication
     @View( VIEW_CREATE_APPLICATION )
     public XPage getCreateApplication( HttpServletRequest request )
     {
-        return getXPage( TEMPLATE_CREATE_PLUGIN_APPLICATION, request.getLocale(  ), getPluginModel(  ) );
+        _application = ( _application != null ) ? _application : new Application();
+        Map<String,Object> model =  getPluginModel(  );
+        model.put( MARK_APPLICATION, _application );
+        return getXPage( TEMPLATE_CREATE_PLUGIN_APPLICATION, request.getLocale(  ), model );
     }
 
     /**
@@ -930,9 +933,9 @@ public class PluginWizardApp extends MVCApplication
     {
         int nPluginApplicationId = Integer.parseInt( request.getParameter( PARAM_APPLICATION_ID ) );
 
-        Application application = ModelService.getApplication( _nPluginId, nPluginApplicationId );
+        _application = ModelService.getApplication( _nPluginId, nPluginApplicationId );
         Map<String, Object> model = getPluginModel(  );
-        model.put( MARK_APPLICATION, application );
+        model.put( MARK_APPLICATION, _application );
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
 
         return getXPage( TEMPLATE_MODIFY_PLUGIN_APPLICATION, request.getLocale(  ), model );
@@ -947,15 +950,14 @@ public class PluginWizardApp extends MVCApplication
     @Action( ACTION_CREATE_APPLICATION )
     public XPage doCreateApplication( HttpServletRequest request )
     {
-        Application application = new Application(  );
-        populate( application, request );
+        populate( _application, request );
 
-        if ( !validateBean( application, getLocale( request ) ) )
+        if ( !validateBean( _application, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_CREATE_APPLICATION );
         }
 
-        ModelService.addApplication( _nPluginId, application );
+        ModelService.addApplication( _nPluginId, _application );
         addInfo( INFO_APPLICATION_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_APPLICATIONS );
@@ -969,15 +971,14 @@ public class PluginWizardApp extends MVCApplication
     @Action( ACTION_MODIFY_APPLICATION )
     public XPage doModifyApplication( HttpServletRequest request )
     {
-        Application application = new Application(  );
-        populate( application, request );
+        populate( _application, request );
 
-        if ( !validateBean( application, getLocale( request ) ) )
+        if ( !validateBean( _application, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_MODIFY_APPLICATION );
         }
 
-        ModelService.updateApplication( _nPluginId, application );
+        ModelService.updateApplication( _nPluginId, _application );
         addInfo( INFO_APPLICATION_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_APPLICATIONS );
