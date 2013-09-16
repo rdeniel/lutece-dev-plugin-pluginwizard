@@ -15,16 +15,15 @@
                 <h4>#i18n{pluginwizard.pluginwizard_create_plugin_description.pageTitle}</h4>                 
 
                 <input type="hidden" name="page" value="pluginwizard" />                
-                <input type="hidden" name="plugin_id" value="${plugin_model.idPlugin}" />                                                                                                   
 
-                 <#include "errors_handler.html" />
+                <#include "errors_handler.html" />
 
                 <div class="control-group">
                     <label class="control-label">                         	            	                        
                         #i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
                     </label>       
                     <div class="controls">                
-                        <input type="text" name="plugin_name"  value="<#if plugin_model.pluginName??>${plugin_model.pluginName}</#if>" readonly />       
+                        <input type="text" name="plugin_name"  value="${plugin_model.pluginName!''}" readonly />       
                     </div>
                 </div>
 
@@ -46,14 +45,14 @@
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
                     <div class="controls">
-                        <input class="input-small" type="text" name="plugin_version"  value="${plugin_version_number}" size="30" />
+                        <input class="input-small" type="text" name="plugin_version"  value="${plugin_version_number}" />
                     </div>                                                                              
                 </div>
 
                 <div class="control-group">
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginCopyright} : </label>       
                     <div class="controls">
-                        <input class="input-xlarge" type="text" name="plugin_copyright" value="Copyright (c) 2013 Your Company" size="30" />
+                        <input class="input-xlarge" type="text" name="plugin_copyright" value="Copyright (c) 2013 Your Company" />
                     </div>  
                 </div>
 

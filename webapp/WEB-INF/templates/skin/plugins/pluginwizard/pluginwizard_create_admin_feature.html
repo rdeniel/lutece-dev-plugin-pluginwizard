@@ -20,14 +20,14 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
                     <div class="controls">      
-                        <input class="input-xlarge" type="text" name="feature_title" value="" />                                         
+                        <input class="input-xlarge" type="text" name="feature_title" value="${feature.featureTitle!''}" />                                         
                     </div>
                 </div>
 
                 <div class="control-group">                                                         
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureDescription} : </label>                 
                     <div class="controls">        
-                        <input class="input-xlarge" type="text" name="feature_description" value="" size="30" />                           
+                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.featureDescription!''}" />                           
                     </div>
                 </div>
 
@@ -35,14 +35,14 @@
                     <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
                     </label>          
                     <div class="controls">            
-                        <input class="input-xlarge" type="text" name="feature_name" value="Manage${plugin_model.pluginName?cap_first}" />                     
+                        <input class="input-xlarge" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?cap_first}</#if>" />                     
                     </div>             
                 </div> 
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
                     <div class="controls">    
-                        <input type="text" name="feature_right" value="${plugin_model.pluginName?upper_case}_MANAGEMENT"  />      
+                        <input type="text" name="feature_right" value="<#if feature.featureRight??>${feature.featureRight}<#else>${plugin_model.pluginName?upper_case}_MANAGEMENT</#if>"  />      
                     </div>    
                 </div>
 
