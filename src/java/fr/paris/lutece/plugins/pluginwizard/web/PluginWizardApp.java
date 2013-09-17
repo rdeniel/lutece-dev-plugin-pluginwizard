@@ -119,6 +119,7 @@ public class PluginWizardApp extends MVCApplication
     private static final String PARAM_FEATURE_ID = "feature_id";
     private static final String PARAM_APPLICATION_ID = "application_id";
     private static final String PARAM_PORTLET_ID = "portletId";
+    private static final String PARAM_REFRESH = "refresh";
 
     // PLUGIN DESCRIPTION
     private static final String VIEW_CREATE_PLUGIN = "createPlugin";
@@ -589,7 +590,8 @@ public class PluginWizardApp extends MVCApplication
     public XPage getModifyBusinessClass( HttpServletRequest request )
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
-        if( ( _businessClass == null ) || ( _businessClass.getId() != nBusinessClassId ))
+        String strRefresh = request.getParameter( PARAM_REFRESH );
+        if( ( _businessClass == null ) || ( _businessClass.getId() != nBusinessClassId ) || ( strRefresh != null ))
         {
             _businessClass = ModelService.getBusinessClass( _nPluginId, nBusinessClassId );
         }
@@ -620,11 +622,11 @@ public class PluginWizardApp extends MVCApplication
             return redirectView( request, VIEW_CREATE_BUSINESS_CLASS );
         }
 
-        ModelService.addBusinessClass( _nPluginId, _businessClass );
+        BusinessClass businessClass = ModelService.addBusinessClass( _nPluginId, _businessClass );
         _businessClass = null;
         addInfo( INFO_BUSINESS_CLASS_CREATED, getLocale( request ) );
 
-        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, _businessClass.getId() );
+        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID,  businessClass.getId() );
     }
 
     /**
@@ -781,7 +783,7 @@ public class PluginWizardApp extends MVCApplication
         _attribute = null;
         addInfo( INFO_ATTRIBUTE_CREATED, getLocale( request ) );
 
-        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
+        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId, PARAM_REFRESH , 1 );
     }
 
     /**
@@ -809,7 +811,7 @@ public class PluginWizardApp extends MVCApplication
         _attribute = null;
         addInfo( INFO_ATTRIBUTE_UPDATED, getLocale( request ) );
 
-        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
+        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId, PARAM_REFRESH , 1 );
     }
 
     /**
@@ -882,7 +884,7 @@ public class PluginWizardApp extends MVCApplication
         ModelService.removeAttribute( _nPluginId, nBusinessClassId, nAttributeId );
         addInfo( INFO_ATTRIBUTE_DELETED, getLocale( request ) );
 
-        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
+        return redirect( request, VIEW_MODIFY_BUSINESS_CLASS , PARAM_BUSINESS_CLASS_ID, nBusinessClassId, PARAM_REFRESH , 1 );
     }
 
     @Action( ACTION_VALIDATE_ATTRIBUTES )

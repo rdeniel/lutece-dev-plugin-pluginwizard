@@ -46,7 +46,7 @@ public class Portlet
     // Variables declarations 
     private int _nIdPortletPlugin;
     @NotEmpty( message = "pluginwizard.error.portlet.class.notEmpty" )
-    @Pattern( regexp = "[A-Z][a-zA-Z.]*", message = "pluginwizard.error.portlet.class.pattern" )
+    @Pattern( regexp = "[a-zA-Z.]*", message = "pluginwizard.error.portlet.class.pattern" )
     private String _strPortletClass;
     @NotEmpty( message = "pluginwizard.error.portlet.type.notEmpty" )
     @Pattern( regexp = "[A-Z]*_PORTLET", message = "pluginwizard.error.portlet.type.pattern" )

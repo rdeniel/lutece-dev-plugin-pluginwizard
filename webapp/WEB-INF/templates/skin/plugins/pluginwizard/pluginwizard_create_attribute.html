@@ -22,35 +22,35 @@
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeName} * :</label>      
                     <div class="controls">    
-                        <input type="text" name="attribute_name" value="" size="30" />      
+                        <input type="text" name="attribute_name" value="${attribute.attributeName!}" size="30" />      
                     </div>
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeType} * :</label>      
                     <div class="controls">       
-                        <@combo name="attribute_type_id" default_value="all" items=combo_attribute_type />      
+                        <@combo name="attribute_type_id" default_value="${attribute.attributeTypeId!'1'}" items=combo_attribute_type />      
                     </div> 
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelMandatory} * : </label>                            
                     <div class="controls">  
-                        <input class="checkbox" type="checkbox" name="not_null" value="1" checked="checked"/>
+                        <input class="checkbox" type="checkbox" name="not_null" value="1" <#if attribute?? && attribute.notNull>checked="checked"</#if>/>
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} * : </label>                            
                     <div class="controls">  
-                        <input class="checkbox" type="checkbox" name="is_primary" />
+                        <input class="checkbox" type="checkbox" name="is_primary" <#if attribute?? && attribute.isPrimary>checked="checked"</#if>/>
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelClassDescription} * : </label>                            
                     <div class="controls">                                                                                                     
-                        <input class="checkbox" type="checkbox" name="is_description" />
+                        <input class="checkbox" type="checkbox" name="is_description" <#if attribute?? && attribute.isDescription>checked="checked"</#if> />
                     </div>                         
                 </div>
 
