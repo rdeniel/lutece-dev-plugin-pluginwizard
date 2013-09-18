@@ -34,11 +34,8 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -106,8 +103,6 @@ public class SqlCodeGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_SQL_TYPE, nSqlType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( model );
     }
 }

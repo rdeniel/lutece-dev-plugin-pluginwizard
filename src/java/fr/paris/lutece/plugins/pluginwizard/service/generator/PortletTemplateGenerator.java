@@ -113,8 +113,6 @@ public class PortletTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_PORTLET_TEMPLATE_TYPE, nPortletTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( model );
     }
 }

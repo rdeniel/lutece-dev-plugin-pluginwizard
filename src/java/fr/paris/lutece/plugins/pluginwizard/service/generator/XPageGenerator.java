@@ -36,11 +36,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -52,7 +49,18 @@ import java.util.Map;
 public class XPageGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String PATH_TEMPLATE = "webapp/WEB-INF/templates/skin/plugins/{plugin_name}/";
 
+    private String _strXPageTemplate;
+    
+    /**
+     * 
+     * @param strXPageTemplate The template for the XPage's template
+     */
+    public void setXpageTemplate( String strXPageTemplate )
+    {
+        _strXPageTemplate = strXPageTemplate;
+    }
     /**
      * {@inheritDoc }
      * @param pm
@@ -65,9 +73,13 @@ public class XPageGenerator extends AbstractGenerator
         for ( Application xpage : pm.getApplications(  ) )
         {
             String strPath = getFilePath( pm, PATH, xpage.getApplicationClass(  ) + ".java" );
-
             String strSourceCode = getXPageCode( pm, xpage.getId(  ) );
             map.put( strPath, strSourceCode );
+            
+            strPath = getFilePath( pm, PATH_TEMPLATE, xpage.getApplicationName() + ".html" );
+            strSourceCode = getTemplateCode(pm, xpage.getId(  ) );
+            map.put( strPath, strSourceCode );
+            
         }
 
         return map;
@@ -81,14 +93,19 @@ public class XPageGenerator extends AbstractGenerator
     */
     private String getXPageCode( PluginModel pm, int nApplicationId )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
-
-        model.put( Markers.MARK_PLUGIN_MODEL, pm );
         model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
-
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        
+        return build( model );
+    }
+    
+    private String getTemplateCode( PluginModel pm, int nApplicationId )
+    {
+        Map<String, Object> model = getModel( pm );
+        model.put( Markers.MARK_PLUGIN, pm );
+        model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
+        
+        return build( _strXPageTemplate , model );
     }
 }

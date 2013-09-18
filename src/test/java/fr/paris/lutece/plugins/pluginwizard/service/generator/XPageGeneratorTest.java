@@ -52,13 +52,28 @@ public class XPageGeneratorTest extends LuteceTestCase
      * Test of generate method, of class XPageGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerateClassic(  )
     {
-        System.out.println( "generate XPage files" );
+        System.out.println( "generate XPage files Classic" );
 
         PluginModel pm = GeneratorUtils.getTestModel(  );
-        XPageGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.java" );
+        XPageGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.java.classic" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
+    
+        /**
+     * Test of generate method, of class XPageGenerator.
+     */
+    @Test
+    public void testGenerateAlternative(  )
+    {
+        System.out.println( "generate XPage files A1ternative" );
+
+        PluginModel pm = GeneratorUtils.getTestModel(  );
+        XPageGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.java.alternative" );
+        Map result = instance.generate( pm );
+        GeneratorUtils.outputMap( result );
+    }
+
 }

@@ -35,13 +35,10 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -112,8 +109,6 @@ public class PortletGenerator extends AbstractGenerator
         model.put( MARK_PORTLET_NAME, strPortletName );
         AppLogService.info( portlet );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( strTemplate, model );
     }
 }

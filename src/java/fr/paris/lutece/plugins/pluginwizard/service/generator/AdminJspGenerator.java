@@ -37,12 +37,9 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -138,9 +135,7 @@ public class AdminJspGenerator extends AbstractGenerator
         String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClassCapsFirst(  );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strBusinessTemplate, Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( _strBusinessTemplate, model );
     }
 
     /**
@@ -155,8 +150,6 @@ public class AdminJspGenerator extends AbstractGenerator
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strFeatureTemplate, Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( _strFeatureTemplate, model );
     }
 }

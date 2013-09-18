@@ -41,6 +41,8 @@ import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.web.xpages.XPageApplication;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
+import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.util.html.HtmlTemplate;
 
 
 /**
@@ -50,6 +52,7 @@ public class ${plugin_application.applicationClass} implements XPageApplication
 {
  private static final String PARAMETER_PAGE = "page";
  
+ private static final String TEMPLATE_XPAGE = "/skin/plugins/${plugin_model.pluginName}/${plugin_application.applicationName}.html";
  private static final String PROPERTY_PAGE_PATH = "${plugin_application.applicationName}.pagePathLabel";
  private static final String PROPERTY_PAGE_TITLE = "${plugin_application.applicationName}.pageTitle";
 
@@ -68,7 +71,8 @@ public class ${plugin_application.applicationClass} implements XPageApplication
 
         page.setTitle( AppPropertiesService.getProperty( PROPERTY_PAGE_TITLE ) );
         page.setPathLabel( AppPropertiesService.getProperty( PROPERTY_PAGE_PATH ) );
-        page.setContent( " The plugin ${plugin_model.pluginName} has been installed and this is the ${plugin_application.applicationName} XPage"  );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_XPAGE );
+        page.setContent( template.getHtml()  );
         
         return page;
     }

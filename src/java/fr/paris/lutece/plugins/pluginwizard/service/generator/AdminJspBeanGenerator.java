@@ -37,12 +37,9 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -97,46 +94,39 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     /**
      * Return JspBean code
      *
-     * @param pluginModel The plugin model
+     * @param pm The plugin model
      * @param strFeatureName The feature name
      * @param strFeatureRight The feature right
      * @param business  The business classes
      * @return the template The source code of the Jsp Bean
      */
-    private String getJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight,
+    private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight,
         BusinessClass business )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = getModel( pm );
 
         model.put( Markers.MARK_BUSINESS_CLASS, business );
-        model.put( Markers.MARK_PLUGIN_MODEL, pluginModel );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( model );
     }
 
     /**
     * Return JspBean code
     *
-    * @param pluginModel The plugin model
+    * @param pm The plugin model
     * @param strFeatureName The feature name
     * @param strFeatureRight The feature right
     * @return the template The source code of the Jsp Bean
     */
-    private String getAbstractJspBeanCode( PluginModel pluginModel, String strFeatureName, String strFeatureRight )
+    private String getAbstractJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = getModel( pm );
 
-        model.put( Markers.MARK_PLUGIN_MODEL, pluginModel );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strAbstractParentBeanTemplate, Locale.getDefault(  ),
-                model );
-
-        return template.getHtml(  );
+        return build( _strAbstractParentBeanTemplate, model );
     }
 }

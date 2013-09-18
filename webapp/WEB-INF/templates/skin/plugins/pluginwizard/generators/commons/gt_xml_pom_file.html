@@ -10,7 +10,7 @@
 	<groupId>fr.paris.lutece.plugins</groupId>
 	<artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
 	<packaging>lutece-plugin</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>${plugin.pluginVersion}-SNAPSHOT</version>
 	<name>Lutece ${plugin.pluginName?lower_case} plugin</name>
 
 	<repositories>
@@ -33,7 +33,7 @@
 
 	<properties>
 		<componentName>${plugin.pluginName}</componentName>
-		<jiraProjectName>LUTECE</jiraProjectName>
-		<jiraComponentId>10036</jiraComponentId>
+		<jiraProjectName>${plugin.pluginName?upper_case}</jiraProjectName>
+		<jiraComponentId></jiraComponentId>
 	</properties>
 </project>

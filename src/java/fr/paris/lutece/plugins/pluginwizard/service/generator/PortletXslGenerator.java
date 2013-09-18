@@ -36,11 +36,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -101,8 +98,6 @@ public class PortletXslGenerator extends AbstractGenerator
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
-
-        return template.getHtml(  );
+        return build( model );
     }
 }
