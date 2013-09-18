@@ -49,9 +49,12 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
-import fr.paris.lutece.plugins.pluginwizard.web.formbean.FormName;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.PluginNameFormBean;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.security.UserNotSignedException;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
@@ -81,6 +84,7 @@ public class PluginWizardApp extends MVCApplication
     private static final String MARK_ADMIN_FEATURES_COMBO = "combo_admin_features";
     private static final String MARK_ATTRIBUTE_TYPE_COMBO = "combo_attribute_type";
     private static final String MARK_SCHEMES_COMBO = "combo_schemes";
+    private static final String MARK_ATTRIBUTES_LIST = "attributes_list";
 
     //Modification bookmarks
     private static final String MARK_FEATURE = "feature";
@@ -215,9 +219,9 @@ public class PluginWizardApp extends MVCApplication
     private int _nPluginId;
     private String _strPluginName;
     
-    private PluginModel _model;
+    private DescriptionFormBean _description;
     private Feature _feature;
-    private BusinessClass _businessClass;
+    private BusinessClassFormBean _businessClass;
     private Attribute _attribute;
     private Application _application;
     private Portlet _portlet;
@@ -228,7 +232,7 @@ public class PluginWizardApp extends MVCApplication
      */
     @Override
     public XPage getPage( HttpServletRequest request, int nMode, Plugin plugin )
-        throws SiteMessageException
+        throws SiteMessageException, UserNotSignedException
     {
         if ( _nPluginId == 0 )
         {
@@ -286,7 +290,7 @@ public class PluginWizardApp extends MVCApplication
     @Action( ACTION_CREATE_PLUGIN )
     public XPage doCreatePlugin( HttpServletRequest request )
     {
-        FormName form = new FormName(  );
+        PluginNameFormBean form = new PluginNameFormBean(  );
         populate( form, request );
 
         if ( !validateBean( form, getLocale( request ) ) )
@@ -351,10 +355,9 @@ public class PluginWizardApp extends MVCApplication
     public XPage getModifyPluginDescription( HttpServletRequest request )
     {
         Map<String, Object> model = getPluginModel(  );
-        if( _model != null )
-        {
-            model.put( MARK_PLUGIN_MODEL, _model );
-        }
+        _description = ( _description != null ) ? _description : ModelService.getDescription( _nPluginId );
+        model.put( MARK_PLUGIN_MODEL, _description );
+
         return getXPage( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, request.getLocale(  ), model );
     }
 
@@ -389,18 +392,18 @@ public class PluginWizardApp extends MVCApplication
      */
     private XPage doModifyPlugin( HttpServletRequest request, String strView )
     {
-        _model = ( _model == null ) ? ModelService.getPluginModel( _nPluginId ) : _model;
+        populate( _description, request );
 
-        populate( _model, request );
-
-        if ( !validateBean( _model, getLocale( request ) ) )
+        if ( !validateBean( _description, getLocale( request ) ) )
         {
             return redirectView( request, VIEW_MODIFY_DESCRIPTION );
         }
 
-        _model.setPluginIconUrl( "images/admin/skin/plugins/" + _strPluginName + "/" + _strPluginName + ".png" );
+        _description.setPluginClass( "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation");
+        _description.setPluginIconUrl( "images/admin/skin/plugins/" + _strPluginName + "/" + _strPluginName + ".png" );
 
-        ModelService.savePluginModel( _model );
+        
+        ModelService.updateDescription( _nPluginId , _description );
 
         return redirectView( request, strView );
     }
@@ -570,7 +573,7 @@ public class PluginWizardApp extends MVCApplication
     @View( VIEW_CREATE_BUSINESS_CLASS )
     public XPage getCreateBusinessClass( HttpServletRequest request )
     {
-        _businessClass = ( _businessClass != null ) ? _businessClass : new BusinessClass();
+        _businessClass = ( _businessClass != null ) ? _businessClass : new BusinessClassFormBean();
         Map<String, Object> model = getPluginModel(  );
         
         model.put( MARK_ADMIN_FEATURES_COMBO, ModelService.getComboFeatures( _nPluginId ) );
@@ -593,10 +596,11 @@ public class PluginWizardApp extends MVCApplication
         String strRefresh = request.getParameter( PARAM_REFRESH );
         if( ( _businessClass == null ) || ( _businessClass.getId() != nBusinessClassId ) || ( strRefresh != null ))
         {
-            _businessClass = ModelService.getBusinessClass( _nPluginId, nBusinessClassId );
+            _businessClass = ModelService.getFormBusinessClass( _nPluginId, nBusinessClassId );
         }
         Map<String, Object> model = getPluginModel(  );
         model.put( MARK_BUSINESS_CLASS, _businessClass );
+        model.put( MARK_ATTRIBUTES_LIST, ModelService.getBusinessClass(_nPluginId, nBusinessClassId).getAttributes());
         model.put( MARK_ADMIN_FEATURES_COMBO, ModelService.getComboFeatures( _nPluginId ) );
 
         return getXPage( TEMPLATE_MODIFY_BUSINESS_CLASS, request.getLocale(  ), model );
@@ -661,7 +665,7 @@ public class PluginWizardApp extends MVCApplication
      * @param businessClass The Business class
      * @return True if OK
      */
-    private boolean validateTablePrefix( HttpServletRequest request, BusinessClass businessClass )
+    private boolean validateTablePrefix( HttpServletRequest request, BusinessClassFormBean businessClass )
     {
         String strTablePrefix = _strPluginName + "_";
         boolean bValidate = businessClass.getBusinessTableName(  ).startsWith( strTablePrefix );

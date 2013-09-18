@@ -19,10 +19,10 @@
     <admin-features>
     <#list plugin.features as feature >
         <admin-feature>
-            <feature-id>${feature.pluginFeatureRight}</feature-id>
-            <feature-title>${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.name</feature-title>
-            <feature-description>${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.description</feature-description>
-            <feature-level>${feature.pluginFeatureLevel}</feature-level>
+            <feature-id>${feature.featureRight}</feature-id>
+            <feature-title>${plugin.pluginName}.adminFeature.${feature.featureName}.name</feature-title>
+            <feature-description>${plugin.pluginName}.adminFeature.${feature.featureName}.description</feature-description>
+            <feature-level>${feature.featureLevel}</feature-level>
             <feature-url>jsp/admin/plugins/${plugin.pluginName}/${feature.jspName}</feature-url>
             <feature-icon-url></feature-icon-url>
       </admin-feature>

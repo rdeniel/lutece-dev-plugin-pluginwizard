@@ -41,11 +41,14 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
+import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.dozer.DozerBeanMapper;
 
 
 /**
@@ -54,6 +57,7 @@ import java.util.List;
 public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
+    private static DozerBeanMapper _mapper = new DozerBeanMapper();
 
     /** private constructor */
     private ModelService(  )
@@ -508,14 +512,15 @@ public final class ModelService
      * @param bc The business class
      * @return The business class with its ID
      */
-    public static BusinessClass addBusinessClass( int nPluginId, BusinessClass bc )
+    public static BusinessClass addBusinessClass( int nPluginId, BusinessClassFormBean bc )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        bc.setId( getMaxBusinessClassId( pm ) + 1 );
-        pm.getBusinessClasses(  ).add( bc );
+        BusinessClass businessClass = _mapper.map( bc, BusinessClass.class );
+        businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
+        pm.getBusinessClasses(  ).add( businessClass );
         savePluginModel( pm );
 
-        return bc;
+        return businessClass;
     }
 
     /**
@@ -545,7 +550,7 @@ public final class ModelService
      * @param nPluginId The plugin's ID
      * @param businessClass The businessClass
      */
-    public static void updateBusinessClass( int nPluginId, BusinessClass businessClass )
+    public static void updateBusinessClass( int nPluginId, BusinessClassFormBean businessClass )
     {
         PluginModel pm = getPluginModel( nPluginId );
         List<BusinessClass> list = pm.getBusinessClasses(  );
@@ -556,7 +561,7 @@ public final class ModelService
 
             if ( bc.getId(  ) == businessClass.getId(  ) )
             {
-                list.set( i, bc );
+                _mapper.map( businessClass, bc );
                 savePluginModel( pm );
 
                 break;
@@ -846,4 +851,25 @@ public final class ModelService
     {
         return _serviceAttribute.getType( nAttributeTypeId ).getDescription(  );
     }
+
+    public static void updateDescription(int nPluginId, DescriptionFormBean description)
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        _mapper.map( description , pm );
+        savePluginModel(pm);
+    }
+
+    public static DescriptionFormBean getDescription(int nPluginId)
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        return _mapper.map( pm , DescriptionFormBean.class );
+    }
+
+    public static BusinessClassFormBean getFormBusinessClass(int nPluginId, int nBusinessClassId)
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        return _mapper.map( getBusinessClass(pm, nBusinessClassId) , BusinessClassFormBean.class );
+    }
+
+
 }

@@ -83,8 +83,8 @@
             </thead>
 
             <tbody>
-                <#if business_class.attributes?? >
-                <#list business_class.attributes as attribute>
+                <#if attributes_list?? >
+                <#list attributes_list as attribute>
                 <tr>
                     <td>${attribute.attributeName}</td>
                     <td>${attribute.typeDescription}</td>

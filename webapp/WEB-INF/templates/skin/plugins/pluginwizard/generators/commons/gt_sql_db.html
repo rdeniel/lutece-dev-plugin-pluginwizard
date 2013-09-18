@@ -43,14 +43,14 @@ PRIMARY KEY (${business_class.primaryKey})
 --
 DELETE FROM core_admin_right WHERE id_right = 'UPDATER_MANAGEMENT';
 INSERT INTO core_admin_right (id_right,name,level_right,admin_url,description,is_updatable,plugin_name,id_feature_group,icon_url,documentation_url, id_order ) VALUES 
-('${feature.pluginFeatureRight}','${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.name',1,'jsp/admin/plugins/${plugin.pluginName}/${feature.jspName}','${plugin.pluginName}.adminFeature.${feature.pluginFeatureName}.description',0,'${plugin.pluginName}',NULL,NULL,NULL,4);
+('${feature.featureRight}','${plugin.pluginName}.adminFeature.${feature.featureName}.name',1,'jsp/admin/plugins/${plugin.pluginName}/${feature.jspName}','${plugin.pluginName}.adminFeature.${feature.featureName}.description',0,'${plugin.pluginName}',NULL,NULL,NULL,4);
 
 
 --
 -- Data for table core_user_right
 --
-DELETE FROM core_user_right WHERE id_right = '${feature.pluginFeatureRight}';
-INSERT INTO core_user_right (id_right,id_user) VALUES ('${feature.pluginFeatureRight}',1);
+DELETE FROM core_user_right WHERE id_right = '${feature.featureRight}';
+INSERT INTO core_user_right (id_right,id_user) VALUES ('${feature.featureRight}',1);
 
 </#list>
 </#if>

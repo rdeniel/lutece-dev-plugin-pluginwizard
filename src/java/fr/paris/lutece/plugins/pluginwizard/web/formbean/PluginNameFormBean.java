@@ -41,7 +41,7 @@ import javax.validation.constraints.Pattern;
 /**
  * Form name
  */
-public class FormName
+public class PluginNameFormBean
 {
     @NotEmpty( message = "pluginwizard.error.plugin.name.notEmpty" )
     @Pattern( regexp = "[a-z]*", message = "pluginwizard.error.plugin.name.pattern" )

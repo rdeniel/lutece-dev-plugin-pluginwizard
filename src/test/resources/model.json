@@ -1,124 +1,86 @@
-{
-    "idPlugin": 1,
-    "pluginName": "myplugin",
-    "locale": null,
-    "pluginClass": "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation",
-    "pluginDescription": "Plugin description",
-    "pluginDocumentation": "",
-    "pluginInstallation": "",
-    "pluginChanges": "",
-    "pluginUserGuide": "",
-    "pluginVersion": "1.0.0",
-    "pluginCopyright": "Copyright (c) 2013 Your Company",
-    "pluginIconUrl": "images/admin/skin/plugins/myplugin/myplugin.png",
-    "pluginProvider": "Provider",
-    "pluginProviderUrl": "http://your.web.site.com",
-    "pluginDbPoolRequired": "1",
-    "portlets": [
-        {
-            "id": 1,
-            "pluginPortletTypeName": "MY_PORTLET",
-            "pluginPortletClass": "fr.paris.lutece.plugins.myplugin.business.portlet.ExamplePortletHome",
-            "pluginPortletCreationUrl": "plugins/myplugin/CreatePortletExample.jsp",
-            "pluginPortletUpdateUrl": "plugins/myplugin/ModifyPortletExample.jsp"
-        }],
-    "features": [
-        {
-            "id": 1,
-            "jspName": null,
-            "pluginFeatureName": "ManageMyplugin",
-            "pluginFeatureRight": "MYPLUGIN_MANAGEMENT",
-            "pluginFeatureTitle": "My Feature",
-            "pluginFeatureLevel": "0",
-            "pluginFeatureDescription": "My Feature description"
-        }],
-    "businessClasses": [
-        {
-            "id": 1,
-            "businessClass": "Person",
-            "idFeature": 1,
-            "businessTableName": "myplugin_person",
-            "classDescription": "person_name",
-            "primaryKey": "id_person",
-            "attributes": [
-                {
-                    "id": 1,
-                    "attributeName": "id_person",
-                    "attributeTypeId": 1,
-                    "isPrimary": true,
-                    "isDescription": false,
-                    "notNull": true,
-                    "maxLength": 0
-                },
-                {
-                    "id": 2,
-                    "attributeName": "person_name",
-                    "attributeTypeId": 2,
-                    "isPrimary": false,
-                    "isDescription": true,
-                    "notNull": true,
-                    "maxLength": 50
-                },
-                {
-                    "id": 3,
-                    "attributeName": "email",
-                    "attributeTypeId": 5,
-                    "isPrimary": false,
-                    "isDescription": false,
-                    "notNull": true,
-                    "maxLength": 255
-                }]
-        },
-        {
-            "id": 2, 
-            "businessClass": "Product",
-            "idFeature": 1,
-            "businessTableName": "myplugin_product",
-            "classDescription": "product_name",
-            "primaryKey": "id_product",
-            "attributes": [
-                {
-                    "id": 1,
-                    "attributeName": "id_product",
-                    "attributeTypeId": 1,
-                    "isPrimary": true,
-                    "isDescription": false,
-                    "notNull": true,
-                    "maxLength": 0
-                },
-                {
-                    "id": 2,
-                    "attributeName": "product_name",
-                    "attributeTypeId": 2,
-                    "isPrimary": false,
-                    "isDescription": true,
-                    "notNull": true,
-                    "maxLength": 50
-                },
-                {
-                    "id": 3,
-                    "attributeName": "product_summary",
-                    "attributeTypeId": 3,
-                    "isPrimary": false,
-                    "isDescription": false,
-                    "notNull": false,
-                    "maxLength": 255
-                },
-                {
-                    "id": 4,
-                    "attributeName": "product_description",
-                    "attributeTypeId": 4,
-                    "isPrimary": false,
-                    "isDescription": false,
-                    "notNull": true,
-                    "maxLength": 0
-                }]
-        }],
-    "applications": [
-        {
-            "id": 1,
-            "applicationClass": "MyPluginApp",
-            "applicationName": "myplugin"
-        }
-    ]
+{ 
+  "idPlugin" : 1,
+  "locale" : null,
+  "pluginChanges" : null,
+  "pluginClass" : "fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation",
+  "pluginCopyright" : "Copyright (c) 2013 My Company",
+  "pluginDbPoolRequired" : "1",
+  "pluginDescription" : "My Plugin description",
+  "pluginDocumentation" : null,
+  "pluginIconUrl" : "images/admin/skin/plugins/myplugin/myplugin.png",
+  "pluginInstallation" : null,
+  "pluginName" : "myplugin",
+  "pluginProvider" : "My Company",
+  "pluginProviderUrl" : "http://www.mycompany.com",
+  "pluginUserGuide" : null,
+  "pluginVersion" : "1.0.0",
+
+  "applications" : [ { "applicationClass" : "MyPluginApp",
+        "applicationName" : "myplugin",
+        "id" : 1
+      } ],
+          
+  "businessClasses" : [ { "attributes" : [ { "attributeName" : "id_person",
+              "attributeTypeId" : 1,
+              "id" : 1,
+              "isDescription" : false,
+              "isPrimary" : true,
+              "maxLength" : 0,
+              "notNull" : true
+            },
+            { "attributeName" : "person_name",
+              "attributeTypeId" : 2,
+              "id" : 2,
+              "isDescription" : true,
+              "isPrimary" : false,
+              "maxLength" : 50,
+              "notNull" : true
+            }
+          ],
+        "businessClass" : "Person",
+        "businessTableName" : "myplugin_person",
+        "classDescription" : "person_name",
+        "id" : 1,
+        "idFeature" : 1,
+        "primaryKey" : "id_person"
+      },
+      { "attributes" : [ { "attributeName" : "id_product",
+              "attributeTypeId" : 1,
+              "id" : 1,
+              "isDescription" : false,
+              "isPrimary" : true,
+              "maxLength" : 0,
+              "notNull" : true
+            },
+            { "attributeName" : "product_name",
+              "attributeTypeId" : 3,
+              "id" : 2,
+              "isDescription" : true,
+              "isPrimary" : false,
+              "maxLength" : 255,
+              "notNull" : true
+            }
+          ],
+        "businessClass" : "Product",
+        "businessTableName" : "myplugin_product",
+        "classDescription" : "product_name",
+        "id" : 2,
+        "idFeature" : 1,
+        "primaryKey" : "id_product"
+      }
+    ],
+  "features" : [ { "featureDescription" : "My Feature description",
+        "featureLevel" : "0",
+        "featureName" : "ManageMyplugin",
+        "featureRight" : "MYPLUGIN_MANAGEMENT",
+        "featureTitle" : "My Feature",
+        "id" : 1,
+        "jspName" : null
+      } ],
+  "portlets" : [ { "id" : 1,
+        "portletClass" : "fr.paris.lutece.plugins.myplugin.business.portlet.ExamplePortletHome",
+        "portletCreationUrl" : "plugins/myplugin/CreatePortletExample.jsp",
+        "portletTypeName" : "EXAMPLE_PORTLET",
+        "portletUpdateUrl" : "plugins/myplugin/ModifyPortletExample.jsp"
+      } ]
 }
