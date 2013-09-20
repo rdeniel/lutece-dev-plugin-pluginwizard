@@ -6,10 +6,10 @@
 
 <jsp:include page="../../PortletAdminHeader.jsp" />
 
-<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+<jsp:useBean id="${portlet.portletClass}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portlet.portletClass}JspBean" />
 
-<% ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE ); %>
-<%= ${portletName}Portlet.getModify ( request ) %>
+<% ${portlet.portletClass}.init( request, ${portlet.portletClass}.RIGHT_MANAGE_ADMIN_SITE ); %>
+<%= ${portlet.portletClass}.getModify ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
 
@@ -18,11 +18,11 @@
   <#case 1>
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+<jsp:useBean id="${portlet.portletClass}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portlet.portletClass}JspBean" />
 
 <%
-    ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE );
-    response.sendRedirect( ${portletName}Portlet.doModify( request ) );
+    ${portlet.portletClass}.init( request, ${portlet.portletClass}.RIGHT_MANAGE_ADMIN_SITE );
+    response.sendRedirect( ${portlet.portletClass}.doModify( request ) );
 %>
 
  <#break>
@@ -32,10 +32,10 @@
 <%@ page errorPage="../../ErrorPage.jsp" %>
 <jsp:include page="../../PortletAdminHeader.jsp" />
 
-<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+<jsp:useBean id="${portlet.portletClass}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portlet.portletClass}JspBean" />
 
-<% ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE); %>
-<%= ${portletName}Portlet.getCreate ( request ) %>
+<% ${portlet.portletClass}.init( request, ${portlet.portletClass}.RIGHT_MANAGE_ADMIN_SITE); %>
+<%= ${portlet.portletClass}.getCreate ( request ) %>
 
 <%@ include file="../../AdminFooter.jsp" %>
 
@@ -45,11 +45,11 @@
 
 <%@ page errorPage="../../ErrorPage.jsp" %>
 
-<jsp:useBean id="${portletName}Portlet" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portletName?cap_first}PortletJspBean" />
+<jsp:useBean id="${portlet.portletClass}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.portlet.${portlet.portletClass}JspBean" />
 
 <%
-    ${portletName}Portlet.init( request, ${portletName}Portlet.RIGHT_MANAGE_ADMIN_SITE );
-    response.sendRedirect( ${portletName}Portlet.doCreate( request ) );
+    ${portlet.portletClass}.init( request, ${portlet.portletClass}.RIGHT_MANAGE_ADMIN_SITE );
+    response.sendRedirect( ${portlet.portletClass}.doCreate( request ) );
 %>
  <#break>
 

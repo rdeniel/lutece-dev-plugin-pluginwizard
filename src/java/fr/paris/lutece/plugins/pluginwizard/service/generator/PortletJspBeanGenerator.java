@@ -59,11 +59,7 @@ public class PortletJspBeanGenerator extends AbstractGenerator
 
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            String strPortlet = portlet.getPortletTypeName(  );
-            int nIndex = strPortlet.lastIndexOf( "_" );
-
-            String strPath = getFilePath( pm, PATH,
-                    getFirstCaps( strPortlet.substring( 0, nIndex ) ) + "PortletJspBean.java" );
+            String strPath = getFilePath( pm, PATH, portlet.getPortletClass() + "JspBean.java" );
 
             String strSourceCode = getPortletJspBean( portlet, pm.getPluginName(  ) );
             map.put( strPath, strSourceCode );

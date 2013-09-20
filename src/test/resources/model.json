@@ -78,9 +78,8 @@
         "jspName" : null
       } ],
   "portlets" : [ { "id" : 1,
-        "portletClass" : "fr.paris.lutece.plugins.myplugin.business.portlet.ExamplePortletHome",
-        "portletCreationUrl" : "plugins/myplugin/CreatePortletExample.jsp",
+        "portletClass" : "MyPLuginPortlet",
         "portletTypeName" : "EXAMPLE_PORTLET",
-        "portletUpdateUrl" : "plugins/myplugin/ModifyPortletExample.jsp"
+        "jspBaseName" : "PortletMyPlugin"
       } ]
 }

@@ -45,7 +45,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public class ${portlet.portletClass}Home extends PortletHome
 {
     // Static variable pointed at the DAO instance
-    private static I${portlet.portletClass}DAO _dao = (I${portlet.portletClass}DAO) SpringContextService.getPluginBean( "${plugin_name}", "${portlet.portletTypeName?lower_case}PortletDAO" );
+    private static I${portlet.portletClass}DAO _dao = (I${portlet.portletClass}DAO) SpringContextService.getBean( "${plugin_name}.${portlet.portletClass}DAO" );
 
     /* This class implements the Singleton design pattern. */
     private static ${portlet.portletClass}Home _singleton;
@@ -99,14 +99,5 @@ public class ${portlet.portletClass}Home extends PortletHome
         return _dao;
     }
 
-    /**
-     * Checks whether the ${portlet.portletTypeName} feed is linked to a portlet
-     * @return The boolean result
-     * @param nId${portlet.portletClass}Feed The identifier of the ${portlet.portletTypeName} feed
-     */
-    public static boolean checkNoPortletLinked( int nId${portlet.portletClass}Feed )
-    {
-        return _dao.checkNoPortletLinked( nId${portlet.portletClass}Feed );
-    }
 }
 

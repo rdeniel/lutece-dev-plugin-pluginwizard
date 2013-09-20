@@ -35,11 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.util.html.HtmlTemplate;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 
@@ -50,7 +47,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
     private static final String EXT_HTML = ".html";
-    private static String[] _prefix = { "combo_feed_", "modify_portlet_", "create_portlet_" };
+    private static String[] _prefix = { "combo_feed_", "modify_", "create_" };
 
     /**
      * {@inheritDoc }
@@ -64,10 +61,8 @@ public class PortletTemplateGenerator extends AbstractGenerator
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortlet = portlet.getPortletTypeName(  );
-                int nIndex = strPortlet.lastIndexOf( "_" );
 
-                String strPortletFile = getPortletTemplateName( strPortlet.substring( 0, nIndex ).toLowerCase(  ), i );
+                String strPortletFile = getPortletTemplateName( portlet.getJspBaseName().toLowerCase(  ), i );
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 

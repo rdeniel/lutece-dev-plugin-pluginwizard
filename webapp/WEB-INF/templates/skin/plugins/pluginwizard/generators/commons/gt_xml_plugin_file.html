@@ -44,21 +44,19 @@
     <#if plugin.portlets??>
     <portlets>
     <#list plugin.portlets as portlet>
-    	<#assign nBeginIndex = portlet.portletTypeName?last_index_of("_")>
-	<#assign portletName = portlet.portletTypeName?substring(0, nBeginIndex)?lower_case>
      <portlet>
-       <portlet-class>${portlet.portletClass}</portlet-class>
+       <portlet-class>fr.paris.lutece.plugins.${plugin.pluginName}.business.portlet.${portlet.portletClass}Home</portlet-class>
 	   <portlet-type-id>${portlet.portletTypeName}</portlet-type-id>
-	   <portlet-type-name>${plugin.pluginName}.portlet.${portletName?lower_case}Portlet.name</portlet-type-name>
-	   <portlet-creation-url>${portlet.portletCreationUrl}</portlet-creation-url>
-	   <portlet-update-url>${portlet.portletUpdateUrl}</portlet-update-url>
-	   <portlet-create-action-url>plugins/${plugin.pluginName}/DoCreatePortlet${portletName?cap_first}.jsp</portlet-create-action-url>
-      <portlet-modify-action-url>plugins/${plugin.pluginName}/DoModifyPortlet${portletName?cap_first}.jsp</portlet-modify-action-url>
+	   <portlet-type-name>${plugin.pluginName}.portlet.${plugin.pluginName}${portlet.portletClass}.name</portlet-type-name>
+	   <portlet-creation-url>plugins/${plugin.pluginName}/Create${portlet.jspBaseName}.jsp</portlet-creation-url>
+	   <portlet-update-url>plugins/${plugin.pluginName}/Modify${portlet.jspBaseName}.jsp</portlet-update-url>
+	   <portlet-create-action-url>plugins/${plugin.pluginName}/DoCreate${portlet.jspBaseName}.jsp</portlet-create-action-url>
+      <portlet-modify-action-url>plugins/${plugin.pluginName}/DoModify${portlet.jspBaseName}.jsp</portlet-modify-action-url>
 	    <!-- optional entries -->
         <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
         <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
-        <portlet-create-specific-template>/admin/plugins/${plugin.pluginName}/portlet/create_portlet_${portletName?lower_case}.html</portlet-create-specific-template>
-        <portlet-modify-specific-template>/admin/plugins/${plugin.pluginName}/portlet/modify_portlet_${portletName?lower_case}.html</portlet-modify-specific-template>
+        <portlet-create-specific-template>/admin/plugins/${plugin.pluginName}/portlet/create_${portlet.jspBaseName?lower_case}.html</portlet-create-specific-template>
+        <portlet-modify-specific-template>/admin/plugins/${plugin.pluginName}/portlet/modify_${portlet.jspBaseName?lower_case}.html</portlet-modify-specific-template>
         <portlet-create-specific-form-template></portlet-create-specific-form-template>
         <portlet-modify-specific-form-template></portlet-modify-specific-form-template> 
      </portlet>

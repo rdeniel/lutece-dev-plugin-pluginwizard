@@ -22,30 +22,24 @@
                  <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletClass} :</label>
                     <div class="controls">   
-                        <input class="input-xlarge" type="text" name="portlet_class" value="fr.paris.lutece.plugins.${plugin_model.pluginName?lower_case}.business.portlet.ExamplePortletHome" size="30" />
+                        <input class="input-xlarge" type="text" name="portlet_class" value="<#if portlet.portletClass??>${portlet.portletClass}<#else>${plugin_model.pluginName?cap_first}Portlet</#if>" />
                     </div>  
                 </div>
 
                 <div class="control-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletTypeName} :</label>
                     <div class="controls"> 
-                        <input class="input-xlarge" type="text" name="portlet_type_name" value="EXAMPLE_PORTLET" size="30" />
+                        <input class="input-xlarge" type="text" name="portlet_type_name" value="<#if portlet.portletTypeName??>${portlet.portletTypeName}<#else>${plugin_model.pluginName?upper_case}_PORTLET</#if>" />
                     </div>  
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelCreationUrl} :</label>
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelJspBaseName} :</label>
                     <div class="controls"> 
-                        <input class="input-xlarge" type="text" name="portlet_creation_url" value="plugins/${plugin_model.pluginName?lower_case}/CreatePortletExample.jsp" size="30" />
+                        <input class="input-xlarge" type="text" name="jsp_base_name" value="<#if portlet.jspBaseName??>${portlet.jspBaseName}<#else>Portlet${plugin_model.pluginName?cap_first}</#if>" />
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelUpdateUrl} :</label>
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="portlet_update_url" value="plugins/${plugin_model.pluginName?lower_case}/ModifyPortletExample.jsp" size="30" />
-                    </div> 
-                </div>
 
                 <div class="form-actions">                                          
                     <button type="submit" name="action_createPortlet" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_create_portlet.buttonCreatePortlet}</button>                   

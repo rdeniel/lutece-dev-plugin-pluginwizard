@@ -37,6 +37,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
@@ -89,6 +90,7 @@ public class ResourcesGenerator extends AbstractGenerator
         generatePluginKeys( sb, pm );
         generateFeaturesKeys( sb, pm );
         generateBusinessClassKeys( sb, pm, strLanguage );
+        generatePortletsKeys( sb, pm );
 
         return sb.toString(  );
     }
@@ -206,6 +208,24 @@ public class ResourcesGenerator extends AbstractGenerator
                   .append( attribute.getLabelName(  ) ).append( "\n" );
             }
         }
+    }
+
+    /**
+     * Writes in the buffer resources keys for portlets
+     * @param sb The buffer
+     * @param pm The plugin model
+     */
+    private void generatePortletsKeys( StringBuilder sb, PluginModel pm )
+    {
+        sb.append( "\n# Portlets keys\n\n" );
+
+        for ( Portlet portlet : pm.getPortlets(  ))
+        {
+            sb.append( "portlet." ).append( pm.getPluginName().toLowerCase() ).append( portlet.getPortletClass() )
+                    .append( ".name=" ).append( portlet.getJspBaseName() ).append( "\n" );
+        }
+
+        sb.append( "\n" );
     }
 
     /**

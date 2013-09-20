@@ -8,8 +8,8 @@
 </#list>
 <#list plugin.portlets as portlet>
 <#if portlet?? >
-<#assign nBeginIndex = portlet.portletTypeName?last_index_of("_")><#assign portletName = portlet.portletTypeName?substring(0, nBeginIndex)?lower_case>
-    <bean id="${plugin.pluginName}.${portletName?lower_case}PortletDAO"  class="fr.paris.lutece.plugins.${plugin.pluginName}.business.portlet.${portletName?cap_first}PortletDAO" />    
+
+    <bean id="${plugin.pluginName}.${portlet.portletClass}DAO"  class="fr.paris.lutece.plugins.${plugin.pluginName}.business.portlet.${portlet.portletClass}DAO" />    
 </#if>    
 </#list>
 </beans>

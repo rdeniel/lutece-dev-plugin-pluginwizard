@@ -49,7 +49,7 @@ public class PortletJspGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/jsp/admin/plugins/{plugin_name}/";
     private static final String EXT_JSP = ".jsp";
-    private static String[] _prefix = { "ModifyPortlet", "DoModifyPortlet", "CreatePortlet", "DoCreatePortlet" };
+    private static String[] _prefix = { "Modify", "DoModify", "Create", "DoCreate" };
 
     /**
      * {@inheritDoc }
@@ -63,13 +63,8 @@ public class PortletJspGenerator extends AbstractGenerator
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortlet = portlet.getPortletTypeName(  );
-                int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletFile = getPortletFileName( getFirstCaps( 
-                            strPortlet.substring( 0, nIndex ).toLowerCase(  ) ), i );
-
+                String strPortletFile = _prefix[i] + portlet.getJspBaseName() + EXT_JSP;
                 String strPath = getFilePath( pm, PATH, strPortletFile );
-
                 String strSourceCode = getPortletJspFile( portlet, pm.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
@@ -80,18 +75,7 @@ public class PortletJspGenerator extends AbstractGenerator
         return map;
     }
 
-    /**
-     * Fetches the name of the portlet jsp
-     *
-     * @param strPortletName the name of the portlet
-     * @param nPortletJspFileType The type of jsp
-     * @return The name of the jsp file
-     */
-    private String getPortletFileName( String strPortletName, int nPortletJspFileType )
-    {
-        return _prefix[nPortletJspFileType] + strPortletName + EXT_JSP;
-    }
-
+    
     /**
     * Gets the portlet Jsp File
     * @param portlet The portlet

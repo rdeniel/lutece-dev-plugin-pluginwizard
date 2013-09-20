@@ -48,7 +48,6 @@ import java.util.Map;
 public class PortletGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/business/portlet/";
-    private static final String MARK_PORTLET_NAME = "portletName";
     private static final String EXT_JAVA = ".java";
     private List<BusinessFileConfig> _listFiles;
 
@@ -73,16 +72,12 @@ public class PortletGenerator extends AbstractGenerator
         {
             for ( BusinessFileConfig file : _listFiles )
             {
-                String strPortlet = portlet.getPortletTypeName(  );
-                int nIndex = strPortlet.lastIndexOf( "_" );
-                String strPortletName = getFirstCaps( strPortlet.substring( 0, nIndex ) );
-                String strPortletFile = file.getPrefix(  ) + strPortletName + "Portlet" + file.getSuffix(  ) +
+                String strPortletFile = file.getPrefix(  ) + portlet.getPortletClass() + file.getSuffix(  ) +
                     EXT_JAVA;
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
-                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate(  ),
-                        strPortletName );
+                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate(  ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -100,13 +95,12 @@ public class PortletGenerator extends AbstractGenerator
     * @param strPortletName The portlet name
     * @return The content of the portlet file
     */
-    private String getPortletFile( Portlet portlet, String strPluginName, String strTemplate, String strPortletName )
+    private String getPortletFile( Portlet portlet, String strPluginName, String strTemplate )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
-        model.put( MARK_PORTLET_NAME, strPortletName );
         AppLogService.info( portlet );
 
         return build( strTemplate, model );

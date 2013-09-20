@@ -46,13 +46,14 @@ public class Portlet
     // Variables declarations 
     private int _nIdPortletPlugin;
     @NotEmpty( message = "pluginwizard.error.portlet.class.notEmpty" )
-    @Pattern( regexp = "[a-zA-Z.]*", message = "pluginwizard.error.portlet.class.pattern" )
+    @Pattern( regexp = "[A-Z][a-zA-Z]*Portlet", message = "pluginwizard.error.portlet.class.pattern" )
     private String _strPortletClass;
     @NotEmpty( message = "pluginwizard.error.portlet.type.notEmpty" )
     @Pattern( regexp = "[A-Z]*_PORTLET", message = "pluginwizard.error.portlet.type.pattern" )
     private String _strPortletTypeName;
-    private String _strPortletCreationUrl;
-    private String _strPortletUpdateUrl;
+    @NotEmpty( message = "pluginwizard.error.portlet.jspBaseName.notEmpty" )
+    @Pattern( regexp = "Portlet[A-Z][a-zA-Z.]*", message = "pluginwizard.error.portlet.jspBaseName.pattern" )
+    private String _strJspBaseName;
 
     /**
      * Returns the PortletClass
@@ -90,40 +91,23 @@ public class Portlet
         _strPortletTypeName = strPortletTypeName;
     }
 
+
     /**
-     * Returns the PortletCreationUrl
-     * @return The PortletCreationUrl
+     * Returns the JspBaseName
+     * @return The JspBaseName
      */
-    public String getPortletCreationUrl(  )
+    public String getJspBaseName(  )
     {
-        return _strPortletCreationUrl;
+        return _strJspBaseName;
     }
 
     /**
-     * Sets the PortletCreationUrl
-     * @param strPortletCreationUrl The PortletCreationUrl
+     * Sets the JspBaseName
+     * @param strJspBaseName The JspBaseName
      */
-    public void setPortletCreationUrl( String strPortletCreationUrl )
+    public void setJspBaseName( String strJspBaseName )
     {
-        _strPortletCreationUrl = strPortletCreationUrl;
-    }
-
-    /**
-     * Returns the PortletUpdateUrl
-     * @return The PortletUpdateUrl
-     */
-    public String getPortletUpdateUrl(  )
-    {
-        return _strPortletUpdateUrl;
-    }
-
-    /**
-     * Sets the PortletUpdateUrl
-     * @param strPortletUpdateUrl The PortletUpdateUrl
-     */
-    public void setPortletUpdateUrl( String strPortletUpdateUrl )
-    {
-        _strPortletUpdateUrl = strPortletUpdateUrl;
+        _strJspBaseName = strJspBaseName;
     }
 
     /**

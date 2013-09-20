@@ -31,8 +31,7 @@
                 <tr>
                     <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletClass}</th>
                     <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletTypeName}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletCreationUrl}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletUpdateUrl}</th>
+                    <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletJspBaseName}</th>
                     <th>#i18n{pluginwizard.pluginwizard_manage_portlets.labelPortletAction}</th>
                 </tr>
             </thead>
@@ -46,8 +45,7 @@
                     <td>${portlet.portletClass?substring(nBeginIndex, nEndIndex)}
                     </td>
                     <td>${portlet.portletTypeName}</td>
-                    <td>${portlet.portletCreationUrl}</td>
-                    <td>${portlet.portletUpdateUrl}</td>
+                    <td>${portlet.jspBaseName}</td>
 
                     <td>
                         <a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyPortlet&portletId=${portlet.id}" 
