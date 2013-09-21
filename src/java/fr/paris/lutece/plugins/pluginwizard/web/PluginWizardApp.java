@@ -33,11 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web;
 
-import fr.paris.lutece.plugins.mvc.MVCApplication;
-import fr.paris.lutece.plugins.mvc.MVCMessageBox;
-import fr.paris.lutece.plugins.mvc.annotations.Action;
-import fr.paris.lutece.plugins.mvc.annotations.Controller;
-import fr.paris.lutece.plugins.mvc.annotations.View;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKey;
 import fr.paris.lutece.plugins.pluginwizard.business.ConfigurationKeyHome;
 import fr.paris.lutece.plugins.pluginwizard.business.ModelHome;
@@ -55,6 +50,12 @@ import fr.paris.lutece.plugins.pluginwizard.web.formbean.PluginNameFormBean;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.security.UserNotSignedException;
+import fr.paris.lutece.portal.util.mvc.utils.MVCMessageBox;
+import fr.paris.lutece.portal.util.mvc.utils.MVCUtils;
+import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
+import fr.paris.lutece.portal.util.mvc.xpage.annotations.Action;
+import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.portal.util.mvc.xpage.annotations.View;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
@@ -236,8 +237,8 @@ public class PluginWizardApp extends MVCApplication
     {
         if ( _nPluginId == 0 )
         {
-            String strAction = getAction( request );
-            String strView = getView( request );
+            String strAction = MVCUtils.getAction( request );
+            String strView = MVCUtils.getView( request );
 
             if ( !ACTION_CREATE_PLUGIN.equals( strAction ) && !VIEW_CREATE_PLUGIN.equals( strView ))
             {
