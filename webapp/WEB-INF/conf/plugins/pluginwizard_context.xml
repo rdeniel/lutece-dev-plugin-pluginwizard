@@ -370,7 +370,7 @@
             <value>/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_admin_alternative.html</value>
         </property>
         <property name="abstractParentBeanTemplate">
-            <value>/skin/plugins/pluginwizard/generators/commons/gt_jspbean_abstract_parent.html</value>
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_abstract_parent_alternative.html</value>
         </property>
     </bean>
     

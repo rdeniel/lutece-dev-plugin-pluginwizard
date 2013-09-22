@@ -12,6 +12,7 @@
         <fieldset>
             <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
 
+            <${macro}messages errors=errors />
 
             <#list business_class.attributes as attribute>
             <#if attribute.attributeName = business_class.primaryKey>
@@ -55,7 +56,7 @@
         <fieldset>
             <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
 
-            <@messages errors=errors />
+            <${macro}messages errors=errors />
 
             <#list business_class.attributes as attribute>
             <#if attribute.attributeName = business_class.primaryKey>
@@ -98,7 +99,7 @@
 <div class="row-fluid" >
     <div class="span12">
 
-        <@messages infos=infos />
+        <${macro}messages infos=infos />
 
         <form method="post"  action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
             <button name="view_create${business_class.businessClass}" class="btn btn-primary pull-right" type="submit">
