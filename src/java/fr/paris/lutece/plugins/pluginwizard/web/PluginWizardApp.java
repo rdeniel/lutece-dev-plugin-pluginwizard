@@ -53,9 +53,9 @@ import fr.paris.lutece.portal.service.security.UserNotSignedException;
 import fr.paris.lutece.portal.util.mvc.utils.MVCMessageBox;
 import fr.paris.lutece.portal.util.mvc.utils.MVCUtils;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
-import fr.paris.lutece.portal.util.mvc.xpage.annotations.Action;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
-import fr.paris.lutece.portal.util.mvc.xpage.annotations.View;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
