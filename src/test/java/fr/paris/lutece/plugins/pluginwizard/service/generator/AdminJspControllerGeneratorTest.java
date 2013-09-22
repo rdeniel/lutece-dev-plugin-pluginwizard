@@ -43,20 +43,20 @@ import java.util.Map;
 
 
 /**
- * AdminJspGenerator Test
+ * AdminJspControllerGenerator Test
  */
-public class AdminJspGeneratorTest extends LuteceTestCase
+public class AdminJspControllerGeneratorTest extends LuteceTestCase
 {
     /**
-     * Test of generate method, of class AdminJspGenerator.
+     * Test of generate method, of class AdminJspControllerGenerator.
      */
     @Test
     public void testGenerate(  )
     {
-        System.out.println( "generate AdminJspGenerator" );
+        System.out.println( "generate AdminJspControllerGenerator" );
 
         PluginModel pm = GeneratorUtils.getTestModel(  );
-        AdminJspGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jsp" );
+        AdminJspControllerGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jsp.alternative" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }

@@ -57,6 +57,8 @@ public class ResourcesGenerator extends AbstractGenerator
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
     private static String[] _languages = { "en", "fr" };
     private static String[] _prefix = { "create", "modify" };
+    private static String[] _suffix = { "created", "updated", "removed" };
+    
 
     /**
      * {@inheritDoc }
@@ -91,6 +93,7 @@ public class ResourcesGenerator extends AbstractGenerator
         generateFeaturesKeys( sb, pm );
         generateBusinessClassKeys( sb, pm, strLanguage );
         generatePortletsKeys( sb, pm );
+        generateInfosKeys( sb, pm );
 
         return sb.toString(  );
     }
@@ -225,6 +228,27 @@ public class ResourcesGenerator extends AbstractGenerator
                     .append( ".name=" ).append( portlet.getJspBaseName() ).append( "\n" );
         }
 
+        sb.append( "\n" );
+    }
+
+    /**
+     * Writes in the buffer resources keys for info notifications
+     * @param sb The buffer
+     * @param pm The plugin model
+     */
+    private void generateInfosKeys( StringBuilder sb, PluginModel pm )
+    {
+        sb.append( "\n# Infos keys\n\n" );
+
+        for ( BusinessClass bc : pm.getBusinessClasses(  ) )
+        {
+            for( int i = 0 ; i < _suffix.length ; i++ )
+            {
+                sb.append( "info." ).append( bc.getBusinessClass(  ).toLowerCase() )
+                        .append(".").append( _suffix[i] ).append("=")
+                        .append(bc.getBusinessClass(  )).append(" ").append(_suffix[i]).append("\n" );
+            }
+        }
         sb.append( "\n" );
     }
 

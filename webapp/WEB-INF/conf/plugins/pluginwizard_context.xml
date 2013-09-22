@@ -329,6 +329,15 @@
         </property>
     </bean>
 
+    <bean id="pluginwizard.generator.admin.jsp.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspControllerGenerator" >
+        <property name="businessTemplate">
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_jsp_admin_controller.html</value>
+        </property>
+        <property name="featureTemplate">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_jsp_feature.html</value>
+        </property>
+    </bean>
+    
     <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html</value>
@@ -445,7 +454,7 @@
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.java.business.alternative" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean.alternative" />
-                <ref bean="pluginwizard.generator.admin.jsp" />
+                <ref bean="pluginwizard.generator.admin.jsp.alternative" />
                 <ref bean="pluginwizard.generator.admin.html.alternative" />
                 <ref bean="pluginwizard.generator.xpage.java.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.business.alternative" />
