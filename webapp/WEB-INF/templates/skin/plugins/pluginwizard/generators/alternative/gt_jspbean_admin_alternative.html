@@ -40,15 +40,12 @@ import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_cl
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
-import fr.paris.lutece.portal.service.template.AppTemplateService;
-import fr.paris.lutece.portal.web.constants.Messages;
+import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.web.util.LocalizedPaginator;
-import fr.paris.lutece.util.beanvalidation.ValidationError;
-import fr.paris.lutece.util.html.HtmlTemplate;
 import fr.paris.lutece.util.html.Paginator;
 import fr.paris.lutece.util.url.UrlItem;
-
-import java.util.HashMap;
 
 import java.util.List;
 import java.util.Map;
@@ -60,6 +57,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * This class provides the user interface to manage ${business_class.businessClass} features ( manage, create, modify, remove )
  */
+@Controller( controllerJsp = "Manage${business_class.businessClass}s.jsp", controllerPath = "jsp/admin/plugins/${plugin_model.pluginName}/", right = "${feature_right}" )
 public class ${business_class.businessClass}JspBean extends ${feature_name}JspBean
 {
 
@@ -99,37 +97,49 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
  
     private static final String VALIDATION_ATTRIBUTES_PREFIX = "${plugin_model.pluginName}.model.entity.${business_class.businessClass?lower_case}.attribute.";
 
-    /**
-     * Returns the list of ${business_class.businessClass?lower_case}
-     *
-     * @param request The Http request
-     * @return the ${business_class.businessClass?lower_case}s list
-     */
-    public String getManage${business_class.businessClass?cap_first}s( HttpServletRequest request )
-    {
-        setPageTitleProperty( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S );
+    // Views
+    private static final String VIEW_MANAGE_${business_class.businessClass?upper_case}S = "manage${business_class.businessClass}s";
+    private static final String VIEW_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
+    private static final String VIEW_MODIFY_${business_class.businessClass?upper_case} = "modify${business_class.businessClass}";
 
-        _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX , _strCurrentPageIndex );
+    // Actions
+    private static final String ACTION_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
+    private static final String ACTION_MODIFY_${business_class.businessClass?upper_case} = "modify${business_class.businessClass}";
+    private static final String ACTION_REMOVE_${business_class.businessClass?upper_case} = "remove${business_class.businessClass}";
+    private static final String ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "confirmRemove${business_class.businessClass}";
+
+    // Infos
+    private static final String INFO_${business_class.businessClass?upper_case}_CREATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.created";
+    private static final String INFO_${business_class.businessClass?upper_case}_UPDATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.updated";
+    private static final String INFO_${business_class.businessClass?upper_case}_REMOVED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.removed";
+    
+    // Session variable to store working values
+    private ${business_class.businessClass} _${business_class.businessClass?lower_case};
+    
+    
+    @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
+    public String getManage${business_class.businessClass}s( HttpServletRequest request )
+    {
+        _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
         _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_${business_class.businessClass?upper_case}_PER_PAGE, 50 );
         _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
                 _nDefaultItemsPerPage );
-        UrlItem url = new UrlItem(  JSP_MANAGE_${business_class.businessClass?upper_case}S);
+
+        UrlItem url = new UrlItem( JSP_MANAGE_${business_class.businessClass?upper_case}S );
         String strUrl = url.getUrl(  );
-        List<${business_class.businessClass?cap_first}> list${business_class.businessClass}s = (List<${business_class.businessClass?cap_first}>) ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
+        List<${business_class.businessClass}> list${business_class.businessClass}s = (List<${business_class.businessClass}>) ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
 
         // PAGINATOR
-        LocalizedPaginator paginator = new LocalizedPaginator( list${business_class.businessClass}s, _nItemsPerPage, strUrl , PARAMETER_PAGE_INDEX, _strCurrentPageIndex , getLocale() );
+        LocalizedPaginator paginator = new LocalizedPaginator( list${business_class.businessClass}s, _nItemsPerPage, strUrl,
+                PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = getModel(  );
 
         model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
         model.put( MARK_PAGINATOR, paginator );
+        model.put( MARK_${business_class.businessClass?upper_case}_LIST, paginator.getPageItems(  ) );
 
-        model.put( MARK_${business_class.businessClass?upper_case}_LIST, paginator.getPageItems(  ));
-        
-        HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, getLocale(  ), model );
-
-        return getAdminPage( templateList.getHtml(  ) );
+        return getPage( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S, TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, model );
     }
 
     /**
@@ -138,15 +148,15 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      * @param request The Http request
      * @return the html code of the ${business_class.businessClass?lower_case} form
      */
-    public String getCreate${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @View( VIEW_CREATE_${business_class.businessClass?upper_case} )
+    public String getCreate${business_class.businessClass}( HttpServletRequest request )
     {
-        setPageTitleProperty( PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case}  );
+        _${business_class.businessClass?lower_case} = ( _${business_class.businessClass?lower_case} != null ) ? _${business_class.businessClass?lower_case} : new ${business_class.businessClass}(  );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_${business_class.businessClass?upper_case}, getLocale(  ), model );
-
-        return getAdminPage( template.getHtml(  ) );
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case}, TEMPLATE_CREATE_${business_class.businessClass?upper_case}, model );
     }
 
     /**
@@ -155,36 +165,42 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      * @param request The Http Request
      * @return The Jsp URL of the process result
      */
-    public String doCreate${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
+    public String doCreate${business_class.businessClass}( HttpServletRequest request )
     {
-        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = new ${business_class.businessClass?cap_first}(  );
-        populate( ${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request );
 
         // Check constraints
-        List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , VALIDATION_ATTRIBUTES_PREFIX );
-
-        if (errors.size() > 0)
+        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
-            return AdminMessageService.getMessageUrl( request, Messages.MESSAGE_INVALID_ENTRY, errors );
+            return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
         }
 
-      ${business_class.businessClass?cap_first}Home.create( ${business_class.businessClass?lower_case} );
-      
-      return JSP_REDIRECT_TO_MANAGE_${business_class.businessClass?upper_case}S;
+        ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
+        _${business_class.businessClass?lower_case} = null;
+        addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
-    
+
     /**
-     * Manages the removal form of a ${business_class.businessClass?lower_case} whose identifier is in the http request
+     * Manages the removal form of a ${business_class.businessClass?lower_case} whose identifier is in the http
+     * request
      *
      * @param request The Http request
      * @return the html code to confirm
      */
-    public String getConfirmRemove${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @Action( ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} )
+    public String getConfirmRemove${business_class.businessClass}( HttpServletRequest request )
     {
-          int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
-          UrlItem url = new UrlItem( JSP_DO_REMOVE_${business_class.businessClass?upper_case} );
-          url.addParameter( PARAMETER_${business_class.primaryKey?upper_case}, nId );
-          return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, url.getUrl(  ),AdminMessage.TYPE_CONFIRMATION );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
+        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
+        url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
+
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case},
+                url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
+
+        return redirect( request, strMessageUrl );
     }
 
     /**
@@ -193,32 +209,36 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      * @param request The Http request
      * @return the jsp URL to display the form to manage ${business_class.businessClass?lower_case}s
      */
-    public String doRemove${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @Action( ACTION_REMOVE_${business_class.businessClass?upper_case} )
+    public String doRemove${business_class.businessClass}( HttpServletRequest request )
     {
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
-        ${business_class.businessClass?cap_first}Home.remove( nId );
-        
-        return JSP_REDIRECT_TO_MANAGE_${business_class.businessClass?upper_case}S;
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
+        ${business_class.businessClass}Home.remove( nId );
+        addInfo( INFO_${business_class.businessClass?upper_case}_REMOVED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
-    
+
     /**
      * Returns the form to update info about a ${business_class.businessClass?lower_case}
      *
      * @param request The Http request
      * @return The HTML form to update info
      */
-    public String getModify${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @View( VIEW_MODIFY_${business_class.businessClass?upper_case} )
+    public String getModify${business_class.businessClass}( HttpServletRequest request )
     {
-        setPageTitleProperty( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} );
-        int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) );
-        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} =${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        model.put( MARK_${business_class.businessClass?upper_case}, ${business_class.businessClass?lower_case} );
+        if ( _${business_class.businessClass?lower_case} == null )
+        {
+            _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
+        }
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, getLocale(  ), model );
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
 
-        return getAdminPage( template.getHtml(  ) );
+        return getPage( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case}, TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, model );
     }
 
     /**
@@ -227,21 +247,21 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
      * @param request The Http request
      * @return The Jsp URL of the process result
      */
-    public String doModify${business_class.businessClass?cap_first}( HttpServletRequest request )
+    @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
+    public String doModify${business_class.businessClass}( HttpServletRequest request )
     {
-      int nId = Integer.parseInt( request.getParameter( PARAMETER_${business_class.primaryKey?upper_case} ) ); 
-      ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} =${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
-      populate( ${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request );
 
-      // Check constraints
-      List<ValidationError> errors = validate( ${business_class.businessClass?lower_case} , VALIDATION_ATTRIBUTES_PREFIX );
+        // Check constraints
+        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        {
+            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId${business_class.businessClass}(  ) );
+        }
 
-      if (errors.size() > 0)
-      {
-          return AdminMessageService.getMessageUrl( request, Messages.MESSAGE_INVALID_ENTRY, errors );
-      }
+        ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
+        _${business_class.businessClass?lower_case} = null;
+        addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale(  ) );
 
-      ${business_class.businessClass?cap_first}Home.update( ${business_class.businessClass?lower_case} );
-        return JSP_REDIRECT_TO_MANAGE_${business_class.businessClass?upper_case}S;
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
 }

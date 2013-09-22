@@ -35,6 +35,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 
 import org.junit.Test;
@@ -52,16 +53,14 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
      * Test of generate method, of class AdminTemplateGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerateClassic(  )
     {
         try
         {
             System.out.println( "generate AdminTemplateGenerator" );
 
             PluginModel pm = GeneratorUtils.getTestModel(  );
-            AdminTemplateGenerator instance = new AdminTemplateGenerator(  );
-            instance.setTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin.html" );
-            instance.setTabsTemplate( "/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html" );
+            AdminTemplateGenerator instance = SpringContextService.getBean("pluginwizard.generator.admin.html");
 
             Map result = instance.generate( pm );
             GeneratorUtils.outputMap( result );
@@ -76,4 +75,29 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
             System.out.println( e.getMessage(  ) );
         }
     }
+    
+    @Test
+    public void testGenerateAlternative(  )
+    {
+        try
+        {
+            System.out.println( "generate AdminTemplateGenerator" );
+
+            PluginModel pm = GeneratorUtils.getTestModel(  );
+            AdminTemplateGenerator instance = SpringContextService.getBean("pluginwizard.generator.admin.html.alternative");
+
+            Map result = instance.generate( pm );
+            GeneratorUtils.outputMap( result );
+        }
+        catch ( Exception e )
+        {
+            if ( e.getCause(  ) != null )
+            {
+                System.out.println( e.getCause(  ).getMessage(  ) );
+            }
+
+            System.out.println( e.getMessage(  ) );
+        }
+    }
+
 }

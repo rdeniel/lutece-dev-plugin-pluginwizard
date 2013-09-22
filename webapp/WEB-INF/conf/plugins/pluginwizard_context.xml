@@ -338,6 +338,15 @@
         </property>
     </bean>
 
+    <bean id="pluginwizard.generator.admin.html.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_html_admin_alternative.html</value>
+        </property>
+        <property name="tabsTemplate">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_html_admin_tabs.html</value>
+        </property>
+    </bean>
+
     <bean id="pluginwizard.generator.admin.java.jspbean.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/classic/gt_jspbean_admin_classic.html</value>
@@ -346,6 +355,7 @@
             <value>/skin/plugins/pluginwizard/generators/commons/gt_jspbean_abstract_parent.html</value>
         </property>
     </bean>
+
     <bean id="pluginwizard.generator.admin.java.jspbean.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/alternative/gt_jspbean_admin_alternative.html</value>
@@ -436,7 +446,7 @@
                 <ref bean="pluginwizard.generator.admin.java.business.alternative" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean.alternative" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
-                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.admin.html.alternative" />
                 <ref bean="pluginwizard.generator.xpage.java.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.business.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean.alternative" />
