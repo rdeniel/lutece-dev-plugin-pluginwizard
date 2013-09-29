@@ -337,7 +337,8 @@ public class PluginWizardApp extends MVCApplication
     {
         Map<String, Object> model = getPluginModel( );
 
-        for ( ConfigurationKey key : ConfigurationKeyHome.getConfigurationKeysList( ) )
+        _description = new DescriptionFormBean();
+        for ( ConfigurationKey key : ConfigurationKeyHome.getConfigurationKeysList(  ) )
         {
             model.put( key.getKeyDescription( ).trim( ), key.getKeyValue( ) );
         }
