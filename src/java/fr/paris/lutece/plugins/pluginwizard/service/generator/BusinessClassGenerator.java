@@ -33,13 +33,13 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 
 /**
@@ -65,9 +65,9 @@ public class BusinessClassGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap<String, String> map = new HashMap<String, String>( );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses(  );
 
         for ( BusinessClass businessClass : listAllBusinessClasses )

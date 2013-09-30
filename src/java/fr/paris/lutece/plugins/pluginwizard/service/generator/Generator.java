@@ -33,9 +33,9 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-
 import java.util.Map;
+
+import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 
 /**
@@ -50,5 +50,5 @@ public interface Generator
      * @param pluginModel The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
-    Map generate( PluginModel pluginModel );
+    Map<String, String> generate( PluginModel pluginModel );
 }
