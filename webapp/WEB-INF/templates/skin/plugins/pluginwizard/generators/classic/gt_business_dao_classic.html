@@ -110,7 +110,7 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
 	public ${business_class.businessClass} load( int nKey, Plugin plugin )
 	{
 		DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-		daoUtil.setInt( 1 , nId );
+		daoUtil.setInt( 1 , nKey );
 		daoUtil.executeQuery( );
 
 		${business_class.businessClass} ${business_class.instanceName} = null;
