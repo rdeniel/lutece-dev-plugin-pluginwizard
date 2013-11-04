@@ -284,7 +284,6 @@ public class PluginWizardApp extends MVCApplication
      * The modification action of the plugin
      * 
      * @param request The Http Request
-     * @param strPluginName The Plugin name
      * @return The plugin id
      */
     @Action( ACTION_CREATE_PLUGIN )
@@ -329,7 +328,6 @@ public class PluginWizardApp extends MVCApplication
      * Gets the create plugin description page
      * 
      * @param request The HTTP request
-     * @param nPluginId The plugin ID
      * @return The page
      */
     @View( VIEW_CREATE_DESCRIPTION )
@@ -342,6 +340,7 @@ public class PluginWizardApp extends MVCApplication
         {
             model.put( key.getKeyDescription( ).trim( ), key.getKeyValue( ) );
         }
+        model.put( MARK_PLUGIN_ID, _nPluginId );
 
         return getXPage( TEMPLATE_CREATE_PLUGIN_DESCRIPTION, request.getLocale( ), model );
     }
@@ -366,6 +365,7 @@ public class PluginWizardApp extends MVCApplication
      * Action for leaving description form with previous button
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_DESCRIPTION_PREVIOUS )
     public XPage doDescritionPrevious( HttpServletRequest request )
@@ -377,6 +377,7 @@ public class PluginWizardApp extends MVCApplication
      * Action for leaving description form with previous button
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_DESCRIPTION_NEXT )
     public XPage doDescritionNext( HttpServletRequest request )
@@ -470,6 +471,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation of an admin _feature
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CREATE_ADMIN_FEATURE )
     public XPage doCreateAdminFeature( HttpServletRequest request )
@@ -492,6 +494,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification action of an admin _feature
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_MODIFY_ADMIN_FEATURE )
     public XPage doModifyAdminFeature( HttpServletRequest request )
@@ -514,6 +517,7 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of the removal of an admin _feature
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CONFIRM_REMOVE_ADMIN_FEATURE )
     public XPage doConfirmRemoveAdminFeature( HttpServletRequest request )
@@ -534,6 +538,7 @@ public class PluginWizardApp extends MVCApplication
      * The removal screen of an admin _feature
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_REMOVE_ADMIN_FEATURE )
     public XPage doRemoveAdminFeature( HttpServletRequest request )
@@ -585,7 +590,6 @@ public class PluginWizardApp extends MVCApplication
     /**
      * Gets the modify business class page
      * 
-     * @param nBusinessClassId The business class id
      * @param request The HTTP request
      * @return The page
      */
@@ -638,6 +642,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification action for the business class
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_MODIFY_BUSINESS_CLASS )
     public XPage doModifyBusinessClass( HttpServletRequest request )
@@ -683,6 +688,7 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of a business class removal
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CONFIRM_REMOVE_BUSINESS_CLASS )
     public XPage doConfirmRemoveBusinessClass( HttpServletRequest request )
@@ -704,6 +710,7 @@ public class PluginWizardApp extends MVCApplication
      * The removal action of a plugin application
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_REMOVE_BUSINESS_CLASS )
     public XPage doRemoveBusinessClass( HttpServletRequest request )
@@ -723,7 +730,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation form of the attribute associated to a business class
      * 
      * @param request The Http Request
-     * @return The html code of the admin _feature
+     * @return The XPage 
      */
     @View( VIEW_CREATE_ATTRIBUTE )
     public XPage getCreateAttribute( HttpServletRequest request )
@@ -745,7 +752,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification form of an attribute
      * 
      * @param request The Http Request
-     * @return The html code of the creation of attribute description
+     * @return The XPage 
      */
     @View( VIEW_MODIFY_ATTRIBUTE )
     public XPage getModifyAttribute( HttpServletRequest request )
@@ -770,6 +777,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation action of an attribute
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CREATE_ATTRIBUTE )
     public XPage doCreateAttribute( HttpServletRequest request )
@@ -799,6 +807,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification action for the attribute
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_MODIFY_ATTRIBUTE )
     public XPage doModifyAttribute( HttpServletRequest request )
@@ -871,6 +880,7 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of the attribute removal
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CONFIRM_REMOVE_ATTRIBUTE )
     public XPage getConfirmRemoveAttribute( HttpServletRequest request )
@@ -891,6 +901,7 @@ public class PluginWizardApp extends MVCApplication
      * Remove Business Attribute
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_REMOVE_ATTRIBUTE )
     public XPage doRemoveAttribute( HttpServletRequest request )
@@ -931,7 +942,7 @@ public class PluginWizardApp extends MVCApplication
      * plugin
      * 
      * @param request The Http Request
-     * @return The html code of the management screen of the applications
+     * @return The XPage 
      */
     @View( VIEW_MANAGE_APPLICATIONS )
     public XPage getManageApplications( HttpServletRequest request )
@@ -947,7 +958,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation screen of a plugin application
      * 
      * @param request The Http Request
-     * @return The html code of a plugin application
+     * @return The XPage 
      */
     @View( VIEW_CREATE_APPLICATION )
     public XPage getCreateApplication( HttpServletRequest request )
@@ -962,8 +973,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification screen of a plugin application
      * 
      * @param request The Http Request
-     * @return The html code of the modification of an application associated to
-     *         the generated plugin
+     * @return The XPage 
      */
     @View( VIEW_MODIFY_APPLICATION )
     public XPage getModifyApplication( HttpServletRequest request )
@@ -985,6 +995,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation action of the plugin application
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CREATE_APPLICATION )
     public XPage doCreateApplication( HttpServletRequest request )
@@ -1007,6 +1018,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification action of the plugin application
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_MODIFY_APPLICATION )
     public XPage doModifyApplication( HttpServletRequest request )
@@ -1029,6 +1041,7 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of an application removal
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CONFIRM_REMOVE_APPLICATION )
     public XPage doConfirmRemoveApplication( HttpServletRequest request )
@@ -1048,6 +1061,7 @@ public class PluginWizardApp extends MVCApplication
      * The removal action of a plugin application
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_REMOVE_APPLICATION )
     public XPage doRemoveApplication( HttpServletRequest request )
@@ -1066,7 +1080,7 @@ public class PluginWizardApp extends MVCApplication
      * The screen for management of portlets associated to the generated plugin
      * 
      * @param request The Http Request
-     * @return The main management screen of portlets
+     * @return The XPage 
      */
     @View( VIEW_MANAGE_PORTLETS )
     public XPage getManagePortlets( HttpServletRequest request )
@@ -1082,7 +1096,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation screen of a portlet
      * 
      * @param request The Http Request
-     * @return The html code of the creation of a portlet
+     * @return The XPage 
      */
     @View( VIEW_CREATE_PORTLET )
     public XPage getCreatePortlet( HttpServletRequest request )
@@ -1097,7 +1111,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification page of the portlet
      * 
      * @param request The Http Request
-     * @return The html code of the modification of the portlet
+     * @return The XPage 
      */
     @View( VIEW_MODIFY_PORTLET )
     public XPage getModifyPortlet( HttpServletRequest request )
@@ -1117,6 +1131,7 @@ public class PluginWizardApp extends MVCApplication
      * The creation action of the portlet
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CREATE_PORTLET )
     public XPage doCreatePortlet( HttpServletRequest request )
@@ -1139,6 +1154,7 @@ public class PluginWizardApp extends MVCApplication
      * The modification action of the portlet
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_MODIFY_PORTLET )
     public XPage doModifyPluginPortlet( HttpServletRequest request )
@@ -1161,6 +1177,7 @@ public class PluginWizardApp extends MVCApplication
      * The confirmation of the plugin removal
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_CONFIRM_REMOVE_PORTLET )
     public XPage doConfirmRemovePortlet( HttpServletRequest request )
@@ -1180,6 +1197,7 @@ public class PluginWizardApp extends MVCApplication
      * Remove Portlet Action
      * 
      * @param request The Http Request
+     * @return The XPage 
      */
     @Action( ACTION_REMOVE_PORTLET )
     public XPage doRemovePluginPortlet( HttpServletRequest request )
@@ -1195,7 +1213,7 @@ public class PluginWizardApp extends MVCApplication
      * The get page of the plugin recapitulation
      * 
      * @param request The Http Request
-     * @return The Html code of the summary
+     * @return The XPage 
      */
     @View( VIEW_RECAPITULATE )
     public XPage getPluginRecapitulate( HttpServletRequest request )
