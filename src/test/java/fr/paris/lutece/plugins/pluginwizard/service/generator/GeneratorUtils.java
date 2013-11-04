@@ -55,14 +55,17 @@ public class GeneratorUtils
 {
     public static PluginModel getTestModel(  )
     {
+        return MapperService.readJson( getTestJson(  ) );
+    }
+
+    public static String getTestJson(  )
+    {
         try
         {
             URL url = Thread.currentThread(  ).getContextClassLoader(  ).getResource( "model.json" );
             File file = new File( url.getPath(  ) );
-            String strJson;
-            strJson = readFile( file );
 
-            return MapperService.readJson( strJson );
+            return readFile( file );
         }
         catch ( IOException ex )
         {

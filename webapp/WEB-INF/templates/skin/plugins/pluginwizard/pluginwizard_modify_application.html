@@ -30,13 +30,37 @@
                         <input type="text" name="application_class" value="${application.applicationClass}" />                            
                     </div>     
                 </div>
+                 
+                <div class="control-group">
+                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_modify_application.labelBusinessClass} :  </label>        
+                    <div class="controls">
+                        <#list combo_business_classes?sort_by('name') as business>
+                            <#if application.getIdBusinessClasses()?seq_contains(business.code?number)>
+                                <input type='checkbox' checked='checked' name='id_business_class${business.code}' value='${business.code}'/> &nbsp; ${business.name}<br />
+                            <#else>
+                                <#assign used = false>
+                                <#list plugin_applications as plugin_application> 
+                                    <#if plugin_application.getIdBusinessClasses()?seq_contains(business.code?number)>
+                                        <#assign used = true>
+                                    </#if>
+                                </#list>
+                                <#if used>
+                                    <input type="checkbox" disabled="disabled" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                <#else>
+                                    <input type="checkbox" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                </#if>
+                            </#if>
+                        </#list>
+                    </div>   
+                </div>
+                 
                 <div class="form-actions">                                         
                     <button type="submit" name="action_modifyApplication"class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_modify_application.buttonModifyApplication}
                     </button>                    
                     <button type="submit" name="view_manageApplications" class="btn">
                         #i18n{pluginwizard.pluginwizard_modify_application.buttonBack}
-                    </button>	
+                    </button>
                 </div>                
             </fieldset>
         </form>  

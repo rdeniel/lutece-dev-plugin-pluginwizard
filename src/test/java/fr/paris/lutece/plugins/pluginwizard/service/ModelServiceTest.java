@@ -35,32 +35,32 @@ package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.test.LuteceTestCase;
-import org.junit.Test;
 import static org.junit.Assert.*;
+
+import org.junit.Test;
 
 /**
  * ModelService Test
  */
 public class ModelServiceTest extends LuteceTestCase
 {
-
     /**
      * Test of addAttribute method, of class ModelService.
      */
     @Test
-    public void testAddAttribute()
+    public void testAddAttribute(  )
     {
-        System.out.println("addAttribute");
+        System.out.println( "addAttribute" );
+
         int nPluginId = 1;
         int nBusinessClassId = 1;
-        Attribute attribute = new Attribute();
-        attribute.setAttributeName( "product_name");
-        attribute.setAttributeTypeId(  2 );
-        attribute.setIsDescription(true);
-        ModelService.addAttribute( nPluginId, nBusinessClassId, attribute);
-        
-        Attribute result = ModelService.getAttribute(nPluginId, nBusinessClassId,  attribute.getId() );
-        assertTrue( result.getAttributeName().equals( attribute.getAttributeName()));
-    }
+        Attribute attribute = new Attribute(  );
+        attribute.setAttributeName( "product_name" );
+        attribute.setAttributeTypeId( 2 );
+        attribute.setIsDescription( true );
+        ModelService.addAttribute( nPluginId, nBusinessClassId, attribute );
 
-   }
+        Attribute result = ModelService.getAttribute( nPluginId, nBusinessClassId, attribute.getId(  ) );
+        assertTrue( result.getAttributeName(  ).equals( attribute.getAttributeName(  ) ) );
+    }
+}

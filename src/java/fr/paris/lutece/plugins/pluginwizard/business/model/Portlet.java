@@ -91,7 +91,6 @@ public class Portlet
         _strPortletTypeName = strPortletTypeName;
     }
 
-
     /**
      * Returns the JspBaseName
      * @return The JspBaseName

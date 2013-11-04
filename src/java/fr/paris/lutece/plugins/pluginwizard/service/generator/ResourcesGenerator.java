@@ -58,7 +58,6 @@ public class ResourcesGenerator extends AbstractGenerator
     private static String[] _languages = { "en", "fr" };
     private static String[] _prefix = { "create", "modify" };
     private static String[] _suffix = { "created", "updated", "removed" };
-    
 
     /**
      * {@inheritDoc }
@@ -222,10 +221,10 @@ public class ResourcesGenerator extends AbstractGenerator
     {
         sb.append( "\n# Portlets keys\n\n" );
 
-        for ( Portlet portlet : pm.getPortlets(  ))
+        for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            sb.append( "portlet." ).append( pm.getPluginName().toLowerCase() ).append( portlet.getPortletClass() )
-                    .append( ".name=" ).append( portlet.getJspBaseName() ).append( "\n" );
+            sb.append( "portlet." ).append( pm.getPluginName(  ).toLowerCase(  ) ).append( portlet.getPortletClass(  ) )
+              .append( ".name=" ).append( portlet.getJspBaseName(  ) ).append( "\n" );
         }
 
         sb.append( "\n" );
@@ -242,13 +241,13 @@ public class ResourcesGenerator extends AbstractGenerator
 
         for ( BusinessClass bc : pm.getBusinessClasses(  ) )
         {
-            for( int i = 0 ; i < _suffix.length ; i++ )
+            for ( int i = 0; i < _suffix.length; i++ )
             {
-                sb.append( "info." ).append( bc.getBusinessClass(  ).toLowerCase() )
-                        .append(".").append( _suffix[i] ).append("=")
-                        .append(bc.getBusinessClass(  )).append(" ").append(_suffix[i]).append("\n" );
+                sb.append( "info." ).append( bc.getBusinessClass(  ).toLowerCase(  ) ).append( "." ).append( _suffix[i] )
+                  .append( "=" ).append( bc.getBusinessClass(  ) ).append( " " ).append( _suffix[i] ).append( "\n" );
             }
         }
+
         sb.append( "\n" );
     }
 

@@ -33,8 +33,10 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
-import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
+
 
 /**
  * BusinessClass formbean
@@ -174,5 +176,4 @@ public class BusinessClassFormBean
     {
         return _strPrimaryAttributeName;
     }
-
 }

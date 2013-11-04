@@ -17,6 +17,7 @@
 
   "applications" : [ { "applicationClass" : "MyPluginApp",
         "applicationName" : "myplugin",
+        "idBusinessClasses" : [1],
         "id" : 1
       } ],
           
@@ -41,7 +42,6 @@
         "businessTableName" : "myplugin_person",
         "classDescription" : "person_name",
         "id" : 1,
-        "idFeature" : 1,
         "primaryKey" : "id_person"
       },
       { "attributes" : [ { "attributeName" : "id_product",
@@ -65,7 +65,6 @@
         "businessTableName" : "myplugin_product",
         "classDescription" : "product_name",
         "id" : 2,
-        "idFeature" : 1,
         "primaryKey" : "id_product"
       }
     ],
@@ -75,6 +74,7 @@
         "featureRight" : "MYPLUGIN_MANAGEMENT",
         "featureTitle" : "My Feature",
         "id" : 1,
+        "idBusinessClasses" : [1],
         "jspName" : null
       } ],
   "portlets" : [ { "id" : 1,

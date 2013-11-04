@@ -55,27 +55,52 @@
                         <select class="input-xlarge" name="feature_level">    				                              
                             <option value="0" <#if feature.featureLevel ="0">selected="selected" </#if> >
                                     #i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel0}                              
-                        </option>    				                              
-                        <option value="1" <#if feature.featureLevel ="1">selected="selected"                              
-                                </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel1}                              
-                    </option>    				                              
-                    <option value="2" <#if feature.featureLevel ="2">selected="selected"                              
-                            </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel2}                              
-                </option>    				                              
-                <option value="3" <#if feature.featureLevel ="3">selected="selected"                              
-                        </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel3}                              
-            </option>				                          
-        </select>                
-    </div>         
-</div>
+                                </option> 
 
-<div class="form-actions">                                                                    
-    <button type="submit" name="action_modifyAdminFeature" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
-    <button type="submit" name="view_manageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    
-</div>  
-</fieldset>
+                                <option value="1" <#if feature.featureLevel ="1">selected="selected"                              
+                                        </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel1}                              
+                                </option> 
 
-</form>
-</div>
+                                <option value="2" <#if feature.featureLevel ="2">selected="selected"                              
+                                    </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel2}                              
+                                </option>  
 
+                                 <option value="3" <#if feature.featureLevel ="3">selected="selected"                              
+                                </#if>>#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelLevel3}                              
+                            </option>				                          
+                        </select>                
+                    </div>         
+                </div>
+                 
+                <div class="control-group">
+                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelBusinessClass} :  </label>        
+                    <div class="controls">
+                        <#list combo_business_classes?sort_by('name') as business>
+                            <#if feature.getIdBusinessClasses()?seq_contains(business.code?number)>
+                                <input type='checkbox' checked='checked' name='id_business_class${business.code}' value='${business.code}'/> &nbsp; ${business.name}<br />
+                            <#else>
+                                <#assign used = false>
+                                <#list admin_features as admin_feature> 
+                                    <#if admin_feature.getIdBusinessClasses()?seq_contains(business.code?number)>
+                                        <#assign used = true>
+                                    </#if>
+                                </#list>
+                                <#if used>
+                                    <input type="checkbox" disabled="disabled" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                <#else>
+                                    <input type="checkbox" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                </#if>
+                            </#if>
+                        </#list>
+                    </div>  
+                </div>
+
+                <div class="form-actions">                                                                    
+                    <button type="submit" name="action_modifyAdminFeature" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_admin_feature.modify_feature_button}</button>                                            
+                    <button type="submit" name="view_manageAdminFeatures" class="btn">#i18n{pluginwizard.pluginwizard_modify_admin_feature.buttonBack}</button>                                    
+                </div>  
+            </fieldset>
+
+        </form>
+    </div>
 </div>

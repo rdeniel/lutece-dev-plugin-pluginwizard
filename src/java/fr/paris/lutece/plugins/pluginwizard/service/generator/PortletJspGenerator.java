@@ -63,7 +63,7 @@ public class PortletJspGenerator extends AbstractGenerator
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortletFile = _prefix[i] + portlet.getJspBaseName() + EXT_JSP;
+                String strPortletFile = _prefix[i] + portlet.getJspBaseName(  ) + EXT_JSP;
                 String strPath = getFilePath( pm, PATH, strPortletFile );
                 String strSourceCode = getPortletJspFile( portlet, pm.getPluginName(  ), i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -75,7 +75,6 @@ public class PortletJspGenerator extends AbstractGenerator
         return map;
     }
 
-    
     /**
     * Gets the portlet Jsp File
     * @param portlet The portlet

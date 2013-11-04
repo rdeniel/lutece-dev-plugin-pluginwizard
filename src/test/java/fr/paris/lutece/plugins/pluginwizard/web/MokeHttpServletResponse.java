@@ -35,10 +35,13 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.Locale;
+
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
 
 /**
  *
@@ -46,177 +49,175 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MokeHttpServletResponse implements HttpServletResponse
 {
-
     @Override
-    public void addCookie(Cookie cookie)
+    public void addCookie( Cookie cookie )
     {
     }
 
     @Override
-    public boolean containsHeader(String string)
+    public boolean containsHeader( String string )
     {
         return true;
     }
 
     @Override
-    public String encodeURL(String string)
+    public String encodeURL( String string )
     {
         return string;
     }
 
     @Override
-    public String encodeRedirectURL(String string)
+    public String encodeRedirectURL( String string )
     {
         return string;
     }
 
     @Override
-    public String encodeUrl(String string)
+    public String encodeUrl( String string )
     {
         return string;
     }
 
     @Override
-    public String encodeRedirectUrl(String string)
+    public String encodeRedirectUrl( String string )
     {
         return string;
     }
 
     @Override
-    public void sendError(int i, String string) throws IOException
+    public void sendError( int i, String string ) throws IOException
     {
     }
 
     @Override
-    public void sendError(int i) throws IOException
+    public void sendError( int i ) throws IOException
     {
     }
 
     @Override
-    public void sendRedirect(String string) throws IOException
+    public void sendRedirect( String string ) throws IOException
     {
     }
 
     @Override
-    public void setDateHeader(String string, long l)
+    public void setDateHeader( String string, long l )
     {
     }
 
     @Override
-    public void addDateHeader(String string, long l)
+    public void addDateHeader( String string, long l )
     {
     }
 
     @Override
-    public void setHeader(String string, String string1)
+    public void setHeader( String string, String string1 )
     {
     }
 
     @Override
-    public void addHeader(String string, String string1)
+    public void addHeader( String string, String string1 )
     {
     }
 
     @Override
-    public void setIntHeader(String string, int i)
+    public void setIntHeader( String string, int i )
     {
     }
 
     @Override
-    public void addIntHeader(String string, int i)
+    public void addIntHeader( String string, int i )
     {
     }
 
     @Override
-    public void setStatus(int i)
+    public void setStatus( int i )
     {
     }
 
     @Override
-    public void setStatus(int i, String string)
+    public void setStatus( int i, String string )
     {
     }
 
     @Override
-    public String getCharacterEncoding()
+    public String getCharacterEncoding(  )
     {
         return "UTF-8";
     }
 
     @Override
-    public String getContentType()
+    public String getContentType(  )
     {
         return "text";
     }
 
     @Override
-    public ServletOutputStream getOutputStream() throws IOException
+    public ServletOutputStream getOutputStream(  ) throws IOException
     {
         return null;
     }
 
     @Override
-    public PrintWriter getWriter() throws IOException
+    public PrintWriter getWriter(  ) throws IOException
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void setCharacterEncoding(String string)
-    {
-     }
-
-    @Override
-    public void setContentLength(int i)
+    public void setCharacterEncoding( String string )
     {
     }
 
     @Override
-    public void setContentType(String string)
+    public void setContentLength( int i )
     {
     }
 
     @Override
-    public void setBufferSize(int i)
+    public void setContentType( String string )
     {
     }
 
     @Override
-    public int getBufferSize()
+    public void setBufferSize( int i )
+    {
+    }
+
+    @Override
+    public int getBufferSize(  )
     {
         return 1024;
     }
 
     @Override
-    public void flushBuffer() throws IOException
+    public void flushBuffer(  ) throws IOException
     {
     }
 
     @Override
-    public void resetBuffer()
+    public void resetBuffer(  )
     {
     }
 
     @Override
-    public boolean isCommitted()
+    public boolean isCommitted(  )
     {
         return true;
     }
 
     @Override
-    public void reset()
+    public void reset(  )
     {
     }
 
     @Override
-    public void setLocale(Locale locale)
+    public void setLocale( Locale locale )
     {
     }
 
     @Override
-    public Locale getLocale()
+    public Locale getLocale(  )
     {
-        return Locale.getDefault();
+        return Locale.getDefault(  );
     }
-    
 }

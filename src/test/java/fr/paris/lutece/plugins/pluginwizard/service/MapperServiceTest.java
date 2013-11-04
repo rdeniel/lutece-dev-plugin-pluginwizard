@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorUtils;
 
 import junit.framework.TestCase;
 
@@ -68,7 +69,7 @@ public class MapperServiceTest extends TestCase
 
     public void testReadJson(  )
     {
-        String strJson = "{\"locale\":null,\"idPlugin\":1,\"pluginName\":\"myplugin\",\"pluginClass\":null,\"pluginDescription\":null,\"pluginDocumentation\":null,\"pluginInstallation\":null,\"pluginChanges\":null,\"pluginUserGuide\":null,\"pluginVersion\":\"1.0.0\",\"pluginCopyright\":null,\"pluginIconUrl\":null,\"pluginProvider\":\"provider\",\"pluginProviderUrl\":\"provider url\",\"pluginDbPoolRequired\":null,\"pluginApplications\":null,\"pluginFeatures\":null,\"pluginPortlets\":null}";
+        String strJson = GeneratorUtils.getTestJson(  );
         PluginModel model = MapperService.readJson( strJson );
         assertEquals( model.getPluginVersion(  ), VERSION );
     }

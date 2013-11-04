@@ -72,7 +72,7 @@ public class PortletGenerator extends AbstractGenerator
         {
             for ( BusinessFileConfig file : _listFiles )
             {
-                String strPortletFile = file.getPrefix(  ) + portlet.getPortletClass() + file.getSuffix(  ) +
+                String strPortletFile = file.getPrefix(  ) + portlet.getPortletClass(  ) + file.getSuffix(  ) +
                     EXT_JAVA;
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );

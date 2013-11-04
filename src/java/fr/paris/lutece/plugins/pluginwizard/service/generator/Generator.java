@@ -33,9 +33,9 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import java.util.Map;
-
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+
+import java.util.Map;
 
 
 /**

@@ -38,6 +38,8 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +85,28 @@ public class PluginXmlGenerator extends AbstractFileGenerator
 
             if ( ( listBusiness != null ) && ( listBusiness.size(  ) > 0 ) )
             {
-                BusinessClass businessClass = listBusiness.get( 0 );
+                List<String> BusinessNames = new ArrayList<String>(  );
+                int i = 0;
+                int id = 0;
+
+                for ( BusinessClass bc : listBusiness )
+                {
+                    BusinessNames.add( bc.getBusinessClass(  ) );
+                }
+
+                Collections.sort( BusinessNames );
+
+                for ( BusinessClass bc : listBusiness )
+                {
+                    if ( bc.getBusinessClass(  ).equals( BusinessNames.get( 0 ) ) )
+                    {
+                        id = i;
+                    }
+
+                    i++;
+                }
+
+                BusinessClass businessClass = listBusiness.get( id );
                 feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst(  ) + "s.jsp" );
             }
             else

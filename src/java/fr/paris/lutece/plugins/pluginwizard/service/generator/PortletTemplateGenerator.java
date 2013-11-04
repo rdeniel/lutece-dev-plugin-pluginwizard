@@ -61,8 +61,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-
-                String strPortletFile = getPortletTemplateName( portlet.getJspBaseName().toLowerCase(  ), i );
+                String strPortletFile = getPortletTemplateName( portlet.getJspBaseName(  ).toLowerCase(  ), i );
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 

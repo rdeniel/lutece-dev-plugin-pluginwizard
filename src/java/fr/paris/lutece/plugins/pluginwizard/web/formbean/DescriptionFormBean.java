@@ -33,10 +33,12 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
+
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 
 /**
  * Description FormBean
@@ -48,7 +50,7 @@ public class DescriptionFormBean
     private String _strPluginName;
     private String _strPluginClass;
     @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
-    @Size( min = 5 , max = 255 , message = "pluginwizard.error.plugin.description.size" )
+    @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
     @NotEmpty( message = "pluginwizard.error.plugin.version.notEmpty" )
     @Pattern( regexp = "[0-9].[0-9].[0-9]", message = "pluginwizard.error.plugin.version.pattern" )
@@ -57,7 +59,7 @@ public class DescriptionFormBean
     private String _strPluginCopyright;
     private String _strPluginIconUrl;
     @NotEmpty( message = "pluginwizard.error.plugin.provider.notEmpty" )
-    @Size( min = 5 , max = 255 , message = "pluginwizard.error.plugin.description.size" )
+    @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginProvider;
     @NotEmpty( message = "pluginwizard.error.plugin.urlProvider.notEmpty" )
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
@@ -250,6 +252,4 @@ public class DescriptionFormBean
     {
         _strPluginDbPoolRequired = strPluginDbPoolRequired;
     }
-
-    
 }

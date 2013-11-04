@@ -76,20 +76,22 @@ public class AdminTemplateGenerator extends AbstractGenerator
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
+                Feature admin_feature = ModelService.getFeatureByBusinessClass( pm, businessClass.getId(  ) );
+
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
                     String strSuffix = ( i == 2 ) ? "s.html" : ".html";
                     String strPath = getFilePath( pm, PATH,
                             _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, businessClass, i,
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, admin_feature, businessClass, i,
                             pm.getPluginName(  ) );
                     map.put( strPath, strSourceCode );
                 }
             }
 
             //Add the main template where all the business management interface will be accessible
-            String strPath = getFilePath( pm, PATH, "tabs.html" );
+            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ).toLowerCase(  ) + "_tabs.html" );
 
             String strSourceCode = getTabsHtmlCode( listBusinessClasses, pm.getPluginName(  ), feature );
             map.put( strPath, strSourceCode );
@@ -108,8 +110,8 @@ public class AdminTemplateGenerator extends AbstractGenerator
      * @param strPluginName The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, BusinessClass businessClass,
-        int nTemplateType, String strPluginName )
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature,
+        BusinessClass businessClass, int nTemplateType, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 
@@ -122,6 +124,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_BRACKETS_CLOSE, "}" );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
+        model.put( Markers.MARK_ADMIN_FEATURE, admin_feature );
         model.put( Markers.MARK_INCLUDE, "@@include" );
 
         model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );

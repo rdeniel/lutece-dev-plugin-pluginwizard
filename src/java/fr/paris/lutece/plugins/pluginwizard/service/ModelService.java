@@ -46,9 +46,10 @@ import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.util.ReferenceList;
 
+import org.dozer.DozerBeanMapper;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.dozer.DozerBeanMapper;
 
 
 /**
@@ -57,7 +58,7 @@ import org.dozer.DozerBeanMapper;
 public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
-    private static DozerBeanMapper _mapper = new DozerBeanMapper();
+    private static DozerBeanMapper _mapper = new DozerBeanMapper(  );
 
     /** private constructor */
     private ModelService(  )
@@ -474,7 +475,6 @@ public final class ModelService
     // BUSINESS CLASSES
     /**
      * Get a given business class
-     *
      * @param nPluginId The plugin's ID
      * @param nBusinessClassId The business class ID
      * @return The business class
@@ -753,19 +753,29 @@ public final class ModelService
     /**
      * Gets all business classes for a given Feature
      * @param pm The plugin model
-     * @param nFeatureId The feature ID
+     * @param nFeatureId The feature's ID
      * @return The list of business class
      */
     public static List<BusinessClass> getBusinessClassesByFeature( PluginModel pm, int nFeatureId )
     {
         List<BusinessClass> list = new ArrayList<BusinessClass>(  );
-        List<BusinessClass> listAll = pm.getBusinessClasses(  );
+        List<Feature> listAll = pm.getFeatures(  );
+        List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
 
-        for ( BusinessClass bc : listAll )
+        for ( Feature f : listAll )
         {
-            if ( bc.getIdFeature(  ) == nFeatureId )
+            if ( f.getId(  ) == nFeatureId )
             {
-                list.add( bc );
+                for ( int i : f.getIdBusinessClasses(  ) )
+                {
+                    for ( BusinessClass bc : listAll2 )
+                    {
+                        if ( bc.getId(  ) == i )
+                        {
+                            list.add( bc );
+                        }
+                    }
+                }
             }
         }
 
@@ -773,17 +783,49 @@ public final class ModelService
     }
 
     /**
-     * Get a reference list of features
-     * @param nPluginId The plugin ID
-     * @return the list of features
+     * Gets the feature for a given Business Class
+     * @param pm The plugin model
+     * @param nBusinessClassId The Business Class's ID
+     * @return The feature
      */
-    public static ReferenceList getComboFeatures( int nPluginId )
+    public static Feature getFeatureByBusinessClass( PluginModel pm, int nBusinessClassId )
+    {
+        Feature feature = new Feature(  );
+        List<Feature> listAll = pm.getFeatures(  );
+        List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
+
+        for ( Feature f : listAll )
+        {
+            for ( int i : f.getIdBusinessClasses(  ) )
+            {
+                if ( i == nBusinessClassId )
+                {
+                    for ( BusinessClass bc : listAll2 )
+                    {
+                        if ( bc.getId(  ) == i )
+                        {
+                            feature = f;
+                        }
+                    }
+                }
+            }
+        }
+
+        return feature;
+    }
+
+    /**
+     * Returns a Reference list with all Business Classes
+     * * @param nPluginId The Plugin's ID
+     * @return The list
+     */
+    public static ReferenceList getComboBusinessClasses( int nPluginId )
     {
         ReferenceList list = new ReferenceList(  );
 
-        for ( Feature feature : getPluginModel( nPluginId ).getFeatures(  ) )
+        for ( BusinessClass bc : getPluginModel( nPluginId ).getBusinessClasses(  ) )
         {
-            list.addItem( feature.getId(  ), feature.getFeatureTitle(  ) );
+            list.addItem( bc.getId(  ), bc.getBusinessClass(  ) );
         }
 
         return list;
@@ -852,24 +894,24 @@ public final class ModelService
         return _serviceAttribute.getType( nAttributeTypeId ).getDescription(  );
     }
 
-    public static void updateDescription(int nPluginId, DescriptionFormBean description)
+    public static void updateDescription( int nPluginId, DescriptionFormBean description )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        _mapper.map( description , pm );
-        savePluginModel(pm);
+        _mapper.map( description, pm );
+        savePluginModel( pm );
     }
 
-    public static DescriptionFormBean getDescription(int nPluginId)
+    public static DescriptionFormBean getDescription( int nPluginId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        return _mapper.map( pm , DescriptionFormBean.class );
+
+        return _mapper.map( pm, DescriptionFormBean.class );
     }
 
-    public static BusinessClassFormBean getFormBusinessClass(int nPluginId, int nBusinessClassId)
+    public static BusinessClassFormBean getFormBusinessClass( int nPluginId, int nBusinessClassId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        return _mapper.map( getBusinessClass(pm, nBusinessClassId) , BusinessClassFormBean.class );
+
+        return _mapper.map( getBusinessClass( pm, nBusinessClassId ), BusinessClassFormBean.class );
     }
-
-
 }

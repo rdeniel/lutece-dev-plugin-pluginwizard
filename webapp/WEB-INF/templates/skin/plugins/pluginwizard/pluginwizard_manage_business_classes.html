@@ -45,11 +45,11 @@
                     <td>${business_class.businessTableName}</td>
 
                     <td>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyBusinessClass&feature_id=${business_class.idFeature}&business_class_id=${business_class.id}" 
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyBusinessClass&business_class_id=${business_class.id}" 
                            class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
                             <i class="icon-edit icon-white"></i>
                         </a>
-                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveBusinessClass&feature_id=${business_class.idFeature}&business_class_id=${business_class.id}" 
+                        <a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveBusinessClass&business_class_id=${business_class.id}" 
                            class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
                             <i class="icon-trash icon-white"></i>
                         </a>
@@ -63,11 +63,11 @@
         <div class="form-actions"> 
             <form method="post" action="jsp/site/Portal.jsp">
                 <input type="hidden" name="page" value="pluginwizard" /> 
-                <button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
+                <button type="submit" name="view_modifyDescription" class="btn btn-primary">
                     <i class="icon-chevron-left icon-white"></i>
                     #i18n{pluginwizard.pluginwizard_manage_business_classes.buttonBack}
                 </button>
-                <button type="submit" name="view_manageApplications" class="btn btn-primary">
+                <button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
                     #i18n{pluginwizard.pluginwizard_manage_business_classes.buttonNext}
                     <i class="icon-chevron-right icon-white"></i>
                 </button>

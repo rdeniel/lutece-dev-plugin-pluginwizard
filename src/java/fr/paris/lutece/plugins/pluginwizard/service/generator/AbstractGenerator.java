@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -97,7 +98,7 @@ public abstract class AbstractGenerator implements Generator
 
         return strValueCap;
     }
-    
+
     /**
      * Return the model filled with the plugin model
      * @param pm The plugin model
@@ -105,54 +106,53 @@ public abstract class AbstractGenerator implements Generator
      */
     protected Map<String, Object> getModel( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( Markers.MARK_PLUGIN_MODEL, pm );
-        
+
         return model;
     }
-    
+
     /**
-     * Build the code 
+     * Build the code
      * @param pm The plugin model
-     * @return The code 
+     * @return The code
      */
-    protected String build( PluginModel pm  )
+    protected String build( PluginModel pm )
     {
-        return build( getTemplate() , getModel( pm ) );
+        return build( getTemplate(  ), getModel( pm ) );
     }
-    
+
     /**
-     * Build the code 
+     * Build the code
      * @param strTemplate The code template
      * @param pm The plugin model
-     * @return The code 
+     * @return The code
      */
-    protected String build( String strTemplate , PluginModel pm )
+    protected String build( String strTemplate, PluginModel pm )
     {
-        return build( strTemplate , getModel( pm ) );
+        return build( strTemplate, getModel( pm ) );
     }
-    
+
     /**
-     * Build the code 
+     * Build the code
      * @param model The model
-     * @return The code 
+     * @return The code
      */
     protected String build( Map<String, Object> model )
     {
-         return build( getTemplate() , model );
+        return build( getTemplate(  ), model );
     }
 
     /**
-     * Build the code 
+     * Build the code
      * @param strTemplate The code template
      * @param model The model
-     * @return The code 
+     * @return The code
      */
     protected String build( String strTemplate, Map<String, Object> model )
     {
-         HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
 
-         return template.getHtml(  );
+        return template.getHtml(  );
     }
-
 }

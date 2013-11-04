@@ -35,6 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.List;
+
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -44,7 +46,8 @@ import javax.validation.constraints.Size;
  */
 public class Feature
 {
-    // Variables declarations 
+    // Variables declarations
+    private List<Integer> _nIdBusinessClasses;
     private int _nId;
     @NotEmpty( message = "pluginwizard.error.feature.right.notEmpty" )
     @Pattern( regexp = "[A-Z][A-Z_]*", message = "pluginwizard.error.feature.right.pattern" )
@@ -190,5 +193,23 @@ public class Feature
     public void setJspName( String strJspName )
     {
         _strJspName = strJspName;
+    }
+
+    /**
+     * Returns the list of IdBusinessClasses
+     * @return the collection of IdBusinessClasses
+     */
+    public List<Integer> getIdBusinessClasses(  )
+    {
+        return _nIdBusinessClasses;
+    }
+
+    /**
+     * Sets the list of IdBusinessClasses
+     * @param nIdBusinessClasses The collection of IdBusinessClasses
+     */
+    public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
+    {
+        _nIdBusinessClasses = nIdBusinessClasses;
     }
 }

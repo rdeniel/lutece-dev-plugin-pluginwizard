@@ -54,7 +54,7 @@ public class PluginModel
     private String _strPluginName;
     private String _strPluginClass;
     @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
-    @Size( min = 5 , max = 255 , message = "pluginwizard.error.plugin.description.size" )
+    @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
     private String _strPluginDocumentation;
     private String _strPluginInstallation;
@@ -67,7 +67,7 @@ public class PluginModel
     private String _strPluginCopyright;
     private String _strPluginIconUrl;
     @NotEmpty( message = "pluginwizard.error.plugin.provider.notEmpty" )
-    @Size( min = 5 , max = 255 , message = "pluginwizard.error.plugin.description.size" )
+    @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginProvider;
     @NotEmpty( message = "pluginwizard.error.plugin.urlProvider.notEmpty" )
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
@@ -421,5 +421,10 @@ public class PluginModel
     public List<BusinessClass> getBusinessClasses(  )
     {
         return _listBusinessClasses;
+    }
+
+    public List<Feature> BusinessClass(  )
+    {
+        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
     }
 }

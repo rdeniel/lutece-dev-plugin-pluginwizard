@@ -66,6 +66,7 @@ public final class Markers
     public static final String MARK_PLUGIN = "plugin";
     public static final String MARK_FEATURE = "feature";
     public static final String MARK_LIST_BUSINESS_CLASSES = "business_classes";
+    public static final String MARK_ADMIN_FEATURE = "admin_feature";
     public static final String MARK_RESOURCE_KEY_LIST = "list_resource";
     public static final String MARK_LIST_FEATURES = "features";
     public static final String MARK_LIST_APPLICATIONS = "applications";

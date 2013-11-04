@@ -2,7 +2,7 @@
 
 <#case 0>
 <#if business_class?? >
-<${include} "tabs.html" /> 
+<${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row" >
@@ -46,7 +46,7 @@
 
 <#case 1>
 <#if business_class?? >
-<${include} "tabs.html" /> 
+<${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row" >
@@ -93,7 +93,7 @@
 
 <#case 2>
 <#if business_class?? > 
-<${include} "tabs.html" /> 
+<${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row-fluid" >

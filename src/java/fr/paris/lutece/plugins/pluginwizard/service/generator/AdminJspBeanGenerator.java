@@ -100,8 +100,7 @@ public class AdminJspBeanGenerator extends AbstractGenerator
      * @param business  The business classes
      * @return the template The source code of the Jsp Bean
      */
-    private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight,
-        BusinessClass business )
+    private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, BusinessClass business )
     {
         Map<String, Object> model = getModel( pm );
 

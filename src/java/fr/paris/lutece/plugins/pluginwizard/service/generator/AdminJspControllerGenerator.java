@@ -37,9 +37,11 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * Admin Jsp Controller Generator
@@ -83,15 +85,14 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                    String strJspFileName = "Manage" + businessClass.getBusinessClass(  ) + "s.jsp";
+                String strJspFileName = "Manage" + businessClass.getBusinessClass(  ) + "s.jsp";
 
-                    String strPath = getFilePath( pm, PATH, strJspFileName );
+                String strPath = getFilePath( pm, PATH, strJspFileName );
 
-                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ),
-                            strPluginName );
-                    strSourceCode = strSourceCode.replace( "&lt;", "<" );
-                    strSourceCode = strSourceCode.replace( "&gt;", ">" );
-                    map.put( strPath, strSourceCode );
+                String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ), strPluginName );
+                strSourceCode = strSourceCode.replace( "&lt;", "<" );
+                strSourceCode = strSourceCode.replace( "&gt;", ">" );
+                map.put( strPath, strSourceCode );
             }
 
             String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + ".jsp" );
@@ -115,7 +116,7 @@ public class AdminJspControllerGenerator extends AbstractGenerator
      */
     private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName )
     {
-        String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClass();
+        String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClass(  );
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );

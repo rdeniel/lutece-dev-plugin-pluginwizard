@@ -35,6 +35,8 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.List;
+
 import javax.validation.constraints.Pattern;
 
 
@@ -45,6 +47,7 @@ public class Application
 {
     // Variables declarations 
     private int _nId;
+    private List<Integer> _nIdBusinessClasses;
     @NotEmpty( message = "pluginwizard.error.application.name.notEmpty" )
     @Pattern( regexp = "[a-z]+", message = "pluginwizard.error.application.name.pattern" )
     private String _strApplicationName;
@@ -104,5 +107,23 @@ public class Application
     public void setApplicationClass( String strApplicationClass )
     {
         _strApplicationClass = strApplicationClass;
+    }
+
+    /**
+     * Returns the list of IdBusinessClasses
+     * @return the collection of IdBusinessClasses
+     */
+    public List<Integer> getIdBusinessClasses(  )
+    {
+        return _nIdBusinessClasses;
+    }
+
+    /**
+     * Sets the list of IdBusinessClasses
+     * @param nIdBusinessClasses The collection of IdBusinessClasses
+     */
+    public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
+    {
+        _nIdBusinessClasses = nIdBusinessClasses;
     }
 }

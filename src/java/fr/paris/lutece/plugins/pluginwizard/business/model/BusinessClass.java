@@ -50,8 +50,7 @@ import javax.validation.constraints.Pattern;
  */
 public class BusinessClass
 {
-    // Variables declarations 
-    private int _nIdFeature;
+    // Variables declarations
     private int _nIdBusinessClass;
     @NotEmpty( message = "pluginwizard.error.businessClass.class.notEmpty" )
     @Pattern( regexp = "[A-Z][a-zA-Z]*", message = "pluginwizard.error.businessClass.class.pattern" )
@@ -89,26 +88,6 @@ public class BusinessClass
     public void setId( int nIdBusinessClass )
     {
         _nIdBusinessClass = nIdBusinessClass;
-    }
-
-    /**
-     * Returns the IdFeature
-     *
-     * @return The IdFeature
-     */
-    public int getIdFeature(  )
-    {
-        return _nIdFeature;
-    }
-
-    /**
-     * Sets the IdFeature
-     *
-     * @param nIdFeature The IdPlugin
-     */
-    public void setIdFeature( int nIdFeature )
-    {
-        _nIdFeature = nIdFeature;
     }
 
     /**

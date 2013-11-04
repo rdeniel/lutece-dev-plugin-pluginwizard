@@ -36,10 +36,13 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 import fr.paris.lutece.portal.web.LocalVariables;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.test.MokeHttpServletRequest;
+
+import org.junit.Test;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import org.junit.Test;
+
 
 /**
  *
@@ -47,22 +50,22 @@ import org.junit.Test;
  */
 public class PluginWizardAppTest extends LuteceTestCase
 {
-    
     @Test
-    public void testCreateBusinessClass()
+    public void testCreateBusinessClass(  )
     {
-        MokeHttpServletRequest request = new MokeHttpServletRequest();
-        HttpServletResponse response = new MokeHttpServletResponse();
-        LocalVariables.setLocal(null, request, response);
-        PluginWizardApp instance = new PluginWizardApp();
+        MokeHttpServletRequest request = new MokeHttpServletRequest(  );
+        HttpServletResponse response = new MokeHttpServletResponse(  );
+        LocalVariables.setLocal( null, request, response );
+
+        PluginWizardApp instance = new PluginWizardApp(  );
         request.addMokeParameters( "name", "myplugin" );
-        instance.doCreatePlugin(request);
-        instance.getCreateBusinessClass(request);
+        instance.doCreatePlugin( request );
+        instance.getCreateBusinessClass( request );
         request.addMokeParameters( "business_class", "MyBusinessClass" );
         request.addMokeParameters( "business_table_name", "myplugin_mytable" );
         request.addMokeParameters( "id_feature", "1" );
-        instance.doCreateBusinessClass(request);
+        instance.doCreateBusinessClass( request );
         request.addMokeParameters( "business_class_id", "1" );
-        instance.getModifyBusinessClass(request);
+        instance.getModifyBusinessClass( request );
     }
 }

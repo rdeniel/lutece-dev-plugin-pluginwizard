@@ -30,6 +30,25 @@
                         <input type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?cap_first}App</#if>"  />
                     </div>
                 </div>
+                 
+                 <div class="control-group">
+                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_application.labelBusinessClass} :  </label>        
+                    <div class="controls">
+                        <#list combo_business_classes?sort_by('name') as business>
+                            <#assign used = false>
+                            <#list plugin_applications as plugin_application> 
+                                <#if plugin_application.getIdBusinessClasses()?seq_contains(business.code?number)>
+                                    <#assign used = true>
+                                </#if>
+                            </#list>
+                            <#if used>
+                                <input type="checkbox" disabled="disabled" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                            <#else>
+                                <input type="checkbox" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                            </#if>
+                        </#list>
+                    </div>   
+                </div>
 
                 <div class="form-actions">                                          
                     <button type="submit" name="action_createApplication" class="btn btn-primary">

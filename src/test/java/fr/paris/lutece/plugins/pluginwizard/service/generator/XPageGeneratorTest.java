@@ -61,10 +61,10 @@ public class XPageGeneratorTest extends LuteceTestCase
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
-    
-        /**
-     * Test of generate method, of class XPageGenerator.
-     */
+
+    /**
+    * Test of generate method, of class XPageGenerator.
+    */
     @Test
     public void testGenerateAlternative(  )
     {
@@ -75,5 +75,4 @@ public class XPageGeneratorTest extends LuteceTestCase
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
-
 }
