@@ -36,6 +36,14 @@ package fr.paris.lutece.plugins.${plugin_name}.business;
 import javax.validation.constraints.*;
 import org.hibernate.validator.constraints.*;
 
+<#list business_class.attributes as attribute>
+	<#if attribute.type == "Date">
+		<#assign hasDate=true>
+	</#if>
+</#list>
+<#if hasDate?? && hasDate>
+import java.sql.Date;
+</#if>
 
 /**
  * This is the business class for the object ${business_class.businessClass}

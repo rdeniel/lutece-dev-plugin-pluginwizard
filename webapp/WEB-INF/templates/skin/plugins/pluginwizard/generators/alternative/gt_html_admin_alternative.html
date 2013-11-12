@@ -129,15 +129,9 @@
                 <#if attribute.attributeName = business_class.primaryKey>
                     <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
                 <#else>
-                    <#if attribute.attributeName = business_class.classDescription>
-                        <td>
-                            ${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
-                        </td>
-                    <#else>
-                        <td>
-                            ${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
-                        </td>
-                    </#if>
+                    <td>
+                        ${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+                    </td>
                 </#if>                
         </#list>
         <td>

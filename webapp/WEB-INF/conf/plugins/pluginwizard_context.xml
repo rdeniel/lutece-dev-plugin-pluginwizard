@@ -66,16 +66,32 @@
         <property name="maxLength"><value>255</value></property>
         <property name="constraint"><value>@URL(message = "@i18n{portal.validation.message.url}")</value></property>
     </bean>
+    <bean id="pluginwizard.attribute.date" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>7</value></property>
+        <property name="description"><value>Date</value></property>
+        <property name="javaType"><value>Date</value></property>
+        <property name="prefix"><value>date</value></property>
+        <property name="maxLength"><value>0</value></property>
+    </bean>
+    <bean id="pluginwizard.attribute.boolean" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
+        <property name="idAttributeType"><value>8</value></property>
+        <property name="description"><value>Booléen</value></property>
+        <property name="javaType"><value>boolean</value></property>
+        <property name="prefix"><value>b</value></property>
+        <property name="maxLength"><value>0</value></property>
+    </bean>
     
     <bean id="pluginwizard.attribute.types.list" class="java.util.ArrayList">
         <constructor-arg>
             <list>
                 <ref bean="pluginwizard.attribute.integer" />
-                <ref bean="pluginwizard.attribute.shortText" />                
-                <ref bean="pluginwizard.attribute.mediumText" />                
-                <ref bean="pluginwizard.attribute.longText" />                
-                <ref bean="pluginwizard.attribute.email" />                
-                <ref bean="pluginwizard.attribute.url" />                
+                <ref bean="pluginwizard.attribute.shortText" />
+                <ref bean="pluginwizard.attribute.mediumText" />
+                <ref bean="pluginwizard.attribute.longText" />
+                <ref bean="pluginwizard.attribute.email" />
+                <ref bean="pluginwizard.attribute.url" />
+                <ref bean="pluginwizard.attribute.date" />
+                <ref bean="pluginwizard.attribute.boolean" />
             </list>
         </constructor-arg>
     </bean>
