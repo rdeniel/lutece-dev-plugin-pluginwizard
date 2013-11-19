@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
 
@@ -43,7 +44,7 @@ import javax.validation.constraints.Size;
 /**
  * Description FormBean
  */
-public class DescriptionFormBean
+public class DescriptionFormBean implements Serializable
 {
     // Variables declarations 
     private int _nIdPlugin;

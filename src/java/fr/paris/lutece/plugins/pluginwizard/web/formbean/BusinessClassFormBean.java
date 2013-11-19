@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
@@ -41,7 +42,7 @@ import javax.validation.constraints.Pattern;
 /**
  * BusinessClass formbean
  */
-public class BusinessClassFormBean
+public class BusinessClassFormBean implements Serializable
 {
     // Variables declarations 
     private int _nIdFeature;

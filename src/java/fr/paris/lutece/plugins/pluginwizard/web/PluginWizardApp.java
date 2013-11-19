@@ -58,6 +58,7 @@ import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
+import java.io.Serializable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,7 +73,7 @@ import javax.servlet.http.HttpServletRequest;
  * The class manage pluginwizard Page
  */
 @Controller( xpageName = "pluginwizard", pagePathI18nKey = "pluginwizard.pagePathLabel", pageTitleI18nKey = "pluginwizard.pageTitle" )
-public class PluginWizardApp extends MVCApplication
+public class PluginWizardApp extends MVCApplication implements Serializable
 {
     //Constants
     private static final String MARK_PLUGIN_ID = "plugin_id";

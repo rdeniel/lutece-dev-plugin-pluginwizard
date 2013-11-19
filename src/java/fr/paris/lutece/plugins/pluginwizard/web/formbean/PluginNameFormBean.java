@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web.formbean;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
@@ -41,7 +42,7 @@ import javax.validation.constraints.Pattern;
 /**
  * Form name
  */
-public class PluginNameFormBean
+public class PluginNameFormBean implements Serializable
 {
     @NotEmpty( message = "pluginwizard.error.plugin.name.notEmpty" )
     @Pattern( regexp = "[a-z]*", message = "pluginwizard.error.plugin.name.pattern" )

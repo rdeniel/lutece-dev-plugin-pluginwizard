@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -43,7 +44,7 @@ import javax.validation.constraints.Pattern;
 /**
  * This is the business class for the object PluginApplication
  */
-public class Application
+public class Application implements Serializable
 {
     // Variables declarations 
     private int _nId;

@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.util.List;
@@ -44,7 +45,7 @@ import javax.validation.constraints.Size;
 /**
  * This is the business class for the object Feature
  */
-public class Feature
+public class Feature implements Serializable
 {
     // Variables declarations
     private List<Integer> _nIdBusinessClasses;

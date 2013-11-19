@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
+import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
@@ -41,7 +42,7 @@ import javax.validation.constraints.Pattern;
 /**
  * This is the business class for the object Portlet
  */
-public class Portlet
+public class Portlet implements Serializable
 {
     // Variables declarations 
     private int _nIdPortletPlugin;
