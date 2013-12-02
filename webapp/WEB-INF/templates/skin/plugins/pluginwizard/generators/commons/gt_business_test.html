@@ -36,12 +36,27 @@ package fr.paris.lutece.plugins.${plugin_name}.business;
 
 import fr.paris.lutece.test.LuteceTestCase;
 
+<#list business_class.attributes as attribute>
+	<#if attribute.type = "Date">
+		<#assign hasDate = true>
+	</#if>
+</#list>
+<#if hasDate?? && hasDate>
+import java.sql.Date;
+</#if>
+
 public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
 {
 <#list business_class.attributes as attribute>
 <#if attribute.type = "String"> 
     private final static ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
     private final static ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
+<#elseif attribute.type = "boolean">
+	private final static ${attribute.type} ${attribute.name?upper_case}1 = true;
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = false;
+<#elseif attribute.type = "Date">
+	private final static ${attribute.type} ${attribute.name?upper_case}1 = new Date( 1000000l );
+    private final static ${attribute.type} ${attribute.name?upper_case}2 = new Date( 2000000l );
 <#else>
     private final static ${attribute.type} ${attribute.name?upper_case}1 = 1;
     private final static ${attribute.type} ${attribute.name?upper_case}2 = 2;
