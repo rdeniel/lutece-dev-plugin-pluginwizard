@@ -46,7 +46,7 @@ import java.util.Map;
  *
  * @author pierre
  */
-public class XPageGeneratorTest extends LuteceTestCase
+public class XPageTemplateGeneratorTest extends LuteceTestCase
 {
     /**
     * Test of generate method, of class XPageGenerator.
@@ -57,7 +57,7 @@ public class XPageGeneratorTest extends LuteceTestCase
         System.out.println( "generate XPage files A1ternative" );
 
         PluginModel pm = GeneratorUtils.getTestModel(  );
-        XPageGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.java.alternative" );
+        XPageTemplateGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.html.alternative" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }

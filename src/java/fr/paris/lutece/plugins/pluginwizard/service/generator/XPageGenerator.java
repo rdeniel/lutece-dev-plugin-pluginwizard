@@ -34,8 +34,10 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
+import java.util.Collection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,17 +51,8 @@ import java.util.Map;
 public class XPageGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-    private static final String PATH_TEMPLATE = "webapp/WEB-INF/templates/skin/plugins/{plugin_name}/";
-    private String _strXPageTemplate;
-
-    /**
-     *
-     * @param strXPageTemplate The template for the XPage's template
-     */
-    public void setXpageTemplate( String strXPageTemplate )
-    {
-        _strXPageTemplate = strXPageTemplate;
-    }
+    private static final String SUFFIX_XPage_BusinessClass = "XPage.java";
+    private static final String SUFFIX_XPage = ".java";
 
     /**
      * {@inheritDoc }
@@ -68,43 +61,71 @@ public class XPageGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
-
-        for ( Application xpage : pm.getApplications(  ) )
+        HashMap map = new HashMap(  );        
+        
+        for ( Application application : pm.getApplications( ) )
         {
-            String strPath = getFilePath( pm, PATH, xpage.getApplicationClass(  ) + ".java" );
-            String strSourceCode = getXPageCode( pm, xpage.getId(  ) );
-            map.put( strPath, strSourceCode );
-
-            strPath = getFilePath( pm, PATH_TEMPLATE, xpage.getApplicationName(  ) + ".html" );
-            strSourceCode = getTemplateCode( pm, xpage.getId(  ) );
-            map.put( strPath, strSourceCode );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
+                    application.getId(  ) );
+            if(listBusinessClasses.isEmpty())
+            {
+                String strPath = getFilePath( pm, PATH, application.getApplicationName() + SUFFIX_XPage );
+                String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ), application);
+                map.put( strPath, strSourceCode );
+            }
+            else
+            {
+                for ( BusinessClass businessClass : listBusinessClasses )
+                {
+                    String strFilename = businessClass.getBusinessClassCapsFirst(  ) + SUFFIX_XPage_BusinessClass;
+                    String strPath = getFilePath( pm, PATH, strFilename );
+                    String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ), application, businessClass);
+                    map.put( strPath, strSourceCode );
+                }
+            }
         }
-
         return map;
     }
 
     /**
-    * Generates the XPage source code
+    * Generates the XPage code
     * @param pm The plugin model
     * @param nApplicationId id of the plugin application
+    * @param strApplicationName the name of the appliaction
+    * @param application the application
+    * @param businessClass the business class
     * @return The code of the XPage generated
     */
-    private String getXPageCode( PluginModel pm, int nApplicationId )
+    
+    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application, BusinessClass businessClass )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
         model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
-
+        model.put( Markers.MARK_APPLICATION, application );
+        model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
+        model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
+        
         return build( model );
     }
-
-    private String getTemplateCode( PluginModel pm, int nApplicationId )
+    
+    /**
+    * Generates the XPage code
+    * @param pm The plugin model
+    * @param nApplicationId id of the plugin application
+    * @param strApplicationName the name of the appliaction
+    * @param application the application
+    * @return The code of the XPage generated
+    */
+    
+    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
         model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
-
-        return build( _strXPageTemplate, model );
+        model.put( Markers.MARK_APPLICATION, application );
+        model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
+        
+        return build( model );
     }
 }

@@ -492,7 +492,7 @@ public final class ModelService
      * @param nBusinessClassId The business class ID
      * @return The business class
      */
-    private static BusinessClass getBusinessClass( PluginModel pm, int nBusinessClassId )
+    public static BusinessClass getBusinessClass( PluginModel pm, int nBusinessClassId )
     {
         for ( BusinessClass bc : pm.getBusinessClasses(  ) )
         {
@@ -751,6 +751,37 @@ public final class ModelService
     }
 
     /**
+     * Gets all business classes for a given Application
+     * @param pm The plugin model
+     * @param nApplicationId The Application's ID
+     * @return The list of business class
+     */
+    public static List<BusinessClass> getBusinessClassesByApplication( PluginModel pm, int nApplicationId )
+    {
+        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<Application> listAll = pm.getApplications(  );
+        List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
+
+        for ( Application a : listAll )
+        {
+            if ( a.getId(  ) == nApplicationId )
+            {
+                for ( int i : a.getIdBusinessClasses(  ) )
+                {
+                    for ( BusinessClass bc : listAll2 )
+                    {
+                        if ( bc.getId(  ) == i )
+                        {
+                            list.add( bc );
+                        }
+                    }
+                }
+            }
+        }
+        return list;
+    }
+    
+    /**
      * Gets all business classes for a given Feature
      * @param pm The plugin model
      * @param nFeatureId The feature's ID
@@ -778,7 +809,6 @@ public final class ModelService
                 }
             }
         }
-
         return list;
     }
 
@@ -793,7 +823,7 @@ public final class ModelService
         Feature feature = new Feature(  );
         List<Feature> listAll = pm.getFeatures(  );
         List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
-
+        
         for ( Feature f : listAll )
         {
             for ( int i : f.getIdBusinessClasses(  ) )
@@ -810,8 +840,38 @@ public final class ModelService
                 }
             }
         }
-
         return feature;
+    }
+      
+    /**
+     * Gets the application for a given Business Class
+     * @param pm The plugin model
+     * @param nBusinessClassId The Business Class's ID
+     * @return The application
+     */
+    public static Application getApplicationByBusinessClass( PluginModel pm, int nBusinessClassId )
+    {
+        Application application = new Application(  );
+        List<Application> listAll = pm.getApplications();
+        List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
+
+        for ( Application a : listAll )
+        {
+            for ( int i : a.getIdBusinessClasses(  ) )
+            {
+                if ( i == nBusinessClassId )
+                {
+                    for ( BusinessClass bc : listAll2 )
+                    {
+                        if ( bc.getId(  ) == i )
+                        {
+                            application = a;
+                        }
+                    }
+                }
+            }
+        }
+        return application;
     }
 
     /**

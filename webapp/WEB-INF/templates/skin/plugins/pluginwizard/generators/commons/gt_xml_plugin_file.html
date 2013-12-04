@@ -33,11 +33,24 @@
     <#if plugin.applications??>
     <applications>
     <#list plugin.applications as application>
+    <#if application.idBusinessClasses?? && application.idBusinessClasses?size&gt;0 >
+        <#list application.idBusinessClasses as idBusinessClass>
+        <#list plugin.businessClasses as businessClass>
+        <#if businessClass.id = idBusinessClass>
         <application>
-            <application-id>${application.applicationName}</application-id>
-            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationClass}</application-class>
+            <application-id>Manage${businessClass.businessClassCapsFirst}s</application-id>
+            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${businessClass.businessClassCapsFirst}XPage</application-class>
         </application>
+        </#if>
         </#list>
+        </#list>
+    <#else>
+        <application>
+            <application-id>${application.applicationClass}</application-id>
+            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationName}</application-class>
+        </application>
+    </#if>
+    </#list>
     </applications>
     </#if>
 	<!-- Portlet parameters -->

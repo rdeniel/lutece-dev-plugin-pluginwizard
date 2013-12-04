@@ -44,6 +44,8 @@ public final class Markers
     public static final String MARK_PLUGIN_MODEL = "plugin_model";
     public static final String MARK_PLUGIN_NAME = "plugin_name";
     public static final String MARK_FEATURE_NAME = "feature_name";
+    public static final String MARK_APPLICATION_NAME = "application_name";
+    public static final String MARK_APPLICATION_CLASS = "application_class";
     public static final String MARK_FEATURE_RIGHT = "feature_right";
     public static final String MARK_BUSINESS_CLASS = "business_class";
     public static final String MARK_BUSINESS_CLASSES = "business_classes";
@@ -67,6 +69,7 @@ public final class Markers
     public static final String MARK_FEATURE = "feature";
     public static final String MARK_LIST_BUSINESS_CLASSES = "business_classes";
     public static final String MARK_ADMIN_FEATURE = "admin_feature";
+    public static final String MARK_APPLICATION = "application";
     public static final String MARK_RESOURCE_KEY_LIST = "list_resource";
     public static final String MARK_LIST_FEATURES = "features";
     public static final String MARK_LIST_APPLICATIONS = "applications";

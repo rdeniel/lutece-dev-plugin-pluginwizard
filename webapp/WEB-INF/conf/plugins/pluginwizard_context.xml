@@ -390,22 +390,18 @@
         </property>
     </bean>
     
-    <!-- XPage -->
-    <bean id="pluginwizard.generator.xpage.java.classic" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
-        <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/classic/gt_xpage_classic.html</value>
-        </property>
-        <property name="xpageTemplate">
-            <value>/skin/plugins/pluginwizard/generators/classic/gt_xpage_template_classic.html</value>
-        </property>
-    </bean>
-    
     <bean id="pluginwizard.generator.xpage.java.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
         <property name="template">
             <value>/skin/plugins/pluginwizard/generators/alternative/gt_xpage_alternative.html</value>
         </property>
-        <property name="xpageTemplate">
+    </bean>
+    
+    <bean id="pluginwizard.generator.xpage.html.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator" >
+        <property name="template">
             <value>/skin/plugins/pluginwizard/generators/alternative/gt_xpage_template_alternative.html</value>
+        </property>
+        <property name="tabsTemplate">
+            <value>/skin/plugins/pluginwizard/generators/commons/gt_html_xpage_tabs.html</value>
         </property>
     </bean>
     
@@ -473,6 +469,7 @@
                 <ref bean="pluginwizard.generator.admin.jsp.alternative" />
                 <ref bean="pluginwizard.generator.admin.html.alternative" />
                 <ref bean="pluginwizard.generator.xpage.java.alternative" />
+                <ref bean="pluginwizard.generator.xpage.html.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.business.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean.alternative" />
                 <ref bean="pluginwizard.generator.portlet.jsp" />
@@ -499,7 +496,7 @@
                 <ref bean="pluginwizard.generator.admin.java.jspbean.classic" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
                 <ref bean="pluginwizard.generator.admin.html" />
-                <ref bean="pluginwizard.generator.xpage.java.classic" />
+                <ref bean="pluginwizard.generator.xpage.java.alternative" />
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
                 <ref bean="pluginwizard.generator.portlet.jsp" />
