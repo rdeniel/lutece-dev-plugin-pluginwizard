@@ -54,14 +54,14 @@ public class Feature implements Serializable
     @Pattern( regexp = "[A-Z][A-Z_]*", message = "pluginwizard.error.feature.right.pattern" )
     private String _strFeatureRight;
     @NotEmpty( message = "pluginwizard.error.feature.title.notEmpty" )
-    @Size( min = 10, max = 80, message = "pluginwizard.error.feature.title.size" )
+    @Size( min = 6, max = 80, message = "pluginwizard.error.feature.title.size" )
     private String _strFeatureTitle;
     private String _strFeatureLevel;
     @NotEmpty( message = "pluginwizard.error.feature.name.notEmpty" )
     @Pattern( regexp = "[A-Z][a-zA-Z]*", message = "pluginwizard.error.feature.name.pattern" )
     private String _strFeatureName;
     @NotEmpty( message = "pluginwizard.error.feature.description.notEmpty" )
-    @Size( min = 10, max = 255, message = "pluginwizard.error.feature.description.size" )
+    @Size( min = 6, max = 255, message = "pluginwizard.error.feature.description.size" )
     private String _strFeatureDescription;
     private String _strJspName;
 
