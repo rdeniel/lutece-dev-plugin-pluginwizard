@@ -37,8 +37,8 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import java.util.Collection;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,16 +61,18 @@ public class XPageGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );        
-        
-        for ( Application application : pm.getApplications( ) )
+        HashMap map = new HashMap(  );
+
+        for ( Application application : pm.getApplications(  ) )
         {
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
                     application.getId(  ) );
-            if(listBusinessClasses.isEmpty())
+
+            if ( listBusinessClasses.isEmpty(  ) )
             {
-                String strPath = getFilePath( pm, PATH, application.getApplicationName() + SUFFIX_XPage );
-                String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ), application);
+                String strPath = getFilePath( pm, PATH, application.getApplicationName(  ) + SUFFIX_XPage );
+                String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
+                        application );
                 map.put( strPath, strSourceCode );
             }
             else
@@ -79,11 +81,13 @@ public class XPageGenerator extends AbstractGenerator
                 {
                     String strFilename = businessClass.getBusinessClassCapsFirst(  ) + SUFFIX_XPage_BusinessClass;
                     String strPath = getFilePath( pm, PATH, strFilename );
-                    String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ), application, businessClass);
+                    String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
+                            application, businessClass );
                     map.put( strPath, strSourceCode );
                 }
             }
         }
+
         return map;
     }
 
@@ -96,8 +100,8 @@ public class XPageGenerator extends AbstractGenerator
     * @param businessClass the business class
     * @return The code of the XPage generated
     */
-    
-    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application, BusinessClass businessClass )
+    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId,
+        Application application, BusinessClass businessClass )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -105,10 +109,10 @@ public class XPageGenerator extends AbstractGenerator
         model.put( Markers.MARK_APPLICATION, application );
         model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
-        
+
         return build( model );
     }
-    
+
     /**
     * Generates the XPage code
     * @param pm The plugin model
@@ -117,7 +121,6 @@ public class XPageGenerator extends AbstractGenerator
     * @param application the application
     * @return The code of the XPage generated
     */
-    
     private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application )
     {
         Map<String, Object> model = getModel( pm );
@@ -125,7 +128,7 @@ public class XPageGenerator extends AbstractGenerator
         model.put( Markers.MARK_PLUGIN_APPLICATION, ModelService.getApplication( pm, nApplicationId ) );
         model.put( Markers.MARK_APPLICATION, application );
         model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
-        
+
         return build( model );
     }
 }

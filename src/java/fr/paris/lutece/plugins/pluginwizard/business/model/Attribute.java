@@ -35,11 +35,12 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
-import java.io.Serializable;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 

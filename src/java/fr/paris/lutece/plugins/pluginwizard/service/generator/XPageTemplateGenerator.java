@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
+import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -73,10 +73,11 @@ public class XPageTemplateGenerator extends AbstractGenerator
         {
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
                     application.getId(  ) );
-            if(listBusinessClasses.isEmpty())
+
+            if ( listBusinessClasses.isEmpty(  ) )
             {
-                String strPath = getFilePath( pm, PATH, application.getApplicationName() + ".html" );
-                String strSourceCode = getCreateHtmlCode(application, pm.getPluginName(  ) );
+                String strPath = getFilePath( pm, PATH, application.getApplicationName(  ) + ".html" );
+                String strSourceCode = getCreateHtmlCode( application, pm.getPluginName(  ) );
                 map.put( strPath, strSourceCode );
             }
             else
@@ -96,7 +97,8 @@ public class XPageTemplateGenerator extends AbstractGenerator
                 }
 
                 //Add the main template where all the business management interface will be accessible
-                String strPath = getFilePath( pm, PATH, application.getApplicationName(  ).toLowerCase(  ) + "_tabs.html" );
+                String strPath = getFilePath( pm, PATH,
+                        application.getApplicationName(  ).toLowerCase(  ) + "_tabs.html" );
 
                 String strSourceCode = getTabsHtmlCode( listBusinessClasses, pm.getPluginName(  ), application );
                 map.put( strPath, strSourceCode );
@@ -164,12 +166,12 @@ public class XPageTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_BRACKETS_CLOSE, "}" );
         model.put( Markers.MARK_MACRO_DEF, "@@macro" );
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
-        
+
         HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
 
         return template.getHtml(  ).replace( "@@", "#" );
     }
-    
+
     /**
      * Gets the code of a create template for a specific business object
      *
@@ -177,7 +179,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
      * @param strPluginName The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode(Application application, String strPluginName )
+    private String getCreateHtmlCode( Application application, String strPluginName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
 

@@ -33,8 +33,9 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import java.io.Serializable;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 
