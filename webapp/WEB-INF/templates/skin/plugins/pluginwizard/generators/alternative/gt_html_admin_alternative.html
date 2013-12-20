@@ -66,6 +66,7 @@
                 <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
                 <div class="controls">
                     <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" maxlength="${attribute.maxLength}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
+                    <span class="help-block">${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}</span>
                 </div>
             </div>
             </#if>
