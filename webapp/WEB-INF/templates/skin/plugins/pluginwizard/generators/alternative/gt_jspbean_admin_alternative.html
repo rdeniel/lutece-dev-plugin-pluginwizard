@@ -253,7 +253,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
-            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId${business_class.businessClass}(  ) );
+            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.get${business_class.primaryKeyName}(  ) );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
