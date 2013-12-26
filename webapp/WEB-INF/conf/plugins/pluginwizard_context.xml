@@ -27,7 +27,7 @@
         <property name="description"><value>Entier</value></property>
         <property name="javaType"><value>int</value></property>
         <property name="prefix"><value>n</value></property>
-        <property name="maxLength"><value>3</value></property>
+        <property name="maxLength"><value>0</value></property>
     </bean>
     <bean id="pluginwizard.attribute.shortText" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
         <property name="idAttributeType"><value>2</value></property>
@@ -48,7 +48,7 @@
         <property name="description"><value>Texte long ( > 255 caractères)</value></property>
         <property name="javaType"><value>String</value></property>
         <property name="prefix"><value>str</value></property>
-        <property name="maxLength"><value>500</value></property>
+        <property name="maxLength"><value>0</value></property>
     </bean>
     <bean id="pluginwizard.attribute.email" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
         <property name="idAttributeType"><value>5</value></property>
@@ -71,14 +71,14 @@
         <property name="description"><value>Date</value></property>
         <property name="javaType"><value>Date</value></property>
         <property name="prefix"><value>date</value></property>
-        <property name="maxLength"><value>10</value></property>
+        <property name="maxLength"><value>20</value></property>
     </bean>
     <bean id="pluginwizard.attribute.boolean" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType" >
         <property name="idAttributeType"><value>8</value></property>
         <property name="description"><value>Booléen</value></property>
         <property name="javaType"><value>boolean</value></property>
         <property name="prefix"><value>b</value></property>
-        <property name="maxLength"><value>1</value></property>
+        <property name="maxLength"><value>0</value></property>
     </bean>
     
     <bean id="pluginwizard.attribute.types.list" class="java.util.ArrayList">
