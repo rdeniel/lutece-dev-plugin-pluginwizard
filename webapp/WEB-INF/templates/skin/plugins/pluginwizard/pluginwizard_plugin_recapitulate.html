@@ -2,20 +2,20 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="generate" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageHelp} 
         </div>  
     </div>
 
-    <div class="span4">
+    <div class="col-md-5">
         <#include "infos_handler.html" />
         <#include "errors_handler.html" />
 
         <h3>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageTitle} </h3> 
 
-        <div class="well well-large">
+        <div class="well well-lg">
 
             <h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h4>
             <br>
@@ -95,28 +95,28 @@
             </ul>
            <br>
             <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&view=managePortlets" >
-                <i class="icon-chevron-left icon-white"></i>
+                <i class="glyphicon glyphicon-chevron-left"></i>
                 #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
             </a>
             <br>
         </div>
     </div>
 
-    <div class="span4">
+    <div class="col-md-4">
         <div class="well">
             <form action="jsp/site/plugins/pluginwizard/DownloadZip.jsp" method="post">                
                 <input type="hidden" name="plugin_id" value="${plugin_id}" />
-                <div class="well">
-                    #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelScheme} :
-                    <@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-xlarge"' />       
+                <div class="form-group">
+                    <label>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelScheme} :</label>
+                    <@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-lg"' />       
                 </div>
-                <button class="btn btn-success btn-large" type="submit" >
-                    <i class=" icon-download-alt icon-white">  </i>
+                <button class="btn btn-success btn-lg" type="submit" >
+                    <i class="glyphicon glyphicon-download-alt">  </i>
                     #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
                 </button>
             </form>
         </div>
-        <div class="alert alert-block">
+        <div class="alert alert-danger">
             #i18n{pluginwizard.pluginwizard_plugin_recapitulate.alertProperties}
         </div>
 

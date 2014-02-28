@@ -2,7 +2,7 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="model" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_modify_business_class.pageHelp}   
@@ -10,11 +10,11 @@
     </div>
 
 
-    <div class="span8">
+    <div class="col-md-9">
 
         <#include "infos_handler.html" />
 
-        <form class="form form-horizontal" method="post"  action="jsp/site/Portal.jsp">  
+        <form class="form-horizontal" role="form" method="post"  action="jsp/site/Portal.jsp">  
             <input type="hidden" name="page" value="pluginwizard" />        
             <input type="hidden" name="id" value="${business_class.id}"/>                                                              
             <input type="hidden" name="business_class_id" value="${business_class.id}"/>                                                              
@@ -23,27 +23,29 @@
 
                 <#include "errors_handler.html" />
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
-                    <div class="controls">    
-                        <input type="text" name="business_class" value="${business_class.businessClass}" size="30" />      
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
+                    <div class="col-md-9">
+                        <input class="form-control input-md" type="text" name="business_class" value="${business_class.businessClass}" size="30" />      
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessTableName} *: </label>      
-                    <div class="controls">  
-                        <input class="input-xlarge" type="text" name="business_table_name" value="${business_class.businessTableName}" size="30" />      
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessTableName} *: </label>      
+                    <div class="col-md-9">  
+                         <input class="form-control input-md" type="text" name="business_table_name" value="${business_class.businessTableName}" size="30" />      
                     </div>                       
                 </div>
 
-                <div class="form-actions">                                          
+				<div class="form-group">                                          
+				<div class="col-md-offset-3 col-md-9">
                     <button name="action_modifyBusinessClass" class="btn btn-primary" type="submit">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyClass}
                     </button>                    
-                    <button name="action_validateAttributes" class="btn" type="submit">
+                    <button name="action_validateAttributes" class="btn btn-default" type="submit">
                         #i18n{pluginwizard.pluginwizard_modify_business_class.buttonBack}
-                    </button>                                                             
+                    </button>  
+				</div>
                 </div>
             </fieldset>
         </form>
@@ -54,7 +56,7 @@
             <input type="hidden" name="business_class_id" value="${business_class.id}"/>   
 
             <button type="submit" class="btn btn-primary">
-                <i class="icon-plus icon-white"></i>
+                <i class="glyphicon glyphicon-plus"></i>
                 #i18n{pluginwizard.pluginwizard_modify_business_class.labelCreateAttribute}
             </button> 
         </form>                                                                              
@@ -83,7 +85,7 @@
                     <td>${attribute.typeDescription}</td>
                     <td>
                         <#if attribute.notNull>
-                        <span class="label"><i class="icon-ok icon-white"></span>
+                        <span class="label"><i class="glyphicon glyphicon-ok"></span>
                         </#if>
                     </td>
                     <td>
@@ -101,14 +103,14 @@
 
                     <td>
                         <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyAttribute&attribute_id=${attribute.id}&business_class_id=${business_class.id}"
-                           class="btn btn-primary btn-small"
+                           class="btn btn-primary btn-sm"
                            title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonModifyAttribute}" >
-                            <i class="icon-edit icon-white"></i>
+                            <i class="glyphicon glyphicon-edit"></i>
                         </a>
                         <a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveAttribute&attribute_id=${attribute.id}&business_class_id=${business_class.id}"   
-                           class="btn btn-danger btn-small"
+                           class="btn btn-danger btn-sm"
                            title="#i18n{pluginwizard.pluginwizard_modify_business_class.buttonRemoveAttribute}" >
-                            <i class="icon-trash icon-white"></i>
+                            <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>
                     </#list> 

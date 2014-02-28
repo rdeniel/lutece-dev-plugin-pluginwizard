@@ -2,14 +2,14 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="xpage" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_modify_application.pageHelp}   
         </div>  
     </div>
 
-    <div class="span8">
+    <div class="col-md-9">
         <form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >       
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_application.pageTitle}</legend>
@@ -18,22 +18,22 @@
 
                  <#include "errors_handler.html" />
 
-                 <div class="control-group">
+                 <div class="form-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_application.labelApplicationName} :</label>  
-                    <div class="controls">                 
+                    <div>                 
                         <input type="text" name="application_name" value="${application.applicationName}" />  
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_application.labelApplicationClass} :</label> 
-                    <div class="controls">                  
+                    <div>                  
                         <input type="text" name="application_class" value="${application.applicationClass}" />                            
                     </div>     
                 </div>
                  
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_modify_application.labelBusinessClass} :  </label>        
-                    <div class="controls">
+                <div class="form-group">
+                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_application.labelBusinessClass} :  </label>        
+                    <div>
                         <#list combo_business_classes?sort_by('name') as business>
                             <#if application.getIdBusinessClasses()?seq_contains(business.code?number)>
                                 <input type='checkbox' checked='checked' name='id_business_class${business.code}' value='${business.code}'/> &nbsp; ${business.name}<br />
@@ -54,7 +54,7 @@
                     </div>   
                 </div>
                  
-                <div class="form-actions">                                         
+                <div class="form-group">                                         
                     <button type="submit" name="action_modifyApplication"class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_modify_application.buttonModifyApplication}
                     </button>                    

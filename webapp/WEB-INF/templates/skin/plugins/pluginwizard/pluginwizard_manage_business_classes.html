@@ -2,7 +2,7 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="model" />
 
         <div class="well">      
@@ -11,25 +11,25 @@
     </div>
 
 
-    <div class="span8">        
+    <div class="col-md-9">        
 
         <#include "infos_handler.html" />
 
         <h4>#i18n{pluginwizard.pluginwizard_manage_business_classes.pageTitle} </h4>                 
 
-        <div class="pull-right"> 
+        <div class="col-md-offset-9 col-md-3"> 
 
             <form method="post"	action="jsp/site/Portal.jsp">
                 <input type="hidden" name="page" value="pluginwizard" />
                 <input type="hidden" name="view" value="createBusinessClass" /> 
                 <button type="submit" class="btn btn-primary">
-                    <i class="icon-plus icon-white"></i>
+                    <i class="glyphicon glyphicon-plus"></i>
                     #i18n{pluginwizard.pluginwizard_manage_business_classes.buttonAddBusinessClass}
                 </button>
             </form>
         </div>
 
-        <table class="table table-condensed table-striped">
+        <table class="table table-hover table-condensed table-striped">
             <thead>
                 <tr>
                     <th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessClass}</th>
@@ -47,11 +47,11 @@
                     <td>
                         <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyBusinessClass&business_class_id=${business_class.id}" 
                            class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
-                            <i class="icon-edit icon-white"></i>
+                            <i class="glyphicon glyphicon-edit"></i>
                         </a>
                         <a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveBusinessClass&business_class_id=${business_class.id}" 
                            class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
-                            <i class="icon-trash icon-white"></i>
+                            <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </td>
                     </#list> 
@@ -60,16 +60,16 @@
             </tbody>
         </table>
 
-        <div class="form-actions"> 
+        <div class="form-group"> 
             <form method="post" action="jsp/site/Portal.jsp">
                 <input type="hidden" name="page" value="pluginwizard" /> 
                 <button type="submit" name="view_modifyDescription" class="btn btn-primary">
-                    <i class="icon-chevron-left icon-white"></i>
+                    <i class="glyphicon glyphicon-chevron-left"></i>
                     #i18n{pluginwizard.pluginwizard_manage_business_classes.buttonBack}
                 </button>
                 <button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
                     #i18n{pluginwizard.pluginwizard_manage_business_classes.buttonNext}
-                    <i class="icon-chevron-right icon-white"></i>
+                    <i class="glyphicon glyphicon-chevron-right"></i>
                 </button>
             </form>
         </div>

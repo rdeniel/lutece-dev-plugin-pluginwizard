@@ -2,14 +2,14 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="model" />
         <div class="well">
             #i18n{pluginwizard.pluginwizard_create_business_class.pageHelp}   
         </div>  
     </div>
 
-    <div class="span8">
+    <div class="col-md-9">
 
         <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp" >                    
             <input type="hidden" name="page" value="pluginwizard" />        
@@ -18,27 +18,29 @@
 
                  <#include "errors_handler.html" />
 
-                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelBusinessClass} *:</label>      
-                    <div class="controls">    
-                        <input type="text" name="business_class" value="" size="30" />      
+                 <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelBusinessClass} *:</label>      
+                    <div class="col-md-9">    
+                        <input class="form-control input-md" type="text" name="business_class" value="" size="30" />      
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelBusinessTableName} *:</label>      
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="business_table_name" value="${plugin_model.pluginName}_" size="30" />      
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_business_class.labelBusinessTableName} *:</label>      
+                    <div class="col-md-9"> 
+                         <input class="form-control input-md" type="text" name="business_table_name" value="${plugin_model.pluginName}_" size="30" />      
                     </div>  
                 </div>
  
-                <div class="form-actions">                                          
-                    <button type="submit" name="action_createBusinessClass"class="btn btn-primary">
+                <div class="form-group">
+					<div class="col-md-offset-3 col-md-9">
+                    <button type="submit" name="action_createBusinessClass" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_business_class.buttonCreateClass}
                     </button>                    
-                    <button type="submit" name="view_manageBusinessClasses" class="btn">
+                    <button type="submit" name="view_manageBusinessClasses" class="btn btn-default">
                         #i18n{pluginwizard.pluginwizard_create_business_class.buttonBack}
-                    </button>                                                             
+                    </button>
+					</div>
                 </div>    
             </fieldset>
         </form>        

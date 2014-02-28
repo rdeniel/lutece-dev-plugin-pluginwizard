@@ -2,38 +2,38 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="xpage" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_create_application.pageHelp}    
         </div>  
     </div>
 
-    <div class="span8">
-        <form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >
+    <div class="col-md-9">
+        <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp" >
             <input type="hidden" name="page" value="pluginwizard" />
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_create_application.pageTitle}</legend>
 
                  <#include "errors_handler.html" />
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationName} :</label>
-                    <div class="controls">   
-                        <input type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?lower_case}</#if>" />
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationName} :</label>
+                    <div class="col-md-9">   
+                        <input class="form-control input-md" type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?lower_case}</#if>" />
                     </div>    
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationClass} :</label>
-                    <div class="controls">
-                        <input type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?cap_first}App</#if>"  />
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationClass} :</label>
+                    <div class="col-md-9">
+                        <input class="form-control input-md" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?cap_first}App</#if>"  />
                     </div>
                 </div>
                  
-                 <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_application.labelBusinessClass} :  </label>        
-                    <div class="controls">
+                 <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelBusinessClass} :  </label>        
+                    <div class="col-md-9">
                         <#list combo_business_classes?sort_by('name') as business>
                             <#assign used = false>
                             <#list plugin_applications as plugin_application> 
@@ -50,13 +50,15 @@
                     </div>   
                 </div>
 
-                <div class="form-actions">                                          
+                <div class="form-group">
+					<div class="col-md-offset-3 col-md-9">
                     <button type="submit" name="action_createApplication" class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_application.buttonCreateApplication}
                     </button>                   
-                    <button type="submit" name="view_manageApplications" class="btn">
+                    <button type="submit" name="view_manageApplications" class="btn btn-default">
                         #i18n{pluginwizard.pluginwizard_create_application.buttonBack}
-                    </button>                                                             
+                    </button>
+				</div>
                 </div> 
             </fieldset>
         </form>

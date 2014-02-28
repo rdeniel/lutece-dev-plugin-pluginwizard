@@ -1,14 +1,14 @@
 <#include "sidebar.html" />   
 
 <div class="row">
-    <div class="span3" > 
+    <div class="col-md-3" > 
         <@sidebar step="creation" />
         <div class="well">#i18n{pluginwizard.pluginwizard_create_plugin.pageHelp}</div>
     </div>
 
-    <div class="span8">
+    <div class="col-md-9">
         <#include "infos_handler.html" />
-        <form action="jsp/site/Portal.jsp" class="form form-horizontal" method="post" >               
+        <form action="jsp/site/Portal.jsp" class="form-horizontal" method="post" >               
             <fieldset>  	 		
                 <legend>
                     #i18n{pluginwizard.pluginwizard_create_plugin.pageTitle}      
@@ -19,16 +19,16 @@
 
                  <#include "errors_handler.html" />
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	
-                    <div class="controls">
-                        <input type="text" name="name" value="" />
+                <div class="form-group">
+                    <label class="col-md-2 control-label">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginName} :  </label>	
+                    <div class="col-md-8">
+                        <input type="text" class="form-control input-md" name="name" value="" />
                         <span class="help-block">#i18n{pluginwizard.pluginwizard_create_plugin.labelPluginNameHelp}</span>
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <div class="controls">
+                <div class="form-group">
+                    <div class="col-md-8">
                         <h5>#i18n{pluginwizard.pluginwizard_create_plugin.labelSummary} :</h5>
                         <ul>
                             <li>#i18n{pluginwizard.pluginwizard_create_plugin.labelAddBusinessClasses}</li>             
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="form-actions">                        
+                <div class="form-group col-md-8">                       
                     <input class="btn btn-primary" name="do_create_plugin" value="#i18n{pluginwizard.pluginwizard_create_plugin.buttonCreatePlugin}" type="submit" />                        
                 </div>	
             </fieldset>

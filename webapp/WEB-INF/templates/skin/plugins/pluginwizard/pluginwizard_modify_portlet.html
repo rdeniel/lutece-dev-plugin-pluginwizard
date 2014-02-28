@@ -2,14 +2,14 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="portlet" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_modify_portlet.pageHelp} 
         </div>  
     </div>
 
-    <div class="span8">
+    <div class="col-md-9">
 
         <form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >
             <fieldset>
@@ -20,28 +20,28 @@
 
                  <#include "errors_handler.html" />
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelPortletClass} :</label>
-                    <div class="controls">   
-                        <input class="input-xlarge" type="text" name="portlet_class" size="30" value="${portlet.portletClass}"  />
+                    <div>   
+                         <input class="form-control input-md" type="text" name="portlet_class" size="30" value="${portlet.portletClass}"  />
                     </div>  
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelPortletTypeName} :</label>
-                    <div class="controls">
-                        <input class="input-xlarge" type="text" name="portlet_type_name"  size="30"  value="${portlet.portletTypeName}"/>
+                    <div>
+                         <input class="form-control input-md" type="text" name="portlet_type_name"  size="30"  value="${portlet.portletTypeName}"/>
                     </div>  
                 </div>
 
-                <div class="control-group">
+                <div class="form-group">
                     <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_portlet.labelJspBaseName} :</label>
-                    <div class="controls"> 
-                        <input class="input-xlarge" type="text" name="jsp_base_name" value="${portlet.jspBaseName}" />
+                    <div> 
+                         <input class="form-control input-md" type="text" name="jsp_base_name" value="${portlet.jspBaseName}" />
                     </div>  
                 </div>
 
-                <div class="form-actions">                                          
+                <div class="form-group">                                          
                     <button type="submit" name="action_modifyPortlet" class="btn btn-primary">#i18n{pluginwizard.pluginwizard_modify_portlet.buttonModifyPortlet} </button>                   
                     <button type="submit" name="view_managePortlets" class="btn">#i18n{pluginwizard.pluginwizard_modify_portlet.buttonBack} </button>                                                             
                 </div> 

@@ -2,7 +2,7 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="model" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_modify_attribute.pageHelp}  
@@ -10,7 +10,7 @@
     </div>
 
 
-    <div class="span8">
+    <div class="col-md-9">
         <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp">   
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_modify_attribute.pageTitle}</legend>
@@ -21,49 +21,51 @@
 
                  <#include "errors_handler.html" />
 
-                 <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeName} * : </label>      
-                    <div class="controls">     
-                        <input type="text" name="attribute_name" value="${attribute.attributeName}" size="30" />      
+                 <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeName} * : </label>      
+                    <div class="col-md-9">       
+                        <input type="text" class="form-control input-md" name="attribute_name" value="${attribute.attributeName}"/>      
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeType} * :</label>      
-                    <div class="controls">        
-                        <@combo name="attribute_type_id" default_value="${attribute.attributeTypeId}" items=combo_attribute_type />      
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeType} * :</label>      
+                    <div class="col-md-9">          
+                        <@comboWithParams name="attribute_type_id" default_value="${attribute.attributeTypeId}" additionalParameters="class=\"form-control input-md\"" items=combo_attribute_type />      
                     </div>     
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelMandatory} * : </label>                            
-                    <div class="controls">  
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelMandatory} * : </label>                            
+                    <div class="col-md-9">    
                         <input class="checkbox" type="checkbox" name="not_null" value="1" <#if attribute.notNull>checked="checked"</#if>  />
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * : </label>                            
-                    <div class="controls">  
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelAttributeKey} * : </label>                            
+                    <div class="col-md-9">    
                         <input class="checkbox" type="checkbox" name="is_primary" <#if attribute.isPrimary>checked="checked"</#if> />
                     </div>  
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelClassDescription} * : </label>                            
-                    <div class="controls">                                                                                                     
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_attribute.labelClassDescription} * : </label>                            
+                    <div class="col-md-9">                                                                                                       
                         <input class="checkbox" type="checkbox" name="is_description" <#if attribute.isDescription>checked="checked"</#if> />
                     </div>                         
                 </div>
 
-                <div class="form-actions">                                          
+                <div class="form-group">  
+					<div class="col-md-offset-3 col-md-9">
                     <button type="submit" name="action_modifyAttribute"class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_modify_attribute.buttonModifyAttribute}
                     </button>                    
                     <button type="submit" name="view_modifyBusinessClass" class="btn">
                         #i18n{pluginwizard.pluginwizard_modify_attribute.buttonBack}
                     </button>                                                             
-                </div>            
+                </div>   
+				</div> 				
         </form>        
     </div>    
 </div>

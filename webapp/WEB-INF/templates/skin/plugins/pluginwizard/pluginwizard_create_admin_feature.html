@@ -2,14 +2,14 @@
 
 <div class="row">
 
-    <div class="span3">             
+    <div class="col-md-3">             
         <@sidebar step="administration" />
         <div class="well">         
             #i18n{pluginwizard.pluginwizard_create_admin_feature.pageHelp}      
         </div>  
     </div>
 
-    <div class="span8">
+    <div class="col-md-9">
         <form class="form form-horizontal well" method="post" action="jsp/site/Portal.jsp" > 
             <fieldset>
                 <legend>#i18n{pluginwizard.pluginwizard_create_admin_feature.pageTitle}</legend>                           
@@ -17,39 +17,39 @@
 
                  <#include "errors_handler.html" />
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
-                    <div class="controls">      
-                        <input class="input-xlarge" type="text" name="feature_title" value="${feature.featureTitle!''}" />                                         
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
+                    <div class="col-md-9">      
+                         <input class="form-control input-md" type="text" name="feature_title" value="${feature.featureTitle!''}" />                                         
                     </div>
                 </div>
 
-                <div class="control-group">                                                         
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureDescription} : </label>                 
-                    <div class="controls">        
-                        <input class="input-xlarge" type="text" name="feature_description" value="${feature.featureDescription!''}" />                           
+                <div class="form-group">                                                         
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureDescription} : </label>                 
+                    <div class="col-md-9">        
+                         <input class="form-control input-md" type="text" name="feature_description" value="${feature.featureDescription!''}" />                           
                     </div>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
                     </label>          
-                    <div class="controls">            
-                        <input class="input-xlarge" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?cap_first}</#if>" />                     
+                    <div class="col-md-9">           
+                         <input class="form-control input-md" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?cap_first}</#if>" />                     
                     </div>             
                 </div> 
 
-                <div class="control-group">
-                    <label class="control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
-                    <div class="controls">    
-                        <input type="text" name="feature_right" value="<#if feature.featureRight??>${feature.featureRight}<#else>${plugin_model.pluginName?upper_case}_MANAGEMENT</#if>"  />      
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
+                    <div class="col-md-9">    
+                        <input type="text" class="form-control input-md" name="feature_right" value="<#if feature.featureRight??>${feature.featureRight}<#else>${plugin_model.pluginName?upper_case}_MANAGEMENT</#if>"  />      
                     </div>    
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureLevel} :  </label>               
-                    <div class="controls">             
-                        <select class="input-xlarge" name="feature_level">    				           
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureLevel} :  </label>               
+                    <div class="col-md-9">            
+                        <select class="form-control input-md" name="feature_level">    				           
                             <option value="0" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelLevel0}           
                             </option>    				           
                             <option value="1" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelLevel1}           
@@ -62,9 +62,10 @@
                     </div> 
                 </div>
                  
-                <div class="control-group">
-                    <label class="control-label" >#i18n{pluginwizard.pluginwizard_create_admin_feature.labelBusinessClass} :  </label>        
-                    <div class="controls">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelBusinessClass} :</label>        
+                    <div class="col-md-9">
+						<div class="checkbox">
                         <#list combo_business_classes?sort_by('name') as business>
                             <#assign used = false>
                             <#list admin_features as admin_feature> 
@@ -73,22 +74,25 @@
                                 </#if>
                             </#list>
                             <#if used>
-                                <input type="checkbox" disabled="disabled" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                <input type="checkbox" disabled="disabled" name="id_business_class${business.code}" value="${business.code}" />${business.name}<br />
                             <#else>
-                                <input type="checkbox" name="id_business_class${business.code}" value="${business.code}" /> &nbsp; ${business.name}<br />
+                                <input type="checkbox" name="id_business_class${business.code}" value="${business.code}" />${business.name}<br />
                             </#if>
                         </#list>
+						</div>
                     </div>   
                 </div>
                 
-                <div class="form-actions">                                                  
+                <div class="form-group">
+					<div class="col-md-offset-3 col-md-9">
                     <button type="submit" name="action_createAdminFeature"class="btn btn-primary">
                         #i18n{pluginwizard.pluginwizard_create_admin_feature.buttonCreateFeature}       
                     </button>                           
-                    <button type="submit" name="view_manageAdminFeatures" class="btn">
+                    <button type="submit" name="view_manageAdminFeatures" class="btn btn-default">
                         #i18n{pluginwizard.pluginwizard_create_admin_feature.buttonBack}       
                     </button>	     
                 </div>  
+				</div> 
          </form>
     </div>
 </div>
