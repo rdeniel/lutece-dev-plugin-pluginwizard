@@ -64,7 +64,12 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
     
     // Parameters
-    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="id_${business_class.businessClass?lower_case}";
+    <#list business_class.attributes as attribute>
+    <#if attribute.isPrimary >
+    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="${attribute.paramName}";
+    </#if>
+    </#list>
+    
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
     
