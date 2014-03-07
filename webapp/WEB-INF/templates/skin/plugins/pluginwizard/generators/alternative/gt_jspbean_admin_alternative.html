@@ -73,7 +73,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     // Parameters
 <#list business_class.attributes as attribute>
     <#if attribute.isPrimary >
-    private static final String PARAMETER_${attribute.attributeName?upper_case}="${attribute.paramName}";
+    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="${attribute.paramName}";
     </#if>
 </#list>
 
