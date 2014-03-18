@@ -42,6 +42,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Rest;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
@@ -83,6 +84,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     //Management Bookmarks
     private static final String MARK_PLUGIN_PORTLETS = "plugin_portlets";
     private static final String MARK_PLUGIN_APPLICATIONS = "plugin_applications";
+    private static final String MARK_PLUGIN_REST = "plugin_rest";
     private static final String MARK_ADMIN_FEATURES = "admin_features";
     private static final String MARK_BUSINESS_CLASSES = "business_classes";
     private static final String MARK_BUSINESS_CLASS = "business_class";
@@ -106,6 +108,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String TEMPLATE_MANAGE_PLUGIN_PORTLETS = "/skin/plugins/pluginwizard/pluginwizard_manage_portlets.html";
     private static final String TEMPLATE_MANAGE_PLUGIN_APPLICATIONS = "/skin/plugins/pluginwizard/pluginwizard_manage_applications.html";
     private static final String TEMPLATE_MANAGE_BUSINESS_CLASSES = "/skin/plugins/pluginwizard/pluginwizard_manage_business_classes.html";
+    private static final String TEMPLATE_MANAGE_REST = "/skin/plugins/pluginwizard/pluginwizard_manage_rest.html";
     private static final String TEMPLATE_GET_RECAPITULATE = "/skin/plugins/pluginwizard/pluginwizard_plugin_recapitulate.html";
 
     //CREATE
@@ -141,7 +144,12 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
     private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
     private static final String ACTION_RESET_DATA = "resetData";
-
+    
+    // REST
+    private static final String VIEW_MANAGE_REST = "manageRest";
+    private static final String ACTION_MODIFY_REST_BACK = "modifyRestBack";
+    private static final String ACTION_MODIFY_REST_NEXT = "modifyRestNext";
+    
     // ADMIN FEATURES
     private static final String VIEW_MANAGE_ADMIN_FEATURES = "manageAdminFeatures";
     private static final String VIEW_CREATE_ADMIN_FEATURE = "createAdminFeature";
@@ -230,6 +238,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private Attribute _attribute;
     private Application _application;
     private Portlet _portlet;
+    private Rest _rest;
 
     /**
      * {@inheritDoc }
@@ -1263,6 +1272,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_APPLICATIONS, pm.getApplications(  ) ); // FIXME can be found in the _model
         model.put( MARK_ADMIN_FEATURES, pm.getFeatures(  ) );
         model.put( MARK_PLUGIN_PORTLETS, pm.getPortlets(  ) );
+        model.put( MARK_PLUGIN_REST, pm.getRest(  ) );
         model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
         model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes(  ) );
 
@@ -1338,5 +1348,87 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         }
 
         return list;
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // REST
+
+    /**
+     * The management of the plugin applications associated to the generated
+     * plugin
+     *
+     * @param request The Http Request
+     * @return The XPage of the rest
+     */
+    @View( VIEW_MANAGE_REST )
+    public XPage getManageRest( HttpServletRequest request )
+    {
+        Map<String, Object> model = getModel(  );
+        
+        if ( ModelService.getRest( _nPluginId ) == null )
+        {
+            _rest = new Rest();
+            _rest.setIdBusinessClasses(new ArrayList<Integer> ());
+            _rest.setId( 1 );
+            ModelService.addRest( _nPluginId, _rest );
+        }
+        else
+        {
+            _rest = ModelService.getRest( _nPluginId );
+        }
+        
+        model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
+        model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
+        model.put( MARK_PLUGIN_REST, ModelService.getRest( _nPluginId ) );
+
+        return getXPage( TEMPLATE_MANAGE_REST, request.getLocale(  ), model );
+    }
+
+    /**
+     * The modification action of the plugin application
+     *
+     * @param request The Http Request
+     * @return The XPage of the portlets
+     */
+    @Action( ACTION_MODIFY_REST_BACK )
+    public XPage doModifyRestBack( HttpServletRequest request )
+    {
+        populate( _rest, request );
+
+        List<Integer> listBusinessClasses = getBusinessClasses( request );
+        _rest.setIdBusinessClasses( listBusinessClasses );
+
+        if ( !validateBean( _rest, getLocale( request ) ) )
+        {
+            return redirect( request, VIEW_MANAGE_REST );
+        }
+        
+        ModelService.updateRest( _nPluginId, _rest );
+        
+        return redirectView( request, VIEW_MANAGE_PORTLETS );
+    }
+    
+    /**
+     * The modification action of the plugin application
+     *
+     * @param request The Http Request
+     * @return The XPage of the recapitulation
+     */
+    @Action( ACTION_MODIFY_REST_NEXT )
+    public XPage doModifyRestNext( HttpServletRequest request )
+    {
+        populate( _rest, request );
+
+        List<Integer> listBusinessClasses = getBusinessClasses( request );
+        _rest.setIdBusinessClasses( listBusinessClasses );
+
+        if ( !validateBean( _rest, getLocale( request ) ) )
+        {
+            return redirect( request, VIEW_MANAGE_REST );
+        }
+        
+        ModelService.updateRest( _nPluginId, _rest );
+        
+        return redirectView( request, VIEW_RECAPITULATE );
     }
 }

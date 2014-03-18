@@ -81,5 +81,9 @@
         "portletClass" : "MyPLuginPortlet",
         "portletTypeName" : "EXAMPLE_PORTLET",
         "jspBaseName" : "PortletMyPlugin"
-      } ]
+      } ],
+  "rest" : { 
+        "id" : 1,
+        "idBusinessClasses" : [1]
+      }
 }

@@ -78,6 +78,7 @@ public class PluginModel
     private List<Feature> _listPluginFeatures;
     private List<Portlet> _listPluginPortlets;
     private List<BusinessClass> _listBusinessClasses;
+    private Rest _rest;
 
     /**
      *
@@ -88,6 +89,7 @@ public class PluginModel
         _listPluginFeatures = new ArrayList<Feature>(  );
         _listPluginPortlets = new ArrayList<Portlet>(  );
         _listBusinessClasses = new ArrayList<BusinessClass>(  );
+        _rest = new Rest();
     }
 
     /**
@@ -376,6 +378,24 @@ public class PluginModel
     public List<Application> getApplications(  )
     {
         return _listPluginApplications;
+    }
+    
+    /**
+     * Sets the rest
+     * @param rest The rest
+     */
+    public void setRest( Rest rest )
+    {
+        _rest = rest;
+    }
+    
+    /**
+     * Returns the rest
+     * @return The rest
+     */
+    public Rest getRest(  )
+    {
+        return _rest;
     }
 
     /**

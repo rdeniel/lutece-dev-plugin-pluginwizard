@@ -41,6 +41,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.business.model.Rest;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
@@ -118,6 +119,7 @@ public final class ModelService
         model.setName( pm.getPluginName(  ) );
 
         String strJson = MapperService.getJson( pm );
+        System.out.println(strJson);
         model.setModelJson( strJson );
 
         if ( ModelHome.findByPrimaryKey( pm.getIdPlugin(  ) ) != null )
@@ -749,6 +751,71 @@ public final class ModelService
             }
         }
     }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    // REST
+    /**
+     * Add the rest
+     *
+     * @param nPluginId The plugin's ID
+     * @param rest The rest
+     */
+    public static void addRest( int nPluginId, Rest rest )
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        pm.setRest( rest );
+        savePluginModel( pm );
+    }
+
+    /**
+     * Get the rest
+     *
+     * @param nPluginId The plugin's ID
+     * @return The rest
+     */
+    public static Rest getRest( int nPluginId)
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        return pm.getRest(  );
+    }
+    
+    /**
+     * Update the rest
+     *
+     * @param nPluginId The plugin's ID
+     * @param rest The rest
+     */
+    public static void updateRest( int nPluginId, Rest rest )
+    {
+        PluginModel pm = getPluginModel( nPluginId );
+        pm.setRest( rest );
+        savePluginModel( pm );
+    }
+    
+    /**
+     * Gets all business classes for a given Application
+     * @param pm The plugin model
+     * @param nApplicationId The Application's ID
+     * @return The list of business class
+     */
+    public static List<BusinessClass> getBusinessClassesByRest( PluginModel pm)
+    {
+        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<BusinessClass> listAll = pm.getBusinessClasses(  );
+        Rest rest = pm.getRest(  );
+        
+        for ( int i : rest.getIdBusinessClasses(  ) )
+        {
+            for ( BusinessClass bc : listAll )
+            {
+                if ( bc.getId(  ) == i )
+                {
+                    list.add( bc );
+                }
+            }
+        }
+        return list;
+    }
 
     /**
      * Gets all business classes for a given Application
@@ -778,7 +845,6 @@ public final class ModelService
                 }
             }
         }
-
         return list;
     }
 
@@ -810,7 +876,6 @@ public final class ModelService
                 }
             }
         }
-
         return list;
     }
 

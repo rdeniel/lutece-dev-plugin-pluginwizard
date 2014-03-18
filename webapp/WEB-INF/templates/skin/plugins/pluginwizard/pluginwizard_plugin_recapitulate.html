@@ -22,26 +22,6 @@
             <h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
 
             <ul>
-                <#if admin_features?? > 
-                <#if admin_features?size gt 0 > 
-                <li>
-                    <h5>
-                        <span class="badge badge-info">${admin_features?size}</span> &nbsp; 
-                        <#if admin_features?size = 1 > 
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
-                        <#else>
-                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
-                        </#if>
-                        <ul>
-                            <#list admin_features as feature>
-                            <li> <h6> ${feature.featureTitle} </h6> </li>
-                            </#list>
-                        </ul>
-                    </h5>
-                </li>
-                </#if>
-                </#if>
-
                 <#if business_classes?? > 
                 <#if business_classes?size gt 0 > 
                 <li>
@@ -58,6 +38,26 @@
                         <li> <h6> ${business.businessClass} </h6> </li>
                         </#list> 
                     </ul>
+                </li>
+                </#if>
+                </#if>
+                
+                <#if admin_features?? > 
+                <#if admin_features?size gt 0 > 
+                <li>
+                    <h5>
+                        <span class="badge badge-info">${admin_features?size}</span> &nbsp; 
+                        <#if admin_features?size = 1 > 
+                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
+                        <#else>
+                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
+                        </#if>
+                        <ul>
+                            <#list admin_features as feature>
+                            <li> <h6> ${feature.featureTitle} </h6> </li>
+                            </#list>
+                        </ul>
+                    </h5>
                 </li>
                 </#if>
                 </#if>
@@ -91,10 +91,24 @@
                 </li>
                 </#if>
                 </#if>
+                
+                <#assign restSize = plugin_rest.getIdBusinessClasses()?size>                
+                <#if restSize gt 0>
+                <li>
+                    <h5>
+                        <span class="badge badge-info">${restSize}</span> &nbsp; 
+                        <#if restSize = 1 > 
+                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRest}
+                        <#else>
+                        #i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRests}
+                        </#if>
+                    </h5>
+                </li>
+                </#if>
 
             </ul>
            <br>
-            <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&view=managePortlets" >
+            <a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&view=manageRest" >
                 <i class="glyphicon glyphicon-chevron-left"></i>
                 #i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
             </a>

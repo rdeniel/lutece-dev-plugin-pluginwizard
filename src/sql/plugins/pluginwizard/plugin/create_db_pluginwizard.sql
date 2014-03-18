@@ -36,3 +36,4 @@ DROP TABLE IF EXISTS pluginwizard_plugin_business;
 DROP TABLE IF EXISTS pluginwizard_plugin_feature;
 DROP TABLE IF EXISTS pluginwizard_plugin_id;
 DROP TABLE IF EXISTS pluginwizard_plugin_portlet;
+DROP TABLE IF EXISTS pluginwizard_plugin_rest;

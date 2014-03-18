@@ -1,0 +1,198 @@
+ /*
+ * Copyright (c) 2002-2012, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+package fr.paris.lutece.plugins.${plugin_model.pluginName}.web.rs;
+
+import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first};
+import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first}Home;
+import fr.paris.lutece.plugins.rest.service.RestConstants;
+import fr.paris.lutece.plugins.rest.util.json.JSONUtil;
+import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
+
+import net.sf.json.JSONObject;
+
+import java.util.Collection;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+
+/**
+ * Page resource
+ */
+@Path( RestConstants.BASE_PATH + "${plugin_model.pluginName}/${business_class.businessClass?lower_case}" )
+public class ${business_class.businessClass?cap_first}Rest
+{
+    private static final String KEY_${business_class.businessClass?upper_case}S = "${business_class.businessClass?lower_case}s";
+    private static final String KEY_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
+    
+    private static final String KEY_ID ="id";
+    <#list business_class.attributes as attribute>
+    <#if !attribute.isPrimary >
+    private static final String KEY_${attribute.paramName?upper_case}="${attribute.paramName?lower_case}";
+    </#if>
+    </#list>
+    
+    @GET
+    @Path( "/s" )
+    @Produces( MediaType.APPLICATION_XML )
+    public String get${business_class.businessClass?cap_first}sXml( )
+    {
+        StringBuilder sbXML = new StringBuilder(  );
+        Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
+        
+        sbXML.append( "<?xml version=\"1.0\"?>\n" );
+        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case}S + ">" );
+
+        for ( ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} : list )
+        {
+            add${business_class.businessClass?cap_first}Xml( sbXML, ${business_class.businessClass?lower_case} );
+        }
+        
+        sbXML.append( "</" + KEY_${business_class.businessClass?upper_case}S + ">" );
+
+        return sbXML.toString(  );
+    }
+    
+    @GET
+    @Path( "/s" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public String get${business_class.businessClass?cap_first}sJson( )
+    {
+        JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
+        JSONObject json = new JSONObject(  );
+        String strJson = "";
+        
+        Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
+        
+        for ( ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} : list )
+        {
+            add${business_class.businessClass?cap_first}Json( json${business_class.businessClass?cap_first}, ${business_class.businessClass?lower_case} );
+        }
+        
+        json.accumulate( KEY_${business_class.businessClass?upper_case}S, json${business_class.businessClass?cap_first} );
+        
+        strJson = json.toString( );
+
+        return strJson;
+    }
+    
+    @GET
+    @Path( "/{id}" )
+    @Produces( MediaType.APPLICATION_XML )
+    public String get${business_class.businessClass?cap_first}Xml( @PathParam( KEY_ID ) String strId )
+    {
+        StringBuilder sbXML = new StringBuilder(  );
+        
+        try
+        {
+            int nId = Integer.parseInt( strId );
+            ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
+
+            if ( ${business_class.businessClass?lower_case} != null )
+            {
+                sbXML.append( "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n" );
+                add${business_class.businessClass?cap_first}Xml( sbXML, ${business_class.businessClass?lower_case} );
+            }
+        }
+        catch ( NumberFormatException e )
+        {
+            sbXML.append( XMLUtil.formatError( "Invalid ${business_class.businessClass?lower_case} number", 3 ) );
+        }
+        catch ( Exception e )
+        {
+            sbXML.append( XMLUtil.formatError( "Portlet not found", 1 ) );
+        }
+
+        return sbXML.toString(  );
+    }
+    
+    @GET
+    @Path( "/{id}" )
+    @Produces( MediaType.APPLICATION_JSON )
+    public String get${business_class.businessClass?cap_first}Json( @PathParam( KEY_ID ) String strId )
+    {
+        JSONObject json = new JSONObject(  );
+        String strJson = "";
+
+        try
+        {
+            int nId = Integer.parseInt( strId );
+            ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
+
+            if ( ${business_class.businessClass?lower_case} != null )
+            {
+                add${business_class.businessClass?cap_first}Json( json, ${business_class.businessClass?lower_case} );
+                strJson = json.toString( );
+            }
+        }
+        catch ( NumberFormatException e )
+        {
+            strJson = JSONUtil.formatError( "Invalid page number", 3 );
+        }
+        catch ( Exception e )
+        {
+            strJson = JSONUtil.formatError( "Page not found", 1 );
+        }
+
+        return strJson;
+    }
+    
+    private void add${business_class.businessClass?cap_first}Xml( StringBuilder sbXML, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
+    {
+        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + ">" );
+        <#list business_class.attributes as attribute>
+        <#if attribute.isPrimary >
+        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_ID + ">" ).append( ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) ).append( "</" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_ID + ">\n" );
+        <#else>
+        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">" ).append( ${business_class.businessClass?lower_case}.get${attribute.name?cap_first} ( ) ).append( "</" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">\n" );
+        </#if>
+        </#list>
+        sbXML.append( "</" + KEY_${business_class.businessClass?upper_case} + ">" );
+    }
+    
+    private void add${business_class.businessClass?cap_first}Json( JSONObject json, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
+    {
+        JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
+        <#list business_class.attributes as attribute>
+        <#if attribute.isPrimary >
+        json${business_class.businessClass?cap_first}.accumulate( KEY_ID, ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
+        <#else>
+        json${business_class.businessClass?cap_first}.accumulate( KEY_${attribute.paramName?upper_case}, ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
+        </#if>
+        </#list>
+        json.accumulate( KEY_${business_class.businessClass?upper_case}, json${business_class.businessClass?cap_first} );
+    }
+}

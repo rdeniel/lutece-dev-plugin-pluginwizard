@@ -405,7 +405,16 @@
         </property>
     </bean>
     
+    <!-- Rest -->
+    
+    <bean id="pluginwizard.generator.rest.java.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.RestGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_rest_alternative.html</value>
+        </property>
+    </bean>
+    
     <!-- Portlet -->
+    
     <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" >
         <property name="files">
             <ref bean="pluginwizard.list.files.portlet.classic" />
@@ -475,6 +484,7 @@
                 <ref bean="pluginwizard.generator.portlet.jsp" />
                 <ref bean="pluginwizard.generator.portlet.html.alternative" />
                 <ref bean="pluginwizard.generator.portlet.xsl" />
+                <ref bean="pluginwizard.generator.rest.java.alternative" />
             </list>
         </property>
     </bean>
