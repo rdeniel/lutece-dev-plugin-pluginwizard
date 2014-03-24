@@ -413,6 +413,12 @@
         </property>
     </bean>
     
+    <bean id="pluginwizard.generator.rest.constants.java.alternative" class="fr.paris.lutece.plugins.pluginwizard.service.generator.RestConstantsGenerator" >
+        <property name="template">
+            <value>/skin/plugins/pluginwizard/generators/alternative/gt_rest_constants_alternative.html</value>
+        </property>
+    </bean>
+    
     <!-- Portlet -->
     
     <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" >
@@ -485,6 +491,7 @@
                 <ref bean="pluginwizard.generator.portlet.html.alternative" />
                 <ref bean="pluginwizard.generator.portlet.xsl" />
                 <ref bean="pluginwizard.generator.rest.java.alternative" />
+                <ref bean="pluginwizard.generator.rest.constants.java.alternative" />
             </list>
         </property>
     </bean>

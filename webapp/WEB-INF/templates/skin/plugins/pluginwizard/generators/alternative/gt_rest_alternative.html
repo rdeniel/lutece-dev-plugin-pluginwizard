@@ -38,36 +38,56 @@ import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_cl
 import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.plugins.rest.util.json.JSONUtil;
 import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
+import java.io.IOException;
 
 import net.sf.json.JSONObject;
 
 import java.util.Collection;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
-
+import javax.ws.rs.core.Response;
 
 /**
  * Page resource
  */
-@Path( RestConstants.BASE_PATH + "${plugin_model.pluginName}/${business_class.businessClass?lower_case}" )
+ 
+@Path( RestConstants.BASE_PATH + Constants.PLUGIN_PATH + Constants.${business_class.businessClass?upper_case}_PATH )
 public class ${business_class.businessClass?cap_first}Rest
 {
     private static final String KEY_${business_class.businessClass?upper_case}S = "${business_class.businessClass?lower_case}s";
     private static final String KEY_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
     
-    private static final String KEY_ID ="id";
     <#list business_class.attributes as attribute>
-    <#if !attribute.isPrimary >
     private static final String KEY_${attribute.paramName?upper_case}="${attribute.paramName?lower_case}";
-    </#if>
     </#list>
     
     @GET
-    @Path( "/s" )
-    @Produces( MediaType.APPLICATION_XML )
+    @Path( Constants.ALL_PATH )
+    public Response get${business_class.businessClass?cap_first}s( @HeaderParam(HttpHeaders.ACCEPT) String accept , @QueryParam( Constants.FORMAT_QUERY ) String format ) throws IOException
+    {
+        String entity;
+        String mediaType;
+        
+        if ( (accept != null && accept.contains(MediaType.APPLICATION_JSON)) || (format != null && format.equals(Constants.MEDIA_TYPE_JSON)) )
+        {
+            entity = get${business_class.businessClass?cap_first}sJson();
+            mediaType = MediaType.APPLICATION_JSON;
+        }
+        else
+        {
+            entity = get${business_class.businessClass?cap_first}sXml();
+            mediaType = MediaType.APPLICATION_XML;
+        }
+        return Response
+            .ok(entity, mediaType)
+            .build();
+    }
+    
     public String get${business_class.businessClass?cap_first}sXml( )
     {
         StringBuilder sbXML = new StringBuilder(  );
@@ -86,9 +106,6 @@ public class ${business_class.businessClass?cap_first}Rest
         return sbXML.toString(  );
     }
     
-    @GET
-    @Path( "/s" )
-    @Produces( MediaType.APPLICATION_JSON )
     public String get${business_class.businessClass?cap_first}sJson( )
     {
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
@@ -110,9 +127,28 @@ public class ${business_class.businessClass?cap_first}Rest
     }
     
     @GET
-    @Path( "/{id}" )
-    @Produces( MediaType.APPLICATION_XML )
-    public String get${business_class.businessClass?cap_first}Xml( @PathParam( KEY_ID ) String strId )
+    @Path( "{" + Constants.ID_PATH + "}" )
+    public Response get${business_class.businessClass?cap_first}( @PathParam( Constants.ID_PATH ) String strId, @HeaderParam(HttpHeaders.ACCEPT) String accept , @QueryParam( Constants.FORMAT_QUERY ) String format ) throws IOException
+    {
+        String entity;
+        String mediaType;
+        
+        if ( (accept != null && accept.contains(MediaType.APPLICATION_JSON)) || (format != null && format.equals(Constants.MEDIA_TYPE_JSON)) )
+        {
+            entity = get${business_class.businessClass?cap_first}Json( strId );
+            mediaType = MediaType.APPLICATION_JSON;
+        }
+        else
+        {
+            entity = get${business_class.businessClass?cap_first}Xml( strId );
+            mediaType = MediaType.APPLICATION_XML;
+        }
+        return Response
+            .ok(entity, mediaType)
+            .build();
+    }
+    
+    public String get${business_class.businessClass?cap_first}Xml( String strId )
     {
         StringBuilder sbXML = new StringBuilder(  );
         
@@ -133,16 +169,13 @@ public class ${business_class.businessClass?cap_first}Rest
         }
         catch ( Exception e )
         {
-            sbXML.append( XMLUtil.formatError( "Portlet not found", 1 ) );
+            sbXML.append( XMLUtil.formatError( "{business_class.businessClass?cap_first} not found", 1 ) );
         }
 
         return sbXML.toString(  );
     }
     
-    @GET
-    @Path( "/{id}" )
-    @Produces( MediaType.APPLICATION_JSON )
-    public String get${business_class.businessClass?cap_first}Json( @PathParam( KEY_ID ) String strId )
+    public String get${business_class.businessClass?cap_first}Json( String strId )
     {
         JSONObject json = new JSONObject(  );
         String strJson = "";
@@ -160,11 +193,11 @@ public class ${business_class.businessClass?cap_first}Rest
         }
         catch ( NumberFormatException e )
         {
-            strJson = JSONUtil.formatError( "Invalid page number", 3 );
+            strJson = JSONUtil.formatError( "Invalid ${business_class.businessClass?lower_case} number", 3 );
         }
         catch ( Exception e )
         {
-            strJson = JSONUtil.formatError( "Page not found", 1 );
+            strJson = JSONUtil.formatError( "{business_class.businessClass?cap_first} not found", 1 );
         }
 
         return strJson;
@@ -174,11 +207,7 @@ public class ${business_class.businessClass?cap_first}Rest
     {
         sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + ">" );
         <#list business_class.attributes as attribute>
-        <#if attribute.isPrimary >
-        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_ID + ">" ).append( ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) ).append( "</" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_ID + ">\n" );
-        <#else>
         sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">" ).append( ${business_class.businessClass?lower_case}.get${attribute.name?cap_first} ( ) ).append( "</" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">\n" );
-        </#if>
         </#list>
         sbXML.append( "</" + KEY_${business_class.businessClass?upper_case} + ">" );
     }
@@ -187,11 +216,7 @@ public class ${business_class.businessClass?cap_first}Rest
     {
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
         <#list business_class.attributes as attribute>
-        <#if attribute.isPrimary >
-        json${business_class.businessClass?cap_first}.accumulate( KEY_ID, ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
-        <#else>
         json${business_class.businessClass?cap_first}.accumulate( KEY_${attribute.paramName?upper_case}, ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
-        </#if>
         </#list>
         json.accumulate( KEY_${business_class.businessClass?upper_case}, json${business_class.businessClass?cap_first} );
     }

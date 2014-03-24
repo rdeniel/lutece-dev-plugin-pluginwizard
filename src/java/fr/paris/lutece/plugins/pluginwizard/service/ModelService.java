@@ -119,7 +119,6 @@ public final class ModelService
         model.setName( pm.getPluginName(  ) );
 
         String strJson = MapperService.getJson( pm );
-        System.out.println(strJson);
         model.setModelJson( strJson );
 
         if ( ModelHome.findByPrimaryKey( pm.getIdPlugin(  ) ) != null )

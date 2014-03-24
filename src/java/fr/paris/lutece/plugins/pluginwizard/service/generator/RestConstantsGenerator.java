@@ -15,10 +15,10 @@ import java.util.Map;
  *
  * @author duchemia
  */
-public class RestGenerator extends AbstractGenerator
+public class RestConstantsGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/rs/";
-    private static final String SUFFIX_REST = "Rest.java";
+     private static final String CONSTANT_REST = "Constants.java";
 
     /**
      * {@inheritDoc }
@@ -33,13 +33,9 @@ public class RestGenerator extends AbstractGenerator
 
         if ( !listBusinessClasses.isEmpty(  ) )
         {
-            for ( BusinessClass businessClass : listBusinessClasses )
-            {
-                String strFilename = businessClass.getBusinessClassCapsFirst(  ) + SUFFIX_REST;
-                String strPath = getFilePath( pm, PATH, strFilename );
-                String strSourceCode = getPage( pm, businessClass );
-                map.put( strPath, strSourceCode );
-            }
+            String strPath = getFilePath( pm, PATH, CONSTANT_REST );
+            String strSourceCode = getPage( pm, listBusinessClasses );
+            map.put( strPath, strSourceCode );
         }
         return map;
     }
@@ -47,14 +43,14 @@ public class RestGenerator extends AbstractGenerator
     /**
     * Generates the Rest code
     * @param pm The plugin model
-    * @param businessClass the business class
+    * @param businessClasses the collection of business classes
     * @return The code of the Rest generated
     */
-    private String getPage( PluginModel pm, BusinessClass businessClass )
+    private String getPage( PluginModel pm, Collection <BusinessClass> businessClasses )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
-        model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
+        model.put( Markers.MARK_BUSINESS_CLASSES, businessClasses );
 
         return build( model );
     }
