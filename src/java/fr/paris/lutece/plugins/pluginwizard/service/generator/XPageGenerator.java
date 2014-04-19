@@ -70,7 +70,7 @@ public class XPageGenerator extends AbstractGenerator
 
             if ( listBusinessClasses.isEmpty(  ) )
             {
-                String strPath = getFilePath( pm, PATH, application.getApplicationName(  ) + SUFFIX_XPage );
+                String strPath = getFilePath( pm, PATH, application.getApplicationClass(  ) + SUFFIX_XPage );
                 String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
                         application );
                 map.put( strPath, strSourceCode );

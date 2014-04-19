@@ -52,8 +52,8 @@
         </#list>
     <#else>
         <application>
-            <application-id>${application.applicationClass}</application-id>
-            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationName}</application-class>
+            <application-id>${application.applicationName}</application-id>
+            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationClass}</application-class>
         </application>
     </#if>
     </#list>

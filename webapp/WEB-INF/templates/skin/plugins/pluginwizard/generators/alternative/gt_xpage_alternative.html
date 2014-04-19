@@ -246,8 +246,8 @@ import javax.servlet.http.HttpServletRequest;
  * This class provides a simple implementation of an XPage
  */
  
-@Controller( xpageName = "${plugin_application.applicationClass}" , pageTitleProperty = "${plugin_model.pluginName}.pageTitle" , pagePathProperty = "${plugin_model.pluginName}.pagePathLabel" )
-public class ${plugin_application.applicationName} extends MVCApplication
+@Controller( xpageName = "${plugin_application.applicationName}" , pageTitleProperty = "${plugin_model.pluginName}.pageTitle" , pagePathProperty = "${plugin_model.pluginName}.pagePathLabel" )
+public class ${plugin_application.applicationClass} extends MVCApplication
 {
     private static final String TEMPLATE_XPAGE = "/skin/plugins/${plugin_model.pluginName}/${plugin_application.applicationName}.html";
     private static final String VIEW_HOME = "home";
