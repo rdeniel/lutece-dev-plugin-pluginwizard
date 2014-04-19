@@ -75,12 +75,10 @@ public class ResourcesGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap();
 
-        for (int i = 0; i < _languages.length; i++)
+        for (String strLanguage : _languages)
         {
-            String strPath = getFilePath(pm, PATH,
-                    pm.getPluginName().toLowerCase() + "_messages_" + _languages[i] + ".properties");
-
-            String strSourceCode = getCode(pm, _languages[i]);
+            String strPath = getFilePath(pm, PATH, pm.getPluginName().toLowerCase() + "_messages_" + strLanguage + ".properties");
+            String strSourceCode = getCode(pm, strLanguage);
             map.put(strPath, strSourceCode);
         }
 
@@ -129,7 +127,9 @@ public class ResourcesGenerator extends AbstractGenerator
      */
     private void generateFeaturesKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append("\n# Admin features keys\n\n");
+        if (!pm.getFeatures().isEmpty())
+        {
+            sb.append("\n# Admin features keys\n\n");
 
         for (Feature feature : pm.getFeatures())
         {
@@ -140,29 +140,38 @@ public class ResourcesGenerator extends AbstractGenerator
         }
 
         sb.append("\n");
+        }
     }
 
     private void generateXPagesKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append("\n# XPages keys\n\n");
+        if (!pm.getApplications().isEmpty())
+        {
+            sb.append("\n# XPages keys\n\n");
+        }
 
         for (Application application : pm.getApplications())
         {
-            sb.append("xpage.").append(application.getApplicationName()).append(".pageTitle=")
-                    .append(application.getApplicationName()).append("\n");
-            sb.append("xpage.").append(application.getApplicationName()).append(".pagePathLabel=")
-                    .append(application.getApplicationName()).append("\n");
-
-            for (int id : application.getIdBusinessClasses())
+            if (application.getIdBusinessClasses().isEmpty())
             {
-                for (BusinessClass bc : pm.getBusinessClasses())
+                sb.append("xpage.").append(application.getApplicationName()).append(".pageTitle=")
+                        .append(application.getApplicationName()).append("\n");
+                sb.append("xpage.").append(application.getApplicationName()).append(".pagePathLabel=")
+                        .append(application.getApplicationName()).append("\n");
+            }
+            else
+            {
+                for (int id : application.getIdBusinessClasses())
                 {
-                    if (bc.getId() == id)
+                    for (BusinessClass bc : pm.getBusinessClasses())
                     {
-                        sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pageTitle=")
-                                .append(bc.getBusinessClass().toLowerCase()).append("\n");
-                        sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pagePathLabel=")
-                                .append(bc.getBusinessClass().toLowerCase()).append("\n");
+                        if (bc.getId() == id)
+                        {
+                            sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pageTitle=")
+                                    .append(bc.getBusinessClass().toLowerCase()).append("\n");
+                            sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pagePathLabel=")
+                                    .append(bc.getBusinessClass().toLowerCase()).append("\n");
+                        }
                     }
                 }
             }
@@ -179,7 +188,10 @@ public class ResourcesGenerator extends AbstractGenerator
      */
     private void generateBusinessClassKeys(StringBuilder sb, PluginModel pm, String strLanguage)
     {
-        sb.append("\n# Business classes keys\n\n");
+        if (!pm.getBusinessClasses().isEmpty())
+        {
+            sb.append("\n# Business classes keys\n\n");
+        }
 
         for (BusinessClass bc : pm.getBusinessClasses())
         {
@@ -198,13 +210,11 @@ public class ResourcesGenerator extends AbstractGenerator
                         .append(attribute.getLabelName()).append("\n");
             }
 
-            for (int i = 0; i < _prefix.length; i++)
+            for (String strBasePrefix : _prefix)
             {
-                strPrefix = _prefix[i] + "_" + bc.getBusinessClass().toLowerCase() + ".";
+                strPrefix = strBasePrefix + "_" + bc.getBusinessClass().toLowerCase() + ".";
                 sb.append(strPrefix).append("pageTitle=").append(bc.getBusinessClass()).append("\n");
-                sb.append(strPrefix).append("title=")
-                        .append(getLabel("title." + _prefix[i], strLanguage, bc.getBusinessClass())).append("\n");
-
+                sb.append(strPrefix).append("title=").append(getLabel("title." + strBasePrefix, strLanguage, bc.getBusinessClass())).append("\n");
                 for (Attribute attribute : bc.getAttributes())
                 {
                     sb.append(strPrefix).append("label").append(attribute.getName()).append("=")
@@ -215,7 +225,7 @@ public class ResourcesGenerator extends AbstractGenerator
             }
 
             sb.append("\nmessage.confirmRemove").append(bc.getBusinessClass()).append("=")
-                    .append(getLabel("confirmRemove", strLanguage, bc.getBusinessClass())).append(" ?\n");
+                    .append(getLabel("confirmRemove", strLanguage, bc.getBusinessClass())).append("\n");
 
             // Constraints messages
             sb.append("\n# JSR 303 constraint validator messages\n");
@@ -261,15 +271,19 @@ public class ResourcesGenerator extends AbstractGenerator
      */
     private void generatePortletsKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append("\n# Portlets keys\n\n");
-
-        for (Portlet portlet : pm.getPortlets())
+        if (!pm.getPortlets().isEmpty())
         {
-            sb.append("portlet.").append(pm.getPluginName().toLowerCase()).append(portlet.getPortletClass())
-                    .append(".name=").append(portlet.getJspBaseName()).append("\n");
-        }
+            sb.append("\n# Portlets keys\n\n");
 
-        sb.append("\n");
+            for (Portlet portlet : pm.getPortlets())
+            {
+                sb.append("portlet.").append(pm.getPluginName().toLowerCase()).append(portlet.getPortletClass())
+                        .append(".name=").append(portlet.getJspBaseName()).append("\n");
+            }
+
+            sb.append("\n");
+
+        }
     }
 
     /**
@@ -280,18 +294,20 @@ public class ResourcesGenerator extends AbstractGenerator
      */
     private void generateInfosKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append("\n# Infos keys\n\n");
-
-        for (BusinessClass bc : pm.getBusinessClasses())
+        if (!pm.getBusinessClasses().isEmpty())
         {
-            for (int i = 0; i < _suffix.length; i++)
-            {
-                sb.append("info.").append(bc.getBusinessClass().toLowerCase()).append(".").append(_suffix[i])
-                        .append("=").append(bc.getBusinessClass()).append(" ").append(_suffix[i]).append("\n");
-            }
-        }
+            sb.append("\n# Infos keys\n\n");
 
-        sb.append("\n");
+            for (BusinessClass bc : pm.getBusinessClasses())
+            {
+                for (String strSuffix : _suffix)
+                {
+                    sb.append("info.").append(bc.getBusinessClass().toLowerCase()).append(".").append(strSuffix).append("=").append(bc.getBusinessClass()).append(" ").append(strSuffix).append("\n");
+                }
+            }
+
+            sb.append("\n");
+        }
     }
 
     /**
