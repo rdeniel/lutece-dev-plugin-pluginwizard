@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import fr.paris.lutece.plugins.pluginwizard.business.model.Application;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
@@ -40,12 +41,9 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.portal.service.util.AppPropertiesService;
-
 import java.text.MessageFormat;
-
 import java.util.HashMap;
 import java.util.Map;
-
 
 /**
  *
@@ -54,26 +52,36 @@ import java.util.Map;
  */
 public class ResourcesGenerator extends AbstractGenerator
 {
+
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
-    private static String[] _languages = { "en", "fr" };
-    private static String[] _prefix = { "create", "modify" };
-    private static String[] _suffix = { "created", "updated", "removed" };
+    private static String[] _languages =
+    {
+        "en", "fr"
+    };
+    private static String[] _prefix =
+    {
+        "create", "modify"
+    };
+    private static String[] _suffix =
+    {
+        "created", "updated", "removed"
+    };
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate(PluginModel pm)
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap();
 
-        for ( int i = 0; i < _languages.length; i++ )
+        for (int i = 0; i < _languages.length; i++)
         {
-            String strPath = getFilePath( pm, PATH,
-                    pm.getPluginName(  ).toLowerCase(  ) + "_messages_" + _languages[i] + ".properties" );
+            String strPath = getFilePath(pm, PATH,
+                    pm.getPluginName().toLowerCase() + "_messages_" + _languages[i] + ".properties");
 
-            String strSourceCode = getCode( pm, _languages[i] );
-            map.put( strPath, strSourceCode );
+            String strSourceCode = getCode(pm, _languages[i]);
+            map.put(strPath, strSourceCode);
         }
 
         return map;
@@ -81,188 +89,224 @@ public class ResourcesGenerator extends AbstractGenerator
 
     /**
      * Build the code
+     *
      * @param pm The Plugin Model
      * @param strLanguage The language
      * @return The code
      */
-    private String getCode( PluginModel pm, String strLanguage )
+    private String getCode(PluginModel pm, String strLanguage)
     {
-        StringBuilder sb = new StringBuilder(  );
-        generatePluginKeys( sb, pm );
-        generateFeaturesKeys( sb, pm );
-        generateBusinessClassKeys( sb, pm, strLanguage );
-        generatePortletsKeys( sb, pm );
-        generateInfosKeys( sb, pm );
+        StringBuilder sb = new StringBuilder();
+        generatePluginKeys(sb, pm);
+        generateFeaturesKeys(sb, pm);
+        generateXPagesKeys(sb, pm);
+        generateBusinessClassKeys(sb, pm, strLanguage);
+        generatePortletsKeys(sb, pm);
+        generateInfosKeys(sb, pm);
 
-        return sb.toString(  );
+        return sb.toString();
     }
 
     /**
      * Writes in the buffer resources keys for the plugin
+     *
      * @param sb The buffer
      * @param pm The plugin model
      */
-    private void generatePluginKeys( StringBuilder sb, PluginModel pm )
+    private void generatePluginKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append( "# Plugin's keys\n" );
-        sb.append( "plugin.provider=" ).append( pm.getPluginProvider(  ) ).append( "\n" );
-        sb.append( "plugin.description=" ).append( pm.getPluginDescription(  ) ).append( "\n" );
-        sb.append( "\n" );
+        sb.append("# Plugin's keys\n");
+        sb.append("plugin.provider=").append(pm.getPluginProvider()).append("\n");
+        sb.append("plugin.description=").append(pm.getPluginDescription()).append("\n");
+        sb.append("\n");
     }
 
     /**
      * Writes in the buffer resources keys for features
+     *
      * @param sb The buffer
      * @param pm The plugin model
      */
-    private void generateFeaturesKeys( StringBuilder sb, PluginModel pm )
+    private void generateFeaturesKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append( "\n# Admin features keys\n\n" );
+        sb.append("\n# Admin features keys\n\n");
 
-        for ( Feature feature : pm.getFeatures(  ) )
+        for (Feature feature : pm.getFeatures())
         {
-            sb.append( "adminFeature." ).append( feature.getFeatureName(  ) ).append( ".name=" )
-              .append( feature.getFeatureName(  ) ).append( "\n" );
-            sb.append( "adminFeature." ).append( feature.getFeatureName(  ) ).append( ".description=" )
-              .append( feature.getFeatureDescription(  ) ).append( "\n" );
+            sb.append("adminFeature.").append(feature.getFeatureName()).append(".name=")
+                    .append(feature.getFeatureName()).append("\n");
+            sb.append("adminFeature.").append(feature.getFeatureName()).append(".description=")
+                    .append(feature.getFeatureDescription()).append("\n");
         }
 
-        sb.append( "\n" );
+        sb.append("\n");
+    }
+
+    private void generateXPagesKeys(StringBuilder sb, PluginModel pm)
+    {
+        sb.append("\n# XPages keys\n\n");
+
+        for (Application application : pm.getApplications())
+        {
+            sb.append("xpage.").append(application.getApplicationName()).append(".pageTitle=")
+                    .append(application.getApplicationName()).append("\n");
+            sb.append("xpage.").append(application.getApplicationName()).append(".pagePathLabel=")
+                    .append(application.getApplicationName()).append("\n");
+
+            for (int id : application.getIdBusinessClasses())
+            {
+                for (BusinessClass bc : pm.getBusinessClasses())
+                {
+                    if (bc.getId() == id)
+                    {
+                        sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pageTitle=")
+                                .append(bc.getBusinessClass().toLowerCase()).append("\n");
+                        sb.append("xpage.").append(bc.getBusinessClass().toLowerCase()).append(".pagePathLabel=")
+                                .append(bc.getBusinessClass().toLowerCase()).append("\n");
+                    }
+                }
+            }
+        }
+
     }
 
     /**
      * Writes in the buffer resources keys for business classes
+     *
      * @param sb The buffer
      * @param pm The plugin model
      * @param strLanguage The language
      */
-    private void generateBusinessClassKeys( StringBuilder sb, PluginModel pm, String strLanguage )
+    private void generateBusinessClassKeys(StringBuilder sb, PluginModel pm, String strLanguage)
     {
-        sb.append( "\n# Business classes keys\n\n" );
+        sb.append("\n# Business classes keys\n\n");
 
-        for ( BusinessClass bc : pm.getBusinessClasses(  ) )
+        for (BusinessClass bc : pm.getBusinessClasses())
         {
-            sb.append( "\n# keys for business classes keys : " ).append( bc.getBusinessClass(  ) ).append( "\n" );
+            sb.append("\n# keys for business classes keys : ").append(bc.getBusinessClass()).append("\n");
 
-            String strPrefix = "manage_" + bc.getBusinessClass(  ).toLowerCase(  ) + "s.";
-            sb.append( strPrefix ).append( "pageTitle=" ).append( bc.getBusinessClass(  ) ).append( "\n" );
-            sb.append( strPrefix ).append( "title=" )
-              .append( getLabel( "title.manage", strLanguage, bc.getBusinessClass(  ) ) ).append( "\n" );
-            sb.append( strPrefix ).append( "buttonAdd=" )
-              .append( getLabel( "buttonAdd", strLanguage, bc.getBusinessClass(  ) ) ).append( "\n" );
+            String strPrefix = "manage_" + bc.getBusinessClass().toLowerCase() + "s.";
+            sb.append(strPrefix).append("pageTitle=").append(bc.getBusinessClass()).append("\n");
+            sb.append(strPrefix).append("title=")
+                    .append(getLabel("title.manage", strLanguage, bc.getBusinessClass())).append("\n");
+            sb.append(strPrefix).append("buttonAdd=")
+                    .append(getLabel("buttonAdd", strLanguage, bc.getBusinessClass())).append("\n");
 
-            for ( Attribute attribute : bc.getAttributes(  ) )
+            for (Attribute attribute : bc.getAttributes())
             {
-                sb.append( strPrefix ).append( "column" ).append( attribute.getName(  ) ).append( "=" )
-                  .append( attribute.getLabelName(  ) ).append( "\n" );
+                sb.append(strPrefix).append("column").append(attribute.getName()).append("=")
+                        .append(attribute.getLabelName()).append("\n");
             }
 
-            for ( int i = 0; i < _prefix.length; i++ )
+            for (int i = 0; i < _prefix.length; i++)
             {
-                strPrefix = _prefix[i] + "_" + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
-                sb.append( strPrefix ).append( "pageTitle=" ).append( bc.getBusinessClass(  ) ).append( "\n" );
-                sb.append( strPrefix ).append( "title=" )
-                  .append( getLabel( "title." + _prefix[i], strLanguage, bc.getBusinessClass(  ) ) ).append( "\n" );
+                strPrefix = _prefix[i] + "_" + bc.getBusinessClass().toLowerCase() + ".";
+                sb.append(strPrefix).append("pageTitle=").append(bc.getBusinessClass()).append("\n");
+                sb.append(strPrefix).append("title=")
+                        .append(getLabel("title." + _prefix[i], strLanguage, bc.getBusinessClass())).append("\n");
 
-                for ( Attribute attribute : bc.getAttributes(  ) )
+                for (Attribute attribute : bc.getAttributes())
                 {
-                    sb.append( strPrefix ).append( "label" ).append( attribute.getName(  ) ).append( "=" )
-                      .append( attribute.getLabelName(  ) ).append( "\n" );
-                    sb.append( strPrefix ).append( "label" ).append( attribute.getName(  ) ).append( ".help=" )
-                      .append( attribute.getLabelName(  ) ).append( " (help text)\n" );
+                    sb.append(strPrefix).append("label").append(attribute.getName()).append("=")
+                            .append(attribute.getLabelName()).append("\n");
+                    sb.append(strPrefix).append("label").append(attribute.getName()).append(".help=")
+                            .append(attribute.getLabelName()).append(" (help text)\n");
                 }
             }
 
-            sb.append( "\nmessage.confirmRemove" ).append( bc.getBusinessClass(  ) ).append( "=" )
-              .append( getLabel( "confirmRemove", strLanguage, bc.getBusinessClass(  ) ) ).append( " ?\n" );
+            sb.append("\nmessage.confirmRemove").append(bc.getBusinessClass()).append("=")
+                    .append(getLabel("confirmRemove", strLanguage, bc.getBusinessClass())).append(" ?\n");
 
             // Constraints messages
-            sb.append( "\n# JSR 303 constraint validator messages\n" );
+            sb.append("\n# JSR 303 constraint validator messages\n");
 
-            strPrefix = "#validation." + bc.getBusinessClass(  ).toLowerCase(  ) + ".";
+            strPrefix = "#validation." + bc.getBusinessClass().toLowerCase() + ".";
 
-            for ( Attribute attribute : bc.getAttributes(  ) )
+            for (Attribute attribute : bc.getAttributes())
             {
-                if ( !attribute.getType(  ).equals( "int" ) )
+                if (!attribute.getType().equals("int"))
                 {
-                    if ( attribute.getNotNull(  ) )
+                    if (attribute.getNotNull())
                     {
-                        sb.append( strPrefix ).append( attribute.getName(  ) ).append( ".notEmpty=" )
-                          .append( getLabel( "validation.notEmpty", strLanguage, attribute.getLabelName(  ) ) )
-                          .append( "\n" );
+                        sb.append(strPrefix).append(attribute.getName()).append(".notEmpty=")
+                                .append(getLabel("validation.notEmpty", strLanguage, attribute.getLabelName()))
+                                .append("\n");
                     }
 
-                    if ( attribute.getMaxLength(  ) > 0 )
+                    if (attribute.getMaxLength() > 0)
                     {
-                        sb.append( strPrefix ).append( attribute.getName(  ) ).append( ".size=" )
-                          .append( getLabel( "validation.size", strLanguage, attribute.getLabelName(  ),
-                                "" + attribute.getMaxLength(  ) ) ).append( "\n" );
+                        sb.append(strPrefix).append(attribute.getName()).append(".size=")
+                                .append(getLabel("validation.size", strLanguage, attribute.getLabelName(),
+                                                "" + attribute.getMaxLength())).append("\n");
                     }
                 }
             }
 
-            sb.append( "\n# model attributes for validation messages\n" );
-            strPrefix = "model.entity." + bc.getBusinessClass(  ).toLowerCase(  ) + ".attribute.";
+            sb.append("\n# model attributes for validation messages\n");
+            strPrefix = "model.entity." + bc.getBusinessClass().toLowerCase() + ".attribute.";
 
-            for ( Attribute attribute : bc.getAttributes(  ) )
+            for (Attribute attribute : bc.getAttributes())
             {
-                sb.append( strPrefix ).append( Utils.firstLowerCase( attribute.getName(  ) ) ).append( "=" )
-                  .append( attribute.getLabelName(  ) ).append( "\n" );
+                sb.append(strPrefix).append(Utils.firstLowerCase(attribute.getName())).append("=")
+                        .append(attribute.getLabelName()).append("\n");
             }
         }
     }
 
     /**
      * Writes in the buffer resources keys for portlets
+     *
      * @param sb The buffer
      * @param pm The plugin model
      */
-    private void generatePortletsKeys( StringBuilder sb, PluginModel pm )
+    private void generatePortletsKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append( "\n# Portlets keys\n\n" );
+        sb.append("\n# Portlets keys\n\n");
 
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for (Portlet portlet : pm.getPortlets())
         {
-            sb.append( "portlet." ).append( pm.getPluginName(  ).toLowerCase(  ) ).append( portlet.getPortletClass(  ) )
-              .append( ".name=" ).append( portlet.getJspBaseName(  ) ).append( "\n" );
+            sb.append("portlet.").append(pm.getPluginName().toLowerCase()).append(portlet.getPortletClass())
+                    .append(".name=").append(portlet.getJspBaseName()).append("\n");
         }
 
-        sb.append( "\n" );
+        sb.append("\n");
     }
 
     /**
      * Writes in the buffer resources keys for info notifications
+     *
      * @param sb The buffer
      * @param pm The plugin model
      */
-    private void generateInfosKeys( StringBuilder sb, PluginModel pm )
+    private void generateInfosKeys(StringBuilder sb, PluginModel pm)
     {
-        sb.append( "\n# Infos keys\n\n" );
+        sb.append("\n# Infos keys\n\n");
 
-        for ( BusinessClass bc : pm.getBusinessClasses(  ) )
+        for (BusinessClass bc : pm.getBusinessClasses())
         {
-            for ( int i = 0; i < _suffix.length; i++ )
+            for (int i = 0; i < _suffix.length; i++)
             {
-                sb.append( "info." ).append( bc.getBusinessClass(  ).toLowerCase(  ) ).append( "." ).append( _suffix[i] )
-                  .append( "=" ).append( bc.getBusinessClass(  ) ).append( " " ).append( _suffix[i] ).append( "\n" );
+                sb.append("info.").append(bc.getBusinessClass().toLowerCase()).append(".").append(_suffix[i])
+                        .append("=").append(bc.getBusinessClass()).append(" ").append(_suffix[i]).append("\n");
             }
         }
 
-        sb.append( "\n" );
+        sb.append("\n");
     }
 
     /**
      * Gets a label for a given language from the pluginwizard.properties file
+     *
      * @param strKey The key of the label
      * @param strLanguage The language
      * @param arguments arguments of the label
      * @return The value of the label
      */
-    private String getLabel( String strKey, String strLanguage, String... arguments )
+    private String getLabel(String strKey, String strLanguage, String... arguments)
     {
         String strFullKey = "pluginwizard.label." + strKey + "." + strLanguage;
-        String strLabel = AppPropertiesService.getProperty( strFullKey, "Label not found for key " + strFullKey );
+        String strLabel = AppPropertiesService.getProperty(strFullKey, "Label not found for key " + strFullKey);
 
-        return MessageFormat.format( strLabel, (Object[]) arguments );
+        return MessageFormat.format(strLabel, (Object[]) arguments);
     }
 }

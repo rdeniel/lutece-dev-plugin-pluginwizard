@@ -8,7 +8,7 @@
 <div class="row" >
     <div class="span12">
 
-    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=Manage${business_class.businessClass?cap_first}s">
+    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
             <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
 
@@ -48,7 +48,7 @@
 <div class="row" >
     <div class="span12">
 
-    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=Manage${business_class.businessClass?cap_first}s">
+    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
             <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
 
@@ -95,7 +95,7 @@
 
         <${macro}messages infos=infos />
 
-        <form method="post"  action="jsp/site/Portal.jsp?page=Manage${business_class.businessClass?cap_first}s">
+        <form method="post"  action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
             <button name="view_create${business_class.businessClass}" class="btn btn-primary pull-right" type="submit">
                 <i class="icon-plus icon-white"></i>
                 ${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}
@@ -133,12 +133,12 @@
                 </#if>                
         </#list>
         <td>
-            <a href="jsp/site/Portal.jsp?page=Manage${business_class.businessClass?cap_first}s&view=modify${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
+            <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-primary btn-small" title="${i18n_open}portal.util.labelModify${i18n_close}">
                 <i class="icon-edit icon-white"></i>
             </a>
 
-            <a href="jsp/site/Portal.jsp?page=Manage${business_class.businessClass?cap_first}s&action=confirmRemove${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
+            <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-danger btn-small" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
                 <i class="icon-trash icon-white"></i>
             </a>
