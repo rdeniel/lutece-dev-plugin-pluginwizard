@@ -228,7 +228,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null || ( !_${business_class.businessClass?lower_case}.getKey().equals( strKey )))
+        if ( _${business_class.businessClass?lower_case} == null || ( _${business_class.businessClass?lower_case}.get${business_class.primaryKeyName}(  ) != nId ))
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }
