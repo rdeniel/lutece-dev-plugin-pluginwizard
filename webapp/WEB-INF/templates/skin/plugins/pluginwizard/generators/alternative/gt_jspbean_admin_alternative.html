@@ -118,6 +118,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
     public String getManage${business_class.businessClass}s( HttpServletRequest request )
     {
+        _${business_class.businessClass?lower_case} = null;
         _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
         _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_${business_class.businessClass?upper_case}_PER_PAGE, 50 );
         _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
@@ -175,7 +176,6 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
-        _${business_class.businessClass?lower_case} = null;
         addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale(  ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
@@ -228,7 +228,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null )
+        if ( _${business_class.businessClass?lower_case} == null || ( !_${business_class.businessClass?lower_case}.getKey().equals( strKey )))
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }
@@ -257,7 +257,6 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
-        _${business_class.businessClass?lower_case} = null;
         addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale(  ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
