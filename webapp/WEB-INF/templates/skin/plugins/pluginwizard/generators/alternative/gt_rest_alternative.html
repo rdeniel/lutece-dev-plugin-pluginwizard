@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_cl
 import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.plugins.rest.util.json.JSONUtil;
 import fr.paris.lutece.plugins.rest.util.xml.XMLUtil;
+import fr.paris.lutece.util.xml.XmlUtil;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import java.io.IOException;
 
@@ -92,29 +93,35 @@ public class ${business_class.businessClass?cap_first}Rest
             .build();
     }
     
+    /**
+     * Gets all resources list in XML format
+     * @return The list
+     */
     public String get${business_class.businessClass?cap_first}sXml( )
     {
-        StringBuilder sbXML = new StringBuilder(  );
+        StringBuffer sbXML = new StringBuffer( XmlUtil.getXmlHeader() );
         Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
         
-        sbXML.append( "<?xml version=\"1.0\"?>\n" );
-        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case}S + ">" );
+        XmlUtil.beginElement( sbXML , KEY_${business_class.businessClass?upper_case}S );
 
         for ( ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} : list )
         {
             add${business_class.businessClass?cap_first}Xml( sbXML, ${business_class.businessClass?lower_case} );
         }
         
-        sbXML.append( "</" + KEY_${business_class.businessClass?upper_case}S + ">" );
+        XmlUtil.endElement( sbXML , KEY_${business_class.businessClass?upper_case}S );
 
         return sbXML.toString(  );
     }
     
+    /**
+     * Gets all resources list in JSON format
+     * @return The list
+     */
     public String get${business_class.businessClass?cap_first}sJson( )
     {
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
         JSONObject json = new JSONObject(  );
-        String strJson = "";
         
         Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
         
@@ -125,9 +132,7 @@ public class ${business_class.businessClass?cap_first}Rest
         
         json.accumulate( KEY_${business_class.businessClass?upper_case}S, json${business_class.businessClass?cap_first} );
         
-        strJson = json.toString( );
-
-        return strJson;
+        return json.toString( );
     }
     
     @GET
@@ -152,9 +157,14 @@ public class ${business_class.businessClass?cap_first}Rest
             .build();
     }
     
+    /**
+     * Gets a resource in XML format
+     * @param strId The resource ID
+     * @return The XML output
+     */
     public String get${business_class.businessClass?cap_first}Xml( String strId )
     {
-        StringBuilder sbXML = new StringBuilder(  );
+        StringBuffer sbXML = new StringBuffer(  );
         
         try
         {
@@ -179,6 +189,11 @@ public class ${business_class.businessClass?cap_first}Rest
         return sbXML.toString(  );
     }
     
+    /**
+     * Gets a resource in JSON format
+     * @param strId The resource ID
+     * @return The JSON output
+     */
     public String get${business_class.businessClass?cap_first}Json( String strId )
     {
         JSONObject json = new JSONObject(  );
@@ -234,9 +249,9 @@ public class ${business_class.businessClass?cap_first}Rest
     </#list>
     @HeaderParam(HttpHeaders.ACCEPT) String accept, @QueryParam( Constants.FORMAT_QUERY ) String format) throws IOException
     {
-        if( id != null )
+        if( ${business_class.primaryKey} != null )
         {
-            int nId = Integer.parseInt( id );
+            int nId = Integer.parseInt( ${business_class.primaryKey});
 
             ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
 
@@ -264,15 +279,25 @@ public class ${business_class.businessClass?cap_first}Rest
         return get${business_class.businessClass?cap_first}s(accept, format);
     }
     
-    private void add${business_class.businessClass?cap_first}Xml( StringBuilder sbXML, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
+    /**
+     * Write a ${business_class.businessClass?lower_case} into a buffer
+     * @param sbXML The buffer
+     * @param ${business_class.businessClass?lower_case} The ${business_class.businessClass?lower_case}
+     */
+    private void add${business_class.businessClass?cap_first}Xml( StringBuffer sbXML, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
     {
-        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + ">" );
+        XmlUtil.beginElement( sbXML, KEY_${business_class.businessClass?upper_case} );
         <#list business_class.attributes as attribute>
-        sbXML.append( "<" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">" ).append( ${business_class.businessClass?lower_case}.get${attribute.name?cap_first} ( ) ).append( "</" + KEY_${business_class.businessClass?upper_case} + "-" + KEY_${attribute.paramName?upper_case} + ">\n" );
+        XmlUtil.addElement( sbXML, KEY_${attribute.paramName?upper_case} , ${business_class.businessClass?lower_case}.get${attribute.name?cap_first} ( ) );
         </#list>
-        sbXML.append( "</" + KEY_${business_class.businessClass?upper_case} + ">" );
+        XmlUtil.endElement( sbXML, KEY_${business_class.businessClass?upper_case} );
     }
     
+    /**
+     * Write a ${business_class.businessClass?lower_case} into a JSON Object
+     * @param json The JSON Object
+     * @param ${business_class.businessClass?lower_case} The ${business_class.businessClass?lower_case}
+     */
     private void add${business_class.businessClass?cap_first}Json( JSONObject json, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
     {
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
