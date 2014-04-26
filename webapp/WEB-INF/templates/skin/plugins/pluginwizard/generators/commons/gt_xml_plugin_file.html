@@ -44,7 +44,7 @@
         <#list plugin.businessClasses as businessClass>
         <#if businessClass.id = idBusinessClass>
         <application>
-            <application-id>${business_class.businessClass?lower_case}</application-id>
+            <application-id>${businessClass.businessClass?lower_case}</application-id>
             <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${businessClass.businessClassCapsFirst}XPage</application-class>
         </application>
         </#if>
