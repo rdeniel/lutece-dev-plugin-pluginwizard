@@ -6,9 +6,9 @@
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row" >
-    <div class="span12">
+    <div class="col-sm-12">
 
-    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
+    <form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
             <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
 
@@ -18,22 +18,24 @@
             <#if attribute.attributeName = business_class.primaryKey>
             <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}"  />
             <#else>
-            <div class="control-group">
-                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
-                <div class="controls">
-                    <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> tabindex="${attribute_index}" />
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> tabindex="${attribute_index}" />
                     <span class="help-block">${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}</span>
                 </div>
             </div>
             </#if>
             </#list>
-            <div class="form-actions">
-                <button name="action_create${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}">
-                    ${i18n_open}portal.util.labelCreate${i18n_close}
-                </button>
-                <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
-                    ${i18n_open}portal.util.labelCancel${i18n_close}
-                </button>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button name="action_create${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}">
+                        ${i18n_open}portal.util.labelCreate${i18n_close}
+                    </button>
+                    <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
+                        ${i18n_open}portal.util.labelCancel${i18n_close}
+                    </button>
+                </div>
             </div>
         </fieldset>
     </form>
@@ -46,7 +48,7 @@
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <div class="row" >
-    <div class="span12">
+    <div class="col-sm-12">
 
     <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
@@ -60,23 +62,25 @@
             <input type="hidden" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}"/>
             <#else>
 
-            <div class="control-group">
-                <label class="control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
-                <div class="controls">
-                    <input type="text" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
                 </div>
             </div>
             </#if>
             </#list>
 
 
-            <div class="form-actions">   
-                <button name="action_modify${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}" >
-                    ${i18n_open}portal.util.labelModify${i18n_close}
-                </button>
-                <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
-                    ${i18n_open}portal.util.labelCancel${i18n_close}
-                </button>	
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button name="action_modify${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}" >
+                        ${i18n_open}portal.util.labelModify${i18n_close}
+                    </button>
+                    <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
+                        ${i18n_open}portal.util.labelCancel${i18n_close}
+                    </button>	
+                </div>
             </div>
 
         </fieldset>
@@ -90,14 +94,14 @@
 <${include} "${application.applicationName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
-<div class="row-fluid" >
-    <div class="span12">
+<div class="row" >
+    <div class="col-sm-12">
 
         <${macro}messages infos=infos />
 
         <form method="post"  action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
             <button name="view_create${business_class.businessClass}" class="btn btn-primary pull-right" type="submit">
-                <i class="icon-plus icon-white"></i>
+                <span class="glyphicon glyphicon-plus"></span>
                 ${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}
             </button>
         </form>
@@ -135,12 +139,12 @@
         <td>
             <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-primary btn-small" title="${i18n_open}portal.util.labelModify${i18n_close}">
-                <i class="icon-edit icon-white"></i>
+                <span class="glyphicon glyphicon-edit"></span>
             </a>
 
             <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&${business_class.primaryKey}=${bra_open}${business_class.businessClass?lower_case?lower_case}.${business_class.primaryKeyName?uncap_first}${bra_close}"
                class="btn btn-danger btn-small" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
-                <i class="icon-trash icon-white"></i>
+                <span class="glyphicon glyphicon-trash"></span>
             </a>
         </td>
         </tr>
@@ -156,7 +160,7 @@
 <#else>
 <div class="row">
     
-    <div class="well hero">
+    <div class="well jumbotron">
         <h1>Here is your default XPage <small>generated by PluginWizard</small></h1>
     </div>
     

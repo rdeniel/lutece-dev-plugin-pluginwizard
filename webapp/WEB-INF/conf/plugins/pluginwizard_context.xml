@@ -468,7 +468,7 @@
     
     <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Modèle Lutece 4.1 (DAO SQL)</value>
+            <value>Modèle Lutece 5.0 (DAO SQL)</value>
         </property>
         <property name="generatorsList">
             <list>
