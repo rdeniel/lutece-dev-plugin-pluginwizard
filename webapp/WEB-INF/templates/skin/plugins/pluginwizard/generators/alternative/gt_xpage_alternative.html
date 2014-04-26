@@ -76,7 +76,6 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     // Markers
     private static final String MARK_${business_class.businessClass?upper_case}_LIST = "${business_class.businessClass?lower_case}_list";
     private static final String MARK_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
-    private static final String MARK_${business_class.businessClass?upper_case}S = "Manage${business_class.businessClass}s";
     
     // Message
     private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName}.message.confirmRemove${business_class.businessClass?cap_first}";
@@ -162,7 +161,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
         UrlItem url = new UrlItem( JSP_PAGE_PORTAL );
-        url.addParameter( PARAM_PAGE, MARK_${business_class.businessClass?upper_case}S );
+        url.addParameter( PARAM_PAGE, MARK_${business_class.businessClass?upper_case} );
         url.addParameter( PARAM_ACTION, ACTION_REMOVE_${business_class.businessClass?upper_case} );
         url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
         
