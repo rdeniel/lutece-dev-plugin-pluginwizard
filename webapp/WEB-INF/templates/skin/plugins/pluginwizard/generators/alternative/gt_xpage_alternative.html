@@ -103,6 +103,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
     public XPage getManage${business_class.businessClass}s( HttpServletRequest request )
     {
+        _${business_class.businessClass?lower_case} = null;
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}_LIST, ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList(  ) );
 
@@ -144,7 +145,6 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
-        _${business_class.businessClass?lower_case} = null;
         addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
@@ -197,7 +197,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null )
+        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.get${business_class.primaryKeyName}(  ) != nId ))
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }
@@ -226,7 +226,6 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
-        _${business_class.businessClass?lower_case} = null;
         addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
