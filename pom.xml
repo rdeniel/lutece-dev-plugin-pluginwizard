@@ -57,9 +57,9 @@
     </properties>
 
     <scm>
-        <connection>scm:svn:http://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</connection>
-        <developerConnection>scm:svn:https://dev.lutece.paris.fr/svn/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</developerConnection>
-        <url>http://dev.lutece.paris.fr/viewvc/lutece/portal/trunk/plugins/technical/plugin-pluginwizard</url>
+        <connection>scm:git:https://github.com/lutece-platform/lutece-dev-plugin-pluginwizard.git </connection>
+        <developerConnection>scm:git:https://github.com/lutece-platform/lutece-dev-plugin-pluginwizard.git</developerConnection>
+        <url>https://github.com/lutece-platform/lutece-dev-plugin-pluginwizard.git</url>
     </scm>
     <build>
         <plugins>
