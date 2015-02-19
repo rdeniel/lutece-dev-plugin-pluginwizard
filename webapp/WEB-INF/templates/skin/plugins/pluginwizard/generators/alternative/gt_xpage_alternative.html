@@ -64,12 +64,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     private static final String JSP_PAGE_PORTAL = "jsp/site/Portal.jsp";
     
     // Parameters
-    <#list business_class.attributes as attribute>
-    <#if attribute.isPrimary >
-    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="${attribute.paramName}";
-    </#if>
-    </#list>
-    
+    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="id";
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
     
@@ -196,7 +191,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.get${business_class.primaryKeyName}(  ) != nId ))
+        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.getId( ) != nId ))
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }
@@ -221,7 +216,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, getLocale( request ) ) )
         {
-            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.get${business_class.primaryKeyName}(  ) );
+            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );

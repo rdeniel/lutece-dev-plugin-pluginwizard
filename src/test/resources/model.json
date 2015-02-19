@@ -21,19 +21,10 @@
         "id" : 1
       } ],
           
-  "businessClasses" : [ { "attributes" : [ { "attributeName" : "id_person",
-              "attributeTypeId" : 1,
-              "id" : 1,
-              "isDescription" : false,
-              "isPrimary" : true,
-              "maxLength" : 0,
-              "notNull" : true
-            },
+  "businessClasses" : [ { "attributes" : [ 
             { "attributeName" : "person_name",
               "attributeTypeId" : 2,
-              "id" : 2,
-              "isDescription" : true,
-              "isPrimary" : false,
+              "id" : 1,
               "maxLength" : 50,
               "notNull" : true
             }
@@ -44,19 +35,10 @@
         "id" : 1,
         "primaryKey" : "id_person"
       },
-      { "attributes" : [ { "attributeName" : "id_product",
-              "attributeTypeId" : 1,
-              "id" : 1,
-              "isDescription" : false,
-              "isPrimary" : true,
-              "maxLength" : 0,
-              "notNull" : true
-            },
+      { "attributes" : [ 
             { "attributeName" : "product_name",
               "attributeTypeId" : 3,
-              "id" : 2,
-              "isDescription" : true,
-              "isPrimary" : false,
+              "id" : 1,
               "maxLength" : 255,
               "notNull" : true
             }

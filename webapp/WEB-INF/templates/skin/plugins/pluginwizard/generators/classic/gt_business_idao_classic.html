@@ -45,51 +45,50 @@ import java.util.Collection;
  */
 public interface I${business_class.businessClass}DAO
 {
+    /**
+     * Insert a new record in the table.
+     * @param ${business_class.instanceName} instance of the ${business_class.businessClass} object to insert
+     * @param plugin the Plugin
+     */
+    void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin );
 
+    /**
+     * Update the record in the table
+     * @param ${business_class.instanceName} the reference of the ${business_class.businessClass}
+     * @param plugin the Plugin
+     */
+    void store( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin );
 
-	/**
-	 * Insert a new record in the table.
-	 * @param ${business_class.instanceName} instance of the ${business_class.businessClass} object to insert
-	 * @param plugin the Plugin
-	 */
-	void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin );
+    /**
+     * Delete a record from the table
+     * @param nKey The identifier of the ${business_class.businessClass} to delete
+     * @param plugin the Plugin
+     */
+    void delete( int nKey, Plugin plugin );
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Finders
 
+    /**
+     * Load the data from the table
+     * @param nKey The identifier of the ${business_class.instanceName}
+     * @param plugin the Plugin
+     * @return The instance of the ${business_class.instanceName}
+     */
+    ${business_class.businessClass} load( int nKey, Plugin plugin );
 
-	/**
-	 * Update the record in the table
-	 * @param ${business_class.instanceName} the reference of the ${business_class.businessClass}
-	 * @param plugin the Plugin
-	 */
-	void store( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin );
-
-
-	/**
-	 * Delete a record from the table
-	 * @param nId${business_class.businessClass} int identifier of the ${business_class.businessClass} to delete
-	 * @param plugin the Plugin
-	 */
-	void delete( int nId${business_class.businessClass}, Plugin plugin );
-
-	///////////////////////////////////////////////////////////////////////////
-	// Finders
-
-	/**
-	 * Load the data from the table
-	 * @param nKey The identifier of the ${business_class.instanceName}
-	 * @param plugin the Plugin
-	 * @return The instance of the ${business_class.instanceName}
-	 */
-	${business_class.businessClass} load( int nKey, Plugin plugin );
-
-
-
-	/**
-	 * Load the data of all the ${business_class.instanceName} objects and returns them as a collection
-	 * @param plugin the Plugin
-	 * @return The collection which contains the data of all the ${business_class.instanceName} objects
-	 */
-	Collection&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin );
-	
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a collection
+     * @param plugin the Plugin
+     * @return The collection which contains the data of all the ${business_class.instanceName} objects
+     */
+    Collection&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin );
+    
+    /**
+     * Load the id of all the ${business_class.instanceName} objects and returns them as a collection
+     * @param plugin the Plugin
+     * @return The collection which contains the id of all the ${business_class.instanceName} objects
+     */
+    Collection&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin );
 }
 

@@ -53,8 +53,6 @@ public class Attribute implements Serializable
     // Variables declarations
     private int _nIdAttribute;
     private int _nAttributeTypeId;
-    private boolean _bIsPrimary;
-    private boolean _bIsDescription;
     @NotEmpty( message = "pluginwizard.error.attribute.name.notEmpty" )
     @Pattern( regexp = "[a-z_]*", message = "pluginwizard.error.attribute.name.pattern" )
     private String _strAttributeName;
@@ -113,42 +111,6 @@ public class Attribute implements Serializable
     public void setAttributeName( String strAttributeName )
     {
         _strAttributeName = strAttributeName;
-    }
-
-    /**
-    * Returns the IdAttribute
-    * @return The IdAttribute
-    */
-    public boolean getIsPrimary(  )
-    {
-        return _bIsPrimary;
-    }
-
-    /**
-    * Sets the bIsPrimary
-    * @param bIsPrimary The IsPrimary
-    */
-    public void setIsPrimary( boolean bIsPrimary )
-    {
-        _bIsPrimary = bIsPrimary;
-    }
-
-    /**
-    * Returns the bIsDescription
-    * @return The IsDescription
-    */
-    public boolean getIsDescription(  )
-    {
-        return _bIsDescription;
-    }
-
-    /**
-    * Sets the Description
-    * @param bIsDescription The Description
-    */
-    public void setIsDescription( boolean bIsDescription )
-    {
-        _bIsDescription = bIsDescription;
     }
 
     /**

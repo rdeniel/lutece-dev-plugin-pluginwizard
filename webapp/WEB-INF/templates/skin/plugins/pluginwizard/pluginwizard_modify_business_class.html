@@ -70,14 +70,18 @@
                     <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeType}</th>
                     <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelNotNull}</th>
                     <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelMaxLength}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeKey}</th>
-                    <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeDescription}</th>
                     <th>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAttributeAction}</th>
-
                 </tr>
             </thead>
 
             <tbody>
+                <tr>
+                    <td>#i18n{pluginwizard.pluginwizard_modify_business_class.labelId}</td>
+                    <td>#i18n{pluginwizard.pluginwizard_modify_business_class.labelPrimaryKey}</td>
+                    <td>#i18n{pluginwizard.pluginwizard_modify_business_class.labelAuto}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 <#if attributes_list?? >
                 <#list attributes_list as attribute>
                 <tr>
@@ -93,14 +97,6 @@
                         ${attribute.maxLength}
                         </#if>
                     </td>
-                    <td><#if attribute.isPrimary>
-                        <span class="label">key</span>
-                        </#if>
-                    </td>
-                    <td><#if attribute.isDescription>
-                        <span class="label">label</span></#if>
-                    </td>
-
                     <td>
                         <a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyAttribute&attribute_id=${attribute.id}&business_class_id=${business_class.id}"
                            class="btn btn-primary btn-sm"

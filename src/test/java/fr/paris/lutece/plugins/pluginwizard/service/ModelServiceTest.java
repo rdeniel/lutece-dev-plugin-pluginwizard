@@ -58,7 +58,6 @@ public class ModelServiceTest extends LuteceTestCase
         Attribute attribute = new Attribute(  );
         attribute.setAttributeName( "product_name" );
         attribute.setAttributeTypeId( 2 );
-        attribute.setIsDescription( true );
         ModelService.addAttribute( nPluginId, nBusinessClassId, attribute );
 
         Attribute result = ModelService.getAttribute( nPluginId, nBusinessClassId, attribute.getId(  ) );

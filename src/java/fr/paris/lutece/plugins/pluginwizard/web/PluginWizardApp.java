@@ -209,7 +209,6 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     public static final String ERROR_TABLE_PREFIX = "pluginwizard.error.attribute.tablePrefix";
     public static final String ERROR_PRIMARY_TYPE = "pluginwizard.error.attribute.primaryType";
     public static final String ERROR_DESCRIPTION_TYPE = "pluginwizard.error.attribute.descriptionType";
-    public static final String ERROR_ATTRIBUTE_COUNT = "pluginwizard.error.attributeCount";
 
     // NOTIFICATIONS
     public static final String INFO_SESSION_EXPIRED = "pluginwizard.info.sessionExpired";
@@ -816,16 +815,6 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         populate( _attribute, request );
 
-        boolean bValidateBean = validateBean( _attribute, getLocale( request ) );
-        boolean bValidatePrimary = validatePrimary( request, _attribute );
-        boolean bValidateDescription = validateDescription( request, _attribute );
-        boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
-
-        if ( !bValid )
-        {
-            return redirect( request, VIEW_CREATE_ATTRIBUTE, PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
-        }
-
         ModelService.addAttribute( _nPluginId, nBusinessClassId, _attribute );
         _attribute = null;
         addInfo( INFO_ATTRIBUTE_CREATED, getLocale( request ) );
@@ -845,21 +834,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         // We reset boolean values provided by checkboxes : chabowes not checked can not be populated.
-        _attribute.setIsDescription( false );
-        _attribute.setIsPrimary( false );
         _attribute.setNotNull( false );
         populate( _attribute, request );
-
-        boolean bValidateBean = validateBean( _attribute, getLocale( request ) );
-        boolean bValidatePrimary = validatePrimary( request, _attribute );
-        boolean bValidateDescription = validateDescription( request, _attribute );
-        boolean bValid = bValidateBean && bValidatePrimary && bValidateDescription;
-
-        if ( !bValid )
-        {
-            return redirect( request, VIEW_MODIFY_ATTRIBUTE, PARAM_BUSINESS_CLASS_ID, nBusinessClassId,
-                PARAM_ATTRIBUTE_ID, _attribute.getId(  ) );
-        }
 
         ModelService.updateAttribute( _nPluginId, nBusinessClassId, _attribute );
         _attribute = null;
@@ -867,44 +843,6 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         return redirect( request, VIEW_MODIFY_BUSINESS_CLASS, PARAM_BUSINESS_CLASS_ID, nBusinessClassId, PARAM_REFRESH,
             1 );
-    }
-
-    /**
-     * Validate primary type
-     * @param request The HTTP request
-     * @param attribute The attribute
-     * @return true if OK
-     */
-    private boolean validatePrimary( HttpServletRequest request, Attribute attribute )
-    {
-        boolean bValidate = ( ( !attribute.getIsPrimary(  ) ) ||
-            ( attribute.getIsPrimary(  ) && ( attribute.getAttributeTypeId(  ) == 1 ) ) );
-
-        if ( !bValidate )
-        {
-            addError( ERROR_PRIMARY_TYPE, getLocale( request ) );
-        }
-
-        return bValidate;
-    }
-
-    /**
-     * Validate Description type
-     * @param request The HTTP request
-     * @param attribute The attribute
-     * @return True if OK
-     */
-    private boolean validateDescription( HttpServletRequest request, Attribute attribute )
-    {
-        boolean bValidate = ( ( !attribute.getIsDescription(  ) ) ||
-            ( attribute.getIsDescription(  ) && ( attribute.getAttributeTypeId(  ) > 1 ) ) );
-
-        if ( !bValidate )
-        {
-            addError( ERROR_DESCRIPTION_TYPE, getLocale( request ) );
-        }
-
-        return bValidate;
     }
 
     /**
@@ -948,19 +886,6 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     @Action( ACTION_VALIDATE_ATTRIBUTES )
     public XPage doValidateAttributes( HttpServletRequest request )
     {
-        int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
-        Collection<BusinessClass> listBusinessClass = ModelService.getPluginModel( _nPluginId ).getBusinessClasses(  );
-
-        for ( BusinessClass businessClass : listBusinessClass )
-        {
-            if ( businessClass.getAttributes(  ).size(  ) < 2 )
-            {
-                addError( ERROR_ATTRIBUTE_COUNT, getLocale( request ) );
-
-                return redirect( request, VIEW_MODIFY_BUSINESS_CLASS, PARAM_BUSINESS_CLASS_ID, nBusinessClassId );
-            }
-        }
-
         return redirectView( request, VIEW_MANAGE_BUSINESS_CLASSES );
     }
 

@@ -67,8 +67,9 @@ public class ${business_class.businessClass?cap_first}Rest
     private static final String KEY_${business_class.businessClass?upper_case}S = "${business_class.businessClass?lower_case}s";
     private static final String KEY_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
     
+    private static final String KEY_ID = "id";
     <#list business_class.attributes as attribute>
-    private static final String KEY_${attribute.paramName?upper_case}="${attribute.paramName?lower_case}";
+    private static final String KEY_${attribute.paramName?upper_case} = "${attribute.paramName?lower_case}";
     </#list>
     
     @GET
@@ -244,23 +245,22 @@ public class ${business_class.businessClass?cap_first}Rest
     
     @POST
     public Response create${business_class.businessClass?cap_first}(
+    @FormParam( KEY_ID ) String id,
     <#list business_class.attributes as attribute>
     @FormParam( "${attribute.paramName?lower_case}" ) String ${attribute.paramName?lower_case}, 
     </#list>
     @HeaderParam(HttpHeaders.ACCEPT) String accept, @QueryParam( Constants.FORMAT_QUERY ) String format) throws IOException
     {
-        if( ${business_class.primaryKey} != null )
+        if( id != null )
         {
-            int nId = Integer.parseInt( ${business_class.primaryKey});
+            int nId = Integer.parseInt( KEY_ID );
 
             ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( nId );
 
             if ( ${business_class.businessClass?lower_case} != null )
             {
                 <#list business_class.attributes as attribute>
-                <#if !attribute.isPrimary >
-                ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( ${attribute.paramName?lower_case} );
-                </#if>
+                ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( <#if attribute.type == 'int' >Integer.parseInt( ${attribute.paramName?lower_case} )<#else>${attribute.paramName?lower_case}</#if> );
                 </#list>
                 ${business_class.businessClass?cap_first}Home.update( ${business_class.businessClass?lower_case} );
             }
@@ -270,9 +270,7 @@ public class ${business_class.businessClass?cap_first}Rest
             ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = new ${business_class.businessClass?cap_first}( );
             
             <#list business_class.attributes as attribute>
-            <#if !attribute.isPrimary >
-            ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( ${attribute.paramName?lower_case} );
-            </#if>
+            ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( <#if attribute.type == 'int' >Integer.parseInt( ${attribute.paramName?lower_case} )<#else>${attribute.paramName?lower_case}</#if> );
             </#list>
             ${business_class.businessClass?cap_first}Home.create( ${business_class.businessClass?lower_case} );
         }
@@ -287,8 +285,9 @@ public class ${business_class.businessClass?cap_first}Rest
     private void add${business_class.businessClass?cap_first}Xml( StringBuffer sbXML, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
     {
         XmlUtil.beginElement( sbXML, KEY_${business_class.businessClass?upper_case} );
+        XmlUtil.addElement( sbXML, KEY_ID , ${business_class.businessClass?lower_case}.getId( ) );
         <#list business_class.attributes as attribute>
-        XmlUtil.addElement( sbXML, KEY_${attribute.paramName?upper_case} , ${business_class.businessClass?lower_case}.get${attribute.name?cap_first} ( ) );
+        XmlUtil.addElement( sbXML, KEY_${attribute.paramName?upper_case} , ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
         </#list>
         XmlUtil.endElement( sbXML, KEY_${business_class.businessClass?upper_case} );
     }
@@ -301,6 +300,7 @@ public class ${business_class.businessClass?cap_first}Rest
     private void add${business_class.businessClass?cap_first}Json( JSONObject json, ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} )
     {
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
+        json${business_class.businessClass?cap_first}.accumulate( KEY_ID , ${business_class.businessClass?lower_case}.getId( ) );
         <#list business_class.attributes as attribute>
         json${business_class.businessClass?cap_first}.accumulate( KEY_${attribute.paramName?upper_case}, ${business_class.businessClass?lower_case}.get${attribute.name?cap_first}( ) );
         </#list>

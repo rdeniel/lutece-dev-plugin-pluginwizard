@@ -45,76 +45,80 @@ import java.util.Collection;
 
 public final class ${business_class.businessClass}Home
 {
+    // Static variable pointed at the DAO instance
 
-	// Static variable pointed at the DAO instance
+    private static I${business_class.businessClass}DAO _dao = SpringContextService.getBean( "${plugin_name}.${business_class.instanceName}DAO" );
+    private static Plugin _plugin = PluginService.getPlugin( "${plugin_name}" );
 
-	private static I${business_class.businessClass}DAO _dao = SpringContextService.getBean( "${plugin_name}.${business_class.instanceName}DAO" );
-	private static Plugin _plugin = PluginService.getPlugin( "${plugin_name}" );
+    /**
+     * Private constructor - this class need not be instantiated
+     */
+    private ${business_class.businessClass}Home(  )
+    {
+    }
 
-	/**
-	 * Private constructor - this class need not be instantiated
-	 */
-	private ${business_class.businessClass}Home(  )
-	{
-	}
+    /**
+     * Create an instance of the ${business_class.instanceName} class
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the informations to store
+     * @return The  instance of ${business_class.instanceName} which has been created with its primary key.
+     */
+    public static ${business_class.businessClass} create( ${business_class.businessClass} ${business_class.instanceName} )
+    {
+        _dao.insert( ${business_class.instanceName}, _plugin );
 
-	/**
-	 * Create an instance of the ${business_class.instanceName} class
-	 * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the informations to store
-	 * @return The  instance of ${business_class.instanceName} which has been created with its primary key.
-	 */
-	public static ${business_class.businessClass} create( ${business_class.businessClass} ${business_class.instanceName} )
-	{
-		_dao.insert( ${business_class.instanceName}, _plugin );
+        return ${business_class.instanceName};
+    }
 
-		return ${business_class.instanceName};
-	}
+    /**
+     * Update of the ${business_class.instanceName} which is specified in parameter
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the data to store
+     * @return The instance of the  ${business_class.instanceName} which has been updated
+     */
+    public static ${business_class.businessClass} update( ${business_class.businessClass} ${business_class.instanceName} )
+    {
+        _dao.store( ${business_class.instanceName}, _plugin );
 
+        return ${business_class.instanceName};
+    }
 
-	/**
-	 * Update of the ${business_class.instanceName} which is specified in parameter
-	 * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the data to store
-	 * @return The instance of the  ${business_class.instanceName} which has been updated
-	 */
-	public static ${business_class.businessClass} update( ${business_class.businessClass} ${business_class.instanceName} )
-	{
-		_dao.store( ${business_class.instanceName}, _plugin );
+    /**
+     * Remove the ${business_class.instanceName} whose identifier is specified in parameter
+     * @param nKey The ${business_class.instanceName} Id
+     */
+    public static void remove( int nKey )
+    {
+        _dao.delete( nKey, _plugin );
+    }
 
-		return ${business_class.instanceName};
-	}
+    ///////////////////////////////////////////////////////////////////////////
+    // Finders
 
+    /**
+     * Returns an instance of a ${business_class.instanceName} whose identifier is specified in parameter
+     * @param nKey The ${business_class.instanceName} primary key
+     * @return an instance of ${business_class.businessClass}
+     */
+    public static ${business_class.businessClass} findByPrimaryKey( int nKey )
+    {
+        return _dao.load( nKey, _plugin);
+    }
 
-	/**
-	 * Remove the ${business_class.instanceName} whose identifier is specified in parameter
-	 * @param n${business_class.businessClass}Id The ${business_class.instanceName} Id
-	 */
-	public static void remove( int n${business_class.businessClass}Id )
-	{
-		_dao.delete( n${business_class.businessClass}Id, _plugin );
-	}
-
-
-	///////////////////////////////////////////////////////////////////////////
-	// Finders
-
-	/**
-	 * Returns an instance of a ${business_class.instanceName} whose identifier is specified in parameter
-	 * @param nKey The ${business_class.instanceName} primary key
-	 * @return an instance of ${business_class.businessClass}
-	 */
-	public static ${business_class.businessClass} findByPrimaryKey( int nKey )
-	{
-		return _dao.load( nKey, _plugin);
-	}
-
-
-	/**
-	 * Load the data of all the ${business_class.instanceName} objects and returns them in form of a collection
-	 * @return the collection which contains the data of all the ${business_class.instanceName} objects
-	 */
-	public static Collection&lt;${business_class.businessClass}&gt; get${business_class.businessClass}sList( )
-	{
-		return _dao.select${business_class.businessClass}sList( _plugin );
-	}
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them in form of a collection
+     * @return the collection which contains the data of all the ${business_class.instanceName} objects
+     */
+    public static Collection&lt;${business_class.businessClass}&gt; get${business_class.businessClass}sList( )
+    {
+        return _dao.select${business_class.businessClass}sList( _plugin );
+    }
+    
+    /**
+     * Load the id of all the ${business_class.instanceName} objects and returns them in form of a collection
+     * @return the collection which contains the id of all the ${business_class.instanceName} objects
+     */
+    public static Collection&lt;Integer&gt; getId${business_class.businessClass}sList( )
+    {
+        return _dao.selectId${business_class.businessClass}sList( _plugin );
+    }
 }
 
