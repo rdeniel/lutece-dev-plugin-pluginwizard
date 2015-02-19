@@ -60,7 +60,6 @@ public class BusinessClass
     private String _strBusinessTableName;
     private List<Attribute> _listAttributes;
     private String _strPrimaryAttributeName;
-    private String _strDescriptionAttributeName;
 
     /**
      *
@@ -150,27 +149,6 @@ public class BusinessClass
     public List<Attribute> getAttributes(  )
     {
         return _listAttributes;
-    }
-
-    /**
-     * Sets the class description and it is given by an attribute
-     *
-     * @param strDescriptionAttributeName The name of the attribute which the
-     * description
-     */
-    public void setClassDescription( String strDescriptionAttributeName )
-    {
-        _strDescriptionAttributeName = strDescriptionAttributeName;
-    }
-
-    /**
-     * Fetches the description of a business class
-     *
-     * @return The description of the class
-     */
-    public String getClassDescription(  )
-    {
-        return _strDescriptionAttributeName;
     }
 
     /**

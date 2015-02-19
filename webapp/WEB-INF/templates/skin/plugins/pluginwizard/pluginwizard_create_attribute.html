@@ -40,20 +40,6 @@
                     </div>  
                 </div>
 
-                <div class="form-group">
-                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelAttributeKey} * : </label>                            
-                    <div class="col-md-9">  
-                        <input class="checkbox" type="checkbox" name="is_primary" <#if attribute?? && attribute.isPrimary>checked="checked"</#if>/>
-                    </div>  
-                </div>
-
-                <div class="form-group">
-                    <label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_attribute.labelClassDescription} * : </label>                            
-                    <div class="col-md-9">                                                                                                     
-                        <input class="checkbox" type="checkbox" name="is_description" <#if attribute?? && attribute.isDescription>checked="checked"</#if> />
-                    </div>                         
-                </div>
-
                 <div class="form-group">                                          
 				<div class="col-md-offset-3 col-md-9">
                     <button type="submit" name="action_createAttribute" class="btn btn-primary">

@@ -47,29 +47,49 @@ import java.sql.Date;
  */ 
 public class ${business_class.businessClass}
 {
-	// Variables declarations 
-	<#list business_class.attributes as attribute>
-	private ${attribute.type} _${attribute.variableName};
-	</#list>
-  <#if business_class.attributes??>
-	<#list business_class.attributes as attribute>
-	/**
-	 * Returns the ${attribute.name}
-	 * @return The ${attribute.name}
-	 */
-	public ${attribute.type} get${attribute.name}()
-	{
-		return _${attribute.variableName};
-	}
+    // Variables declarations 
+    private int _nId;
+    <#list business_class.attributes as attribute>
+    private ${attribute.type} _${attribute.variableName};
+    </#list>
 
-	/**
-	 * Sets the ${attribute.name}
-	 * @param ${attribute.variableName} The ${attribute.name}
-	 */ 
-	public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
-	{
-		_${attribute.variableName} = ${attribute.variableName};
-	}
-	</#list>
-	</#if>
+    /**
+     * Returns the Id
+     * @return The Id
+     */
+    public int getId( )
+    {
+        return _nId;
+    }
+
+    /**
+     * Sets the Id
+     * @param nId The Id
+     */ 
+    public void setId( int nId )
+    {
+        _nId = nId;
+    }
+
+    <#if business_class.attributes??>
+    <#list business_class.attributes as attribute>
+    /**
+     * Returns the ${attribute.name}
+     * @return The ${attribute.name}
+     */
+    public ${attribute.type} get${attribute.name}()
+    {
+            return _${attribute.variableName};
+    }
+
+    /**
+     * Sets the ${attribute.name}
+     * @param ${attribute.variableName} The ${attribute.name}
+     */ 
+    public void set${attribute.name}( ${attribute.type} ${attribute.variableName} )
+    {
+            _${attribute.variableName} = ${attribute.variableName};
+    }
+    </#list>
+    </#if>
 }

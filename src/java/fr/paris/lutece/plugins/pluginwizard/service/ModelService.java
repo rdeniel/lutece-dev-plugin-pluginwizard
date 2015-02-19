@@ -60,6 +60,7 @@ public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
     private static DozerBeanMapper _mapper = new DozerBeanMapper(  );
+    private static String ID = "id_";
 
     /** private constructor */
     private ModelService(  )
@@ -518,6 +519,7 @@ public final class ModelService
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass businessClass = _mapper.map( bc, BusinessClass.class );
         businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
+        businessClass.setPrimaryKey( ID + bc.getBusinessClass().toLowerCase() );
         pm.getBusinessClasses(  ).add( businessClass );
         savePluginModel( pm );
 
@@ -651,16 +653,6 @@ public final class ModelService
         attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
         attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId(  ) ) );
 
-        if ( attribute.getIsPrimary(  ) )
-        {
-            bc.setPrimaryKey( attribute.getAttributeName(  ) );
-        }
-
-        if ( attribute.getIsDescription(  ) )
-        {
-            bc.setClassDescription( attribute.getAttributeName(  ) );
-        }
-
         listAttributes.add( attribute );
         savePluginModel( pm );
     }
@@ -706,16 +698,6 @@ public final class ModelService
             if ( attr.getId(  ) == attribute.getId(  ) )
             {
                 list.set( i, attribute );
-
-                if ( attribute.getIsPrimary(  ) )
-                {
-                    bc.setPrimaryKey( attribute.getAttributeName(  ) );
-                }
-
-                if ( attribute.getIsDescription(  ) )
-                {
-                    bc.setClassDescription( attribute.getAttributeName(  ) );
-                }
 
                 savePluginModel( pm );
 

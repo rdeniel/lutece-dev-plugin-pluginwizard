@@ -73,9 +73,9 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
 
         // Create test
         ${business_class.businessClass}Home.create( ${business_class.instanceName} );
-        ${business_class.businessClass} ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.get${business_class.primaryKeyName?cap_first}() );
+        ${business_class.businessClass} ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
-        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}() );
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
 
         // Update test
@@ -83,17 +83,17 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         ${business_class.instanceName}.set${attribute.name}( ${attribute.name?upper_case}2 );
         </#list>
         ${business_class.businessClass}Home.update( ${business_class.instanceName} );
-        ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.get${business_class.primaryKeyName?cap_first}() );
+        ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
-        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}() );
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
 
         // List test
         ${business_class.businessClass}Home.get${business_class.businessClass}sList();
 
         // Delete test
-        ${business_class.businessClass}Home.remove( ${business_class.instanceName}.get${business_class.primaryKeyName?cap_first}() );
-        ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.get${business_class.primaryKeyName?cap_first}() );
+        ${business_class.businessClass}Home.remove( ${business_class.instanceName}.getId( ) );
+        ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.getId( ) );
         assertNull( ${business_class.instanceName}Stored );
         
     }
