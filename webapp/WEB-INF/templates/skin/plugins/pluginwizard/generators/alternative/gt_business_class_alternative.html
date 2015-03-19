@@ -52,17 +52,16 @@ public class ${business_class.businessClass}
 {
     // Variables declarations 
     private int _nId;
-    
     <#list business_class.attributes as attribute>
-       <#if attribute.type == "String" > 
-         <#if attribute.notNull >
-    @NotEmpty( message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.notEmpty}" )
-         </#if>
-         <#if attribute.maxLength &gt; 0 > 
-    @Size( max = ${attribute.maxLength} , message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.size}" ) 
-        </#if>
-        </#if>
     ${attribute.constraint!}
+    <#if attribute.type == "String">
+    <#if attribute.notNull >
+    @NotEmpty( message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.notEmpty}" )
+    </#if>
+    <#if attribute.maxLength &gt; 0 >
+    @Size( max = ${attribute.maxLength} , message = "@i18n{${plugin_name}.validation.${business_class.businessClass?lower_case}.${attribute.name}.size}" ) 
+    </#if>
+    </#if>
     private ${attribute.type} _${attribute.variableName};
     </#list>
 
