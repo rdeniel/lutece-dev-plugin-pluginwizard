@@ -1,8 +1,8 @@
 
-#Plugin plugiwizard 
+#Plugin pluginwizard
 
 ##Introduction
-The primary goal of Lutece pluginwizard is to reduce developer configuration files overhead and the risk of infringing the development norms.Also new developers entering the project will inheritthe best pratices directly in their project.A basic plugin can be conceived in some minutes and executed immediately.
+The primary goal of Lutece pluginwizard is to reduce developer configuration files overhead and the risk of infringing the development norms. Also new developers entering the project will inheritthe best pratices directly in their project. A basic plugin can be conceived in some minutes and executed immediately.
 ##What do you get?
 
 All the files needed to implement CRUD functionalities on defined business classes. The files include :
@@ -28,7 +28,7 @@ Pros
 * The model is simple and easy to understand.
 
 Cons
-The generation based upon a model which is datacentered doesn't imply that all plugins are based upon business layers.There are a many mechanisms in Lutece which helps to comply to requirements. The mechanismcould be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which offers the possibility to set up fine-grained control on declared resources.
+The generation based upon a model which is datacentered doesn't imply that all plugins are based upon business layers. There are a many mechanisms in Lutece which helps to comply to requirements. The mechanismcould be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which offers the possibility to set up fine-grained control on declared resources.
 
 ##Plugin conception
 
