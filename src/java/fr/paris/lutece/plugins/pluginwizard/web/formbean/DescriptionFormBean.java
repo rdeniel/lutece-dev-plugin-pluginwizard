@@ -54,15 +54,15 @@ public class DescriptionFormBean implements Serializable
     @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
     @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
+    @NotEmpty( message = "pluginwizard.error.plugin.provider.notEmpty" )
+    @Size( min = 3, max = 255, message = "pluginwizard.error.plugin.provider.size" )
+    private String _strPluginProvider;
     @NotEmpty( message = "pluginwizard.error.plugin.version.notEmpty" )
     @Pattern( regexp = "[0-9].[0-9].[0-9]", message = "pluginwizard.error.plugin.version.pattern" )
     private String _strPluginVersion;
     @NotEmpty( message = "pluginwizard.error.plugin.copyright.notEmpty" )
     private String _strPluginCopyright;
     private String _strPluginIconUrl;
-    @NotEmpty( message = "pluginwizard.error.plugin.provider.notEmpty" )
-    @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
-    private String _strPluginProvider;
     @NotEmpty( message = "pluginwizard.error.plugin.urlProvider.notEmpty" )
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
     private String _strPluginProviderUrl;
