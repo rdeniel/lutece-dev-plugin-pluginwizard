@@ -114,24 +114,8 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     public String getManage${business_class.businessClass}s( HttpServletRequest request )
     {
         _${business_class.businessClass?lower_case} = null;
-        _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
-        _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_${business_class.businessClass?upper_case}_PER_PAGE, 50 );
-        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
-                _nDefaultItemsPerPage );
-
-        UrlItem url = new UrlItem( JSP_MANAGE_${business_class.businessClass?upper_case}S );
-        String strUrl = url.getUrl(  );
         List<${business_class.businessClass}> list${business_class.businessClass}s = (List<${business_class.businessClass}>) ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
-
-        // PAGINATOR
-        LocalizedPaginator paginator = new LocalizedPaginator( list${business_class.businessClass}s, _nItemsPerPage, strUrl,
-                PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
-
-        Map<String, Object> model = getModel(  );
-
-        model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
-        model.put( MARK_PAGINATOR, paginator );
-        model.put( MARK_${business_class.businessClass?upper_case}_LIST, paginator.getPageItems(  ) );
+        Map<String, Object> model = getPaginatedListModel( request, MARK_${business_class.businessClass?upper_case}_LIST, list${business_class.businessClass}s, JSP_MANAGE_${business_class.businessClass?upper_case}S );
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S, TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, model );
     }
