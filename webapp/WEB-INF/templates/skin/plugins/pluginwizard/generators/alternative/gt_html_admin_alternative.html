@@ -41,10 +41,9 @@
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <${macro}rowBox>
-    <${macro}boxHeader i18nTitleKey="${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.tableLabel${i18n_close}">
+    <${macro}boxHeader i18nTitleKey="${plugin_name}.manage_${business_class.businessClass?lower_case}s.tableLabel">
         <${macro}headerButtons>
 
-        <${macro}messages infos=infos />
         
         <form class="form-inline pull-right" method="post" name="manage_${business_class.businessClass?lower_case}s" action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
             <!-- Add pull-right to class1 -->
@@ -54,6 +53,7 @@
     </${macro}headerButtons>
     </${macro}boxHeader>
     <${macro}boxBody>    
+    <${macro}messages infos=infos />
     <${macro}paginationAdmin paginator=paginator combo=1 />
     
     <${macro}table>
