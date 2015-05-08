@@ -107,6 +107,11 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     private ${business_class.businessClass} _${business_class.businessClass?lower_case};
     
     
+    /**
+     * Build the Manage View
+     * @param request The HTTP request
+     * @return The page
+     */
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
     public String getManage${business_class.businessClass}s( HttpServletRequest request )
     {
