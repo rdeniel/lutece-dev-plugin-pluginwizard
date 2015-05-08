@@ -44,11 +44,13 @@ import org.hibernate.validator.constraints.*;
 <#if hasDate?? && hasDate>
 import java.sql.Date;
 </#if>
+import java.io.Serializable;
+
 
 /**
  * This is the business class for the object ${business_class.businessClass}
  */ 
-public class ${business_class.businessClass}
+public class ${business_class.businessClass} implements Serializable
 {
     // Variables declarations 
     private int _nId;
