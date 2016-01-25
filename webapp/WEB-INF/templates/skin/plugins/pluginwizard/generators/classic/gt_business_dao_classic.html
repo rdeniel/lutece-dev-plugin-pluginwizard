@@ -87,9 +87,11 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
 
         ${business_class.instanceName}.setId( newPrimaryKey( plugin ) );
 
-        daoUtil.setInt( 1, ${business_class.instanceName}.getId( ) );
+        int nIndex = 1;
+        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
+        
         <#list business_class.attributes as attribute>
-        daoUtil.set${attribute.type?cap_first}( ${attribute_index + 2}, ${business_class.instanceName}.get${attribute.name}( ) );
+        daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
 
         daoUtil.executeUpdate( );
@@ -110,10 +112,11 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
 
         if ( daoUtil.next( ) )
         {
+            int nIndex = 1;
             ${business_class.instanceName} = new ${business_class.businessClass}();
-            ${business_class.instanceName}.setId( daoUtil.getInt( 1 ) );
+            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
             <#list business_class.attributes as attribute>
-            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index + 2} ) );
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
             </#list>
         }
 
@@ -141,12 +144,12 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
         
-        daoUtil.setInt( 1, ${business_class.instanceName}.getId( ) );
+        int nIndex = 1;
+        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
-        <#assign nIndex=attribute_index+2 >
-        daoUtil.set${attribute.type?cap_first}( ${nIndex}, ${business_class.instanceName}.get${attribute.name}( ) );
+        daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
-        daoUtil.setInt( ${nIndex+1}, ${business_class.instanceName}.getId( ) );
+        daoUtil.setInt( nIndex , ${business_class.instanceName}.getId( ) );
 
         daoUtil.executeUpdate( );
         daoUtil.free( );
@@ -165,10 +168,10 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
         while ( daoUtil.next(  ) )
         {
             ${business_class.businessClass} ${business_class.instanceName} = new ${business_class.businessClass}(  );
-            
-            ${business_class.instanceName}.setId( daoUtil.getInt( 1 ) );
+            int nIndex = 1;
+            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
             <#list business_class.attributes as attribute>
-                ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( ${attribute_index+2} ) );
+                ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
             </#list>
 
             ${business_class.instanceName}List.add( ${business_class.instanceName} );
