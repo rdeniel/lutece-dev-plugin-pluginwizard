@@ -35,7 +35,7 @@
 package fr.paris.lutece.plugins.${plugin_name}.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
-import java.util.Collection;
+import java.util.List;
 
 
 
@@ -81,13 +81,13 @@ public interface I${business_class.businessClass}DAO
      * @param plugin the Plugin
      * @return The collection which contains the data of all the ${business_class.instanceName} objects
      */
-    Collection&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin );
+    List&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin );
     
     /**
      * Load the id of all the ${business_class.instanceName} objects and returns them as a collection
      * @param plugin the Plugin
      * @return The collection which contains the id of all the ${business_class.instanceName} objects
      */
-    Collection&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin );
+    List&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin );
 }
 

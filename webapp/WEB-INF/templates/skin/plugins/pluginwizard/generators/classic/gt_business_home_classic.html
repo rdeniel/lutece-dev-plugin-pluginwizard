@@ -37,7 +37,7 @@ package fr.paris.lutece.plugins.${plugin_name}.business;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * This class provides instances management methods (create, find, ...) for ${business_class.businessClass} objects
@@ -107,7 +107,7 @@ public final class ${business_class.businessClass}Home
      * Load the data of all the ${business_class.instanceName} objects and returns them in form of a collection
      * @return the collection which contains the data of all the ${business_class.instanceName} objects
      */
-    public static Collection&lt;${business_class.businessClass}&gt; get${business_class.businessClass}sList( )
+    public static List&lt;${business_class.businessClass}&gt; get${business_class.businessClass}sList( )
     {
         return _dao.select${business_class.businessClass}sList( _plugin );
     }
@@ -116,7 +116,7 @@ public final class ${business_class.businessClass}Home
      * Load the id of all the ${business_class.instanceName} objects and returns them in form of a collection
      * @return the collection which contains the id of all the ${business_class.instanceName} objects
      */
-    public static Collection&lt;Integer&gt; getId${business_class.businessClass}sList( )
+    public static List&lt;Integer&gt; getId${business_class.businessClass}sList( )
     {
         return _dao.selectId${business_class.businessClass}sList( _plugin );
     }

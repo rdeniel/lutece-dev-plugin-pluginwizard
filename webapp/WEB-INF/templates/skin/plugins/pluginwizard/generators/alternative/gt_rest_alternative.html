@@ -44,7 +44,7 @@ import java.io.IOException;
 
 import net.sf.json.JSONObject;
 
-import java.util.Collection;
+import java.util.List;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -101,7 +101,7 @@ public class ${business_class.businessClass?cap_first}Rest
     public String get${business_class.businessClass?cap_first}sXml( )
     {
         StringBuffer sbXML = new StringBuffer( XmlUtil.getXmlHeader() );
-        Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
+        List<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
         
         XmlUtil.beginElement( sbXML , KEY_${business_class.businessClass?upper_case}S );
 
@@ -124,7 +124,7 @@ public class ${business_class.businessClass?cap_first}Rest
         JSONObject json${business_class.businessClass?cap_first} = new JSONObject(  );
         JSONObject json = new JSONObject(  );
         
-        Collection<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
+        List<${business_class.businessClass?cap_first}> list = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList();
         
         for ( ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} : list )
         {

@@ -116,7 +116,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
     public String getManage${business_class.businessClass}s( HttpServletRequest request )
     {
         _${business_class.businessClass?lower_case} = null;
-        List<${business_class.businessClass}> list${business_class.businessClass}s = (List<${business_class.businessClass}>) ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
+        List<${business_class.businessClass}> list${business_class.businessClass}s = ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
         Map<String, Object> model = getPaginatedListModel( request, MARK_${business_class.businessClass?upper_case}_LIST, list${business_class.businessClass}s, JSP_MANAGE_${business_class.businessClass?upper_case}S );
 
         return getPage( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S, TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, model );

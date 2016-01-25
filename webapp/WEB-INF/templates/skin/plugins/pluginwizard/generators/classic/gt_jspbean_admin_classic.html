@@ -110,7 +110,7 @@ public class ${business_class.businessClass}JspBean extends ${feature_name}JspBe
                 _nDefaultItemsPerPage );
         UrlItem url = new UrlItem(  JSP_MANAGE_${business_class.businessClass?upper_case}S);
         String strUrl = url.getUrl(  );
-        List<${business_class.businessClass?cap_first}> list${business_class.businessClass}s = (List<${business_class.businessClass?cap_first}>) ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
+        List<${business_class.businessClass?cap_first}> list${business_class.businessClass}s = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
 
         // PAGINATOR
         LocalizedPaginator paginator = new LocalizedPaginator( list${business_class.businessClass}s, _nItemsPerPage, strUrl , PARAMETER_PAGE_INDEX, _strCurrentPageIndex , getLocale() );
