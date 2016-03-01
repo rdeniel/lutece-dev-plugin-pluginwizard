@@ -60,7 +60,8 @@ public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
     private static DozerBeanMapper _mapper = new DozerBeanMapper(  );
-    private static String ID = "id_";
+    private static final String ID = "id";
+    private static final String UNDERSCORE = "_";
 
     /** private constructor */
     private ModelService(  )
@@ -519,7 +520,19 @@ public final class ModelService
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass businessClass = _mapper.map( bc, BusinessClass.class );
         businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
-        businessClass.setPrimaryKey( ID + bc.getBusinessClass().toLowerCase() );
+        
+        String strBusinessClass = "";
+        char charBusinessClass[] = bc.getBusinessClass().toCharArray();
+        for(int i = 0; i < charBusinessClass.length; i++)
+        {
+            if( Character.isUpperCase( charBusinessClass[i] ))
+            {
+                strBusinessClass += UNDERSCORE;
+            }
+            strBusinessClass += Character.toLowerCase( charBusinessClass[i] );
+        }
+        businessClass.setPrimaryKey( ID + strBusinessClass );
+        
         pm.getBusinessClasses(  ).add( businessClass );
         savePluginModel( pm );
 
@@ -776,12 +789,11 @@ public final class ModelService
     /**
      * Gets all business classes for a given Application
      * @param pm The plugin model
-     * @param nApplicationId The Application's ID
      * @return The list of business class
      */
     public static List<BusinessClass> getBusinessClassesByRest( PluginModel pm)
     {
-        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<BusinessClass> list = new ArrayList<>(  );
         List<BusinessClass> listAll = pm.getBusinessClasses(  );
         Rest rest = pm.getRest(  );
         
@@ -806,7 +818,7 @@ public final class ModelService
      */
     public static List<BusinessClass> getBusinessClassesByApplication( PluginModel pm, int nApplicationId )
     {
-        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<BusinessClass> list = new ArrayList<>(  );
         List<Application> listAll = pm.getApplications(  );
         List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
 
@@ -837,7 +849,7 @@ public final class ModelService
      */
     public static List<BusinessClass> getBusinessClassesByFeature( PluginModel pm, int nFeatureId )
     {
-        List<BusinessClass> list = new ArrayList<BusinessClass>(  );
+        List<BusinessClass> list = new ArrayList<>(  );
         List<Feature> listAll = pm.getFeatures(  );
         List<BusinessClass> listAll2 = pm.getBusinessClasses(  );
 
@@ -927,6 +939,7 @@ public final class ModelService
     /**
      * Returns a Reference list with all Business Classes
      * * @param nPluginId The Plugin's ID
+     * @param nPluginId
      * @return The list
      */
     public static ReferenceList getComboBusinessClasses( int nPluginId )
