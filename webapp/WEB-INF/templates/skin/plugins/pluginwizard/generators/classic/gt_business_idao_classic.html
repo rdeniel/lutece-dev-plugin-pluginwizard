@@ -35,6 +35,7 @@
 package fr.paris.lutece.plugins.${plugin_name}.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.ReferenceList;
 import java.util.List;
 
 
@@ -77,17 +78,23 @@ public interface I${business_class.businessClass}DAO
     ${business_class.businessClass} load( int nKey, Plugin plugin );
 
     /**
-     * Load the data of all the ${business_class.instanceName} objects and returns them as a collection
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a list
      * @param plugin the Plugin
-     * @return The collection which contains the data of all the ${business_class.instanceName} objects
+     * @return The list which contains the data of all the ${business_class.instanceName} objects
      */
     List&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin );
     
     /**
-     * Load the id of all the ${business_class.instanceName} objects and returns them as a collection
+     * Load the id of all the ${business_class.instanceName} objects and returns them as a list
      * @param plugin the Plugin
-     * @return The collection which contains the id of all the ${business_class.instanceName} objects
+     * @return The list which contains the id of all the ${business_class.instanceName} objects
      */
     List&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin );
+    
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a referenceList
+     * @param plugin the Plugin
+     * @return The referenceList which contains the data of all the ${business_class.instanceName} objects
+     */
+    ReferenceList select${business_class.businessClass}sReferenceList( Plugin plugin );
 }
-

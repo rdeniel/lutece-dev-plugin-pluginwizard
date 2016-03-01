@@ -35,6 +35,7 @@
 package fr.paris.lutece.plugins.${plugin_name}.business;
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 import java.util.ArrayList;
@@ -64,16 +65,14 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
         daoUtil.executeQuery( );
-
         int nKey = 1;
 
         if( daoUtil.next( ) )
         {
-                nKey = daoUtil.getInt( 1 ) + 1;
+            nKey = daoUtil.getInt( 1 ) + 1;
         }
 
         daoUtil.free();
-
         return nKey;
     }
 
@@ -84,12 +83,10 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     public void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-
         ${business_class.instanceName}.setId( newPrimaryKey( plugin ) );
-
         int nIndex = 1;
-        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
         
+        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
         daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
         </#list>
@@ -107,13 +104,13 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1 , nKey );
         daoUtil.executeQuery( );
-
         ${business_class.businessClass} ${business_class.instanceName} = null;
 
         if ( daoUtil.next( ) )
         {
-            int nIndex = 1;
             ${business_class.instanceName} = new ${business_class.businessClass}();
+            int nIndex = 1;
+            
             ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
             <#list business_class.attributes as attribute>
             ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
@@ -143,8 +140,8 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     public void store( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-        
         int nIndex = 1;
+        
         daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
         daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
@@ -161,7 +158,7 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public List&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin )
     {
-        List&lt;${business_class.businessClass}&gt; ${business_class.instanceName}List = new ArrayList&lt;${business_class.businessClass}&gt;(  );
+        List&lt;${business_class.businessClass}&gt; ${business_class.instanceName}List = new ArrayList&lt;&gt;(  );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
         daoUtil.executeQuery(  );
 
@@ -169,9 +166,10 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
         {
             ${business_class.businessClass} ${business_class.instanceName} = new ${business_class.businessClass}(  );
             int nIndex = 1;
+            
             ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
             <#list business_class.attributes as attribute>
-                ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
             </#list>
 
             ${business_class.instanceName}List.add( ${business_class.instanceName} );
@@ -187,16 +185,35 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public List&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin )
     {
-            List&lt;Integer&gt; ${business_class.instanceName}List = new ArrayList&lt;Integer&gt;( );
-            DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
-            daoUtil.executeQuery(  );
+        List&lt;Integer&gt; ${business_class.instanceName}List = new ArrayList&lt;&gt;( );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
+        daoUtil.executeQuery(  );
 
-            while ( daoUtil.next(  ) )
-            {
-                ${business_class.instanceName}List.add( daoUtil.getInt( 1 ) );
-            }
+        while ( daoUtil.next(  ) )
+        {
+            ${business_class.instanceName}List.add( daoUtil.getInt( 1 ) );
+        }
 
-            daoUtil.free( );
-            return ${business_class.instanceName}List;
+        daoUtil.free( );
+        return ${business_class.instanceName}List;
+    }
+    
+    /**
+     * {@inheritDoc }
+     */
+    @Override
+    public ReferenceList select${business_class.businessClass}sReferenceList( Plugin plugin )
+    {
+        ReferenceList ${business_class.instanceName}List = new ReferenceList();
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+        daoUtil.executeQuery(  );
+
+        while ( daoUtil.next(  ) )
+        {
+            ${business_class.instanceName}List.addItem( daoUtil.getInt( 1 ) , daoUtil.getString( 2 ) );
+        }
+
+        daoUtil.free( );
+        return ${business_class.instanceName}List;
     }
 }
