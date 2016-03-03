@@ -1,0 +1,233 @@
+/*
+ * Copyright (c) 2002-2016, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+package fr.paris.lutece.plugins.${plugin_model.pluginName}.web;
+
+import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first};
+import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first}Home;
+import fr.paris.lutece.portal.service.message.AdminMessage;
+import fr.paris.lutece.portal.service.message.AdminMessageService;
+import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
+import fr.paris.lutece.util.url.UrlItem;
+
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * This class provides the user interface to manage ${business_class.businessClass} features ( manage, create, modify, remove )
+ */
+@Controller( controllerJsp = "Manage${business_class.businessClass}s.jsp", controllerPath = "jsp/admin/plugins/${plugin_model.pluginName}/", right = "${feature_right}" )
+public class ${business_class.businessClass}JspBean extends ${feature_name}JspBean
+{
+    // Templates
+    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/admin/plugins/${plugin_model.pluginName}/manage_${business_class.businessClass?lower_case}s.html";
+    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/admin/plugins/${plugin_model.pluginName}/create_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/admin/plugins/${plugin_model.pluginName}/modify_${business_class.businessClass?lower_case}.html";
+
+    // Parameters
+    private static final String PARAMETER_ID_${business_class.businessClass?upper_case} = "id";
+
+    // Properties for page titles
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S = "${plugin_model.pluginName?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} = "${plugin_model.pluginName?lower_case}.modify_${business_class.businessClass?lower_case}.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName?lower_case}.create_${business_class.businessClass?lower_case}.pageTitle";
+
+    // Markers
+    private static final String MARK_${business_class.businessClass?upper_case}_LIST = "${business_class.businessClass?lower_case}_list";
+    private static final String MARK_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
+
+    private static final String JSP_MANAGE_${business_class.businessClass?upper_case}S = "jsp/admin/plugins/${plugin_model.pluginName}/Manage${business_class.businessClass?cap_first}s.jsp";
+
+    // Properties
+    private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName}.message.confirmRemove${business_class.businessClass?cap_first}";
+
+    // Validations
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${plugin_model.pluginName}.model.entity.${business_class.businessClass?lower_case}.attribute.";
+
+    // Views
+    private static final String VIEW_MANAGE_${business_class.businessClass?upper_case}S = "manage${business_class.businessClass}s";
+    private static final String VIEW_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
+    private static final String VIEW_MODIFY_${business_class.businessClass?upper_case} = "modify${business_class.businessClass}";
+
+    // Actions
+    private static final String ACTION_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
+    private static final String ACTION_MODIFY_${business_class.businessClass?upper_case} = "modify${business_class.businessClass}";
+    private static final String ACTION_REMOVE_${business_class.businessClass?upper_case} = "remove${business_class.businessClass}";
+    private static final String ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "confirmRemove${business_class.businessClass}";
+
+    // Infos
+    private static final String INFO_${business_class.businessClass?upper_case}_CREATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.created";
+    private static final String INFO_${business_class.businessClass?upper_case}_UPDATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.updated";
+    private static final String INFO_${business_class.businessClass?upper_case}_REMOVED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.removed";
+    
+    // Session variable to store working values
+    private ${business_class.businessClass} _${business_class.businessClass?lower_case};
+    
+    /**
+     * Build the Manage View
+     * @param request The HTTP request
+     * @return The page
+     */
+    @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
+    public String getManage${business_class.businessClass}s( HttpServletRequest request )
+    {
+        _${business_class.businessClass?lower_case} = null;
+        List<${business_class.businessClass}> list${business_class.businessClass}s = ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
+        Map<String, Object> model = getPaginatedListModel( request, MARK_${business_class.businessClass?upper_case}_LIST, list${business_class.businessClass}s, JSP_MANAGE_${business_class.businessClass?upper_case}S );
+
+        return getPage( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S, TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, model );
+    }
+
+    /**
+     * Returns the form to create a ${business_class.businessClass?lower_case}
+     *
+     * @param request The Http request
+     * @return the html code of the ${business_class.businessClass?lower_case} form
+     */
+    @View( VIEW_CREATE_${business_class.businessClass?upper_case} )
+    public String getCreate${business_class.businessClass}( HttpServletRequest request )
+    {
+        _${business_class.businessClass?lower_case} = ( _${business_class.businessClass?lower_case} != null ) ? _${business_class.businessClass?lower_case} : new ${business_class.businessClass}(  );
+
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
+
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case}, TEMPLATE_CREATE_${business_class.businessClass?upper_case}, model );
+    }
+
+    /**
+     * Process the data capture form of a new ${business_class.businessClass?lower_case}
+     *
+     * @param request The Http Request
+     * @return The Jsp URL of the process result
+     */
+    @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
+    public String doCreate${business_class.businessClass}( HttpServletRequest request )
+    {
+        populate( _${business_class.businessClass?lower_case}, request );
+
+        // Check constraints
+        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        {
+            return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
+        }
+
+        ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
+        addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
+    }
+
+    /**
+     * Manages the removal form of a ${business_class.businessClass?lower_case} whose identifier is in the http
+     * request
+     *
+     * @param request The Http request
+     * @return the html code to confirm
+     */
+    @Action( ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} )
+    public String getConfirmRemove${business_class.businessClass}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
+        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
+        url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
+
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
+
+        return redirect( request, strMessageUrl );
+    }
+
+    /**
+     * Handles the removal form of a ${business_class.businessClass?lower_case}
+     *
+     * @param request The Http request
+     * @return the jsp URL to display the form to manage ${business_class.businessClass?lower_case}s
+     */
+    @Action( ACTION_REMOVE_${business_class.businessClass?upper_case} )
+    public String doRemove${business_class.businessClass}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
+        ${business_class.businessClass}Home.remove( nId );
+        addInfo( INFO_${business_class.businessClass?upper_case}_REMOVED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
+    }
+
+    /**
+     * Returns the form to update info about a ${business_class.businessClass?lower_case}
+     *
+     * @param request The Http request
+     * @return The HTML form to update info
+     */
+    @View( VIEW_MODIFY_${business_class.businessClass?upper_case} )
+    public String getModify${business_class.businessClass}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
+
+        if ( _${business_class.businessClass?lower_case} == null || ( _${business_class.businessClass?lower_case}.getId(  ) != nId ))
+        {
+            _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
+        }
+
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
+
+        return getPage( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case}, TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, model );
+    }
+
+    /**
+     * Process the change form of a ${business_class.businessClass?lower_case}
+     *
+     * @param request The Http request
+     * @return The Jsp URL of the process result
+     */
+    @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
+    public String doModify${business_class.businessClass}( HttpServletRequest request )
+    {
+        populate( _${business_class.businessClass?lower_case}, request );
+
+        // Check constraints
+        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        {
+            return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
+        }
+
+        ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
+        addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
+    }
+}
