@@ -4,7 +4,7 @@
 <${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
-<${macro}rowBoxHeader i18nTitleKey="${plugin_name}.create_${business_class.businessClass?lower_case}.pageTitle">
+<${macro}rowBoxHeader i18nTitleKey="${plugin_name}.create_${business_class.businessClass?lower_case}.title">
     <form class="form-horizontal" method="post" name="create_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
         <${macro}messages errors=errors />
         <input type="hidden" id="id" name="id"/>
@@ -22,7 +22,7 @@
 <${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
-<${macro}rowBoxHeader i18nTitleKey="${plugin_name}.modify_${business_class.businessClass?lower_case}.pageTitle">
+<${macro}rowBoxHeader i18nTitleKey="${plugin_name}.modify_${business_class.businessClass?lower_case}.title">
     <form class="form-horizontal" method="post" name="modify_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
         <${macro}messages errors=errors />
         <input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
@@ -41,7 +41,7 @@
 <${macro}tabs tab="${business_class.businessClass?lower_case}" />
 
 <${macro}rowBox>
-    <${macro}boxHeader i18nTitleKey="${plugin_name}.manage_${business_class.businessClass?lower_case}s.tableLabel">
+    <${macro}boxHeader i18nTitleKey="${plugin_name}.manage_${business_class.businessClass?lower_case}s.title">
         <${macro}headerButtons>
 
         

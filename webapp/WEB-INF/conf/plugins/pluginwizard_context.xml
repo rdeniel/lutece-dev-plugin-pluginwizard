@@ -101,33 +101,33 @@
     
     <bean id="pluginwizard.generator.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/xml/gt_xml_pom_file.html</value>
+            <value>/generators/default/xml/gt_xml_pom_file.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.pluginXml" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PluginXmlGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/xml/gt_xml_plugin_file.html</value>
+            <value>/generators/default/xml/gt_xml_plugin_file.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.context" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SpringContextXmlGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/xml/gt_xml_spring_context.html</value>
+            <value>/generators/default/xml/gt_xml_spring_context.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.properties" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PropertiesGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/properties/gt_properties_file.html</value>
+            <value>/generators/default/properties/gt_properties_file.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.site" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SiteDocumentationGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/doc/gt_site_xdoc.html</value>
+            <value>/generators/default/doc/gt_site_xdoc.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" />
     <bean id="pluginwizard.generator.sql" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SqlCodeGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/sql/gt_sql.html</value>
+            <value>/generators/default/sql/gt_sql.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.admin.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessClassGenerator" >
@@ -148,7 +148,7 @@
     </bean>
     <bean id="pluginwizard.business.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/business/gt_business_class.html</value>
+            <value>/generators/default/business/gt_business_class.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.business.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -156,7 +156,7 @@
             <value>DAO</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/business/gt_business_dao.html</value>
+            <value>/generators/default/business/gt_business_dao.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.business.idao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -167,7 +167,7 @@
             <value>DAO</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/business/gt_business_idao.html</value>
+            <value>/generators/default/business/gt_business_idao.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.business.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -175,7 +175,7 @@
             <value>Home</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/business/gt_business_home.html</value>
+            <value>/generators/default/business/gt_business_home.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.business.test" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -186,44 +186,44 @@
             <value>src/test</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/business/gt_business_test.html</value>
+            <value>/generators/default/business/gt_business_test.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.admin.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspControllerGenerator" >
         <property name="businessTemplate">
-            <value>/skin/plugins/pluginwizard/generators/default/jsp/gt_jsp_admin_controller.html</value>
+            <value>/generators/default/jsp/gt_jsp_admin_controller.html</value>
         </property>
         <property name="featureTemplate">
-            <value>/skin/plugins/pluginwizard/generators/default/jsp/gt_jsp_feature.html</value>
+            <value>/generators/default/jsp/gt_jsp_feature.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.admin.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/jspbean/gt_jspbean.html</value>
+            <value>/generators/default/jspbean/gt_jspbean.html</value>
         </property>
         <property name="abstractParentBeanTemplate">
-            <value>/skin/plugins/pluginwizard/generators/default/jspbean/gt_jspbean_abstract.html</value>
+            <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/html/gt_html_admin.html</value>
+            <value>/generators/default/html/gt_html_admin.html</value>
         </property>
         <property name="tabsTemplate">
-            <value>/skin/plugins/pluginwizard/generators/default/html/gt_html_admin_tabs.html</value>
+            <value>/generators/default/html/gt_html_admin_tabs.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.xpage.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/xpage/gt_xpage.html</value>
+            <value>/generators/default/xpage/gt_xpage.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.xpage.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/html/gt_html_xpage.html</value>
+            <value>/generators/default/html/gt_html_xpage.html</value>
         </property>
         <property name="tabsTemplate">
-            <value>/skin/plugins/pluginwizard/generators/default/html/gt_html_xpage_tabs.html</value>
+            <value>/generators/default/html/gt_html_xpage_tabs.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.portlet.java.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletGenerator" >
@@ -243,7 +243,7 @@
     </bean>
     <bean id="pluginwizard.portlet.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_class.html</value>
+            <value>/generators/default/portlet/gt_portlet_class.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.portlet.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -251,7 +251,7 @@
             <value>DAO</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_dao.html</value>
+            <value>/generators/default/portlet/gt_portlet_dao.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.portlet.idao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -262,7 +262,7 @@
             <value>DAO</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_idao.html</value>
+            <value>/generators/default/portlet/gt_portlet_idao.html</value>
         </property>
     </bean>    
     <bean id="pluginwizard.portlet.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -270,38 +270,38 @@
             <value>Home</value>
         </property>
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_home.html</value>
+            <value>/generators/default/portlet/gt_portlet_home.html</value>
         </property>
     </bean>
     <!-- TODO -->
     <bean id="pluginwizard.generator.portlet.java.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspBeanGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_jspbean.html</value>
+            <value>/generators/default/portlet/gt_portlet_jspbean.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_jsp.html</value>
+            <value>/generators/default/portlet/gt_portlet_jsp.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.portlet.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletTemplateGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_html.html</value>
+            <value>/generators/default/portlet/gt_portlet_html.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.portlet.xsl" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletXslGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/portlet/gt_portlet_xsl.html</value>
+            <value>/generators/default/portlet/gt_portlet_xsl.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.rest.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.RestGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/rest/gt_rest.html</value>
+            <value>/generators/default/rest/gt_rest.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.rest.constants.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.RestConstantsGenerator" >
         <property name="template">
-            <value>/skin/plugins/pluginwizard/generators/default/rest/gt_rest_constants.html</value>
+            <value>/generators/default/rest/gt_rest_constants.html</value>
         </property>
     </bean>
 

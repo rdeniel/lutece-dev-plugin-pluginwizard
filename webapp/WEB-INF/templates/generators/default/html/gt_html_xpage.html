@@ -10,7 +10,7 @@
 
     <form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
-            <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
+            <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
 
             <${macro}messages errors=errors />
             <input type="hidden" id="id" name="id"/>  
@@ -48,7 +48,7 @@
 
     <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
-            <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.tableLabel${i18n_close}</legend>
+            <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
 
             <${macro}messages errors=errors />
             <input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
@@ -96,7 +96,7 @@
             </button>
         </form>
 
-    <h4>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.tableLabel${i18n_close}</h4>
+    <h4>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.title{i18n_close}</h4>
         
     <table class="table table-condensed table-striped">
         <tr>

@@ -37,6 +37,8 @@ package fr.paris.lutece.plugins.${plugin_name}.business;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.util.ReferenceList;
+
 import java.util.List;
 
 /**
@@ -46,7 +48,6 @@ import java.util.List;
 public final class ${business_class.businessClass}Home
 {
     // Static variable pointed at the DAO instance
-
     private static I${business_class.businessClass}DAO _dao = SpringContextService.getBean( "${plugin_name}.${business_class.instanceName}DAO" );
     private static Plugin _plugin = PluginService.getPlugin( "${plugin_name}" );
 
@@ -104,8 +105,8 @@ public final class ${business_class.businessClass}Home
     }
 
     /**
-     * Load the data of all the ${business_class.instanceName} objects and returns them in form of a collection
-     * @return the collection which contains the data of all the ${business_class.instanceName} objects
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a list
+     * @return the list which contains the data of all the ${business_class.instanceName} objects
      */
     public static List&lt;${business_class.businessClass}&gt; get${business_class.businessClass}sList( )
     {
@@ -113,12 +114,21 @@ public final class ${business_class.businessClass}Home
     }
     
     /**
-     * Load the id of all the ${business_class.instanceName} objects and returns them in form of a collection
-     * @return the collection which contains the id of all the ${business_class.instanceName} objects
+     * Load the id of all the ${business_class.instanceName} objects and returns them as a list
+     * @return the list which contains the id of all the ${business_class.instanceName} objects
      */
     public static List&lt;Integer&gt; getId${business_class.businessClass}sList( )
     {
         return _dao.selectId${business_class.businessClass}sList( _plugin );
+    }
+    
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a referenceList
+     * @return the referenceList which contains the data of all the ${business_class.instanceName} objects
+     */
+    public static ReferenceList get${business_class.businessClass}sReferenceList( )
+    {
+        return _dao.select${business_class.businessClass}sReferenceList(_plugin );
     }
 }
 
