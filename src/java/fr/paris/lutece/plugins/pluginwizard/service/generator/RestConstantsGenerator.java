@@ -17,8 +17,8 @@ import java.util.Map;
  */
 public class RestConstantsGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/rs/";
-     private static final String CONSTANT_REST = "Constants.java";
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/rs/";
+    private static final String CONSTANT_REST = "Constants.java";
 
     /**
      * {@inheritDoc }

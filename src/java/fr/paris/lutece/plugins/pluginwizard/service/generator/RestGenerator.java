@@ -17,7 +17,7 @@ import java.util.Map;
  */
 public class RestGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/rs/";
+    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/rs/";
     private static final String SUFFIX_REST = "Rest.java";
 
     /**

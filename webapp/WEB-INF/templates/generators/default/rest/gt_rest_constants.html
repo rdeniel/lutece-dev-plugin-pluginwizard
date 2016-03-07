@@ -31,17 +31,23 @@
  *
  * License 1.0
  */
+package fr.paris.lutece.plugins.${plugin_model.pluginName}.rs;
 
-package fr.paris.lutece.plugins.${plugin_model.pluginName}.web.rs;
-
+/**
+ * Rest Constants
+ */
 public final class Constants 
 {
+    public static final String API_PATH = "${plugin_model.pluginName}/api";
+    public static final String VERSION_PATH = "/{" + Constants.VERSION + "}";
+    public static final String ID_PATH = "/{" + Constants.ID + "}";
+    public static final String VERSION = "version";
+    public static final String ID = "id";
     <#list business_classes as business_class>
-    public static final String ${business_class.businessClass?upper_case}_PATH = "${business_class.businessClass?lower_case}/";
+    
+    public static final String ${business_class.businessClass?upper_case}_PATH = "/${business_class.businessClass?lower_case}s";
+    <#list business_class.attributes as attribute>
+    public static final String ${business_class.businessClass?upper_case}_ATTRIBUTE_${attribute.paramName?upper_case} = "${attribute.paramName?lower_case}";
     </#list>
-    public static final String PLUGIN_PATH = "${plugin_model.pluginName}/";
-    public static final String ID_PATH = "id";
-    public static final String ALL_PATH = "s";
-    public static final String FORMAT_QUERY = "format";
-    public static final String MEDIA_TYPE_JSON = "json";
+    </#list>
 }
