@@ -304,6 +304,11 @@
             <value>/generators/default/rest/gt_rest_constants.html</value>
         </property>
     </bean>
+    <bean id="pluginwizard.generator.rest.swagger.json" class="fr.paris.lutece.plugins.pluginwizard.service.generator.RestSwaggerGenerator" >
+        <property name="template">
+            <value>/generators/default/rest/gt_rest_swagger.html</value>
+        </property>
+    </bean>
 
     <!-- ############################### GENERATION SCHEME #########################-->
     
@@ -333,6 +338,7 @@
                 <ref bean="pluginwizard.generator.portlet.xsl" />
                 <ref bean="pluginwizard.generator.rest.java" />
                 <ref bean="pluginwizard.generator.rest.constants.java" />
+                <ref bean="pluginwizard.generator.rest.swagger.json" />
             </list>
         </property>
     </bean>
