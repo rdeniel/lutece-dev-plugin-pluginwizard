@@ -39,10 +39,15 @@ package fr.paris.lutece.plugins.${plugin_model.pluginName}.rs;
 public final class Constants 
 {
     public static final String API_PATH = "${plugin_model.pluginName}/api";
-    public static final String VERSION_PATH = "/{" + Constants.VERSION + "}";
+    public static final String VERSION_PATH = "/v{" + Constants.VERSION + "}";
     public static final String ID_PATH = "/{" + Constants.ID + "}";
     public static final String VERSION = "version";
     public static final String ID = "id";
+    
+    public static final String EMPTY_OBJECT = "{}";
+    public static final String ERROR_NOT_FOUND_VERSION = "Version not found";
+    public static final String ERROR_NOT_FOUND_RESOURCE = "Resource not found";
+    public static final String ERROR_BAD_REQUEST_EMPTY_PARAMETER = "Empty parameter";
     <#list business_classes as business_class>
     
     public static final String ${business_class.businessClass?upper_case}_PATH = "/${business_class.businessClass?lower_case}s";

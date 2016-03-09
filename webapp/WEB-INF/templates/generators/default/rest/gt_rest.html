@@ -80,9 +80,9 @@ public class ${business_class.businessClass?cap_first}Rest
             default:
                 break;
         }
-        _logger.error( Response.Status.NOT_FOUND );
+        _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
-                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ) ) ) )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
                 .build( );
     }
     
@@ -96,10 +96,9 @@ public class ${business_class.businessClass?cap_first}Rest
         
         if( list${business_class.businessClass?cap_first}s.isEmpty( ) )
         {
-            _logger.error( Response.Status.NO_CONTENT );
             return Response.status( Response.Status.NO_CONTENT )
-                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NO_CONTENT.name( ) ) ) )
-                    .build( );
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( Constants.EMPTY_OBJECT ) ) )
+                .build( );
         }
         return Response.status( Response.Status.OK )
                 .entity( JsonUtil.buildJsonResponse( new JsonResponse( list${business_class.businessClass?cap_first}s ) ) )
@@ -130,9 +129,9 @@ public class ${business_class.businessClass?cap_first}Rest
             default:
                 break;
         }
-        _logger.error( Response.Status.NOT_FOUND );
+        _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
-                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ) ) ) )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
                 .build( );
     }
     
@@ -147,9 +146,9 @@ public class ${business_class.businessClass?cap_first}Rest
     {
         if ( <#list business_class.attributes as attribute>StringUtils.isEmpty( ${attribute.paramName?lower_case} )<#if attribute_has_next> || </#if></#list> )
         {
-            _logger.error( Response.Status.BAD_REQUEST );
+            _logger.error( Constants.ERROR_BAD_REQUEST_EMPTY_PARAMETER );
             return Response.status( Response.Status.BAD_REQUEST )
-                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.BAD_REQUEST.name( ) ) ) )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.BAD_REQUEST.name( ), Constants.ERROR_BAD_REQUEST_EMPTY_PARAMETER ) ) )
                     .build( );
         }
         
@@ -190,9 +189,9 @@ public class ${business_class.businessClass?cap_first}Rest
             default:
                 break;
         }
-        _logger.error( Response.Status.NOT_FOUND );
+        _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
-                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ) ) ) )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
                 .build( );
     }
     
@@ -206,13 +205,20 @@ public class ${business_class.businessClass?cap_first}Rest
      */
     private Response modify${business_class.businessClass?cap_first}V1( Integer id, <#list business_class.attributes as attribute>String ${attribute.paramName?lower_case}<#if attribute_has_next>, </#if></#list> )
     {
-        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-
-        if ( ${business_class.businessClass?lower_case} == null || <#list business_class.attributes as attribute>StringUtils.isEmpty( ${attribute.paramName?lower_case} )<#if attribute_has_next> || </#if></#list> )
+        if ( <#list business_class.attributes as attribute>StringUtils.isEmpty( ${attribute.paramName?lower_case} )<#if attribute_has_next> || </#if></#list> )
         {
-            _logger.error( Response.Status.BAD_REQUEST );
+            _logger.error( Constants.ERROR_BAD_REQUEST_EMPTY_PARAMETER );
             return Response.status( Response.Status.BAD_REQUEST )
-                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.BAD_REQUEST.name( ) ) ) )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.BAD_REQUEST.name( ), Constants.ERROR_BAD_REQUEST_EMPTY_PARAMETER ) ) )
+                    .build( );
+        }
+        
+        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
+        if ( ${business_class.businessClass?lower_case} == null )
+        {
+            _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
+            return Response.status( Response.Status.NOT_FOUND )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_RESOURCE ) ) )
                     .build( );
         }
         
@@ -246,9 +252,9 @@ public class ${business_class.businessClass?cap_first}Rest
             default:
                 break;
         }
-        _logger.error( Response.Status.NOT_FOUND );
+        _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
-                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ) ) ) )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
                 .build( );
     }
     
@@ -260,19 +266,18 @@ public class ${business_class.businessClass?cap_first}Rest
     private Response delete${business_class.businessClass?cap_first}V1( Integer id )
     {
         ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-        
         if ( ${business_class.businessClass?lower_case} == null )
         {
-            _logger.error( Response.Status.BAD_REQUEST );
-            return Response.status( Response.Status.BAD_REQUEST )
-                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.BAD_REQUEST.name( ) ) ) )
+            _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
+            return Response.status( Response.Status.NOT_FOUND )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_RESOURCE ) ) )
                     .build( );
         }
         
         ${business_class.businessClass?cap_first}Home.remove( id );
         
         return Response.status( Response.Status.OK )
-                .entity( JsonUtil.buildJsonResponse( new JsonResponse( null ) ) )
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( Constants.EMPTY_OBJECT ) ) )
                 .build( );
     }
     
@@ -296,9 +301,9 @@ public class ${business_class.businessClass?cap_first}Rest
             default:
                 break;
         }
-        _logger.error( Response.Status.NOT_FOUND );
+        _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
-                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ) ) ) )
+                .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
                 .build( );
     }
     
@@ -310,12 +315,11 @@ public class ${business_class.businessClass?cap_first}Rest
     private Response get${business_class.businessClass?cap_first}V1( Integer id )
     {
         ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-        
         if ( ${business_class.businessClass?lower_case} == null )
         {
-            _logger.error( Response.Status.NO_CONTENT );
-            return Response.status( Response.Status.NO_CONTENT )
-                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NO_CONTENT.name( ) ) ) )
+            _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
+            return Response.status( Response.Status.NOT_FOUND )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_RESOURCE ) ) )
                     .build( );
         }
         
