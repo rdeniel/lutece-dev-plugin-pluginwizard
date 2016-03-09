@@ -121,7 +121,7 @@
     </bean>
     <bean id="pluginwizard.generator.site" class="fr.paris.lutece.plugins.pluginwizard.service.generator.SiteDocumentationGenerator" >
         <property name="template">
-            <value>/generators/default/doc/gt_site_xdoc.html</value>
+            <value>/generators/default/site/gt_site_xdoc.html</value>
         </property>
     </bean>
     <bean id="pluginwizard.generator.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" />
