@@ -43,6 +43,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Rest;
+import fr.paris.lutece.plugins.pluginwizard.service.MapperService;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
@@ -57,19 +58,23 @@ import fr.paris.lutece.portal.util.mvc.utils.MVCMessageBox;
 import fr.paris.lutece.portal.util.mvc.utils.MVCUtils;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.portal.web.upload.MultipartHttpServletRequest;
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.util.url.UrlItem;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * The class manage pluginwizard Page
@@ -127,6 +132,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String TEMPLATE_MESSAGE_BOX_EXISTS = "/skin/plugins/pluginwizard/message_exists.html";
     private static final String PARAM_ACTION = "action";
     private static final String PARAM_PAGE = "page";
+    private static final String PARAM_FILE = "file";
     private static final String PARAM_BUSINESS_CLASS_ID = "business_class_id";
     private static final String PARAM_ATTRIBUTE_ID = "attribute_id";
     private static final String PARAM_FEATURE_ID = "feature_id";
@@ -141,6 +147,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String VIEW_CREATE_DESCRIPTION = "createDescription";
     private static final String VIEW_MODIFY_DESCRIPTION = "modifyDescription";
     private static final String ACTION_CREATE_PLUGIN = "createPlugin";
+    private static final String ACTION_LOAD_PLUGIN = "loadPlugin";
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
     private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
     private static final String ACTION_RESET_DATA = "resetData";
@@ -209,6 +216,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     public static final String ERROR_TABLE_PREFIX = "pluginwizard.error.attribute.tablePrefix";
     public static final String ERROR_PRIMARY_TYPE = "pluginwizard.error.attribute.primaryType";
     public static final String ERROR_DESCRIPTION_TYPE = "pluginwizard.error.attribute.descriptionType";
+    public static final String ERROR_LOAD_PLUGIN = "pluginwizard.error.plugin.file";
 
     // NOTIFICATIONS
     public static final String INFO_SESSION_EXPIRED = "pluginwizard.info.sessionExpired";
@@ -322,6 +330,34 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         }
 
         return redirectMessageBox( request, buildExistsMessageBox(  ) );
+    }
+    
+    /**
+     * The load action of the plugin
+     *
+     * @param request The Http Request
+     * @return The plugin id
+     * @throws org.apache.commons.fileupload.FileUploadException
+     */
+    @Action( ACTION_LOAD_PLUGIN )
+    public XPage doLoadPlugin( HttpServletRequest request ) throws FileUploadException
+    {
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        FileItem fileItem = multipartRequest.getFile( PARAM_FILE );
+        
+        if( fileItem.getName() == null || fileItem.getName( ).isEmpty() )
+        {
+            addError( ERROR_LOAD_PLUGIN, getLocale( request ) );
+            return redirectView( request, VIEW_CREATE_PLUGIN );
+        }
+        
+        String strJson = new String( fileItem.get(), StandardCharsets.UTF_8 );
+        PluginModel pluginModel = MapperService.readJson( strJson );
+        
+        _nPluginId = ModelService.savePluginModelFromJson( pluginModel );
+        _description = ModelService.getDescription( _nPluginId );
+        
+        return redirectView( request, VIEW_MODIFY_DESCRIPTION );
     }
 
     @Action( ACTION_RESET_DATA )

@@ -132,6 +132,37 @@ public final class ModelService
             ModelHome.create( model );
         }
     }
+    
+    /**
+     * Save the plugin model from json
+     * @param pm The plugin model
+     * @return 
+     */
+    public static int savePluginModelFromJson( PluginModel pm )
+    {
+        Model model;
+        int nPluginId = ModelHome.exists( pm.getPluginName( ) );
+        
+        if ( nPluginId == -1 )
+        {
+            // if the plugin doesn't exist
+            model = new Model(  );
+            model.setName( pm.getPluginName(  ) );
+            
+            ModelHome.create( model );
+        }
+        else
+        {
+            model = ModelHome.findByPrimaryKey( nPluginId );
+        }
+        
+        pm.setIdPlugin( model.getIdPlugin( ) );
+        String strJson = MapperService.getJson( pm );
+        model.setModelJson( strJson );
+        ModelHome.update( model );
+        
+        return model.getIdPlugin( );
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // FEATURES
