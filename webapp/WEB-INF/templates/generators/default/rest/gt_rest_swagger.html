@@ -47,7 +47,7 @@
                     <#list business_class.attributes as attribute>
                     {
                         "name": "${attribute.paramName?lower_case}",
-                        "in": "query",
+                        "in": "formData",
                         "description": "${attribute.paramName?lower_case}",
                         "required": true,
                         "type": "string"
@@ -128,7 +128,7 @@
                     <#list business_class.attributes as attribute>
                     {
                         "name": "${attribute.paramName?lower_case}",
-                        "in": "query",
+                        "in": "formData",
                         "description": "${attribute.paramName?lower_case}",
                         "required": true,
                         "type": "string"
