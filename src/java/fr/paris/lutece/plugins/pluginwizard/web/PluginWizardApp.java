@@ -73,8 +73,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  * The class manage pluginwizard Page
@@ -259,7 +257,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
             String strAction = MVCUtils.getAction( request );
             String strView = MVCUtils.getView( request );
 
-            if ( !ACTION_CREATE_PLUGIN.equals( strAction ) && !VIEW_CREATE_PLUGIN.equals( strView ) )
+            if ( !ACTION_LOAD_PLUGIN.equals( strAction ) && !ACTION_CREATE_PLUGIN.equals( strAction ) && !VIEW_CREATE_PLUGIN.equals( strView ) )
             {
                 if ( ( strAction != null ) || ( strView != null ) )
                 {
