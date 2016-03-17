@@ -12,6 +12,7 @@
     <bean id="${plugin.pluginName}.${business_class.businessClass?uncap_first}Rest" class="fr.paris.lutece.plugins.${plugin.pluginName}.rs.${business_class.businessClass?cap_first}Rest" />
 </#if>
 </#list>
+    <bean id="${plugin.pluginName}.swaggerRest" class="fr.paris.lutece.plugins.${plugin.pluginName}.rs.SwaggerRest" />
 </#if>
 </#if>
 </#list>

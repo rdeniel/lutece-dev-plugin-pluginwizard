@@ -42,13 +42,13 @@ import java.util.Map;
 
 /**
  *
- * The rest swagger file generator
+ * The rest swagger.json file generator
  *
  */
-public class RestSwaggerGenerator extends AbstractGenerator
+public class RestSwaggerJsonGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/rs/";
-    private static final String SWAGGER_REST = "SwaggerRest.java";
+    private static final String PATH = "webapp/plugins/{plugin_name}/api/swagger/v1/";
+    private static final String CONSTANT_SWAGGER = "swagger.json";
 
     /**
      * {@inheritDoc }
@@ -63,8 +63,8 @@ public class RestSwaggerGenerator extends AbstractGenerator
 
         if ( !listBusinessClasses.isEmpty(  ) )
         {
-            String strPath = getFilePath( pm, PATH, SWAGGER_REST );
-            String strSourceCode = getPage( pm );
+            String strPath = getFilePath( pm, PATH, CONSTANT_SWAGGER );
+            String strSourceCode = getPage( pm, listBusinessClasses );
             map.put( strPath, strSourceCode );
         }
         return map;
@@ -76,10 +76,11 @@ public class RestSwaggerGenerator extends AbstractGenerator
     * @param businessClasses the collection of business classes
     * @return The code of the Rest generated
     */
-    private String getPage( PluginModel pm )
+    private String getPage( PluginModel pm, Collection <BusinessClass> businessClasses )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
+        model.put( Markers.MARK_BUSINESS_CLASSES, businessClasses );
 
         return build( model );
     }

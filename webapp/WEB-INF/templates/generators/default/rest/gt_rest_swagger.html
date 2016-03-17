@@ -1,270 +1,98 @@
+ /*
+ * Copyright (c) 2002-2016, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+package fr.paris.lutece.plugins.${plugin_model.pluginName}.rs;
+
+import fr.paris.lutece.plugins.rest.service.RestConstants;
+import fr.paris.lutece.portal.service.util.AppPathService;
+import fr.paris.lutece.util.json.ErrorJsonResponse;
+import fr.paris.lutece.util.json.JsonUtil;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import org.apache.log4j.Logger;
+
+/**
+ * SwaggerRest
+ */
+@Path( RestConstants.BASE_PATH + Constants.API_PATH + Constants.VERSION_PATH )
+public class SwaggerRest
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0.0",
-        "title": "Plugin ${plugin_model.pluginName}",
-        "description": "${plugin_model.pluginName?cap_first} API"
-    },
-    "basePath": "/rest/${plugin_model.pluginName}/api/v1",
-    "produces": [
-        "application/json"
-    ],
-    "paths": {
-        <#list business_classes as business_class>
-        "/${business_class.businessClass?lower_case}s": {
-            "get": {
-                "description": "Get ${business_class.businessClass?cap_first} list",
-                "tags": [
-                    "${business_class.businessClass?cap_first}"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return the ${business_class.businessClass?cap_first} list",
-                        "schema": {
-                            "$ref": "#/definitions/${business_class.businessClass?cap_first}ListResult"
-                        }
-                    },
-                    "204": {
-                        "description": "No content",
-                        "schema": {
-                            "$ref": "#/definitions/NoContent"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create ${business_class.businessClass?cap_first}",
-                "tags": [
-                    "${business_class.businessClass?cap_first}"
-                ],
-                "parameters": [
-                    <#list business_class.attributes as attribute>
-                    {
-                        "name": "${attribute.paramName?lower_case}",
-                        "in": "formData",
-                        "description": "${attribute.paramName?lower_case}",
-                        "required": true,
-                        "type": "string"
-                    }<#if attribute_has_next>,</#if>
-                    </#list>
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return the ${business_class.businessClass?cap_first} created",
-                        "schema": {
-                            "$ref": "#/definitions/${business_class.businessClass?cap_first}Result"
-                        }
-                    },
-                    "400": {
-                        "description": "Empty parameter",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        },
-        "/${business_class.businessClass?lower_case}s/{id}": {
-            "get": {
-                "description": "Get ${business_class.businessClass?cap_first}",
-                "tags": [
-                    "${business_class.businessClass?cap_first}"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the ${business_class.businessClass?cap_first}",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return the ${business_class.businessClass?cap_first}",
-                        "schema": {
-                            "$ref": "#/definitions/${business_class.businessClass?cap_first}Result"
-                        }
-                    },
-                    "404": {
-                        "description": "Resource not found",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Modify ${business_class.businessClass?cap_first}",
-                "tags": [
-                    "${business_class.businessClass?cap_first}"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the ${business_class.businessClass?cap_first} to modify",
-                        "required": true,
-                        "type": "integer"
-                    },
-                    <#list business_class.attributes as attribute>
-                    {
-                        "name": "${attribute.paramName?lower_case}",
-                        "in": "formData",
-                        "description": "${attribute.paramName?lower_case}",
-                        "required": true,
-                        "type": "string"
-                    }<#if attribute_has_next>,</#if>
-                    </#list>
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return the ${business_class.businessClass?cap_first} modified",
-                        "schema": {
-                            "$ref": "#/definitions/${business_class.businessClass?cap_first}Result"
-                        }
-                    },
-                    "400": {
-                        "description": "Empty parameter",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "404": {
-                        "description": "Resource not found",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete ${business_class.businessClass?cap_first}",
-                "tags": [
-                    "${business_class.businessClass?cap_first}"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID of the ${business_class.businessClass?cap_first} to delete",
-                        "required": true,
-                        "type": "integer"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Return the ${business_class.businessClass?cap_first} deleted (No Content)",
-                        "schema": {
-                            "$ref": "#/definitions/NoContent"
-                        }
-                    },
-                    "404": {
-                        "description": "Resource not found",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Error"
-                        }
-                    }
-                }
-            }
-        }<#if business_class_has_next>,</#if>
-        </#list>
-    },
-    "definitions": {
-        "NoContent": {
-            "type": "object",
-            "properties": {
-                "result": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "Error": {
-            "type": "object",
-            "properties": {
-                "message": {
-                    "type": "string"
-                },
-                "errorCode": {
-                    "type": "string"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        <#list business_classes as business_class>
-        "${business_class.businessClass?cap_first}ListResult": {
-            "type": "object",
-            "properties": {
-                "result": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/${business_class.businessClass?cap_first}"
-                    }
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "${business_class.businessClass?cap_first}Result": {
-            "type": "object",
-            "properties": {
-                "result": {
-                    "$ref": "#/definitions/${business_class.businessClass?cap_first}"
-                },
-                "status": {
-                    "type": "string"
-                }
-            }
-        },
-        "${business_class.businessClass?cap_first}": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                <#list business_class.attributes as attribute>
-                "${attribute.paramName?lower_case}": {
-                    "type": "string"
-                }<#if attribute_has_next>,</#if>
-                </#list>
-            }
-        }<#if business_class_has_next>,</#if>
-        </#list>
+    private final Logger _logger = Logger.getLogger( RestConstants.REST_LOGGER );
+    
+    /**
+     * Get Swagger.json
+     * @param strVersion
+     * @return the swagger.json
+     */
+    @GET
+    @Path( Constants.SWAGGER_PATH )
+    @Produces( MediaType.APPLICATION_JSON )
+    public Response getSwagger( @PathParam( Constants.VERSION ) String strVersion )
+    {
+        String swaggerJson = null;
+        try
+        {
+            swaggerJson = new String( Files.readAllBytes( Paths.get( getJsonFile( strVersion ) ) ) );
+        }
+        catch(InvalidPathException | IOException e)
+        {
+            _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
+            return Response.status( Response.Status.NOT_FOUND )
+                    .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_RESOURCE ) ) )
+                    .build( );
+        }
+        return Response.status( Response.Status.OK )
+                .entity( swaggerJson )
+                .build( );
+    }
+    
+    private String getJsonFile( String strVersion )
+    {
+        return
+            AppPathService.getWebAppPath( ) +
+            Constants.SWAGGER_DIRECTORY_PATH +
+            Constants.API_PATH +
+            Constants.SWAGGER +
+            Constants.SWAGGER_VERSION_PATH + strVersion +
+            Constants.SWAGGER_PATH;
     }
 }
