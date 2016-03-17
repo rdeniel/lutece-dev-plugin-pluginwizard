@@ -37,9 +37,8 @@ import java.io.Serializable;
 
 import java.util.List;
 
-
 /**
- * This is the business class for the object PluginApplication
+ * This is the business class for the object Rest
  */
 public class Rest implements Serializable
 {
@@ -48,8 +47,8 @@ public class Rest implements Serializable
     private List<Integer> _nIdBusinessClasses;
 
     /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
+     * Returns the Id
+     * @return The Id
      */
     public int getId(  )
     {
@@ -57,8 +56,8 @@ public class Rest implements Serializable
     }
 
     /**
-     * Sets the nIdPluginRest
-     * @param nId The IdPluginRest
+     * Sets the Id
+     * @param nId The Id
      */
     public void setId( int nId )
     {

@@ -58,8 +58,8 @@ public class Application implements Serializable
     private String _strApplicationClass;
 
     /**
-     * Returns the IdPlugin
-     * @return The IdPlugin
+     * Returns the Id
+     * @return The Id
      */
     public int getId(  )
     {
@@ -67,8 +67,8 @@ public class Application implements Serializable
     }
 
     /**
-     * Sets the nIdPluginApplication
-     * @param nId The IdPluginApplication
+     * Sets the Id
+     * @param nId The Id
      */
     public void setId( int nId )
     {

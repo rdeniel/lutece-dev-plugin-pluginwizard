@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.${plugin_name}.web.portlet;
 
-
 import fr.paris.lutece.plugins.${plugin_name}.business.portlet.${portlet.portletClass};
 import fr.paris.lutece.plugins.${plugin_name}.business.portlet.${portlet.portletClass}Home;
 import fr.paris.lutece.portal.business.portlet.PortletHome;
@@ -42,13 +41,11 @@ import fr.paris.lutece.util.html.HtmlTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  * This class provides the user interface to manage ${portlet.portletClass} features
  */
 public class ${portlet.portletClass}JspBean extends PortletJspBean
 {
-
     /**
      * Returns the ${portlet.portletClass} form of creation
      *
@@ -141,5 +138,4 @@ public class ${portlet.portletClass}JspBean extends PortletJspBean
         // displays the page with the updated portlet
         return getPageUrl( portlet.getPageId(  ) );
     }
-
 }

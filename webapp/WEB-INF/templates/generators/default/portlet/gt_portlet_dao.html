@@ -36,21 +36,16 @@ package fr.paris.lutece.plugins.${plugin_name}.business.portlet;
 import fr.paris.lutece.portal.business.portlet.Portlet;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-
 /**
  * this class provides Data Access methods for ${portlet.portletClass} objects
  */
 public final class ${portlet.portletClass}DAO implements I${portlet.portletClass}DAO
 {
-    ////////////////////////////////////////////////////////////////////////////
     // Constants
     private static final String SQL_QUERY_SELECT = "SELECT id_portlet FROM ${portlet.portletTypeName?lower_case} WHERE id_portlet = ? ";
     private static final String SQL_QUERY_INSERT = "INSERT INTO ${portlet.portletTypeName?lower_case} ( id_portlet ) VALUES ( ? )";
     private static final String SQL_QUERY_DELETE = "DELETE FROM ${portlet.portletTypeName?lower_case} WHERE id_portlet = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE ${portlet.portletTypeName?lower_case} SET id_portlet = ? WHERE id_portlet = ? ";
-
-    ///////////////////////////////////////////////////////////////////////////////////////
-    // Access methods to data
 
     /**
      * Insert a new record in the table.
@@ -120,5 +115,4 @@ public final class ${portlet.portletClass}DAO implements I${portlet.portletClass
 
         return portlet;
     }
-
 }

@@ -36,16 +36,13 @@ package fr.paris.lutece.plugins.${plugin_name}.business.portlet;
 import fr.paris.lutece.portal.business.portlet.IPortletInterfaceDAO;
 import fr.paris.lutece.portal.business.portlet.Portlet;
 
-
 /**
- *
- * @author 
+ * I${portlet.portletClass}DAO Interface
  */
 public interface I${portlet.portletClass}DAO extends IPortletInterfaceDAO
 {
     /**
      * Delete record from table
-     *
      *
      * @param nPortletId The indentifier of the Portlet
      */
@@ -53,7 +50,6 @@ public interface I${portlet.portletClass}DAO extends IPortletInterfaceDAO
 
     /**
      * Insert a new record in the table.
-     *
      *
      * @param portlet The Instance of the Portlet
      */
@@ -70,9 +66,7 @@ public interface I${portlet.portletClass}DAO extends IPortletInterfaceDAO
     /**
      * Update the record in the table
      *
-     *
      * @param portlet The reference of the portlet
      */
     void store( Portlet portlet );
-
 }
