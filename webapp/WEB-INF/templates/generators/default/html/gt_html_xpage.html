@@ -46,7 +46,7 @@
 <div class="row" >
     <div class="col-sm-12">
 
-    <form class="form-horizontal" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
+    <form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
         <fieldset>
             <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
 
@@ -56,7 +56,7 @@
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
                 <div class="col-sm-9">
-                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="1" />
+                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="${attribute_index}" />
                 </div>
             </div>
             </#list>
