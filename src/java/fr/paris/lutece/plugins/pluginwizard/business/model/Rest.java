@@ -37,6 +37,7 @@ import java.io.Serializable;
 
 import java.util.List;
 
+
 /**
  * This is the business class for the object Rest
  */
@@ -63,7 +64,7 @@ public class Rest implements Serializable
     {
         _nId = nId;
     }
-    
+
     /**
      * Returns the list of IdBusinessClasses
      * @return the collection of IdBusinessClasses

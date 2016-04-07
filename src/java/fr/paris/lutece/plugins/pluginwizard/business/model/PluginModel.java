@@ -89,7 +89,7 @@ public class PluginModel
         _listPluginFeatures = new ArrayList<Feature>(  );
         _listPluginPortlets = new ArrayList<Portlet>(  );
         _listBusinessClasses = new ArrayList<BusinessClass>(  );
-        _rest = new Rest();
+        _rest = new Rest(  );
     }
 
     /**
@@ -379,7 +379,7 @@ public class PluginModel
     {
         return _listPluginApplications;
     }
-    
+
     /**
      * Sets the rest
      * @param rest The rest
@@ -388,7 +388,7 @@ public class PluginModel
     {
         _rest = rest;
     }
-    
+
     /**
      * Returns the rest
      * @return The rest

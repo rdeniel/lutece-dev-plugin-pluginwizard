@@ -36,9 +36,11 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  *
@@ -58,8 +60,8 @@ public class RestGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        
-        Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByRest(pm);
+
+        Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByRest( pm );
 
         if ( !listBusinessClasses.isEmpty(  ) )
         {
@@ -71,6 +73,7 @@ public class RestGenerator extends AbstractGenerator
                 map.put( strPath, strSourceCode );
             }
         }
+
         return map;
     }
 
