@@ -91,7 +91,7 @@
 
         <form method="post"  action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
             <button name="view_create${business_class.businessClass}" class="btn btn-primary pull-right" type="submit">
-                <span class="glyphicon glyphicon-plus"></span>
+                <span class="fa fa-plus"></span>
                 ${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}
             </button>
         </form>
@@ -117,12 +117,12 @@
         <td>
             <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}"
                class="btn btn-primary btn-sm" title="${i18n_open}portal.util.labelModify${i18n_close}">
-                <span class="glyphicon glyphicon-edit"></span>
+                <span class="fa fa-pencil-square-o"></span>
             </a>
 
             <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}"
                class="btn btn-danger btn-sm" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="fa fa-trash-o"></span>
             </a>
         </td>
         </tr>
