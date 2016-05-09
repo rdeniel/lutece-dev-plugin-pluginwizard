@@ -4,19 +4,22 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" >
 
+<#if plugin.businessClasses?? && plugin.businessClasses?has_content >
 <#list plugin.businessClasses as business_class>
-<#if business_class?? >
     <bean id="${plugin.pluginName}.${business_class.businessClass?uncap_first}DAO" class="fr.paris.lutece.plugins.${plugin.pluginName}.business.${business_class.businessClass?cap_first}DAO" />
-<#if plugin.getRest().getIdBusinessClasses()?? && plugin.getRest().getIdBusinessClasses()?has_content>
-<#list plugin.getRest().getIdBusinessClasses() as id_business_class>
-<#if id_business_class == business_class.getId() >
+    <#if plugin.getRest().getIdBusinessClasses()?? && plugin.getRest().getIdBusinessClasses()?has_content>
+    <#list plugin.getRest().getIdBusinessClasses() as id_business_class>
+    <#if id_business_class == business_class.getId() >
     <bean id="${plugin.pluginName}.${business_class.businessClass?uncap_first}Rest" class="fr.paris.lutece.plugins.${plugin.pluginName}.rs.${business_class.businessClass?cap_first}Rest" />
-</#if>
+    </#if>
+    </#list>
+    </#if>
 </#list>
+</#if>
+
+<#if plugin.getRest().getIdBusinessClasses()?? && plugin.getRest().getIdBusinessClasses()?has_content>
     <bean id="${plugin.pluginName}.swaggerRest" class="fr.paris.lutece.plugins.${plugin.pluginName}.rs.SwaggerRest" />
 </#if>
-</#if>
-</#list>
 
 <#list plugin.portlets as portlet>
 <#if portlet?? >
