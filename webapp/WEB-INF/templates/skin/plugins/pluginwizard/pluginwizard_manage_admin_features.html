@@ -4,77 +4,78 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">  
-
-			<div class="col-md-3">       
-				<@sidebar step="administration" />
-				<div class="well">      
-					#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageHelp}
+			<div class="panel-body">
+				<div class="col-md-3">       
+					<@sidebar step="administration" />
+					<div class="well">      
+						#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageHelp}
+					</div>
 				</div>
-			</div>
 
-			<div class="col-md-9">
-				<#include "infos_handler.html" />
+				<div class="col-md-9">
+					<#include "infos_handler.html" />
 
-				<h4>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageTitle}</h4>                 
+					<h4>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.pageTitle}</h4>                 
 
-				<div class="pull-right">
-					<form class="default-form" method="post" action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" /> 
-						<input type="hidden" name="view" value="createAdminFeature" /> 
-						<button type="submit" class="btn btn-primary">
-							<i class="glyphicon glyphicon-plus"></i>
-							#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonAddFeature}
-						</button>                
+					<div class="pull-right">
+						<form class="default-form" method="post" action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" /> 
+							<input type="hidden" name="view" value="createAdminFeature" /> 
+							<button type="submit" class="btn btn-primary">
+								<i class="glyphicon glyphicon-plus"></i>
+								#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonAddFeature}
+							</button>                
+						</form>
+					</div>
+
+					<table class="table table-condensed table-striped">
+						<thead>
+							<tr>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<#if admin_features?? > <#list admin_features as feature >
+							<tr>
+								<td>${feature.featureTitle} (${feature.featureName})</td>
+
+								<td>${feature.featureLevel}</td>
+								<td>
+									<a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyAdminFeature&feature_id=${feature.id}" 
+									   class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}">
+										<i class="glyphicon glyphicon-edit"></i>
+									</a>
+									<a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveAdminFeature&feature_id=${feature.id}" 
+									   class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}">
+										<i class="glyphicon glyphicon-trash"></i>
+									</a>
+
+								</td>
+							</tr>
+							</#list> 
+							</#if>
+						</tbody>
+					</table>
+
+					<div class="form-group">      
+						<form class="default-form" method="post" action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" /> 
+							<button type="submit" name="view_manageBusinessClasses" class="btn btn-primary">
+								<i class="glyphicon glyphicon-chevron-left"></i>
+								#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonBack}
+							</button>                        
+							<button type="submit" name="view_manageApplications" class="btn btn-primary">
+								#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonNext}
+								<i class="glyphicon glyphicon-chevron-right"></i>
+							</button>  
+					</div>   
 					</form>
 				</div>
-
-				<table class="table table-condensed table-striped">
-					<thead>
-						<tr>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureManagement}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureLevel}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.labelFeatureAction}</th>
-						</tr>
-					</thead>
-
-					<tbody>
-						<#if admin_features?? > <#list admin_features as feature >
-						<tr>
-							<td>${feature.featureTitle} (${feature.featureName})</td>
-
-							<td>${feature.featureLevel}</td>
-							<td>
-								<a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyAdminFeature&feature_id=${feature.id}" 
-								   class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}">
-									<i class="glyphicon glyphicon-edit"></i>
-								</a>
-								<a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveAdminFeature&feature_id=${feature.id}" 
-								   class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}">
-									<i class="glyphicon glyphicon-trash"></i>
-								</a>
-
-							</td>
-						</tr>
-						</#list> 
-						</#if>
-					</tbody>
-				</table>
-
-				<div class="form-group">      
-					<form class="default-form" method="post" action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" /> 
-						<button type="submit" name="view_manageBusinessClasses" class="btn btn-primary">
-							<i class="glyphicon glyphicon-chevron-left"></i>
-							#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonBack}
-						</button>                        
-						<button type="submit" name="view_manageApplications" class="btn btn-primary">
-							#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonNext}
-							<i class="glyphicon glyphicon-chevron-right"></i>
-						</button>  
-				</div>   
-				</form>
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

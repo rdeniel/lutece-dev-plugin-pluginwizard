@@ -3,97 +3,99 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">
-			<div class="col-md-3">       
-				<@sidebar step="description" />
-				<div class="well">
-					#i18n{pluginwizard.pluginwizard_create_plugin_description.pageHelp}
+			<div class="panel-body">
+				<div class="col-md-3">       
+					<@sidebar step="description" />
+					<div class="well">
+						#i18n{pluginwizard.pluginwizard_create_plugin_description.pageHelp}
+					</div>
 				</div>
+				
+				<div class="col-md-9">
+					<#include "infos_handler.html" />
+					<form class="form-horizontal" method="post" action="jsp/site/Portal.jsp" >    
+						<fieldset>
+							<h4>#i18n{pluginwizard.pluginwizard_create_plugin_description.pageTitle}</h4>                 
+
+							 <#include "errors_handler.html" />
+
+							<input type="hidden" name="page" value="pluginwizard" />       
+							<input type="hidden" name="id_plugin" value="${plugin_model.idPlugin}" />       
+							
+							<div class="form-group">
+								<label class="col-md-3 control-label">                         	            	                        
+									#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
+								</label>       
+								<div class="col-md-9">                
+									<input type="text" class="form-control input-md" name="plugin_name" value="${plugin_model.pluginName!''}" readonly />       
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>
+								<div class="col-md-9"> 
+									 <input class="form-control input-md" type="text" name="plugin_description" value="${plugin_model.pluginDescription!''}" />
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProvider} : </label>
+								<div class="col-md-9"> 
+									 <input class="form-control input-md" type="text" name="plugin_provider" value="${plugin_model.pluginProvider!''}" />
+								</div>
+							</div>
+
+						   <div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
+								<div class="col-md-9"> 
+									<input class="form-control input-md" type="text" name="plugin_version"  value="${plugin_model.pluginVersion!''}" size="30" />
+								</div>                                                                              
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginCopyright} : </label>       
+								<div class="col-md-9"> 
+									 <input class="form-control input-md" type="text" name="plugin_copyright" value="${plugin_model.pluginCopyright!''}" size="30" />
+								</div>  
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProviderUrl} :</label>       
+								<div class="col-md-9"> 
+									 <input class="form-control input-md" type="text" name="plugin_provider_url"  value="${plugin_model.pluginProviderUrl!''}"  /> 
+								</div>              
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPlugindbPoolRequired} :</label>            
+								<div class="col-md-9"> 
+									<select class="form-control input-md" name="plugin_db_pool_required">    				
+										<option value="1">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelTrue}
+										</option>    				
+										<option value="0">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelFalse}
+										</option>				
+									</select>     
+								</div>                   	
+							</div>                                                                                   
+
+							<div class="form-group">
+								<div class="col-md-offset-3 col-md-9">
+								<button type="submit" name="action_descriptionPrevious" class="btn btn-primary">
+									<i class="glyphicon glyphicon-chevron-left"></i>
+									#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonBack}
+								</button>                        
+								<button type="submit" name="action_descriptionNext" class="btn btn-primary">
+									#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonNext}
+									<i class="glyphicon glyphicon-chevron-right"></i>
+								</button>
+								</div>
+							</div>                                              		
+
+						</fieldset>
+					</form>		 		
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			
-			<div class="col-md-9">
-				<#include "infos_handler.html" />
-				<form class="form-horizontal" method="post" action="jsp/site/Portal.jsp" >    
-					<fieldset>
-						<h4>#i18n{pluginwizard.pluginwizard_create_plugin_description.pageTitle}</h4>                 
-
-						 <#include "errors_handler.html" />
-
-						<input type="hidden" name="page" value="pluginwizard" />       
-						<input type="hidden" name="id_plugin" value="${plugin_model.idPlugin}" />       
-						
-						<div class="form-group">
-							<label class="col-md-3 control-label">                         	            	                        
-								#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginName} :
-							</label>       
-							<div class="col-md-9">                
-								<input type="text" class="form-control input-md" name="plugin_name" value="${plugin_model.pluginName!''}" readonly />       
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>
-							<div class="col-md-9"> 
-								 <input class="form-control input-md" type="text" name="plugin_description" value="${plugin_model.pluginDescription!''}" />
-							</div>
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProvider} : </label>
-							<div class="col-md-9"> 
-								 <input class="form-control input-md" type="text" name="plugin_provider" value="${plugin_model.pluginProvider!''}" />
-							</div>
-						</div>
-
-					   <div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginVersion} : </label>       
-							<div class="col-md-9"> 
-								<input class="form-control input-md" type="text" name="plugin_version"  value="${plugin_model.pluginVersion!''}" size="30" />
-							</div>                                                                              
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginCopyright} : </label>       
-							<div class="col-md-9"> 
-								 <input class="form-control input-md" type="text" name="plugin_copyright" value="${plugin_model.pluginCopyright!''}" size="30" />
-							</div>  
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginProviderUrl} :</label>       
-							<div class="col-md-9"> 
-								 <input class="form-control input-md" type="text" name="plugin_provider_url"  value="${plugin_model.pluginProviderUrl!''}"  /> 
-							</div>              
-						</div>
-
-						<div class="form-group">
-							<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPlugindbPoolRequired} :</label>            
-							<div class="col-md-9"> 
-								<select class="form-control input-md" name="plugin_db_pool_required">    				
-									<option value="1">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelTrue}
-									</option>    				
-									<option value="0">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelFalse}
-									</option>				
-								</select>     
-							</div>                   	
-						</div>                                                                                   
-
-						<div class="form-group">
-							<div class="col-md-offset-3 col-md-9">
-							<button type="submit" name="action_descriptionPrevious" class="btn btn-primary">
-								<i class="glyphicon glyphicon-chevron-left"></i>
-								#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonBack}
-							</button>                        
-							<button type="submit" name="action_descriptionNext" class="btn btn-primary">
-								#i18n{pluginwizard.pluginwizard_create_plugin_description.buttonNext}
-								<i class="glyphicon glyphicon-chevron-right"></i>
-							</button>
-							</div>
-						</div>                                              		
-
-					</fieldset>
-				</form>		 		
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

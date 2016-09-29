@@ -3,55 +3,57 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">
-			<div class="col-md-3" > 
-				<@sidebar step="creation" />
-				<div class="well">#i18n{pluginwizard.pluginwizard_modify_plugin.pageHelp}</div>
-			</div>
+			<div class="panel-body">
+				<div class="col-md-3" > 
+					<@sidebar step="creation" />
+					<div class="well">#i18n{pluginwizard.pluginwizard_modify_plugin.pageHelp}</div>
+				</div>
 
-			<div class="col-md-9">
-				<#include "infos_handler.html" />
-				<form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp">
-					<fieldset>
-						<legend>#i18n{pluginwizard.pluginwizard_modify_plugin.pageTitle}</legend>
-						 <#include "infos_handler.html" />
-						 <#include "errors_handler.html" />
+				<div class="col-md-9">
+					<#include "infos_handler.html" />
+					<form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp">
+						<fieldset>
+							<legend>#i18n{pluginwizard.pluginwizard_modify_plugin.pageTitle}</legend>
+							 <#include "infos_handler.html" />
+							 <#include "errors_handler.html" />
 
-						<input type="hidden" name="page" value="pluginwizard" />
-						<input type="hidden" name="action" value="do_create_plugin" />
+							<input type="hidden" name="page" value="pluginwizard" />
+							<input type="hidden" name="action" value="do_create_plugin" />
 
-						<div class="form-group">
-							<label class="col-sm-2 control-label">#i18n{pluginwizard.pluginwizard_modify_plugin.labelPluginName} :</label>
-							<div class="col-sm-9">
-								<input class="form-control input-md" type="text" name="plugin_name" value="<#if plugin_model.pluginName??>${plugin_model.pluginName}</#if>" size="30" />
+							<div class="form-group">
+								<label class="col-sm-2 control-label">#i18n{pluginwizard.pluginwizard_modify_plugin.labelPluginName} :</label>
+								<div class="col-sm-9">
+									<input class="form-control input-md" type="text" name="plugin_name" value="<#if plugin_model.pluginName??>${plugin_model.pluginName}</#if>" size="30" />
+								</div>
+							</div>           
+
+							<div class="">
+								<div>
+									<h5>#i18n{pluginwizard.pluginwizard_modify_plugin.labelSummary} :</h5>
+									<ul>
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBusinessClasses}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddJspBean}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddXPage}</li>
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBackOfficeJsp}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBackOfficeTemplate}</li>            
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddResourceFiles}</li>           
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddPluginPropertiesFile}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddSpringContextXml}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddPluginXmlDefinition}</li>             
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddSqlFiles}</li>           
+										<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddMavenPom}</li>             
+									</ul>
+								</div>
+							</div>  
+
+							<div class=""> 
+								<input type="submit" name="do_create_plugin" class="btn btn-primary" value="#i18n{pluginwizard.pluginwizard_modify_plugin.buttonModifyPlugin}" />
 							</div>
-						</div>           
-
-						<div class="">
-							<div>
-								<h5>#i18n{pluginwizard.pluginwizard_modify_plugin.labelSummary} :</h5>
-								<ul>
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBusinessClasses}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddJspBean}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddXPage}</li>
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBackOfficeJsp}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddBackOfficeTemplate}</li>            
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddResourceFiles}</li>           
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddPluginPropertiesFile}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddSpringContextXml}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddPluginXmlDefinition}</li>             
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddSqlFiles}</li>           
-									<li>#i18n{pluginwizard.pluginwizard_modify_plugin.labelAddMavenPom}</li>             
-								</ul>
-							</div>
-						</div>  
-
-						<div class=""> 
-							<input type="submit" name="do_create_plugin" class="btn btn-primary" value="#i18n{pluginwizard.pluginwizard_modify_plugin.buttonModifyPlugin}" />
-						</div>
-					</fieldset>
-				</form>
+						</fieldset>
+					</form>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

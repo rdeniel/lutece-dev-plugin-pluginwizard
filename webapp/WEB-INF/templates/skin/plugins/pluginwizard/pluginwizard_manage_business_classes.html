@@ -3,80 +3,81 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="col-md-3">             
+					<@sidebar step="model" />
 
-			<div class="col-md-3">             
-				<@sidebar step="model" />
-
-				<div class="well">      
-					#i18n{pluginwizard.pluginwizard_manage_business_classes.pageHelp}
+					<div class="well">      
+						#i18n{pluginwizard.pluginwizard_manage_business_classes.pageHelp}
+					</div>
 				</div>
+
+
+				<div class="col-md-9">        
+
+					<#include "infos_handler.html" />
+
+					<h4>#i18n{pluginwizard.pluginwizard_manage_business_classes.pageTitle} </h4>                 
+
+					<div class="col-md-offset-9 col-md-3"> 
+
+						<form method="post"	action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" />
+							<input type="hidden" name="view" value="createBusinessClass" /> 
+							<button type="submit" class="btn btn-primary">
+								<i class="glyphicon glyphicon-plus"></i>
+								#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonAddBusinessClass}
+							</button>
+						</form>
+					</div>
+
+					<table class="table table-hover table-condensed table-striped">
+						<thead>
+							<tr>
+								<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessClass}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessTableName}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessAction}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#if business_classes?? >
+							<#list business_classes as business_class >
+							<tr>
+								<td>${business_class.businessClass}</td>
+								<td>${business_class.businessTableName}</td>
+
+								<td>
+									<a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyBusinessClass&business_class_id=${business_class.id}" 
+									   class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
+										<i class="glyphicon glyphicon-edit"></i>
+									</a>
+									<a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveBusinessClass&business_class_id=${business_class.id}" 
+									   class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
+										<i class="glyphicon glyphicon-trash"></i>
+									</a>
+								</td>
+								</#list> 
+							</tr>
+							</#if>
+						</tbody>
+					</table>
+
+					<div class="form-group"> 
+						<form method="post" action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" /> 
+							<button type="submit" name="view_modifyDescription" class="btn btn-primary">
+								<i class="glyphicon glyphicon-chevron-left"></i>
+								#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonBack}
+							</button>
+							<button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
+								#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonNext}
+								<i class="glyphicon glyphicon-chevron-right"></i>
+							</button>
+						</form>
+					</div>
+				</div>
+				<div class="clearfix"></div>
 			</div>
-
-
-			<div class="col-md-9">        
-
-				<#include "infos_handler.html" />
-
-				<h4>#i18n{pluginwizard.pluginwizard_manage_business_classes.pageTitle} </h4>                 
-
-				<div class="col-md-offset-9 col-md-3"> 
-
-					<form method="post"	action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" />
-						<input type="hidden" name="view" value="createBusinessClass" /> 
-						<button type="submit" class="btn btn-primary">
-							<i class="glyphicon glyphicon-plus"></i>
-							#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonAddBusinessClass}
-						</button>
-					</form>
-				</div>
-
-				<table class="table table-hover table-condensed table-striped">
-					<thead>
-						<tr>
-							<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessClass}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessTableName}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_business_classes.labelBusinessAction}</th>
-						</tr>
-					</thead>
-					<tbody>
-						<#if business_classes?? >
-						<#list business_classes as business_class >
-						<tr>
-							<td>${business_class.businessClass}</td>
-							<td>${business_class.businessTableName}</td>
-
-							<td>
-								<a href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyBusinessClass&business_class_id=${business_class.id}" 
-								   class="btn btn-primary btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonModifyFeature}" >
-									<i class="glyphicon glyphicon-edit"></i>
-								</a>
-								<a href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveBusinessClass&business_class_id=${business_class.id}" 
-								   class="btn btn-danger btn-small" title="#i18n{pluginwizard.pluginwizard_manage_plugin_admin_features.buttonRemoveFeature}" >
-									<i class="glyphicon glyphicon-trash"></i>
-								</a>
-							</td>
-							</#list> 
-						</tr>
-						</#if>
-					</tbody>
-				</table>
-
-				<div class="form-group"> 
-					<form method="post" action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" /> 
-						<button type="submit" name="view_modifyDescription" class="btn btn-primary">
-							<i class="glyphicon glyphicon-chevron-left"></i>
-							#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonBack}
-						</button>
-						<button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
-							#i18n{pluginwizard.pluginwizard_manage_business_classes.buttonNext}
-							<i class="glyphicon glyphicon-chevron-right"></i>
-						</button>
-					</form>
-				</div>
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

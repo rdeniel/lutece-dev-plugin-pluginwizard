@@ -3,83 +3,84 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">
-
-			<div class="col-md-3">             
-				<@sidebar step="xpage" />
-				<div class="well">         
-					#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageHelp}
-				</div>  
-			</div>
-
-			<div class="col-md-9">
-				<#include "infos_handler.html" />
-
-				<h4>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageTitle}</h4>                 
-
-				<div class="pull-right"> 
-					<form class="default-form" method="post" action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" />
-						<input type="hidden" name="view" value="createApplication" /> 
-						<button type="submit" class="btn btn-primary">
-							<i class="glyphicon glyphicon-plus"></i>
-							#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonAddApplication}
-						</button>
-					</form>
+			<div class="panel-body">
+				<div class="col-md-3">             
+					<@sidebar step="xpage" />
+					<div class="well">         
+						#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageHelp}
+					</div>  
 				</div>
 
-				<table class="table table-condensed table-striped">
+				<div class="col-md-9">
+					<#include "infos_handler.html" />
 
-					<thead>
-						<tr>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationName}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationClass}</th>
-							<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationAction}</th>
-						</tr>
-					</thead>
-					<tbody>
-						<#if plugin_applications?? > <#list plugin_applications as
-						plugin_application >
-						<tr>
-							<td>${plugin_application.applicationName}</td>
-							<td>${plugin_application.applicationClass}</td>
+					<h4>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.pageTitle}</h4>                 
 
-							<td>
+					<div class="pull-right"> 
+						<form class="default-form" method="post" action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" />
+							<input type="hidden" name="view" value="createApplication" /> 
+							<button type="submit" class="btn btn-primary">
+								<i class="glyphicon glyphicon-plus"></i>
+								#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonAddApplication}
+							</button>
+						</form>
+					</div>
+
+					<table class="table table-condensed table-striped">
+
+						<thead>
+							<tr>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationName}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationClass}</th>
+								<th>#i18n{pluginwizard.pluginwizard_manage_plugin_applications.labelApplicationAction}</th>
+							</tr>
+						</thead>
+						<tbody>
+							<#if plugin_applications?? > <#list plugin_applications as
+							plugin_application >
+							<tr>
+								<td>${plugin_application.applicationName}</td>
+								<td>${plugin_application.applicationClass}</td>
+
+								<td>
 
 
-								<a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyApplication&application_id=${plugin_application.id}" 
-								   title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonModifyApplication}" >
-									<i class="glyphicon glyphicon-edit"></i>
-								</a>
+									<a class="btn btn-primary btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&view=modifyApplication&application_id=${plugin_application.id}" 
+									   title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonModifyApplication}" >
+										<i class="glyphicon glyphicon-edit"></i>
+									</a>
 
-								<a class="btn btn-danger btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveApplication&application_id=${plugin_application.id}" 
-								   title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonRemoveApplication}" >
-									<i class="glyphicon glyphicon-trash"></i>
-								</a>
-							</td>
-							</#list>
-							</#if>
+									<a class="btn btn-danger btn-small" href="jsp/site/Portal.jsp?page=pluginwizard&action=confirmRemoveApplication&application_id=${plugin_application.id}" 
+									   title="#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonRemoveApplication}" >
+										<i class="glyphicon glyphicon-trash"></i>
+									</a>
+								</td>
+								</#list>
+								</#if>
 
-						</tr>
-					</tbody>
+							</tr>
+						</tbody>
 
-				</table>
+					</table>
 
-				<div class="form-group"> 
-					<form class="default-form" method="post" action="jsp/site/Portal.jsp">
-						<input type="hidden" name="page" value="pluginwizard" /> 
+					<div class="form-group"> 
+						<form class="default-form" method="post" action="jsp/site/Portal.jsp">
+							<input type="hidden" name="page" value="pluginwizard" /> 
 
-						<button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
-							<i class="glyphicon glyphicon-chevron-left"></i>
-							#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonBack}
-						</button>
-						<button type="submit" name="view_managePortlets" class="btn btn-primary">
-							#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonNext}
-							<i class="glyphicon glyphicon-chevron-right"></i>
-						</button>
-					</form>
+							<button type="submit" name="view_manageAdminFeatures" class="btn btn-primary">
+								<i class="glyphicon glyphicon-chevron-left"></i>
+								#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonBack}
+							</button>
+							<button type="submit" name="view_managePortlets" class="btn btn-primary">
+								#i18n{pluginwizard.pluginwizard_manage_plugin_applications.buttonNext}
+								<i class="glyphicon glyphicon-chevron-right"></i>
+							</button>
+						</form>
+					</div>
 				</div>
+				<div class="clearfix"></div>
 			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

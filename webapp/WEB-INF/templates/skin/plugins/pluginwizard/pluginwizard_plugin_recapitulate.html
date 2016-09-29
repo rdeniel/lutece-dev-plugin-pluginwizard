@@ -3,149 +3,151 @@
 <div class="row">
 	<div class="container">
 		<div class="panel panel-default">
-			<div class="col-md-3">             
-				<@sidebar step="generate" />
-				<div class="well">         
-					#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageHelp} 
-				</div>  
-			</div>
+			<div class="panel-body">
+				<div class="col-md-3">             
+					<@sidebar step="generate" />
+					<div class="well">         
+						#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageHelp} 
+					</div>  
+				</div>
 
-			<div class="col-md-5">
-				<#include "infos_handler.html" />
-				<#include "errors_handler.html" />
+				<div class="col-md-5">
+					<#include "infos_handler.html" />
+					<#include "errors_handler.html" />
 
-				<h3>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageTitle} </h3> 
+					<h3>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.pageTitle} </h3> 
 
-				<div class="well well-lg">
+					<div class="well well-lg">
 
-					<h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h4>
-					<br>
-					<h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
+						<h4>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPluginName} : <#if plugin_model.pluginName??>${plugin_model.pluginName}</#if></h4>
+						<br>
+						<h5>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelSummary} :</h5>
 
-					<ul>
-						<#if business_classes?? > 
-						<#if business_classes?size gt 0 > 
-						<li>
-							<h5>
-								<span class="badge badge-info">${business_classes?size}</span> &nbsp; 
-								<#if business_classes?size = 1 > 
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasse}
-								<#else>
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasses}
-								</#if>
-							</h5>
-							<ul>
-								<#list business_classes as business >
-								<li> <h6> ${business.businessClass} </h6> </li>
-								</#list> 
-							</ul>
-						</li>
-						</#if>
-						</#if>
-						
-						<#if admin_features?? > 
-						<#if admin_features?size gt 0 > 
-						<li>
-							<h5>
-								<span class="badge badge-info">${admin_features?size}</span> &nbsp; 
-								<#if admin_features?size = 1 > 
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
-								<#else>
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
-								</#if>
+						<ul>
+							<#if business_classes?? > 
+							<#if business_classes?size gt 0 > 
+							<li>
+								<h5>
+									<span class="badge badge-info">${business_classes?size}</span> &nbsp; 
+									<#if business_classes?size = 1 > 
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasse}
+									<#else>
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelBusinessClasses}
+									</#if>
+								</h5>
 								<ul>
-									<#list admin_features as feature>
-									<li> <h6> ${feature.featureTitle} </h6> </li>
-									</#list>
+									<#list business_classes as business >
+									<li> <h6> ${business.businessClass} </h6> </li>
+									</#list> 
 								</ul>
-							</h5>
-						</li>
-						</#if>
-						</#if>
+							</li>
+							</#if>
+							</#if>
+							
+							<#if admin_features?? > 
+							<#if admin_features?size gt 0 > 
+							<li>
+								<h5>
+									<span class="badge badge-info">${admin_features?size}</span> &nbsp; 
+									<#if admin_features?size = 1 > 
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeature}
+									<#else>
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelAdminFeatures}
+									</#if>
+									<ul>
+										<#list admin_features as feature>
+										<li> <h6> ${feature.featureTitle} </h6> </li>
+										</#list>
+									</ul>
+								</h5>
+							</li>
+							</#if>
+							</#if>
 
-						<#if plugin_applications?? > 
-						<#if plugin_applications?size gt 0>
-						<li>
-							<h5>
-								<span class="badge badge-info">${plugin_applications?size}</span> &nbsp; 
-								<#if plugin_applications?size = 1 > 
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPage}
-								<#else>
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPages}
-								</#if>
-							</h5>
-						</li>
-						</#if>
-						</#if>
+							<#if plugin_applications?? > 
+							<#if plugin_applications?size gt 0>
+							<li>
+								<h5>
+									<span class="badge badge-info">${plugin_applications?size}</span> &nbsp; 
+									<#if plugin_applications?size = 1 > 
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPage}
+									<#else>
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelXPages}
+									</#if>
+								</h5>
+							</li>
+							</#if>
+							</#if>
 
-						<#if plugin_portlets?? >
-						<#if plugin_portlets?size gt 0>
-						<li>
-							<h5>
-								<span class="badge badge-info">${plugin_portlets?size}</span> &nbsp; 
-								<#if plugin_portlets?size = 1 > 
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlet}
-								<#else>
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlets}
-								</#if>
-							</h5>
-						</li>
-						</#if>
-						</#if>
-						
-						<#assign restSize = plugin_rest.getIdBusinessClasses()?size>                
-						<#if restSize gt 0>
-						<li>
-							<h5>
-								<span class="badge badge-info">${restSize}</span> &nbsp; 
-								<#if restSize = 1 > 
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRest}
-								<#else>
-								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRests}
-								</#if>
-							</h5>
-						</li>
-						</#if>
+							<#if plugin_portlets?? >
+							<#if plugin_portlets?size gt 0>
+							<li>
+								<h5>
+									<span class="badge badge-info">${plugin_portlets?size}</span> &nbsp; 
+									<#if plugin_portlets?size = 1 > 
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlet}
+									<#else>
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelPortlets}
+									</#if>
+								</h5>
+							</li>
+							</#if>
+							</#if>
+							
+							<#assign restSize = plugin_rest.getIdBusinessClasses()?size>                
+							<#if restSize gt 0>
+							<li>
+								<h5>
+									<span class="badge badge-info">${restSize}</span> &nbsp; 
+									<#if restSize = 1 > 
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRest}
+									<#else>
+									#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelRests}
+									</#if>
+								</h5>
+							</li>
+							</#if>
 
-					</ul>
-				   <br>
-					<a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&view=manageRest" >
-						<i class="glyphicon glyphicon-chevron-left"></i>
-						#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
-					</a>
-					<br>
+						</ul>
+					   <br>
+						<a class="btn btn-primary pull-right" href="jsp/site/Portal.jsp?page=pluginwizard&view=manageRest" >
+							<i class="glyphicon glyphicon-chevron-left"></i>
+							#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonBack}
+						</a>
+						<br>
+					</div>
 				</div>
+
+				<div class="col-md-4">
+					<div class="well">
+						<form action="jsp/site/plugins/pluginwizard/DownloadZip.jsp" method="post">                
+							<input type="hidden" name="plugin_id" value="${plugin_id}" />
+							<div class="form-group">
+								<label>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelScheme} :</label>
+								<@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-lg"' />       
+							</div>
+							<button class="btn btn-success btn-lg" type="submit" >
+								<i class="glyphicon glyphicon-download-alt">  </i>
+								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
+							</button>
+						</form>
+					</div>
+					<div class="well">
+						<form action="jsp/site/plugins/pluginwizard/DownloadJson.jsp" method="post">                
+							<input type="hidden" name="plugin_id" value="${plugin_id}" />
+							<button class="btn btn-success btn-lg" type="submit" >
+								<i class="glyphicon glyphicon-download-alt">  </i>
+								#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerateJson}
+							</button>
+						</form>
+					</div>
+					<div class="alert alert-danger">
+						#i18n{pluginwizard.pluginwizard_plugin_recapitulate.alertProperties}
+					</div>
+
+				</div>
+				<div class="clearfix"></div>
 			</div>
-
-			<div class="col-md-4">
-				<div class="well">
-					<form action="jsp/site/plugins/pluginwizard/DownloadZip.jsp" method="post">                
-						<input type="hidden" name="plugin_id" value="${plugin_id}" />
-						<div class="form-group">
-							<label>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelScheme} :</label>
-							<@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-lg"' />       
-						</div>
-						<button class="btn btn-success btn-lg" type="submit" >
-							<i class="glyphicon glyphicon-download-alt">  </i>
-							#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerate}
-						</button>
-					</form>
-				</div>
-				<div class="well">
-					<form action="jsp/site/plugins/pluginwizard/DownloadJson.jsp" method="post">                
-						<input type="hidden" name="plugin_id" value="${plugin_id}" />
-						<button class="btn btn-success btn-lg" type="submit" >
-							<i class="glyphicon glyphicon-download-alt">  </i>
-							#i18n{pluginwizard.pluginwizard_plugin_recapitulate.buttonGenerateJson}
-						</button>
-					</form>
-				</div>
-				<div class="alert alert-danger">
-					#i18n{pluginwizard.pluginwizard_plugin_recapitulate.alertProperties}
-				</div>
-
-			</div>
-			<div class="clearfix"></div>
 		</div>
 	</div>
 </div>

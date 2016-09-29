@@ -1,28 +1,30 @@
 <div class="row">
 	<div class="container">
-		<div class="panel panel-default"> 
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">#i18n{pluginwizard.pluginwizard_plugin_exists.pageTitle}</h4>
-                </div>
-                <div class="modal-body">
-                    #i18n{pluginwizard.pluginwizard_plugin_exists.alert} : 
-                    <code><strong>${messageBox.message}</strong></code> !
-                </div>
-                <div class="modal-footer">
-                    <form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >    
-                        <input type="hidden" name="page" value="pluginwizard" />                
-                        <button class="btn btn-danger" type="submit" name="action_resetData">
-                            <i class="glyphicon glyphicon-trash"></i>
-                            #i18n{pluginwizard.pluginwizard_plugin_exists.buttonReset}
-                        </button>
-                        <button class="btn btn-primary" type="submit" name="view_modifyDescription">
-                            <i class="glyphicon glyphicon-chevron-right"></i>
-                            #i18n{pluginwizard.pluginwizard_plugin_exists.buttonPreserve}
-                        </button>
-                    </form>
-                </div>
-            </div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">#i18n{pluginwizard.pluginwizard_plugin_exists.pageTitle}</h4>
+					</div>
+					<div class="modal-body">
+						#i18n{pluginwizard.pluginwizard_plugin_exists.alert} : 
+						<code><strong>${messageBox.message}</strong></code> !
+					</div>
+					<div class="modal-footer">
+						<form class="form form-horizontal" method="post" action="jsp/site/Portal.jsp" >    
+							<input type="hidden" name="page" value="pluginwizard" />                
+							<button class="btn btn-danger" type="submit" name="action_resetData">
+								<i class="glyphicon glyphicon-trash"></i>
+								#i18n{pluginwizard.pluginwizard_plugin_exists.buttonReset}
+							</button>
+							<button class="btn btn-primary" type="submit" name="view_modifyDescription">
+								<i class="glyphicon glyphicon-chevron-right"></i>
+								#i18n{pluginwizard.pluginwizard_plugin_exists.buttonPreserve}
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
