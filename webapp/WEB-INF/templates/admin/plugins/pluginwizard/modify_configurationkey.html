@@ -1,29 +1,25 @@
-<div class="row-fluid">
-    <div class="span12">
-        <form class="form-horizontal" method="post" name="modify_configurationkey" action="jsp/admin/plugins/pluginwizard/DoModifyConfigurationKey.jsp">
-            <fieldset>
-                <legend>#i18n{pluginwizard.modify_configurationkey.tableLabel}</legend>
-
-                <input type="hidden" id="configurationkey_id_key" name="configurationkey_id_key" size="60" maxlength="50" value="${configurationkey.idKey}" tabindex="1" />
-
-                <div class="control-group">
-                    <label class="control-label" for="configurationkey_key_description" >#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationDescription} * :</label>
-                    <div class="controls">
-                        <input type="text" id="configurationkey_key_description" name="configurationkey_key_description" size="60" maxlength="50" value="${configurationkey.keyDescription}" tabindex="1" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="configurationkey_key_value" >#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationValue} * :</label>
-                    <div class="controls">
-                    <input type="text" id="configurationkey_key_value" name="configurationkey_key_value" size="60" maxlength="50" value="${configurationkey.keyValue}" tabindex="1" />
-                    </div>
-                </div>
-                <div class="form-actions">   
-                    <input class="btn btn-primary" type="submit" value="#i18n{pluginwizard.modify_configurationkey.buttonModifyConfigurationKey}" tabindex="3" />
-                    <input class="btn" type="button" onclick="javascript:history.go(-1)" value="#i18n{portal.util.labelCancel}" />	
-                </div>
-            </fieldset>
-        </form>
-    </div>
-</div>
-
+<@row>
+	<@columns>
+		<@box color='primary'>
+			<@boxHeader title='#i18n{pluginwizard.modify_configurationkey.tableLabel}' />
+			<@boxBody>
+				<@tform name='modify_configurationkey' action='jsp/admin/plugins/pluginwizard/DoModifyConfigurationKey.jsp'>
+					<fieldset>
+							<legend class="sr-only">#i18n{pluginwizard.modify_configurationkey.tableLabel}</legend>
+							<input type="hidden" id="configurationkey_id_key" name="configurationkey_id_key" size="60" maxlength="50" value="${configurationkey.idKey}" tabindex="1" />
+							<@formGroup labelFor='configurationkey_key_description' labelKey='#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationDescription}' mandatory=true>
+								<@input type='text' id='configurationkey_key_description' name='configurationkey_key_description' maxlength=50 inputSize=60 tabIndex='1' value='${configurationkey.keyDescription}' />
+							</@formGroup>
+							<@formGroup labelFor='configurationkey_key_value' labelKey='#i18n{pluginwizard.modify_configurationkey.rowTitleConfigurationValue}' mandatory=true>
+								<@input type='text' id='configurationkey_key_value' name='configurationkey_key_value' maxlength=50 inputSize=60 tabIndex='2' value='${configurationkey.keyValue}' />
+							</@formGroup>
+							<@formGroup>
+								<@button type='submit' tabIndex='3' title='#i18n{pluginwizard.modify_configurationkey.buttonModifyConfigurationKey}' buttonIcon='check' size='' />
+								<@button type='submit' tabIndex='4' title='#i18n{portal.util.labelCancel}' params='onclick="javascript:history.go(-1)"' value='#i18n{portal.util.labelCancel}' buttonIcon='close' color='btn-secondary' size='' />
+							</@formGroup>
+					</fieldset>
+        </@tform>
+			</@boxBody>
+		</@box>
+	</@columns>
+</@row>

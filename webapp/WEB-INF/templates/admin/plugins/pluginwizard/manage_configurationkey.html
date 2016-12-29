@@ -1,45 +1,37 @@
-<div class="row-fluid" >    
-    <div class="span12">
-        
-            <form class="form-horizontal" method="post"  action="jsp/admin/plugins/pluginwizard/CreateConfigurationKey.jsp">        
-                <button class="btn btn-primary pull-right" type="submit" >
-                    <i class="icon-plus icon-white"></i>
-                    #i18n{pluginwizard.manage_configurationkey.buttonAddConfigurationKey}
-                </button>   
-            </form>
-        
-
-        <h4>#i18n{pluginwizard.manage_configurationkeys.tableLabel}</h4>
-        <br>
-        <@paginationAdmin paginator=paginator combo=1 />
-
-        <table class="table table-condensed table-striped">        
-            <thead>
-            <tr> 			
-                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_description}</th> 			
-                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_value}</th>        
-                <th>#i18n{pluginwizard.manage_configurationkey.columnKey_action}</th> 		
-            </tr>  
-            </thead>
-            <tbody>
-            <#list configurationkey_list as configurationkey >    
-            <tr> 			 
-                <td> ${configurationkey.keyDescription}</a></td>     			
-                <td>${configurationkey.keyValue}</td>
-                <td>
-                    <a href="jsp/admin/plugins/pluginwizard/ModifyConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}" 
-                       class="btn btn-primary btn-small" title="#i18n{portal.util.labelModify}" >
-                        <i class="icon-edit icon-white"></i>
-                    </a>
-                    <a href="jsp/admin/plugins/pluginwizard/RemoveConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}"                    
-                       class="btn btn-danger btn-small" title="#i18n{portal.util.labelDelete}" >  
-                        <i class="icon-trash icon-white"></i>
-                    </a>  
-                </td>        
-            </tr>        
-            </#list>   
-            </tbody>
-        </table> 
+<@row>
+	<@columns>
+		<@box color='primary'>
+			<@boxHeader title='#i18n{pluginwizard.manage_configurationkeys.tableLabel}' boxTools=true>
+				<@tform action='jsp/admin/plugins/pluginwizard/CreateConfigurationKey.jsp'>
+					<@button type='submit' buttonIcon='plus' title='#i18n{pluginwizard.manage_configurationkey.buttonAddConfigurationKey}' size='' />
+				</@tform>
+			</@boxHeader>
+			<@boxBody>
+				<@paginationAdmin paginator=paginator combo=1 />
+				<div class='clearfix'></div>
+        <@table>        
+					<thead>
+						<tr> 			
+							<th>#i18n{pluginwizard.manage_configurationkey.columnKey_description}</th> 			
+							<th>#i18n{pluginwizard.manage_configurationkey.columnKey_value}</th>        
+							<th>#i18n{pluginwizard.manage_configurationkey.columnKey_action}</th> 		
+						</tr>  
+					</thead>
+					<tbody>
+						<#list configurationkey_list as configurationkey >    
+						<tr> 			 
+							<td> ${configurationkey.keyDescription}</a></td>     			
+							<td>${configurationkey.keyValue}</td>
+							<td>
+								<@aButton href='jsp/admin/plugins/pluginwizard/ModifyConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}' title='#i18n{portal.util.labelModify}' showTitle=false buttonIcon='edit' />
+								<@aButton href='jsp/admin/plugins/pluginwizard/RemoveConfigurationKey.jsp?configurationkey_id_key=${configurationkey.idKey}' title='#i18n{portal.util.labelDelete}' showTitle=false buttonIcon='trash' color='btn-danger' />
+							</td>        
+						</tr>        
+						</#list>   
+					</tbody>
+        </@table> 
         <@paginationAdmin paginator=paginator  />
-    </div>
-</div>
+			</@boxBody>
+		</@box>
+	</@columns>
+</@row>
