@@ -3,144 +3,106 @@
 
 <#case 0>
 <${include} "${application.applicationName?lower_case}_tabs.html" />
-<${macro}tabs tab="${business_class.businessClass?lower_case}" />
+<${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
-<div class="row" >
-    <div class="col-sm-12">
-
-    <form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
-        <fieldset>
-            <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
-
-            <${macro}messages errors=errors />
-            <input type="hidden" id="id" name="id"/>  
-            <#list business_class.attributes as attribute>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
-                <div class="col-sm-9">
-                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> tabindex="${attribute_index}" />
-                    <span class="help-block">${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}</span>
-                </div>
-            </div>
-            </#list>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <button name="action_create${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}">
-                        ${i18n_open}portal.util.labelCreate${i18n_close}
-                    </button>
-                    <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
-                        ${i18n_open}portal.util.labelCancel${i18n_close}
-                    </button>
-                </div>
-            </div>
+<${macro}row>
+	<${macro}columns>
+		<${macro}tform class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+			<fieldset>
+				<legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
+				<${macro}messages errors=errors />
+				<input type="hidden" id="id" name="id"/>  
+				
+				<#list business_class.attributes as attribute>
+          <${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' helpKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}' mandatory=true>
+						<${macro}input type='text' id='${attribute.paramName}' name='${attribute.paramName}' value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}' <#if attribute.maxLength &gt; 0> maxlength='${attribute.maxLength}'</#if> tabIndex='${attribute_index}' />
+					</${macro}formGroup>
+				</#list>
+        <${macro}formGroup>
+          <${macro}button name='action_create${business_class.businessClass}' type='submit' tabIndex='${business_class.attributes?size}' title='${i18n_open}portal.util.labelCreate${i18n_close}' buttonIcon='plus' />
+					<${macro}button name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}' buttonIcon='close' color='btn-secondary' />
+				</${macro}formGroup>
         </fieldset>
-    </form>
-    </div>
-</div>
+    </${macro}tform>
+	</${macro}columns>
+</${macro}row>
 <#break>
 
 <#case 1>
 <${include} "${application.applicationName?lower_case}_tabs.html" />
-<${macro}tabs tab="${business_class.businessClass?lower_case}" />
+<${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
-<div class="row" >
-    <div class="col-sm-12">
+<${macro}row>
+	<${macro}columns>
+		<${macro}tform class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+			<fieldset>
+				<legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
+				<${macro}messages errors=errors />
+				<input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
+				
+				<#list business_class.attributes as attribute>
+				<${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' mandatory=true>
+          <${macro}input type='text' id='${attribute.paramName}' name='${attribute.paramName}' <#if attribute.maxLength &gt; 0> maxlength='${attribute.maxLength}'</#if> value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}' tabIndex='${attribute_index}' />
+				</${macro}formGroup>
+				</#list>
 
-    <form class="form-horizontal" role="form" method="post" action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
-        <fieldset>
-            <legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
-
-            <${macro}messages errors=errors />
-            <input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
-            <#list business_class.attributes as attribute>
-            <div class="form-group">
-                <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
-                <div class="col-sm-9">
-                    <input class="form-control" type="text" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength="${attribute.maxLength}"</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" tabindex="${attribute_index}" />
-                </div>
-            </div>
-            </#list>
-
-
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <button name="action_modify${business_class.businessClass}" class="btn btn-primary" type="submit" tabindex="${business_class.attributes?size}" >
-                        ${i18n_open}portal.util.labelModify${i18n_close}
-                    </button>
-                    <button name="view_manage${business_class.businessClass}s" class="btn" type="submit" >
-                        ${i18n_open}portal.util.labelCancel${i18n_close}
-                    </button>	
-                </div>
-            </div>
-
+				<${macro}formGroup>
+          <${macro}button name='action_modify${business_class.businessClass}' type='submit' tabIndex='${business_class.attributes?size}' title='${i18n_open}portal.util.labelModify${i18n_close}' buttonIcon='plus' />
+          <${macro}button name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}' buttonIcon='close' color='btn-secondary' />
+				</${macro}formGroup>
         </fieldset>
-    </form>
-    </div>  
-
-</div>
+		</${macro}tform>
+	</${macro}columns>
+</${macro}row>
 <#break>
 
 <#case 2>
 <${include} "${application.applicationName?lower_case}_tabs.html" />
-<${macro}tabs tab="${business_class.businessClass?lower_case}" />
+<${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
-<div class="row" >
-    <div class="col-sm-12">
-
-        <${macro}messages infos=infos />
-
-        <form method="post"  action="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}">
-            <button name="view_create${business_class.businessClass}" class="btn btn-primary pull-right" type="submit">
-                <span class="fa fa-plus"></span>
-                ${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}
-            </button>
-        </form>
+<${macro}row>
+	<${macro}columns>
+		<${macro}messages infos=infos />
+		<${macro}tform action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+			<${macro}button type='submit' name='view_create${business_class.businessClass}' class='pull-right' buttonIcon='plus' title='${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}' />
+		</${macro}tform>
 
     <h4>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.title{i18n_close}</h4>
         
-    <table class="table table-condensed table-striped">
-        <tr>
-            <input type="hidden" id="id" name="id"/>
-            <#list business_class.attributes as attribute>
-            <th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
-            </#list>
-            <th>${i18n_open}portal.util.labelActions${i18n_close}</th>
+    <${macro}table>
+			<tr>
+				<input type="hidden" id="id" name="id"/>
+				<#list business_class.attributes as attribute>
+					<th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
+				</#list>
+					<th>${i18n_open}portal.util.labelActions${i18n_close}</th>
         </tr>
-            <${variable}list ${business_class.businessClass?lower_case}_list as ${business_class.businessClass?lower_case} >
+				<${variable}list ${business_class.businessClass?lower_case}_list as ${business_class.businessClass?lower_case} >
         <tr>
-            <input type="hidden" id="id" name="id" />
-            <#list business_class.attributes as attribute>
+					<input type="hidden" id="id" name="id" />
+					<#list business_class.attributes as attribute>
             <td>
-                ${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
             </td>    
         </#list>
-        <td>
-            <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}"
-               class="btn btn-primary btn-sm" title="${i18n_open}portal.util.labelModify${i18n_close}">
-                <span class="fa fa-pencil-square-o"></span>
-            </a>
-
-            <a href="jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}"
-               class="btn btn-danger btn-sm" title="${i18n_open}portal.util.labelDelete${i18n_close}" >
-                <span class="fa fa-trash-o"></span>
-            </a>
-        </td>
+					<td>
+						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' showTitle=false buttonIcon='pencil-square-o' />
+						
+						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' showTitle=false color='btn-danger' />
+					</td>
         </tr>
         </${variable}list>
-    </table>
-    
-    </div>
-</div>
+    </${macro}table>
+	</${macro}columns>
+</${macro}row>
 <#break>
 <#default>
 </#switch>  
 
 <#else>
-<div class="row">
-    
-    <div class="well jumbotron">
-        <h1>Here is your default XPage <small>generated by PluginWizard</small></h1>
-    </div>
-    
-</div>
+<${macro}row>
+	<div class="well jumbotron">
+		<h1>Here is your default XPage <small>generated by PluginWizard</small></h1>
+	</div>
+</${macro}row>
 </#if>  
