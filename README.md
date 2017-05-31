@@ -1,4 +1,4 @@
-!["build status"]("http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=dev-plugin-pluginwizard-deploy")
+![](http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=dev-plugin-pluginwizard-deploy)
 # Plugin pluginwizard
 
 ## Introduction
