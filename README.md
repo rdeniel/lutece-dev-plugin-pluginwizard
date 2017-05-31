@@ -1,9 +1,9 @@
+!["build status"]("http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=dev-plugin-pluginwizard-deploy")
+# Plugin pluginwizard
 
-#Plugin pluginwizard
-
-##Introduction
+## Introduction
 The primary goal of Lutece pluginwizard is to reduce developer configuration files overhead and the risk of infringing the development norms. Also new developers entering the project will inheritthe best pratices directly in their project. A basic plugin can be conceived in some minutes and executed immediately.
-##What do you get?
+## What do you get?
 
 All the files needed to implement CRUD functionalities on defined business classes. The files include :
 
@@ -18,7 +18,7 @@ All the files needed to implement CRUD functionalities on defined business class
 * Basic XSL for defined portlets
 
 
-##What are the Pros ans Cons?
+## What are the Pros ans Cons?
 
 
 Pros
@@ -30,7 +30,7 @@ Pros
 Cons
 The generation based upon a model which is datacentered doesn't imply that all plugins are based upon business layers. There are a many mechanisms in Lutece which helps to comply to requirements. The mechanismcould be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which offers the possibility to set up fine-grained control on declared resources.
 
-##Plugin conception
+## Plugin conception
 
  **Simplified Requirements:** 
  
