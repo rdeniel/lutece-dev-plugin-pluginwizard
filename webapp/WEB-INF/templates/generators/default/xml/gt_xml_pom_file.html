@@ -8,10 +8,19 @@
 
     <modelVersion>${pom_model_version}</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
-    <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
+    <#if plugin.type == "MODULE">
+        <artifactId>module-${plugin.pluginName?lower_case}</artifactId>
+    <#else>
+        <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
+    </#if>
     <packaging>lutece-plugin</packaging>
     <version>${plugin.pluginVersion}-SNAPSHOT</version>
-    <name>Lutece ${plugin.pluginName?lower_case} plugin</name>
+
+    <#if plugin.type == "MODULE">
+    	<name>Lutece ${plugin.pluginName?replace("-", " ")?lower_case} module</name>
+	<#else>
+		<name>Lutece ${plugin.pluginName?lower_case} plugin</name>
+	</#if>
 
      <repositories>
          <repository>
@@ -59,7 +68,7 @@
 
     <properties>
         <componentName>${plugin.pluginName}</componentName>
-        <jiraProjectName>${plugin.pluginName?upper_case}</jiraProjectName>
+        <jiraProjectName>${plugin.pluginName?replace("-", "")?upper_case}</jiraProjectName>
         <jiraComponentId></jiraComponentId>
     </properties>
 </project>

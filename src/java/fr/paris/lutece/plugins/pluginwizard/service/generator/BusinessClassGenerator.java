@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -69,14 +70,24 @@ public class BusinessClassGenerator extends AbstractGenerator
     {
         HashMap<String, String> map = new HashMap<String, String>(  );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses(  );
-
+        String strPluginName, strRadicalPackage;
+        if(Utils.MODULE.equals(pm.getType( ))){
+        	
+        	strPluginName= "module."+pm.getPluginName( ).replace("-", ".");
+        	strRadicalPackage= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
+        	
+        }else{
+        	
+        	strPluginName= pm.getPluginName( );
+        	strRadicalPackage= pm.getPluginName( );
+        }
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
             for ( BusinessFileConfig file : _listFiles )
             {
                 String strClassName = file.getPrefix(  ) + businessClass.getBusinessClass(  ) + file.getSuffix(  );
                 String strFilename = strClassName + ".java";
-                String strSourceCode = getSourceCode( pm.getPluginName(  ), businessClass, file.getTemplate(  ) );
+                String strSourceCode = getSourceCode( strPluginName, businessClass, file.getTemplate(  ), strRadicalPackage, pm.getPluginName( ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@i18n", "#i18n" );
@@ -97,11 +108,13 @@ public class BusinessClassGenerator extends AbstractGenerator
      * @param strTemplate The type of generation(DAO,Home,etc)
      * @return The java source code of the business object
      */
-    private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate )
+    private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate, String strRadicalPackage, String strBeanName )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
+        model.put(Markers.MARK_RADICAL_PACKAGE, strRadicalPackage);
+        model.put(Markers.MARK_BEAN_NAME, strBeanName);
 
         return build( strTemplate, model );
     }

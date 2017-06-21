@@ -51,6 +51,7 @@ public class DescriptionFormBean implements Serializable
     private int _nIdPlugin;
     private String _strPluginName;
     private String _strPluginClass;
+    private String _strType;
     @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
     @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
@@ -253,5 +254,24 @@ public class DescriptionFormBean implements Serializable
     public void setPluginDbPoolRequired( String strPluginDbPoolRequired )
     {
         _strPluginDbPoolRequired = strPluginDbPoolRequired;
+    }
+    
+
+    /**
+     * Returns the Type (module or plugin)
+     * @return The Type
+     */
+    public String getType(  )
+    {
+        return _strType;
+    }
+
+    /**
+     * Sets the Type
+     * @param bIsModule The Type
+     */
+    public void setType( String strType )
+    {
+    	_strType = strType;
     }
 }

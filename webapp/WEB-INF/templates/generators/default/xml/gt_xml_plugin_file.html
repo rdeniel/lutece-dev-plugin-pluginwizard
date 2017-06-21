@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<#if plugin.type= "MODULE">
+	<#assign description="module." + plugin.pluginName?replace("-",".") + ".module.description" />
+	<#assign provider="module." + plugin.pluginName?replace("-",".") + ".module.provider" />
+	<#assign feat= "module."+plugin.pluginName?replace("-",".")/>
+	<#assign url= plugin.pluginName?split("-")[0]+"/modules/"+plugin.pluginName?split("-")[1]/>	
+<#else>
+	<#assign description= plugin.pluginName + ".plugin.description">
+	<#assign provider= plugin.pluginName + ".plugin.provider" >
+	<#assign feat= plugin.pluginName >
+	<#assign url= plugin.pluginName >
+</#if>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <plug-in>
     <name>${plugin.pluginName}</name>
     <class>${plugin.pluginClass}</class>
@@ -7,8 +18,8 @@
     <installation><#if plugin.pluginInstallation??>${plugin.pluginInstallation}</#if></installation>
     <changes><#if plugin.pluginChanges??>${plugin.pluginChanges}</#if></changes>
     <user-guide><#if plugin.pluginUserGuide??>${plugin.pluginUserGuide}</#if></user-guide>
-    <description>${plugin.pluginName}.plugin.description</description>
-    <provider>${plugin.pluginName}.plugin.provider</provider>
+    <description>${description}</description>
+    <provider>${provider}</provider>
     <provider-url>${plugin.pluginProviderUrl}</provider-url>
     <icon-url>${plugin.pluginIconUrl}</icon-url>
     <copyright>${plugin.pluginCopyright}</copyright>
@@ -25,10 +36,10 @@
     <#list plugin.features as feature >
         <admin-feature>
             <feature-id>${feature.featureRight}</feature-id>
-            <feature-title>${plugin.pluginName}.adminFeature.${feature.featureName}.name</feature-title>
-            <feature-description>${plugin.pluginName}.adminFeature.${feature.featureName}.description</feature-description>
+            <feature-title>${feat}.adminFeature.${feature.featureName}.name</feature-title>
+            <feature-description>${feat}.adminFeature.${feature.featureName}.description</feature-description>
             <feature-level>${feature.featureLevel}</feature-level>
-            <feature-url>jsp/admin/plugins/${plugin.pluginName}/${feature.jspName}</feature-url>
+            <feature-url>jsp/admin/plugins/${url}/${feature.jspName}</feature-url>
             <feature-icon-url></feature-icon-url>
       </admin-feature>
       </#list>
@@ -45,7 +56,7 @@
         <#if businessClass.id = idBusinessClass>
         <application>
             <application-id>${businessClass.businessClass?lower_case}</application-id>
-            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${businessClass.businessClassCapsFirst}XPage</application-class>
+            <application-class>fr.paris.lutece.plugins.${url?replace("/",".")}.web.${businessClass.businessClassCapsFirst}XPage</application-class>
         </application>
         </#if>
         </#list>
@@ -53,7 +64,7 @@
     <#else>
         <application>
             <application-id>${application.applicationName}</application-id>
-            <application-class>fr.paris.lutece.plugins.${plugin.pluginName}.web.${application.applicationClass}</application-class>
+            <application-class>fr.paris.lutece.plugins.${url?replace("/",".")}.web.${application.applicationClass}</application-class>
         </application>
     </#if>
     </#list>
@@ -65,18 +76,18 @@
     <portlets>
     <#list plugin.portlets as portlet>
      <portlet>
-       <portlet-class>fr.paris.lutece.plugins.${plugin.pluginName}.business.portlet.${portlet.portletClass}Home</portlet-class>
+       <portlet-class>fr.paris.lutece.plugins.${url?replace("/",".")}.business.portlet.${portlet.portletClass}Home</portlet-class>
 	   <portlet-type-id>${portlet.portletTypeName}</portlet-type-id>
-	   <portlet-type-name>${plugin.pluginName}.portlet.${plugin.pluginName}${portlet.portletClass}.name</portlet-type-name>
-	   <portlet-creation-url>plugins/${plugin.pluginName}/Create${portlet.jspBaseName}.jsp</portlet-creation-url>
-	   <portlet-update-url>plugins/${plugin.pluginName}/Modify${portlet.jspBaseName}.jsp</portlet-update-url>
-	   <portlet-create-action-url>plugins/${plugin.pluginName}/DoCreate${portlet.jspBaseName}.jsp</portlet-create-action-url>
-      <portlet-modify-action-url>plugins/${plugin.pluginName}/DoModify${portlet.jspBaseName}.jsp</portlet-modify-action-url>
+	   <portlet-type-name>${feat}.portlet.${plugin.pluginName}${portlet.portletClass}.name</portlet-type-name>
+	   <portlet-creation-url>plugins/${url}/Create${portlet.jspBaseName}.jsp</portlet-creation-url>
+	   <portlet-update-url>plugins/${url}/Modify${portlet.jspBaseName}.jsp</portlet-update-url>
+	   <portlet-create-action-url>plugins/${url}/DoCreate${portlet.jspBaseName}.jsp</portlet-create-action-url>
+      <portlet-modify-action-url>plugins/${url}/DoModify${portlet.jspBaseName}.jsp</portlet-modify-action-url>
 	    <!-- optional entries -->
         <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
         <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
-        <portlet-create-specific-template>/admin/plugins/${plugin.pluginName}/portlet/create_${portlet.jspBaseName?lower_case}.html</portlet-create-specific-template>
-        <portlet-modify-specific-template>/admin/plugins/${plugin.pluginName}/portlet/modify_${portlet.jspBaseName?lower_case}.html</portlet-modify-specific-template>
+        <portlet-create-specific-template>/admin/plugins/${url}/portlet/create_${portlet.jspBaseName?lower_case}.html</portlet-create-specific-template>
+        <portlet-modify-specific-template>/admin/plugins/${url}/portlet/modify_${portlet.jspBaseName?lower_case}.html</portlet-modify-specific-template>
         <portlet-create-specific-form-template></portlet-create-specific-form-template>
         <portlet-modify-specific-form-template></portlet-modify-specific-form-template> 
      </portlet>

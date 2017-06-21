@@ -30,6 +30,20 @@
 									<input type="text" class="form-control input-md" name="plugin_name" value="${plugin_model.pluginName!''}" readonly />       
 								</div>
 							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label">Type :</label>            
+								<div class="col-md-9">
+									<select class="form-control" name="type">    				
+											<option value="PLUGIN">Plugin</option>
+										 <#if (plugin_model.type?? && plugin_model.type= 'MODULE') || plugin_model.pluginName?contains('-')>
+										 	<option value="MODULE" selected>Module</option>	
+										 <#else>
+										 	<option value="MODULE">Module</option>	
+										 </#if>    				
+													
+									</select>   
+								</div>                   	
+							</div>  
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_plugin_description.labelPluginDescription} : </label>
