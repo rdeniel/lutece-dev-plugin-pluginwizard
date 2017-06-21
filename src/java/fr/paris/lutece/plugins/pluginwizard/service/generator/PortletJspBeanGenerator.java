@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,12 +57,18 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-
+        String strPluginName;
+        if(Utils.MODULE.equals(pm.getType( ))){
+        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
+        	
+        }else{
+        	strPluginName= pm.getPluginName( );
+        }
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             String strPath = getFilePath( pm, PATH, portlet.getPortletClass(  ) + "JspBean.java" );
 
-            String strSourceCode = getPortletJspBean( portlet, pm.getPluginName(  ) );
+            String strSourceCode = getPortletJspBean( portlet, strPluginName );
             map.put( strPath, strSourceCode );
         }
 

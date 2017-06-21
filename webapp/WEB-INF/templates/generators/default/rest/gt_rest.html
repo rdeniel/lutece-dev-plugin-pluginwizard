@@ -31,10 +31,15 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.${plugin_model.pluginName}.rs;
+<#if plugin_model.type= "MODULE" >
+ 	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
+<#else>
+	<#assign radicalPackage= plugin_model.pluginName /> 	
+</#if>
+package fr.paris.lutece.plugins.${radicalPackage}.rs;
 
-import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first};
-import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first}Home;
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 import fr.paris.lutece.plugins.rest.service.RestConstants;
 import fr.paris.lutece.util.json.ErrorJsonResponse;
 import fr.paris.lutece.util.json.JsonResponse;

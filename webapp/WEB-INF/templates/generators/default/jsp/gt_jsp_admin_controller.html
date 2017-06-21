@@ -1,9 +1,21 @@
 <jsp:useBean id="${bean_name}" scope="session" class="fr.paris.lutece.plugins.${plugin_name}.web.${business_class.businessClass}JspBean" />
 <% String strContent = ${bean_name}.processController ( request , response ); %>
 
+<#if is_Module>
+
+<%@ page errorPage="../../../../ErrorPage.jsp" %>
+<jsp:include page="../../../../AdminHeader.jsp" />
+
+<%= strContent %>
+
+<%@ include file="../../../../AdminFooter.jsp" %>
+
+<#else>
+
 <%@ page errorPage="../../ErrorPage.jsp" %>
 <jsp:include page="../../AdminHeader.jsp" />
 
 <%= strContent %>
 
 <%@ include file="../../AdminFooter.jsp" %>
+</#if>

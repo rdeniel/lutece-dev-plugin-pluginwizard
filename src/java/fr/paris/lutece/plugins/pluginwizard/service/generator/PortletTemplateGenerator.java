@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,13 @@ public class PortletTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-
+        String strPluginName;
+        if(Utils.MODULE.equals(pm.getType( ))){
+        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
+        	
+        }else{
+        	strPluginName= pm.getPluginName( );
+        }
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )
@@ -65,7 +72,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
-                String strSourceCode = getPortletHtmlTemplate( portlet, pm.getPluginName(  ), i );
+                String strSourceCode = getPortletHtmlTemplate( portlet, strPluginName, i );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@@", "#" );

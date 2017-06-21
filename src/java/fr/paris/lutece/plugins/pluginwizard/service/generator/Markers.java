@@ -75,6 +75,10 @@ public final class Markers
     public static final String MARK_LIST_APPLICATIONS = "applications";
     public static final String MARK_LIST_PORTLETS = "portlets";
     public static final String MARK_BEAN_NAME = "bean_name";
+    public static final String MARK_LINK = "link";
+    public static final String MARK_IS_MODULE = "is_Module";
+    public static final String MARK_RADICAL_PACKAGE = "radical_package";
+
 
     /** Private constructor */
     private Markers(  )

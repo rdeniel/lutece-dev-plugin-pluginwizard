@@ -67,11 +67,21 @@ public class ResourcesGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-
+        
+        String prefixFileName;
+        
+        if(Utils.MODULE.equals(pm.getType())){
+        	
+        	prefixFileName=pm.getPluginName(  ).split("-")[1].toLowerCase( );
+        
+        }else{
+        
+        	prefixFileName=pm.getPluginName(  ).toLowerCase( );
+        }
         for ( String strLanguage : _languages )
         {
             String strPath = getFilePath( pm, PATH,
-                    pm.getPluginName(  ).toLowerCase(  ) + "_messages_" + strLanguage + ".properties" );
+            		prefixFileName + "_messages_" + strLanguage + ".properties" );
             String strSourceCode = getCode( pm, strLanguage );
             map.put( strPath, strSourceCode );
         }
@@ -107,9 +117,15 @@ public class ResourcesGenerator extends AbstractGenerator
      */
     private void generatePluginKeys( StringBuilder sb, PluginModel pm )
     {
-        sb.append( "# Plugin's keys\n" );
-        sb.append( "plugin.provider=" ).append( pm.getPluginProvider(  ) ).append( "\n" );
-        sb.append( "plugin.description=" ).append( pm.getPluginDescription(  ) ).append( "\n" );
+    	 sb.append( "# Plugin's keys\n" );
+    	 if(Utils.MODULE.equals(pm.getType( ))){
+    		 sb.append( "module.provider=" ).append( pm.getPluginProvider(  ) ).append( "\n" );
+    	     sb.append( "module.description=" ).append( pm.getPluginDescription(  ) ).append( "\n" );         	
+         }else{
+        	 sb.append( "plugin.provider=" ).append( pm.getPluginProvider(  ) ).append( "\n" );
+    	     sb.append( "plugin.description=" ).append( pm.getPluginDescription(  ) ).append( "\n" );
+         }
+       
         sb.append( "\n" );
     }
 
