@@ -31,10 +31,18 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.${plugin_model.pluginName}.web;
+  <#if plugin_model.type= "MODULE" >
+  	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
+  	<#assign msg= "module."+plugin_model.pluginName?split("-")[0]+"."+plugin_model.pluginName?split("-")[1] />
+ <#else>
+ 	<#assign radicalPackage= plugin_model.pluginName />
+ 	<#assign msg= plugin_model.pluginName />
+ 	
+ </#if>
+package fr.paris.lutece.plugins.${radicalPackage}.web;
 
-import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first};
-import fr.paris.lutece.plugins.${plugin_model.pluginName}.business.${business_class.businessClass?cap_first}Home;
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
@@ -49,33 +57,33 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * This class provides the user interface to manage ${business_class.businessClass} features ( manage, create, modify, remove )
  */
-@Controller( controllerJsp = "Manage${business_class.businessClass}s.jsp", controllerPath = "jsp/admin/plugins/${plugin_model.pluginName}/", right = "${feature_right}" )
+@Controller( controllerJsp = "Manage${business_class.businessClass}s.jsp", controllerPath = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/", right = "${feature_right}" )
 public class ${business_class.businessClass}JspBean extends Abstract${feature_name}JspBean
 {
     // Templates
-    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/admin/plugins/${plugin_model.pluginName}/manage_${business_class.businessClass?lower_case}s.html";
-    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/admin/plugins/${plugin_model.pluginName}/create_${business_class.businessClass?lower_case}.html";
-    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/admin/plugins/${plugin_model.pluginName}/modify_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/admin/plugins/${radicalPackage?replace(".","/")}/manage_${business_class.businessClass?lower_case}s.html";
+    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/create_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
 
     // Parameters
     private static final String PARAMETER_ID_${business_class.businessClass?upper_case} = "id";
 
     // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S = "${plugin_model.pluginName?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} = "${plugin_model.pluginName?lower_case}.modify_${business_class.businessClass?lower_case}.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName?lower_case}.create_${business_class.businessClass?lower_case}.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S = "${msg?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} = "${msg?lower_case}.modify_${business_class.businessClass?lower_case}.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case} = "${msg?lower_case}.create_${business_class.businessClass?lower_case}.pageTitle";
 
     // Markers
     private static final String MARK_${business_class.businessClass?upper_case}_LIST = "${business_class.businessClass?lower_case}_list";
     private static final String MARK_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
 
-    private static final String JSP_MANAGE_${business_class.businessClass?upper_case}S = "jsp/admin/plugins/${plugin_model.pluginName}/Manage${business_class.businessClass?cap_first}s.jsp";
+    private static final String JSP_MANAGE_${business_class.businessClass?upper_case}S = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/Manage${business_class.businessClass?cap_first}s.jsp";
 
     // Properties
-    private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${plugin_model.pluginName}.message.confirmRemove${business_class.businessClass?cap_first}";
+    private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${msg}.message.confirmRemove${business_class.businessClass?cap_first}";
 
     // Validations
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${plugin_model.pluginName}.model.entity.${business_class.businessClass?lower_case}.attribute.";
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${msg}.model.entity.${business_class.businessClass?lower_case}.attribute.";
 
     // Views
     private static final String VIEW_MANAGE_${business_class.businessClass?upper_case}S = "manage${business_class.businessClass}s";
@@ -89,9 +97,9 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     private static final String ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "confirmRemove${business_class.businessClass}";
 
     // Infos
-    private static final String INFO_${business_class.businessClass?upper_case}_CREATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.created";
-    private static final String INFO_${business_class.businessClass?upper_case}_UPDATED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.updated";
-    private static final String INFO_${business_class.businessClass?upper_case}_REMOVED = "${plugin_model.pluginName}.info.${business_class.businessClass?lower_case}.removed";
+    private static final String INFO_${business_class.businessClass?upper_case}_CREATED = "${msg}.info.${business_class.businessClass?lower_case}.created";
+    private static final String INFO_${business_class.businessClass?upper_case}_UPDATED = "${msg}.info.${business_class.businessClass?lower_case}.updated";
+    private static final String INFO_${business_class.businessClass?upper_case}_REMOVED = "${msg}.info.${business_class.businessClass?lower_case}.removed";
     
     // Session variable to store working values
     private ${business_class.businessClass} _${business_class.businessClass?lower_case};

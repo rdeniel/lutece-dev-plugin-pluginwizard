@@ -37,14 +37,14 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
 								</label>          
 								<div class="col-md-9">           
-									 <input class="form-control input-md" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?cap_first}</#if>" />                     
+									 <input class="form-control input-md" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?keep_after("-")?cap_first}</#if>" />                     
 								</div>             
 							</div> 
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureManagement} : </label>                
 								<div class="col-md-9">    
-									<input type="text" class="form-control input-md" name="feature_right" value="<#if feature.featureRight??>${feature.featureRight}<#else>${plugin_model.pluginName?upper_case}_MANAGEMENT</#if>"  />      
+									<input type="text" class="form-control input-md" name="feature_right" value="<#if feature.featureRight??>${feature.featureRight}<#else>${plugin_model.pluginName?replace("-","_")?upper_case}_MANAGEMENT</#if>"  />      
 								</div>    
 							</div>
 

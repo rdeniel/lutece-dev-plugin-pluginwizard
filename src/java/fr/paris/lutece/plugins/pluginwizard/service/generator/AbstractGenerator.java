@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -80,7 +81,17 @@ public abstract class AbstractGenerator implements Generator
     protected String getFilePath( PluginModel pm, String strPath, String strFilename )
     {
         String strBasePath = "plugin-{plugin_name}/" + strPath;
-        strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+        
+        if(Utils.MODULE.equals(pm.getType())){
+        	
+        	strBasePath = "module-"+pm.getPluginName(  )+"/"+ strPath.replace( "{plugin_name}", (pm.getPluginName(  ).split("-")[0]  + "/modules/" +pm.getPluginName(  ).split("-")[1]));
+        	
+        }else{
+        	
+        	strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+        }
+        
+        
 
         return strBasePath + strFilename;
     }
@@ -155,4 +166,5 @@ public abstract class AbstractGenerator implements Generator
 
         return template.getHtml(  );
     }
+    
 }

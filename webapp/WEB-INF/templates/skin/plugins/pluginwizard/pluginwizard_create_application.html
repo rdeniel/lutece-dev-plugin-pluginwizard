@@ -22,14 +22,14 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationName} :</label>
 								<div class="col-md-9">   
-									<input class="form-control input-md" type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?lower_case}</#if>" />
+									<input class="form-control input-md" type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?keep_after("-")?lower_case}</#if>" />
 								</div>    
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationClass} :</label>
 								<div class="col-md-9">
-									<input class="form-control input-md" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?cap_first}App</#if>"  />
+									<input class="form-control input-md" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}App</#if>"  />
 								</div>
 							</div>
 							 

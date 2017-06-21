@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -58,14 +59,22 @@ public class PortletJspGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-
+        String strPluginName;
+        boolean bIsModule;
+        if(Utils.MODULE.equals(pm.getType( ))){
+        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
+        	bIsModule= true;
+        }else{
+        	strPluginName= pm.getPluginName( );
+        	bIsModule= false;
+        }
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
                 String strPortletFile = _prefix[i] + portlet.getJspBaseName(  ) + EXT_JSP;
                 String strPath = getFilePath( pm, PATH, strPortletFile );
-                String strSourceCode = getPortletJspFile( portlet, pm.getPluginName(  ), i );
+                String strSourceCode = getPortletJspFile( portlet, strPluginName, i, bIsModule );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -82,12 +91,13 @@ public class PortletJspGenerator extends AbstractGenerator
     * @param nPortletJspType The type of portlet
     * @return The source code of the portlet jsp
     */
-    private String getPortletJspFile( Portlet portlet, String strPluginName, int nPortletJspType )
+    private String getPortletJspFile( Portlet portlet, String strPluginName, int nPortletJspType, boolean bIsModule )
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_PORTLET_JSP_TYPE, nPortletJspType );
+        model.put( Markers.MARK_IS_MODULE, bIsModule );
 
         return build( model );
     }

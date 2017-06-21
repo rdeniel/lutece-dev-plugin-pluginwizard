@@ -57,6 +57,7 @@ public class PluginModel
     @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
     private String _strPluginDocumentation;
+    private String _strType; 
     private String _strPluginInstallation;
     private String _strPluginChanges;
     private String _strPluginUserGuide;
@@ -446,5 +447,23 @@ public class PluginModel
     public List<Feature> BusinessClass(  )
     {
         throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Returns the Type (module or plugin)
+     * @return The Type
+     */
+    public String getType(  )
+    {
+        return _strType;
+    }
+
+    /**
+     * Sets the Type
+     * @param bIsModule The Type
+     */
+    public void setType( String strType )
+    {
+    	_strType = strType;
     }
 }
