@@ -35,6 +35,9 @@ package fr.paris.lutece.plugins.pluginwizard.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import java.util.Locale;
 
@@ -49,6 +52,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class MokeHttpServletResponse implements HttpServletResponse
 {
+
+    private int _status;
+    private long contentLength;
     @Override
     public void addCookie( Cookie cookie )
     {
@@ -130,13 +136,18 @@ public class MokeHttpServletResponse implements HttpServletResponse
     }
 
     @Override
-    public void setStatus( int i )
+    public void setStatus( int status )
     {
+        if ( !this.isCommitted( ) ) 
+        {
+            this._status = status;
+        }
     }
 
     @Override
-    public void setStatus( int i, String string )
+    public void setStatus( int status, String string )
     {
+        setStatus(status);
     }
 
     @Override
@@ -220,4 +231,42 @@ public class MokeHttpServletResponse implements HttpServletResponse
     {
         return Locale.getDefault(  );
     }
+
+    @Override
+    public int getStatus() 
+    {
+        return 200;
+    }
+
+    @Override
+    public String getHeader(String string) 
+    {
+        return "mock";
+    }
+
+    @Override
+    public Collection<String> getHeaders( String string ) 
+    {
+        List<String> listHeaders = new ArrayList<String>( );
+        listHeaders.add( "mock" );
+        
+        return listHeaders;
+    }
+
+    @Override
+    public Collection<String> getHeaderNames() 
+    {
+        List<String> listHeaders = new ArrayList<String>( );
+        listHeaders.add("mock");
+        
+        return listHeaders;
+    }
+
+    @Override
+    public void setContentLengthLong(long contentLength) 
+    {
+        this.contentLength = contentLength;
+	//doAddHeaderValue(HttpHeaders.CONTENT_LENGTH, contentLength, true);
+    }
+    
 }
