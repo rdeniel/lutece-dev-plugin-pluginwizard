@@ -848,6 +848,13 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     {
         int nBusinessClassId = Integer.parseInt( request.getParameter( PARAM_BUSINESS_CLASS_ID ) );
         populate( _attribute, request );
+        
+        if ( !validateBean( _attribute, getLocale( request ) ) )
+        {
+            return redirect( request, VIEW_CREATE_ATTRIBUTE, 
+                    PARAM_BUSINESS_CLASS_ID, nBusinessClassId, 
+                    PARAM_ATTRIBUTE_ID, _attribute.getId()  );
+        }
 
         ModelService.addAttribute( _nPluginId, nBusinessClassId, _attribute );
         _attribute = null;
@@ -871,6 +878,13 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         _attribute.setNotNull( false );
         populate( _attribute, request );
 
+        if ( !validateBean( _attribute, getLocale( request ) ) )            
+        {
+            return redirect( request, VIEW_MODIFY_ATTRIBUTE , 
+                    PARAM_BUSINESS_CLASS_ID, nBusinessClassId, 
+                    PARAM_ATTRIBUTE_ID, _attribute.getId() );
+        }
+        
         ModelService.updateAttribute( _nPluginId, nBusinessClassId, _attribute );
         _attribute = null;
         addInfo( INFO_ATTRIBUTE_UPDATED, getLocale( request ) );
