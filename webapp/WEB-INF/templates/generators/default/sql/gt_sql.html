@@ -10,9 +10,9 @@
 
 DROP TABLE IF EXISTS ${business_class.businessTableName};
 CREATE TABLE ${business_class.businessTableName} (
-${business_class.primaryKey} int(6) NOT NULL,
+${business_class.primaryKey} int NOT NULL,
 <#list business_class.attributes as attribute>
-<#if attribute.type ='int' >${attribute.attributeName?lower_case} int(11) default '0'</#if><#if attribute.type ='String' ><#if attribute.maxLength &gt; 0 >${attribute.attributeName?lower_case} varchar(${attribute.maxLength}) default ''<#else>${attribute.attributeName?lower_case} long varchar</#if></#if><#if attribute.type =='Date' >${attribute.attributeName?lower_case} date</#if><#if attribute.type =='boolean' >${attribute.attributeName?lower_case} SMALLINT</#if><#if attribute.notNull = true> NOT NULL</#if>,
+<#if attribute.type ='int' >${attribute.attributeName?lower_case} int default '0'</#if><#if attribute.type ='String' ><#if attribute.maxLength &gt; 0 >${attribute.attributeName?lower_case} varchar(${attribute.maxLength}) default ''<#else>${attribute.attributeName?lower_case} long varchar</#if></#if><#if attribute.type =='Date' >${attribute.attributeName?lower_case} date</#if><#if attribute.type =='boolean' >${attribute.attributeName?lower_case} SMALLINT</#if><#if attribute.notNull = true> NOT NULL</#if>,
 </#list>
 PRIMARY KEY (${business_class.primaryKey})
 );
