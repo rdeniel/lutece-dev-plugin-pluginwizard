@@ -55,7 +55,8 @@
 <${macro}box>
 	<${macro}boxHeader title='${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}.title${i18n_close}' boxTools=true>
 		<${macro}tform class='form-inline pull-right' name='manage_${business_class.businessClass?lower_case}' action='jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp'>
-			<${macro}button type='submit' name='view_create${business_class.businessClass}' buttonIcon='plus' title='${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}.buttonAdd${i18n_close}' />
+			<${macro}button type='submit' name='view_create${business_class.businessClass}' buttonIcon='plus' title='${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}' />
+
 		</${macro}tform>
 	</${macro}boxHeader>
 	<${macro}boxBody>    
@@ -66,7 +67,7 @@
         <tr>
             <input type="hidden" id="id" name="id"/>
             <#list business_class.attributes as attribute>
-            <th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}.column${attribute.name}${i18n_close}</th>
+            <th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
             </#list>
             <th>${i18n_open}portal.util.labelActions${i18n_close}</th>
         </tr>
