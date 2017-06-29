@@ -94,6 +94,12 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     // Session variable to store working values
     private ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case};
     
+    /**
+     * Build the Manage View
+     *
+     * @param request The HTTP request
+     * @return The Xpage
+     */
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
     public XPage getManage${business_class.businessClass}s( HttpServletRequest request )
     {
@@ -133,7 +139,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         populate( _${business_class.businessClass?lower_case}, request );
 
         // Check constraints
-        if ( !validateBean( _${business_class.businessClass?lower_case}, getLocale( request ) ) )
+        if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
         }
@@ -215,7 +221,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         populate( _${business_class.businessClass?lower_case}, request );
 
         // Check constraints
-        if ( !validateBean( _${business_class.businessClass?lower_case}, getLocale( request ) ) )
+        if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
         }
