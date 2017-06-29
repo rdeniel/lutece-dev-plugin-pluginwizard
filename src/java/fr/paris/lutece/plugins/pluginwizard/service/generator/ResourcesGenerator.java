@@ -56,7 +56,7 @@ import java.util.Map;
 public class ResourcesGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
-    private static String[] _languages = { "en", "fr" };
+    private static String[] _languages = { "", "fr" };
     private static String[] _prefix = { "create", "modify" };
     private static String[] _suffix = { "created", "updated", "removed" };
 
@@ -71,7 +71,10 @@ public class ResourcesGenerator extends AbstractGenerator
         for ( String strLanguage : _languages )
         {
             String strPath = getFilePath( pm, PATH,
-                    pm.getPluginName(  ).toLowerCase(  ) + "_messages_" + strLanguage + ".properties" );
+                    pm.getPluginName(  ).toLowerCase(  ) + "_messages" 
+                                + (strLanguage.length()>0?"_":"") 
+                                + strLanguage + ".properties" );
+
             String strSourceCode = getCode( pm, strLanguage );
             map.put( strPath, strSourceCode );
         }
