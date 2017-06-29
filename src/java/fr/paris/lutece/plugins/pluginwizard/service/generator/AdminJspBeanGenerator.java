@@ -49,6 +49,7 @@ import java.util.Map;
 public class AdminJspBeanGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String PREFIX_JSPBEAN = "Abstract";
     private static final String SUFFIX_JSPBEAN = "JspBean.java";
     private String _strAbstractParentBeanTemplate;
 
@@ -83,7 +84,7 @@ public class AdminJspBeanGenerator extends AbstractGenerator
                 map.put( strPath, strSourceCode );
             }
 
-            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + SUFFIX_JSPBEAN );
+            String strPath = getFilePath( pm, PATH, PREFIX_JSPBEAN + feature.getFeatureName(  ) + SUFFIX_JSPBEAN );
             String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName(  ), feature.getFeatureRight(  ) );
             map.put( strPath, strSourceCode );
         }

@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * ${feature_name} JSP Bean abstract class for JSP Bean
  */
-public abstract class ${feature_name}JspBean extends MVCAdminJspBean
+public abstract class Abstract${feature_name}JspBean extends MVCAdminJspBean
 {
     // Rights
     public static final String RIGHT_${feature_name?upper_case} = "${feature_right}";
@@ -89,7 +89,7 @@ public abstract class ${feature_name}JspBean extends MVCAdminJspBean
 
         Map<String, Object> model = getModel(  );
 
-        model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
+        model.put( MARK_NB_ITEMS_PER_PAGE, String.valueOf( _nItemsPerPage ) );
         model.put( MARK_PAGINATOR, paginator );
         model.put( strBookmark, paginator.getPageItems(  ) );
 
