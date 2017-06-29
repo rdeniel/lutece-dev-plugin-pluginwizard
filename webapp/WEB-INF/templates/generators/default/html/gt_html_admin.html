@@ -4,7 +4,7 @@
 <${include} "${admin_feature.featureName?lower_case}_tabs.html" />
 <${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 <${macro}box>
-	<${macro}boxHeader title='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}s.title${i18n_close}' />
+	<${macro}boxHeader title='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title${i18n_close}' />
 	<${macro}boxBody>
     <${macro}tform name='create_${business_class.businessClass?lower_case}' action='jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp'>
         <${macro}messages errors=errors />
