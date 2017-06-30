@@ -94,13 +94,6 @@ public class AdminJspControllerGenerator extends AbstractGenerator
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
             }
-
-            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + ".jsp" );
-
-            String strSourceCode = getFeatureJspFile( feature.getFeatureName(  ), strPluginName );
-            strSourceCode = strSourceCode.replace( "&lt;", "<" );
-            strSourceCode = strSourceCode.replace( "&gt;", ">" );
-            map.put( strPath, strSourceCode );
         }
 
         return map;
