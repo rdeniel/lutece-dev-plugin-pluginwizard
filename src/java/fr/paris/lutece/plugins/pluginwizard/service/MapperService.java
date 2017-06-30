@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service;
 
+import org.codehaus.jackson.map.DeserializationConfig;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.util.AppLogService;
 

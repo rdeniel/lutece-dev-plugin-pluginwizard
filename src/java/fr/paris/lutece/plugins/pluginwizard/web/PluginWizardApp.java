@@ -421,7 +421,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     @Action( ACTION_DESCRIPTION_PREVIOUS )
     public XPage doDescritionPrevious( HttpServletRequest request )
     {
-        return doModifyPlugin( request, VIEW_MODIFY_PLUGIN );
+        return doModifyPlugin( request, VIEW_CREATE_PLUGIN );
     }
 
     /**
@@ -445,14 +445,26 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private XPage doModifyPlugin( HttpServletRequest request, String strView )
     {
         populate( _description, request );
-        if(_description.getType( ).equals(Utils.MODULE) && !_description.getPluginName().matches("[a-z]*-[a-z]*")){
+        
+        if ( _description.getPluginName().contains( "-" ) ) 
+        {
+            if (!_description.getPluginName().matches("[a-z]*-[a-z]*") ) 
+            {
         	addError(ERROR_MODULE_NAME,getLocale( request ));
         	return redirectView( request, VIEW_MODIFY_DESCRIPTION );
-        }
-        if(!_description.getType( ).equals(Utils.MODULE) && !_description.getPluginName().matches("[a-z]*")){
+            }
+            _description.setIsModule(true);
+        } 
+        else 
+        {
+            if(!_description.getPluginName().matches("[a-z]*")){
         	addError(ERROR_PLUGIN_NAME,getLocale( request ));
         	return redirectView( request, VIEW_MODIFY_DESCRIPTION );
+            }
+            _description.setIsModule(false);
         }
+        
+        
 
         if ( !validateBean( _description, getLocale( request ) ) )
         {

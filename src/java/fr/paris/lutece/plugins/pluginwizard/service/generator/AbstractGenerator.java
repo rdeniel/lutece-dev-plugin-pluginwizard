@@ -82,13 +82,13 @@ public abstract class AbstractGenerator implements Generator
     {
         String strBasePath = "plugin-{plugin_name}/" + strPath;
         
-        if(Utils.MODULE.equals(pm.getType())){
-        	
-        	strBasePath = "module-"+pm.getPluginName(  )+"/"+ strPath.replace( "{plugin_name}", (pm.getPluginName(  ).split("-")[0]  + "/modules/" +pm.getPluginName(  ).split("-")[1]));
-        	
-        }else{
-        	
-        	strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+        if ( pm.isModule( ) ) {
+            strBasePath = "module-" + pm.getPluginName(  ) + "/" 
+                    + strPath.replace( "{plugin_name}", (pm.getPluginName(  ).split("-")[0]  + "/modules/" +pm.getPluginName(  ).split("-")[1]));
+        }
+        else
+        {
+            strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
         }
         
         

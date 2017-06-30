@@ -78,15 +78,9 @@ public class AdminJspControllerGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        boolean bIsModule;
-        String strPluginName = pm.getPluginName(  );
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	bIsModule= true;
-        }else{
-        	strPluginName= pm.getPluginName( );
-        	bIsModule= false;
-        }
+        
+        String strPluginName = pm.getPluginNameAsRadicalPackage( );
+        
         for ( Feature feature : pm.getFeatures(  ) )
         {
             List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
@@ -97,7 +91,7 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
                 String strPath = getFilePath( pm, PATH, strJspFileName );
 
-                String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ), strPluginName, bIsModule );
+                String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ), strPluginName, pm.isModule( ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );

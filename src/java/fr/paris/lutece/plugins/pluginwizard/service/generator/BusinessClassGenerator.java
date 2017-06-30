@@ -70,17 +70,11 @@ public class BusinessClassGenerator extends AbstractGenerator
     {
         HashMap<String, String> map = new HashMap<String, String>(  );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses(  );
-        String strPluginName, strRadicalPackage;
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	
-        	strPluginName= "module."+pm.getPluginName( ).replace("-", ".");
-        	strRadicalPackage= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	
-        }else{
-        	
-        	strPluginName= pm.getPluginName( );
-        	strRadicalPackage= pm.getPluginName( );
-        }
+        
+        String strPluginName = pm.getPluginNameAsPackage( ) ;
+        String strRadicalPackage = pm.getPluginNameAsRadicalPackage( ) ;
+        
+        
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
             for ( BusinessFileConfig file : _listFiles )

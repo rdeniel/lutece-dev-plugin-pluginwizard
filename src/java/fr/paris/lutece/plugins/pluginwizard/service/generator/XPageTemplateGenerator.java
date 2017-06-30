@@ -66,18 +66,11 @@ public class XPageTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName;
+        String strPluginName = pm.getPluginNameAsPackage();
+        
         //for each application,which business classes are attached to
         Collection<Application> listApplication = pm.getApplications(  );
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	
-        	strPluginName= "module."+pm.getPluginName( ).replace("-", ".");
-        	
-        }else{
-        	
-        	strPluginName= pm.getPluginName( );
-        }
-
+                
         for ( Application application : listApplication )
         {
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
