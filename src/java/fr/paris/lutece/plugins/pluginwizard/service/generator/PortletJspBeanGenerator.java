@@ -57,16 +57,13 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName;
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	
-        }else{
-        	strPluginName= pm.getPluginName( );
-        }
+        String strPluginName = pm.getPluginNameAsRadicalPackage();
+        
+        String _path = PATH.replace("{plugin_name}", pm.getPluginNameAsRadicalPath());
+        
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
-            String strPath = getFilePath( pm, PATH, portlet.getPortletClass(  ) + "JspBean.java" );
+            String strPath = getFilePath( pm, _path, portlet.getPortletClass(  ) + "JspBean.java" );
 
             String strSourceCode = getPortletJspBean( portlet, strPluginName );
             map.put( strPath, strSourceCode );

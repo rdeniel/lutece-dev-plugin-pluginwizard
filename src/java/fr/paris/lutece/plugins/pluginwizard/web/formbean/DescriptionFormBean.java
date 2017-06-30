@@ -51,7 +51,6 @@ public class DescriptionFormBean implements Serializable
     private int _nIdPlugin;
     private String _strPluginName;
     private String _strPluginClass;
-    private String _strType;
     @NotEmpty( message = "pluginwizard.error.plugin.description.notEmpty" )
     @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
@@ -68,6 +67,7 @@ public class DescriptionFormBean implements Serializable
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
+    private boolean _bIsModule;
 
     /**
      *
@@ -258,20 +258,20 @@ public class DescriptionFormBean implements Serializable
     
 
     /**
-     * Returns the Type (module or plugin)
-     * @return The Type
+     * Returns if the plugin is a module
+     * @return true if the plugin is a module
      */
-    public String getType(  )
+    public boolean isModule(  )
     {
-        return _strType;
+        return _bIsModule;
     }
 
     /**
-     * Sets the Type
-     * @param bIsModule The Type
+     * Sets the isModule flag
+     * @param bIsModule true if the plugin is a module 
      */
-    public void setType( String strType )
+    public void setIsModule( boolean _bIsModule )
     {
-    	_strType = strType;
+    	this._bIsModule = _bIsModule;
     }
 }

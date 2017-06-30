@@ -42,6 +42,7 @@ import java.util.Locale;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 
 /**
@@ -80,6 +81,7 @@ public class PluginModel
     private List<Portlet> _listPluginPortlets;
     private List<BusinessClass> _listBusinessClasses;
     private Rest _rest;
+    private boolean _bIsModule;
 
     /**
      *
@@ -119,6 +121,99 @@ public class PluginModel
     {
         return _strPluginName;
     }
+    
+    /**
+     * Returns the Plugin or Module name formatted with dots as package
+     * @return The PluginName
+     */
+    @JsonIgnore
+    public String getPluginNameAsRadicalPackage(  )
+    {
+        if ( isModule( ) ) {
+            return _strPluginName.split("-")[0] + ".modules." + _strPluginName.split("-")[1]; 
+        } 
+        else
+        {
+            return _strPluginName ;
+        }
+
+    }
+    
+    /**
+     * Returns the Plugin or Module name formatted with slashes as Path
+     *
+     * @return The PluginName
+     */
+    @JsonIgnore
+    public String getPluginNameAsRadicalPath(  )
+    {
+        if ( isModule() ) 
+        {      
+        	return _strPluginName.split("-")[0]+"/modules/" + _strPluginName.split("-")[1];
+        }
+        else
+        {        	
+        	return _strPluginName ;
+        }
+    }
+        
+    /**
+     * Returns the Plugin or Module name for i18n keus 
+     * @return The PluginName
+     */
+    @JsonIgnore
+    public String getPluginNameAsPackage(  )
+    {
+        if ( isModule( ) ) 
+        {
+            return "module." + _strPluginName.replace("-", ".") ;        	
+        } 
+        else
+        {
+            return _strPluginName ;
+        }
+
+    }
+    
+        /**
+     * Returns the Plugin or Module name for Ressource 
+     * @return The PluginName
+     */
+    @JsonIgnore
+    public String getPluginNameForRessource(  )
+    {
+       if ( isModule( ) ) 
+       {
+            return getModuleName(  ).toLowerCase( );
+       } 
+       else 
+       {
+            return _strPluginName.toLowerCase( );
+       }
+
+    }
+      
+    
+    
+    /**
+     * Returns the Plugin or Module name 
+     * @return The PluginName
+     */
+    @JsonIgnore
+    public String getModuleName(  )
+    {
+        if ( isModule( ) ) 
+        {
+            return getPluginName( ).split("-")[1] ;
+        } 
+        else
+        {
+            return "";
+        }
+    }
+        
+    
+    
 
     /**
      * Sets the PluginName
@@ -449,6 +544,7 @@ public class PluginModel
         throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
     }
 
+    
     /**
      * Returns the Type (module or plugin)
      * @return The Type
@@ -460,10 +556,30 @@ public class PluginModel
 
     /**
      * Sets the Type
-     * @param bIsModule The Type
+     * @param  The Type
      */
     public void setType( String strType )
     {
     	_strType = strType;
     }
+    /**
+     * Returns the isModule boolean value
+     * @return The isModule
+     */
+    @JsonIgnore
+    public boolean isModule( ) 
+    {
+        return _bIsModule;
+    }
+
+    /**
+     * Sets the isModule flag
+     * @param _bIsModule The isModule boolean value
+     */
+    @JsonIgnore
+    public void setIsModule( boolean _bIsModule ) 
+    {
+        this._bIsModule = _bIsModule;
+    }
+    
 }

@@ -66,17 +66,11 @@ public class AdminTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName, strLink;
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	
-        	strPluginName= "module."+pm.getPluginName( ).replace("-", ".");
-        	strLink= pm.getPluginName( ).split("-")[0]+"/modules/"+pm.getPluginName( ).split("-")[1];
-        	
-        }else{
-        	
-        	strPluginName= pm.getPluginName( );
-        	strLink= pm.getPluginName( );
-        }
+        
+        String strPluginName = strPluginName = pm.getPluginNameAsPackage() ;
+        String strLink = pm.getPluginNameAsRadicalPath() ;
+        
+
 
         //for each feature,which business classes are attached to
         Collection<Feature> listFeatures = pm.getFeatures(  );

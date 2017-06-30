@@ -82,19 +82,8 @@ public class AdminJspGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName = pm.getPluginName(  );
-        boolean bIsModule= false;
+        String strPluginName = pm.getPluginNameAsRadicalPackage();
         
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	
-        	bIsModule=true;
-        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	
-        }else{
-        	
-        	strPluginName= pm.getPluginName( );
-        }
-
         for ( Feature feature : pm.getFeatures(  ) )
         {
             List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
@@ -109,7 +98,7 @@ public class AdminJspGenerator extends AbstractGenerator
                     String strPath = getFilePath( pm, PATH, strJspFileName );
 
                     String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ),
-                            strPluginName, i + 1, bIsModule );
+                            strPluginName, i + 1, pm.isModule() );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
                     map.put( strPath, strSourceCode );
@@ -118,7 +107,7 @@ public class AdminJspGenerator extends AbstractGenerator
 
             String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + EXT_JSP );
 
-            String strSourceCode = getFeatureJspFile( feature.getFeatureName(  ), strPluginName, bIsModule );
+            String strSourceCode = getFeatureJspFile( feature.getFeatureName(  ), strPluginName, pm.isModule() );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );

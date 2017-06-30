@@ -68,13 +68,8 @@ public class PortletGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strRadicalPackage;
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	strRadicalPackage= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	
-        }else{
-        	strRadicalPackage= pm.getPluginName( );
-        }
+        String strRadicalPackage = pm.getPluginNameAsRadicalPackage() ;
+                
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             for ( BusinessFileConfig file : _listFiles )

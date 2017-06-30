@@ -59,22 +59,17 @@ public class PortletJspGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName;
-        boolean bIsModule;
-        if(Utils.MODULE.equals(pm.getType( ))){
-        	strPluginName= pm.getPluginName( ).split("-")[0]+".modules."+pm.getPluginName( ).split("-")[1];
-        	bIsModule= true;
-        }else{
-        	strPluginName= pm.getPluginName( );
-        	bIsModule= false;
-        }
+        String strPluginName = pm.getPluginNameAsRadicalPackage();
+
+        String _path = PATH.replaceAll("{plugin_name}", pm.getPluginNameAsRadicalPath()) ;
+        
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
                 String strPortletFile = _prefix[i] + portlet.getJspBaseName(  ) + EXT_JSP;
-                String strPath = getFilePath( pm, PATH, strPortletFile );
-                String strSourceCode = getPortletJspFile( portlet, strPluginName, i, bIsModule );
+                String strPath = getFilePath( pm, _path, strPortletFile );
+                String strSourceCode = getPortletJspFile( portlet, strPluginName, i, pm.isModule() );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
