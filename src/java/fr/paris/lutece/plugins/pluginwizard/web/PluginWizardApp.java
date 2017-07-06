@@ -453,7 +453,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         	addError(ERROR_MODULE_NAME,getLocale( request ));
         	return redirectView( request, VIEW_MODIFY_DESCRIPTION );
             }
-            _description.setIsModule(true);
+            _description.setModule(true);
         } 
         else 
         {
@@ -461,7 +461,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         	addError(ERROR_PLUGIN_NAME,getLocale( request ));
         	return redirectView( request, VIEW_MODIFY_DESCRIPTION );
             }
-            _description.setIsModule(false);
+            _description.setModule(false);
         }
         
         

@@ -158,7 +158,7 @@ public class PluginModel
     }
         
     /**
-     * Returns the Plugin or Module name for i18n keus 
+     * Returns the Plugin or Module name for i18n keys 
      * @return The PluginName
      */
     @JsonIgnore
@@ -562,12 +562,22 @@ public class PluginModel
     {
     	_strType = strType;
     }
+    
+    /**
+     * Returns the isModule boolean value
+     * @return The isModule
+     */
+    public boolean isModule( ) 
+    {
+        return (_bIsModule || "MODULE".equals(_strType)) ;
+    }
+
     /**
      * Returns the isModule boolean value
      * @return The isModule
      */
     @JsonIgnore
-    public boolean isModule( ) 
+    public boolean getModule( ) 
     {
         return _bIsModule;
     }
@@ -576,8 +586,7 @@ public class PluginModel
      * Sets the isModule flag
      * @param _bIsModule The isModule boolean value
      */
-    @JsonIgnore
-    public void setIsModule( boolean _bIsModule ) 
+    public void setModule( boolean _bIsModule ) 
     {
         this._bIsModule = _bIsModule;
     }
