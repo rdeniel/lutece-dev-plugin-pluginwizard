@@ -67,6 +67,7 @@ public class DescriptionFormBean implements Serializable
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
     private String _strPluginProviderUrl;
     private String _strPluginDbPoolRequired;
+    private String _strType;
     private boolean _bIsModule;
 
     /**
@@ -255,6 +256,26 @@ public class DescriptionFormBean implements Serializable
     {
         _strPluginDbPoolRequired = strPluginDbPoolRequired;
     }
+
+    /**
+     * returns the type
+     * 
+     * @return the type
+     */
+    public String getType( ) 
+    {
+        return _strType;
+    }
+
+    /**
+     * sets the type
+     * 
+     * @param _strType 
+     */
+    public void setType( String _strType ) 
+    {
+        this._strType = _strType;
+    }
     
 
     /**
@@ -265,12 +286,21 @@ public class DescriptionFormBean implements Serializable
     {
         return _bIsModule;
     }
+    
+    /**
+     * Returns if the plugin is a module
+     * @return true if the plugin is a module
+     */
+    public boolean getModule(  )
+    {
+        return _bIsModule;
+    }
 
     /**
      * Sets the isModule flag
      * @param bIsModule true if the plugin is a module 
      */
-    public void setIsModule( boolean _bIsModule )
+    public void setModule( boolean _bIsModule )
     {
     	this._bIsModule = _bIsModule;
     }
