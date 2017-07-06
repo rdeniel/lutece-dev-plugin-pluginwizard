@@ -61,7 +61,7 @@ public class PortletJspGenerator extends AbstractGenerator
         HashMap map = new HashMap(  );
         String strPluginName = pm.getPluginNameAsRadicalPackage();
 
-        String _path = PATH.replaceAll("{plugin_name}", pm.getPluginNameAsRadicalPath()) ;
+        String _path = PATH.replaceAll("plugin_name", pm.getPluginNameAsRadicalPath()) ;
         
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
