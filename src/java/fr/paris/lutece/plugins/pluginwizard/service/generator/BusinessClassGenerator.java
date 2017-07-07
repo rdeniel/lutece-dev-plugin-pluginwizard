@@ -50,7 +50,8 @@ import java.util.Map;
  */
 public class BusinessClassGenerator extends AbstractGenerator
 {
-    private static final String PATH = "SOURCE/java/fr/paris/lutece/plugins/{plugin_name}/business/";
+    private static final String PATH = "SOURCE/java/fr/paris/lutece/plugins/";
+    private static final String PATH_SUFFIX = "/business/";
     private List<BusinessFileConfig> _listFiles;
 
     /**
@@ -73,6 +74,7 @@ public class BusinessClassGenerator extends AbstractGenerator
         
         String strPluginName = pm.getPluginNameAsPackage( ) ;
         String strRadicalPackage = pm.getPluginNameAsRadicalPackage( ) ;
+        String strRadicalPath = pm.getPluginNameAsRadicalPath();
         
         
         for ( BusinessClass businessClass : listAllBusinessClasses )
@@ -86,8 +88,8 @@ public class BusinessClassGenerator extends AbstractGenerator
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@i18n", "#i18n" );
 
-                String strPath = PATH.replace( "SOURCE", file.getSourcePath(  ) );
-
+                String strPath = PATH.replace( "SOURCE", file.getSourcePath(  ) ) + strRadicalPath + PATH_SUFFIX;
+                
                 map.put( getFilePath( pm, strPath, strFilename ), strSourceCode );
             }
         }

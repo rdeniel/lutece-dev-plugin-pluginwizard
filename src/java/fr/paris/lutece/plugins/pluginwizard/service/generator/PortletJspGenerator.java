@@ -48,7 +48,7 @@ import java.util.Map;
  */
 public class PortletJspGenerator extends AbstractGenerator
 {
-    private static final String PATH = "webapp/jsp/admin/plugins/{plugin_name}/";
+    private static final String PATH = "webapp/jsp/admin/plugins/";
     private static final String EXT_JSP = ".jsp";
     private static String[] _prefix = { "Modify", "DoModify", "Create", "DoCreate" };
 
@@ -59,9 +59,9 @@ public class PortletJspGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strPluginName = pm.getPluginNameAsRadicalPackage();
+        String strPluginName = pm.getPluginNameAsRadicalPackage( ) ;
 
-        String _path = PATH.replaceAll("plugin_name", pm.getPluginNameAsRadicalPath()) ;
+        String _path = PATH + pm.getPluginNameAsRadicalPath( )  + "/" ;
         
         for ( Portlet portlet : pm.getPortlets(  ) )
         {
