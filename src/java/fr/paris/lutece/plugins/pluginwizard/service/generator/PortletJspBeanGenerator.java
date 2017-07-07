@@ -65,7 +65,7 @@ public class PortletJspBeanGenerator extends AbstractGenerator
         {
             String strPath = getFilePath( pm, _path, portlet.getPortletClass(  ) + "JspBean.java" );
 
-            String strSourceCode = getPortletJspBean( portlet, strPluginName );
+            String strSourceCode = getPortletJspBean( portlet, strPluginName , pm.isModule( ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -78,11 +78,12 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     * @param strPluginName The generated plugin name
     * @return The source code of the jsp
     */
-    private String getPortletJspBean( Portlet portlet, String strPluginName )
+    private String getPortletJspBean( Portlet portlet, String strPluginName, boolean isModule)
     {
         Map<String, Object> model = new HashMap<String, Object>(  );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
+        model.put( Markers.MARK_IS_MODULE, isModule ) ;
 
         return build( model );
     }
