@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?><plug-in>
     <name>pluginwizard</name>
     <class>fr.paris.lutece.portal.service.plugin.PluginDefaultImplementation</class>
-    <version>4.1.2</version>
+    <version>6.0.0-SNAPSHOT</version>
     <description>pluginwizard.plugin.description</description>
     <documentation/>
     <installation/>
