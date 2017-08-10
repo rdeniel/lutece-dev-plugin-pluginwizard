@@ -21,7 +21,11 @@
         "id" : 1
       } ],
           
-  "businessClasses" : [ { "attributes" : [ 
+  "businessClasses" : [ 
+      { "businessClass" : "Person",
+        "businessTableName" : "myplugin_person",
+        "id" : 1,
+        "attributes" : [ 
             { "attributeName" : "person_name",
               "attributeTypeId" : 2,
               "id" : 1,
@@ -29,13 +33,12 @@
               "notNull" : true
             }
           ],
-        "businessClass" : "Person",
-        "businessTableName" : "myplugin_person",
-        "classDescription" : "person_name",
-        "id" : 1,
         "primaryKey" : "id_person"
       },
-      { "attributes" : [ 
+      { "businessClass" : "Product",
+        "businessTableName" : "myplugin_product",
+        "id" : 2,
+        "attributes" : [ 
             { "attributeName" : "product_name",
               "attributeTypeId" : 3,
               "id" : 1,
@@ -43,10 +46,7 @@
               "notNull" : true
             }
           ],
-        "businessClass" : "Product",
-        "businessTableName" : "myplugin_product",
-        "classDescription" : "product_name",
-        "id" : 2,
+
         "primaryKey" : "id_product"
       }
     ],
