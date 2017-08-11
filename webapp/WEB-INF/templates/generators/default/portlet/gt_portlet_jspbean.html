@@ -107,7 +107,7 @@ public class ${portlet.portletClass}JspBean extends PortletJspBean
         ${portlet.portletClass}Home.getInstance(  ).create( portlet );
 
         //Displays the page with the new Portlet
-        return getPageUrl( nPageId );
+        return <#if is_Module >"../../" + </#if>getPageUrl( nPageId );
     }
 
     /**
@@ -136,6 +136,6 @@ public class ${portlet.portletClass}JspBean extends PortletJspBean
         portlet.update(  );
 
         // displays the page with the updated portlet
-        return getPageUrl( portlet.getPageId(  ) );
+        return <#if is_Module >"../../" + </#if>getPageUrl( portlet.getPageId(  ) );
     }
 }
