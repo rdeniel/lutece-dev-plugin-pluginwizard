@@ -37,6 +37,7 @@ package fr.paris.lutece.plugins.${radical_package}.business;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.sql.DAOUtil;
+import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,33 +48,12 @@ import java.util.List;
 public final class ${business_class.businessClass}DAO implements I${business_class.businessClass}DAO
 {
     // Constants
-    private static final String SQL_QUERY_NEW_PK = "SELECT max( ${business_class.primaryKey} ) FROM ${business_class.businessTableName}";
     private static final String SQL_QUERY_SELECT = "SELECT ${business_class.primaryKey}<#if business_class.attributes??>, <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list></#if> FROM ${business_class.businessTableName} WHERE ${business_class.primaryKey} = ?";
-    private static final String SQL_QUERY_INSERT = "INSERT INTO ${business_class.businessTableName} ( ${business_class.primaryKey}<#if business_class.attributes??>, <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list></#if> ) VALUES ( ?<#if business_class.attributes??>, <#list business_class.attributes as attribute>?<#if attribute_has_next>, </#if></#list></#if> ) ";
+    private static final String SQL_QUERY_INSERT = "INSERT INTO ${business_class.businessTableName} ( <#if business_class.attributes??><#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list></#if> ) VALUES ( <#if business_class.attributes??><#list business_class.attributes as attribute>?<#if attribute_has_next>, </#if></#list></#if> ) ";
     private static final String SQL_QUERY_DELETE = "DELETE FROM ${business_class.businessTableName} WHERE ${business_class.primaryKey} = ? ";
     private static final String SQL_QUERY_UPDATE = "UPDATE ${business_class.businessTableName} SET ${business_class.primaryKey} = ?<#if business_class.attributes??>, <#list business_class.attributes as attribute>${attribute.attributeName} = ?<#if attribute_has_next>, </#if></#list></#if> WHERE ${business_class.primaryKey} = ?";
     private static final String SQL_QUERY_SELECTALL = "SELECT ${business_class.primaryKey}<#if business_class.attributes??>, <#list business_class.attributes as attribute>${attribute.attributeName}<#if attribute_has_next>, </#if></#list></#if> FROM ${business_class.businessTableName}";
     private static final String SQL_QUERY_SELECTALL_ID = "SELECT ${business_class.primaryKey} FROM ${business_class.businessTableName}";
-
-    /**
-     * Generates a new primary key
-     * @param plugin The Plugin
-     * @return The new primary key
-     */
-    public int newPrimaryKey( Plugin plugin)
-    {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK , plugin  );
-        daoUtil.executeQuery( );
-        int nKey = 1;
-
-        if( daoUtil.next( ) )
-        {
-            nKey = daoUtil.getInt( 1 ) + 1;
-        }
-
-        daoUtil.free();
-        return nKey;
-    }
 
     /**
      * {@inheritDoc }
@@ -81,17 +61,24 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-        ${business_class.instanceName}.setId( newPrimaryKey( plugin ) );
-        int nIndex = 1;
-        
-        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
-        <#list business_class.attributes as attribute>
-        daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
-        </#list>
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, Statement.RETURN_GENERATED_KEYS, plugin );
+        try
+        {
+            int nIndex = 1;
+            <#list business_class.attributes as attribute>
+            daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
+            </#list>
+            
+            daoUtil.executeUpdate( );
+            if ( daoUtil.nextGeneratedKey( ) ) 
+            {
+                ${business_class.instanceName}.setId( daoUtil.getGeneratedKeyInt( 1 ) );
+            }
+        }
+        finally
+        {
+            daoUtil.free( );
+        }
     }
 
     /**
