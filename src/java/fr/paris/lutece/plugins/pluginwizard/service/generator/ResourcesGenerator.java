@@ -73,7 +73,7 @@ public class ResourcesGenerator extends AbstractGenerator
         for ( String strLanguage : _languages )
         {
             String strPath = getFilePath( pm, PATH,
-                    pm.getPluginName(  ).toLowerCase(  ) + "_messages" 
+                    prefixFileName + "_messages" 
                                 + (strLanguage.length()>0?"_":"") 
                                 + strLanguage + ".properties" );
 
