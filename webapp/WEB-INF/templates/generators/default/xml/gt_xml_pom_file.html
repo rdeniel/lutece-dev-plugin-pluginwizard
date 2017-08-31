@@ -27,26 +27,19 @@
              <id>lutece</id>
              <name>luteceRepository</name>
              <url>http://dev.lutece.paris.fr/maven_repository</url>
--            <layout>default</layout>
--        </repository>
-+            <snapshots>
-+                <enabled>false</enabled>
-+            </snapshots>
-+            <releases>
-+                <enabled>true</enabled>
-+            </releases>
-+        </repository>        
-+        <repository>
-+            <id>luteceSnapshot</id>
-+            <name>luteceSnapshot</name>
-+            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
-+            <snapshots>
-+                <enabled>true</enabled>
-+            </snapshots>
-+            <releases>
-+                <enabled>false</enabled>
-+            </releases>
-+        </repository>        
+             <layout>default</layout>
+         </repository>
+         <repository>
+             <id>luteceSnapshot</id>
+             <name>luteceSnapshot</name>
+             <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+             <snapshots>
+                 <enabled>true</enabled>
+             </snapshots>
+             <releases>
+                 <enabled>false</enabled>
+             </releases>
+         </repository>        
      </repositories>
 
     <dependencies>
