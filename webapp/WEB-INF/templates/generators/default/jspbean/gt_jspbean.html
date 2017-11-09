@@ -145,7 +145,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
     public String doCreate${business_class.businessClass}( HttpServletRequest request )
     {
-        populate( _${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
@@ -225,7 +225,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
     public String doModify${business_class.businessClass}( HttpServletRequest request )
     {
-        populate( _${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )

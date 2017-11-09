@@ -145,7 +145,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
     public XPage doCreate${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-        populate( _${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case} ) )
@@ -227,7 +227,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
     public XPage doModify${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-        populate( _${business_class.businessClass?lower_case}, request );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case} ) )
