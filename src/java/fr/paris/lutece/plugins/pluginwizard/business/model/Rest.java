@@ -37,28 +37,30 @@ import java.io.Serializable;
 
 import java.util.List;
 
-
 /**
  * This is the business class for the object Rest
  */
 public class Rest implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
     private List<Integer> _nIdBusinessClasses;
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nId;
     }
 
     /**
      * Sets the Id
-     * @param nId The Id
+     * 
+     * @param nId
+     *            The Id
      */
     public void setId( int nId )
     {
@@ -67,16 +69,19 @@ public class Rest implements Serializable
 
     /**
      * Returns the list of IdBusinessClasses
+     * 
      * @return the collection of IdBusinessClasses
      */
-    public List<Integer> getIdBusinessClasses(  )
+    public List<Integer> getIdBusinessClasses( )
     {
         return _nIdBusinessClasses;
     }
 
     /**
      * Sets the list of IdBusinessClasses
-     * @param nIdBusinessClasses The collection of IdBusinessClasses
+     * 
+     * @param nIdBusinessClasses
+     *            The collection of IdBusinessClasses
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {

@@ -39,28 +39,28 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 import java.util.Collection;
 
-
 /**
  * This class provides instances management methods (create, find, ...) for ConfigurationKey objects
  */
 public final class ConfigurationKeyHome
 {
     // Static variable pointed at the DAO instance
-    private static IConfigurationKeyDAO _dao = (IConfigurationKeyDAO) SpringContextService.getPluginBean( "pluginwizard",
-            "pluginwizard.configurationKeyDAO" );
+    private static IConfigurationKeyDAO _dao = (IConfigurationKeyDAO) SpringContextService.getPluginBean( "pluginwizard", "pluginwizard.configurationKeyDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
      * Private constructor - this class need not be instantiated
      */
-    private ConfigurationKeyHome(  )
+    private ConfigurationKeyHome( )
     {
     }
 
     /**
      * Create an instance of the configurationKey class
-     * @param configurationKey The instance of the ConfigurationKey which contains the informations to store
-     * @return The  instance of configurationKey which has been created with its primary key.
+     * 
+     * @param configurationKey
+     *            The instance of the ConfigurationKey which contains the informations to store
+     * @return The instance of configurationKey which has been created with its primary key.
      */
     public static ConfigurationKey create( ConfigurationKey configurationKey )
     {
@@ -71,8 +71,10 @@ public final class ConfigurationKeyHome
 
     /**
      * Update of the configurationKey which is specified in parameter
-     * @param configurationKey The instance of the ConfigurationKey which contains the data to store
-      * @return The instance of the  configurationKey which has been updated
+     * 
+     * @param configurationKey
+     *            The instance of the ConfigurationKey which contains the data to store
+     * @return The instance of the configurationKey which has been updated
      */
     public static ConfigurationKey update( ConfigurationKey configurationKey )
     {
@@ -83,19 +85,23 @@ public final class ConfigurationKeyHome
 
     /**
      * Remove the configurationKey whose identifier is specified in parameter
-     * @param nConfigurationKeyId The configurationKey Id
+     * 
+     * @param nConfigurationKeyId
+     *            The configurationKey Id
      */
     public static void remove( int nConfigurationKeyId )
     {
         _dao.delete( nConfigurationKeyId, _plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Returns an instance of a configurationKey whose identifier is specified in parameter
-     * @param nKey The configurationKey primary key
+     * 
+     * @param nKey
+     *            The configurationKey primary key
      * @return an instance of ConfigurationKey
      */
     public static ConfigurationKey findByPrimaryKey( int nKey )
@@ -105,9 +111,10 @@ public final class ConfigurationKeyHome
 
     /**
      * Load the data of all the configurationKey objects and returns them in form of a collection
+     * 
      * @return the collection which contains the data of all the configurationKey objects
      */
-    public static Collection<ConfigurationKey> getConfigurationKeysList(  )
+    public static Collection<ConfigurationKey> getConfigurationKeysList( )
     {
         return _dao.selectConfigurationKeysList( _plugin );
     }

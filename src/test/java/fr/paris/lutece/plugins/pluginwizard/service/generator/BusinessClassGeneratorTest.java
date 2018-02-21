@@ -42,7 +42,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -53,13 +52,13 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
      * Test of generate method, of class BusinessClassGenerator.
      */
     @Test
-    public void testGenerateClassic(  )
+    public void testGenerateClassic( )
     {
         System.out.println( "generate BusinessClass files (classic)" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.classic" );
-        BusinessClassGenerator instance = new BusinessClassGenerator(  );
+        BusinessClassGenerator instance = new BusinessClassGenerator( );
         instance.setFiles( listFiles );
 
         Map result = instance.generate( pm );
@@ -70,13 +69,13 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
      * Test of generate method, of class BusinessClassGenerator.
      */
     @Test
-    public void testGenerateAlternative(  )
+    public void testGenerateAlternative( )
     {
         System.out.println( "generate BusinessClass files (alternative)" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.alternative" );
-        BusinessClassGenerator instance = new BusinessClassGenerator(  );
+        BusinessClassGenerator instance = new BusinessClassGenerator( );
         instance.setFiles( listFiles );
 
         Map result = instance.generate( pm );

@@ -42,9 +42,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
- * The portlet generator  generates all the java files needed for portlet creation
+ * The portlet generator generates all the java files needed for portlet creation
  */
 public class PortletGenerator extends AbstractGenerator
 {
@@ -54,7 +53,9 @@ public class PortletGenerator extends AbstractGenerator
 
     /**
      * Set the list of files config
-     * @param listFiles The list of files
+     * 
+     * @param listFiles
+     *            The list of files
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
@@ -67,15 +68,14 @@ public class PortletGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strRadicalPackage = pm.getPluginNameAsRadicalPackage() ;
                 
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for ( Portlet portlet : pm.getPortlets( ) )
         {
             for ( BusinessFileConfig file : _listFiles )
             {
-                String strPortletFile = file.getPrefix(  ) + portlet.getPortletClass(  ) + file.getSuffix(  ) +
-                    EXT_JAVA;
+                String strPortletFile = file.getPrefix( ) + portlet.getPortletClass( ) + file.getSuffix( ) + EXT_JAVA;
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
@@ -90,16 +90,21 @@ public class PortletGenerator extends AbstractGenerator
     }
 
     /**
-    * Produces text content of java file used to build a portlet
-    * @param portlet The instance of a portlet
-    * @param strPluginName The plugin name
-    * @param strTemplate  The template of portlet file
-    * @param strPortletName The portlet name
-    * @return The content of the portlet file
-    */
+     * Produces text content of java file used to build a portlet
+     * 
+     * @param portlet
+     *            The instance of a portlet
+     * @param strPluginName
+     *            The plugin name
+     * @param strTemplate
+     *            The template of portlet file
+     * @param strPortletName
+     *            The portlet name
+     * @return The content of the portlet file
+     */
     private String getPortletFile( Portlet portlet, String strPluginName, String strTemplate, String strRadicalPackage )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );

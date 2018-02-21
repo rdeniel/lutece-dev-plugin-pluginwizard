@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * Class generated the jsp files needed to manage portlets
@@ -50,7 +49,9 @@ public class PortletJspGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/jsp/admin/plugins/";
     private static final String EXT_JSP = ".jsp";
-    private static String[] _prefix = { "Modify", "DoModify", "Create", "DoCreate" };
+    private static String [ ] _prefix = {
+            "Modify", "DoModify", "Create", "DoCreate"
+    };
 
     /**
      * {@inheritDoc }
@@ -58,16 +59,16 @@ public class PortletJspGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage( ) ;
 
         String _path = PATH + pm.getPluginNameAsRadicalPath( )  + "/" ;
         
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for ( Portlet portlet : pm.getPortlets( ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortletFile = _prefix[i] + portlet.getJspBaseName(  ) + EXT_JSP;
+                String strPortletFile = _prefix [i] + portlet.getJspBaseName( ) + EXT_JSP;
                 String strPath = getFilePath( pm, _path, strPortletFile );
                 String strSourceCode = getPortletJspFile( portlet, strPluginName, i, pm.isModule() );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -80,15 +81,19 @@ public class PortletJspGenerator extends AbstractGenerator
     }
 
     /**
-    * Gets the portlet Jsp File
-    * @param portlet The portlet
-    * @param strPluginName the plugin name
-    * @param nPortletJspType The type of portlet
-    * @return The source code of the portlet jsp
-    */
+     * Gets the portlet Jsp File
+     * 
+     * @param portlet
+     *            The portlet
+     * @param strPluginName
+     *            the plugin name
+     * @param nPortletJspType
+     *            The type of portlet
+     * @return The source code of the portlet jsp
+     */
     private String getPortletJspFile( Portlet portlet, String strPluginName, int nPortletJspType, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_PORTLET_JSP_TYPE, nPortletJspType );

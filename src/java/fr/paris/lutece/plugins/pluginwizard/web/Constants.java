@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web;
 
-
 /**
  *
  * The class which contains the property keys and other constants
@@ -44,7 +43,7 @@ public final class Constants
     // Properties for page titles
     public static final String PROPERTY_PAGE_TITLE_CREATE_PLUGIN_DESCRIPTION = "wizard.wizard_plugin_description.pageTitle";
 
-    //Trigger Names
+    // Trigger Names
     public static final String PROPERTY_DATABASE_DIRECTORY_TRIGGER = "DatabaseCreationDummy";
     public static final String PROPERTY_JSP_BEAN_DIRECTORY_TRIGGER = "JspBeanTemplateDummy";
     public static final String PROPERTY_BUSINESS_CLASS_DIRECTORY_TRIGGER = "BusinessClassDummy";
@@ -52,11 +51,11 @@ public final class Constants
     public static final String PROPERTY_BACK_OFFICE_JSP_DIRECTORY_TRIGGER = "BackOfficeJspDummy";
     public static final String PROPERTY_PROPERTIES_RESOURCES_DIRECTORY_TRIGGER = "PropertiesDummy";
 
-    //File Naming
+    // File Naming
     public static final String PROPERTY_DATABASE_PREFIX = "create_db_";
     public static final String PROPERTY_XPAGE_SUFFIX = "App";
 
-    //The parameters for handling conditional generation
+    // The parameters for handling conditional generation
     public static final String PARAM_ADD_BUSINESS_CLASSES = "add_business_classes";
     public static final String PARAM_ADD_SQL_FILES = "add_sql_files";
     public static final String PARAM_ADD_JSP_BEAN = "add_jsp_bean";
@@ -71,7 +70,7 @@ public final class Constants
     /**
      * Private constructor
      */
-    private Constants(  )
+    private Constants( )
     {
     }
 }

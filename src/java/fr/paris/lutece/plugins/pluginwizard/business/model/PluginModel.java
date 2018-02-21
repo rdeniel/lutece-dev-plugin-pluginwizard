@@ -44,13 +44,12 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import org.codehaus.jackson.annotate.JsonIgnore;
 
-
 /**
  * This is the business class for the object PluginModel
  */
 public class PluginModel
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdPlugin;
     private String _strPluginName;
     private String _strPluginClass;
@@ -86,27 +85,30 @@ public class PluginModel
     /**
      *
      */
-    public PluginModel(  )
+    public PluginModel( )
     {
-        _listPluginApplications = new ArrayList<Application>(  );
-        _listPluginFeatures = new ArrayList<Feature>(  );
-        _listPluginPortlets = new ArrayList<Portlet>(  );
-        _listBusinessClasses = new ArrayList<BusinessClass>(  );
-        _rest = new Rest(  );
+        _listPluginApplications = new ArrayList<Application>( );
+        _listPluginFeatures = new ArrayList<Feature>( );
+        _listPluginPortlets = new ArrayList<Portlet>( );
+        _listBusinessClasses = new ArrayList<BusinessClass>( );
+        _rest = new Rest( );
     }
 
     /**
      * Returns the IdPlugin
+     * 
      * @return The IdPlugin
      */
-    public int getIdPlugin(  )
+    public int getIdPlugin( )
     {
         return _nIdPlugin;
     }
 
     /**
      * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
+     * 
+     * @param nIdPlugin
+     *            The IdPlugin
      */
     public void setIdPlugin( int nIdPlugin )
     {
@@ -115,9 +117,10 @@ public class PluginModel
 
     /**
      * Returns the PluginName
+     * 
      * @return The PluginName
      */
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return _strPluginName;
     }
@@ -217,7 +220,9 @@ public class PluginModel
 
     /**
      * Sets the PluginName
-     * @param strPluginName The PluginName
+     * 
+     * @param strPluginName
+     *            The PluginName
      */
     public void setPluginName( String strPluginName )
     {
@@ -226,16 +231,19 @@ public class PluginModel
 
     /**
      * Returns the PluginClass
+     * 
      * @return The PluginClass
      */
-    public String getPluginClass(  )
+    public String getPluginClass( )
     {
         return _strPluginClass;
     }
 
     /**
      * Sets the PluginClass
-     * @param strPluginClass The PluginClass
+     * 
+     * @param strPluginClass
+     *            The PluginClass
      */
     public void setPluginClass( String strPluginClass )
     {
@@ -244,16 +252,19 @@ public class PluginModel
 
     /**
      * Returns the PluginDescription
+     * 
      * @return The PluginDescription
      */
-    public String getPluginDescription(  )
+    public String getPluginDescription( )
     {
         return _strPluginDescription;
     }
 
     /**
      * Sets the PluginDescription
-     * @param strPluginDescription The PluginDescription
+     * 
+     * @param strPluginDescription
+     *            The PluginDescription
      */
     public void setPluginDescription( String strPluginDescription )
     {
@@ -262,16 +273,19 @@ public class PluginModel
 
     /**
      * Returns the PluginDocumentation
+     * 
      * @return The PluginDocumentation
      */
-    public String getPluginDocumentation(  )
+    public String getPluginDocumentation( )
     {
         return _strPluginDocumentation;
     }
 
     /**
      * Sets the PluginDocumentation
-     * @param strPluginDocumentation The PluginDocumentation
+     * 
+     * @param strPluginDocumentation
+     *            The PluginDocumentation
      */
     public void setPluginDocumentation( String strPluginDocumentation )
     {
@@ -280,16 +294,19 @@ public class PluginModel
 
     /**
      * Returns the PluginInstallation
+     * 
      * @return The PluginInstallation
      */
-    public String getPluginInstallation(  )
+    public String getPluginInstallation( )
     {
         return _strPluginInstallation;
     }
 
     /**
      * Sets the PluginInstallation
-     * @param strPluginInstallation The PluginInstallation
+     * 
+     * @param strPluginInstallation
+     *            The PluginInstallation
      */
     public void setPluginInstallation( String strPluginInstallation )
     {
@@ -298,16 +315,19 @@ public class PluginModel
 
     /**
      * Returns the PluginChanges
+     * 
      * @return The PluginChanges
      */
-    public String getPluginChanges(  )
+    public String getPluginChanges( )
     {
         return _strPluginChanges;
     }
 
     /**
      * Sets the PluginChanges
-     * @param strPluginChanges The PluginChanges
+     * 
+     * @param strPluginChanges
+     *            The PluginChanges
      */
     public void setPluginChanges( String strPluginChanges )
     {
@@ -316,16 +336,19 @@ public class PluginModel
 
     /**
      * Returns the PluginUserGuide
+     * 
      * @return The PluginUserGuide
      */
-    public String getPluginUserGuide(  )
+    public String getPluginUserGuide( )
     {
         return _strPluginUserGuide;
     }
 
     /**
      * Sets the PluginUserGuide
-     * @param strPluginUserGuide The PluginUserGuide
+     * 
+     * @param strPluginUserGuide
+     *            The PluginUserGuide
      */
     public void setPluginUserGuide( String strPluginUserGuide )
     {
@@ -334,16 +357,19 @@ public class PluginModel
 
     /**
      * Returns the PluginVersion
+     * 
      * @return The PluginVersion
      */
-    public String getPluginVersion(  )
+    public String getPluginVersion( )
     {
         return _strPluginVersion;
     }
 
     /**
      * Sets the PluginVersion
-     * @param strPluginVersion The PluginVersion
+     * 
+     * @param strPluginVersion
+     *            The PluginVersion
      */
     public void setPluginVersion( String strPluginVersion )
     {
@@ -352,16 +378,19 @@ public class PluginModel
 
     /**
      * Returns the PluginCopyright
+     * 
      * @return The PluginCopyright
      */
-    public String getPluginCopyright(  )
+    public String getPluginCopyright( )
     {
         return _strPluginCopyright;
     }
 
     /**
      * Sets the PluginCopyright
-     * @param strPluginCopyright The PluginCopyright
+     * 
+     * @param strPluginCopyright
+     *            The PluginCopyright
      */
     public void setPluginCopyright( String strPluginCopyright )
     {
@@ -370,16 +399,19 @@ public class PluginModel
 
     /**
      * Returns the PluginIconUrl
+     * 
      * @return The PluginIconUrl
      */
-    public String getPluginIconUrl(  )
+    public String getPluginIconUrl( )
     {
         return _strPluginIconUrl;
     }
 
     /**
      * Sets the PluginIconUrl
-     * @param strPluginIconUrl The PluginIconUrl
+     * 
+     * @param strPluginIconUrl
+     *            The PluginIconUrl
      */
     public void setPluginIconUrl( String strPluginIconUrl )
     {
@@ -388,16 +420,19 @@ public class PluginModel
 
     /**
      * Returns the PluginProvider
+     * 
      * @return The PluginProvider
      */
-    public String getPluginProvider(  )
+    public String getPluginProvider( )
     {
         return _strPluginProvider;
     }
 
     /**
      * Sets the PluginProvider
-     * @param strPluginProvider The PluginProvider
+     * 
+     * @param strPluginProvider
+     *            The PluginProvider
      */
     public void setPluginProvider( String strPluginProvider )
     {
@@ -406,16 +441,19 @@ public class PluginModel
 
     /**
      * Returns the PluginProviderUrl
+     * 
      * @return The PluginProviderUrl
      */
-    public String getPluginProviderUrl(  )
+    public String getPluginProviderUrl( )
     {
         return _strPluginProviderUrl;
     }
 
     /**
      * Sets the PluginProviderUrl
-     * @param strPluginProviderUrl The PluginProviderUrl
+     * 
+     * @param strPluginProviderUrl
+     *            The PluginProviderUrl
      */
     public void setPluginProviderUrl( String strPluginProviderUrl )
     {
@@ -424,16 +462,19 @@ public class PluginModel
 
     /**
      * Returns the PluginDbPoolRequired
+     * 
      * @return The PluginDbPoolRequired
      */
-    public String getPluginDbPoolRequired(  )
+    public String getPluginDbPoolRequired( )
     {
         return _strPluginDbPoolRequired;
     }
 
     /**
      * Sets the PluginDbPoolRequired
-     * @param strPluginDbPoolRequired The PluginDbPoolRequired
+     * 
+     * @param strPluginDbPoolRequired
+     *            The PluginDbPoolRequired
      */
     public void setPluginDbPoolRequired( String strPluginDbPoolRequired )
     {
@@ -442,16 +483,19 @@ public class PluginModel
 
     /**
      * Gets the locale of the plugin
+     * 
      * @return The Locale
      */
-    public Locale getLocale(  )
+    public Locale getLocale( )
     {
         return _locale;
     }
 
     /**
      * Gets the locale of the plugin
-     * @param locale The locale
+     * 
+     * @param locale
+     *            The locale
      */
     public void setLocale( Locale locale )
     {
@@ -460,7 +504,9 @@ public class PluginModel
 
     /**
      * Sets the list of plugin applications
-     * @param listPluginApplications The list of plugin applications
+     * 
+     * @param listPluginApplications
+     *            The list of plugin applications
      */
     public void setPluginApplications( List<Application> listPluginApplications )
     {
@@ -469,16 +515,19 @@ public class PluginModel
 
     /**
      * Returns the list of plugin applications
+     * 
      * @return The collection of applications
      */
-    public List<Application> getApplications(  )
+    public List<Application> getApplications( )
     {
         return _listPluginApplications;
     }
 
     /**
      * Sets the rest
-     * @param rest The rest
+     * 
+     * @param rest
+     *            The rest
      */
     public void setRest( Rest rest )
     {
@@ -487,16 +536,19 @@ public class PluginModel
 
     /**
      * Returns the rest
+     * 
      * @return The rest
      */
-    public Rest getRest(  )
+    public Rest getRest( )
     {
         return _rest;
     }
 
     /**
-     *  Sets the list of plugin features
-     * @param listPluginFeatures The list of plugi features
+     * Sets the list of plugin features
+     * 
+     * @param listPluginFeatures
+     *            The list of plugi features
      */
     public void setPluginFeatures( List<Feature> listPluginFeatures )
     {
@@ -505,16 +557,19 @@ public class PluginModel
 
     /**
      * Returns the list of plugin features
+     * 
      * @return The plugin features
      */
-    public List<Feature> getFeatures(  )
+    public List<Feature> getFeatures( )
     {
         return _listPluginFeatures;
     }
 
     /**
      * Sets the list of plugin portlets
-     * @param listPluginPortlets The list of plugin portlets
+     * 
+     * @param listPluginPortlets
+     *            The list of plugin portlets
      */
     public void setPluginPortlets( List<Portlet> listPluginPortlets )
     {
@@ -522,26 +577,28 @@ public class PluginModel
     }
 
     /**
-     *  Returns the list of plugin portlets
+     * Returns the list of plugin portlets
+     * 
      * @return The list of portlets
      */
-    public List<Portlet> getPortlets(  )
+    public List<Portlet> getPortlets( )
     {
         return _listPluginPortlets;
     }
 
     /**
      * Returns the list of business classes attached to the generated plugin
+     * 
      * @return The list of business classes
      */
-    public List<BusinessClass> getBusinessClasses(  )
+    public List<BusinessClass> getBusinessClasses( )
     {
         return _listBusinessClasses;
     }
 
-    public List<Feature> BusinessClass(  )
+    public List<Feature> BusinessClass( )
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException( "Not supported yet." ); // To change body of generated methods, choose Tools | Templates.
     }
 
     

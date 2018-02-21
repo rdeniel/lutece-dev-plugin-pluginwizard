@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -52,11 +51,11 @@ public class PomGeneratorTest extends LuteceTestCase
      * Test of generate method, of class PomGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate POM file" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         PomGenerator instance = SpringContextService.getBean( "pluginwizard.generator.pom" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );

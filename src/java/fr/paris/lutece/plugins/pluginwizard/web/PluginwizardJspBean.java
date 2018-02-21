@@ -53,14 +53,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
- * This class provides the user interface to manage  ConfigurationKey
- features ( manage, create, modify, remove )
+ * This class provides the user interface to manage ConfigurationKey features ( manage, create, modify, remove )
  */
 public class PluginwizardJspBean extends PluginAdminPageJspBean
 {
-    ////////////////////////////////////////////////////////////////////////////
+    // //////////////////////////////////////////////////////////////////////////
     // Constants
 
     // Right
@@ -102,7 +100,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     // Messages
     private static final String MESSAGE_CONFIRM_REMOVE_CONFIGURATIONKEY = "pluginwizard.message.confirmRemoveConfigurationKey";
 
-    //Variables
+    // Variables
     private int _nDefaultItemsPerPage;
     private String _strCurrentPageIndex;
     private int _nItemsPerPage;
@@ -110,7 +108,8 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     /**
      * Returns the list of configurationkey
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the configurationkeys list
      */
     public String getManageConfigurationKeys( HttpServletRequest request )
@@ -119,53 +118,53 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
 
         _strCurrentPageIndex = Paginator.getPageIndex( request, Paginator.PARAMETER_PAGE_INDEX, _strCurrentPageIndex );
         _nDefaultItemsPerPage = AppPropertiesService.getPropertyInt( PROPERTY_DEFAULT_LIST_CONFIGURATIONKEY_PER_PAGE, 5 );
-        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage,
-                _nDefaultItemsPerPage );
+        _nItemsPerPage = Paginator.getItemsPerPage( request, Paginator.PARAMETER_ITEMS_PER_PAGE, _nItemsPerPage, _nDefaultItemsPerPage );
 
         UrlItem url = new UrlItem( JSP_MANAGE_CONFIGURATIONKEYS );
-        String strUrl = url.getUrl(  );
-        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList(  );
-        LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs,
-                _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX, _strCurrentPageIndex, getLocale(  ) );
+        String strUrl = url.getUrl( );
+        Collection<ConfigurationKey> listCONFIGURATIONKEYs = ConfigurationKeyHome.getConfigurationKeysList( );
+        LocalizedPaginator paginator = new LocalizedPaginator( (List<ConfigurationKey>) listCONFIGURATIONKEYs, _nItemsPerPage, strUrl, PARAMETER_PAGE_INDEX,
+                _strCurrentPageIndex, getLocale( ) );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( MARK_NB_ITEMS_PER_PAGE, "" + _nItemsPerPage );
         model.put( MARK_PAGINATOR, paginator );
-        model.put( MARK_CONFIGURATIONKEY_LIST, paginator.getPageItems(  ) );
+        model.put( MARK_CONFIGURATIONKEY_LIST, paginator.getPageItems( ) );
 
-        HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_CONFIGURATIONKEYS, getLocale(  ),
-                model );
+        HtmlTemplate templateList = AppTemplateService.getTemplate( TEMPLATE_MANAGE_CONFIGURATIONKEYS, getLocale( ), model );
 
-        return getAdminPage( templateList.getHtml(  ) );
+        return getAdminPage( templateList.getHtml( ) );
     }
 
     /**
      * Returns the form to create a configurationkey
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code of the configurationkey form
      */
     public String getCreateConfigurationKey( HttpServletRequest request )
     {
         setPageTitleProperty( PROPERTY_PAGE_TITLE_CREATE_CONFIGURATIONKEY );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_CONFIGURATIONKEY, getLocale(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CREATE_CONFIGURATIONKEY, getLocale( ), model );
 
-        return getAdminPage( template.getHtml(  ) );
+        return getAdminPage( template.getHtml( ) );
     }
 
     /**
      * Process the data capture form of a new configurationkey
      *
-     * @param request The Http Request
+     * @param request
+     *            The Http Request
      * @return The Jsp URL of the process result
      */
     public String doCreateConfigurationKey( HttpServletRequest request )
     {
-        ConfigurationKey configurationkey = new ConfigurationKey(  );
+        ConfigurationKey configurationkey = new ConfigurationKey( );
         String strKeyDescription = request.getParameter( PARAMETER_KEY_DESCRIPTION );
         String strKeyValue = request.getParameter( PARAMETER_KEY_VALUE );
 
@@ -190,7 +189,8 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     /**
      * Manages the removal form of a configurationkey whose identifier is in the http request
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the html code to confirm
      */
     public String getConfirmRemoveConfigurationKey( HttpServletRequest request )
@@ -199,14 +199,14 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         UrlItem url = new UrlItem( JSP_DO_REMOVE_CONFIGURATIONKEY );
         url.addParameter( PARAMETER_ID_KEY, nId );
 
-        return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_CONFIGURATIONKEY, url.getUrl(  ),
-            AdminMessage.TYPE_CONFIRMATION );
+        return AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_CONFIGURATIONKEY, url.getUrl( ), AdminMessage.TYPE_CONFIRMATION );
     }
 
     /**
      * Handles the removal form of a configurationkey
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return the jsp URL to display the form to manage configurationkeys
      */
     public String doRemoveConfigurationKey( HttpServletRequest request )
@@ -220,7 +220,8 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
     /**
      * Returns the form to update info about a configurationkey
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The HTML form to update info
      */
     public String getModifyConfigurationKey( HttpServletRequest request )
@@ -230,18 +231,19 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_KEY ) );
         ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId );
 
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_CONFIGURATIONKEY, configurationkey );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_CONFIGURATIONKEY, getLocale(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_MODIFY_CONFIGURATIONKEY, getLocale( ), model );
 
-        return getAdminPage( template.getHtml(  ) );
+        return getAdminPage( template.getHtml( ) );
     }
 
     /**
      * Process the change form of a configurationkey
      *
-     * @param request The Http request
+     * @param request
+     *            The Http request
      * @return The Jsp URL of the process result
      */
     public String doModifyConfigurationKey( HttpServletRequest request )
@@ -251,8 +253,7 @@ public class PluginwizardJspBean extends PluginAdminPageJspBean
         String strValue = request.getParameter( PARAMETER_KEY_VALUE );
         ConfigurationKey configurationkey = ConfigurationKeyHome.findByPrimaryKey( nId );
 
-        if ( ( nId == 0 ) || ( strValue == null ) || ( strKeyDescription == null ) || strValue.equals( "" ) ||
-                strKeyDescription.equals( "" ) )
+        if ( ( nId == 0 ) || ( strValue == null ) || ( strKeyDescription == null ) || strValue.equals( "" ) || strKeyDescription.equals( "" ) )
         {
             return AdminMessageService.getMessageUrl( request, Messages.MANDATORY_FIELDS, AdminMessage.TYPE_STOP );
         }

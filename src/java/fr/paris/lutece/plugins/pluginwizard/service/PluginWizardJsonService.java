@@ -40,7 +40,6 @@ import fr.paris.lutece.portal.service.plugin.PluginService;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  * The json service will create a model json file
  */
@@ -52,13 +51,14 @@ public class PluginWizardJsonService
 
     /**
      * Gets the unique instance of the PluginWizardJsonService
+     * 
      * @return The unique instance of the PluginWizardJsonService
      */
-    public static synchronized PluginWizardJsonService getInstance(  )
+    public static synchronized PluginWizardJsonService getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = new PluginWizardJsonService(  );
+            _singleton = new PluginWizardJsonService( );
         }
 
         return _singleton;
@@ -66,15 +66,17 @@ public class PluginWizardJsonService
 
     /**
      * Exports the file in a byte array
-     * @param request The Http request
+     * 
+     * @param request
+     *            The Http request
      * @return An array of byte which is the content of the model.json
      */
-    public byte[] exportJson( HttpServletRequest request )
+    public byte [ ] exportJson( HttpServletRequest request )
     {
         String strPluginId = request.getParameter( PARAM_PLUGIN_ID );
         int nPluginId = Integer.parseInt( strPluginId );
         PluginModel pluginModel = ModelService.getPluginModel( nPluginId );
-        
+
         return MapperService.getJson( pluginModel ).getBytes( StandardCharsets.UTF_8 );
     }
 }

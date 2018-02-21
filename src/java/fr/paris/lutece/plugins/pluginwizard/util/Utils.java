@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.util;
 
-
 /**
  * Utils for plugin wizard
  */
@@ -42,22 +41,24 @@ public final class Utils
 	public final static String MODULE="MODULE";
 	
     /** private constructor */
-    private Utils(  )
+    private Utils( )
     {
     }
 
     /**
-    * Returns the Proper Name
-    * @param strSource the source
-    * @return source name
-    */
+     * Returns the Proper Name
+     * 
+     * @param strSource
+     *            the source
+     * @return source name
+     */
     public static String getProperName( String strSource )
     {
         int nIndex = 0;
         boolean bUpper = true;
-        StringBuilder strBuffer = new StringBuilder(  );
+        StringBuilder strBuffer = new StringBuilder( );
 
-        while ( nIndex < strSource.length(  ) )
+        while ( nIndex < strSource.length( ) )
         {
             char c = strSource.charAt( nIndex );
 
@@ -71,7 +72,7 @@ public final class Utils
             if ( bUpper )
             {
                 String strChar = strSource.substring( nIndex, nIndex + 1 );
-                c = strChar.toUpperCase(  ).charAt( 0 );
+                c = strChar.toUpperCase( ).charAt( 0 );
                 bUpper = false;
             }
 
@@ -79,16 +80,18 @@ public final class Utils
             nIndex++;
         }
 
-        return strBuffer.toString(  );
+        return strBuffer.toString( );
     }
 
     /**
      * Convert first letter to lower case
-     * @param strSource The source
+     * 
+     * @param strSource
+     *            The source
      * @return the converted string
      */
     public static String firstLowerCase( String strSource )
     {
-        return strSource.substring( 0, 1 ).toLowerCase(  ) + strSource.substring( 1, strSource.length(  ) );
+        return strSource.substring( 0, 1 ).toLowerCase( ) + strSource.substring( 1, strSource.length( ) );
     }
 }

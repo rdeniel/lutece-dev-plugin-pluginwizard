@@ -42,7 +42,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  * SiteDocumentationGeneratorTest
  */
@@ -52,26 +51,26 @@ public class SiteDocumentationGeneratorTest extends LuteceTestCase
      * Test of generate method, of class SiteDocumentationGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         try
         {
             System.out.println( "generate SiteDocumentationGenerator" );
 
-            PluginModel pm = GeneratorUtils.getTestModel(  );
+            PluginModel pm = GeneratorUtils.getTestModel( );
             SiteDocumentationGenerator instance = SpringContextService.getBean( "pluginwizard.generator.site" );
 
             Map result = instance.generate( pm );
             GeneratorUtils.outputMap( result );
         }
-        catch ( Exception e )
+        catch( Exception e )
         {
-            if ( e.getCause(  ) != null )
+            if ( e.getCause( ) != null )
             {
-                System.out.println( e.getCause(  ).getMessage(  ) );
+                System.out.println( e.getCause( ).getMessage( ) );
             }
 
-            System.out.println( e.getMessage(  ) );
+            System.out.println( e.getMessage( ) );
         }
     }
 }

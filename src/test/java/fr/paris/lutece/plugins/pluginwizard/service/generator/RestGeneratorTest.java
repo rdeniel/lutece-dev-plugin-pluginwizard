@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -49,14 +48,14 @@ import java.util.Map;
 public class RestGeneratorTest extends LuteceTestCase
 {
     /**
-    * Test of generate method, of class XPageGenerator.
-    */
+     * Test of generate method, of class XPageGenerator.
+     */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate Rest files A1ternative" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         RestGenerator instance = SpringContextService.getBean( "pluginwizard.generator.rest.java.alternative" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );

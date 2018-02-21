@@ -41,13 +41,12 @@ import java.io.Serializable;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 /**
  * Description FormBean
  */
 public class DescriptionFormBean implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdPlugin;
     private String _strPluginName;
     private String _strPluginClass;
@@ -73,22 +72,25 @@ public class DescriptionFormBean implements Serializable
     /**
      *
      */
-    public DescriptionFormBean(  )
+    public DescriptionFormBean( )
     {
     }
 
     /**
      * Returns the IdPlugin
+     * 
      * @return The IdPlugin
      */
-    public int getIdPlugin(  )
+    public int getIdPlugin( )
     {
         return _nIdPlugin;
     }
 
     /**
      * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
+     * 
+     * @param nIdPlugin
+     *            The IdPlugin
      */
     public void setIdPlugin( int nIdPlugin )
     {
@@ -97,16 +99,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginName
+     * 
      * @return The PluginName
      */
-    public String getPluginName(  )
+    public String getPluginName( )
     {
         return _strPluginName;
     }
 
     /**
      * Sets the PluginName
-     * @param strPluginName The PluginName
+     * 
+     * @param strPluginName
+     *            The PluginName
      */
     public void setPluginName( String strPluginName )
     {
@@ -115,16 +120,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginClass
+     * 
      * @return The PluginClass
      */
-    public String getPluginClass(  )
+    public String getPluginClass( )
     {
         return _strPluginClass;
     }
 
     /**
      * Sets the PluginClass
-     * @param strPluginClass The PluginClass
+     * 
+     * @param strPluginClass
+     *            The PluginClass
      */
     public void setPluginClass( String strPluginClass )
     {
@@ -133,16 +141,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginDescription
+     * 
      * @return The PluginDescription
      */
-    public String getPluginDescription(  )
+    public String getPluginDescription( )
     {
         return _strPluginDescription;
     }
 
     /**
      * Sets the PluginDescription
-     * @param strPluginDescription The PluginDescription
+     * 
+     * @param strPluginDescription
+     *            The PluginDescription
      */
     public void setPluginDescription( String strPluginDescription )
     {
@@ -151,16 +162,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginVersion
+     * 
      * @return The PluginVersion
      */
-    public String getPluginVersion(  )
+    public String getPluginVersion( )
     {
         return _strPluginVersion;
     }
 
     /**
      * Sets the PluginVersion
-     * @param strPluginVersion The PluginVersion
+     * 
+     * @param strPluginVersion
+     *            The PluginVersion
      */
     public void setPluginVersion( String strPluginVersion )
     {
@@ -169,16 +183,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginCopyright
+     * 
      * @return The PluginCopyright
      */
-    public String getPluginCopyright(  )
+    public String getPluginCopyright( )
     {
         return _strPluginCopyright;
     }
 
     /**
      * Sets the PluginCopyright
-     * @param strPluginCopyright The PluginCopyright
+     * 
+     * @param strPluginCopyright
+     *            The PluginCopyright
      */
     public void setPluginCopyright( String strPluginCopyright )
     {
@@ -187,16 +204,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginIconUrl
+     * 
      * @return The PluginIconUrl
      */
-    public String getPluginIconUrl(  )
+    public String getPluginIconUrl( )
     {
         return _strPluginIconUrl;
     }
 
     /**
      * Sets the PluginIconUrl
-     * @param strPluginIconUrl The PluginIconUrl
+     * 
+     * @param strPluginIconUrl
+     *            The PluginIconUrl
      */
     public void setPluginIconUrl( String strPluginIconUrl )
     {
@@ -205,16 +225,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginProvider
+     * 
      * @return The PluginProvider
      */
-    public String getPluginProvider(  )
+    public String getPluginProvider( )
     {
         return _strPluginProvider;
     }
 
     /**
      * Sets the PluginProvider
-     * @param strPluginProvider The PluginProvider
+     * 
+     * @param strPluginProvider
+     *            The PluginProvider
      */
     public void setPluginProvider( String strPluginProvider )
     {
@@ -223,16 +246,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginProviderUrl
+     * 
      * @return The PluginProviderUrl
      */
-    public String getPluginProviderUrl(  )
+    public String getPluginProviderUrl( )
     {
         return _strPluginProviderUrl;
     }
 
     /**
      * Sets the PluginProviderUrl
-     * @param strPluginProviderUrl The PluginProviderUrl
+     * 
+     * @param strPluginProviderUrl
+     *            The PluginProviderUrl
      */
     public void setPluginProviderUrl( String strPluginProviderUrl )
     {
@@ -241,16 +267,19 @@ public class DescriptionFormBean implements Serializable
 
     /**
      * Returns the PluginDbPoolRequired
+     * 
      * @return The PluginDbPoolRequired
      */
-    public String getPluginDbPoolRequired(  )
+    public String getPluginDbPoolRequired( )
     {
         return _strPluginDbPoolRequired;
     }
 
     /**
      * Sets the PluginDbPoolRequired
-     * @param strPluginDbPoolRequired The PluginDbPoolRequired
+     * 
+     * @param strPluginDbPoolRequired
+     *            The PluginDbPoolRequired
      */
     public void setPluginDbPoolRequired( String strPluginDbPoolRequired )
     {

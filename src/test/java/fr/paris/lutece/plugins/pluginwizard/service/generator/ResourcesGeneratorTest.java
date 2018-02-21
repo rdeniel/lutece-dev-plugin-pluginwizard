@@ -40,7 +40,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -51,12 +50,12 @@ public class ResourcesGeneratorTest extends LuteceTestCase
      * Test of generate method, of class ResourcesGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate Resources files" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
-        ResourcesGenerator instance = new ResourcesGenerator(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
+        ResourcesGenerator instance = new ResourcesGenerator( );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }

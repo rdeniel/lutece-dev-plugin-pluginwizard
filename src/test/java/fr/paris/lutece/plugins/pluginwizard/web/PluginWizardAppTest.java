@@ -43,7 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 
-
 /**
  *
  * @author levy
@@ -51,13 +50,13 @@ import javax.servlet.http.HttpServletResponseWrapper;
 public class PluginWizardAppTest extends LuteceTestCase
 {
     @Test
-    public void testCreateBusinessClass(  )
+    public void testCreateBusinessClass( )
     {
-        MokeHttpServletRequest request = new MokeHttpServletRequest(  );
-        HttpServletResponse response = new MokeHttpServletResponse(  );
+        MokeHttpServletRequest request = new MokeHttpServletRequest( );
+        HttpServletResponse response = new MokeHttpServletResponse( );
         LocalVariables.setLocal( null, request, response );
 
-        PluginWizardApp instance = new PluginWizardApp(  );
+        PluginWizardApp instance = new PluginWizardApp( );
         request.addMokeParameters( "name", "myplugin" );
         instance.doCreatePlugin( request );
         instance.getCreateBusinessClass( request );

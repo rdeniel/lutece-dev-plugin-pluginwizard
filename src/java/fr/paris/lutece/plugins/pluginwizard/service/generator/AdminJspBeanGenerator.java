@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * Admin Jsp Bean Generator
  */
@@ -57,7 +56,9 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
     /**
      * Set the parent bean template
-     * @param strParent The parent bean template
+     * 
+     * @param strParent
+     *            The parent bean template
      */
     public void setAbstractParentBeanTemplate( String strParent )
     {
@@ -70,26 +71,24 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
 
-        for ( Feature feature : pm.getFeatures(  ) )
+        for ( Feature feature : pm.getFeatures( ) )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm,
-                    feature.getId(  ) );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
             String strSuffix = ( isKotlin() ) ? SUFFIX_KOTLIN_JSPBEAN : SUFFIX_JAVA_JSPBEAN;
             String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
             for ( BusinessClass business : listBusinessClasses )
             {
-                String strFilename = business.getBusinessClassCapsFirst(  ) + strSuffix;
+                String strFilename = business.getBusinessClassCapsFirst( ) + SUFFIX_JSPBEAN;
                 String strPath = getFilePath( pm, strFilesPath, strFilename );
-                String strSourceCode = getJspBeanCode( pm, feature.getFeatureName(  ), feature.getFeatureRight(  ),
-                        business );
+                String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), business );
                 map.put( strPath, strSourceCode );
             }
 
             String strPath = getFilePath( pm, strFilesPath, PREFIX_JSPBEAN + feature.getFeatureName(  ) + strSuffix );
-            String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName(  ), feature.getFeatureRight(  ) );
+            String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -99,10 +98,14 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     /**
      * Return JspBean code
      *
-     * @param pm The plugin model
-     * @param strFeatureName The feature name
-     * @param strFeatureRight The feature right
-     * @param business  The business classes
+     * @param pm
+     *            The plugin model
+     * @param strFeatureName
+     *            The feature name
+     * @param strFeatureRight
+     *            The feature right
+     * @param business
+     *            The business classes
      * @return the template The source code of the Jsp Bean
      */
     private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, BusinessClass business )
@@ -117,13 +120,16 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     }
 
     /**
-    * Return JspBean code
-    *
-    * @param pm The plugin model
-    * @param strFeatureName The feature name
-    * @param strFeatureRight The feature right
-    * @return the template The source code of the Jsp Bean
-    */
+     * Return JspBean code
+     *
+     * @param pm
+     *            The plugin model
+     * @param strFeatureName
+     *            The feature name
+     * @param strFeatureRight
+     *            The feature right
+     * @return the template The source code of the Jsp Bean
+     */
     private String getAbstractJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight )
     {
         Map<String, Object> model = getModel( pm );

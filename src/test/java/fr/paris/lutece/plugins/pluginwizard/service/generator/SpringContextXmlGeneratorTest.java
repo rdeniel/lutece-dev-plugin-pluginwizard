@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -52,11 +51,11 @@ public class SpringContextXmlGeneratorTest extends LuteceTestCase
      * Test of generate method, of class SpringContextXmlGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate SpringContextXml file" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         SpringContextXmlGenerator instance = SpringContextService.getBean( "pluginwizard.generator.context.classic" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );

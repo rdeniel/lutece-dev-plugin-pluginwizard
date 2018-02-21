@@ -33,14 +33,14 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service;
 
-
 /**
  * AttributeType
  */
 public class AttributeType
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdAttributeType;
+    private String _strName;
     private String _strDescription;
     private String _strPrefix;
     private String _strJavaType;
@@ -49,16 +49,19 @@ public class AttributeType
 
     /**
      * Returns the IdAttributeType
+     * 
      * @return The IdAttributeType
      */
-    public int getIdAttributeType(  )
+    public int getIdAttributeType( )
     {
         return _nIdAttributeType;
     }
 
     /**
      * Sets the IdAttributeType
-     * @param nIdAttributeType The IdAttributeType
+     * 
+     * @param nIdAttributeType
+     *            The IdAttributeType
      */
     public void setIdAttributeType( int nIdAttributeType )
     {
@@ -66,17 +69,41 @@ public class AttributeType
     }
 
     /**
+     * Returns the Name
+     * 
+     * @return The Name
+     */
+    public String getName( )
+    {
+        return _strName;
+    }
+
+    /**
+     * Sets the Name
+     * 
+     * @param _strName
+     *            The Name
+     */
+    public void setName( String strName )
+    {
+        this._strName = strName;
+    }
+
+    /**
      * Returns the Description
+     * 
      * @return The Description
      */
-    public String getDescription(  )
+    public String getDescription( )
     {
         return _strDescription;
     }
 
     /**
      * Sets the Description
-     * @param strDescription The Description
+     * 
+     * @param strDescription
+     *            The Description
      */
     public void setDescription( String strDescription )
     {
@@ -85,16 +112,19 @@ public class AttributeType
 
     /**
      * Returns the Prefix
+     * 
      * @return The Prefix
      */
-    public String getPrefix(  )
+    public String getPrefix( )
     {
         return _strPrefix;
     }
 
     /**
      * Sets the Prefix
-     * @param strPrefix The Prefix
+     * 
+     * @param strPrefix
+     *            The Prefix
      */
     public void setPrefix( String strPrefix )
     {
@@ -103,16 +133,19 @@ public class AttributeType
 
     /**
      * Returns the JavaType
+     * 
      * @return The JavaType
      */
-    public String getJavaType(  )
+    public String getJavaType( )
     {
         return _strJavaType;
     }
 
     /**
      * Sets the JavaType
-     * @param strJavaType The JavaType
+     * 
+     * @param strJavaType
+     *            The JavaType
      */
     public void setJavaType( String strJavaType )
     {
@@ -121,16 +154,19 @@ public class AttributeType
 
     /**
      * Returns the MaxLength
+     * 
      * @return The MaxLength
      */
-    public int getMaxLength(  )
+    public int getMaxLength( )
     {
         return _nMaxLength;
     }
 
     /**
      * Sets the MaxLength
-     * @param nMaxLength The MaxLength
+     * 
+     * @param nMaxLength
+     *            The MaxLength
      */
     public void setMaxLength( int nMaxLength )
     {
@@ -139,19 +175,23 @@ public class AttributeType
 
     /**
      * Returns the Constraint
+     * 
      * @return The Constraint
      */
-    public String getConstraint(  )
+    public String getConstraint( )
     {
         return _strConstraint;
     }
 
     /**
      * Sets the Constraint
-     * @param strConstraint The Constraint
+     * 
+     * @param strConstraint
+     *            The Constraint
      */
     public void setConstraint( String strConstraint )
     {
         _strConstraint = strConstraint;
     }
+
 }

@@ -41,7 +41,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * The rest constants file generator
@@ -54,16 +53,17 @@ public class RestConstantsGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
 
         Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByRest( pm );
 
-        if ( !listBusinessClasses.isEmpty(  ) )
+        if ( !listBusinessClasses.isEmpty( ) )
         {
             String strPath = getFilePath( pm, PATH, CONSTANT_REST );
             String strSourceCode = getPage( pm, listBusinessClasses );
@@ -74,11 +74,14 @@ public class RestConstantsGenerator extends AbstractGenerator
     }
 
     /**
-    * Generates the Rest code
-    * @param pm The plugin model
-    * @param businessClasses the collection of business classes
-    * @return The code of the Rest generated
-    */
+     * Generates the Rest code
+     * 
+     * @param pm
+     *            The plugin model
+     * @param businessClasses
+     *            the collection of business classes
+     * @return The code of the Rest generated
+     */
     private String getPage( PluginModel pm, Collection<BusinessClass> businessClasses )
     {
         Map<String, Object> model = getModel( pm );

@@ -37,48 +37,61 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.List;
 
-
 /**
-* IModelDAO Interface
-*/
+ * IModelDAO Interface
+ */
 public interface IModelDAO
 {
     /**
      * Insert a new record in the table.
-     * @param model instance of the Model object to inssert
-     * @param plugin the Plugin
+     * 
+     * @param model
+     *            instance of the Model object to inssert
+     * @param plugin
+     *            the Plugin
      */
     void insert( Model model, Plugin plugin );
 
     /**
-    * Update the record in the table
-    * @param model the reference of the Model
-    * @param plugin the Plugin
-    */
+     * Update the record in the table
+     * 
+     * @param model
+     *            the reference of the Model
+     * @param plugin
+     *            the Plugin
+     */
     void store( Model model, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nIdModel int identifier of the Model to delete
-     * @param plugin the Plugin
+     * 
+     * @param nIdModel
+     *            int identifier of the Model to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nIdModel, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey the key
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            the key
+     * @param plugin
+     *            the Plugin
      * @return The instance of the model
      */
     Model load( int nKey, Plugin plugin );
 
     /**
-    * Load the data of all the model objects and returns them as a List
-    * @param plugin the Plugin
-    * @return The List which contains the data of all the model objects
-    */
+     * Load the data of all the model objects and returns them as a List
+     * 
+     * @param plugin
+     *            the Plugin
+     * @return The List which contains the data of all the model objects
+     */
     List<Model> selectModelsList( Plugin plugin );
 }

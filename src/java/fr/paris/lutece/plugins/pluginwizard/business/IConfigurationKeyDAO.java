@@ -37,48 +37,61 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 
-
 /**
-* IConfigurationKeyDAO Interface
-*/
+ * IConfigurationKeyDAO Interface
+ */
 public interface IConfigurationKeyDAO
 {
     /**
      * Insert a new record in the table.
-     * @param configurationKey instance of the ConfigurationKey object to inssert
-     * @param plugin the Plugin
+     * 
+     * @param configurationKey
+     *            instance of the ConfigurationKey object to inssert
+     * @param plugin
+     *            the Plugin
      */
     void insert( ConfigurationKey configurationKey, Plugin plugin );
 
     /**
-    * Update the record in the table
-    * @param configurationKey the reference of the ConfigurationKey
-    * @param plugin the Plugin
-    */
+     * Update the record in the table
+     * 
+     * @param configurationKey
+     *            the reference of the ConfigurationKey
+     * @param plugin
+     *            the Plugin
+     */
     void store( ConfigurationKey configurationKey, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nIdConfigurationKey int identifier of the ConfigurationKey to delete
-     * @param plugin the Plugin
+     * 
+     * @param nIdConfigurationKey
+     *            int identifier of the ConfigurationKey to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nIdConfigurationKey, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nIdKey The identifier of the configurationKey
-     * @param plugin the Plugin
+     * 
+     * @param nIdKey
+     *            The identifier of the configurationKey
+     * @param plugin
+     *            the Plugin
      * @return The instance of the configurationKey
      */
     ConfigurationKey load( int nIdKey, Plugin plugin );
 
     /**
-    * Load the data of all the configurationKey objects and returns them as a collection
-    * @param plugin the Plugin
-    * @return The collection which contains the data of all the configurationKey objects
-    */
+     * Load the data of all the configurationKey objects and returns them as a collection
+     * 
+     * @param plugin
+     *            the Plugin
+     * @return The collection which contains the data of all the configurationKey objects
+     */
     Collection<ConfigurationKey> selectConfigurationKeysList( Plugin plugin );
 }

@@ -40,7 +40,6 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-
 /**
  * Test of Mapper Service
  */
@@ -52,11 +51,11 @@ public class MapperServiceTest extends TestCase
      * Test of getJson method, of class MapperService.
      */
     @Test
-    public void testGetJson(  )
+    public void testGetJson( )
     {
         System.out.println( "getJson" );
 
-        PluginModel model = new PluginModel(  );
+        PluginModel model = new PluginModel( );
         model.setIdPlugin( 1 );
         model.setPluginName( "myplugin" );
         model.setPluginProvider( "provider" );
@@ -67,10 +66,10 @@ public class MapperServiceTest extends TestCase
         System.out.println( result );
     }
 
-    public void testReadJson(  )
+    public void testReadJson( )
     {
-        String strJson = GeneratorUtils.getTestJson(  );
+        String strJson = GeneratorUtils.getTestJson( );
         PluginModel model = MapperService.readJson( strJson );
-        assertEquals( model.getPluginVersion(  ), VERSION );
+        assertEquals( model.getPluginVersion( ), VERSION );
     }
 }

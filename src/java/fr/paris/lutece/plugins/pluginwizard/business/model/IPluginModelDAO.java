@@ -37,63 +37,81 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 
 import java.util.Collection;
 
-
 /**
-* IPluginModelDAO Interface
-*/
+ * IPluginModelDAO Interface
+ */
 public interface IPluginModelDAO
 {
     /**
      * Insert a new record in the table.
-     * @param pluginModel instance of the PluginModel object to inssert
-     * @param plugin the Plugin
+     * 
+     * @param pluginModel
+     *            instance of the PluginModel object to inssert
+     * @param plugin
+     *            the Plugin
      */
     void insert( PluginModel pluginModel, Plugin plugin );
 
     /**
-    * Update the record in the table
-    * @param pluginModel the reference of the PluginModel
-    * @param plugin the Plugin
-    */
+     * Update the record in the table
+     * 
+     * @param pluginModel
+     *            the reference of the PluginModel
+     * @param plugin
+     *            the Plugin
+     */
     void store( PluginModel pluginModel, Plugin plugin );
 
     /**
      * Delete a record from the table
-     * @param nIdPluginModel int identifier of the PluginModel to delete
-     * @param plugin the Plugin
+     * 
+     * @param nIdPluginModel
+     *            int identifier of the PluginModel to delete
+     * @param plugin
+     *            the Plugin
      */
     void delete( int nIdPluginModel, Plugin plugin );
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data from the table
-     * @param nKey The id of the plugin model
-     * @param plugin the Plugin
+     * 
+     * @param nKey
+     *            The id of the plugin model
+     * @param plugin
+     *            the Plugin
      * @return The instance of the pluginModel
      */
     PluginModel load( int nKey, Plugin plugin );
 
     /**
-    * Load the data of all the pluginModel objects and returns them as a collection
-    * @param plugin the Plugin
-    * @return The collection which contains the data of all the pluginModel objects
-    */
+     * Load the data of all the pluginModel objects and returns them as a collection
+     * 
+     * @param plugin
+     *            the Plugin
+     * @return The collection which contains the data of all the pluginModel objects
+     */
     Collection<PluginModel> selectPluginModelsList( Plugin plugin );
 
     /**
      * The identifier of the generated plugin
-     * @param plugin The plugin
-     * @param strName The generated plugin name
+     * 
+     * @param plugin
+     *            The plugin
+     * @param strName
+     *            The generated plugin name
      * @return The identifier of the plugin generated
      */
     int selectPluginModelByName( Plugin plugin, String strName );
 
     /**
      *
-     * @param strPluginName The plugin name
-     * @param plugin The plugin
+     * @param strPluginName
+     *            The plugin name
+     * @param plugin
+     *            The plugin
      * @return a Boolean
      */
     boolean pluginExists( String strPluginName, Plugin plugin );

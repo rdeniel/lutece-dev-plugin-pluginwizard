@@ -37,7 +37,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
-
 /**
  * This class provides instances management methods (create, find, ...) for Model objects
  */
@@ -50,22 +49,24 @@ public final class ModelHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private ModelHome(  )
+    private ModelHome( )
     {
     }
 
     /**
      * Check if a plugin already exists
-     * @param strPluginName The plugin name
+     * 
+     * @param strPluginName
+     *            The plugin name
      * @return -1 if not exists, otherwise the plugin id
      */
     public static int exists( String strPluginName )
     {
         for ( Model model : _dao.selectModelsList( _plugin ) )
         {
-            if ( model.getName(  ).equals( strPluginName ) )
+            if ( model.getName( ).equals( strPluginName ) )
             {
-                return model.getIdPlugin(  );
+                return model.getIdPlugin( );
             }
         }
 
@@ -74,8 +75,10 @@ public final class ModelHome
 
     /**
      * Create an instance of the model class
-     * @param model The instance of the Model which contains the informations to store
-     * @return The  instance of model which has been created with its primary key.
+     * 
+     * @param model
+     *            The instance of the Model which contains the informations to store
+     * @return The instance of model which has been created with its primary key.
      */
     public static Model create( Model model )
     {
@@ -86,8 +89,10 @@ public final class ModelHome
 
     /**
      * Update of the model which is specified in parameter
-     * @param model The instance of the Model which contains the data to store
-     * @return The instance of the  model which has been updated
+     * 
+     * @param model
+     *            The instance of the Model which contains the data to store
+     * @return The instance of the model which has been updated
      */
     public static Model update( Model model )
     {
@@ -98,19 +103,23 @@ public final class ModelHome
 
     /**
      * Remove the model whose identifier is specified in parameter
-     * @param nModelId The model Id
+     * 
+     * @param nModelId
+     *            The model Id
      */
     public static void remove( int nModelId )
     {
         _dao.delete( nModelId, _plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Returns an instance of a model whose identifier is specified in parameter
-     * @param nKey The model primary key
+     * 
+     * @param nKey
+     *            The model primary key
      * @return an instance of Model
      */
     public static Model findByPrimaryKey( int nKey )

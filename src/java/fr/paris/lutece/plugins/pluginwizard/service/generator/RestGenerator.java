@@ -41,7 +41,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * The rest files generator
@@ -54,20 +53,21 @@ public class RestGenerator extends AbstractGenerator
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
 
         Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByRest( pm );
 
-        if ( !listBusinessClasses.isEmpty(  ) )
+        if ( !listBusinessClasses.isEmpty( ) )
         {
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                String strFilename = businessClass.getBusinessClassCapsFirst(  ) + SUFFIX_REST;
+                String strFilename = businessClass.getBusinessClassCapsFirst( ) + SUFFIX_REST;
                 String strPath = getFilePath( pm, PATH, strFilename );
                 String strSourceCode = getPage( pm, businessClass );
                 map.put( strPath, strSourceCode );
@@ -78,11 +78,14 @@ public class RestGenerator extends AbstractGenerator
     }
 
     /**
-    * Generates the Rest code
-    * @param pm The plugin model
-    * @param businessClass the business class
-    * @return The code of the Rest generated
-    */
+     * Generates the Rest code
+     * 
+     * @param pm
+     *            The plugin model
+     * @param businessClass
+     *            the business class
+     * @return The code of the Rest generated
+     */
     private String getPage( PluginModel pm, BusinessClass businessClass )
     {
         Map<String, Object> model = getModel( pm );

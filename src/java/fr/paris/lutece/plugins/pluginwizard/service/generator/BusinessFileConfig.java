@@ -33,13 +33,12 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-
 /**
  * BusinessFileConfig
  */
 public class BusinessFileConfig
 {
-    // Variables declarations 
+    // Variables declarations
     private String _strPrefix = "";
     private String _strSuffix = "";
     private String _strPath = "src";
@@ -47,16 +46,19 @@ public class BusinessFileConfig
 
     /**
      * Returns the Prefix
+     * 
      * @return The Prefix
      */
-    public String getPrefix(  )
+    public String getPrefix( )
     {
         return _strPrefix;
     }
 
     /**
      * Sets the Prefix
-     * @param strPrefix The Prefix
+     * 
+     * @param strPrefix
+     *            The Prefix
      */
     public void setPrefix( String strPrefix )
     {
@@ -65,16 +67,19 @@ public class BusinessFileConfig
 
     /**
      * Returns the Suffix
+     * 
      * @return The Suffix
      */
-    public String getSuffix(  )
+    public String getSuffix( )
     {
         return _strSuffix;
     }
 
     /**
      * Sets the Suffix
-     * @param strSuffix The Suffix
+     * 
+     * @param strSuffix
+     *            The Suffix
      */
     public void setSuffix( String strSuffix )
     {
@@ -83,16 +88,19 @@ public class BusinessFileConfig
 
     /**
      * Returns the Path
+     * 
      * @return The Path
      */
-    public String getSourcePath(  )
+    public String getSourcePath( )
     {
         return _strPath;
     }
 
     /**
      * Sets the Path
-     * @param strPath The Path
+     * 
+     * @param strPath
+     *            The Path
      */
     public void setSourcePath( String strPath )
     {
@@ -101,16 +109,19 @@ public class BusinessFileConfig
 
     /**
      * Returns the Template
+     * 
      * @return The Template
      */
-    public String getTemplate(  )
+    public String getTemplate( )
     {
         return _strTemplate;
     }
 
     /**
      * Sets the Template
-     * @param strTemplate The Template
+     * 
+     * @param strTemplate
+     *            The Template
      */
     public void setTemplate( String strTemplate )
     {

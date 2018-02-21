@@ -39,7 +39,6 @@ import fr.paris.lutece.util.sql.DAOUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 /**
  * This class provides Data Access methods for ConfigurationKey objects
  */
@@ -55,32 +54,37 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
 
     /**
      * Generates a new primary key
-     * @param plugin The Plugin
+     * 
+     * @param plugin
+     *            The Plugin
      * @return The new primary key
      */
     public int newPrimaryKey( Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         int nKey;
 
-        if ( !daoUtil.next(  ) )
+        if ( !daoUtil.next( ) )
         {
             // if the table is empty
             nKey = 1;
         }
 
         nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return nKey;
     }
 
     /**
      * Insert a new record in the table.
-     * @param configurationKey instance of the ConfigurationKey object to insert
-     * @param plugin The plugin
+     * 
+     * @param configurationKey
+     *            instance of the ConfigurationKey object to insert
+     * @param plugin
+     *            The plugin
      */
     public void insert( ConfigurationKey configurationKey, Plugin plugin )
     {
@@ -88,87 +92,98 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
 
         configurationKey.setIdKey( newPrimaryKey( plugin ) );
 
-        daoUtil.setInt( 1, configurationKey.getIdKey(  ) );
-        daoUtil.setString( 2, configurationKey.getKeyDescription(  ) );
-        daoUtil.setString( 3, configurationKey.getKeyValue(  ) );
+        daoUtil.setInt( 1, configurationKey.getIdKey( ) );
+        daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
+        daoUtil.setString( 3, configurationKey.getKeyValue( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Load the data of the configurationKey from the table
-     * @param nId The identifier of the configurationKey
-     * @param plugin The plugin
+     * 
+     * @param nId
+     *            The identifier of the configurationKey
+     * @param plugin
+     *            The plugin
      * @return the instance of the ConfigurationKey
      */
     public ConfigurationKey load( int nId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         ConfigurationKey configurationKey = null;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
-            configurationKey = new ConfigurationKey(  );
+            configurationKey = new ConfigurationKey( );
 
             configurationKey.setIdKey( daoUtil.getInt( 1 ) );
             configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
             configurationKey.setKeyValue( daoUtil.getString( 3 ) );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return configurationKey;
     }
 
     /**
      * Delete a record from the table
-     * @param nConfigurationKeyId The identifier of the configurationKey
-     * @param plugin The plugin
+     * 
+     * @param nConfigurationKeyId
+     *            The identifier of the configurationKey
+     * @param plugin
+     *            The plugin
      */
     public void delete( int nConfigurationKeyId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nConfigurationKeyId );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Update the record in the table
-     * @param configurationKey The reference of the configurationKey
-     * @param plugin The plugin
+     * 
+     * @param configurationKey
+     *            The reference of the configurationKey
+     * @param plugin
+     *            The plugin
      */
     public void store( ConfigurationKey configurationKey, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-        daoUtil.setInt( 1, configurationKey.getIdKey(  ) );
-        daoUtil.setString( 2, configurationKey.getKeyDescription(  ) );
-        daoUtil.setString( 3, configurationKey.getKeyValue(  ) );
-        daoUtil.setInt( 4, configurationKey.getIdKey(  ) );
+        daoUtil.setInt( 1, configurationKey.getIdKey( ) );
+        daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
+        daoUtil.setString( 3, configurationKey.getKeyValue( ) );
+        daoUtil.setInt( 4, configurationKey.getIdKey( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Load the data of all the configurationKeys and returns them as a collection
-     * @param plugin The plugin
+     * 
+     * @param plugin
+     *            The plugin
      * @return The Collection which contains the data of all the configurationKeys
      */
     public Collection<ConfigurationKey> selectConfigurationKeysList( Plugin plugin )
     {
-        Collection<ConfigurationKey> configurationKeyList = new ArrayList<ConfigurationKey>(  );
+        Collection<ConfigurationKey> configurationKeyList = new ArrayList<ConfigurationKey>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            ConfigurationKey configurationKey = new ConfigurationKey(  );
+            ConfigurationKey configurationKey = new ConfigurationKey( );
 
             configurationKey.setIdKey( daoUtil.getInt( 1 ) );
             configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
@@ -177,7 +192,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
             configurationKeyList.add( configurationKey );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return configurationKeyList;
     }

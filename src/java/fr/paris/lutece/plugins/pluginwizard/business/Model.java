@@ -33,29 +33,31 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business;
 
-
 /**
  * This is the business class for the object Model
  */
 public class Model
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdPlugin;
     private String _strName;
     private String _strModelJson;
 
     /**
      * Returns the IdPlugin
+     * 
      * @return The IdPlugin
      */
-    public int getIdPlugin(  )
+    public int getIdPlugin( )
     {
         return _nIdPlugin;
     }
 
     /**
      * Sets the IdPlugin
-     * @param nIdPlugin The IdPlugin
+     * 
+     * @param nIdPlugin
+     *            The IdPlugin
      */
     public void setIdPlugin( int nIdPlugin )
     {
@@ -64,16 +66,19 @@ public class Model
 
     /**
      * Returns the Name
+     * 
      * @return The Name
      */
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
 
     /**
      * Sets the Name
-     * @param strName The Name
+     * 
+     * @param strName
+     *            The Name
      */
     public void setName( String strName )
     {
@@ -82,16 +87,19 @@ public class Model
 
     /**
      * Returns the ModelJson
+     * 
      * @return The ModelJson
      */
-    public String getModelJson(  )
+    public String getModelJson( )
     {
         return _strModelJson;
     }
 
     /**
      * Sets the ModelJson
-     * @param strModelJson The ModelJson
+     * 
+     * @param strModelJson
+     *            The ModelJson
      */
     public void setModelJson( String strModelJson )
     {

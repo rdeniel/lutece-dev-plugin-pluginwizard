@@ -39,13 +39,12 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 
-
 /**
  * This is the business class for the object Portlet
  */
 public class Portlet implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdPortletPlugin;
     @NotEmpty( message = "pluginwizard.error.portlet.class.notEmpty" )
     @Pattern( regexp = "[A-Z][a-zA-Z]*Portlet", message = "pluginwizard.error.portlet.class.pattern" )
@@ -59,16 +58,19 @@ public class Portlet implements Serializable
 
     /**
      * Returns the PortletClass
+     * 
      * @return The PortletClass
      */
-    public String getPortletClass(  )
+    public String getPortletClass( )
     {
         return _strPortletClass;
     }
 
     /**
      * Sets the PortletClass
-     * @param strPortletClass The PortletClass
+     * 
+     * @param strPortletClass
+     *            The PortletClass
      */
     public void setPortletClass( String strPortletClass )
     {
@@ -77,16 +79,19 @@ public class Portlet implements Serializable
 
     /**
      * Returns the PortletTypeName
+     * 
      * @return The PortletTypeName
      */
-    public String getPortletTypeName(  )
+    public String getPortletTypeName( )
     {
         return _strPortletTypeName;
     }
 
     /**
      * Sets the PortletTypeName
-     * @param strPortletTypeName The PortletTypeName
+     * 
+     * @param strPortletTypeName
+     *            The PortletTypeName
      */
     public void setPortletTypeName( String strPortletTypeName )
     {
@@ -95,16 +100,19 @@ public class Portlet implements Serializable
 
     /**
      * Returns the JspBaseName
+     * 
      * @return The JspBaseName
      */
-    public String getJspBaseName(  )
+    public String getJspBaseName( )
     {
         return _strJspBaseName;
     }
 
     /**
      * Sets the JspBaseName
-     * @param strJspBaseName The JspBaseName
+     * 
+     * @param strJspBaseName
+     *            The JspBaseName
      */
     public void setJspBaseName( String strJspBaseName )
     {
@@ -113,7 +121,9 @@ public class Portlet implements Serializable
 
     /**
      * Sets the IdPortletPlugin
-     * @param nIdPortletPlugin The IdPlugin
+     * 
+     * @param nIdPortletPlugin
+     *            The IdPlugin
      */
     public void setId( int nIdPortletPlugin )
     {
@@ -122,9 +132,10 @@ public class Portlet implements Serializable
 
     /**
      * Returns the IdPortletPlugin
+     * 
      * @return The IdPortletPlugin
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nIdPortletPlugin;
     }

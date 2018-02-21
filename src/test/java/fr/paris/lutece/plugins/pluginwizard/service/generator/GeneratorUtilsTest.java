@@ -8,18 +8,17 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 import junit.framework.TestCase;
 
-
 /**
  *
  * @author pierre
  */
 public class GeneratorUtilsTest extends TestCase
 {
-    public void testGetTestModel(  )
+    public void testGetTestModel( )
     {
         System.out.println( "test Generators Utils" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
-        assertTrue( pm.getApplications(  ).size(  ) > 0 );
+        PluginModel pm = GeneratorUtils.getTestModel( );
+        assertTrue( pm.getApplications( ).size( ) > 0 );
     }
 }

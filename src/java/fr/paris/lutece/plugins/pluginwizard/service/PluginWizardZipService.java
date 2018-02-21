@@ -48,7 +48,6 @@ import java.util.zip.ZipOutputStream;
 
 import javax.servlet.http.HttpServletRequest;
 
-
 /**
  * The zip service will pack all the chosen files and create an archive
  */
@@ -61,13 +60,14 @@ public class PluginWizardZipService
 
     /**
      * Gets the unique instance of the PluginWizardZipService
+     * 
      * @return The unique instance of the PluginWizardZipService
      */
-    public static synchronized PluginWizardZipService getInstance(  )
+    public static synchronized PluginWizardZipService getInstance( )
     {
         if ( _singleton == null )
         {
-            _singleton = new PluginWizardZipService(  );
+            _singleton = new PluginWizardZipService( );
         }
 
         return _singleton;
@@ -75,14 +75,16 @@ public class PluginWizardZipService
 
     /**
      * Exports the files in a byte array
-     * @param request The Http request
+     * 
+     * @param request
+     *            The Http request
      * @return An array of byte which is the content of the archive
      */
-    public byte[] exportZip( HttpServletRequest request )
+    public byte [ ] exportZip( HttpServletRequest request )
     {
-        ByteArrayOutputStream fos = new ByteArrayOutputStream(  );
+        ByteArrayOutputStream fos = new ByteArrayOutputStream( );
 
-        byte[] buffer = new byte[1024];
+        byte [ ] buffer = new byte [ 1024];
 
         ZipOutputStream zipOutputStream = new ZipOutputStream( fos );
         zipOutputStream.setLevel( 9 );
@@ -92,16 +94,16 @@ public class PluginWizardZipService
         String strScheme = request.getParameter( PARAM_SCHEME );
         int nScheme = Integer.parseInt( strScheme );
         PluginModel pluginModel = ModelService.getPluginModel( nPluginId );
-        GeneratorService generator = new GeneratorService(  );
+        GeneratorService generator = new GeneratorService( );
         Map<String, String> mapSources = generator.getGeneratedSources( _plugin, pluginModel, nScheme );
 
         try
         {
-            for ( Map.Entry<String, String> sourceFile : mapSources.entrySet(  ) )
+            for ( Map.Entry<String, String> sourceFile : mapSources.entrySet( ) )
             {
-                StringBuilder sb = new StringBuilder( sourceFile.getValue(  ) );
-                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream( sb.toString(  ).getBytes( "UTF-8" ) );
-                zipOutputStream.putNextEntry( new ZipEntry( sourceFile.getKey(  ) ) );
+                StringBuilder sb = new StringBuilder( sourceFile.getValue( ) );
+                ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream( sb.toString( ).getBytes( "UTF-8" ) );
+                zipOutputStream.putNextEntry( new ZipEntry( sourceFile.getKey( ) ) );
 
                 int nLength;
 
@@ -110,18 +112,18 @@ public class PluginWizardZipService
                     zipOutputStream.write( buffer, 0, nLength );
                 }
 
-                zipOutputStream.closeEntry(  );
-                byteArrayInputStream.close(  );
+                zipOutputStream.closeEntry( );
+                byteArrayInputStream.close( );
             }
 
-            zipOutputStream.finish(  );
-            zipOutputStream.close(  );
+            zipOutputStream.finish( );
+            zipOutputStream.close( );
         }
-        catch ( Exception e )
+        catch( Exception e )
         {
             AppLogService.error( e );
         }
 
-        return fos.toByteArray(  );
+        return fos.toByteArray( );
     }
 }

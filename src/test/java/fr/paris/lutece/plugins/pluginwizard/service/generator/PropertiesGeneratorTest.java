@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -52,11 +51,11 @@ public class PropertiesGeneratorTest extends LuteceTestCase
      * Test of generate method, of class PropertiesGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate Properties file" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         PropertiesGenerator instance = SpringContextService.getBean( "pluginwizard.generator.properties" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );

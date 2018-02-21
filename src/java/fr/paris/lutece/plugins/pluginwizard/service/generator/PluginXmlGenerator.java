@@ -44,7 +44,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * Class produces the xml file describing the generated plugin
@@ -64,12 +63,12 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     }
 
     /**
-      * {@inheritDoc }
-      */
+     * {@inheritDoc }
+     */
     @Override
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -79,26 +78,26 @@ public class PluginXmlGenerator extends AbstractFileGenerator
 
     public static void setJspName( PluginModel pm )
     {
-        for ( Feature feature : pm.getFeatures(  ) )
+        for ( Feature feature : pm.getFeatures( ) )
         {
-            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
+            List<BusinessClass> listBusiness = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
-            if ( ( listBusiness != null ) && ( listBusiness.size(  ) > 0 ) )
+            if ( ( listBusiness != null ) && ( listBusiness.size( ) > 0 ) )
             {
-                List<String> BusinessNames = new ArrayList<String>(  );
+                List<String> BusinessNames = new ArrayList<String>( );
                 int i = 0;
                 int id = 0;
 
                 for ( BusinessClass bc : listBusiness )
                 {
-                    BusinessNames.add( bc.getBusinessClass(  ) );
+                    BusinessNames.add( bc.getBusinessClass( ) );
                 }
 
                 Collections.sort( BusinessNames );
 
                 for ( BusinessClass bc : listBusiness )
                 {
-                    if ( bc.getBusinessClass(  ).equals( BusinessNames.get( 0 ) ) )
+                    if ( bc.getBusinessClass( ).equals( BusinessNames.get( 0 ) ) )
                     {
                         id = i;
                     }
@@ -107,29 +106,29 @@ public class PluginXmlGenerator extends AbstractFileGenerator
                 }
 
                 BusinessClass businessClass = listBusiness.get( id );
-                feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst(  ) + "s.jsp" );
+                feature.setJspName( "Manage" + businessClass.getBusinessClassCapsFirst( ) + "s.jsp" );
             }
             else
             {
-                feature.setJspName( feature.getFeatureName(  ) + ".jsp" );
+                feature.setJspName( feature.getFeatureName( ) + ".jsp" );
             }
         }
     }
 
     /**
-      * {@inheritDoc }
-      */
+     * {@inheritDoc }
+     */
     @Override
     protected String getFilename( PluginModel pm )
     {
-        return pm.getPluginName(  ).toLowerCase(  ) + ".xml";
+        return pm.getPluginName( ).toLowerCase( ) + ".xml";
     }
 
     /**
-      * {@inheritDoc }
-      */
+     * {@inheritDoc }
+     */
     @Override
-    public String getPath(  )
+    public String getPath( )
     {
         return PATH;
     }

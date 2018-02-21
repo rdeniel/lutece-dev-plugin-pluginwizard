@@ -41,7 +41,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -52,11 +51,11 @@ public class PortletXslGeneratorTest extends LuteceTestCase
      * Test of generate method, of class PortletJspGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate Portlet XSL file" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         PortletXslGenerator instance = SpringContextService.getBean( "pluginwizard.generator.portlet.xsl" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );

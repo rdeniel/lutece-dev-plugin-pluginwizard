@@ -33,29 +33,31 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business;
 
-
 /**
  * This is the business class for the object ConfigurationKey
  */
 public class ConfigurationKey
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdKey;
     private String _strKeyDescription;
     private String _strKeyValue;
 
     /**
      * Returns the IdKey
+     * 
      * @return The IdKey
      */
-    public int getIdKey(  )
+    public int getIdKey( )
     {
         return _nIdKey;
     }
 
     /**
      * Sets the IdKey
-     * @param nIdKey The IdKey
+     * 
+     * @param nIdKey
+     *            The IdKey
      */
     public void setIdKey( int nIdKey )
     {
@@ -64,16 +66,19 @@ public class ConfigurationKey
 
     /**
      * Returns the KeyDescription
+     * 
      * @return The KeyDescription
      */
-    public String getKeyDescription(  )
+    public String getKeyDescription( )
     {
         return _strKeyDescription;
     }
 
     /**
      * Sets the KeyDescription
-     * @param strKeyDescription The KeyDescription
+     * 
+     * @param strKeyDescription
+     *            The KeyDescription
      */
     public void setKeyDescription( String strKeyDescription )
     {
@@ -82,16 +87,19 @@ public class ConfigurationKey
 
     /**
      * Returns the KeyValue
+     * 
      * @return The KeyValue
      */
-    public String getKeyValue(  )
+    public String getKeyValue( )
     {
         return _strKeyValue;
     }
 
     /**
      * Sets the KeyValue
-     * @param strKeyValue The KeyValue
+     * 
+     * @param strKeyValue
+     *            The KeyValue
      */
     public void setKeyValue( String strKeyValue )
     {

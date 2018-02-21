@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  * AbstractGenerator
  *
@@ -76,7 +75,7 @@ public abstract class AbstractGenerator implements Generator
      *
      * @return The Template
      */
-    public String getTemplate(  )
+    public String getTemplate( )
     {
         return _strTemplate;
     }
@@ -84,7 +83,8 @@ public abstract class AbstractGenerator implements Generator
     /**
      * Sets the Template
      *
-     * @param strTemplate The Template
+     * @param strTemplate
+     *            The Template
      */
     public void setTemplate( String strTemplate )
     {
@@ -93,9 +93,13 @@ public abstract class AbstractGenerator implements Generator
 
     /**
      * Build the file path
-     * @param pm The Plugin Model
-     * @param strPath The relative path
-     * @param strFilename The file name
+     * 
+     * @param pm
+     *            The Plugin Model
+     * @param strPath
+     *            The relative path
+     * @param strFilename
+     *            The file name
      * @return The full path
      */
     protected String getFilePath( PluginModel pm, String strPath, String strFilename )
@@ -118,26 +122,30 @@ public abstract class AbstractGenerator implements Generator
 
     /**
      * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
+     * 
+     * @param strValue
+     *            The value to be transformed
      * @return The first letter is in Capital
      */
     protected String getFirstCaps( String strValue )
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toUpperCase(  ) + strLettersLeft.toLowerCase(  );
+        String strValueCap = strFirstLetter.toUpperCase( ) + strLettersLeft.toLowerCase( );
 
         return strValueCap;
     }
 
     /**
      * Return the model filled with the plugin model
-     * @param pm The plugin model
+     * 
+     * @param pm
+     *            The plugin model
      * @return The model
      */
     protected Map<String, Object> getModel( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_PLUGIN_MODEL, pm );
 
         return model;
@@ -145,18 +153,23 @@ public abstract class AbstractGenerator implements Generator
 
     /**
      * Build the code
-     * @param pm The plugin model
+     * 
+     * @param pm
+     *            The plugin model
      * @return The code
      */
     protected String build( PluginModel pm )
     {
-        return build( getTemplate(  ), getModel( pm ) );
+        return build( getTemplate( ), getModel( pm ) );
     }
 
     /**
      * Build the code
-     * @param strTemplate The code template
-     * @param pm The plugin model
+     * 
+     * @param strTemplate
+     *            The code template
+     * @param pm
+     *            The plugin model
      * @return The code
      */
     protected String build( String strTemplate, PluginModel pm )
@@ -166,25 +179,30 @@ public abstract class AbstractGenerator implements Generator
 
     /**
      * Build the code
-     * @param model The model
+     * 
+     * @param model
+     *            The model
      * @return The code
      */
     protected String build( Map<String, Object> model )
     {
-        return build( getTemplate(  ), model );
+        return build( getTemplate( ), model );
     }
 
     /**
      * Build the code
-     * @param strTemplate The code template
-     * @param model The model
+     * 
+     * @param strTemplate
+     *            The code template
+     * @param model
+     *            The model
      * @return The code
      */
     protected String build( String strTemplate, Map<String, Object> model )
     {
-        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( strTemplate, Locale.getDefault( ), model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
     
 }

@@ -41,7 +41,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * The Pom generator is responsible of generating a project object model used by maven
  *
@@ -55,7 +54,7 @@ public class PomGenerator extends AbstractFileGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         map.put( getFilePath( pm ), getCode( pm ) );
 
         return map;
@@ -67,13 +66,13 @@ public class PomGenerator extends AbstractFileGenerator
     @Override
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
-        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
+        Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( );
 
-        //Fetches the actual configuration values to be replaced in the templates
+        // Fetches the actual configuration values to be replaced in the templates
         for ( ConfigurationKey key : listKeys )
         {
-            model.put( key.getKeyDescription(  ).trim(  ), key.getKeyValue(  ) );
+            model.put( key.getKeyDescription( ).trim( ), key.getKeyValue( ) );
         }
 
         model.put( MARK_KOTLIN , isKotlin() );
@@ -95,7 +94,7 @@ public class PomGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    public String getPath(  )
+    public String getPath( )
     {
         return "";
     }

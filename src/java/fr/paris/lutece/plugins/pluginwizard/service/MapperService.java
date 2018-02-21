@@ -41,43 +41,46 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.StringWriter;
 
-
 /**
  * Mapper Service
  */
 public final class MapperService
 {
-    private static ObjectMapper _mapper = new ObjectMapper(  );
+    private static ObjectMapper _mapper = new ObjectMapper( );
 
     /** Private constructor */
-    private MapperService(  )
+    private MapperService( )
     {
     }
 
     /**
      * Transform the model into a JSON String
-     * @param model The model
+     * 
+     * @param model
+     *            The model
      * @return A JSON String
      */
     public static String getJson( PluginModel model )
     {
-        StringWriter sw = new StringWriter(  );
+        StringWriter sw = new StringWriter( );
 
         try
         {
             _mapper.writeValue( sw, model );
         }
-        catch ( Exception ex )
+        catch( Exception ex )
         {
-            AppLogService.error( "Error while writing JSON " + ex.getMessage(  ), ex );
+            AppLogService.error( "Error while writing JSON " + ex.getMessage( ), ex );
         }
 
-        return sw.toString(  );
+        return sw.toString( );
     }
 
     /**
      * Read a JSON String to fill a model
-     * @param strJson The JSON String
+     * 
+     * @param strJson
+     *            The JSON String
      * @return The model
      */
     public static PluginModel readJson( String strJson )
@@ -88,9 +91,9 @@ public final class MapperService
 
             return model;
         }
-        catch ( Exception ex )
+        catch( Exception ex )
         {
-            AppLogService.error( "Error while reading JSON " + ex.getMessage(  ) + "JSON = " + strJson, ex );
+            AppLogService.error( "Error while reading JSON " + ex.getMessage( ) + "JSON = " + strJson, ex );
         }
 
         return null;

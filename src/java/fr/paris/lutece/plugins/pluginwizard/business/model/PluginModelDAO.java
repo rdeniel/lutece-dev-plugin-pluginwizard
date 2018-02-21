@@ -39,7 +39,6 @@ import fr.paris.lutece.util.sql.DAOUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 
-
 /**
  * This class provides Data Access methods for PluginModel objects
  */
@@ -57,32 +56,37 @@ public final class PluginModelDAO implements IPluginModelDAO
 
     /**
      * Generates a new primary key
-     * @param plugin The Plugin
+     * 
+     * @param plugin
+     *            The Plugin
      * @return The new primary key
      */
     public int newPrimaryKey( Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         int nKey;
 
-        if ( !daoUtil.next(  ) )
+        if ( !daoUtil.next( ) )
         {
             // if the table is empty
             nKey = 1;
         }
 
         nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return nKey;
     }
 
     /**
      * Insert a new record in the table.
-     * @param pluginModel instance of the PluginModel object to insert
-     * @param plugin The plugin
+     * 
+     * @param pluginModel
+     *            instance of the PluginModel object to insert
+     * @param plugin
+     *            The plugin
      */
     public void insert( PluginModel pluginModel, Plugin plugin )
     {
@@ -90,42 +94,45 @@ public final class PluginModelDAO implements IPluginModelDAO
 
         pluginModel.setIdPlugin( newPrimaryKey( plugin ) );
 
-        daoUtil.setInt( 1, pluginModel.getIdPlugin(  ) );
-        daoUtil.setString( 2, pluginModel.getPluginName(  ) );
-        daoUtil.setString( 3, pluginModel.getPluginClass(  ) );
-        daoUtil.setString( 4, pluginModel.getPluginDescription(  ) );
-        daoUtil.setString( 5, pluginModel.getPluginDocumentation(  ) );
-        daoUtil.setString( 6, pluginModel.getPluginInstallation(  ) );
-        daoUtil.setString( 7, pluginModel.getPluginChanges(  ) );
-        daoUtil.setString( 8, pluginModel.getPluginUserGuide(  ) );
-        daoUtil.setString( 9, pluginModel.getPluginVersion(  ) );
-        daoUtil.setString( 10, pluginModel.getPluginCopyright(  ) );
-        daoUtil.setString( 11, pluginModel.getPluginIconUrl(  ) );
-        daoUtil.setString( 12, pluginModel.getPluginProvider(  ) );
-        daoUtil.setString( 13, pluginModel.getPluginProviderUrl(  ) );
-        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired(  ) );
+        daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
+        daoUtil.setString( 2, pluginModel.getPluginName( ) );
+        daoUtil.setString( 3, pluginModel.getPluginClass( ) );
+        daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
+        daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
+        daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
+        daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
+        daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
+        daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
+        daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
+        daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
+        daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
+        daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
+        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Load the data of the pluginModel from the table
-     * @param nId The identifier of the pluginModel
-     * @param plugin The plugin
+     * 
+     * @param nId
+     *            The identifier of the pluginModel
+     * @param plugin
+     *            The plugin
      * @return the instance of the PluginModel
      */
     public PluginModel load( int nId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
         daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         PluginModel pluginModel = null;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
-            pluginModel = new PluginModel(  );
+            pluginModel = new PluginModel( );
 
             pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginModel.setPluginName( daoUtil.getString( 2 ) );
@@ -145,67 +152,75 @@ public final class PluginModelDAO implements IPluginModelDAO
             // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return pluginModel;
     }
 
     /**
      * Delete a record from the table
-     * @param nPluginModelId The identifier of the pluginModel
-     * @param plugin The plugin
+     * 
+     * @param nPluginModelId
+     *            The identifier of the pluginModel
+     * @param plugin
+     *            The plugin
      */
     public void delete( int nPluginModelId, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
         daoUtil.setInt( 1, nPluginModelId );
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Update the record in the table
-     * @param pluginModel The reference of the pluginModel
-     * @param plugin The plugin
+     * 
+     * @param pluginModel
+     *            The reference of the pluginModel
+     * @param plugin
+     *            The plugin
      */
     public void store( PluginModel pluginModel, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
 
-        daoUtil.setInt( 1, pluginModel.getIdPlugin(  ) );
-        daoUtil.setString( 2, pluginModel.getPluginName(  ) );
-        daoUtil.setString( 3, pluginModel.getPluginClass(  ) );
-        daoUtil.setString( 4, pluginModel.getPluginDescription(  ) );
-        daoUtil.setString( 5, pluginModel.getPluginDocumentation(  ) );
-        daoUtil.setString( 6, pluginModel.getPluginInstallation(  ) );
-        daoUtil.setString( 7, pluginModel.getPluginChanges(  ) );
-        daoUtil.setString( 8, pluginModel.getPluginUserGuide(  ) );
-        daoUtil.setString( 9, pluginModel.getPluginVersion(  ) );
-        daoUtil.setString( 10, pluginModel.getPluginCopyright(  ) );
-        daoUtil.setString( 11, pluginModel.getPluginIconUrl(  ) );
-        daoUtil.setString( 12, pluginModel.getPluginProvider(  ) );
-        daoUtil.setString( 13, pluginModel.getPluginProviderUrl(  ) );
-        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired(  ) );
-        daoUtil.setInt( 15, pluginModel.getIdPlugin(  ) );
+        daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
+        daoUtil.setString( 2, pluginModel.getPluginName( ) );
+        daoUtil.setString( 3, pluginModel.getPluginClass( ) );
+        daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
+        daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
+        daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
+        daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
+        daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
+        daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
+        daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
+        daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
+        daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
+        daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
+        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
+        daoUtil.setInt( 15, pluginModel.getIdPlugin( ) );
 
-        daoUtil.executeUpdate(  );
-        daoUtil.free(  );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
      * Load the data of all the pluginModels and returns them as a collection
-     * @param plugin The plugin
+     * 
+     * @param plugin
+     *            The plugin
      * @return The Collection which contains the data of all the pluginModels
      */
     public Collection<PluginModel> selectPluginModelsList( Plugin plugin )
     {
-        Collection<PluginModel> pluginModelList = new ArrayList<PluginModel>(  );
+        Collection<PluginModel> pluginModelList = new ArrayList<PluginModel>( );
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        while ( daoUtil.next(  ) )
+        while ( daoUtil.next( ) )
         {
-            PluginModel pluginModel = new PluginModel(  );
+            PluginModel pluginModel = new PluginModel( );
 
             pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
             pluginModel.setPluginName( daoUtil.getString( 2 ) );
@@ -225,39 +240,45 @@ public final class PluginModelDAO implements IPluginModelDAO
             pluginModelList.add( pluginModel );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return pluginModelList;
     }
 
     /**
      * Returns the identifier of the generated plugin
-     * @param plugin The Plugin
-     * @param strPluginName The name of the generated plugin
+     * 
+     * @param plugin
+     *            The Plugin
+     * @param strPluginName
+     *            The name of the generated plugin
      * @return the identifier of the generated plugin
      */
     public int selectPluginModelByName( Plugin plugin, String strPluginName )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_NAME, plugin );
         daoUtil.setString( 1, strPluginName );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
         int nPluginId = 0;
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
             nPluginId = daoUtil.getInt( 1 );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         return nPluginId;
     }
 
     /**
      * Verifies whether the plugin exists
-     * @param strPluginName The name given to the plugin
-     * @param plugin The plugin
+     * 
+     * @param strPluginName
+     *            The name given to the plugin
+     * @param plugin
+     *            The plugin
      * @return A boolean value telling whether a plugin with this name exists
      */
     public boolean pluginExists( String strPluginName, Plugin plugin )
@@ -266,14 +287,14 @@ public final class PluginModelDAO implements IPluginModelDAO
         int nCount = 0;
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_COUNT_FIND_BY_NAME, plugin );
         daoUtil.setString( 1, strPluginName );
-        daoUtil.executeQuery(  );
+        daoUtil.executeQuery( );
 
-        if ( daoUtil.next(  ) )
+        if ( daoUtil.next( ) )
         {
             nCount = daoUtil.getInt( 1 );
         }
 
-        daoUtil.free(  );
+        daoUtil.free( );
 
         if ( nCount > 0 )
         {

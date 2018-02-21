@@ -46,7 +46,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  *
  * Generates Html files used as template to construct front office
@@ -55,30 +54,32 @@ import java.util.Map;
 public class XPageTemplateGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/WEB-INF/templates/skin/plugins/{plugin_name}/";
-    private static String[] _template_prefix = { "create_", "modify_", "manage_" };
+    private static String [ ] _template_prefix = {
+            "create_", "modify_", "manage_"
+    };
     private String _strTabsTemplate;
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsPackage();
         
-        //for each application,which business classes are attached to
-        Collection<Application> listApplication = pm.getApplications(  );
+        // for each application,which business classes are attached to
+        Collection<Application> listApplication = pm.getApplications( );
                 
         for ( Application application : listApplication )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
-                    application.getId(  ) );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm, application.getId( ) );
 
-            if ( listBusinessClasses.isEmpty(  ) )
+            if ( listBusinessClasses.isEmpty( ) )
             {
-                String strPath = getFilePath( pm, PATH, application.getApplicationName(  ) + ".html" );
+                String strPath = getFilePath( pm, PATH, application.getApplicationName( ) + ".html" );
                 String strSourceCode = getCreateHtmlCode( application, strPluginName );
                 map.put( strPath, strSourceCode );
             }
@@ -89,18 +90,16 @@ public class XPageTemplateGenerator extends AbstractGenerator
                     for ( int i = 0; i < _template_prefix.length; i++ )
                     {
                         String strSuffix = ( i == 2 ) ? "s.html" : ".html";
-                        String strPath = getFilePath( pm, PATH,
-                                _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
+                        String strPath = getFilePath( pm, PATH, _template_prefix [i] + businessClass.getBusinessClass( ).toLowerCase( ) + strSuffix );
 
-                        String strSourceCode = getCreateHtmlCode( listBusinessClasses, application, businessClass, i,
+                        String strSourceCode = getCreateHtmlCode( listBusinessClasses, application, businessClass, i, pm.getPluginName( ) );
                         		strPluginName );
                         map.put( strPath, strSourceCode );
                     }
                 }
 
-                //Add the main template where all the business management interface will be accessible
-                String strPath = getFilePath( pm, PATH,
-                        application.getApplicationName(  ).toLowerCase(  ) + "_tabs.html" );
+                // Add the main template where all the business management interface will be accessible
+                String strPath = getFilePath( pm, PATH, application.getApplicationName( ).toLowerCase( ) + "_tabs.html" );
                
                 String strSourceCode = getTabsHtmlCode( listBusinessClasses, strPluginName, application );
                 map.put( strPath, strSourceCode );
@@ -113,18 +112,22 @@ public class XPageTemplateGenerator extends AbstractGenerator
     /**
      * Gets the code of a create template for a specific business object
      *
-     * @param listAllBusinessClasses A list of business classes attached to
-     * plugin
-     * @param businessClass The instance of the business class
-     * @param nTemplateType The type of template
-     * @param application The application
-     * @param strPluginName The plugin name
+     * @param listAllBusinessClasses
+     *            A list of business classes attached to plugin
+     * @param businessClass
+     *            The instance of the business class
+     * @param nTemplateType
+     *            The type of template
+     * @param application
+     *            The application
+     * @param strPluginName
+     *            The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Application application,
-        BusinessClass businessClass, int nTemplateType, String strPluginName )
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Application application, BusinessClass businessClass,
+            int nTemplateType, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
@@ -140,23 +143,25 @@ public class XPageTemplateGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( ), Locale.getDefault( ), model );
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml( ).replace( "@@", "#" );
     }
 
     /**
-    * Gets the code of a tab template for a specific business object
-    *
-    * @param listAllBusinessClasses A list of business classes attached to plugin
-    * @param strPluginName  The plugin name
-    * @param application The application
-    * @return The html code of the tab template
-    */
-    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName,
-        Application application )
+     * Gets the code of a tab template for a specific business object
+     *
+     * @param listAllBusinessClasses
+     *            A list of business classes attached to plugin
+     * @param strPluginName
+     *            The plugin name
+     * @param application
+     *            The application
+     * @return The html code of the tab template
+     */
+    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName, Application application )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_APPLICATION, application );
@@ -169,21 +174,23 @@ public class XPageTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_MACRO_DEF, "@@macro" );
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault( ), model );
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml( ).replace( "@@", "#" );
     }
 
     /**
      * Gets the code of a create template for a specific business object
      *
-     * @param application The application
-     * @param strPluginName The plugin name
+     * @param application
+     *            The application
+     * @param strPluginName
+     *            The plugin name
      * @return The html code of the create template
      */
     private String getCreateHtmlCode( Application application, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
@@ -195,13 +202,14 @@ public class XPageTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_APPLICATION, application );
         model.put( Markers.MARK_INCLUDE, "@@include" );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( ), Locale.getDefault( ), model );
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml( ).replace( "@@", "#" );
     }
 
     /**
-     * @param tabsTemplate the tabsTemplate to set
+     * @param tabsTemplate
+     *            the tabsTemplate to set
      */
     public void setTabsTemplate( String tabsTemplate )
     {

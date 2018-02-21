@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import java.util.List;
 
-
 /**
  * GeneratorsList
  */
@@ -47,13 +46,14 @@ public class GenerationScheme
     /**
      * @return the _strName
      */
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
 
     /**
-     * @param strName the _strName to set
+     * @param strName
+     *            the _strName to set
      */
     public void setName( String strName )
     {
@@ -63,13 +63,14 @@ public class GenerationScheme
     /**
      * @return the _generatorsList
      */
-    public List<Generator> getGeneratorsList(  )
+    public List<Generator> getGeneratorsList( )
     {
         return _listGenerators;
     }
 
     /**
-     * @param generatorsList the _generatorsList to set
+     * @param generatorsList
+     *            the _generatorsList to set
      */
     public void setGeneratorsList( List<Generator> generatorsList )
     {

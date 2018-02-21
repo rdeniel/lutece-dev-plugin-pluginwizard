@@ -39,7 +39,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-
 /**
  * ModelService Test
  */
@@ -49,18 +48,18 @@ public class ModelServiceTest extends LuteceTestCase
      * Test of addAttribute method, of class ModelService.
      */
     @Test
-    public void testAddAttribute(  )
+    public void testAddAttribute( )
     {
         System.out.println( "addAttribute" );
 
         int nPluginId = 1;
         int nBusinessClassId = 1;
-        Attribute attribute = new Attribute(  );
+        Attribute attribute = new Attribute( );
         attribute.setAttributeName( "product_name" );
         attribute.setAttributeTypeId( 2 );
         ModelService.addAttribute( nPluginId, nBusinessClassId, attribute );
 
-        Attribute result = ModelService.getAttribute( nPluginId, nBusinessClassId, attribute.getId(  ) );
-        assertTrue( result.getAttributeName(  ).equals( attribute.getAttributeName(  ) ) );
+        Attribute result = ModelService.getAttribute( nPluginId, nBusinessClassId, attribute.getId( ) );
+        assertTrue( result.getAttributeName( ).equals( attribute.getAttributeName( ) ) );
     }
 }

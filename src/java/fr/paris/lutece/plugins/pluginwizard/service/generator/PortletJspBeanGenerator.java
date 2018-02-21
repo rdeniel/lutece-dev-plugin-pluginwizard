@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * The class generated the portlet jspbean needed to manage portlets
@@ -56,12 +55,12 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage();
         
         String _path = PATH.replace("{plugin_name}", pm.getPluginNameAsRadicalPath());
         
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for ( Portlet portlet : pm.getPortlets( ) )
         {
             String strPath = getFilePath( pm, _path, portlet.getPortletClass(  ) + "JspBean.java" );
 
@@ -73,14 +72,17 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     }
 
     /**
-    * Gets the Portlet Jsp Bean
-    * @param portlet The portlet
-    * @param strPluginName The generated plugin name
-    * @return The source code of the jsp
-    */
+     * Gets the Portlet Jsp Bean
+     * 
+     * @param portlet
+     *            The portlet
+     * @param strPluginName
+     *            The generated plugin name
+     * @return The source code of the jsp
+     */
     private String getPortletJspBean( Portlet portlet, String strPluginName, boolean isModule)
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, isModule ) ;

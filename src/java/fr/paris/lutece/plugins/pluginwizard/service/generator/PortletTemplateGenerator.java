@@ -40,7 +40,6 @@ import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  * The generator produced the templates necessary for the handling of portlets
  */
@@ -48,7 +47,9 @@ public class PortletTemplateGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/portlet/";
     private static final String EXT_HTML = ".html";
-    private static String[] _prefix = { "combo_feed_", "modify_", "create_" };
+    private static String [ ] _prefix = {
+            "combo_feed_", "modify_", "create_"
+    };
 
     /**
      * {@inheritDoc }
@@ -56,15 +57,15 @@ public class PortletTemplateGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage() ;
         
                 
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for ( Portlet portlet : pm.getPortlets( ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )
             {
-                String strPortletFile = getPortletTemplateName( portlet.getJspBaseName(  ).toLowerCase(  ), i );
+                String strPortletFile = getPortletTemplateName( portlet.getJspBaseName( ).toLowerCase( ), i );
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
@@ -82,25 +83,31 @@ public class PortletTemplateGenerator extends AbstractGenerator
     /**
      * Chooses the name of the template
      *
-     * @param strPortletName The name of the portlet
-     * @param nTemplate The type of template
+     * @param strPortletName
+     *            The name of the portlet
+     * @param nTemplate
+     *            The type of template
      * @return The name of the tempate
      */
     private String getPortletTemplateName( String strPortletName, int nTemplate )
     {
-        return _prefix[nTemplate] + strPortletName + EXT_HTML;
+        return _prefix [nTemplate] + strPortletName + EXT_HTML;
     }
 
     /**
-    * Produces text content of the html template for a portlet
-    * @param portlet The instance of a portlet
-    * @param strPluginName The plugin name
-    * @param nPortletTemplateType The type of portlet
-    * @return The content of the html template
-    */
+     * Produces text content of the html template for a portlet
+     * 
+     * @param portlet
+     *            The instance of a portlet
+     * @param strPluginName
+     *            The plugin name
+     * @param nPortletTemplateType
+     *            The type of portlet
+     * @return The content of the html template
+     */
     private String getPortletHtmlTemplate( Portlet portlet, String strPluginName, int nPortletTemplateType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
         model.put( Markers.MARK_I18N_BRACKETS_CLOSE, "}" );
         model.put( Markers.MARK_BRACKETS_OPEN, "${" );

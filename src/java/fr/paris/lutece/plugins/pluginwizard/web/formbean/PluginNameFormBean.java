@@ -39,7 +39,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 
-
 /**
  * Form name
  */
@@ -52,13 +51,14 @@ public class PluginNameFormBean implements Serializable
     /**
      * @return the name
      */
-    public String getName(  )
+    public String getName( )
     {
         return _strName;
     }
 
     /**
-     * @param strName the name to set
+     * @param strName
+     *            the name to set
      */
     public void setName( String strName )
     {

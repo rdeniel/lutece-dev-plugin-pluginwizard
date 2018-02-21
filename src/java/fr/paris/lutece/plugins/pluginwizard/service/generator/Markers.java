@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-
 /**
  * Markers constants
  */
@@ -81,7 +80,7 @@ public final class Markers
 
 
     /** Private constructor */
-    private Markers(  )
+    private Markers( )
     {
     }
 }

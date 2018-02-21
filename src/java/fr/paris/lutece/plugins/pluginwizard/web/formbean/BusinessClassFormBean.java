@@ -39,13 +39,12 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 
-
 /**
  * BusinessClass formbean
  */
 public class BusinessClassFormBean implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nIdFeature;
     private int _nIdBusinessClass;
     @NotEmpty( message = "pluginwizard.error.businessClass.class.notEmpty" )
@@ -62,7 +61,7 @@ public class BusinessClassFormBean implements Serializable
      *
      * @return The nIdBusinessClass
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nIdBusinessClass;
     }
@@ -70,7 +69,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the nIdBusinessClass
      *
-     * @param nIdBusinessClass The IdPlugin
+     * @param nIdBusinessClass
+     *            The IdPlugin
      */
     public void setId( int nIdBusinessClass )
     {
@@ -82,7 +82,7 @@ public class BusinessClassFormBean implements Serializable
      *
      * @return The IdFeature
      */
-    public int getIdFeature(  )
+    public int getIdFeature( )
     {
         return _nIdFeature;
     }
@@ -90,7 +90,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the IdFeature
      *
-     * @param nIdFeature The IdPlugin
+     * @param nIdFeature
+     *            The IdPlugin
      */
     public void setIdFeature( int nIdFeature )
     {
@@ -102,7 +103,7 @@ public class BusinessClassFormBean implements Serializable
      *
      * @return The BusinessClass
      */
-    public String getBusinessClass(  )
+    public String getBusinessClass( )
     {
         return _strBusinessClass;
     }
@@ -110,7 +111,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the BusinessClass
      *
-     * @param strBusinessClass The BusinessClass
+     * @param strBusinessClass
+     *            The BusinessClass
      */
     public void setBusinessClass( String strBusinessClass )
     {
@@ -122,7 +124,7 @@ public class BusinessClassFormBean implements Serializable
      *
      * @return The BusinessTableName
      */
-    public String getBusinessTableName(  )
+    public String getBusinessTableName( )
     {
         return _strBusinessTableName;
     }
@@ -130,7 +132,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the BusinessTableName
      *
-     * @param strBusinessTableName The BusinessTableName
+     * @param strBusinessTableName
+     *            The BusinessTableName
      */
     public void setBusinessTableName( String strBusinessTableName )
     {
@@ -140,8 +143,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the class description and it is given by an attribute
      *
-     * @param strDescriptionAttributeName The name of the attribute which the
-     * description
+     * @param strDescriptionAttributeName
+     *            The name of the attribute which the description
      */
     public void setClassDescription( String strDescriptionAttributeName )
     {
@@ -153,7 +156,7 @@ public class BusinessClassFormBean implements Serializable
      *
      * @return The description of the class
      */
-    public String getClassDescription(  )
+    public String getClassDescription( )
     {
         return _strDescriptionAttributeName;
     }
@@ -161,7 +164,8 @@ public class BusinessClassFormBean implements Serializable
     /**
      * Sets the primary key of the class
      *
-     * @param strPrimaryAttributeName The key attribute name
+     * @param strPrimaryAttributeName
+     *            The key attribute name
      */
     public void setPrimaryKey( String strPrimaryAttributeName )
     {
@@ -169,12 +173,11 @@ public class BusinessClassFormBean implements Serializable
     }
 
     /**
-     * Fetches the attributes which represents the identifier of the business
-     * class
+     * Fetches the attributes which represents the identifier of the business class
      *
      * @return The key
      */
-    public String getPrimaryKey(  )
+    public String getPrimaryKey( )
     {
         return _strPrimaryAttributeName;
     }

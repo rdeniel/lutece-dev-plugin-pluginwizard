@@ -43,7 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * The generator produced the jsp for back office management
@@ -53,13 +52,17 @@ public class AdminJspGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/jsp/admin/plugins/{plugin_name}/";
     private static final String EXT_JSP = ".jsp";
-    private static String[] _jsp_prefix = { "Create", "DoCreate", "Remove", "DoRemove", "Manage", "Modify", "DoModify" };
+    private static String [ ] _jsp_prefix = {
+            "Create", "DoCreate", "Remove", "DoRemove", "Manage", "Modify", "DoModify"
+    };
     private String _strBusinessTemplate;
     private String _strFeatureTemplate;
 
     /**
      * Sets the business template
-     * @param strTemplate The template
+     * 
+     * @param strTemplate
+     *            The template
      */
     public void setBusinessTemplate( String strTemplate )
     {
@@ -68,7 +71,9 @@ public class AdminJspGenerator extends AbstractGenerator
 
     /**
      * Sets the feature template
-     * @param strTemplate The template
+     * 
+     * @param strTemplate
+     *            The template
      */
     public void setFeatureTemplate( String strTemplate )
     {
@@ -81,23 +86,23 @@ public class AdminJspGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage();
         
-        for ( Feature feature : pm.getFeatures(  ) )
+        for ( Feature feature : pm.getFeatures( ) )
         {
-            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
+            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
                 for ( int i = 0; i < _jsp_prefix.length; i++ )
                 {
                     String strSuffix = ( i == 4 ) ? ( "s" + EXT_JSP ) : EXT_JSP;
-                    String strJspFileName = _jsp_prefix[i] + businessClass.getBusinessClass(  ) + strSuffix;
+                    String strJspFileName = _jsp_prefix [i] + businessClass.getBusinessClass( ) + strSuffix;
 
                     String strPath = getFilePath( pm, PATH, strJspFileName );
 
-                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName(  ),
+                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName( ), strPluginName, i + 1 );
                             strPluginName, i + 1, pm.isModule() );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
@@ -105,7 +110,7 @@ public class AdminJspGenerator extends AbstractGenerator
                 }
             }
 
-            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ) + EXT_JSP );
+            String strPath = getFilePath( pm, PATH, feature.getFeatureName( ) + EXT_JSP );
 
             String strSourceCode = getFeatureJspFile( feature.getFeatureName(  ), strPluginName, pm.isModule() );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -118,24 +123,28 @@ public class AdminJspGenerator extends AbstractGenerator
 
     /**
      * Gets the Jsp File of a business class
-     * @param businessClass The business class
-     * @param strFeatureName The feature name
-     * @param strPluginName The generated plugin name
-     * @param nJspType The type of jsp
+     * 
+     * @param businessClass
+     *            The business class
+     * @param strFeatureName
      * @param bIsModule The Module test
+     * @param strPluginName
+     *            The generated plugin name
+     * @param nJspType
+     *            The type of jsp
      * @return The source code of the jsp
      */
-    private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName,
+    private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType )
         int nJspType, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_JSP_TYPE, "" + nJspType );
         model.put( Markers.MARK_IS_MODULE, bIsModule );
         
-        String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClassCapsFirst(  );
+        String strBeanName = strFeatureName.toLowerCase( ) + businessClass.getBusinessClassCapsFirst( );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
         return build( _strBusinessTemplate, model );
@@ -143,14 +152,16 @@ public class AdminJspGenerator extends AbstractGenerator
 
     /**
      * Gets the JSP feature file code
-     * @param strFeatureName The feature name
-     * @param strPluginName The plugin name
+     * 
+     * @param strFeatureName
      * @param bIsModule The Module test
+     * @param strPluginName
+     *            The plugin name
      * @return The source code of the JSP
      */
     private String getFeatureJspFile( String strFeatureName, String strPluginName, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, bIsModule );

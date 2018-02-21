@@ -42,7 +42,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * Class generating the Xpages
@@ -60,20 +59,20 @@ public class XPageGenerator extends AbstractGenerator
     
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
 
-        for ( Application application : pm.getApplications(  ) )
+        for ( Application application : pm.getApplications( ) )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm,
-                    application.getId(  ) );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm, application.getId( ) );
 
-            if ( listBusinessClasses.isEmpty(  ) )
+            if ( listBusinessClasses.isEmpty( ) )
             {
                 String strSuffix = ( isKotlin() ) ? SUFFIX_KOTLIN_XPAGE : SUFFIX_JAVA_XPAGE;
                 String strPath = getFilePath( pm, strFilesPath , application.getApplicationClass(  ) + strSuffix );
@@ -99,16 +98,21 @@ public class XPageGenerator extends AbstractGenerator
     }
 
     /**
-    * Generates the XPage code
-    * @param pm The plugin model
-    * @param nApplicationId id of the plugin application
-    * @param strApplicationName the name of the appliaction
-    * @param application the application
-    * @param businessClass the business class
-    * @return The code of the XPage generated
-    */
-    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId,
-        Application application, BusinessClass businessClass )
+     * Generates the XPage code
+     * 
+     * @param pm
+     *            The plugin model
+     * @param nApplicationId
+     *            id of the plugin application
+     * @param strApplicationName
+     *            the name of the appliaction
+     * @param application
+     *            the application
+     * @param businessClass
+     *            the business class
+     * @return The code of the XPage generated
+     */
+    private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application, BusinessClass businessClass )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -121,13 +125,18 @@ public class XPageGenerator extends AbstractGenerator
     }
 
     /**
-    * Generates the XPage code
-    * @param pm The plugin model
-    * @param nApplicationId id of the plugin application
-    * @param strApplicationName the name of the appliaction
-    * @param application the application
-    * @return The code of the XPage generated
-    */
+     * Generates the XPage code
+     * 
+     * @param pm
+     *            The plugin model
+     * @param nApplicationId
+     *            id of the plugin application
+     * @param strApplicationName
+     *            the name of the appliaction
+     * @param application
+     *            the application
+     * @return The code of the XPage generated
+     */
     private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application )
     {
         Map<String, Object> model = getModel( pm );

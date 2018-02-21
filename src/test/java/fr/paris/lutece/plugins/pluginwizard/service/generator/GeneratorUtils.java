@@ -46,38 +46,37 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
  */
 public class GeneratorUtils
 {
-    public static PluginModel getTestModel(  )
+    public static PluginModel getTestModel( )
     {
-        return MapperService.readJson( getTestJson(  ) );
+        return MapperService.readJson( getTestJson( ) );
     }
 
-    public static String getTestJson(  )
+    public static String getTestJson( )
     {
         try
         {
-            URL url = Thread.currentThread(  ).getContextClassLoader(  ).getResource( "model.json" );
-            File file = new File( url.getPath(  ) );
+            URL url = Thread.currentThread( ).getContextClassLoader( ).getResource( "model.json" );
+            File file = new File( url.getPath( ) );
 
             return readFile( file );
         }
-        catch ( IOException ex )
+        catch( IOException ex )
         {
-            throw new RuntimeException( "Unable to load test file : " + ex.getMessage(  ) );
+            throw new RuntimeException( "Unable to load test file : " + ex.getMessage( ) );
         }
     }
 
     static void outputMap( Map map )
     {
-        for ( Iterator it = map.keySet(  ).iterator(  ); it.hasNext(  ); )
+        for ( Iterator it = map.keySet( ).iterator( ); it.hasNext( ); )
         {
-            String strKey = (String) it.next(  );
+            String strKey = (String) it.next( );
             System.out.println( "######################### file : " + strKey + "#########################" );
             System.out.println( map.get( strKey ) );
         }
@@ -87,13 +86,13 @@ public class GeneratorUtils
     {
         BufferedReader reader = new BufferedReader( new FileReader( file ) );
         String strLine;
-        StringBuilder sbString = new StringBuilder(  );
+        StringBuilder sbString = new StringBuilder( );
 
-        while ( ( strLine = reader.readLine(  ) ) != null )
+        while ( ( strLine = reader.readLine( ) ) != null )
         {
             sbString.append( strLine );
         }
 
-        return sbString.toString(  );
+        return sbString.toString( );
     }
 }

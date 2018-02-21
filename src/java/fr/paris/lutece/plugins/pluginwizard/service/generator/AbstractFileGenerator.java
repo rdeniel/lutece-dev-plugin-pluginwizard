@@ -41,18 +41,19 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  * Abstract Generator
  */
 public abstract class AbstractFileGenerator extends AbstractGenerator
 {
-    // Variables declarations 
+    // Variables declarations
     private String _strPath;
 
     /**
      * Get the filename
-     * @param pm The plugin model
+     * 
+     * @param pm
+     *            The plugin model
      * @return The filename
      */
     protected abstract String getFilename( PluginModel pm );
@@ -62,7 +63,7 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
      *
      * @return The Path
      */
-    public String getPath(  )
+    public String getPath( )
     {
         return _strPath;
     }
@@ -70,7 +71,8 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     /**
      * Sets the Path
      *
-     * @param strPath The Path
+     * @param strPath
+     *            The Path
      */
     public void setPath( String strPath )
     {
@@ -80,41 +82,44 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     /**
      * Produces the code
      *
-     * @param pm the plugin model
+     * @param pm
+     *            the plugin model
      * @return the code
      */
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_PLUGIN, pm );
-        model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets(  ) );
-        model.put( Markers.MARK_BUSINESS_CLASSES, pm.getBusinessClasses(  ) );
+        model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets( ) );
+        model.put( Markers.MARK_BUSINESS_CLASSES, pm.getBusinessClasses( ) );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( ), Locale.getDefault( ), model );
 
-        return template.getHtml(  );
+        return template.getHtml( );
     }
 
     /**
      * Produces the code
      *
-     * @param pm the plugin model
+     * @param pm
+     *            the plugin model
      * @return the code
      */
     protected String getFilePath( PluginModel pm )
     {
-        return getFilePath( pm, getPath(  ), getFilename( pm ) );
+        return getFilePath( pm, getPath( ), getFilename( pm ) );
     }
 
     /**
      * Produces the file code in a map
      *
-     * @param pm the plugin model
+     * @param pm
+     *            the plugin model
      * @return the map
      */
     protected Map generateFile( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         map.put( getFilePath( pm ), getCode( pm ) );
 
         return map;

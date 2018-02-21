@@ -42,7 +42,6 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-
 /**
  * This is the business class for the object Feature
  */
@@ -72,16 +71,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nId;
     }
 
     /**
      * Sets the nIdFeature
-     * @param nId The IdFeature
+     * 
+     * @param nId
+     *            The IdFeature
      */
     public void setId( int nId )
     {
@@ -90,16 +92,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the FeatureId
+     * 
      * @return The FeatureId
      */
-    public String getFeatureRight(  )
+    public String getFeatureRight( )
     {
         return _strFeatureRight;
     }
 
     /**
      * Sets the Feature right
-     * @param strFeatureRight The  Feature right
+     * 
+     * @param strFeatureRight
+     *            The Feature right
      */
     public void setFeatureRight( String strFeatureRight )
     {
@@ -108,16 +113,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the FeatureTitle
+     * 
      * @return The FeatureTitle
      */
-    public String getFeatureTitle(  )
+    public String getFeatureTitle( )
     {
         return _strFeatureTitle;
     }
 
     /**
      * Sets the FeatureTitle
-     * @param strFeatureTitle The FeatureTitle
+     * 
+     * @param strFeatureTitle
+     *            The FeatureTitle
      */
     public void setFeatureTitle( String strFeatureTitle )
     {
@@ -126,16 +134,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the FeatureLevel
+     * 
      * @return The FeatureLevel
      */
-    public String getFeatureLevel(  )
+    public String getFeatureLevel( )
     {
         return _strFeatureLevel;
     }
 
     /**
      * Sets the FeatureLevel
-     * @param strFeatureLevel The FeatureLevel
+     * 
+     * @param strFeatureLevel
+     *            The FeatureLevel
      */
     public void setFeatureLevel( String strFeatureLevel )
     {
@@ -143,10 +154,11 @@ public class Feature implements Serializable
     }
 
     /**
-     * Returns the  Feature name
-     * @return The  Feature name
+     * Returns the Feature name
+     * 
+     * @return The Feature name
      */
-    public String getFeatureName(  )
+    public String getFeatureName( )
     {
         return _strFeatureName;
     }
@@ -154,7 +166,8 @@ public class Feature implements Serializable
     /**
      * Sets the FeatureName
      *
-     * @param strFeatureName The Feature name
+     * @param strFeatureName
+     *            The Feature name
      */
     public void setFeatureName( String strFeatureName )
     {
@@ -163,16 +176,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the FeatureDescription
+     * 
      * @return The FeatureDescription
      */
-    public String getFeatureDescription(  )
+    public String getFeatureDescription( )
     {
         return _strFeatureDescription;
     }
 
     /**
      * Sets the FeatureDescription
-     * @param strFeatureDescription The FeatureDescription
+     * 
+     * @param strFeatureDescription
+     *            The FeatureDescription
      */
     public void setFeatureDescription( String strFeatureDescription )
     {
@@ -181,16 +197,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the JspName
+     * 
      * @return The JspName
      */
-    public String getJspName(  )
+    public String getJspName( )
     {
         return _strJspName;
     }
 
     /**
      * Sets the JspName
-     * @param strJspName The JspName
+     * 
+     * @param strJspName
+     *            The JspName
      */
     public void setJspName( String strJspName )
     {
@@ -199,16 +218,19 @@ public class Feature implements Serializable
 
     /**
      * Returns the list of IdBusinessClasses
+     * 
      * @return the collection of IdBusinessClasses
      */
-    public List<Integer> getIdBusinessClasses(  )
+    public List<Integer> getIdBusinessClasses( )
     {
         return _nIdBusinessClasses;
     }
 
     /**
      * Sets the list of IdBusinessClasses
-     * @param nIdBusinessClasses The collection of IdBusinessClasses
+     * 
+     * @param nIdBusinessClasses
+     *            The collection of IdBusinessClasses
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {

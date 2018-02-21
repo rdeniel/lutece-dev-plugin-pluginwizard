@@ -42,7 +42,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * The business classes representing the business layer of the plugin is generated
@@ -56,7 +55,9 @@ public class BusinessClassGenerator extends AbstractGenerator
 
     /**
      * Set the list of files config
-     * @param listFiles The list of files
+     * 
+     * @param listFiles
+     *            The list of files
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
@@ -69,8 +70,8 @@ public class BusinessClassGenerator extends AbstractGenerator
     @Override
     public Map<String, String> generate( PluginModel pm )
     {
-        HashMap<String, String> map = new HashMap<String, String>(  );
-        Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses(  );
+        HashMap<String, String> map = new HashMap<String, String>( );
+        Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses( );
         
         String strPluginName = pm.getPluginNameAsPackage( ) ;
         String strRadicalPackage = pm.getPluginNameAsRadicalPackage( ) ;
@@ -81,7 +82,7 @@ public class BusinessClassGenerator extends AbstractGenerator
         {
             for ( BusinessFileConfig file : _listFiles )
             {
-                String strClassName = file.getPrefix(  ) + businessClass.getBusinessClass(  ) + file.getSuffix(  );
+                String strClassName = file.getPrefix( ) + businessClass.getBusinessClass( ) + file.getSuffix( );
                 String strFilename = strClassName + ".java";
                 String strSourceCode = getSourceCode( strPluginName, businessClass, file.getTemplate(  ), strRadicalPackage, pm.getPluginName( ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
@@ -99,14 +100,18 @@ public class BusinessClassGenerator extends AbstractGenerator
 
     /**
      * Returns the source code of a business object
-     * @param strPluginName  The plugin name
-     * @param businessClass The business class
-     * @param strTemplate The type of generation(DAO,Home,etc)
+     * 
+     * @param strPluginName
+     *            The plugin name
+     * @param businessClass
+     *            The business class
+     * @param strTemplate
+     *            The type of generation(DAO,Home,etc)
      * @return The java source code of the business object
      */
     private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate, String strRadicalPackage, String strBeanName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put(Markers.MARK_RADICAL_PACKAGE, strRadicalPackage);

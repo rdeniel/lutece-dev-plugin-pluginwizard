@@ -45,7 +45,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  *
  * @author levy
@@ -151,27 +150,27 @@ public class MokeHttpServletResponse implements HttpServletResponse
     }
 
     @Override
-    public String getCharacterEncoding(  )
+    public String getCharacterEncoding( )
     {
         return "UTF-8";
     }
 
     @Override
-    public String getContentType(  )
+    public String getContentType( )
     {
         return "text";
     }
 
     @Override
-    public ServletOutputStream getOutputStream(  ) throws IOException
+    public ServletOutputStream getOutputStream( ) throws IOException
     {
         return null;
     }
 
     @Override
-    public PrintWriter getWriter(  ) throws IOException
+    public PrintWriter getWriter( ) throws IOException
     {
-        throw new UnsupportedOperationException( "Not supported yet." ); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException( "Not supported yet." ); // To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -195,29 +194,29 @@ public class MokeHttpServletResponse implements HttpServletResponse
     }
 
     @Override
-    public int getBufferSize(  )
+    public int getBufferSize( )
     {
         return 1024;
     }
 
     @Override
-    public void flushBuffer(  ) throws IOException
+    public void flushBuffer( ) throws IOException
     {
     }
 
     @Override
-    public void resetBuffer(  )
+    public void resetBuffer( )
     {
     }
 
     @Override
-    public boolean isCommitted(  )
+    public boolean isCommitted( )
     {
         return true;
     }
 
     @Override
-    public void reset(  )
+    public void reset( )
     {
     }
 
@@ -227,9 +226,9 @@ public class MokeHttpServletResponse implements HttpServletResponse
     }
 
     @Override
-    public Locale getLocale(  )
+    public Locale getLocale( )
     {
-        return Locale.getDefault(  );
+        return Locale.getDefault( );
     }
 
     @Override

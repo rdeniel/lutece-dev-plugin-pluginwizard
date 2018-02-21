@@ -44,7 +44,6 @@ import java.io.Serializable;
 
 import javax.validation.constraints.Pattern;
 
-
 /**
  * This is the business class for the object Attribute
  */
@@ -60,18 +59,21 @@ public class Attribute implements Serializable
     private boolean _bNotNull;
 
     /**
-    * Returns the IdAttribute
-    * @return The IdAttribute
-    */
-    public int getId(  )
+     * Returns the IdAttribute
+     * 
+     * @return The IdAttribute
+     */
+    public int getId( )
     {
         return _nIdAttribute;
     }
 
     /**
-    * Sets the IdAttribute
-    * @param nIdAttribute The IdAttribute
-    */
+     * Sets the IdAttribute
+     * 
+     * @param nIdAttribute
+     *            The IdAttribute
+     */
     public void setId( int nIdAttribute )
     {
         _nIdAttribute = nIdAttribute;
@@ -79,16 +81,19 @@ public class Attribute implements Serializable
 
     /**
      * Returns the AttributeTypeId
+     * 
      * @return The AttributeTypeId
      */
-    public int getAttributeTypeId(  )
+    public int getAttributeTypeId( )
     {
         return _nAttributeTypeId;
     }
 
     /**
      * Sets the AttributeTypeId
-     * @param nAttributeTypeId The AttributeTypeId
+     * 
+     * @param nAttributeTypeId
+     *            The AttributeTypeId
      */
     public void setAttributeTypeId( int nAttributeTypeId )
     {
@@ -97,16 +102,19 @@ public class Attribute implements Serializable
 
     /**
      * Returns the AttributeName
+     * 
      * @return The AttributeName
      */
-    public String getAttributeName(  )
+    public String getAttributeName( )
     {
         return _strAttributeName;
     }
 
     /**
      * Sets the AttributeName
-     * @param strAttributeName The AttributeName
+     * 
+     * @param strAttributeName
+     *            The AttributeName
      */
     public void setAttributeName( String strAttributeName )
     {
@@ -114,88 +122,93 @@ public class Attribute implements Serializable
     }
 
     /**
-    * Returns the Type
-    *
-    * @return The Type
-    */
+     * Returns the Type
+     *
+     * @return The Type
+     */
     @JsonIgnore
-    public String getType(  )
+    public String getType( )
     {
         return ModelService.getAttributeType( _nAttributeTypeId );
     }
 
     /**
-    * Returns the Name
-    * @return The Name
-    */
+     * Returns the Name
+     * 
+     * @return The Name
+     */
     @JsonIgnore
-    public String getName(  )
+    public String getName( )
     {
         return Utils.getProperName( _strAttributeName );
     }
 
     /**
-    * Returns the Name
-    * @return The Name
-    */
+     * Returns the Name
+     * 
+     * @return The Name
+     */
     @JsonIgnore
-    public String getLabelName(  )
+    public String getLabelName( )
     {
-        return _strAttributeName.substring( 0, 1 ).toUpperCase(  ) +
-        _strAttributeName.substring( 1 ).replace( "_", " " );
+        return _strAttributeName.substring( 0, 1 ).toUpperCase( ) + _strAttributeName.substring( 1 ).replace( "_", " " );
     }
 
     /**
      * Returns the VariableName
-     * @return  The VariableName
+     * 
+     * @return The VariableName
      */
     @JsonIgnore
-    public String getVariableName(  )
+    public String getVariableName( )
     {
         return ModelService.getAttributePrefix( _nAttributeTypeId ) + Utils.getProperName( _strAttributeName );
     }
 
     /**
      * Returns the type description
-     * @return   The type description
+     * 
+     * @return The type description
      */
     @JsonIgnore
-    public String getTypeDescription(  )
+    public String getTypeDescription( )
     {
         return ModelService.getAttributeTypeDescription( _nAttributeTypeId );
     }
 
     /**
      * Returns the Param Name
-     * @return  The Param VariableName
+     * 
+     * @return The Param VariableName
      */
     @JsonIgnore
-    public String getParamName(  )
+    public String getParamName( )
     {
-        return _strAttributeName.toLowerCase(  );
+        return _strAttributeName.toLowerCase( );
     }
 
     /**
      * Returns the java name of the attribute
+     * 
      * @return The java name
      */
     @JsonIgnore
-    public String getJavaName(  )
+    public String getJavaName( )
     {
-        return Utils.getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase(  ) +
-        Utils.getProperName( _strAttributeName ).substring( 1 );
+        return Utils.getProperName( _strAttributeName ).substring( 0, 1 ).toLowerCase( ) + Utils.getProperName( _strAttributeName ).substring( 1 );
     }
 
     /**
      * @return the maxLength
      */
-    public int getMaxLength(  )
+    public int getMaxLength( )
     {
         return _nMaxLength;
     }
 
     /**
-     * @param maxLength the maxLength to set
+     * @param maxLength
+     *            the maxLength to set
      */
     public void setMaxLength( int maxLength )
     {
@@ -204,29 +217,32 @@ public class Attribute implements Serializable
 
     /**
      * Returns the bNotNull
+     * 
      * @return The NotNull
      */
-    public boolean getNotNull(  )
+    public boolean getNotNull( )
     {
         return _bNotNull;
     }
 
     /**
-    * Sets the Description
-    * @param bNotNull The Description
-    */
+     * Sets the Description
+     * 
+     * @param bNotNull
+     *            The Description
+     */
     public void setNotNull( boolean bNotNull )
     {
         _bNotNull = bNotNull;
     }
 
     /**
-    * Returns the Constraint
-    *
-    * @return The Constraint
-    */
+     * Returns the Constraint
+     *
+     * @return The Constraint
+     */
     @JsonIgnore
-    public String getConstraint(  )
+    public String getConstraint( )
     {
         return ModelService.getAttributeConstraint( _nAttributeTypeId );
     }

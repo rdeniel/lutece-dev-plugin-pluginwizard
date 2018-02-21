@@ -43,7 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  * Admin Jsp Controller Generator
  */
@@ -55,7 +54,9 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
     /**
      * Sets the business template
-     * @param strTemplate The template
+     * 
+     * @param strTemplate
+     *            The template
      */
     public void setBusinessTemplate( String strTemplate )
     {
@@ -64,7 +65,9 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
     /**
      * Sets the feature template
-     * @param strTemplate The template
+     * 
+     * @param strTemplate
+     *            The template
      */
     public void setFeatureTemplate( String strTemplate )
     {
@@ -77,17 +80,17 @@ public class AdminJspControllerGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         
         String strPluginName = pm.getPluginNameAsRadicalPackage( );
         
-        for ( Feature feature : pm.getFeatures(  ) )
+        for ( Feature feature : pm.getFeatures( ) )
         {
-            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId(  ) );
+            List<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                String strJspFileName = "Manage" + businessClass.getBusinessClass(  ) + "s.jsp";
+                String strJspFileName = "Manage" + businessClass.getBusinessClass( ) + "s.jsp";
 
                 String strPath = getFilePath( pm, PATH, strJspFileName );
 
@@ -103,16 +106,21 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
     /**
      * Gets the Jsp File of a business class
-     * @param businessClass The business class
-     * @param strFeatureName The feature name
-     * @param strPluginName The generated plugin name
-     * @param nJspType The type of jsp
+     * 
+     * @param businessClass
+     *            The business class
+     * @param strFeatureName
+     *            The feature name
+     * @param strPluginName
+     *            The generated plugin name
+     * @param nJspType
+     *            The type of jsp
      * @return The source code of the jsp
      */
     private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, boolean bIsModule )
     {
-        String strBeanName = strFeatureName.toLowerCase(  ) + businessClass.getBusinessClass(  );
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        String strBeanName = strFeatureName.toLowerCase( ) + businessClass.getBusinessClass( );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
@@ -123,13 +131,16 @@ public class AdminJspControllerGenerator extends AbstractGenerator
 
     /**
      * Gets the JSP feature file code
-     * @param strFeatureName The feature name
-     * @param strPluginName The plugin name
+     * 
+     * @param strFeatureName
+     *            The feature name
+     * @param strPluginName
+     *            The plugin name
      * @return The source code of the JSP
      */
     private String getFeatureJspFile( String strFeatureName, String strPluginName, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, bIsModule );

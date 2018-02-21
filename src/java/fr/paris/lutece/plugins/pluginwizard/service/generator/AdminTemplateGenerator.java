@@ -46,7 +46,6 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-
 /**
  *
  * Generates Html files used as template to construct back office UI
@@ -55,49 +54,50 @@ import java.util.Map;
 public class AdminTemplateGenerator extends AbstractGenerator
 {
     private static final String PATH = "webapp/WEB-INF/templates/admin/plugins/{plugin_name}/";
-    private static String[] _template_prefix = { "create_", "modify_", "manage_" };
+    private static String [ ] _template_prefix = {
+            "create_", "modify_", "manage_"
+    };
     private String _strTabsTemplate;
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
         
         String strPluginName = strPluginName = pm.getPluginNameAsPackage() ;
         String strLink = pm.getPluginNameAsRadicalPath() ;
         
 
 
-        //for each feature,which business classes are attached to
-        Collection<Feature> listFeatures = pm.getFeatures(  );
+        // for each feature,which business classes are attached to
+        Collection<Feature> listFeatures = pm.getFeatures( );
 
         for ( Feature feature : listFeatures )
         {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm,
-                    feature.getId(  ) );
+            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
             for ( BusinessClass businessClass : listBusinessClasses )
             {
-                Feature admin_feature = ModelService.getFeatureByBusinessClass( pm, businessClass.getId(  ) );
+                Feature admin_feature = ModelService.getFeatureByBusinessClass( pm, businessClass.getId( ) );
 
                 for ( int i = 0; i < _template_prefix.length; i++ )
                 {
                     String strSuffix = ( i == 2 ) ? "s.html" : ".html";
-                    String strPath = getFilePath( pm, PATH,
-                            _template_prefix[i] + businessClass.getBusinessClass(  ).toLowerCase(  ) + strSuffix );
+                    String strPath = getFilePath( pm, PATH, _template_prefix [i] + businessClass.getBusinessClass( ).toLowerCase( ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, admin_feature, businessClass, i,
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, admin_feature, businessClass, i, pm.getPluginName( ) );
                     		strPluginName, strLink );
                     map.put( strPath, strSourceCode );
                 }
             }
 
-            //Add the main template where all the business management interface will be accessible
-            String strPath = getFilePath( pm, PATH, feature.getFeatureName(  ).toLowerCase(  ) + "_tabs.html" );
+            // Add the main template where all the business management interface will be accessible
+            String strPath = getFilePath( pm, PATH, feature.getFeatureName( ).toLowerCase( ) + "_tabs.html" );
 
             String strSourceCode = getTabsHtmlCode( listBusinessClasses, strPluginName, feature, strLink );
             map.put( strPath, strSourceCode );
@@ -109,18 +109,20 @@ public class AdminTemplateGenerator extends AbstractGenerator
     /**
      * Gets the code of a create template for a specific business object
      *
-     * @param listAllBusinessClasses A list of business classes attached to
-     * plugin
-     * @param businessClass The instance of the business class
-     * @param nTemplateType The type of template
-     * @param strPluginName The plugin name
+     * @param listAllBusinessClasses
+     *            A list of business classes attached to plugin
+     * @param businessClass
+     *            The instance of the business class
+     * @param nTemplateType
      * @param strLinkJsp The link to jsp
+     * @param strPluginName
+     *            The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature,
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature, BusinessClass businessClass, int nTemplateType,
         BusinessClass businessClass, int nTemplateType, String strPluginName, String strLinkJsp )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
@@ -137,24 +139,26 @@ public class AdminTemplateGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate(  ), Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( getTemplate( ), Locale.getDefault( ), model );
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml( ).replace( "@@", "#" );
     }
 
     /**
-    * Gets the code of a create template for a specific business object
-    *
-    * @param listAllBusinessClasses A list of business classes attached to plugin
-    * @param strPluginName  The plugin name
-    * @param feature The feature
+     * Gets the code of a create template for a specific business object
+     *
+     * @param listAllBusinessClasses
+     *            A list of business classes attached to plugin
+     * @param strPluginName
     * @param strLinkJsp The link to jsp
-    * @return The html code of the create template
-    */
-    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName,
+     * @param feature
+     *            The feature
+     * @return The html code of the create template
+     */
+    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName, Feature feature )
         Feature feature, String strLinkJsp )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_FEATURE, feature );
@@ -168,13 +172,14 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
         model.put( Markers.MARK_LINK, strLinkJsp );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault(  ), model );
+        HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault( ), model );
 
-        return template.getHtml(  ).replace( "@@", "#" );
+        return template.getHtml( ).replace( "@@", "#" );
     }
 
     /**
-     * @param tabsTemplate the tabsTemplate to set
+     * @param tabsTemplate
+     *            the tabsTemplate to set
      */
     public void setTabsTemplate( String tabsTemplate )
     {

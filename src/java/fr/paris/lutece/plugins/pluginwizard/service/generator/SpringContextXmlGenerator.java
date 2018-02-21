@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 import java.util.Map;
 
-
 /**
  *
  * Class generates the spring context file
@@ -50,6 +49,7 @@ public class SpringContextXmlGenerator extends AbstractFileGenerator
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      */
     @Override
@@ -60,20 +60,21 @@ public class SpringContextXmlGenerator extends AbstractFileGenerator
 
     /**
      * {@inheritDoc }
+     * 
      * @param pm
      * @return
      */
     @Override
     protected String getFilename( PluginModel pm )
     {
-        return pm.getPluginName(  ).toLowerCase(  ) + EXT;
+        return pm.getPluginName( ).toLowerCase( ) + EXT;
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public String getPath(  )
+    public String getPath( )
     {
         return PATH;
     }

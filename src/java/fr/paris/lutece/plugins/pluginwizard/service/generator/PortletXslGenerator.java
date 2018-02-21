@@ -40,7 +40,6 @@ import static fr.paris.lutece.plugins.pluginwizard.service.generator.Markers.*;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * Class generates the xsl associated to every generated portlet
@@ -56,14 +55,13 @@ public class PortletXslGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
 
-        for ( Portlet portlet : pm.getPortlets(  ) )
+        for ( Portlet portlet : pm.getPortlets( ) )
         {
-            String strPath = getFilePath( pm, PATH,
-                    "portlet_" + getFirstLower( portlet.getPortletTypeName(  ) ) + ".xsl" );
+            String strPath = getFilePath( pm, PATH, "portlet_" + getFirstLower( portlet.getPortletTypeName( ) ) + ".xsl" );
 
-            String strSourceCode = getPortletXsl( portlet, pm.getPluginName(  ) );
+            String strSourceCode = getPortletXsl( portlet, pm.getPluginName( ) );
             strSourceCode = strSourceCode.replace( "&lt;", "<" );
             strSourceCode = strSourceCode.replace( "&gt;", ">" );
             map.put( strPath, strSourceCode );
@@ -74,27 +72,32 @@ public class PortletXslGenerator extends AbstractGenerator
 
     /**
      * Returns the value of a string with first letter in caps
-     * @param strValue The value to be transformed
+     * 
+     * @param strValue
+     *            The value to be transformed
      * @return The first letter is in Capital
      */
     private String getFirstLower( String strValue )
     {
         String strFirstLetter = strValue.substring( 0, 1 );
         String strLettersLeft = strValue.substring( 1 );
-        String strValueCap = strFirstLetter.toLowerCase(  ) + strLettersLeft.toLowerCase(  );
+        String strValueCap = strFirstLetter.toLowerCase( ) + strLettersLeft.toLowerCase( );
 
         return strValueCap;
     }
 
     /**
-    * Fetches the xsl corresponding to a portlet
-    * @param portlet The instance of a portlet
-    * @param strPluginName The plugin name
-    * @return The content of the xsl file
-    */
+     * Fetches the xsl corresponding to a portlet
+     * 
+     * @param portlet
+     *            The instance of a portlet
+     * @param strPluginName
+     *            The plugin name
+     * @return The content of the xsl file
+     */
     private String getPortletXsl( Portlet portlet, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 

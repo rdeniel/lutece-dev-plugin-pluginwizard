@@ -38,7 +38,6 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 import java.util.Collection;
 
-
 /**
  * This class provides instances management methods (create, find, ...) for PluginModel objects
  */
@@ -50,15 +49,18 @@ public final class PluginModelHome
     /**
      * Private constructor - this class need not be instantiated
      */
-    private PluginModelHome(  )
+    private PluginModelHome( )
     {
     }
 
     /**
      * Create an instance of the pluginModel class
-     * @param pluginModel The instance of the PluginModel which contains the informations to store
-     * @param plugin the Plugin
-     * @return The  instance of pluginModel which has been created with its primary key.
+     * 
+     * @param pluginModel
+     *            The instance of the PluginModel which contains the informations to store
+     * @param plugin
+     *            the Plugin
+     * @return The instance of pluginModel which has been created with its primary key.
      */
     public static PluginModel create( PluginModel pluginModel, Plugin plugin )
     {
@@ -69,9 +71,12 @@ public final class PluginModelHome
 
     /**
      * Update of the pluginModel which is specified in parameter
-     * @param pluginModel The instance of the PluginModel which contains the data to store
-     * @param plugin the Plugin
-     * @return The instance of the  pluginModel which has been updated
+     * 
+     * @param pluginModel
+     *            The instance of the PluginModel which contains the data to store
+     * @param plugin
+     *            the Plugin
+     * @return The instance of the pluginModel which has been updated
      */
     public static PluginModel update( PluginModel pluginModel, Plugin plugin )
     {
@@ -82,20 +87,25 @@ public final class PluginModelHome
 
     /**
      * Remove the pluginModel whose identifier is specified in parameter
-     * @param nPluginModelId The pluginModel Id
-     * @param plugin the Plugin
+     * 
+     * @param nPluginModelId
+     *            The pluginModel Id
+     * @param plugin
+     *            the Plugin
      */
     public static void remove( int nPluginModelId, Plugin plugin )
     {
         _dao.delete( nPluginModelId, plugin );
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // /////////////////////////////////////////////////////////////////////////
     // Finders
 
     /**
      * Load the data of all the pluginModel objects and returns them in form of a collection
-     * @param plugin the Plugin
+     * 
+     * @param plugin
+     *            the Plugin
      * @return the collection which contains the data of all the pluginModel objects
      */
     public static Collection<PluginModel> getPluginModelsList( Plugin plugin )
@@ -105,8 +115,11 @@ public final class PluginModelHome
 
     /**
      * Returns the identifier of the plugin model
-     * @param plugin The plugin
-     * @param strName The name of the generated plugin
+     * 
+     * @param plugin
+     *            The plugin
+     * @param strName
+     *            The name of the generated plugin
      * @return The identifier of the plugin model
      */
     public static int getPluginModelId( Plugin plugin, String strName )
@@ -116,8 +129,11 @@ public final class PluginModelHome
 
     /**
      * A boolean to indicate if plugin exists
-     * @param strPluginName The plugin name
-     * @param plugin The plugin
+     * 
+     * @param strPluginName
+     *            The plugin name
+     * @param plugin
+     *            The plugin
      * @return A boolean value indicating if plugin exists
      */
     public static boolean pluginExists( String strPluginName, Plugin plugin )

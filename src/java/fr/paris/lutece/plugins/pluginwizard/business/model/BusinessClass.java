@@ -33,17 +33,15 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
-
-import org.codehaus.jackson.annotate.JsonIgnore;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.Pattern;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 /**
  * This is the business class for the object BusinessClass
@@ -64,9 +62,9 @@ public class BusinessClass
     /**
      *
      */
-    public BusinessClass(  )
+    public BusinessClass( )
     {
-        _listAttributes = new ArrayList<Attribute>(  );
+        _listAttributes = new ArrayList<Attribute>( );
     }
 
     /**
@@ -74,7 +72,7 @@ public class BusinessClass
      *
      * @return The nIdBusinessClass
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nIdBusinessClass;
     }
@@ -82,7 +80,8 @@ public class BusinessClass
     /**
      * Sets the nIdBusinessClass
      *
-     * @param nIdBusinessClass The IdPlugin
+     * @param nIdBusinessClass
+     *            The IdPlugin
      */
     public void setId( int nIdBusinessClass )
     {
@@ -94,7 +93,7 @@ public class BusinessClass
      *
      * @return The BusinessClass
      */
-    public String getBusinessClass(  )
+    public String getBusinessClass( )
     {
         return _strBusinessClass;
     }
@@ -102,7 +101,8 @@ public class BusinessClass
     /**
      * Sets the BusinessClass
      *
-     * @param strBusinessClass The BusinessClass
+     * @param strBusinessClass
+     *            The BusinessClass
      */
     public void setBusinessClass( String strBusinessClass )
     {
@@ -114,7 +114,7 @@ public class BusinessClass
      *
      * @return The BusinessTableName
      */
-    public String getBusinessTableName(  )
+    public String getBusinessTableName( )
     {
         return _strBusinessTableName;
     }
@@ -122,19 +122,20 @@ public class BusinessClass
     /**
      * Sets the BusinessTableName
      *
-     * @param strBusinessTableName The BusinessTableName
+     * @param strBusinessTableName
+     *            The BusinessTableName
      */
     public void setBusinessTableName( String strBusinessTableName )
     {
         _strBusinessTableName = strBusinessTableName;
     }
 
-    /////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////
     /**
      * Sets the list of attributes associated to business class
      *
-     * @param listAttributes The collection of attributes associated to the
-     * class
+     * @param listAttributes
+     *            The collection of attributes associated to the class
      */
     public void setAttributes( List<Attribute> listAttributes )
     {
@@ -146,7 +147,7 @@ public class BusinessClass
      *
      * @return the collection of child attributes
      */
-    public List<Attribute> getAttributes(  )
+    public List<Attribute> getAttributes( )
     {
         return _listAttributes;
     }
@@ -154,7 +155,8 @@ public class BusinessClass
     /**
      * Sets the primary key of the class
      *
-     * @param strPrimaryAttributeName The key attribute name
+     * @param strPrimaryAttributeName
+     *            The key attribute name
      */
     public void setPrimaryKey( String strPrimaryAttributeName )
     {
@@ -162,17 +164,16 @@ public class BusinessClass
     }
 
     /**
-     * Fetches the attributes which represents the identifier of the business
-     * class
+     * Fetches the attributes which represents the identifier of the business class
      *
      * @return The key
      */
-    public String getPrimaryKey(  )
+    public String getPrimaryKey( )
     {
         return _strPrimaryAttributeName;
     }
 
-    //////////////////////////////////////////////////////////////
+    // ////////////////////////////////////////////////////////////
     // The methods below are meant to be used when generating the artifacts of the plugin
 
     /**
@@ -181,7 +182,7 @@ public class BusinessClass
      * @return The name of the key
      */
     @JsonIgnore
-    public String getPrimaryKeyName(  )
+    public String getPrimaryKeyName( )
     {
         return Utils.getProperName( _strPrimaryAttributeName );
     }
@@ -192,10 +193,10 @@ public class BusinessClass
      * @return The BusinessClass
      */
     @JsonIgnore
-    public String getBusinessClassCapsFirst(  )
+    public String getBusinessClassCapsFirst( )
     {
-        char[] characters = _strBusinessClass.toCharArray(  );
-        characters[0] = Character.toTitleCase( characters[0] );
+        char [ ] characters = _strBusinessClass.toCharArray( );
+        characters [0] = Character.toTitleCase( characters [0] );
 
         return String.valueOf( characters );
     }
@@ -206,8 +207,9 @@ public class BusinessClass
      * @return The InstanceName
      */
     @JsonIgnore
-    public String getInstanceName(  )
+    public String getInstanceName( )
     {
         return Utils.firstLowerCase( _strBusinessClass );
     }
+
 }

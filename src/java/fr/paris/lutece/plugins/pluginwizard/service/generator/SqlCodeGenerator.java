@@ -38,7 +38,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import java.util.HashMap;
 import java.util.Map;
 
-
 /**
  *
  * The sql files generator
@@ -47,11 +46,12 @@ import java.util.Map;
 public class SqlCodeGenerator extends AbstractGenerator
 {
     private static final String PATH = "src/sql/plugins/{plugin_name}/";
-    private static String[] _prefix = 
-        {
+    private static String [ ] _prefix = {
             "plugin/create_db_", "plugin/init_db_", "plugin/init_db_", "core/init_core_", "core/create_"
-        };
-    private static String[] _suffix = { ".sql", ".sql", "_sample.sql", ".sql", "_portlet.sql" };
+    };
+    private static String [ ] _suffix = {
+            ".sql", ".sql", "_sample.sql", ".sql", "_portlet.sql"
+    };
 
     /**
      * {@inheritDoc }
@@ -59,11 +59,11 @@ public class SqlCodeGenerator extends AbstractGenerator
     @Override
     public Map generate( PluginModel pm )
     {
-        HashMap map = new HashMap(  );
+        HashMap map = new HashMap( );
 
         for ( int i = 0; i < _prefix.length; i++ )
         {
-            String strSqlFile = getSqlFileName( pm.getPluginName(  ).toLowerCase(  ), i );
+            String strSqlFile = getSqlFileName( pm.getPluginName( ).toLowerCase( ), i );
 
             String strPath = getFilePath( pm, PATH, strSqlFile );
 
@@ -79,24 +79,29 @@ public class SqlCodeGenerator extends AbstractGenerator
     /**
      * Returns the name of the sql file
      *
-     * @param strPluginName The plugin name
-     * @param nSqlType The type of sql file
+     * @param strPluginName
+     *            The plugin name
+     * @param nSqlType
+     *            The type of sql file
      * @return the name of the sql file
      */
     private String getSqlFileName( String strPluginName, int nSqlType )
     {
-        return _prefix[nSqlType] + strPluginName + _suffix[nSqlType];
+        return _prefix [nSqlType] + strPluginName + _suffix [nSqlType];
     }
 
     /**
-    * Returns the necessary sql dump of creation of plugin and core
-    * @param nSqlType The type of the sql
-    * @param pm The plugin Model
-    * @return The corresponding sql output
-    */
+     * Returns the necessary sql dump of creation of plugin and core
+     * 
+     * @param nSqlType
+     *            The type of the sql
+     * @param pm
+     *            The plugin Model
+     * @return The corresponding sql output
+     */
     private String getSqlScript( PluginModel pm, int nSqlType )
     {
-        Map<String, Object> model = new HashMap<String, Object>(  );
+        Map<String, Object> model = new HashMap<String, Object>( );
 
         PluginXmlGenerator.setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );

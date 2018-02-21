@@ -41,13 +41,12 @@ import java.util.List;
 
 import javax.validation.constraints.Pattern;
 
-
 /**
  * This is the business class for the object PluginApplication
  */
 public class Application implements Serializable
 {
-    // Variables declarations 
+    // Variables declarations
     private int _nId;
     private List<Integer> _nIdBusinessClasses;
     @NotEmpty( message = "pluginwizard.error.application.name.notEmpty" )
@@ -59,16 +58,19 @@ public class Application implements Serializable
 
     /**
      * Returns the Id
+     * 
      * @return The Id
      */
-    public int getId(  )
+    public int getId( )
     {
         return _nId;
     }
 
     /**
      * Sets the Id
-     * @param nId The Id
+     * 
+     * @param nId
+     *            The Id
      */
     public void setId( int nId )
     {
@@ -77,16 +79,19 @@ public class Application implements Serializable
 
     /**
      * Returns the ApplicationName
+     * 
      * @return The ApplicationName
      */
-    public String getApplicationName(  )
+    public String getApplicationName( )
     {
         return _strApplicationName;
     }
 
     /**
      * Sets the ApplicationName
-     * @param strApplicationName The ApplicationName
+     * 
+     * @param strApplicationName
+     *            The ApplicationName
      */
     public void setApplicationName( String strApplicationName )
     {
@@ -95,16 +100,19 @@ public class Application implements Serializable
 
     /**
      * Returns the ApplicationClass
+     * 
      * @return The ApplicationClass
      */
-    public String getApplicationClass(  )
+    public String getApplicationClass( )
     {
         return _strApplicationClass;
     }
 
     /**
      * Sets the ApplicationClass
-     * @param strApplicationClass The ApplicationClass
+     * 
+     * @param strApplicationClass
+     *            The ApplicationClass
      */
     public void setApplicationClass( String strApplicationClass )
     {
@@ -113,16 +121,19 @@ public class Application implements Serializable
 
     /**
      * Returns the list of IdBusinessClasses
+     * 
      * @return the collection of IdBusinessClasses
      */
-    public List<Integer> getIdBusinessClasses(  )
+    public List<Integer> getIdBusinessClasses( )
     {
         return _nIdBusinessClasses;
     }
 
     /**
      * Sets the list of IdBusinessClasses
-     * @param nIdBusinessClasses The collection of IdBusinessClasses
+     * 
+     * @param nIdBusinessClasses
+     *            The collection of IdBusinessClasses
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {

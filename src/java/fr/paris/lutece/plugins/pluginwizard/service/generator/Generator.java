@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 import java.util.Map;
 
-
 /**
  *
  * Visitor interface to implement visitor pattern
@@ -47,7 +46,9 @@ public interface Generator
 {
     /**
      * Visiting parts of the file tree structure
-     * @param pluginModel The plugin model
+     * 
+     * @param pluginModel
+     *            The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
     Map<String, String> generate( PluginModel pluginModel );

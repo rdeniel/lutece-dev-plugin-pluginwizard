@@ -37,7 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 
 import java.util.Map;
 
-
 /**
  * Class generates properties needed by the plugin
  */
@@ -60,14 +59,14 @@ public class PropertiesGenerator extends AbstractFileGenerator
     @Override
     protected String getFilename( PluginModel pm )
     {
-        return pm.getPluginName(  ).toLowerCase(  ) + ".properties";
+        return pm.getPluginName( ).toLowerCase( ) + ".properties";
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    public String getPath(  )
+    public String getPath( )
     {
         return PATH;
     }
