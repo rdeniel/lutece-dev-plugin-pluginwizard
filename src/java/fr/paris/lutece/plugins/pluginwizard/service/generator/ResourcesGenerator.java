@@ -55,11 +55,25 @@ import java.util.Map;
  */
 public class ResourcesGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
+    private static final String PATH_JAVA = "src/java/fr/paris/lutece/plugins/{plugin_name}/resources/";
+    private static final String PATH_KOTLIN = "src/kotlin/fr/paris/lutece/plugins/{plugin_name}/resources/";
     private static String[] _languages = { "", "fr" };
     private static String[] _prefix = { "create", "modify" };
     private static String[] _suffix = { "created", "updated", "removed" };
 
+    
+    private boolean _bKotlin;
+    
+    /**
+     * Set kotlin
+     * @param bKotlin true if kotlin generation 
+     */
+    public void setKotlin( boolean bKotlin )
+    {
+        _bKotlin = bKotlin;
+    }
+    
+    
     /**
      * {@inheritDoc }
      */
@@ -72,7 +86,8 @@ public class ResourcesGenerator extends AbstractGenerator
         
         for ( String strLanguage : _languages )
         {
-            String strPath = getFilePath( pm, PATH,
+            String strFilesPath = ( _bKotlin ) ? PATH_KOTLIN : PATH_JAVA;
+            String strPath = getFilePath( pm, strFilesPath ,
                     prefixFileName + "_messages" 
                                 + (strLanguage.length()>0?"_":"") 
                                 + strLanguage + ".properties" );

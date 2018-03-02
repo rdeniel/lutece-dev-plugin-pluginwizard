@@ -147,9 +147,16 @@
         </constructor-arg>
     </bean>
 
+
+
+
     <!-- ##################          KOTLIN generation         #####################-->
+
     <bean id="pluginwizard.generator.kotlin.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" >
         <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
+        <property name="kotlin" value="true" />
+    </bean>
+    <bean id="pluginwizard.generator.kotlin.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" >
         <property name="kotlin" value="true" />
     </bean>
 
@@ -405,7 +412,7 @@
                 <ref bean="pluginwizard.generator.context" />
                 <ref bean="pluginwizard.generator.properties" />
                 <ref bean="pluginwizard.generator.site" />
-                <ref bean="pluginwizard.generator.resources" />
+                <ref bean="pluginwizard.generator.kotlin.resources" />
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.kotlin.business" />
                 <ref bean="pluginwizard.generator.admin.java.jspbean" />
