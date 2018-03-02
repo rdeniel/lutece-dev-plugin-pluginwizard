@@ -50,10 +50,33 @@ import java.util.Map;
  */
 public class XPageGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
-    private static final String SUFFIX_XPage_BusinessClass = "XPage.java";
-    private static final String SUFFIX_XPage = ".java";
+    private static final String PATH_JAVA = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String PATH_KOTLIN = "src/kotlin/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String SUFFIX_JAVA_XPAGE_CLASS = "XPage.java";
+    private static final String SUFFIX_KOTLIN_XPAGE_CLASS = "XPage.kt";
+    private static final String SUFFIX_JAVA_XPAGE = ".java";
+    private static final String SUFFIX_KOTLIN_XPAGE = ".kt";
 
+    private boolean _bKotlin;
+    
+    /**
+     * Set kotlin
+     * @param bKotlin true if kotlin generation 
+     */
+    public void setKotlin( boolean bKotlin )
+    {
+        _bKotlin = bKotlin;
+    }
+    
+    /**
+     * Get kotlin 
+     * @return true if kotlin generation
+     */
+    public boolean getKotlin()
+    {
+        return _bKotlin;
+    }
+    
     /**
      * {@inheritDoc }
      * @param pm
@@ -62,6 +85,7 @@ public class XPageGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
+        String strFilesPath = ( _bKotlin ) ? PATH_KOTLIN : PATH_JAVA;
 
         for ( Application application : pm.getApplications(  ) )
         {
@@ -70,7 +94,8 @@ public class XPageGenerator extends AbstractGenerator
 
             if ( listBusinessClasses.isEmpty(  ) )
             {
-                String strPath = getFilePath( pm, PATH, application.getApplicationClass(  ) + SUFFIX_XPage );
+                String strSuffix = ( _bKotlin ) ? SUFFIX_KOTLIN_XPAGE : SUFFIX_JAVA_XPAGE;
+                String strPath = getFilePath( pm, strFilesPath , application.getApplicationClass(  ) + strSuffix );
                 String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
                         application );
                 map.put( strPath, strSourceCode );
@@ -79,8 +104,9 @@ public class XPageGenerator extends AbstractGenerator
             {
                 for ( BusinessClass businessClass : listBusinessClasses )
                 {
-                    String strFilename = businessClass.getBusinessClassCapsFirst(  ) + SUFFIX_XPage_BusinessClass;
-                    String strPath = getFilePath( pm, PATH, strFilename );
+                    String strSuffix = ( _bKotlin ) ? SUFFIX_KOTLIN_XPAGE_CLASS : SUFFIX_JAVA_XPAGE_CLASS;
+                    String strFilename = businessClass.getBusinessClassCapsFirst(  ) + strSuffix;
+                    String strPath = getFilePath( pm, strFilesPath, strFilename );
                     String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
                             application, businessClass );
                     map.put( strPath, strSourceCode );
