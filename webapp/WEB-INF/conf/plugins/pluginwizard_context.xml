@@ -146,11 +146,46 @@
             </list>
         </constructor-arg>
     </bean>
+
+    <!-- Kotlin generation -->
+    <bean id="pluginwizard.generator.admin.kotlin.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessKotlinClassGenerator" >
+        <property name="files" ref="pluginwizard.list.files.kotlin.business" />
+    </bean>
+
+    <bean id="pluginwizard.list.files.kotlin.business" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginwizard.business.kotlin.class" />
+                <ref bean="pluginwizard.business.kotlin.dao" />                
+                <ref bean="pluginwizard.business.kotlin.home" />                
+<!--                
+                <ref bean="pluginwizard.business.kotlin.idao" />                
+                <ref bean="pluginwizard.business.kotlin.test" />       
+-->         
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="pluginwizard.business.kotlin.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="template" value="/generators/default/business_k/gt_business_k_class.html"/>
+    </bean>
+    <bean id="pluginwizard.business.kotlin.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix" value="DAO" />
+        <property name="template" value="/generators/default/business_k/gt_business_k_dao.html" />
+    </bean>
+    <bean id="pluginwizard.business.kotlin.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix" value="Home" />
+        <property name="template" value="/generators/default/business_k/gt_business_k_home.html" />
+    </bean>
+
+    
+    
+    
     <bean id="pluginwizard.business.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
             <value>/generators/default/business/gt_business_class.html</value>
         </property>
     </bean>
+
     <bean id="pluginwizard.business.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="suffix">
             <value>DAO</value>
@@ -349,4 +384,38 @@
             </list>
         </property>
     </bean>
+
+    <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
+        <property name="name">
+            <value>Modèle Kotlin Lutece 6.0 (DAO SQL)</value>
+        </property>
+        <property name="generatorsList">
+            <list>
+                <ref bean="pluginwizard.generator.pom" />
+                <ref bean="pluginwizard.generator.pluginXml" />
+                <ref bean="pluginwizard.generator.context" />
+                <ref bean="pluginwizard.generator.properties" />
+                <ref bean="pluginwizard.generator.site" />
+                <ref bean="pluginwizard.generator.resources" />
+                <ref bean="pluginwizard.generator.sql" />
+                <ref bean="pluginwizard.generator.admin.kotlin.business" />
+                <ref bean="pluginwizard.generator.admin.java.jspbean" />
+                <ref bean="pluginwizard.generator.admin.jsp" />
+                <ref bean="pluginwizard.generator.admin.html" />
+                <ref bean="pluginwizard.generator.xpage.java" />
+                <ref bean="pluginwizard.generator.xpage.html" />
+                <ref bean="pluginwizard.generator.portlet.java.business" />
+                <ref bean="pluginwizard.generator.portlet.java.jspbean" />
+                <ref bean="pluginwizard.generator.portlet.jsp" />
+                <ref bean="pluginwizard.generator.portlet.html" />
+                <ref bean="pluginwizard.generator.portlet.xsl" />
+                <ref bean="pluginwizard.generator.rest.java" />
+                <ref bean="pluginwizard.generator.rest.constants.java" />
+                <ref bean="pluginwizard.generator.rest.swagger.java" />
+                <ref bean="pluginwizard.generator.rest.swagger.json" />
+            </list>
+        </property>
+    </bean>
+
+
 </beans>

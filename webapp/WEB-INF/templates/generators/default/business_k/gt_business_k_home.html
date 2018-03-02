@@ -1,0 +1,112 @@
+/*
+ * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES LOSS OF USE, DATA, OR PROFITS OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+ package fr.paris.lutece.plugins.${radical_package}.business
+
+import fr.paris.lutece.portal.service.plugin.PluginService
+import fr.paris.lutece.util.ReferenceList
+
+import java.util.ArrayList
+
+/**
+ * This class provides instances management methods (create, find, ...) for ${business_class.businessClass} objects
+ */
+object ${business_class.businessClass}Home
+{
+    // Static variable pointed at the DAO instance
+    private val _dao = ${business_class.businessClass}DAO()
+    private val _plugin = PluginService.getPlugin( "${bean_name}" )
+
+    /**
+     * Create an instance of the ${business_class.instanceName} class
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the informations to store
+     * @return The  instance of ${business_class.instanceName} which has been created with its primary key.
+     */
+    fun create( ${business_class.instanceName}: ${business_class.businessClass} ): ${business_class.businessClass}
+    {
+        _dao.insert( ${business_class.instanceName}, _plugin )
+
+        return ${business_class.instanceName}
+    }
+
+    /**
+     * Update of the ${business_class.instanceName} which is specified in parameter
+     * @param ${business_class.instanceName} The instance of the ${business_class.businessClass} which contains the data to store
+     * @return The instance of the  ${business_class.instanceName} which has been updated
+     */
+    fun update( ${business_class.instanceName}: ${business_class.businessClass} ): ${business_class.businessClass}
+    {
+        _dao.store( ${business_class.instanceName}, _plugin )
+
+        return ${business_class.instanceName}
+    }
+
+    /**
+     * Remove the ${business_class.instanceName} whose identifier is specified in parameter
+     * @param nKey The ${business_class.instanceName} Id
+     */
+    fun remove( nKey: Int )
+    {
+        _dao.delete( nKey, _plugin )
+    }
+
+    /**
+     * Returns an instance of a ${business_class.instanceName} whose identifier is specified in parameter
+     * @param nKey The ${business_class.instanceName} primary key
+     * @return an instance of ${business_class.businessClass}
+     */
+    fun findByPrimaryKey( nKey: Int ): ${business_class.businessClass}?
+    {
+        return _dao.load( nKey, _plugin)
+    }
+
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a list
+     * @return the list which contains the data of all the ${business_class.instanceName} objects
+     */
+    fun get${business_class.businessClass}sList( ):  ArrayList&lt;${business_class.businessClass}&gt;
+    {
+        return _dao.select${business_class.businessClass}sList( _plugin )
+    }
+    
+   
+    /**
+     * Load the data of all the ${business_class.instanceName} objects and returns them as a referenceList
+     * @return the referenceList which contains the data of all the ${business_class.instanceName} objects
+     */
+    fun get${business_class.businessClass}sReferenceList( ): ReferenceList
+    {
+        return _dao.select${business_class.businessClass}sReferenceList( _plugin )
+    }
+}
+
