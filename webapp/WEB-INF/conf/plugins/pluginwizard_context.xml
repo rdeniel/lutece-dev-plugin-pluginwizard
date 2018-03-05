@@ -147,60 +147,7 @@
         </constructor-arg>
     </bean>
 
-
-
-
-    <!-- ##################          KOTLIN generation         #####################-->
-
-    <bean id="pluginwizard.generator.kotlin.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" >
-        <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
-        <property name="kotlin" value="true" />
-    </bean>
-    <bean id="pluginwizard.generator.kotlin.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" >
-        <property name="kotlin" value="true" />
-    </bean>
-
-    <bean id="pluginwizard.generator.admin.kotlin.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessKotlinClassGenerator" >
-        <property name="files" ref="pluginwizard.list.files.kotlin.business" />
-    </bean>
-
-    <bean id="pluginwizard.list.files.kotlin.business" class="java.util.ArrayList">
-        <constructor-arg>
-            <list>
-                <ref bean="pluginwizard.business.kotlin.class" />
-                <ref bean="pluginwizard.business.kotlin.dao" />                
-                <ref bean="pluginwizard.business.kotlin.home" />                
-<!--                
-                <ref bean="pluginwizard.business.kotlin.idao" />                
-                <ref bean="pluginwizard.business.kotlin.test" />       
--->         
-            </list>
-        </constructor-arg>
-    </bean>
-    <bean id="pluginwizard.business.kotlin.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
-        <property name="template" value="/generators/default/business/gt_business_k_class.html"/>
-    </bean>
-    <bean id="pluginwizard.business.kotlin.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
-        <property name="suffix" value="DAO" />
-        <property name="template" value="/generators/default/business/gt_business_k_dao.html" />
-    </bean>
-    <bean id="pluginwizard.business.kotlin.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
-        <property name="suffix" value="Home" />
-        <property name="template" value="/generators/default/business/gt_business_k_home.html" />
-    </bean>
-    <bean id="pluginwizard.generator.xpage.kotlin" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
-        <property name="template" value="/generators/default/xpage/gt_xpage_k.html" />
-        <property name="kotlin" value="true" />
-    </bean>
-    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
-        <property name="kotlin" value="true" />
-        <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
-        <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
-    </bean>
-
    
-    
-    
     <bean id="pluginwizard.business.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="template">
             <value>/generators/default/business/gt_business_class.html</value>
@@ -371,6 +318,55 @@
         </property>
     </bean>
     
+    <!-- ##################          KOTLIN generation         #####################-->
+
+    <bean id="pluginwizard.generator.kotlin.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator" >
+        <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
+        <property name="kotlin" value="true" />
+    </bean>
+    <bean id="pluginwizard.generator.kotlin.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator" >
+        <property name="kotlin" value="true" />
+    </bean>
+
+    <bean id="pluginwizard.generator.admin.kotlin.business" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessKotlinClassGenerator" >
+        <property name="files" ref="pluginwizard.list.files.kotlin.business" />
+    </bean>
+
+    <bean id="pluginwizard.list.files.kotlin.business" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="pluginwizard.business.kotlin.class" />
+                <ref bean="pluginwizard.business.kotlin.dao" />                
+                <ref bean="pluginwizard.business.kotlin.home" />                
+<!--                
+                <ref bean="pluginwizard.business.kotlin.idao" />                
+                <ref bean="pluginwizard.business.kotlin.test" />       
+-->         
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="pluginwizard.business.kotlin.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="template" value="/generators/default/business/gt_business_k_class.html"/>
+    </bean>
+    <bean id="pluginwizard.business.kotlin.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix" value="DAO" />
+        <property name="template" value="/generators/default/business/gt_business_k_dao.html" />
+    </bean>
+    <bean id="pluginwizard.business.kotlin.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
+        <property name="suffix" value="Home" />
+        <property name="template" value="/generators/default/business/gt_business_k_home.html" />
+    </bean>
+    <bean id="pluginwizard.generator.xpage.kotlin" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
+        <property name="template" value="/generators/default/xpage/gt_xpage_k.html" />
+        <property name="kotlin" value="true" />
+    </bean>
+    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
+        <property name="kotlin" value="true" />
+        <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
+        <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
+    </bean>
+
+   
 
     <!-- ############################### GENERATION SCHEME #########################-->
     
