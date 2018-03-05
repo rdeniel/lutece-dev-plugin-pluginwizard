@@ -48,9 +48,11 @@ import java.util.Map;
  */
 public class AdminJspBeanGenerator extends AbstractGenerator
 {
-    private static final String PATH = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String PATH_JAVA = "src/java/fr/paris/lutece/plugins/{plugin_name}/web/";
+    private static final String PATH_KOTLIN = "src/kotlin/fr/paris/lutece/plugins/{plugin_name}/web/";
     private static final String PREFIX_JSPBEAN = "Abstract";
-    private static final String SUFFIX_JSPBEAN = "JspBean.java";
+    private static final String SUFFIX_JAVA_JSPBEAN = "JspBean.java";
+    private static final String SUFFIX_KOTLIN_JSPBEAN = "JspBean.kt";
     private String _strAbstractParentBeanTemplate;
 
     /**
@@ -75,16 +77,18 @@ public class AdminJspBeanGenerator extends AbstractGenerator
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm,
                     feature.getId(  ) );
 
+            String strSuffix = ( isKotlin() ) ? SUFFIX_KOTLIN_JSPBEAN : SUFFIX_JAVA_JSPBEAN;
+            String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
             for ( BusinessClass business : listBusinessClasses )
             {
-                String strFilename = business.getBusinessClassCapsFirst(  ) + SUFFIX_JSPBEAN;
-                String strPath = getFilePath( pm, PATH, strFilename );
+                String strFilename = business.getBusinessClassCapsFirst(  ) + strSuffix;
+                String strPath = getFilePath( pm, strFilesPath, strFilename );
                 String strSourceCode = getJspBeanCode( pm, feature.getFeatureName(  ), feature.getFeatureRight(  ),
                         business );
                 map.put( strPath, strSourceCode );
             }
 
-            String strPath = getFilePath( pm, PATH, PREFIX_JSPBEAN + feature.getFeatureName(  ) + SUFFIX_JSPBEAN );
+            String strPath = getFilePath( pm, strFilesPath, PREFIX_JSPBEAN + feature.getFeatureName(  ) + strSuffix );
             String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName(  ), feature.getFeatureRight(  ) );
             map.put( strPath, strSourceCode );
         }

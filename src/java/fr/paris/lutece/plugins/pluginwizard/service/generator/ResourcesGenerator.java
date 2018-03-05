@@ -61,19 +61,6 @@ public class ResourcesGenerator extends AbstractGenerator
     private static String[] _prefix = { "create", "modify" };
     private static String[] _suffix = { "created", "updated", "removed" };
 
-    
-    private boolean _bKotlin;
-    
-    /**
-     * Set kotlin
-     * @param bKotlin true if kotlin generation 
-     */
-    public void setKotlin( boolean bKotlin )
-    {
-        _bKotlin = bKotlin;
-    }
-    
-    
     /**
      * {@inheritDoc }
      */
@@ -86,7 +73,7 @@ public class ResourcesGenerator extends AbstractGenerator
         
         for ( String strLanguage : _languages )
         {
-            String strFilesPath = ( _bKotlin ) ? PATH_KOTLIN : PATH_JAVA;
+            String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
             String strPath = getFilePath( pm, strFilesPath ,
                     prefixFileName + "_messages" 
                                 + (strLanguage.length()>0?"_":"") 

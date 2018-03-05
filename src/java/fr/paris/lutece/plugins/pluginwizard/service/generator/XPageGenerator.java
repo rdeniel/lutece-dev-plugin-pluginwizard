@@ -57,25 +57,6 @@ public class XPageGenerator extends AbstractGenerator
     private static final String SUFFIX_JAVA_XPAGE = ".java";
     private static final String SUFFIX_KOTLIN_XPAGE = ".kt";
 
-    private boolean _bKotlin;
-    
-    /**
-     * Set kotlin
-     * @param bKotlin true if kotlin generation 
-     */
-    public void setKotlin( boolean bKotlin )
-    {
-        _bKotlin = bKotlin;
-    }
-    
-    /**
-     * Get kotlin 
-     * @return true if kotlin generation
-     */
-    public boolean getKotlin()
-    {
-        return _bKotlin;
-    }
     
     /**
      * {@inheritDoc }
@@ -85,7 +66,7 @@ public class XPageGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap(  );
-        String strFilesPath = ( _bKotlin ) ? PATH_KOTLIN : PATH_JAVA;
+        String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
 
         for ( Application application : pm.getApplications(  ) )
         {
@@ -94,7 +75,7 @@ public class XPageGenerator extends AbstractGenerator
 
             if ( listBusinessClasses.isEmpty(  ) )
             {
-                String strSuffix = ( _bKotlin ) ? SUFFIX_KOTLIN_XPAGE : SUFFIX_JAVA_XPAGE;
+                String strSuffix = ( isKotlin() ) ? SUFFIX_KOTLIN_XPAGE : SUFFIX_JAVA_XPAGE;
                 String strPath = getFilePath( pm, strFilesPath , application.getApplicationClass(  ) + strSuffix );
                 String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),
                         application );
@@ -104,7 +85,7 @@ public class XPageGenerator extends AbstractGenerator
             {
                 for ( BusinessClass businessClass : listBusinessClasses )
                 {
-                    String strSuffix = ( _bKotlin ) ? SUFFIX_KOTLIN_XPAGE_CLASS : SUFFIX_JAVA_XPAGE_CLASS;
+                    String strSuffix = ( isKotlin() ) ? SUFFIX_KOTLIN_XPAGE_CLASS : SUFFIX_JAVA_XPAGE_CLASS;
                     String strFilename = businessClass.getBusinessClassCapsFirst(  ) + strSuffix;
                     String strPath = getFilePath( pm, strFilesPath, strFilename );
                     String strSourceCode = getXPageCode( pm, application.getApplicationName(  ), application.getId(  ),

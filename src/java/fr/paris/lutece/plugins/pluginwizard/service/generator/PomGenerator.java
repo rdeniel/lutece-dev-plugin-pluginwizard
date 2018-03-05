@@ -48,28 +48,6 @@ import java.util.Map;
  */
 public class PomGenerator extends AbstractFileGenerator
 {
-    private static final String MARK_KOTLIN = "kotlin";
-    
-    private boolean _bKotlin;
-    
-    /**
-     * Set kotlin
-     * @param bKotlin true if kotlin generation 
-     */
-    public void setKotlin( boolean bKotlin )
-    {
-        _bKotlin = bKotlin;
-    }
-    
-    /**
-     * Get kotlin 
-     * @return true if kotlin generation
-     */
-    public boolean getKotlin()
-    {
-        return _bKotlin;
-    }
-    
     
     /**
      * {@inheritDoc }
@@ -98,7 +76,7 @@ public class PomGenerator extends AbstractFileGenerator
             model.put( key.getKeyDescription(  ).trim(  ), key.getKeyValue(  ) );
         }
 
-        model.put( MARK_KOTLIN , _bKotlin );
+        model.put( MARK_KOTLIN , isKotlin() );
         model.put( Markers.MARK_PLUGIN, pm );
 
         return build( model );

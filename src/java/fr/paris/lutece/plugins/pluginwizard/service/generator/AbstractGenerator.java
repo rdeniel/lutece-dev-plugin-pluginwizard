@@ -49,8 +49,28 @@ import java.util.Map;
  */
 public abstract class AbstractGenerator implements Generator
 {
-    private String _strTemplate;
+    protected static final String MARK_KOTLIN = "kotlin";
 
+    private String _strTemplate;
+    private boolean _bKotlin;
+    
+    /**
+     * Set kotlin
+     * @param bKotlin true if kotlin generation 
+     */
+    public void setKotlin( boolean bKotlin )
+    {
+        _bKotlin = bKotlin;
+    }
+
+    /**
+     * Return true if generation is for Kotlin
+     * @return true if generation is for Kotlin 
+     */
+    protected boolean isKotlin()
+    {
+        return _bKotlin;
+    }
     /**
      * Returns the Template
      *

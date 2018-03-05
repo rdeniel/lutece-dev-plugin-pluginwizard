@@ -178,22 +178,27 @@
         </constructor-arg>
     </bean>
     <bean id="pluginwizard.business.kotlin.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
-        <property name="template" value="/generators/default/business_k/gt_business_k_class.html"/>
+        <property name="template" value="/generators/default/business/gt_business_k_class.html"/>
     </bean>
     <bean id="pluginwizard.business.kotlin.dao" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="suffix" value="DAO" />
-        <property name="template" value="/generators/default/business_k/gt_business_k_dao.html" />
+        <property name="template" value="/generators/default/business/gt_business_k_dao.html" />
     </bean>
     <bean id="pluginwizard.business.kotlin.home" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
         <property name="suffix" value="Home" />
-        <property name="template" value="/generators/default/business_k/gt_business_k_home.html" />
+        <property name="template" value="/generators/default/business/gt_business_k_home.html" />
     </bean>
     <bean id="pluginwizard.generator.xpage.kotlin" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator" >
-        <property name="template" value="/generators/default/xpage/gt_k_xpage.html" />
+        <property name="template" value="/generators/default/xpage/gt_xpage_k.html" />
         <property name="kotlin" value="true" />
     </bean>
+    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator" >
+        <property name="kotlin" value="true" />
+        <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
+        <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
+    </bean>
 
-    
+   
     
     
     <bean id="pluginwizard.business.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
@@ -371,7 +376,7 @@
     
     <bean id="pluginwizard.scheme1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Modèle Lutece 5.0 (DAO SQL)</value>
+            <value>Java Lutece 6.0 (DAO SQL)</value>
         </property>
         <property name="generatorsList">
             <list>
@@ -403,7 +408,7 @@
 
     <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme" >
         <property name="name">
-            <value>Modèle Kotlin Lutece 6.0 (DAO SQL)</value>
+            <value>Kotlin Lutece 6.0 (DAO SQL)</value>
         </property>
         <property name="generatorsList">
             <list>
@@ -415,11 +420,12 @@
                 <ref bean="pluginwizard.generator.kotlin.resources" />
                 <ref bean="pluginwizard.generator.sql" />
                 <ref bean="pluginwizard.generator.admin.kotlin.business" />
-                <ref bean="pluginwizard.generator.admin.java.jspbean" />
+                <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
                 <ref bean="pluginwizard.generator.admin.jsp" />
                 <ref bean="pluginwizard.generator.admin.html" />
                 <ref bean="pluginwizard.generator.xpage.kotlin" />
                 <ref bean="pluginwizard.generator.xpage.html" />
+<!--
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
                 <ref bean="pluginwizard.generator.portlet.jsp" />
@@ -429,6 +435,7 @@
                 <ref bean="pluginwizard.generator.rest.constants.java" />
                 <ref bean="pluginwizard.generator.rest.swagger.java" />
                 <ref bean="pluginwizard.generator.rest.swagger.json" />
+-->
             </list>
         </property>
     </bean>
