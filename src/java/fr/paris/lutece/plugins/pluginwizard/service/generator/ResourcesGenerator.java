@@ -106,7 +106,7 @@ public class ResourcesGenerator extends AbstractGenerator
         generateXPagesKeys( sb, pm );
         generateBusinessClassKeys( sb, pm, strLanguage );
         generatePortletsKeys( sb, pm );
-        generateInfosKeys( sb, pm );
+        generateInfosKeys( sb, pm, strLanguage );
 
         return sb.toString( );
     }
@@ -235,9 +235,9 @@ public class ResourcesGenerator extends AbstractGenerator
 
                 for ( Attribute attribute : bc.getAttributes( ) )
                 {
-                    sb.append( strPrefix ).append( "label" ).append( attribute.getName(  ) ).append( ".help=" )
-                      .append( attribute.getLabelName(  ) ).append( " (help text)\n" );
                     sb.append( strPrefix ).append( "label" ).append( attribute.getName( ) ).append( "=" ).append( attribute.getLabelName( ) ).append( "\n" );
+                    sb.append( strPrefix ).append( "label" ).append( attribute.getName( ) ).append( ".help=" ).append( attribute.getLabelName( ) )
+                            .append( " (" ).append( getLabel( "helpText", strLanguage ) ).append( ")\n" );
                 }
             }
 
@@ -319,9 +319,8 @@ public class ResourcesGenerator extends AbstractGenerator
             {
                 for ( String strSuffix : _suffix )
                 {
-                    sb.append( "info." ).append( bc.getBusinessClass(  ).toLowerCase(  ) ).append( "." )
-                      .append( strSuffix ).append( "=" ).append( bc.getBusinessClass(  ) ).append( " " )
-                      .append( strSuffix ).append( "\n" );
+                    sb.append( "info." ).append( bc.getBusinessClass( ).toLowerCase( ) ).append( "." ).append( strSuffix ).append( "=" )
+                            .append( bc.getBusinessClass( ) ).append( " " ).append( getLabel( "infoKey." + strSuffix, strLanguage ) ).append( "\n" );
                 }
             }
 
