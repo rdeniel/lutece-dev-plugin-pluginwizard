@@ -67,18 +67,18 @@ import org.codehaus.jackson.node.ObjectNode;
 @Path( RestConstants.BASE_PATH + Constants.API_PATH + Constants.VERSION_PATH )
 public class SwaggerRest
 {
+    private static final String BASE_INFOS_SCHEMES = "schemes";
+    private static final String BASE_INFOS_HOST = "host";
+    private static final String BASE_INFOS_BASE_PATH = "basePath";
     private final Logger _logger = Logger.getLogger( RestConstants.REST_LOGGER );
-    private final static String BASE_INFOS_SCHEMES = "schemes";
-    private final static String BASE_INFOS_HOST = "host";
-    private final static String BASE_INFOS_BASE_PATH = "basePath";
     
     /**
      * Get Swagger.json
-     * @param request
-     * @param strVersion
+     * @param request the resquest
+     * @param strVersion the version
      * @return the swagger.json
-     * @throws java.net.MalformedURLException
-     * @throws java.io.IOException
+     * @throws java.net.MalformedURLException {@link java.net.MalformedURLException}
+     * @throws java.io.IOException {@link java.io.IOException}
      */
     @GET
     @Path( Constants.SWAGGER_PATH )
@@ -118,8 +118,8 @@ public class SwaggerRest
     
     /**
      * Get the swagger.json file path
-     * @param strVersion
-     * @return 
+     * @param strVersion version of file path
+     * @return the swagger.json file path
      */
     private String getJsonFilePath( String strVersion )
     {
@@ -133,10 +133,10 @@ public class SwaggerRest
     
     /**
      * Get the base informations (host, scheme, baseUrl)
-     * @param strBaseUrl
-     * @param strVersion
-     * @return
-     * @throws MalformedURLException 
+     * @param strBaseUrl base url
+     * @param strVersion vesrion
+     * @return the base informations (host, scheme, baseUrl)
+     * @throws MalformedURLException {@link java.net.MalformedURLException}
      */
     private Map<String, String> getBaseInfos( String strBaseUrl, String strVersion ) throws MalformedURLException
     {

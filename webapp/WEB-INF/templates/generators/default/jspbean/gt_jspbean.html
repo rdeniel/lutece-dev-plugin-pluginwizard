@@ -205,7 +205,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null || ( _${business_class.businessClass?lower_case}.getId(  ) != nId ))
+        if ( _${business_class.businessClass?lower_case} == null || ( _${business_class.businessClass?lower_case}.getId(  ) != nId ) )
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }

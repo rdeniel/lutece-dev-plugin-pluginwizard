@@ -47,6 +47,14 @@ import fr.paris.lutece.util.json.JsonUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+<#list business_class.attributes as attribute>
+    <#if attribute.type == "Date">
+        <#assign hasDate=true>
+    </#if>
+</#list>
+<#if hasDate?? && hasDate>
+import java.sql.Date;
+</#if>
 import java.util.List;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -97,16 +105,16 @@ public class ${business_class.businessClass?cap_first}Rest
      */
     private Response get${business_class.businessClass?cap_first}ListV1( )
     {
-        List<${business_class.businessClass?cap_first}> _list${business_class.businessClass?cap_first}s = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
+        List<${business_class.businessClass?cap_first}> list${business_class.businessClass?cap_first}s = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
         
-        if( _list${business_class.businessClass?cap_first}s.isEmpty( ) )
+        if( list${business_class.businessClass?cap_first}s.isEmpty( ) )
         {
             return Response.status( Response.Status.NO_CONTENT )
                 .entity( JsonUtil.buildJsonResponse( new JsonResponse( Constants.EMPTY_OBJECT ) ) )
                 .build( );
         }
         return Response.status( Response.Status.OK )
-                .entity( JsonUtil.buildJsonResponse( new JsonResponse( _list${business_class.businessClass?cap_first}s ) ) )
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( list${business_class.businessClass?cap_first}s ) ) )
                 .build( );
     }
     
@@ -157,14 +165,26 @@ public class ${business_class.businessClass?cap_first}Rest
                     .build( );
         }
         
-        ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case} = new ${business_class.businessClass?cap_first}( );
+        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = new ${business_class.businessClass?cap_first}( );
         <#list business_class.attributes as attribute>
-        _${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( <#if attribute.type == 'int' >Integer.parseInt( ${attribute.paramName?lower_case} )<#else>${attribute.paramName?lower_case}</#if> );
+        	<#switch attribute.type>
+	        	<#case "int">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Integer.parseInt( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#case "boolean">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Boolean.parseBoolean( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#case "Date">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Date.valueOf( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#default>
+    	${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( ${attribute.paramName?lower_case} );
+	        </#switch>
         </#list>
-        ${business_class.businessClass?cap_first}Home.create( _${business_class.businessClass?lower_case} );
+        ${business_class.businessClass?cap_first}Home.create( ${business_class.businessClass?lower_case} );
         
         return Response.status( Response.Status.OK )
-                .entity( JsonUtil.buildJsonResponse( new JsonResponse( _${business_class.businessClass?lower_case} ) ) )
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( ${business_class.businessClass?lower_case} ) ) )
                 .build( );
     }
     
@@ -218,8 +238,8 @@ public class ${business_class.businessClass?cap_first}Rest
                     .build( );
         }
         
-        ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-        if ( _${business_class.businessClass?lower_case} == null )
+        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
+        if ( ${business_class.businessClass?lower_case} == null )
         {
             _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
             return Response.status( Response.Status.NOT_FOUND )
@@ -228,12 +248,24 @@ public class ${business_class.businessClass?cap_first}Rest
         }
         
         <#list business_class.attributes as attribute>
-        _${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( <#if attribute.type == 'int' >Integer.parseInt( ${attribute.paramName?lower_case} )<#else>${attribute.paramName?lower_case}</#if> );
+	        <#switch attribute.type>
+	        	<#case "int">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Integer.parseInt( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#case "boolean">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Boolean.parseBoolean( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#case "Date">
+	    ${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( Date.valueOf( ${attribute.paramName?lower_case} ) );
+	        		<#break>
+	        	<#default>
+    	${business_class.businessClass?lower_case}.set${attribute.name?cap_first}( ${attribute.paramName?lower_case} );
+	        </#switch>
         </#list>
-        ${business_class.businessClass?cap_first}Home.update( _${business_class.businessClass?lower_case} );
+        ${business_class.businessClass?cap_first}Home.update( ${business_class.businessClass?lower_case} );
         
         return Response.status( Response.Status.OK )
-                .entity( JsonUtil.buildJsonResponse( new JsonResponse( _${business_class.businessClass?lower_case} ) ) )
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( ${business_class.businessClass?lower_case} ) ) )
                 .build( );
     }
     
@@ -270,8 +302,8 @@ public class ${business_class.businessClass?cap_first}Rest
      */
     private Response delete${business_class.businessClass?cap_first}V1( Integer id )
     {
-        ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-        if ( _${business_class.businessClass?lower_case} == null )
+        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
+        if ( ${business_class.businessClass?lower_case} == null )
         {
             _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
             return Response.status( Response.Status.NOT_FOUND )
@@ -319,8 +351,8 @@ public class ${business_class.businessClass?cap_first}Rest
      */
     private Response get${business_class.businessClass?cap_first}V1( Integer id )
     {
-        ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
-        if ( _${business_class.businessClass?lower_case} == null )
+        ${business_class.businessClass?cap_first} ${business_class.businessClass?lower_case} = ${business_class.businessClass?cap_first}Home.findByPrimaryKey( id );
+        if ( ${business_class.businessClass?lower_case} == null )
         {
             _logger.error( Constants.ERROR_NOT_FOUND_RESOURCE );
             return Response.status( Response.Status.NOT_FOUND )
@@ -329,7 +361,7 @@ public class ${business_class.businessClass?cap_first}Rest
         }
         
         return Response.status( Response.Status.OK )
-                .entity( JsonUtil.buildJsonResponse( new JsonResponse( _${business_class.businessClass?lower_case} ) ) )
+                .entity( JsonUtil.buildJsonResponse( new JsonResponse( ${business_class.businessClass?lower_case} ) ) )
                 .build( );
     }
 }

@@ -33,14 +33,31 @@
  */ 
 package fr.paris.lutece.plugins.${radical_package}.business;
 
-import javax.validation.constraints.*;
-import org.hibernate.validator.constraints.*;
-import java.io.Serializable;
 <#list business_class.attributes as attribute>
     <#if attribute.type == "Date">
         <#assign hasDate=true>
     </#if>
+    <#if attribute.type == "String">
+        <#assign hasString=true>
+    </#if>
+    <#if attribute.typeDescription?starts_with("URL")>
+        <#assign hasURL=true>
+    </#if>
+    <#if attribute.typeDescription?starts_with("Email")>
+        <#assign hasEmail=true>
+    </#if>
 </#list>
+<#if hasString?? && hasString>
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
+</#if>
+<#if hasURL?? && hasURL>
+import org.hibernate.validator.constraints.URL;
+</#if>
+<#if hasEmail?? && hasEmail>
+import org.hibernate.validator.constraints.Email;
+</#if>
+import java.io.Serializable;
 <#if hasDate?? && hasDate>
 import java.sql.Date;
 </#if>

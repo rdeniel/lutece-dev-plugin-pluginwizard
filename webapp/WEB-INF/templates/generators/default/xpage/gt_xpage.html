@@ -70,7 +70,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case}="/skin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
     
     // Parameters
-    private static final String PARAMETER_ID_${business_class.businessClass?upper_case}="id";
+    private static final String PARAMETER_ID_${business_class.businessClass?upper_case} = "id";
     
     // Markers
     private static final String MARK_${business_class.businessClass?upper_case}_LIST = "${business_class.businessClass?lower_case}_list";
@@ -86,7 +86,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
 
     // Actions
     private static final String ACTION_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
-    private static final String ACTION_MODIFY_${business_class.businessClass?upper_case}= "modify${business_class.businessClass}";
+    private static final String ACTION_MODIFY_${business_class.businessClass?upper_case} = "modify${business_class.businessClass}";
     private static final String ACTION_REMOVE_${business_class.businessClass?upper_case} = "remove${business_class.businessClass}";
     private static final String ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "confirmRemove${business_class.businessClass}";
 
@@ -99,10 +99,10 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     private ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case};
     
     /**
-     * Build the Manage View
-     *
-     * @param request The HTTP request
-     * @return The Xpage
+     * return the form to manage ${business_class.businessClass?lower_case}s
+     * @param request The Http request
+     * @return the html code of the list of ${business_class.businessClass?lower_case}s
+     */
      */
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
     public XPage getManage${business_class.businessClass}s( HttpServletRequest request )
@@ -160,7 +160,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
      *
      * @param request The Http request
      * @return the html code to confirm
-     * @throws fr.paris.lutece.portal.service.message.SiteMessageException
+     * @throws fr.paris.lutece.portal.service.message.SiteMessageException {@link fr.paris.lutece.portal.service.message.SiteMessageException}
      */
     @Action( ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} )
     public XPage getConfirmRemove${business_class.businessClass?cap_first}( HttpServletRequest request ) throws SiteMessageException
@@ -170,7 +170,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         UrlItem url = new UrlItem( getActionFullUrl(ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
         url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
         
-        SiteMessageService.setMessage(request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, SiteMessage.TYPE_CONFIRMATION, url.getUrl(  ));
+        SiteMessageService.setMessage( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, SiteMessage.TYPE_CONFIRMATION, url.getUrl(  ) );
         return null;
     }
 
@@ -201,7 +201,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.getId( ) != nId ))
+        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.getId( ) != nId ) )
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }

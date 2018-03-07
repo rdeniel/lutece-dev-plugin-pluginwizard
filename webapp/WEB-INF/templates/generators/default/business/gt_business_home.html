@@ -96,7 +96,7 @@ public final class ${business_class.businessClass}Home
      */
     public static ${business_class.businessClass} findByPrimaryKey( int nKey )
     {
-        return _dao.load( nKey, _plugin);
+        return _dao.load( nKey, _plugin );
     }
 
     /**
@@ -123,7 +123,7 @@ public final class ${business_class.businessClass}Home
      */
     public static ReferenceList get${business_class.businessClass}sReferenceList( )
     {
-        return _dao.select${business_class.businessClass}sReferenceList(_plugin );
+        return _dao.select${business_class.businessClass}sReferenceList( _plugin );
     }
 }
 
