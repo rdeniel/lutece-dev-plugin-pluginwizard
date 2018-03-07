@@ -90,8 +90,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
                     String strSuffix = ( i == 2 ) ? "s.html" : ".html";
                     String strPath = getFilePath( pm, PATH, _template_prefix [i] + businessClass.getBusinessClass( ).toLowerCase( ) + strSuffix );
 
-                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, admin_feature, businessClass, i, pm.getPluginName( ) );
-                    		strPluginName, strLink );
+                    String strSourceCode = getCreateHtmlCode( listBusinessClasses, admin_feature, businessClass, i, strPluginName, strLink );
                     map.put( strPath, strSourceCode );
                 }
             }
@@ -119,8 +118,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
      *            The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature, BusinessClass businessClass, int nTemplateType,
-        BusinessClass businessClass, int nTemplateType, String strPluginName, String strLinkJsp )
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature, BusinessClass businessClass, int nTemplateType, String strPluginName, String strLinkJsp )
     {
         Map<String, Object> model = new HashMap<String, Object>( );
 
@@ -155,8 +153,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
      *            The feature
      * @return The html code of the create template
      */
-    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName, Feature feature )
-        Feature feature, String strLinkJsp )
+    private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName, Feature feature, String strLinkJsp )
     {
         Map<String, Object> model = new HashMap<String, Object>( );
 

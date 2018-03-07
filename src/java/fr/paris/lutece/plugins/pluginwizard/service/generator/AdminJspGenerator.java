@@ -102,8 +102,7 @@ public class AdminJspGenerator extends AbstractGenerator
 
                     String strPath = getFilePath( pm, PATH, strJspFileName );
 
-                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName( ), strPluginName, i + 1 );
-                            strPluginName, i + 1, pm.isModule() );
+                    String strSourceCode = getJspBusinessFile( businessClass, feature.getFeatureName( ), strPluginName, i + 1, pm.isModule() );
                     strSourceCode = strSourceCode.replace( "&lt;", "<" );
                     strSourceCode = strSourceCode.replace( "&gt;", ">" );
                     map.put( strPath, strSourceCode );
@@ -134,8 +133,7 @@ public class AdminJspGenerator extends AbstractGenerator
      *            The type of jsp
      * @return The source code of the jsp
      */
-    private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType )
-        int nJspType, boolean bIsModule )
+    private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType, boolean bIsModule )
     {
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );

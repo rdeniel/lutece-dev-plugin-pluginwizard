@@ -92,8 +92,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
                         String strSuffix = ( i == 2 ) ? "s.html" : ".html";
                         String strPath = getFilePath( pm, PATH, _template_prefix [i] + businessClass.getBusinessClass( ).toLowerCase( ) + strSuffix );
 
-                        String strSourceCode = getCreateHtmlCode( listBusinessClasses, application, businessClass, i, pm.getPluginName( ) );
-                        		strPluginName );
+                        String strSourceCode = getCreateHtmlCode( listBusinessClasses, application, businessClass, i, strPluginName );
                         map.put( strPath, strSourceCode );
                     }
                 }
