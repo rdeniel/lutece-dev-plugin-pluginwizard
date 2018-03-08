@@ -81,9 +81,11 @@ public class AdminJspBeanGenerator extends AbstractGenerator
             String strFilesPath = ( isKotlin() ) ? PATH_KOTLIN : PATH_JAVA;
             for ( BusinessClass business : listBusinessClasses )
             {
-                String strFilename = business.getBusinessClassCapsFirst( ) + SUFFIX_JSPBEAN;
+                
+                String strFilename = business.getBusinessClassCapsFirst( ) + strSuffix;
                 String strPath = getFilePath( pm, strFilesPath, strFilename );
-                String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), business );
+                String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ),
+                        business );
                 map.put( strPath, strSourceCode );
             }
 
