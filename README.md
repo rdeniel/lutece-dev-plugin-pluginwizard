@@ -8,11 +8,11 @@ The primary goal of Lutece pluginwizard is to reduce developer configuration fil
 All the files needed to implement CRUD functionalities on defined business classes. The files include :
 
 * The Project Object Model( i.e. [pom.xml](http://maven.apache.org/guides/introduction/introduction-to-the-pom.html) )
-* The Java classes
+* The Java or Kotlin classes
 * The Spring framework context file
 * The sql file needed by the plugin
 * The Jsp files needed by Front and Back Office
-* Html templates needed by the view layer
+* Html templates needed by the view layer compatible with the chosen lutece core version
 * The properties files
 * The plugin xml definition needed by the Lutece core
 * Basic XSL for defined portlets
@@ -28,7 +28,9 @@ Pros
 * The model is simple and easy to understand.
 
 Cons
+
 The generation based upon a model which is datacentered doesn't imply that all plugins are based upon business layers. There are a many mechanisms in Lutece which helps to comply to requirements. The mechanismcould be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which offers the possibility to set up fine-grained control on declared resources.
+
 
 ## Plugin conception
 

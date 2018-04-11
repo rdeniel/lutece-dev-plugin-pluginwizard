@@ -20,11 +20,11 @@
                     <p>
                         <ol>
                             <li>The Project Object Model( i.e.<a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">pom.xml</a>)</li>
-                            <li>The Java classes</li>
+                            <li>The Java or Kotlin classes</li>
                             <li>The Spring framework context file</li>
                             <li>The sql file needed by the plugin</li>
                             <li>The Jsp files needed by Front and Back Office</li>
-                            <li>Html templates needed by the view layer</li>
+                            <li>Html templates needed by the view layer compatible with the chosen lutece core version</li>
                             <li>The properties files</li>
                             <li>The plugin xml definition needed by the Lutece core</li>
                             <li>Basic XSL for defined portlets</li>
@@ -41,10 +41,10 @@
                         <li>The model is simple and easy to understand.</li>
                     </ul>
                     <p>Cons</p>
-                    The generation based upon a model which is datacentered doesn't imply that all plugins are based upon
+                    <p>The generation based upon a model which is datacentered doesn't imply that all plugins are based upon
                     business layers. There are a many mechanisms in Lutece which helps to comply to requirements. The mechanism
                     could be the daemons which are responsible to execute asynchronous tasks or Role Based Access Control which
-                    offers the possibility to set up fine-grained control on declared resources.
+                    offers the possibility to set up fine-grained control on declared resources.</p>
                 </p>
             </subsection>
             <subsection name="Plugin conception">
@@ -60,7 +60,7 @@
                     <ul>
                         <li> Use the pluginwizard to attach an admin feature to the plugin.</li>
                         <li> Attach a business class to the admin feature.</li>
-                        <li>  The business class is comprised of some fields(id_person,person_name and person_address).</li>
+                        <li> The business class is comprised of some fields(id_person,person_name and person_address).</li>
                         <li> The id_person is the primary key and person_name is the description of the business object.</li>
                     </ul>
                 </p>

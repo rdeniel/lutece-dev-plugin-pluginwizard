@@ -77,7 +77,7 @@ public final class Markers
     public static final String MARK_LINK = "link";
     public static final String MARK_IS_MODULE = "is_Module";
     public static final String MARK_RADICAL_PACKAGE = "radical_package";
-
+    public static final String MARK_CORE_VERSION = "core_version";
 
     /** Private constructor */
     private Markers( )

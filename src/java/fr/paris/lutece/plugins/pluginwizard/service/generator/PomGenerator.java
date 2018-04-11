@@ -77,6 +77,7 @@ public class PomGenerator extends AbstractFileGenerator
 
         model.put( MARK_KOTLIN, isKotlin( ) );
         model.put( Markers.MARK_PLUGIN, pm );
+        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( model );
     }

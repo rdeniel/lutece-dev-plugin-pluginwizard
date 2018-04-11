@@ -41,6 +41,7 @@ import java.util.List;
 public class GenerationScheme
 {
     private String _strName;
+    private String _strCoreVersion;
     private List<Generator> _listGenerators;
 
     /**
@@ -58,6 +59,23 @@ public class GenerationScheme
     public void setName( String strName )
     {
         _strName = strName;
+    }
+
+    /**
+     * @return the _strCoreVersion
+     */
+    public String getCoreVersion( )
+    {
+        return _strCoreVersion;
+    }
+
+    /**
+     * @param strCoreVersion
+     *            the _strCoreVersion to set
+     */
+    public void setCoreVersion( String strCoreVersion )
+    {
+        _strCoreVersion = strCoreVersion;
     }
 
     /**
