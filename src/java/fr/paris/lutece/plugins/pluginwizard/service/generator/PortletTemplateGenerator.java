@@ -58,9 +58,8 @@ public class PortletTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap( );
-        String strPluginName = pm.getPluginNameAsRadicalPackage() ;
-        
-                
+        String strPluginName = pm.getPluginNameAsRadicalPackage( );
+
         for ( Portlet portlet : pm.getPortlets( ) )
         {
             for ( int i = 0; i < _prefix.length; i++ )

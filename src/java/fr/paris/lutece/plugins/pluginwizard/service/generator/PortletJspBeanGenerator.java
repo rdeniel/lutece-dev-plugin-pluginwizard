@@ -56,15 +56,15 @@ public class PortletJspBeanGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap( );
-        String strPluginName = pm.getPluginNameAsRadicalPackage();
-        
-        String _path = PATH.replace("{plugin_name}", pm.getPluginNameAsRadicalPath());
-        
+        String strPluginName = pm.getPluginNameAsRadicalPackage( );
+
+        String _path = PATH.replace( "{plugin_name}", pm.getPluginNameAsRadicalPath( ) );
+
         for ( Portlet portlet : pm.getPortlets( ) )
         {
-            String strPath = getFilePath( pm, _path, portlet.getPortletClass(  ) + "JspBean.java" );
+            String strPath = getFilePath( pm, _path, portlet.getPortletClass( ) + "JspBean.java" );
 
-            String strSourceCode = getPortletJspBean( portlet, strPluginName , pm.isModule( ) );
+            String strSourceCode = getPortletJspBean( portlet, strPluginName, pm.isModule( ) );
             map.put( strPath, strSourceCode );
         }
 
@@ -80,12 +80,12 @@ public class PortletJspBeanGenerator extends AbstractGenerator
      *            The generated plugin name
      * @return The source code of the jsp
      */
-    private String getPortletJspBean( Portlet portlet, String strPluginName, boolean isModule)
+    private String getPortletJspBean( Portlet portlet, String strPluginName, boolean isModule )
     {
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
-        model.put( Markers.MARK_IS_MODULE, isModule ) ;
+        model.put( Markers.MARK_IS_MODULE, isModule );
 
         return build( model );
     }

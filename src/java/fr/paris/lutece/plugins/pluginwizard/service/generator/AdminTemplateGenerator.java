@@ -68,11 +68,9 @@ public class AdminTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap( );
-        
-        String strPluginName = strPluginName = pm.getPluginNameAsPackage() ;
-        String strLink = pm.getPluginNameAsRadicalPath() ;
-        
 
+        String strPluginName = strPluginName = pm.getPluginNameAsPackage( );
+        String strLink = pm.getPluginNameAsRadicalPath( );
 
         // for each feature,which business classes are attached to
         Collection<Feature> listFeatures = pm.getFeatures( );
@@ -113,12 +111,14 @@ public class AdminTemplateGenerator extends AbstractGenerator
      * @param businessClass
      *            The instance of the business class
      * @param nTemplateType
-     * @param strLinkJsp The link to jsp
+     * @param strLinkJsp
+     *            The link to jsp
      * @param strPluginName
      *            The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature, BusinessClass businessClass, int nTemplateType, String strPluginName, String strLinkJsp )
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Feature admin_feature, BusinessClass businessClass, int nTemplateType,
+            String strPluginName, String strLinkJsp )
     {
         Map<String, Object> model = new HashMap<String, Object>( );
 
@@ -148,7 +148,8 @@ public class AdminTemplateGenerator extends AbstractGenerator
      * @param listAllBusinessClasses
      *            A list of business classes attached to plugin
      * @param strPluginName
-    * @param strLinkJsp The link to jsp
+     * @param strLinkJsp
+     *            The link to jsp
      * @param feature
      *            The feature
      * @return The html code of the create template

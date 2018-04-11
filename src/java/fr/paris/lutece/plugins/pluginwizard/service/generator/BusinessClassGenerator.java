@@ -72,25 +72,24 @@ public class BusinessClassGenerator extends AbstractGenerator
     {
         HashMap<String, String> map = new HashMap<String, String>( );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses( );
-        
-        String strPluginName = pm.getPluginNameAsPackage( ) ;
-        String strRadicalPackage = pm.getPluginNameAsRadicalPackage( ) ;
-        String strRadicalPath = pm.getPluginNameAsRadicalPath();
-        
-        
+
+        String strPluginName = pm.getPluginNameAsPackage( );
+        String strRadicalPackage = pm.getPluginNameAsRadicalPackage( );
+        String strRadicalPath = pm.getPluginNameAsRadicalPath( );
+
         for ( BusinessClass businessClass : listAllBusinessClasses )
         {
             for ( BusinessFileConfig file : _listFiles )
             {
                 String strClassName = file.getPrefix( ) + businessClass.getBusinessClass( ) + file.getSuffix( );
                 String strFilename = strClassName + ".java";
-                String strSourceCode = getSourceCode( strPluginName, businessClass, file.getTemplate(  ), strRadicalPackage, pm.getPluginName( ) );
+                String strSourceCode = getSourceCode( strPluginName, businessClass, file.getTemplate( ), strRadicalPackage, pm.getPluginName( ) );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 strSourceCode = strSourceCode.replace( "@i18n", "#i18n" );
 
-                String strPath = PATH.replace( "SOURCE", file.getSourcePath(  ) ) + strRadicalPath + PATH_SUFFIX;
-                
+                String strPath = PATH.replace( "SOURCE", file.getSourcePath( ) ) + strRadicalPath + PATH_SUFFIX;
+
                 map.put( getFilePath( pm, strPath, strFilename ), strSourceCode );
             }
         }
@@ -114,8 +113,8 @@ public class BusinessClassGenerator extends AbstractGenerator
         Map<String, Object> model = new HashMap<String, Object>( );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
-        model.put(Markers.MARK_RADICAL_PACKAGE, strRadicalPackage);
-        model.put(Markers.MARK_BEAN_NAME, strBeanName);
+        model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
+        model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
         return build( strTemplate, model );
     }

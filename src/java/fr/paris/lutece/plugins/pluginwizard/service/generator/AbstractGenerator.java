@@ -55,7 +55,9 @@ public abstract class AbstractGenerator implements Generator
     
     /**
      * Set kotlin
-     * @param bKotlin true if kotlin generation 
+     * 
+     * @param bKotlin
+     *            true if kotlin generation
      */
     public void setKotlin( boolean bKotlin )
     {
@@ -64,9 +66,10 @@ public abstract class AbstractGenerator implements Generator
 
     /**
      * Return true if generation is for Kotlin
-     * @return true if generation is for Kotlin 
+     * 
+     * @return true if generation is for Kotlin
      */
-    protected boolean isKotlin()
+    protected boolean isKotlin( )
     {
         return _bKotlin;
     }
@@ -105,17 +108,16 @@ public abstract class AbstractGenerator implements Generator
     protected String getFilePath( PluginModel pm, String strPath, String strFilename )
     {
         String strBasePath = "plugin-{plugin_name}/" + strPath;
-        
-        if ( pm.isModule( ) ) {
-            strBasePath = "module-" + pm.getPluginName(  ) + "/" 
-                    + strPath.replace( "{plugin_name}", (pm.getPluginName(  ).split("-")[0]  + "/modules/" +pm.getPluginName(  ).split("-")[1]));
+
+        if ( pm.isModule( ) )
+        {
+            strBasePath = "module-" + pm.getPluginName( ) + "/"
+                    + strPath.replace( "{plugin_name}", ( pm.getPluginName( ).split( "-" ) [0] + "/modules/" + pm.getPluginName( ).split( "-" ) [1] ) );
         }
         else
         {
-            strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName(  ) );
+            strBasePath = strBasePath.replace( "{plugin_name}", pm.getPluginName( ) );
         }
-        
-        
 
         return strBasePath + strFilename;
     }
@@ -204,5 +206,5 @@ public abstract class AbstractGenerator implements Generator
 
         return template.getHtml( );
     }
-    
+
 }

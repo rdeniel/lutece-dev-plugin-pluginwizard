@@ -69,8 +69,8 @@ public class PortletGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap( );
-        String strRadicalPackage = pm.getPluginNameAsRadicalPackage() ;
-                
+        String strRadicalPackage = pm.getPluginNameAsRadicalPackage( );
+
         for ( Portlet portlet : pm.getPortlets( ) )
         {
             for ( BusinessFileConfig file : _listFiles )
@@ -79,7 +79,7 @@ public class PortletGenerator extends AbstractGenerator
 
                 String strPath = getFilePath( pm, PATH, strPortletFile );
 
-                String strSourceCode = getPortletFile( portlet, pm.getPluginName(  ), file.getTemplate(  ), strRadicalPackage );
+                String strSourceCode = getPortletFile( portlet, pm.getPluginName( ), file.getTemplate( ), strRadicalPackage );
                 strSourceCode = strSourceCode.replace( "&lt;", "<" );
                 strSourceCode = strSourceCode.replace( "&gt;", ">" );
                 map.put( strPath, strSourceCode );
@@ -109,7 +109,7 @@ public class PortletGenerator extends AbstractGenerator
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
-        
+
         AppLogService.info( portlet );
 
         return build( strTemplate, model );

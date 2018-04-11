@@ -54,6 +54,7 @@ public class MokeHttpServletResponse implements HttpServletResponse
 
     private int _status;
     private long contentLength;
+
     @Override
     public void addCookie( Cookie cookie )
     {
@@ -137,7 +138,7 @@ public class MokeHttpServletResponse implements HttpServletResponse
     @Override
     public void setStatus( int status )
     {
-        if ( !this.isCommitted( ) ) 
+        if ( !this.isCommitted( ) )
         {
             this._status = status;
         }
@@ -146,7 +147,7 @@ public class MokeHttpServletResponse implements HttpServletResponse
     @Override
     public void setStatus( int status, String string )
     {
-        setStatus(status);
+        setStatus( status );
     }
 
     @Override
@@ -232,40 +233,40 @@ public class MokeHttpServletResponse implements HttpServletResponse
     }
 
     @Override
-    public int getStatus() 
+    public int getStatus( )
     {
         return 200;
     }
 
     @Override
-    public String getHeader(String string) 
+    public String getHeader( String string )
     {
         return "mock";
     }
 
     @Override
-    public Collection<String> getHeaders( String string ) 
+    public Collection<String> getHeaders( String string )
     {
         List<String> listHeaders = new ArrayList<String>( );
         listHeaders.add( "mock" );
-        
+
         return listHeaders;
     }
 
     @Override
-    public Collection<String> getHeaderNames() 
+    public Collection<String> getHeaderNames( )
     {
         List<String> listHeaders = new ArrayList<String>( );
-        listHeaders.add("mock");
-        
+        listHeaders.add( "mock" );
+
         return listHeaders;
     }
 
     @Override
-    public void setContentLengthLong(long contentLength) 
+    public void setContentLengthLong( long contentLength )
     {
         this.contentLength = contentLength;
-	//doAddHeaderValue(HttpHeaders.CONTENT_LENGTH, contentLength, true);
+        // doAddHeaderValue(HttpHeaders.CONTENT_LENGTH, contentLength, true);
     }
-    
+
 }
