@@ -42,7 +42,6 @@ import org.junit.Test;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author pierre
@@ -53,13 +52,13 @@ public class BusinessKotlinClassGeneratorTest extends LuteceTestCase
      * Test of generate method, of class BusinessClassGenerator.
      */
     @Test
-    public void testGenerate(  )
+    public void testGenerate( )
     {
         System.out.println( "generate Kotlin BusinessClass files" );
 
-        PluginModel pm = GeneratorUtils.getTestModel(  );
+        PluginModel pm = GeneratorUtils.getTestModel( );
         List listFiles = SpringContextService.getBean( "pluginwizard.list.files.kotlin.business" );
-        BusinessKotlinClassGenerator instance = new BusinessKotlinClassGenerator(  );
+        BusinessKotlinClassGenerator instance = new BusinessKotlinClassGenerator( );
         instance.setFiles( listFiles );
 
         Map result = instance.generate( pm );

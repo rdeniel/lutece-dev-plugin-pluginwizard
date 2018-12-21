@@ -57,7 +57,7 @@ public class PluginModel
     @Size( min = 5, max = 255, message = "pluginwizard.error.plugin.description.size" )
     private String _strPluginDescription;
     private String _strPluginDocumentation;
-    private String _strType; 
+    private String _strType;
     private String _strPluginInstallation;
     private String _strPluginChanges;
     private String _strPluginUserGuide;
@@ -124,99 +124,99 @@ public class PluginModel
     {
         return _strPluginName;
     }
-    
+
     /**
      * Returns the Plugin or Module name formatted with dots as package
+     * 
      * @return The PluginName
      */
     @JsonIgnore
-    public String getPluginNameAsRadicalPackage(  )
+    public String getPluginNameAsRadicalPackage( )
     {
-        if ( isModule( ) ) {
-            return _strPluginName.split("-")[0] + ".modules." + _strPluginName.split("-")[1]; 
-        } 
+        if ( isModule( ) )
+        {
+            return _strPluginName.split( "-" ) [0] + ".modules." + _strPluginName.split( "-" ) [1];
+        }
         else
         {
-            return _strPluginName ;
+            return _strPluginName;
         }
 
     }
-    
+
     /**
      * Returns the Plugin or Module name formatted with slashes as Path
      *
      * @return The PluginName
      */
     @JsonIgnore
-    public String getPluginNameAsRadicalPath(  )
+    public String getPluginNameAsRadicalPath( )
     {
-        if ( isModule() ) 
-        {      
-        	return _strPluginName.split("-")[0]+"/modules/" + _strPluginName.split("-")[1];
+        if ( isModule( ) )
+        {
+            return _strPluginName.split( "-" ) [0] + "/modules/" + _strPluginName.split( "-" ) [1];
         }
         else
-        {        	
-        	return _strPluginName ;
+        {
+            return _strPluginName;
         }
     }
-        
+
     /**
-     * Returns the Plugin or Module name for i18n keys 
+     * Returns the Plugin or Module name for i18n keys
+     * 
      * @return The PluginName
      */
     @JsonIgnore
-    public String getPluginNameAsPackage(  )
+    public String getPluginNameAsPackage( )
     {
-        if ( isModule( ) ) 
+        if ( isModule( ) )
         {
-            return "module." + _strPluginName.replace("-", ".") ;        	
-        } 
+            return "module." + _strPluginName.replace( "-", "." );
+        }
         else
         {
-            return _strPluginName ;
+            return _strPluginName;
         }
 
     }
-    
-        /**
-     * Returns the Plugin or Module name for Ressource 
+
+    /**
+     * Returns the Plugin or Module name for Ressource
+     * 
      * @return The PluginName
      */
     @JsonIgnore
-    public String getPluginNameForRessource(  )
+    public String getPluginNameForRessource( )
     {
-       if ( isModule( ) ) 
-       {
-            return getModuleName(  ).toLowerCase( );
-       } 
-       else 
-       {
+        if ( isModule( ) )
+        {
+            return getModuleName( ).toLowerCase( );
+        }
+        else
+        {
             return _strPluginName.toLowerCase( );
-       }
+        }
 
     }
-      
-    
-    
+
     /**
-     * Returns the Plugin or Module name 
+     * Returns the Plugin or Module name
+     * 
      * @return The PluginName
      */
     @JsonIgnore
-    public String getModuleName(  )
+    public String getModuleName( )
     {
-        if ( isModule( ) ) 
+        if ( isModule( ) )
         {
-            return getPluginName( ).split("-")[1] ;
-        } 
+            return getPluginName( ).split( "-" ) [1];
+        }
         else
         {
             return "";
         }
     }
-        
-    
-    
 
     /**
      * Sets the PluginName
@@ -601,51 +601,57 @@ public class PluginModel
         throw new UnsupportedOperationException( "Not supported yet." ); // To change body of generated methods, choose Tools | Templates.
     }
 
-    
     /**
      * Returns the Type (module or plugin)
+     * 
      * @return The Type
      */
-    public String getType(  )
+    public String getType( )
     {
         return _strType;
     }
 
     /**
      * Sets the Type
-     * @param  The Type
+     * 
+     * @param The
+     *            Type
      */
     public void setType( String strType )
     {
-    	_strType = strType;
-    }
-    
-    /**
-     * Returns the isModule boolean value
-     * @return The isModule
-     */
-    public boolean isModule( ) 
-    {
-        return (_bIsModule || "MODULE".equals(_strType)) ;
+        _strType = strType;
     }
 
     /**
      * Returns the isModule boolean value
+     * 
+     * @return The isModule
+     */
+    public boolean isModule( )
+    {
+        return ( _bIsModule || "MODULE".equals( _strType ) );
+    }
+
+    /**
+     * Returns the isModule boolean value
+     * 
      * @return The isModule
      */
     @JsonIgnore
-    public boolean getModule( ) 
+    public boolean getModule( )
     {
         return _bIsModule;
     }
 
     /**
      * Sets the isModule flag
-     * @param _bIsModule The isModule boolean value
+     * 
+     * @param _bIsModule
+     *            The isModule boolean value
      */
-    public void setModule( boolean _bIsModule ) 
+    public void setModule( boolean _bIsModule )
     {
         this._bIsModule = _bIsModule;
     }
-    
+
 }

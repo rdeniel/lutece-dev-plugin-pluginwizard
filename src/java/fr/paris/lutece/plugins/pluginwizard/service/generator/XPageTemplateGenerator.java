@@ -68,11 +68,11 @@ public class XPageTemplateGenerator extends AbstractGenerator
     public Map generate( PluginModel pm )
     {
         HashMap map = new HashMap( );
-        String strPluginName = pm.getPluginNameAsPackage();
-        
+        String strPluginName = pm.getPluginNameAsPackage( );
+
         // for each application,which business classes are attached to
         Collection<Application> listApplication = pm.getApplications( );
-                
+
         for ( Application application : listApplication )
         {
             Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByApplication( pm, application.getId( ) );
@@ -99,7 +99,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
 
                 // Add the main template where all the business management interface will be accessible
                 String strPath = getFilePath( pm, PATH, application.getApplicationName( ).toLowerCase( ) + "_tabs.html" );
-               
+
                 String strSourceCode = getTabsHtmlCode( listBusinessClasses, strPluginName, application );
                 map.put( strPath, strSourceCode );
             }

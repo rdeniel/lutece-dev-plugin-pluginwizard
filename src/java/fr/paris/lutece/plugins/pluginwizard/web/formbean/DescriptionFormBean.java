@@ -291,7 +291,7 @@ public class DescriptionFormBean implements Serializable
      * 
      * @return the type
      */
-    public String getType( ) 
+    public String getType( )
     {
         return _strType;
     }
@@ -299,38 +299,41 @@ public class DescriptionFormBean implements Serializable
     /**
      * sets the type
      * 
-     * @param _strType 
+     * @param _strType
      */
-    public void setType( String _strType ) 
+    public void setType( String _strType )
     {
         this._strType = _strType;
     }
-    
 
     /**
      * Returns if the plugin is a module
+     * 
      * @return true if the plugin is a module
      */
-    public boolean isModule(  )
+    public boolean isModule( )
     {
         return _bIsModule;
     }
-    
+
     /**
      * Returns if the plugin is a module
+     * 
      * @return true if the plugin is a module
      */
-    public boolean getModule(  )
+    public boolean getModule( )
     {
         return _bIsModule;
     }
 
     /**
      * Sets the isModule flag
-     * @param bIsModule true if the plugin is a module 
+     * 
+     * @param bIsModule
+     *            true if the plugin is a module
      */
     public void setModule( boolean _bIsModule )
     {
-    	this._bIsModule = _bIsModule;
+        this._bIsModule = _bIsModule;
     }
 }

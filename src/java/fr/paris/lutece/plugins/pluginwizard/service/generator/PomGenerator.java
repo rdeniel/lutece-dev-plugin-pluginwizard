@@ -47,7 +47,7 @@ import java.util.Map;
  */
 public class PomGenerator extends AbstractFileGenerator
 {
-    
+
     /**
      * {@inheritDoc }
      */
@@ -75,8 +75,9 @@ public class PomGenerator extends AbstractFileGenerator
             model.put( key.getKeyDescription( ).trim( ), key.getKeyValue( ) );
         }
 
-        model.put( MARK_KOTLIN , isKotlin() );
+        model.put( MARK_KOTLIN, isKotlin( ) );
         model.put( Markers.MARK_PLUGIN, pm );
+        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( model );
     }

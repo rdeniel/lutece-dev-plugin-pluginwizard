@@ -20,11 +20,11 @@
                <p>
               <ol>
                 <li>Le fichier pom( i.e.<a href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">pom.xml</a>)</li>
-                <li>Les classes Java</li>
+                <li>Les classes Java ou Kotlin</li>
                 <li>Le fichier de configuration Spring framework</li>
                 <li>Les fichiers sql</li>
                 <li>Les Jsp du back et du front</li>
-                <li>Les templates HTML</li>
+                <li>Les templates HTML compatibles avec la version lutece core choisi</li>
                 <li>Les fichiers de propriètés</li>
                 <li>La définition xml du plugin.</li>
                 <li>Les XSL pour les portlets</li>
@@ -33,15 +33,15 @@
           
            </p>
                </subsection>
-              <subsection name="Quelles les Pros and Cons?">
+              <subsection name="Quelles les avantages et les inconvenients?">
                <p>
-               <p>Pros</p>
+               <p>Avantages</p>
                <ul>
                <li>Utilisation d'un cycle itératif.On peut revenir sur son module grâce à un bouton "précédent".</li>
                <li>Le model est simple à comprendre.</li>
                </ul>
-               <p>Cons</p>
-                La génération basée sur un modèle qui est centre sur les données n'implique pas que tous les modules sont des applications basées sur une couche de persistance. Il y a plusieurs mécanismes dans Lutèce qui permettent de répondre à un plusieurs types de besoins. Le mécanisme peut être des daemons ou des mécanismes de gestion de droit (RBAC). 
+               <p>Inconvenients</p>
+               <p>La génération basée sur un modèle qui est centre sur les données n'implique pas que tous les modules sont des applications basées sur une couche de persistance. Il y a plusieurs mécanismes dans Lutèce qui permettent de répondre à un plusieurs types de besoins. Le mécanisme peut être des daemons ou des mécanismes de gestion de droit (RBAC).</p> 
                </p>
                </subsection>
                <subsection name="Conception d'un mini plugin">
@@ -57,7 +57,7 @@
                   <ul>
               <li> Ajouter une fonctionnalité d'adminstration.</li>
               <li> Attacher une classe métier à la fonctionnalité d'administration.</li>
-              <li>La classe déclarée a des attributs(id_person,person_name and person_address).</li>
+              <li> La classe déclarée a des attributs(id_person,person_name and person_address).</li>
               <li> Le champ id_person est la clé and person_name est la description de la classe.</li>
               </ul>
                </p>

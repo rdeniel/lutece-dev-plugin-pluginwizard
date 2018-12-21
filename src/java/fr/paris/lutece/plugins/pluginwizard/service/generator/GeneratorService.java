@@ -65,12 +65,15 @@ public class GeneratorService
     {
         Map<String, String> mapSources = new HashMap<String, String>( );
 
-        List<Generator> listGenerators = _listSchemes.get( nScheme ).getGeneratorsList( );
+        GenerationScheme generationScheme = _listSchemes.get( nScheme );
+
+        List<Generator> listGenerators = generationScheme.getGeneratorsList( );
 
         for ( Generator generator : listGenerators )
         {
             try
             {
+                generator.setCoreVersion( generationScheme.getCoreVersion( ) );
                 mapSources.putAll( generator.generate( model ) );
             }
             catch( Exception e )
@@ -100,4 +103,5 @@ public class GeneratorService
 
         return list;
     }
+
 }

@@ -52,4 +52,6 @@ public interface Generator
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
     Map<String, String> generate( PluginModel pluginModel );
+
+    void setCoreVersion( String strCoreVersion );
 }

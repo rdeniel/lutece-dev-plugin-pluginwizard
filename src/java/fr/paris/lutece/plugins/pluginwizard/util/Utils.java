@@ -38,8 +38,8 @@ package fr.paris.lutece.plugins.pluginwizard.util;
  */
 public final class Utils
 {
-	public final static String MODULE="MODULE";
-	
+    public final static String MODULE = "MODULE";
+
     /** private constructor */
     private Utils( )
     {
