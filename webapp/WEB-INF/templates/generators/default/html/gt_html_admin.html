@@ -10,7 +10,8 @@
 
         <${macro}messages errors=errors />
         <input type="hidden" id="id" name="id"/>
-        
+        <input type="hidden" value="${bra_open}token${bra_close}" name="token" />
+
         <#list business_class.attributes as attribute>
 				<${macro}formGroup labelKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' helpKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}' <#if attribute.notNull>mandatory=true</#if>>
 					<${macro}input type='text' name='${attribute.paramName}' value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!\'\'${bra_close}' />
@@ -35,6 +36,7 @@
     <${macro}tform class="form-horizontal" method="post" name="modify_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${link}/Manage${business_class.businessClass}s.jsp">
 			<${macro}messages errors=errors />
 			<input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
+			<input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 			
 			<#list business_class.attributes as attribute>
 				<${macro}formGroup labelKey='${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' helpKey='${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}' <#if attribute.notNull>mandatory=true</#if>>

@@ -54,6 +54,8 @@ import fr.paris.lutece.util.url.UrlItem;
 import fr.paris.lutece.portal.service.message.SiteMessageService;
 import fr.paris.lutece.portal.service.message.SiteMessage;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
+import fr.paris.lutece.portal.service.security.SecurityTokenService;
+import fr.paris.lutece.portal.service.admin.AccessDeniedException;
 
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest; 
@@ -126,7 +128,8 @@ public class ${business_class.businessClass}XPage extends MVCApplication
 
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
-           
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) );
+
         return getXPage( TEMPLATE_CREATE_${business_class.businessClass?upper_case}, request.getLocale(  ), model );
     }
 
@@ -135,9 +138,10 @@ public class ${business_class.businessClass}XPage extends MVCApplication
      *
      * @param request The Http Request
      * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
      */
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
-    public XPage doCreate${business_class.businessClass?cap_first}( HttpServletRequest request )
+    public XPage doCreate${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
@@ -145,6 +149,11 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
+        }
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
@@ -207,7 +216,8 @@ public class ${business_class.businessClass}XPage extends MVCApplication
 
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
-        
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) );
+
         return getXPage( TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, request.getLocale(  ), model );
     }
 
@@ -216,9 +226,10 @@ public class ${business_class.businessClass}XPage extends MVCApplication
      *
      * @param request The Http request
      * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
      */
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
-    public XPage doModify${business_class.businessClass?cap_first}( HttpServletRequest request )
+    public XPage doModify${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
@@ -226,6 +237,11 @@ public class ${business_class.businessClass}XPage extends MVCApplication
         if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
+        }
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );

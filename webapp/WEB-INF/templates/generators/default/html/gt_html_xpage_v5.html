@@ -13,7 +13,9 @@
             <legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title{i18n_close}</legend>
 
             <${macro}messages errors=errors />
-            <input type="hidden" id="id" name="id"/>  
+            <input type="hidden" id="id" name="id"/>
+            <input type="hidden" value="${bra_open}token${bra_close}" name="token" />
+
             <#list business_class.attributes as attribute>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>
@@ -52,6 +54,7 @@
 
             <${macro}messages errors=errors />
             <input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
+            <input type="hidden" value="${bra_open}token${bra_close}" name="token" />
             <#list business_class.attributes as attribute>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="${attribute.paramName}" >${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close} * :</label>

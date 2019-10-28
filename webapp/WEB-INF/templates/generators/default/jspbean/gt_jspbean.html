@@ -45,6 +45,8 @@ import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.busin
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
+import fr.paris.lutece.portal.service.security.SecurityTokenService;
+import fr.paris.lutece.portal.service.admin.AccessDeniedException;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
@@ -132,6 +134,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
 
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) );
 
         return getPage( PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case}, TEMPLATE_CREATE_${business_class.businessClass?upper_case}, model );
     }
@@ -141,9 +144,10 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      *
      * @param request The Http Request
      * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
      */
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
-    public String doCreate${business_class.businessClass}( HttpServletRequest request )
+    public String doCreate${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
@@ -151,6 +155,11 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
             return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
+        }
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
@@ -212,6 +221,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
 
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) );
 
         return getPage( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case}, TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, model );
     }
@@ -221,9 +231,10 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      *
      * @param request The Http request
      * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
      */
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
-    public String doModify${business_class.businessClass}( HttpServletRequest request )
+    public String doModify${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
@@ -231,6 +242,11 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
             return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
+        }
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );

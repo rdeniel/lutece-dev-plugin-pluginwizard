@@ -8,6 +8,7 @@
     <form class="form-horizontal" method="post" name="create_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
         <${macro}messages errors=errors />
         <input type="hidden" id="id" name="id"/>
+        <input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
         <#list business_class.attributes as attribute>
         <${macro}fieldInputText i18nLabelKey="${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}" inputName="${attribute.paramName}" <#if attribute.notNull>mandatory=true</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}" i18nHelpBlockKey="${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help" />
@@ -26,6 +27,7 @@
     <form class="form-horizontal" method="post" name="modify_${business_class.businessClass?lower_case}" action="jsp/admin/plugins/${plugin_name}/Manage${business_class.businessClass}s.jsp">
         <${macro}messages errors=errors />
         <input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
+        <input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
         <#list business_class.attributes as attribute>
         <${macro}fieldInputText i18nLabelKey="${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}" inputName="${attribute.paramName}" <#if attribute.notNull>mandatory=true</#if> value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}" i18nHelpBlockKey="${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}.help" />
