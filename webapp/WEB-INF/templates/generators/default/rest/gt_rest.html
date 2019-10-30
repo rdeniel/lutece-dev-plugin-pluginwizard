@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
  * All rights reserved.
  *
@@ -86,12 +86,9 @@ public class ${business_class.businessClass?cap_first}Rest
     @Produces( MediaType.APPLICATION_JSON )
     public Response get${business_class.businessClass?cap_first}List( @PathParam( Constants.VERSION ) Integer nVersion )
     {
-        switch ( nVersion )
+        if ( nVersion == VERSION_1 )
         {
-            case VERSION_1:
-                return get${business_class.businessClass?cap_first}ListV1( );
-            default:
-                break;
+            return get${business_class.businessClass?cap_first}ListV1( );
         }
         _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
@@ -107,7 +104,7 @@ public class ${business_class.businessClass?cap_first}Rest
     {
         List<${business_class.businessClass?cap_first}> list${business_class.businessClass?cap_first}s = ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList( );
         
-        if( list${business_class.businessClass?cap_first}s.isEmpty( ) )
+        if ( list${business_class.businessClass?cap_first}s.isEmpty( ) )
         {
             return Response.status( Response.Status.NO_CONTENT )
                 .entity( JsonUtil.buildJsonResponse( new JsonResponse( Constants.EMPTY_OBJECT ) ) )
@@ -135,13 +132,10 @@ public class ${business_class.businessClass?cap_first}Rest
     </#list>
     @PathParam( Constants.VERSION ) Integer nVersion )
     {
-        switch ( nVersion )
-        {
-            case VERSION_1:
-                return create${business_class.businessClass?cap_first}V1( <#list business_class.attributes as attribute>${attribute.paramName?lower_case}<#if attribute_has_next>, </#if></#list> );
-            default:
-                break;
-        }
+		if ( nVersion == VERSION_1 )
+		{
+		    return create${business_class.businessClass?cap_first}V1( <#list business_class.attributes as attribute>${attribute.paramName?lower_case}<#if attribute_has_next>, </#if></#list> );
+		}
         _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
                 .entity( JsonUtil.buildJsonResponse( new ErrorJsonResponse( Response.Status.NOT_FOUND.name( ), Constants.ERROR_NOT_FOUND_VERSION ) ) )
@@ -207,12 +201,9 @@ public class ${business_class.businessClass?cap_first}Rest
     </#list>
     @PathParam( Constants.VERSION ) Integer nVersion )
     {
-        switch ( nVersion )
+        if ( nVersion == VERSION_1 )
         {
-            case VERSION_1:
-                return modify${business_class.businessClass?cap_first}V1( id, <#list business_class.attributes as attribute>${attribute.paramName?lower_case}<#if attribute_has_next>, </#if></#list> );
-            default:
-                break;
+            return modify${business_class.businessClass?cap_first}V1( id, <#list business_class.attributes as attribute>${attribute.paramName?lower_case}<#if attribute_has_next>, </#if></#list> );
         }
         _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
@@ -282,12 +273,9 @@ public class ${business_class.businessClass?cap_first}Rest
     @PathParam( Constants.VERSION ) Integer nVersion,
     @PathParam( Constants.ID ) Integer id )
     {
-        switch ( nVersion )
+        if ( nVersion == VERSION_1 )
         {
-            case VERSION_1:
-                return delete${business_class.businessClass?cap_first}V1( id );
-            default:
-                break;
+            return delete${business_class.businessClass?cap_first}V1( id );
         }
         _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )
@@ -331,12 +319,9 @@ public class ${business_class.businessClass?cap_first}Rest
     @PathParam( Constants.VERSION ) Integer nVersion,
     @PathParam( Constants.ID ) Integer id )
     {
-        switch ( nVersion )
+        if ( nVersion == VERSION_1 )
         {
-            case VERSION_1:
-                return get${business_class.businessClass?cap_first}V1( id );
-            default:
-                break;
+            return get${business_class.businessClass?cap_first}V1( id );
         }
         _logger.error( Constants.ERROR_NOT_FOUND_VERSION );
         return Response.status( Response.Status.NOT_FOUND )

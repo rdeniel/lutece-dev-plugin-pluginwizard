@@ -4,7 +4,7 @@
 		<#if business_classes?? >
 			<#list business_classes?sort_by('businessClass') as business_class>
 			<li <${variable}if tab="${business_class.businessClass?lower_case}">class="active"</${variable}if>>
-				<a href="jsp/admin/plugins/${link?lower_case}/Manage${business_class.businessClass?cap_first}s.jsp">${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle${i18n_close}</a>
+				<${macro}aButton href="jsp/admin/plugins/${link?lower_case}/Manage${business_class.businessClass?cap_first}s.jsp">${i18n_open}${plugin_name?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle${i18n_close}</${macro}aButton>
 			</li>
 			</#list>	
 		</#if>

@@ -17,38 +17,38 @@
     <modelVersion>${pom_model_version}</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
     <#if plugin.type == "MODULE">
-        <artifactId>module-${plugin.pluginName?lower_case}</artifactId>
+    <artifactId>module-${plugin.pluginName?lower_case}</artifactId>
     <#else>
-        <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
+    <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
     </#if>
     <packaging>lutece-plugin</packaging>
     <version>${plugin.pluginVersion}-SNAPSHOT</version>
 
     <#if plugin.type == "MODULE">
-    	<name>Lutece ${plugin.pluginName?replace("-", " ")?lower_case} module</name>
-	<#else>
-		<name>Lutece ${plugin.pluginName?lower_case} plugin</name>
-	</#if>
+    <name>Lutece ${plugin.pluginName?replace("-", " ")?lower_case} module</name>
+    <#else>
+    <name>Lutece ${plugin.pluginName?lower_case} plugin</name>
+    </#if>
 
-     <repositories>
-         <repository>
-             <id>lutece</id>
-             <name>luteceRepository</name>
-             <url>http://dev.lutece.paris.fr/maven_repository</url>
-             <layout>default</layout>
-         </repository>
-         <repository>
-             <id>luteceSnapshot</id>
-             <name>luteceSnapshot</name>
-             <url>http://dev.lutece.paris.fr/snapshot_repository</url>
-             <snapshots>
-                 <enabled>true</enabled>
-             </snapshots>
-             <releases>
-                 <enabled>false</enabled>
-             </releases>
-         </repository>        
-     </repositories>
+    <repositories>
+        <repository>
+            <id>lutece</id>
+            <name>luteceRepository</name>
+            <url>http://dev.lutece.paris.fr/maven_repository</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>luteceSnapshot</id>
+            <name>luteceSnapshot</name>
+            <url>http://dev.lutece.paris.fr/snapshot_repository</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <dependencies>
         <dependency>

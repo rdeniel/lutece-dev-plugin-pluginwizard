@@ -3,7 +3,7 @@
 
     <xsl:template match="portlet">
         <div class="portlet append-bottom">
-            <xsl:choose>			
+            <xsl:choose>
                 <xsl:when test="not(string(display-portlet-title)='1')">
                     <div class="portlet-header -lutece-border-radius-top">
                         <xsl:value-of disable-output-escaping="yes" select="portlet-name" />

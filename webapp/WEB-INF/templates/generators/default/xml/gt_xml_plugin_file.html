@@ -1,13 +1,13 @@
 <#if plugin.type= "MODULE">
-	<#assign description="module." + plugin.pluginName?replace("-",".") + ".module.description" />
-	<#assign provider="module." + plugin.pluginName?replace("-",".") + ".module.provider" />
-	<#assign feat= "module."+plugin.pluginName?replace("-",".")/>
-	<#assign url= plugin.pluginName?split("-")[0]+"/modules/"+plugin.pluginName?split("-")[1]/>	
+    <#assign description="module." + plugin.pluginName?replace("-",".") + ".module.description" />
+    <#assign provider="module." + plugin.pluginName?replace("-",".") + ".module.provider" />
+    <#assign feat= "module."+plugin.pluginName?replace("-",".")/>
+    <#assign url= plugin.pluginName?split("-")[0]+"/modules/"+plugin.pluginName?split("-")[1]/>
 <#else>
-	<#assign description= plugin.pluginName + ".plugin.description">
-	<#assign provider= plugin.pluginName + ".plugin.provider" >
-	<#assign feat= plugin.pluginName >
-	<#assign url= plugin.pluginName >
+    <#assign description= plugin.pluginName + ".plugin.description">
+    <#assign provider= plugin.pluginName + ".plugin.provider" >
+    <#assign feat= plugin.pluginName >
+    <#assign url= plugin.pluginName >
 </#if>
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <plug-in>
@@ -27,7 +27,7 @@
     
     <core-version-dependency>
         <min-core-version>4.1.0</min-core-version>
-        <max-core-version/>	
+        <max-core-version/>
     </core-version-dependency>
 
     <#if plugin.features??>
@@ -41,10 +41,10 @@
             <feature-level>${feature.featureLevel}</feature-level>
             <feature-url>jsp/admin/plugins/${url}/${feature.jspName}</feature-url>
             <feature-icon-url></feature-icon-url>
-      </admin-feature>
-      </#list>
-    </admin-features>    
-  </#if>
+        </admin-feature>
+    </#list>
+    </admin-features>
+    </#if>
 
     <#if plugin.applications??>
     <!-- XPages parameters -->
@@ -75,23 +75,23 @@
     <!-- Portlet parameters -->
     <portlets>
     <#list plugin.portlets as portlet>
-     <portlet>
-       <portlet-class>fr.paris.lutece.plugins.${url?replace("/",".")}.business.portlet.${portlet.portletClass}Home</portlet-class>
-	   <portlet-type-id>${portlet.portletTypeName}</portlet-type-id>
-	   <portlet-type-name>${feat}.portlet.${plugin.pluginName}${portlet.portletClass}.name</portlet-type-name>
-	   <portlet-creation-url>plugins/${url}/Create${portlet.jspBaseName}.jsp</portlet-creation-url>
-	   <portlet-update-url>plugins/${url}/Modify${portlet.jspBaseName}.jsp</portlet-update-url>
-	   <portlet-create-action-url>plugins/${url}/DoCreate${portlet.jspBaseName}.jsp</portlet-create-action-url>
-      <portlet-modify-action-url>plugins/${url}/DoModify${portlet.jspBaseName}.jsp</portlet-modify-action-url>
-	    <!-- optional entries -->
-        <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
-        <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
-        <portlet-create-specific-template>/admin/plugins/${url}/portlet/create_${portlet.jspBaseName?lower_case}.html</portlet-create-specific-template>
-        <portlet-modify-specific-template>/admin/plugins/${url}/portlet/modify_${portlet.jspBaseName?lower_case}.html</portlet-modify-specific-template>
-        <portlet-create-specific-form-template></portlet-create-specific-form-template>
-        <portlet-modify-specific-form-template></portlet-modify-specific-form-template> 
-     </portlet>
-     </#list>
-   </portlets>
-   </#if>
+        <portlet>
+            <portlet-class>fr.paris.lutece.plugins.${url?replace("/",".")}.business.portlet.${portlet.portletClass}Home</portlet-class>
+            <portlet-type-id>${portlet.portletTypeName}</portlet-type-id>
+            <portlet-type-name>${feat}.portlet.${plugin.pluginName}${portlet.portletClass}.name</portlet-type-name>
+            <portlet-creation-url>plugins/${url}/Create${portlet.jspBaseName}.jsp</portlet-creation-url>
+            <portlet-update-url>plugins/${url}/Modify${portlet.jspBaseName}.jsp</portlet-update-url>
+            <portlet-create-action-url>plugins/${url}/DoCreate${portlet.jspBaseName}.jsp</portlet-create-action-url>
+            <portlet-modify-action-url>plugins/${url}/DoModify${portlet.jspBaseName}.jsp</portlet-modify-action-url>
+            <!-- optional entries -->
+            <portlet-create-script-template>/admin/portlet/script_create_portlet.html</portlet-create-script-template>
+            <portlet-modify-script-template>/admin/portlet/script_modify_portlet.html</portlet-modify-script-template>
+            <portlet-create-specific-template>/admin/plugins/${url}/portlet/create_${portlet.jspBaseName?lower_case}.html</portlet-create-specific-template>
+            <portlet-modify-specific-template>/admin/plugins/${url}/portlet/modify_${portlet.jspBaseName?lower_case}.html</portlet-modify-specific-template>
+            <portlet-create-specific-form-template></portlet-create-specific-form-template>
+            <portlet-modify-specific-form-template></portlet-modify-specific-form-template> 
+        </portlet>
+    </#list>
+    </portlets>
+    </#if>
 </plug-in>

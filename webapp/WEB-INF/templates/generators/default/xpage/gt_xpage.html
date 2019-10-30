@@ -67,9 +67,9 @@ import javax.servlet.http.HttpServletRequest;
 public class ${business_class.businessClass}XPage extends MVCApplication
 {
     // Templates
-    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S="/skin/plugins/${radicalPackage?replace(".","/")}/manage_${business_class.businessClass?lower_case}s.html";
-    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case}="/skin/plugins/${radicalPackage?replace(".","/")}/create_${business_class.businessClass?lower_case}.html";
-    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case}="/skin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/skin/plugins/${radicalPackage?replace(".","/")}/manage_${business_class.businessClass?lower_case}s.html";
+    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/skin/plugins/${radicalPackage?replace(".","/")}/create_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/skin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
     
     // Parameters
     private static final String PARAMETER_ID_${business_class.businessClass?upper_case} = "id";
@@ -175,7 +175,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        UrlItem url = new UrlItem( getActionFullUrl(ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
+        UrlItem url = new UrlItem( getActionFullUrl( ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
         url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
         
         SiteMessageService.setMessage( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, SiteMessage.TYPE_CONFIRMATION, url.getUrl(  ) );
