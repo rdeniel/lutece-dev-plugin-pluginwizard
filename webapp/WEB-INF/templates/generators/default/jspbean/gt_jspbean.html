@@ -151,15 +151,15 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
+        }
+
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
             return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
-        }
-
-        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
-        {
-            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
@@ -238,15 +238,15 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     {
         populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
+        }
+
         // Check constraints
         if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
         {
             return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
-        }
-
-        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
-        {
-            throw new AccessDeniedException ( "Invalid security token" );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
