@@ -28,7 +28,7 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
+ *"
  * License 1.0
  */
 
@@ -44,6 +44,10 @@ import fr.paris.lutece.test.LuteceTestCase;
 <#if hasDate?? && hasDate>
 import java.sql.Date;
 </#if>
+import java.io.IOException;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletConfig;
 
 /**
  * This is the business class test for the object ${business_class.businessClass}
@@ -95,7 +99,7 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         </#list>
 
         // List test
-        ${business_class.businessClass}Home.get${business_class.businessClass}sList();
+        ${business_class.businessClass}Home.get${business_class.businessClass}sList( );
 
         // Delete test
         ${business_class.businessClass}Home.remove( ${business_class.instanceName}.getId( ) );
@@ -103,5 +107,187 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         assertNull( ${business_class.instanceName}Stored );
         
     }
+    public void testXPage(  ){
+        // Xpage create test
+        MockHttpServletRequest request = new MockHttpServletRequest( );
+		MockHttpServletResponse response = new MockHttpServletResponse( );
+		MockServletConfig config = new MockServletConfig( );
+		
+		${business_class.instanceName}XPage xpage = new ${business_class.instanceName}XPage( );
+		
+		assertNotNull( xpage.getCreate${business_class.instanceName}( request ) );
+		
+		request = new MockHttpServletRequest();
+		
+		LocalVariables.setLocal(config, request, response);
+		
+		<#list business_class.attributes as attribute>
+        request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+		</#list>
+		request.setMethod("POST");
+        
+        assertNotNull( xpage.doCreate${business_class.instanceName}( request ) );
+        
+        //test JSPBeans
+        MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		MockServletConfig config = new MockServletConfig();
+
+		//display admin project management JSP
+		${business_class.instanceName} jspbean = new ${business_class.instanceName}ProjectJspBean();
+		String html = jspbean.getManageProjects( request );
+		assertNotNull(html);
+
+		//display admin project creation JSP
+		html = jspbean.getCreateProject( request );
+		assertNotNull(html);
+
+		//action create project
+		request = new MockHttpServletRequest();
+
+		<#list business_class.attributes as attribute>
+        request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+		</#list>
+		request.setMethod(${attribute.name});
+		response = new MockHttpServletResponse();
+		AdminUser adminUser = new AdminUser();
+		adminUser.setAccessCode(${attribute.name});
+
+
+		try {
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+			
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+
+
+		//display modify project JSP
+		request = new MockHttpServletRequest();
+		request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+
+		jspbean = new ProjectJspBean();
+
+		assertNotNull( jspbean.getModifyProject( request ) );
+
+		//action modify project
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		<#list business_class.attributes as attribute>
+        request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+		</#list>
+		request.setRequestURI(URI);
+		request.setMethod(HTTP_METHOD);
+		adminUser = new AdminUser();
+		adminUser.setAccessCode("${attribute.name}");
+
+
+		try {
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+    }
+    
+     public void testXJspBeans(  ){
+     	MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		MockServletConfig config = new MockServletConfig();
+
+		//display admin project management JSP
+		ProjectJspBean jspbean = new ProjectJspBean();
+		String html = jspbean.getManageProjects( request );
+		assertNotNull(html);
+
+		//display admin project creation JSP
+		html = jspbean.getCreateProject( request );
+		assertNotNull(html);
+
+		//action create project
+		request = new MockHttpServletRequest();
+
+		<#list business_class.attributes as attribute>
+        request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+		</#list>
+		request.setMethod(HTTP_METHOD);
+		response = new MockHttpServletResponse();
+		AdminUser adminUser = new AdminUser();
+		adminUser.setAccessCode(ADMIN_TYPE);
+
+
+		try {
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+			
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+
+
+		//display modify project JSP
+		request = new MockHttpServletRequest();
+		request.addParameter( ID_NAME, ID );
+
+		jspbean = new ProjectJspBean();
+
+		assertNotNull( jspbean.getModifyProject( request ) );
+
+		//action modify project
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		<#list business_class.attributes as attribute>
+        request.addParameter("${attribute.name}","${attribute.name?upper_case}1");
+		</#list>
+		request.setRequestURI(URI);
+		request.setMethod(HTTP_METHOD);
+		adminUser = new AdminUser();
+		adminUser.setAccessCode(ADMIN_TYPE);
+
+
+		try {
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+     	
+     
+     }
 
 }
