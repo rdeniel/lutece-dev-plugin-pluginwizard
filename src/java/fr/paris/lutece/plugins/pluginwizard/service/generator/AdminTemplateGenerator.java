@@ -69,7 +69,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
     {
         HashMap map = new HashMap( );
 
-        String strPluginName = strPluginName = pm.getPluginNameAsPackage( );
+        String strPluginName = pm.getPluginNameAsPackage( );
         String strLink = pm.getPluginNameAsRadicalPath( );
 
         // for each feature,which business classes are attached to
