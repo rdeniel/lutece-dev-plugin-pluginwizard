@@ -1,0 +1,234 @@
+/*
+ * Copyright (c) 2002-${.now?string('yyyy')}, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES LOSS OF USE, DATA, OR PROFITS OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
+
+package fr.paris.lutece.plugins.${radical_package}.web;
+
+import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass};
+import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass}Home;
+import java.util.List;
+import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.portal.web.LocalVariables;
+import fr.paris.lutece.portal.service.security.SecurityTokenService;
+<#list business_class.attributes as attribute>
+	<#if attribute.type = "Date">
+		<#assign hasDate = true>
+	</#if>
+</#list>
+<#if hasDate?? && hasDate>
+import java.sql.Date;
+import fr.paris.lutece.util.date.DateUtil;
+import fr.paris.lutece.portal.web.l10n.LocaleService;
+</#if>
+import java.io.IOException;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletConfig;
+import fr.paris.lutece.portal.business.user.AdminUser;
+import fr.paris.lutece.portal.service.admin.AccessDeniedException;
+import fr.paris.lutece.portal.service.admin.AdminAuthenticationService;
+import fr.paris.lutece.portal.service.security.UserNotSignedException;
+/**
+ * This is the business class test for the object ${business_class.businessClass}
+ */
+public class ${business_class.businessClass}JspBeanTest extends LuteceTestCase
+{
+<#list business_class.attributes as attribute>
+<#--  attributeTypeId 5 corresponds to email type -->
+<#if attribute.attributeTypeId = 5>
+	private static final ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name?lower_case}1@test.com";
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name?lower_case}2@test.com";
+<#--  attributeTypeId 6 corresponds to url type -->
+<#elseif attribute.attributeTypeId = 6>
+	private static final ${attribute.type} ${attribute.name?upper_case}1 = "http://${attribute.name?lower_case}1.com";
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = "http://${attribute.name?lower_case}2.com";
+<#elseif attribute.type = "String"> 
+    private static final ${attribute.type} ${attribute.name?upper_case}1 = "${attribute.name}1";
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = "${attribute.name}2";
+<#elseif attribute.type = "boolean">
+	private static final ${attribute.type} ${attribute.name?upper_case}1 = true;
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = false;
+<#elseif attribute.type = "Date">
+	private static final ${attribute.type} ${attribute.name?upper_case}1 = new Date( 1000000l );
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = new Date( 2000000l );
+<#else>
+    private static final ${attribute.type} ${attribute.name?upper_case}1 = 1;
+    private static final ${attribute.type} ${attribute.name?upper_case}2 = 2;
+</#if>
+</#list>
+
+public void testJspBeans(  ) throws AccessDeniedException
+	{	
+     	MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		MockServletConfig config = new MockServletConfig();
+
+		//display admin ${business_class.businessClass} management JSP
+		${business_class.businessClass}JspBean jspbean = new ${business_class.businessClass}JspBean();
+		String html = jspbean.getManage${business_class.businessClass}s( request );
+		assertNotNull(html);
+
+		//display admin ${business_class.businessClass} creation JSP
+		html = jspbean.getCreate${business_class.businessClass}( request );
+		assertNotNull(html);
+
+		//action create ${business_class.businessClass}
+		request = new MockHttpServletRequest();
+
+		<#list business_class.attributes as attribute>
+		<#if attribute.type = "String">
+        request.addParameter( "${attribute.paramName}" , ${attribute.paramName?upper_case}1 );
+        <#elseif attribute.type = "Date">
+        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.paramName?upper_case}1, LocaleService.getDefault( ) ) );
+        <#else>
+        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.paramName?upper_case}1) );
+        </#if>
+		</#list>
+		request.addParameter("action","create${business_class.businessClass}");
+        request.addParameter( "token", SecurityTokenService.getInstance( ).getToken( request, "create${business_class.businessClass}" ));
+		request.setMethod("POST");
+		response = new MockHttpServletResponse();
+		AdminUser adminUser = new AdminUser();
+		adminUser.setAccessCode("admin");
+
+		try 
+		{
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+			
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+
+		//display modify ${business_class.businessClass} JSP
+		request = new MockHttpServletRequest();
+		<#list business_class.attributes as attribute>
+		<#if attribute.type = "String">
+        request.addParameter( "${attribute.paramName}" , ${attribute.paramName?upper_case}1 );
+        <#elseif attribute.type = "Date">
+        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.paramName?upper_case}1, LocaleService.getDefault( ) ) );
+        <#else>
+        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.paramName?upper_case}1) );
+        </#if>
+		</#list>
+		List<Integer> listIds = ${business_class.businessClass}Home.getId${business_class.businessClass}sList();
+        assertTrue( !listIds.isEmpty( ) );
+        request.addParameter( "id", String.valueOf( listIds.get( 0 ) ) );
+		jspbean = new ${business_class.businessClass}JspBean();
+
+		assertNotNull( jspbean.getModify${business_class.businessClass}( request ) );
+
+		//action modify ${business_class.businessClass}
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		<#list business_class.attributes as attribute>
+		<#if attribute.type = "String">
+        request.addParameter( "${attribute.paramName}" , ${attribute.paramName?upper_case}2 );
+        <#elseif attribute.type = "Date">
+        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.paramName?upper_case}2, LocaleService.getDefault( ) ) );
+        <#else>
+        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.paramName?upper_case}2) );
+        </#if>
+		</#list>
+		request.setRequestURI("jsp/admin/plugins/example/Manage${business_class.businessClass}s.jsp");
+		//important pour que MVCController sache quelle action effectuer, sinon, il redirigera vers create${business_class.businessClass}, qui est l'action par défaut
+		request.addParameter("action","modify${business_class.businessClass}");
+		request.addParameter( "token", SecurityTokenService.getInstance( ).getToken( request, "modify${business_class.businessClass}" ));
+		adminUser = new AdminUser();
+		adminUser.setAccessCode("admin");
+
+		try 
+		{
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}
+		
+		//get remove ${business_class.businessClass}
+		request = new MockHttpServletRequest();
+        //request.setRequestURI("jsp/admin/plugins/example/Manage${business_class.businessClass}s.jsp");
+        request.addParameter( "id", String.valueOf( listIds.get( 0 ) ) );
+		jspbean = new ${business_class.businessClass}JspBean();
+		request.addParameter("action","confirmRemove${business_class.businessClass}");
+		assertNotNull( jspbean.getModify${business_class.businessClass}( request ) );
+				
+		//do remove ${business_class.businessClass}
+		request = new MockHttpServletRequest();
+		response = new MockHttpServletResponse();
+		request.setRequestURI("jsp/admin/plugins/example/Manage${business_class.businessClass}ts.jsp");
+		//important pour que MVCController sache quelle action effectuer, sinon, il redirigera vers create${business_class.businessClass}, qui est l'action par défaut
+		request.addParameter("action","remove${business_class.businessClass}");
+		request.addParameter( "token", SecurityTokenService.getInstance( ).getToken( request, "remove${business_class.businessClass}" ));
+		request.addParameter( "id", String.valueOf( listIds.get( 0 ) ) );
+		request.setMethod("POST");
+		adminUser = new AdminUser();
+		adminUser.setAccessCode("admin");
+
+		try 
+		{
+			AdminAuthenticationService.getInstance( ).registerUser(request, adminUser);
+			html = jspbean.processController( request, response ); 
+
+			// MockResponse object does not redirect, result is always null
+			assertNull( html );
+		}
+		catch (AccessDeniedException e)
+		{
+			fail("access denied");
+		}
+		catch (UserNotSignedException e) 
+		{
+			fail("user not signed in");
+		}	
+     
+     }
+}
+ 
