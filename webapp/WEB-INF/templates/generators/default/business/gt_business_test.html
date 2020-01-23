@@ -81,7 +81,11 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         ${business_class.businessClass}Home.create( ${business_class.instanceName} );
         ${business_class.businessClass} ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
+         <#if attribute.type != "Date">
         assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}( ) );
+        <#elseif attribute.type = "Date">
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}().toString() , ${business_class.instanceName}.get${attribute.name}( ).toString() );
+        </#if>
         </#list>
 
         // Update test
@@ -91,7 +95,11 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         ${business_class.businessClass}Home.update( ${business_class.instanceName} );
         ${business_class.instanceName}Stored = ${business_class.businessClass}Home.findByPrimaryKey( ${business_class.instanceName}.getId( ) );
         <#list business_class.attributes as attribute>
+        <#if attribute.type != "Date">
         assertEquals( ${business_class.instanceName}Stored.get${attribute.name}() , ${business_class.instanceName}.get${attribute.name}( ) );
+        <#elseif attribute.type = "Date">
+        assertEquals( ${business_class.instanceName}Stored.get${attribute.name}().toString() , ${business_class.instanceName}.get${attribute.name}( ).toString() );
+        </#if>
         </#list>
 
         // List test
@@ -103,6 +111,7 @@ public class ${business_class.businessClass}BusinessTest extends LuteceTestCase
         assertNull( ${business_class.instanceName}Stored );
         
     }
+    
     
      
 

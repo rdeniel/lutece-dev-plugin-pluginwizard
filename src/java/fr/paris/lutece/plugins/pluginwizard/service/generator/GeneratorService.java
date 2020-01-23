@@ -99,10 +99,10 @@ public class GeneratorService
 
         for ( int i = 0; i < _listSchemes.size( ); i++ )
         {
-        	ReferenceItem item = new ReferenceItem( );
-        	item.setCode( String.valueOf( i ) );
-        	item.setName( _listSchemes.get( i ).getName( ) );
-        	item.setChecked( _listSchemes.get( i ).isDefault( ) );
+            ReferenceItem item = new ReferenceItem( );
+            item.setCode( String.valueOf( i ) );
+            item.setName( _listSchemes.get( i ).getName( ) );
+            item.setChecked( _listSchemes.get( i ).isDefault( ) );
             list.add( item );
         }
 

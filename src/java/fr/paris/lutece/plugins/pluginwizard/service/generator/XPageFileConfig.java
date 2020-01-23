@@ -33,87 +33,98 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
-import java.util.List;
-
 /**
- * GeneratorsList
+ * BusinessFileConfig
  */
-public class GenerationScheme
+public class XPageFileConfig
 {
-    private String _strName;
-    private String _strCoreVersion;
-    private List<Generator> _listGenerators;
-    private boolean _bIsDefault = false;
+    // Variables declarations
+    private String _strPrefix = "";
+    private String _strSuffix = "";
+    private String _strPath = "src";
+    private String _strTemplate;
 
     /**
-     * @return the _strName
-     */
-    public String getName( )
-    {
-        return _strName;
-    }
-
-    /**
-     * @param strName
-     *            the _strName to set
-     */
-    public void setName( String strName )
-    {
-        _strName = strName;
-    }
-
-    /**
-     * @return the _strCoreVersion
-     */
-    public String getCoreVersion( )
-    {
-        return _strCoreVersion;
-    }
-
-    /**
-     * @param strCoreVersion
-     *            the _strCoreVersion to set
-     */
-    public void setCoreVersion( String strCoreVersion )
-    {
-        _strCoreVersion = strCoreVersion;
-    }
-
-    /**
-     * @return the _generatorsList
-     */
-    public List<Generator> getGeneratorsList( )
-    {
-        return _listGenerators;
-    }
-
-    /**
-     * @param generatorsList
-     *            the _generatorsList to set
-     */
-    public void setGeneratorsList( List<Generator> generatorsList )
-    {
-        _listGenerators = generatorsList;
-    }
-
-    /**
-     * get is default
+     * Returns the Prefix
      * 
-     * @return true if default
+     * @return The Prefix
      */
-    public boolean isDefault( )
+    public String getPrefix( )
     {
-        return _bIsDefault;
+        return _strPrefix;
     }
 
     /**
-     * set is default
+     * Sets the Prefix
      * 
-     * @param _bIsDefault
+     * @param strPrefix
+     *            The Prefix
      */
-    public void setIsDefault( boolean _bIsDefault )
+    public void setPrefix( String strPrefix )
     {
-        this._bIsDefault = _bIsDefault;
+        _strPrefix = strPrefix;
     }
 
+    /**
+     * Returns the Suffix
+     * 
+     * @return The Suffix
+     */
+    public String getSuffix( )
+    {
+        return _strSuffix;
+    }
+
+    /**
+     * Sets the Suffix
+     * 
+     * @param strSuffix
+     *            The Suffix
+     */
+    public void setSuffix( String strSuffix )
+    {
+        _strSuffix = strSuffix;
+    }
+
+    /**
+     * Returns the Path
+     * 
+     * @return The Path
+     */
+    public String getSourcePath( )
+    {
+        return _strPath;
+    }
+
+    /**
+     * Sets the Path
+     * 
+     * @param strPath
+     *            The Path
+     */
+    public void setSourcePath( String strPath )
+    {
+        _strPath = strPath;
+    }
+
+    /**
+     * Returns the Template
+     * 
+     * @return The Template
+     */
+    public String getTemplate( )
+    {
+        return _strTemplate;
+    }
+
+    /**
+     * Sets the Template
+     * 
+     * @param strTemplate
+     *            The Template
+     */
+    public void setTemplate( String strTemplate )
+    {
+        _strTemplate = strTemplate;
+    }
 }
