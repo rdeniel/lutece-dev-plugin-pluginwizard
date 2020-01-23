@@ -43,7 +43,8 @@ public class GenerationScheme
     private String _strName;
     private String _strCoreVersion;
     private List<Generator> _listGenerators;
-
+    private boolean _bIsDefault = false;
+    
     /**
      * @return the _strName
      */
@@ -94,4 +95,23 @@ public class GenerationScheme
     {
         _listGenerators = generatorsList;
     }
+
+    /**
+     * get is default
+     * @return true if default
+     */
+	public boolean isDefault() {
+		return _bIsDefault;
+	}
+
+	/**
+	 * set is default
+	 * 
+	 * @param _bIsDefault
+	 */
+	public void setIsDefault(boolean _bIsDefault) {
+		this._bIsDefault = _bIsDefault;
+	}
+    
+    
 }

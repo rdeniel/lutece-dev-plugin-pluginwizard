@@ -434,6 +434,9 @@
         <property name="coreVersion">
             <value>6.0.0</value>
         </property>
+        <property name="isDefault">
+        	<value>true</value>
+        </property>
         <property name="generatorsList">
             <list>
                 <ref bean="pluginwizard.generator.pom" />
