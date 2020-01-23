@@ -624,6 +624,7 @@
             <ref bean="pluginwizard.generator.admin.kotlin.xpage" />
             <ref bean="pluginwizard.generator.xpage.html" />
             <!--
+
                 <ref bean="pluginwizard.generator.portlet.java.business" />
                 <ref bean="pluginwizard.generator.portlet.java.jspbean" />
                 <ref bean="pluginwizard.generator.portlet.jsp" />
