@@ -105,7 +105,7 @@ public class XPageGenerator extends AbstractGenerator
                         String strFilename = businessClass.getBusinessClassCapsFirst( ) + strSuffix;
                         String strPath = getFilePath( pm, file.getSourcePath( ) + ( isKotlin( ) ? PATH_KOTLIN : PATH_JAVA ), strFilename );
                         String strSourceCode = getXPageCode( pm, application.getApplicationName( ), application.getId( ), application, businessClass,
-                                pm.getPluginNameAsRadicalPackage( ), pm.getPluginName( ), file.getTemplate( ) );
+                                pm.getPluginNameAsRadicalPackage( ), file.getTemplate( ) );
                         map.put( strPath, strSourceCode );
                     }
                 }
@@ -123,7 +123,7 @@ public class XPageGenerator extends AbstractGenerator
      * @param nApplicationId
      *            id of the plugin application
      * @param strApplicationName
-     *            the name of the appliaction
+     *            the name of the application
      * @param application
      *            the application
      * @param businessClass
@@ -131,7 +131,7 @@ public class XPageGenerator extends AbstractGenerator
      * @return The code of the XPage generated
      */
     private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application, BusinessClass businessClass,
-            String strRadicalPackage, String strBeanName, String strTemplate )
+            String strRadicalPackage, String strTemplate )
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -140,8 +140,6 @@ public class XPageGenerator extends AbstractGenerator
         model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
-        model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( strTemplate, model );
     }
