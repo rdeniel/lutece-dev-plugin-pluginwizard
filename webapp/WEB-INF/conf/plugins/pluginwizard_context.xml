@@ -150,7 +150,10 @@
          <value>date</value>
       </property>
       <property name="maxLength">
-         <value>20</value>
+         <value>0</value>
+      </property>
+      <property name="constraint">
+         <value>@NotNull( message = "@i18n{portal.validation.message.notEmpty}" )</value>
       </property>
    </bean>
    <bean id="pluginwizard.attribute.boolean" class="fr.paris.lutece.plugins.pluginwizard.service.AttributeType">
