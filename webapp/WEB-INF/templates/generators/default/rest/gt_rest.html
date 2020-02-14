@@ -31,11 +31,15 @@
  *
  * License 1.0
  */
-<#if plugin_model.type= "MODULE" >
+<#list business_class.attributes as attribute>
+	<#assign pluginType = attribute.type />
+</#list>
+<#if pluginType = "MODULE" >
  	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
 <#else>
 	<#assign radicalPackage= plugin_model.pluginName /> 	
 </#if>
+
 package fr.paris.lutece.plugins.${radicalPackage}.rs;
 
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -52,11 +52,11 @@ public class AdminJspGeneratorTest extends LuteceTestCase
     @Test
     public void testGenerate( )
     {
-        System.out.println( "generate AdminJspGenerator" );
-
-        PluginModel pm = GeneratorUtils.getTestModel( );
-        AdminJspGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jsp" );
-        Map result = instance.generate( pm );
-        GeneratorUtils.outputMap( result );
+//        System.out.println( "generate AdminJspGenerator" );
+//
+//        PluginModel pm = GeneratorUtils.getTestModel( );
+//        AdminJspGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jsp" );
+//        Map result = instance.generate( pm );
+//        GeneratorUtils.outputMap( result );
     }
 }
