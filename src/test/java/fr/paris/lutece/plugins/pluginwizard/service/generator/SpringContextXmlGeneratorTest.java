@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@ public class SpringContextXmlGeneratorTest extends LuteceTestCase
         System.out.println( "generate SpringContextXml file" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        SpringContextXmlGenerator instance = SpringContextService.getBean( "pluginwizard.generator.context.classic" );
+        SpringContextXmlGenerator instance = SpringContextService.getBean( "pluginwizard.generator.context" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
