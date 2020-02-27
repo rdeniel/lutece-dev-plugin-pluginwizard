@@ -58,7 +58,7 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
             System.out.println( "generate Admin JspBean files (classic)" );
 
             PluginModel pm = GeneratorUtils.getTestModel( );
-            AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.java.jspbean.classic" );
+            AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.java.jspbean" );
             Map result = instance.generate( pm );
             GeneratorUtils.outputMap( result );
         }
@@ -77,7 +77,7 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
         System.out.println( "generate Admin JspBean files (alternative)" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.java.jspbean.alternative" );
+        AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
