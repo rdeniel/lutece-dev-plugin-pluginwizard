@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -106,7 +105,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
      */
     private String getPortletHtmlTemplate( Portlet portlet, String strPluginName, int nPortletTemplateType )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
         model.put( Markers.MARK_I18N_BRACKETS_CLOSE, "}" );
         model.put( Markers.MARK_BRACKETS_OPEN, "${" );

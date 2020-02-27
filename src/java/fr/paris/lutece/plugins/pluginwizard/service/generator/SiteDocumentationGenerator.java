@@ -75,7 +75,7 @@ public class SiteDocumentationGenerator extends AbstractGenerator
      */
     private String getCode( PluginModel pm, int nTemplateType )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         model.put( Markers.MARK_PLUGIN_MODEL, pm );
         model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );
