@@ -65,20 +65,4 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
         GeneratorUtils.outputMap( result );
     }
 
-    /**
-     * Test of generate method, of class BusinessClassGenerator.
-     */
-    @Test
-    public void testGenerateAlternative( )
-    {
-        System.out.println( "generate BusinessClass files (alternative)" );
-
-        PluginModel pm = GeneratorUtils.getTestModel( );
-        List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business" );
-        BusinessClassGenerator instance = new BusinessClassGenerator( );
-        instance.setFiles( listFiles );
-
-        Map result = instance.generate( pm );
-        GeneratorUtils.outputMap( result );
-    }
 }
