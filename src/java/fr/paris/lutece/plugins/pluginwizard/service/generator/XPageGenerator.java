@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -69,7 +70,7 @@ public class XPageGenerator extends AbstractGenerator
      */
     public void setFiles( List<XPageFileConfig> listFiles )
     {
-        _listFiles = listFiles;
+        _listFiles = (List<XPageFileConfig>)(((ArrayList<XPageFileConfig>)listFiles).clone());
     }
 
     /**
