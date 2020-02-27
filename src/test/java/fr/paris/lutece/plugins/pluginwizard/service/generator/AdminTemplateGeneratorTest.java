@@ -75,27 +75,4 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
         }
     }
 
-    @Test
-    public void testGenerateAlternative( )
-    {
-        try
-        {
-            System.out.println( "generate AdminTemplateGenerator" );
-
-            PluginModel pm = GeneratorUtils.getTestModel( );
-            AdminTemplateGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.html.alternative" );
-
-            Map result = instance.generate( pm );
-            GeneratorUtils.outputMap( result );
-        }
-        catch( Exception e )
-        {
-            if ( e.getCause( ) != null )
-            {
-                System.out.println( e.getCause( ).getMessage( ) );
-            }
-
-            System.out.println( e.getMessage( ) );
-        }
-    }
 }
