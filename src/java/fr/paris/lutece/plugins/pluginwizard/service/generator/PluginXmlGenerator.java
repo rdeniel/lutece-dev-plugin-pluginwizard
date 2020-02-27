@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -68,7 +68,7 @@ public class PluginXmlGenerator extends AbstractFileGenerator
     @Override
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -84,7 +84,7 @@ public class PluginXmlGenerator extends AbstractFileGenerator
 
             if ( ( listBusiness != null ) && ( listBusiness.size( ) > 0 ) )
             {
-                List<String> BusinessNames = new ArrayList<String>( );
+                List<String> BusinessNames = new ArrayList<>( );
                 int i = 0;
                 int id = 0;
 

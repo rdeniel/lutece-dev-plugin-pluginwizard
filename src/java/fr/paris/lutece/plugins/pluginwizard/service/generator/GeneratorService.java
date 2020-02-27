@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ public class GeneratorService
      */
     public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model, int nScheme )
     {
-        Map<String, String> mapSources = new HashMap<String, String>( );
+        Map<String, String> mapSources = new HashMap<>( );
 
         GenerationScheme generationScheme = _listSchemes.get( nScheme );
 
