@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,6 @@ public interface Generator
      *            The plugin model
      * @return A hadh map with the name of the file and a string in which is found the corresponding source code
      */
-    Map<String, String> generate( PluginModel pluginModel );
+    Map<String, String> generate( PluginModel pluginModel, String generationSchemeName );
 
-    void setCoreVersion( String strCoreVersion );
 }

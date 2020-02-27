@@ -49,7 +49,7 @@ public class SiteDocumentationGenerator extends AbstractGenerator
     };
 
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
 

@@ -55,7 +55,7 @@ public class PortletTemplateGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage( );

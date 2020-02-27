@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,11 +62,11 @@ public class GeneratorService
      *            The Scheme
      * @return Map that contains sources
      */
-    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model, int nScheme )
+    public Map<String, String> getGeneratedSources( Plugin plugin, PluginModel model, int schemeListIndex )
     {
-        Map<String, String> mapSources = new HashMap<String, String>( );
+        Map<String, String> mapSources = new HashMap<>( );
 
-        GenerationScheme generationScheme = _listSchemes.get( nScheme );
+        GenerationScheme generationScheme = _listSchemes.get( schemeListIndex );
 
         List<Generator> listGenerators = generationScheme.getGeneratorsList( );
 
@@ -74,8 +74,7 @@ public class GeneratorService
         {
             try
             {
-                generator.setCoreVersion( generationScheme.getCoreVersion( ) );
-                mapSources.putAll( generator.generate( model ) );
+                mapSources.putAll( generator.generate( model , generationScheme.getName( ) ) );
             }
             catch( Exception e )
             {

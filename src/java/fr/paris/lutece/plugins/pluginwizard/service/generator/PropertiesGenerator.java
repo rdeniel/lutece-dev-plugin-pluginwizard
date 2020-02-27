@@ -48,7 +48,7 @@ public class PropertiesGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         return generateFile( pm );
     }

@@ -65,9 +65,9 @@ public class BusinessKotlinClassGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map<String, String> generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
-        HashMap<String, String> map = new HashMap<String, String>( );
+        HashMap<String, String> map = new HashMap<>( );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses( );
 
         String strPluginName = pm.getPluginNameAsPackage( );
@@ -107,7 +107,7 @@ public class BusinessKotlinClassGenerator extends AbstractGenerator
      */
     private String getSourceCode( String strPluginName, BusinessClass businessClass, String strTemplate, String strRadicalPackage, String strBeanName )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );

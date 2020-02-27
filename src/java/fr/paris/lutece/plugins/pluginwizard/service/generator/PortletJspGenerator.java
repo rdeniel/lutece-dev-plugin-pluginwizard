@@ -57,7 +57,7 @@ public class PortletJspGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsRadicalPackage( );
@@ -93,7 +93,7 @@ public class PortletJspGenerator extends AbstractGenerator
      */
     private String getPortletJspFile( Portlet portlet, String strPluginName, int nPortletJspType, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_PORTLET_JSP_TYPE, nPortletJspType );

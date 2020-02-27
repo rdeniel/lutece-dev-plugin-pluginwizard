@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,6 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -52,7 +51,6 @@ public abstract class AbstractGenerator implements Generator
 
     private String _strTemplate;
     private boolean _bKotlin;
-    private String _strCoreVersion;
 
     /**
      * Set kotlin
@@ -94,23 +92,6 @@ public abstract class AbstractGenerator implements Generator
     public void setTemplate( String strTemplate )
     {
         _strTemplate = strTemplate;
-    }
-
-    /**
-     * @return the lutece-core version
-     */
-    public String getCoreVersion( )
-    {
-        return _strCoreVersion;
-    }
-
-    /**
-     * 
-     */
-    @Override
-    public void setCoreVersion( String strCoreVersion )
-    {
-        this._strCoreVersion = strCoreVersion;
     }
 
     /**
@@ -166,7 +147,7 @@ public abstract class AbstractGenerator implements Generator
      */
     protected Map<String, Object> getModel( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_PLUGIN_MODEL, pm );
 
         return model;
@@ -225,5 +206,7 @@ public abstract class AbstractGenerator implements Generator
 
         return template.getHtml( );
     }
+    
+    
 
 }
