@@ -153,7 +153,7 @@ public class XPageGenerator extends AbstractGenerator
      * @param nApplicationId
      *            id of the plugin application
      * @param strApplicationName
-     *            the name of the appliaction
+     *            the name of the application
      * @param application
      *            the application
      * @return The code of the XPage generated
@@ -168,7 +168,6 @@ public class XPageGenerator extends AbstractGenerator
         model.put( Markers.MARK_APPLICATION_NAME, strApplicationName );
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( model );
     }

@@ -81,10 +81,9 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     /**
      * {@inheritDoc }
      */
-    @Override
-    public Map generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
-        HashMap map = new HashMap( );
+        HashMap<String, String> map = new HashMap<>( );
 
         for ( Feature feature : pm.getFeatures( ) )
         {
