@@ -39,10 +39,6 @@ import fr.paris.lutece.test.LuteceTestCase;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
-
 /**
  *
  * @author levy
@@ -53,7 +49,7 @@ public class PluginWizardAppTest extends LuteceTestCase
     public void testCreateBusinessClass( )
     {
         MockHttpServletRequest request = new MockHttpServletRequest( );
-        HttpServletResponse response = new MokeHttpServletResponse( );
+        MokeHttpServletResponse response = new MokeHttpServletResponse( );
         LocalVariables.setLocal( null, request, response );
 
         PluginWizardApp instance = new PluginWizardApp( );
