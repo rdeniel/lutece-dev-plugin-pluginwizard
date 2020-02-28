@@ -44,7 +44,7 @@ public class GenerationScheme
     private String _strCoreVersion;
     private List<Generator> _listGenerators;
     private boolean _bIsDefault = false;
-
+    
     /**
      * @return the _strName
      */

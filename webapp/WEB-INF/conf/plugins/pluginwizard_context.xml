@@ -336,7 +336,7 @@
       <property name="tabsTemplate">
          <value>/generators/default/html/gt_html_admin_tabs.html</value>
       </property>
-   </bean>
+  </bean>
    <bean id="pluginwizard.generator.admin.html.v6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator">
       <property name="template">
          <value>/generators/default/html/gt_html_admin_v6.html</value>
@@ -579,10 +579,7 @@
    <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Modèle Lutece 6.0 (DAO SQL)</value>
-      </property>
-      <property name="coreVersion">
-         <value>6.2.1-SNAPSHOT</value>
-      </property>
+     </property>
       <property name="generatorsList">
          <list>
             <ref bean="pluginwizard.generator.pom" />
@@ -646,7 +643,6 @@
          </list>
       </property>
    </bean>
-
 <bean id="pluginwizard.scheme7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Modèle Lutece 7.0</value>
@@ -683,4 +679,4 @@
          </list>
       </property>
    </bean>
-   </beans>
+</beans>
