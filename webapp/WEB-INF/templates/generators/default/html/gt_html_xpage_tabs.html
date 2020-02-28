@@ -1,6 +1,6 @@
 <${macro_def} tabs2 tab >
 <${macro}tabs>
-	<${macro}tabList>
+	<${macro}listTabs>
 		<#if business_classes?? >
 			<#list business_classes?sort_by('businessClass') as business_class>
 			<li <${variable}if tab="${business_class.businessClass?lower_case}">class="active"</${variable}if>>
@@ -8,6 +8,6 @@
 			</li>
 			</#list>	
 		</#if>
-	</${macro}tabList>
+	</${macro}listTabs>
 </${macro}tabs>
 </${macro_def}>

@@ -16,8 +16,7 @@
 
     <modelVersion>${pom_model_version}</modelVersion>
     <groupId>fr.paris.lutece.plugins</groupId>
-
-<#if plugin.module = true>
+    <#if plugin.type == "MODULE">
     <artifactId>module-${plugin.pluginName?lower_case}</artifactId>
     <#else>
     <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
@@ -25,7 +24,7 @@
     <packaging>lutece-plugin</packaging>
     <version>${plugin.pluginVersion}-SNAPSHOT</version>
 
-    <#if plugin.module = true>
+    <#if plugin.type == "MODULE">
     <name>Lutece ${plugin.pluginName?replace("-", " ")?lower_case} module</name>
     <#else>
     <name>Lutece ${plugin.pluginName?lower_case} plugin</name>

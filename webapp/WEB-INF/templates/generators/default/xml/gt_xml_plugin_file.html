@@ -1,4 +1,4 @@
-<#if plugin.module = true>
+<#if plugin.type= "MODULE">
     <#assign description="module." + plugin.pluginName?replace("-",".") + ".module.description" />
     <#assign provider="module." + plugin.pluginName?replace("-",".") + ".module.provider" />
     <#assign feat= "module."+plugin.pluginName?replace("-",".")/>

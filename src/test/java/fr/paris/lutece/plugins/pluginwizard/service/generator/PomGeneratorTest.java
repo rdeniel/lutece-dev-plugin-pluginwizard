@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2014, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,16 +57,7 @@ public class PomGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         PomGenerator instance = SpringContextService.getBean( "pluginwizard.generator.pom" );
-        instance.setCoreVersion("7.0.0-SNAPSHOT");
         Map result = instance.generate( pm );
-        GeneratorUtils.outputMap( result );
-        
-        instance.setCoreVersion("6.2.1-SNAPSHOT");
-        result = instance.generate( pm );
-        GeneratorUtils.outputMap( result );
-        
-        instance.setCoreVersion("5.0.0-SNAPSHOT");
-        result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }
 }

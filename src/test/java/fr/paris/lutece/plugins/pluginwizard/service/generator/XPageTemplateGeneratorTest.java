@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2014, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,7 @@ public class XPageTemplateGeneratorTest extends LuteceTestCase
         System.out.println( "generate XPage files A1ternative" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        XPageTemplateGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.html" );
+        XPageTemplateGenerator instance = SpringContextService.getBean( "pluginwizard.generator.xpage.html.alternative" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }

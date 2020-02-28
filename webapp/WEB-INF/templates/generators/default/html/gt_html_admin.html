@@ -83,9 +83,9 @@
             </td>
         </#list>
         <td>
-			<${macro}aButton href='jsp/admin/plugins/${pluginPath}/Manage${business_class.businessClass}s.jsp?view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' buttonIcon='pencil' />
+			<${macro}aButton href='jsp/admin/plugins/${pluginPath}/Manage${business_class.businessClass}s.jsp?view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' buttonIcon='pencil' showTitle=false />
 						
-			<${macro}aButton href='jsp/admin/plugins/${pluginPath}/Manage${business_class.businessClass}s.jsp?action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' color='btn-danger'  />
+			<${macro}aButton href='jsp/admin/plugins/${pluginPath}/Manage${business_class.businessClass}s.jsp?action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' color='btn-danger' showTitle=false />
 
         </td>
         </tr>

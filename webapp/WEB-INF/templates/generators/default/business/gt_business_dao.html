@@ -61,7 +61,8 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public void insert( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, Statement.RETURN_GENERATED_KEYS, plugin ) )
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, Statement.RETURN_GENERATED_KEYS, plugin );
+        try
         {
             int nIndex = 1;
             <#list business_class.attributes as attribute>
@@ -74,7 +75,10 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
                 ${business_class.instanceName}.setId( daoUtil.getGeneratedKeyInt( 1 ) );
             }
         }
-        
+        finally
+        {
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -83,30 +87,28 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public ${business_class.businessClass} load( int nKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
+        daoUtil.setInt( 1 , nKey );
+        daoUtil.executeQuery( );
+        ${business_class.businessClass} ${business_class.instanceName} = null;
+
+        if ( daoUtil.next( ) )
         {
-	        daoUtil.setInt( 1 , nKey );
-	        daoUtil.executeQuery( );
-	        ${business_class.businessClass} ${business_class.instanceName} = null;
-	
-	        if ( daoUtil.next( ) )
-	        {
-	            ${business_class.instanceName} = new ${business_class.businessClass}();
-	            int nIndex = 1;
-	            
-	            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
-	            <#list business_class.attributes as attribute>
-	            <#if attribute_has_next>
-	            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );            
-	            <#else>
-	            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex ) );            
-	            </#if>
-	            </#list>
-	        }
-	
-	        daoUtil.free( );
-	        return ${business_class.instanceName};
+            ${business_class.instanceName} = new ${business_class.businessClass}();
+            int nIndex = 1;
+            
+            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
+            <#list business_class.attributes as attribute>
+            <#if attribute_has_next>
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );            
+            <#else>
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex ) );            
+            </#if>
+            </#list>
         }
+
+        daoUtil.free( );
+        return ${business_class.instanceName};
     }
 
     /**
@@ -115,12 +117,10 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public void delete( int nKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
-        {
-	        daoUtil.setInt( 1 , nKey );
-	        daoUtil.executeUpdate( );
-	        daoUtil.free( );
-        }
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
+        daoUtil.setInt( 1 , nKey );
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -129,19 +129,17 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     @Override
     public void store( ${business_class.businessClass} ${business_class.instanceName}, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
-        {
-	        int nIndex = 1;
-	        
-	        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
-	        <#list business_class.attributes as attribute>
-	        daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
-	        </#list>
-	        daoUtil.setInt( nIndex , ${business_class.instanceName}.getId( ) );
-	
-	        daoUtil.executeUpdate( );
-	        daoUtil.free( );
-        }
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
+        int nIndex = 1;
+        
+        daoUtil.setInt( nIndex++ , ${business_class.instanceName}.getId( ) );
+        <#list business_class.attributes as attribute>
+        daoUtil.set${attribute.type?cap_first}( nIndex++ , ${business_class.instanceName}.get${attribute.name}( ) );
+        </#list>
+        daoUtil.setInt( nIndex , ${business_class.instanceName}.getId( ) );
+
+        daoUtil.executeUpdate( );
+        daoUtil.free( );
     }
 
     /**
@@ -151,30 +149,28 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     public List&lt;${business_class.businessClass}&gt; select${business_class.businessClass}sList( Plugin plugin )
     {
         List&lt;${business_class.businessClass}&gt; ${business_class.instanceName}List = new ArrayList&lt;&gt;(  );
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+        daoUtil.executeQuery(  );
+
+        while ( daoUtil.next(  ) )
         {
-	        daoUtil.executeQuery(  );
-	
-	        while ( daoUtil.next(  ) )
-	        {
-	            ${business_class.businessClass} ${business_class.instanceName} = new ${business_class.businessClass}(  );
-	            int nIndex = 1;
-	            
-	            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
-	            <#list business_class.attributes as attribute>
-	            <#if attribute_has_next>
-	            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
-	            <#else>
-	            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex ) );            
-	            </#if>
-	            </#list>
-	
-	            ${business_class.instanceName}List.add( ${business_class.instanceName} );
-	        }
-	
-	        daoUtil.free( );
-	        return ${business_class.instanceName}List;
+            ${business_class.businessClass} ${business_class.instanceName} = new ${business_class.businessClass}(  );
+            int nIndex = 1;
+            
+            ${business_class.instanceName}.setId( daoUtil.getInt( nIndex++ ) );
+            <#list business_class.attributes as attribute>
+            <#if attribute_has_next>
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex++ ) );
+            <#else>
+            ${business_class.instanceName}.set${attribute.name}( daoUtil.get${attribute.type?cap_first}( nIndex ) );            
+            </#if>
+            </#list>
+
+            ${business_class.instanceName}List.add( ${business_class.instanceName} );
         }
+
+        daoUtil.free( );
+        return ${business_class.instanceName}List;
     }
     
     /**
@@ -184,18 +180,16 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     public List&lt;Integer&gt; selectId${business_class.businessClass}sList( Plugin plugin )
     {
         List&lt;Integer&gt; ${business_class.instanceName}List = new ArrayList&lt;&gt;( );
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin ) )
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL_ID, plugin );
+        daoUtil.executeQuery(  );
+
+        while ( daoUtil.next(  ) )
         {
-	        daoUtil.executeQuery(  );
-	
-	        while ( daoUtil.next(  ) )
-	        {
-	            ${business_class.instanceName}List.add( daoUtil.getInt( 1 ) );
-	        }
-	
-	        daoUtil.free( );
-	        return ${business_class.instanceName}List;
+            ${business_class.instanceName}List.add( daoUtil.getInt( 1 ) );
         }
+
+        daoUtil.free( );
+        return ${business_class.instanceName}List;
     }
     
     /**
@@ -205,17 +199,15 @@ public final class ${business_class.businessClass}DAO implements I${business_cla
     public ReferenceList select${business_class.businessClass}sReferenceList( Plugin plugin )
     {
         ReferenceList ${business_class.instanceName}List = new ReferenceList();
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
+        daoUtil.executeQuery(  );
+
+        while ( daoUtil.next(  ) )
         {
-	        daoUtil.executeQuery(  );
-	
-	        while ( daoUtil.next(  ) )
-	        {
-	            ${business_class.instanceName}List.addItem( daoUtil.getInt( 1 ) , daoUtil.getString( 2 ) );
-	        }
-	
-	        daoUtil.free( );
-	        return ${business_class.instanceName}List;
-    	}
+            ${business_class.instanceName}List.addItem( daoUtil.getInt( 1 ) , daoUtil.getString( 2 ) );
+        }
+
+        daoUtil.free( );
+        return ${business_class.instanceName}List;
     }
 }

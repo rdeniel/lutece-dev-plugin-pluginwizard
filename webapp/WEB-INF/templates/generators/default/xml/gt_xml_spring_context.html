@@ -1,4 +1,4 @@
-<#if plugin.module = true>
+<#if plugin.type= "MODULE">
 	<#assign url= plugin.pluginName?split("-")[0]+".modules."+plugin.pluginName?split("-")[1]/>
 <#else>
 	<#assign url= plugin.pluginName >
