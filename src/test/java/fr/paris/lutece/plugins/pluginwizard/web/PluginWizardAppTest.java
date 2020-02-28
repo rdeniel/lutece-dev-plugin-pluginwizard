@@ -33,19 +33,11 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.web;
 
-import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.security.SecurityTokenService;
-import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
 import fr.paris.lutece.portal.web.LocalVariables;
 import fr.paris.lutece.test.LuteceTestCase;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.mock.web.MockHttpServletResponse;
-import org.springframework.mock.web.MockServletConfig;
 
 /**
  *
@@ -57,39 +49,18 @@ public class PluginWizardAppTest extends LuteceTestCase
     public void testCreateBusinessClass( )
     {
         MockHttpServletRequest request = new MockHttpServletRequest( );
-        MockHttpServletResponse response = new MockHttpServletResponse( );
-        MockServletConfig config = new MockServletConfig( );
-        LocalVariables.setLocal( config, request, response );
+        MokeHttpServletResponse response = new MokeHttpServletResponse( );
+        LocalVariables.setLocal( null, request, response );
 
         PluginWizardApp instance = new PluginWizardApp( );
-        request.addParameter( "name", "my-plugin" );
+        request.addParameter( "name", "myplugin" );
+        instance.doCreatePlugin( request );
+        instance.getCreateBusinessClass( request );
         request.addParameter( "business_class", "MyBusinessClass" );
         request.addParameter( "business_table_name", "myplugin_mytable" );
         request.addParameter( "id_feature", "1" );
         request.addParameter( "business_class_id", "1");
-        request.addParameter("type","PLUGIN");
-        request.addParameter("plugin_name", "my-plugin");
-        request.addParameter("plugin_description", "My Plugin");
-        request.addParameter("plugin_provider", "my author");
-        request.addParameter("plugin_version", "1.0.0");
-        request.addParameter("plugin_copyright", "Copyright (c) 2016 Your Company");
-        request.addParameter("plugin_version", "1.0.0");
-        request.addParameter("plugin_provider_url", "http://your.web.site.com");
-        request.addParameter("plugin_db_pool_required", "1");
-        request.setMethod("POST");
-        
-        instance.getCreatePlugin( request );
-        instance.doCreatePlugin( request );
-        instance.getCreatePluginDescription( request );
-        instance.getModifyPluginDescription( request );
-       
-        instance.doDescritionPrevious( request );
-        instance.getCreateBusinessClass( request );
-        instance.doCreateBusinessClass( request );
-        
-        
-        
-        
         instance.getModifyBusinessClass( request );
+        instance.doCreateBusinessClass( request );
     }
 }
