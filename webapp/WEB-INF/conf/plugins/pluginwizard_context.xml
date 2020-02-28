@@ -643,40 +643,41 @@
       </property>
    </bean>
 
-<bean id="pluginwizard.scheme7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
-      <property name="name">
-         <value>Modèle Lutece 7.0</value>
-      </property>
-      <property name="coreVersion">
-         <value>7.0.0-SNAPSHOT</value>
-      </property>
-      <property name="isDefault">
-         <value>true</value>
-      </property>
-      <property name="generatorsList">
-         <list>
-            <ref bean="pluginwizard.generator.pom" />
-            <ref bean="pluginwizard.generator.pluginXml" />
-            <ref bean="pluginwizard.generator.context" />
-            <ref bean="pluginwizard.generator.properties" />
-            <ref bean="pluginwizard.generator.site" />
-            <ref bean="pluginwizard.generator.resources" />
-            <ref bean="pluginwizard.generator.sql" />
-            <ref bean="pluginwizard.generator.admin.java.business" />
-            <ref bean="pluginwizard.generator.admin.jspbeans" />
-            <ref bean="pluginwizard.generator.admin.jsp" />
-            <ref bean="pluginwizard.generator.admin.html" />
-            <ref bean="pluginwizard.generator.admin.java.xpage" />
-            <ref bean="pluginwizard.generator.xpage.html" />
-            <ref bean="pluginwizard.generator.portlet.java.business" />
-            <ref bean="pluginwizard.generator.portlet.jsp" />
-            <ref bean="pluginwizard.generator.portlet.html" />
-            <ref bean="pluginwizard.generator.portlet.xsl" />
-            <ref bean="pluginwizard.generator.rest.java" />
-            <ref bean="pluginwizard.generator.rest.constants.java" />
-            <ref bean="pluginwizard.generator.rest.swagger.java" />
-            <ref bean="pluginwizard.generator.rest.swagger.json" />
-         </list>
-      </property>
-   </bean>
-   </beans>
+  <bean id="pluginwizard.scheme7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
+        <property name="name">
+           <value>Modèle Lutece 7.0</value>
+        </property>
+        <property name="coreVersion">
+           <value>7.0.0-SNAPSHOT</value>
+        </property>
+        <property name="isDefault">
+           <value>true</value>
+        </property>
+        <property name="generatorsList">
+           <list>
+              <ref bean="pluginwizard.generator.pom" />
+              <ref bean="pluginwizard.generator.pluginXml" />
+              <ref bean="pluginwizard.generator.context" />
+              <ref bean="pluginwizard.generator.properties" />
+              <ref bean="pluginwizard.generator.site" />
+              <ref bean="pluginwizard.generator.resources" />
+              <ref bean="pluginwizard.generator.sql" />
+              <ref bean="pluginwizard.generator.admin.java.business" />
+              <ref bean="pluginwizard.generator.admin.jspbeans" />
+              <ref bean="pluginwizard.generator.admin.jsp" />
+              <ref bean="pluginwizard.generator.admin.html" />
+              <ref bean="pluginwizard.generator.admin.java.xpage" />
+              <ref bean="pluginwizard.generator.xpage.html" />
+              <ref bean="pluginwizard.generator.portlet.java.business" />
+              <ref bean="pluginwizard.generator.portlet.jsp" />
+              <ref bean="pluginwizard.generator.portlet.html" />
+              <ref bean="pluginwizard.generator.portlet.xsl" />
+              <ref bean="pluginwizard.generator.rest.java" />
+              <ref bean="pluginwizard.generator.rest.constants.java" />
+              <ref bean="pluginwizard.generator.rest.swagger.java" />
+              <ref bean="pluginwizard.generator.rest.swagger.json" />
+           </list>
+        </property>
+     </bean>
+</beans>
+
