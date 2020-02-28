@@ -123,7 +123,7 @@ public class XPageGenerator extends AbstractGenerator
      * @param nApplicationId
      *            id of the plugin application
      * @param strApplicationName
-     *            the name of the appliaction
+     *            the name of the application
      * @param application
      *            the application
      * @param businessClass
@@ -132,6 +132,7 @@ public class XPageGenerator extends AbstractGenerator
      */
     private String getXPageCode( PluginModel pm, String strApplicationName, int nApplicationId, Application application, BusinessClass businessClass,
             String strRadicalPackage, String strBeanName, String strTemplate )
+
     {
         Map<String, Object> model = getModel( pm );
         model.put( Markers.MARK_PLUGIN, pm );
