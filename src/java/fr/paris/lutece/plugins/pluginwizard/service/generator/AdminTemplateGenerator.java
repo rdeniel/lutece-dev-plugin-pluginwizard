@@ -133,7 +133,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
         model.put( Markers.MARK_ADMIN_FEATURE, admin_feature );
         model.put( Markers.MARK_INCLUDE, "@@include" );
-        model.put( Markers.MARK_LINK, strLinkJsp );
+        model.put( Markers.MARK_PLUGIN_PATH, strLinkJsp );
 
         model.put( Markers.MARK_TEMPLATE_TYPE, nTemplateType );
 
@@ -168,7 +168,7 @@ public class AdminTemplateGenerator extends AbstractGenerator
         model.put( Markers.MARK_BRACKETS_CLOSE, "}" );
         model.put( Markers.MARK_MACRO_DEF, "@@macro" );
         model.put( Markers.MARK_LIST_BUSINESS_CLASSES, listAllBusinessClasses );
-        model.put( Markers.MARK_LINK, strLinkJsp );
+        model.put( Markers.MARK_PLUGIN_PATH, strLinkJsp );
 
         HtmlTemplate template = AppTemplateService.getTemplate( _strTabsTemplate, Locale.getDefault( ), model );
 

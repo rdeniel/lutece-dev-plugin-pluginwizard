@@ -572,6 +572,9 @@
       <property name="coreVersion">
          <value>6.2.1-SNAPSHOT</value>
       </property>
+      <property name="isDefault">
+         <value>true</value>
+      </property>
       <property name="generatorsList">
          <list>
             <ref bean="pluginwizard.generator.pom" />

@@ -38,6 +38,7 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
 import fr.paris.lutece.util.ReferenceList;
+import fr.paris.lutece.util.ReferenceItem;
 
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +99,11 @@ public class GeneratorService
 
         for ( int i = 0; i < _listSchemes.size( ); i++ )
         {
-            list.addItem( i, _listSchemes.get( i ).getName( ) );
+        	ReferenceItem item = new ReferenceItem( );
+        	item.setCode( String.valueOf( i ) );
+        	item.setName( _listSchemes.get( i ).getName( ) );
+        	item.setChecked( _listSchemes.get( i ).isDefault( ) );
+            list.add( item );
         }
 
         return list;

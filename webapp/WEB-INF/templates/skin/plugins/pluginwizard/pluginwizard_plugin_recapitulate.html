@@ -128,7 +128,13 @@
                             <input type="hidden" name="plugin_id" value="${plugin_id}" />
                             <div class="form-group">
                                 <label>#i18n{pluginwizard.pluginwizard_plugin_recapitulate.labelScheme} :</label>
-                                <@comboWithParams name="scheme" items=combo_schemes default_value="0" additionalParameters='class="input-lg"' />       
+                                <#assign defaultItemValue="0" />
+                                <#list combo_schemes as item >
+                                	<#if item.isChecked( ) >
+                                		<#assign defaultItemValue=item.code />
+                                	</#if>
+                                </#list>
+                                <@comboWithParams name="scheme" items=combo_schemes default_value=defaultItemValue additionalParameters='class="input-lg"' />       
                             </div>
                             <button class="btn btn-success btn-lg" type="submit" >
                                 <i class="glyphicon glyphicon-download-alt">  </i>
