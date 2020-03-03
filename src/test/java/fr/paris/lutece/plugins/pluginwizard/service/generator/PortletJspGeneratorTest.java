@@ -57,7 +57,7 @@ public class PortletJspGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         PortletJspGenerator instance = SpringContextService.getBean( "pluginwizard.generator.portlet.jsp" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

@@ -50,7 +50,7 @@ public class PropertiesGenerator extends AbstractFileGenerator
     @Override
     public Map generate( PluginModel pm, String generationSchemeName )
     {
-        return generateFile( pm );
+        return generateFile( pm, generationSchemeName );
     }
 
     /**

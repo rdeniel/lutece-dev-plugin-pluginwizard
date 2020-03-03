@@ -58,7 +58,7 @@ public class GeneratorService
      *            The plugin (pluginwizard)
      * @param model
      *            The plugin model to generate
-     * @param nScheme
+     * @param schemeListIndex
      *            The Scheme
      * @return Map that contains sources
      */

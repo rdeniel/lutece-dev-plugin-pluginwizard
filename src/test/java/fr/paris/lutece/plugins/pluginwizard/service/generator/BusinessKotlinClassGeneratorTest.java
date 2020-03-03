@@ -61,7 +61,7 @@ public class BusinessKotlinClassGeneratorTest extends LuteceTestCase
         BusinessKotlinClassGenerator instance = new BusinessKotlinClassGenerator( );
         instance.setFiles( listFiles );
 
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 

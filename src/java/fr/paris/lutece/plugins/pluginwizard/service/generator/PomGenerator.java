@@ -73,7 +73,7 @@ public class PomGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    protected String getCode( PluginModel pm )
+    protected String getCode( PluginModel pm, String generationSchemeName )
     {
         Map<String, Object> model = new HashMap<>( );
         Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( );
@@ -86,7 +86,10 @@ public class PomGenerator extends AbstractFileGenerator
 
         model.put( MARK_KOTLIN, isKotlin( ) );
         model.put( Markers.MARK_PLUGIN, pm );
-        model.put( Markers.MARK_CORE_VERSION, getGlobalPomVersion( ) );
+        model.put( Markers.MARK_GLOBAL_POM_VERSION, getGlobalPomVersion( ) );
+        model.put( Markers.MARK_GLOBAL_POM_VERSION, getGlobalPomVersion( ) );
+        model.put( Markers.MARK_CORE_VERSION, getDependencyCoreVersion( ) );
+        model.put( Markers.MARK_DEPENDECY_REST_VERSION, getDependencyRestVersion( ) );
 
         return build( model );
     }

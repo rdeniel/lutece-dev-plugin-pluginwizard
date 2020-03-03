@@ -57,7 +57,7 @@ public class SpringContextXmlGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         SpringContextXmlGenerator instance = SpringContextService.getBean( "pluginwizard.generator.context" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

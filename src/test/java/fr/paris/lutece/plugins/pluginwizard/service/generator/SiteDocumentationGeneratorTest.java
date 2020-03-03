@@ -60,7 +60,7 @@ public class SiteDocumentationGeneratorTest extends LuteceTestCase
             PluginModel pm = GeneratorUtils.getTestModel( );
             SiteDocumentationGenerator instance = SpringContextService.getBean( "pluginwizard.generator.site" );
 
-            Map result = instance.generate( pm );
+            Map result = instance.generate( pm, "schemeLutece7" );
             GeneratorUtils.outputMap( result );
         }
         catch( Exception e )

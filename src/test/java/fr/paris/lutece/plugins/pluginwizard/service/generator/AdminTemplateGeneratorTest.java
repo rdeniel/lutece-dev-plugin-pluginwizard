@@ -61,7 +61,7 @@ public class AdminTemplateGeneratorTest extends LuteceTestCase
             PluginModel pm = GeneratorUtils.getTestModel( );
             AdminTemplateGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.html" );
 
-            Map result = instance.generate( pm );
+            Map result = instance.generate( pm, "schemeLutece7" );
             GeneratorUtils.outputMap( result );
         }
         catch( Exception e )

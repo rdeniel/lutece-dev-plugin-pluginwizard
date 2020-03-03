@@ -57,16 +57,16 @@ public class PluginXmlGenerator extends AbstractFileGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
-        return generateFile( pm );
+        return generateFile( pm, generationSchemeName );
     }
 
     /**
      * {@inheritDoc }
      */
     @Override
-    protected String getCode( PluginModel pm )
+    protected String getCode( PluginModel pm, String generationSchemeName )
     {
         Map<String, Object> model = new HashMap<>( );
 

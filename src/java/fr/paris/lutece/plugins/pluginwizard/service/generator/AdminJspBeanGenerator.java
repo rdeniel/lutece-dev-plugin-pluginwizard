@@ -137,7 +137,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( strTemplate, model );
     }
@@ -162,7 +161,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( _strAbstractParentBeanTemplate, model );
     }

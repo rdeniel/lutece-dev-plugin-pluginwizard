@@ -86,7 +86,7 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
      *            the plugin model
      * @return the code
      */
-    protected String getCode( PluginModel pm )
+    protected String getCode( PluginModel pm, String generationSchemeName )
     {
         Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_PLUGIN, pm );
@@ -113,14 +113,14 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     /**
      * Produces the file code in a map
      *
-     * @param pm
-     *            the plugin model
+     * @param pm, generationSchemeName
+     *            the plugin model and the generation scheme name
      * @return the map
      */
-    protected Map generateFile( PluginModel pm )
+    protected Map generateFile( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
-        map.put( getFilePath( pm ), getCode( pm ) );
+        map.put( getFilePath( pm ), getCode( pm, generationSchemeName ) );
 
         return map;
     }

@@ -57,7 +57,7 @@ public class PortletXslGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         PortletXslGenerator instance = SpringContextService.getBean( "pluginwizard.generator.portlet.xsl" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

@@ -79,7 +79,7 @@ public class XPageGenerator extends AbstractGenerator
      * @param pm
      */
     @Override
-    public Map<String, String> generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
         HashMap<String, String> map = new HashMap<>( );
         String strFilesPath = ( isKotlin( ) ) ? PATH_KOTLIN : PATH_JAVA;

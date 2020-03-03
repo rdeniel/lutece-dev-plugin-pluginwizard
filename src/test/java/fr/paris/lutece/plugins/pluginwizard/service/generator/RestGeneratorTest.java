@@ -57,7 +57,7 @@ public class RestGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         RestGenerator instance = SpringContextService.getBean( "pluginwizard.generator.rest.java" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

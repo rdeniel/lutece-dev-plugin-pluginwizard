@@ -57,7 +57,7 @@ public class XPageGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         XPageGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.java.xpage" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

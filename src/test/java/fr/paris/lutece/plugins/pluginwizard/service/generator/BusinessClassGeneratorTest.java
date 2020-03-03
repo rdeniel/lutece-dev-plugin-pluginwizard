@@ -61,7 +61,7 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
         BusinessClassGenerator instance = new BusinessClassGenerator( );
         instance.setFiles( listFiles );
 
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 
