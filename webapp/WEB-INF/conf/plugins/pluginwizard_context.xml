@@ -335,6 +335,7 @@
          <list>
             <ref bean="pluginwizard.generator.admin.java.jspbean" />
             <ref bean="pluginwizard.generator.java.jspbean.test" />
+            <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
          </list>
       </constructor-arg>
    </bean>
@@ -561,10 +562,21 @@
          <value>src/</value>
       </property>
    </bean>
-   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator">
-      <property name="kotlin" value="true" />
-      <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
-      <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
+<!--    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator"> -->
+<!--       <property name="kotlin" value="true" /> -->
+<!--       <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" /> -->
+<!--       <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" /> -->
+<!--    </bean> -->
+   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig">
+      <property name="sourcePath">
+         <value>src/</value>
+      </property>
+      <property name="template">
+         <value>/generators/default/jspbean/gt_jspbean_k.html</value>
+      </property>
+      <property name="abstractParentBeanTemplate">
+         <value>/generators/default/jspbean/gt_jspbean_k_abstract.html</value>
+      </property>
    </bean>
    <!-- ############################### GENERATION SCHEME #########################-->
    <bean id="schemeLutece5" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
@@ -641,7 +653,7 @@
             <ref bean="pluginwizard.generator.kotlin.resources" />
             <ref bean="pluginwizard.generator.sql" />
             <ref bean="pluginwizard.generator.admin.kotlin.business" />
-            <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
+            <ref bean="pluginwizard.generator.admin.jspbeans" />
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html" />
             <ref bean="pluginwizard.generator.admin.kotlin.xpage" />
