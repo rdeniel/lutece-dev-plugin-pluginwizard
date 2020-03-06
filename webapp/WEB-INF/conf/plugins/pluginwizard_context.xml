@@ -329,6 +329,9 @@
       <property name="files">
          <ref bean="pluginwizard.list.files.admin.jspbeans" />
       </property>
+       <property name="abstractParentBeanTemplate">
+         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
+      </property>
    </bean>
    <bean id="pluginwizard.list.files.admin.jspbeans" class="java.util.ArrayList">
       <constructor-arg>
@@ -344,9 +347,6 @@
       </property>
       <property name="template">
          <value>/generators/default/jspbean/gt_jspbean.html</value>
-      </property>
-      <property name="abstractParentBeanTemplate">
-         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
       </property>
    </bean>
    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator">
@@ -474,9 +474,6 @@
       <property name="sourcePath">
          <value>src/test/</value>
       </property>
-      <property name="abstractParentBeanTemplate">
-         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
-      </property>
    </bean>
    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator">
       <property name="template">
@@ -583,7 +580,6 @@
    </bean>
    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig">
       <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
-      <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
       <property name="sourcePath">
          <value>src/</value>
       </property>
