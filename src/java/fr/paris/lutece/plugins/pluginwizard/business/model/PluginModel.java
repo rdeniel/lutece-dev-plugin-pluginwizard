@@ -87,10 +87,10 @@ public class PluginModel
      */
     public PluginModel( )
     {
-        _listPluginApplications = new ArrayList<Application>( );
-        _listPluginFeatures = new ArrayList<Feature>( );
-        _listPluginPortlets = new ArrayList<Portlet>( );
-        _listBusinessClasses = new ArrayList<BusinessClass>( );
+        _listPluginApplications = new ArrayList<>( );
+        _listPluginFeatures = new ArrayList<>( );
+        _listPluginPortlets = new ArrayList<>( );
+        _listBusinessClasses = new ArrayList<>( );
         _rest = new Rest( );
     }
 
