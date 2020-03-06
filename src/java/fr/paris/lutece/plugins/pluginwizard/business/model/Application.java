@@ -35,8 +35,10 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import java.io.Serializable;
+import fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.Pattern;
@@ -126,7 +128,7 @@ public class Application implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        return _nIdBusinessClasses;
+        return ( List<Integer> )( ( ( ArrayList<Integer> )_nIdBusinessClasses).clone( ) );
     }
 
     /**
@@ -137,6 +139,6 @@ public class Application implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        _nIdBusinessClasses = nIdBusinessClasses;
+        _nIdBusinessClasses = ( List<Integer> )( ( ( ArrayList<Integer> )nIdBusinessClasses).clone( ) );
     }
 }
