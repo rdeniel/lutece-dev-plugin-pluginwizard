@@ -128,7 +128,7 @@ public class Application implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        return ( List<Integer> )( ( ( ArrayList<Integer> )_nIdBusinessClasses).clone( ) );
+        return ( List<Integer> )( ( ( ArrayList<Integer> )_nIdBusinessClasses ).clone( ) );
     }
 
     /**
@@ -139,6 +139,6 @@ public class Application implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        _nIdBusinessClasses = ( List<Integer> )( ( ( ArrayList<Integer> )nIdBusinessClasses).clone( ) );
+        _nIdBusinessClasses = ( List<Integer> )( ( ( ArrayList<Integer> )nIdBusinessClasses ).clone( ) );
     }
 }

@@ -64,7 +64,7 @@ public class BusinessClass
      */
     public BusinessClass( )
     {
-        _listAttributes = new ArrayList<Attribute>( );
+        _listAttributes = new ArrayList<>( );
     }
 
     /**
@@ -139,7 +139,7 @@ public class BusinessClass
      */
     public void setAttributes( List<Attribute> listAttributes )
     {
-        _listAttributes = listAttributes;
+        _listAttributes = ( List<Attribute> )( ( ( ArrayList<Attribute> )listAttributes ).clone( ) );
     }
 
     /**
@@ -149,7 +149,7 @@ public class BusinessClass
      */
     public List<Attribute> getAttributes( )
     {
-        return _listAttributes;
+        return ( List<Attribute> )( ( ( ArrayList<Attribute> )_listAttributes ).clone( ) );
     }
 
     /**

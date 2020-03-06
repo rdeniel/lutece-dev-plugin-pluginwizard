@@ -510,7 +510,7 @@ public class PluginModel
      */
     public void setPluginApplications( List<Application> listPluginApplications )
     {
-        _listPluginApplications = listPluginApplications;
+        _listPluginApplications = ( List<Application> )( ( ( ArrayList<Application> )listPluginApplications ).clone( ) );
     }
 
     /**
@@ -520,7 +520,7 @@ public class PluginModel
      */
     public List<Application> getApplications( )
     {
-        return _listPluginApplications;
+        return ( List<Application> )( ( ( ArrayList<Application> )_listPluginApplications ).clone( ) );
     }
 
     /**
@@ -552,7 +552,7 @@ public class PluginModel
      */
     public void setPluginFeatures( List<Feature> listPluginFeatures )
     {
-        _listPluginFeatures = listPluginFeatures;
+        _listPluginFeatures = ( List<Feature> )( ( ( ArrayList<Feature> )listPluginFeatures ).clone( ) );
     }
 
     /**
@@ -562,7 +562,7 @@ public class PluginModel
      */
     public List<Feature> getFeatures( )
     {
-        return _listPluginFeatures;
+        return ( List<Feature> )( ( ( ArrayList<Feature> )_listPluginFeatures ).clone( ) );
     }
 
     /**
@@ -573,7 +573,7 @@ public class PluginModel
      */
     public void setPluginPortlets( List<Portlet> listPluginPortlets )
     {
-        _listPluginPortlets = listPluginPortlets;
+        _listPluginPortlets = ( List<Portlet> )( ( ( ArrayList<Portlet> )listPluginPortlets ).clone( ) );
     }
 
     /**
@@ -583,7 +583,7 @@ public class PluginModel
      */
     public List<Portlet> getPortlets( )
     {
-        return _listPluginPortlets;
+        return ( List<Portlet> )( ( ( ArrayList<Portlet> )_listPluginPortlets ).clone( ) );
     }
 
     /**
@@ -593,7 +593,7 @@ public class PluginModel
      */
     public List<BusinessClass> getBusinessClasses( )
     {
-        return _listBusinessClasses;
+        return ( List<BusinessClass> )( ( ( ArrayList<BusinessClass> )_listBusinessClasses ).clone( ) );
     }
 
     public List<Feature> BusinessClass( )
