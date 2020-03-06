@@ -31,7 +31,7 @@
  *
  * License 1.0
  */
- <#if plugin_model.type= "MODULE" >
+ <#if plugin_model.module = true >
   	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
  <#else>
  	<#assign radicalPackage= plugin_model.pluginName />

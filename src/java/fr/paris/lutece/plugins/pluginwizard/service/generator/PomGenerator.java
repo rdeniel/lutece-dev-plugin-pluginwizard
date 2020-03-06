@@ -87,9 +87,9 @@ public class PomGenerator extends AbstractFileGenerator
         model.put( MARK_KOTLIN, isKotlin( ) );
         model.put( Markers.MARK_PLUGIN, pm );
         model.put( Markers.MARK_GLOBAL_POM_VERSION, getGlobalPomVersion( ) );
-        model.put( Markers.MARK_GLOBAL_POM_VERSION, getGlobalPomVersion( ) );
         model.put( Markers.MARK_CORE_VERSION, getDependencyCoreVersion( ) );
         model.put( Markers.MARK_DEPENDECY_REST_VERSION, getDependencyRestVersion( ) );
+        model.put( Markers.MARK_POM_MODEL_VERSION, getModelVersion( ) );
 
         return build( model );
     }
@@ -116,7 +116,7 @@ public class PomGenerator extends AbstractFileGenerator
      * get pom model version
      * @return the pom model version
      */
-    public String getModelVersion() {
+    public String getModelVersion( ) {
         return _strModelVersion;
     }
     
@@ -124,7 +124,7 @@ public class PomGenerator extends AbstractFileGenerator
      * set PomModelVersion
      * @param strPomModelVersion
      */
-    public void setModelVersion(String strModelVersion) {
+    public void setModelVersion( String strModelVersion ) {
         this._strModelVersion = strModelVersion;
     }
 
@@ -140,7 +140,7 @@ public class PomGenerator extends AbstractFileGenerator
      * set Pom Parent Version
      * @param strVersion
      */
-    public void setGlobalPomVersion(String strVersion) {
+    public void setGlobalPomVersion( String strVersion ) {
         this._strGlobalPomVersion = strVersion;
     }
 
@@ -148,7 +148,7 @@ public class PomGenerator extends AbstractFileGenerator
      * get Dependency Core Version
      * @return the Dependency Core Version
      */
-    public String getDependencyCoreVersion() {
+    public String getDependencyCoreVersion( ) {
         return _strDependencyCoreVersion;
     }
 
@@ -156,7 +156,7 @@ public class PomGenerator extends AbstractFileGenerator
      * set Dependency Core Version
      * @param strDependencyCoreVersion
      */
-    public void setDependencyCoreVersion(String strDependencyCoreVersion) {
+    public void setDependencyCoreVersion( String strDependencyCoreVersion ) {
         this._strDependencyCoreVersion = strDependencyCoreVersion;
     }
 
@@ -164,7 +164,7 @@ public class PomGenerator extends AbstractFileGenerator
      * get Dependency Rest Version
      * @return the Dependency Rest Version
      */
-    public String getDependencyRestVersion() {
+    public String getDependencyRestVersion( ) {
         return _strDependencyRestVersion;
     }
     
@@ -172,7 +172,7 @@ public class PomGenerator extends AbstractFileGenerator
      * set Dependency Rest Version
      * @param strDependencyRestVersion
      */
-    public void setDependencyRestVersion(String strDependencyRestVersion) {
+    public void setDependencyRestVersion( String strDependencyRestVersion ) {
         this._strDependencyRestVersion = strDependencyRestVersion;
     }
 }

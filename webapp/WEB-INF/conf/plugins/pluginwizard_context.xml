@@ -212,7 +212,7 @@
    </bean>
    <bean id="pluginwizard.generator.lutece7.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
       <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
-      <property name="modelVersion" value="4.0.4" />
+      <property name="modelVersion" value="4.0.0" />
 	  <property name="globalPomVersion" value="5.0.2" />
 	  <property name="dependencyCoreVersion" value="[7.0.0-SNAPSHOT,)" />
 	  <property name="dependencyRestVersion" value="3.0.0" />
@@ -335,7 +335,6 @@
          <list>
             <ref bean="pluginwizard.generator.admin.java.jspbean" />
             <ref bean="pluginwizard.generator.java.jspbean.test" />
-            <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
          </list>
       </constructor-arg>
    </bean>
@@ -399,6 +398,14 @@
       </property>
       <property name="tabsTemplate">
          <value>/generators/default/html/gt_html_xpage_tabs.html</value>
+      </property>
+   </bean>
+      <bean id="pluginwizard.generator.xpage.html.v6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator">
+      <property name="template">
+         <value>/generators/default/html/gt_html_xpage_v6.html</value>
+      </property>
+      <property name="tabsTemplate">
+         <value>/generators/default/html/gt_html_xpage_tabs_v6.html</value>
       </property>
    </bean>
    <bean id="pluginwizard.generator.xpage.html.v5" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator">
@@ -562,21 +569,10 @@
          <value>src/</value>
       </property>
    </bean>
-<!--    <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator"> -->
-<!--       <property name="kotlin" value="true" /> -->
-<!--       <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" /> -->
-<!--       <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" /> -->
-<!--    </bean> -->
-   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig">
-      <property name="sourcePath">
-         <value>src/</value>
-      </property>
-      <property name="template">
-         <value>/generators/default/jspbean/gt_jspbean_k.html</value>
-      </property>
-      <property name="abstractParentBeanTemplate">
-         <value>/generators/default/jspbean/gt_jspbean_k_abstract.html</value>
-      </property>
+   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator">
+      <property name="kotlin" value="true" />
+      <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
+      <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
    </bean>
    <!-- ############################### GENERATION SCHEME #########################-->
    <bean id="schemeLutece5" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
@@ -627,7 +623,7 @@
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html.v6" />
             <ref bean="pluginwizard.generator.admin.java.xpage" />
-            <ref bean="pluginwizard.generator.xpage.html" />
+            <ref bean="pluginwizard.generator.xpage.html.v6" />
             <ref bean="pluginwizard.generator.portlet.java.business" />
             <ref bean="pluginwizard.generator.portlet.jsp" />
             <ref bean="pluginwizard.generator.portlet.html" />
@@ -657,7 +653,7 @@
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html" />
             <ref bean="pluginwizard.generator.admin.kotlin.xpage" />
-            <ref bean="pluginwizard.generator.xpage.html" />
+            <ref bean="pluginwizard.generator.xpage.html.v6" />
             <!--
 
                 <ref bean="pluginwizard.generator.portlet.java.business" />
