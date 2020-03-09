@@ -224,7 +224,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public Collection<PluginModel> selectPluginModelsList( Plugin plugin )
     {
-        Collection<PluginModel> pluginModelList = new ArrayList<PluginModel>( );
+        Collection<PluginModel> pluginModelList = new ArrayList<>( );
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );

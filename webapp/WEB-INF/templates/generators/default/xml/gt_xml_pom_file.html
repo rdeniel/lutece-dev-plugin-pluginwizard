@@ -23,8 +23,12 @@
     <artifactId>plugin-${plugin.pluginName?lower_case}</artifactId>
     </#if>
     <packaging>lutece-plugin</packaging>
+    
+    <#if plugin.pluginName?lower_case = "plugin-rest">
+    <version>${dependecy_rest_version}</version>
+    <#else>
     <version>${plugin.pluginVersion}-SNAPSHOT</version>
-
+	</#if>
     <#if plugin.module = true>
     <name>Lutece ${plugin.pluginName?replace("-", " ")?lower_case} module</name>
     <#else>
@@ -55,7 +59,7 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[${core_version},)</version>
+            <version>${core_version}</version>
             <type>lutece-core</type>
         </dependency>
         <#if plugin.getRest().getIdBusinessClasses()?? && plugin.getRest().getIdBusinessClasses()?size &gt; 0 >

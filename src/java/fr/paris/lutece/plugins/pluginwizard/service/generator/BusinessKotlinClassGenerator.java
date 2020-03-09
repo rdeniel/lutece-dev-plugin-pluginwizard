@@ -67,7 +67,7 @@ public class BusinessKotlinClassGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map<String, String> generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
         HashMap<String, String> map = new HashMap<>( );
         Collection<BusinessClass> listAllBusinessClasses = pm.getBusinessClasses( );

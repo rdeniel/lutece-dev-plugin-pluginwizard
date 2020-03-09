@@ -64,7 +64,7 @@ public class BusinessClass
      */
     public BusinessClass( )
     {
-        _listAttributes = new ArrayList<Attribute>( );
+        _listAttributes = new ArrayList<>( );
     }
 
     /**

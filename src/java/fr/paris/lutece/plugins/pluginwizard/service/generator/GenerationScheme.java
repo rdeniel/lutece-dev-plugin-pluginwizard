@@ -33,6 +33,7 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,7 +85,7 @@ public class GenerationScheme
      */
     public List<Generator> getGeneratorsList( )
     {
-        return _listGenerators;
+        return ( List<Generator> )( ( ( ArrayList<Generator> )_listGenerators ).clone( ) );
     }
 
     /**
@@ -93,7 +94,7 @@ public class GenerationScheme
      */
     public void setGeneratorsList( List<Generator> generatorsList )
     {
-        _listGenerators = generatorsList;
+        _listGenerators = ( List<Generator> )( ( ( ArrayList<Generator> )generatorsList ).clone( ) );
     }
 
     /**

@@ -65,7 +65,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
      * @param pm
      */
     @Override
-    public Map generate( PluginModel pm )
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
         String strPluginName = pm.getPluginNameAsPackage( );

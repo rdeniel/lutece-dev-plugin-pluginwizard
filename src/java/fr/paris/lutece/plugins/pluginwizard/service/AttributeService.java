@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.util.ReferenceList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,7 +53,7 @@ public class AttributeService
      */
     public void setAttributeTypesList( List<AttributeType> list )
     {
-        _listAttributeTypes = list;
+        _listAttributeTypes = ( List<AttributeType> )( ( ( ArrayList<AttributeType> )list ).clone( ) );
     }
 
     /**

@@ -196,9 +196,29 @@
       </property>
    </bean>
    <!-- ############################### GENERATORS #########################-->
-   <bean id="pluginwizard.generator.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
+   <bean id="pluginwizard.generator.lutece5.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
       <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
+      <property name="modelVersion" value="4.0.0" />
+	  <property name="globalPomVersion" value="4.0.4" />
+	  <property name="dependencyCoreVersion" value="[5.0.0,6.0.0-SNAPSHOT)" />
+	  <property name="dependencyRestVersion" value="3.0.0" />
    </bean>
+   <bean id="pluginwizard.generator.lutece6.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
+      <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
+      <property name="modelVersion" value="4.0.0" />
+	  <property name="globalPomVersion" value="4.0.4" />
+	  <property name="dependencyCoreVersion" value="[6.0.0,7.0.0-SNAPSHOT)" />
+	  <property name="dependencyRestVersion" value="3.0.0" />
+   </bean>
+   <bean id="pluginwizard.generator.lutece7.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
+      <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
+      <property name="modelVersion" value="4.0.0" />
+	  <property name="globalPomVersion" value="5.0.2" />
+	  <property name="dependencyCoreVersion" value="[7.0.0-SNAPSHOT,)" />
+	  <property name="dependencyRestVersion" value="3.0.0" />
+   </bean>
+   
+   
    <bean id="pluginwizard.generator.pluginXml" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PluginXmlGenerator">
       <property name="template">
          <value>/generators/default/xml/gt_xml_plugin_file.html</value>
@@ -309,6 +329,9 @@
       <property name="files">
          <ref bean="pluginwizard.list.files.admin.jspbeans" />
       </property>
+       <property name="abstractParentBeanTemplate">
+         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
+      </property>
    </bean>
    <bean id="pluginwizard.list.files.admin.jspbeans" class="java.util.ArrayList">
       <constructor-arg>
@@ -324,9 +347,6 @@
       </property>
       <property name="template">
          <value>/generators/default/jspbean/gt_jspbean.html</value>
-      </property>
-      <property name="abstractParentBeanTemplate">
-         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
       </property>
    </bean>
    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator">
@@ -378,6 +398,14 @@
       </property>
       <property name="tabsTemplate">
          <value>/generators/default/html/gt_html_xpage_tabs.html</value>
+      </property>
+   </bean>
+      <bean id="pluginwizard.generator.xpage.html.v6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator">
+      <property name="template">
+         <value>/generators/default/html/gt_html_xpage_v6.html</value>
+      </property>
+      <property name="tabsTemplate">
+         <value>/generators/default/html/gt_html_xpage_tabs_v6.html</value>
       </property>
    </bean>
    <bean id="pluginwizard.generator.xpage.html.v5" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageTemplateGenerator">
@@ -446,9 +474,6 @@
       <property name="sourcePath">
          <value>src/test/</value>
       </property>
-      <property name="abstractParentBeanTemplate">
-         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
-      </property>
    </bean>
    <bean id="pluginwizard.generator.portlet.jsp" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PortletJspGenerator">
       <property name="template">
@@ -489,6 +514,10 @@
    <bean id="pluginwizard.generator.kotlin.pom" class="fr.paris.lutece.plugins.pluginwizard.service.generator.PomGenerator">
       <property name="template" value="/generators/default/xml/gt_xml_pom_file.html" />
       <property name="kotlin" value="true" />
+      <property name="modelVersion" value="4.0.4" />
+	  <property name="globalPomVersion" value="5.0.0" />
+	  <property name="dependencyCoreVersion" value="[6.0.0,7.0.0-SNAPSHOT)" />
+	  <property name="dependencyRestVersion" value="3.0.0" />
    </bean>
    <bean id="pluginwizard.generator.kotlin.resources" class="fr.paris.lutece.plugins.pluginwizard.service.generator.ResourcesGenerator">
       <property name="kotlin" value="true" />
@@ -513,10 +542,22 @@
       <property name="kotlin" value="true" />
       <property name="files" ref="pluginwizard.list.files.kotlin.xpage" />
    </bean>
+   <bean id="pluginwizard.generator.admin.kotlin.jspbeangenerator" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator">
+      <property name="kotlin" value="true" />
+      <property name="files" ref="pluginwizard.list.files.kotlin.jspbeans" />
+      <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
+   </bean>
    <bean id="pluginwizard.list.files.kotlin.xpage" class="java.util.ArrayList">
       <constructor-arg>
          <list>
             <ref bean="pluginwizard.xpage.kotlin" />
+         </list>
+      </constructor-arg>
+   </bean>
+   <bean id="pluginwizard.list.files.kotlin.jspbeans" class="java.util.ArrayList">
+      <constructor-arg>
+         <list>
+            <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
          </list>
       </constructor-arg>
    </bean>
@@ -537,22 +578,20 @@
          <value>src/</value>
       </property>
    </bean>
-   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator">
-      <property name="kotlin" value="true" />
+   <bean id="pluginwizard.generator.admin.kotlin.jspbean" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig">
       <property name="template" value="/generators/default/jspbean/gt_jspbean_k.html" />
-      <property name="abstractParentBeanTemplate" value="/generators/default/jspbean/gt_jspbean_k_abstract.html" />
+      <property name="sourcePath">
+         <value>src/</value>
+      </property>
    </bean>
    <!-- ############################### GENERATION SCHEME #########################-->
-   <bean id="pluginwizard.scheme1" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
+   <bean id="schemeLutece5" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Java Lutece 5.0 (DAO SQL)</value>
       </property>
-      <property name="coreVersion">
-         <value>5.0.0</value>
-      </property>
       <property name="generatorsList">
          <list>
-            <ref bean="pluginwizard.generator.pom" />
+            <ref bean="pluginwizard.generator.lutece5.pom" />
             <ref bean="pluginwizard.generator.pluginXml" />
             <ref bean="pluginwizard.generator.context" />
             <ref bean="pluginwizard.generator.properties" />
@@ -576,13 +615,13 @@
          </list>
       </property>
    </bean>
-   <bean id="pluginwizard.scheme2" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
+   <bean id="schemeLutece6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Modèle Lutece 6.0 (DAO SQL)</value>
-     </property>
+      </property>
       <property name="generatorsList">
          <list>
-            <ref bean="pluginwizard.generator.pom" />
+            <ref bean="pluginwizard.generator.lutece6.pom" />
             <ref bean="pluginwizard.generator.pluginXml" />
             <ref bean="pluginwizard.generator.context" />
             <ref bean="pluginwizard.generator.properties" />
@@ -594,7 +633,7 @@
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html.v6" />
             <ref bean="pluginwizard.generator.admin.java.xpage" />
-            <ref bean="pluginwizard.generator.xpage.html" />
+            <ref bean="pluginwizard.generator.xpage.html.v6" />
             <ref bean="pluginwizard.generator.portlet.java.business" />
             <ref bean="pluginwizard.generator.portlet.jsp" />
             <ref bean="pluginwizard.generator.portlet.html" />
@@ -606,12 +645,9 @@
          </list>
       </property>
    </bean>
-   <bean id="pluginwizard.scheme3" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
+   <bean id="schemeLuteceKotlin6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Kotlin Lutece 6.0 (DAO SQL)</value>
-      </property>
-      <property name="coreVersion">
-         <value>6.0.0</value>
       </property>
       <property name="generatorsList">
          <list>
@@ -623,11 +659,11 @@
             <ref bean="pluginwizard.generator.kotlin.resources" />
             <ref bean="pluginwizard.generator.sql" />
             <ref bean="pluginwizard.generator.admin.kotlin.business" />
-            <ref bean="pluginwizard.generator.admin.kotlin.jspbean" />
+            <ref bean="pluginwizard.generator.admin.kotlin.jspbeangenerator" />
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html" />
             <ref bean="pluginwizard.generator.admin.kotlin.xpage" />
-            <ref bean="pluginwizard.generator.xpage.html" />
+            <ref bean="pluginwizard.generator.xpage.html.v6" />
             <!--
 
                 <ref bean="pluginwizard.generator.portlet.java.business" />
@@ -643,19 +679,17 @@
          </list>
       </property>
    </bean>
-<bean id="pluginwizard.scheme7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
+
+<bean id="schemeLutece7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
          <value>Modèle Lutece 7.0</value>
-      </property>
-      <property name="coreVersion">
-         <value>7.0.0-SNAPSHOT</value>
       </property>
       <property name="isDefault">
          <value>true</value>
       </property>
       <property name="generatorsList">
          <list>
-            <ref bean="pluginwizard.generator.pom" />
+            <ref bean="pluginwizard.generator.lutece7.pom" />
             <ref bean="pluginwizard.generator.pluginXml" />
             <ref bean="pluginwizard.generator.context" />
             <ref bean="pluginwizard.generator.properties" />

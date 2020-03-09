@@ -56,7 +56,7 @@ public class ResourcesGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         ResourcesGenerator instance = new ResourcesGenerator( );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

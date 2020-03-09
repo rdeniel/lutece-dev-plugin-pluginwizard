@@ -81,10 +81,9 @@ public class AdminJspBeanGenerator extends AbstractGenerator
     /**
      * {@inheritDoc }
      */
-    @Override
-    public Map generate( PluginModel pm )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
-        HashMap map = new HashMap( );
+        HashMap<String, String> map = new HashMap<>( );
 
         for ( Feature feature : pm.getFeatures( ) )
         {
@@ -138,7 +137,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( strTemplate, model );
     }
@@ -163,7 +161,6 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
         model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
-        model.put( Markers.MARK_CORE_VERSION, getCoreVersion( ) );
 
         return build( _strAbstractParentBeanTemplate, model );
     }

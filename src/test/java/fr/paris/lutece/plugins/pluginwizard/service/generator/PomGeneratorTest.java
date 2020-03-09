@@ -56,17 +56,16 @@ public class PomGeneratorTest extends LuteceTestCase
         System.out.println( "generate POM file" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        PomGenerator instance = SpringContextService.getBean( "pluginwizard.generator.pom" );
-        instance.setCoreVersion("7.0.0-SNAPSHOT");
-        Map result = instance.generate( pm );
+        PomGenerator instance = SpringContextService.getBean( "pluginwizard.generator.lutece7.pom" );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
         
-        instance.setCoreVersion("6.2.1-SNAPSHOT");
-        result = instance.generate( pm );
+        instance = SpringContextService.getBean( "pluginwizard.generator.lutece6.pom" );
+        result = instance.generate( pm, "schemeLutece6" );
         GeneratorUtils.outputMap( result );
         
-        instance.setCoreVersion("5.0.0-SNAPSHOT");
-        result = instance.generate( pm );
+        instance = SpringContextService.getBean( "pluginwizard.generator.lutece5.pom" );
+        result = instance.generate( pm, "schemeLutece5" );
         GeneratorUtils.outputMap( result );
     }
 }

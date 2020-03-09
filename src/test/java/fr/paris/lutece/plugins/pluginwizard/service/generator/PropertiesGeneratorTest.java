@@ -57,7 +57,7 @@ public class PropertiesGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         PropertiesGenerator instance = SpringContextService.getBean( "pluginwizard.generator.properties" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }

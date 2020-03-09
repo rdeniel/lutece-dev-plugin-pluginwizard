@@ -57,7 +57,7 @@ public class SqlCodeGeneratorTest extends LuteceTestCase
 
         PluginModel pm = GeneratorUtils.getTestModel( );
         SqlCodeGenerator instance = SpringContextService.getBean( "pluginwizard.generator.sql" );
-        Map result = instance.generate( pm );
+        Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
     }
 }
