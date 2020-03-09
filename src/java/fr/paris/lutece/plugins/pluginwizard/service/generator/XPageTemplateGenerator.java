@@ -126,7 +126,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
     private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Application application, BusinessClass businessClass,
             int nTemplateType, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );
@@ -160,7 +160,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
      */
     private String getTabsHtmlCode( Collection<BusinessClass> listAllBusinessClasses, String strPluginName, Application application )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_APPLICATION, application );
@@ -189,7 +189,7 @@ public class XPageTemplateGenerator extends AbstractGenerator
      */
     private String getCreateHtmlCode( Application application, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_I18N_BRACKETS_OPEN, "@@i18n{" );

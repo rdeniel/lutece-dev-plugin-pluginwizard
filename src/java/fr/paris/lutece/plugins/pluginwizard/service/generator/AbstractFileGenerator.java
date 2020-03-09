@@ -88,7 +88,7 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
      */
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_PLUGIN, pm );
         model.put( Markers.MARK_LIST_PORTLETS, pm.getPortlets( ) );
         model.put( Markers.MARK_BUSINESS_CLASSES, pm.getBusinessClasses( ) );

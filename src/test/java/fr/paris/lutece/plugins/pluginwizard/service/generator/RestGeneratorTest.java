@@ -56,7 +56,7 @@ public class RestGeneratorTest extends LuteceTestCase
         System.out.println( "generate Rest files A1ternative" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        RestGenerator instance = SpringContextService.getBean( "pluginwizard.generator.rest.java.alternative" );
+        RestGenerator instance = SpringContextService.getBean( "pluginwizard.generator.rest.java" );
         Map result = instance.generate( pm );
         GeneratorUtils.outputMap( result );
     }

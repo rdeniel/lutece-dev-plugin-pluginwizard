@@ -37,8 +37,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Feature;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +134,7 @@ public class AdminJspGenerator extends AbstractGenerator
      */
     private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, int nJspType, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
@@ -161,7 +159,7 @@ public class AdminJspGenerator extends AbstractGenerator
      */
     private String getFeatureJspFile( String strFeatureName, String strPluginName, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, bIsModule );

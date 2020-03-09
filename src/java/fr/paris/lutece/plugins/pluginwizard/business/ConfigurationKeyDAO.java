@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,21 +61,23 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery( );
-
-        int nKey;
-
-        if ( !daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
-            // if the table is empty
-            nKey = 1;
+            daoUtil.executeQuery( );
+    
+            int nKey;
+    
+            if ( !daoUtil.next( ) )
+            {
+                // if the table is empty
+                nKey = 1;
+            }
+    
+            nKey = daoUtil.getInt( 1 ) + 1;
+            daoUtil.free( );
+    
+            return nKey;
         }
-
-        nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free( );
-
-        return nKey;
     }
 
     /**
@@ -88,16 +90,18 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void insert( ConfigurationKey configurationKey, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-
-        configurationKey.setIdKey( newPrimaryKey( plugin ) );
-
-        daoUtil.setInt( 1, configurationKey.getIdKey( ) );
-        daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
-        daoUtil.setString( 3, configurationKey.getKeyValue( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        {
+    
+            configurationKey.setIdKey( newPrimaryKey( plugin ) );
+    
+            daoUtil.setInt( 1, configurationKey.getIdKey( ) );
+            daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
+            daoUtil.setString( 3, configurationKey.getKeyValue( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -111,24 +115,26 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public ConfigurationKey load( int nId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery( );
-
-        ConfigurationKey configurationKey = null;
-
-        if ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            configurationKey = new ConfigurationKey( );
-
-            configurationKey.setIdKey( daoUtil.getInt( 1 ) );
-            configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
-            configurationKey.setKeyValue( daoUtil.getString( 3 ) );
+            daoUtil.setInt( 1, nId );
+            daoUtil.executeQuery( );
+    
+            ConfigurationKey configurationKey = null;
+    
+            if ( daoUtil.next( ) )
+            {
+                configurationKey = new ConfigurationKey( );
+    
+                configurationKey.setIdKey( daoUtil.getInt( 1 ) );
+                configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
+                configurationKey.setKeyValue( daoUtil.getString( 3 ) );
+            }
+    
+            daoUtil.free( );
+    
+            return configurationKey;
         }
-
-        daoUtil.free( );
-
-        return configurationKey;
     }
 
     /**
@@ -141,10 +147,12 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void delete( int nConfigurationKeyId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1, nConfigurationKeyId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+            daoUtil.setInt( 1, nConfigurationKeyId );
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -157,15 +165,17 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void store( ConfigurationKey configurationKey, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-
-        daoUtil.setInt( 1, configurationKey.getIdKey( ) );
-        daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
-        daoUtil.setString( 3, configurationKey.getKeyValue( ) );
-        daoUtil.setInt( 4, configurationKey.getIdKey( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        {
+    
+            daoUtil.setInt( 1, configurationKey.getIdKey( ) );
+            daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
+            daoUtil.setString( 3, configurationKey.getKeyValue( ) );
+            daoUtil.setInt( 4, configurationKey.getIdKey( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -177,23 +187,25 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public Collection<ConfigurationKey> selectConfigurationKeysList( Plugin plugin )
     {
-        Collection<ConfigurationKey> configurationKeyList = new ArrayList<ConfigurationKey>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery( );
-
-        while ( daoUtil.next( ) )
+        Collection<ConfigurationKey> configurationKeyList = new ArrayList<>( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
-            ConfigurationKey configurationKey = new ConfigurationKey( );
-
-            configurationKey.setIdKey( daoUtil.getInt( 1 ) );
-            configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
-            configurationKey.setKeyValue( daoUtil.getString( 3 ) );
-
-            configurationKeyList.add( configurationKey );
+            daoUtil.executeQuery( );
+    
+            while ( daoUtil.next( ) )
+            {
+                ConfigurationKey configurationKey = new ConfigurationKey( );
+    
+                configurationKey.setIdKey( daoUtil.getInt( 1 ) );
+                configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
+                configurationKey.setKeyValue( daoUtil.getString( 3 ) );
+    
+                configurationKeyList.add( configurationKey );
+            }
+    
+            daoUtil.free( );
+    
+            return configurationKeyList;
         }
-
-        daoUtil.free( );
-
-        return configurationKeyList;
     }
 }

@@ -97,7 +97,7 @@ public class PortletXslGenerator extends AbstractGenerator
      */
     private String getPortletXsl( Portlet portlet, String strPluginName )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_PORTLET, portlet );
         model.put( MARK_PLUGIN_NAME, strPluginName );
 

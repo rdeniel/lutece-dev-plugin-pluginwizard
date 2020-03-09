@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -63,21 +63,23 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery( );
-
-        int nKey;
-
-        if ( !daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
-            // if the table is empty
-            nKey = 1;
+            daoUtil.executeQuery( );
+    
+            int nKey;
+    
+            if ( !daoUtil.next( ) )
+            {
+                // if the table is empty
+                nKey = 1;
+            }
+    
+            nKey = daoUtil.getInt( 1 ) + 1;
+            daoUtil.free( );
+    
+            return nKey;
         }
-
-        nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free( );
-
-        return nKey;
     }
 
     /**
@@ -90,27 +92,29 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void insert( PluginModel pluginModel, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-
-        pluginModel.setIdPlugin( newPrimaryKey( plugin ) );
-
-        daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
-        daoUtil.setString( 2, pluginModel.getPluginName( ) );
-        daoUtil.setString( 3, pluginModel.getPluginClass( ) );
-        daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
-        daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
-        daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
-        daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
-        daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
-        daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
-        daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
-        daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
-        daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
-        daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
-        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        {
+    
+            pluginModel.setIdPlugin( newPrimaryKey( plugin ) );
+    
+            daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
+            daoUtil.setString( 2, pluginModel.getPluginName( ) );
+            daoUtil.setString( 3, pluginModel.getPluginClass( ) );
+            daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
+            daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
+            daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
+            daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
+            daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
+            daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
+            daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
+            daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
+            daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
+            daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
+            daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -124,37 +128,39 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public PluginModel load( int nId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery( );
-
-        PluginModel pluginModel = null;
-
-        if ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            pluginModel = new PluginModel( );
-
-            pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
-            pluginModel.setPluginName( daoUtil.getString( 2 ) );
-            pluginModel.setPluginClass( daoUtil.getString( 3 ) );
-            pluginModel.setPluginDescription( daoUtil.getString( 4 ) );
-            pluginModel.setPluginDocumentation( daoUtil.getString( 5 ) );
-            pluginModel.setPluginInstallation( daoUtil.getString( 6 ) );
-            pluginModel.setPluginChanges( daoUtil.getString( 7 ) );
-            pluginModel.setPluginUserGuide( daoUtil.getString( 8 ) );
-            pluginModel.setPluginVersion( daoUtil.getString( 9 ) );
-            pluginModel.setPluginCopyright( daoUtil.getString( 10 ) );
-            pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
-            pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
-            pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
-            pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
-
-            // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
+            daoUtil.setInt( 1, nId );
+            daoUtil.executeQuery( );
+    
+            PluginModel pluginModel = null;
+    
+            if ( daoUtil.next( ) )
+            {
+                pluginModel = new PluginModel( );
+    
+                pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
+                pluginModel.setPluginName( daoUtil.getString( 2 ) );
+                pluginModel.setPluginClass( daoUtil.getString( 3 ) );
+                pluginModel.setPluginDescription( daoUtil.getString( 4 ) );
+                pluginModel.setPluginDocumentation( daoUtil.getString( 5 ) );
+                pluginModel.setPluginInstallation( daoUtil.getString( 6 ) );
+                pluginModel.setPluginChanges( daoUtil.getString( 7 ) );
+                pluginModel.setPluginUserGuide( daoUtil.getString( 8 ) );
+                pluginModel.setPluginVersion( daoUtil.getString( 9 ) );
+                pluginModel.setPluginCopyright( daoUtil.getString( 10 ) );
+                pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
+                pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
+                pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
+                pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
+    
+                // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
+            }
+    
+            daoUtil.free( );
+    
+            return pluginModel;
         }
-
-        daoUtil.free( );
-
-        return pluginModel;
     }
 
     /**
@@ -167,10 +173,12 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void delete( int nPluginModelId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1, nPluginModelId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+            daoUtil.setInt( 1, nPluginModelId );
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -183,26 +191,28 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void store( PluginModel pluginModel, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-
-        daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
-        daoUtil.setString( 2, pluginModel.getPluginName( ) );
-        daoUtil.setString( 3, pluginModel.getPluginClass( ) );
-        daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
-        daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
-        daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
-        daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
-        daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
-        daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
-        daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
-        daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
-        daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
-        daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
-        daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
-        daoUtil.setInt( 15, pluginModel.getIdPlugin( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        {
+    
+            daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
+            daoUtil.setString( 2, pluginModel.getPluginName( ) );
+            daoUtil.setString( 3, pluginModel.getPluginClass( ) );
+            daoUtil.setString( 4, pluginModel.getPluginDescription( ) );
+            daoUtil.setString( 5, pluginModel.getPluginDocumentation( ) );
+            daoUtil.setString( 6, pluginModel.getPluginInstallation( ) );
+            daoUtil.setString( 7, pluginModel.getPluginChanges( ) );
+            daoUtil.setString( 8, pluginModel.getPluginUserGuide( ) );
+            daoUtil.setString( 9, pluginModel.getPluginVersion( ) );
+            daoUtil.setString( 10, pluginModel.getPluginCopyright( ) );
+            daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
+            daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
+            daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
+            daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
+            daoUtil.setInt( 15, pluginModel.getIdPlugin( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -215,34 +225,36 @@ public final class PluginModelDAO implements IPluginModelDAO
     public Collection<PluginModel> selectPluginModelsList( Plugin plugin )
     {
         Collection<PluginModel> pluginModelList = new ArrayList<PluginModel>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery( );
-
-        while ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
-            PluginModel pluginModel = new PluginModel( );
-
-            pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
-            pluginModel.setPluginName( daoUtil.getString( 2 ) );
-            pluginModel.setPluginClass( daoUtil.getString( 3 ) );
-            pluginModel.setPluginDescription( daoUtil.getString( 4 ) );
-            pluginModel.setPluginDocumentation( daoUtil.getString( 5 ) );
-            pluginModel.setPluginInstallation( daoUtil.getString( 6 ) );
-            pluginModel.setPluginChanges( daoUtil.getString( 7 ) );
-            pluginModel.setPluginUserGuide( daoUtil.getString( 8 ) );
-            pluginModel.setPluginVersion( daoUtil.getString( 9 ) );
-            pluginModel.setPluginCopyright( daoUtil.getString( 10 ) );
-            pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
-            pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
-            pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
-            pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
-
-            pluginModelList.add( pluginModel );
+            daoUtil.executeQuery( );
+    
+            while ( daoUtil.next( ) )
+            {
+                PluginModel pluginModel = new PluginModel( );
+    
+                pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
+                pluginModel.setPluginName( daoUtil.getString( 2 ) );
+                pluginModel.setPluginClass( daoUtil.getString( 3 ) );
+                pluginModel.setPluginDescription( daoUtil.getString( 4 ) );
+                pluginModel.setPluginDocumentation( daoUtil.getString( 5 ) );
+                pluginModel.setPluginInstallation( daoUtil.getString( 6 ) );
+                pluginModel.setPluginChanges( daoUtil.getString( 7 ) );
+                pluginModel.setPluginUserGuide( daoUtil.getString( 8 ) );
+                pluginModel.setPluginVersion( daoUtil.getString( 9 ) );
+                pluginModel.setPluginCopyright( daoUtil.getString( 10 ) );
+                pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
+                pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
+                pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
+                pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
+    
+                pluginModelList.add( pluginModel );
+            }
+    
+            daoUtil.free( );
+    
+            return pluginModelList;
         }
-
-        daoUtil.free( );
-
-        return pluginModelList;
     }
 
     /**
@@ -256,20 +268,22 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public int selectPluginModelByName( Plugin plugin, String strPluginName )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_NAME, plugin );
-        daoUtil.setString( 1, strPluginName );
-        daoUtil.executeQuery( );
-
-        int nPluginId = 0;
-
-        if ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_NAME, plugin ) )
         {
-            nPluginId = daoUtil.getInt( 1 );
+            daoUtil.setString( 1, strPluginName );
+            daoUtil.executeQuery( );
+    
+            int nPluginId = 0;
+    
+            if ( daoUtil.next( ) )
+            {
+                nPluginId = daoUtil.getInt( 1 );
+            }
+    
+            daoUtil.free( );
+    
+            return nPluginId;
         }
-
-        daoUtil.free( );
-
-        return nPluginId;
     }
 
     /**
@@ -285,22 +299,24 @@ public final class PluginModelDAO implements IPluginModelDAO
     {
         boolean bValue = false;
         int nCount = 0;
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_COUNT_FIND_BY_NAME, plugin );
-        daoUtil.setString( 1, strPluginName );
-        daoUtil.executeQuery( );
-
-        if ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_COUNT_FIND_BY_NAME, plugin ) )
         {
-            nCount = daoUtil.getInt( 1 );
+            daoUtil.setString( 1, strPluginName );
+            daoUtil.executeQuery( );
+    
+            if ( daoUtil.next( ) )
+            {
+                nCount = daoUtil.getInt( 1 );
+            }
+    
+            daoUtil.free( );
+    
+            if ( nCount > 0 )
+            {
+                bValue = true;
+            }
+    
+            return bValue;
         }
-
-        daoUtil.free( );
-
-        if ( nCount > 0 )
-        {
-            bValue = true;
-        }
-
-        return bValue;
     }
 }

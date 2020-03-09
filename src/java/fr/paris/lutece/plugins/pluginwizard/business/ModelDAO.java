@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,16 +61,18 @@ public final class ModelDAO implements IModelDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin );
-        daoUtil.executeQuery( );
-
-        int nKey;
-
-        daoUtil.next( );
-        nKey = daoUtil.getInt( 1 ) + 1;
-        daoUtil.free( );
-
-        return nKey;
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        {
+            daoUtil.executeQuery( );
+    
+            int nKey;
+    
+            daoUtil.next( );
+            nKey = daoUtil.getInt( 1 ) + 1;
+            daoUtil.free( );
+    
+            return nKey;
+        }
     }
 
     /**
@@ -84,16 +86,18 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void insert( Model model, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin );
-
-        model.setIdPlugin( newPrimaryKey( plugin ) );
-
-        daoUtil.setInt( 1, model.getIdPlugin( ) );
-        daoUtil.setString( 2, model.getName( ) );
-        daoUtil.setString( 3, model.getModelJson( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        {
+    
+            model.setIdPlugin( newPrimaryKey( plugin ) );
+    
+            daoUtil.setInt( 1, model.getIdPlugin( ) );
+            daoUtil.setString( 2, model.getName( ) );
+            daoUtil.setString( 3, model.getModelJson( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -108,24 +112,26 @@ public final class ModelDAO implements IModelDAO
     @Override
     public Model load( int nId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-        daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery( );
-
-        Model model = null;
-
-        if ( daoUtil.next( ) )
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            model = new Model( );
-
-            model.setIdPlugin( daoUtil.getInt( 1 ) );
-            model.setName( daoUtil.getString( 2 ) );
-            model.setModelJson( daoUtil.getString( 3 ) );
+            daoUtil.setInt( 1, nId );
+            daoUtil.executeQuery( );
+    
+            Model model = null;
+    
+            if ( daoUtil.next( ) )
+            {
+                model = new Model( );
+    
+                model.setIdPlugin( daoUtil.getInt( 1 ) );
+                model.setName( daoUtil.getString( 2 ) );
+                model.setModelJson( daoUtil.getString( 3 ) );
+            }
+    
+            daoUtil.free( );
+    
+            return model;
         }
-
-        daoUtil.free( );
-
-        return model;
     }
 
     /**
@@ -139,10 +145,12 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void delete( int nModelId, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin );
-        daoUtil.setInt( 1, nModelId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+            daoUtil.setInt( 1, nModelId );
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -156,15 +164,17 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void store( Model model, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin );
-
-        daoUtil.setInt( 1, model.getIdPlugin( ) );
-        daoUtil.setString( 2, model.getName( ) );
-        daoUtil.setString( 3, model.getModelJson( ) );
-        daoUtil.setInt( 4, model.getIdPlugin( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        {
+    
+            daoUtil.setInt( 1, model.getIdPlugin( ) );
+            daoUtil.setString( 2, model.getName( ) );
+            daoUtil.setString( 3, model.getModelJson( ) );
+            daoUtil.setInt( 4, model.getIdPlugin( ) );
+    
+            daoUtil.executeUpdate( );
+            daoUtil.free( );
+        }
     }
 
     /**
@@ -177,23 +187,25 @@ public final class ModelDAO implements IModelDAO
     @Override
     public List<Model> selectModelsList( Plugin plugin )
     {
-        List<Model> modelList = new ArrayList<Model>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin );
-        daoUtil.executeQuery( );
-
-        while ( daoUtil.next( ) )
+        List<Model> modelList = new ArrayList<>( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
-            Model model = new Model( );
-
-            model.setIdPlugin( daoUtil.getInt( 1 ) );
-            model.setName( daoUtil.getString( 2 ) );
-            model.setModelJson( daoUtil.getString( 3 ) );
-
-            modelList.add( model );
+            daoUtil.executeQuery( );
+    
+            while ( daoUtil.next( ) )
+            {
+                Model model = new Model( );
+    
+                model.setIdPlugin( daoUtil.getInt( 1 ) );
+                model.setName( daoUtil.getString( 2 ) );
+                model.setModelJson( daoUtil.getString( 3 ) );
+    
+                modelList.add( model );
+            }
+    
+            daoUtil.free( );
+    
+            return modelList;
         }
-
-        daoUtil.free( );
-
-        return modelList;
     }
 }

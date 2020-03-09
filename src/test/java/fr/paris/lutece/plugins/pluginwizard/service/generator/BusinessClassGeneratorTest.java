@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
         System.out.println( "generate BusinessClass files (classic)" );
 
         PluginModel pm = GeneratorUtils.getTestModel( );
-        List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.classic" );
+        List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business" );
         BusinessClassGenerator instance = new BusinessClassGenerator( );
         instance.setFiles( listFiles );
 
@@ -65,20 +65,4 @@ public class BusinessClassGeneratorTest extends LuteceTestCase
         GeneratorUtils.outputMap( result );
     }
 
-    /**
-     * Test of generate method, of class BusinessClassGenerator.
-     */
-    @Test
-    public void testGenerateAlternative( )
-    {
-        System.out.println( "generate BusinessClass files (alternative)" );
-
-        PluginModel pm = GeneratorUtils.getTestModel( );
-        List listFiles = SpringContextService.getBean( "pluginwizard.list.files.business.alternative" );
-        BusinessClassGenerator instance = new BusinessClassGenerator( );
-        instance.setFiles( listFiles );
-
-        Map result = instance.generate( pm );
-        GeneratorUtils.outputMap( result );
-    }
 }

@@ -66,7 +66,7 @@ public class PomGenerator extends AbstractFileGenerator
     @Override
     protected String getCode( PluginModel pm )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         Collection<ConfigurationKey> listKeys = ConfigurationKeyHome.getConfigurationKeysList( );
 
         // Fetches the actual configuration values to be replaced in the templates

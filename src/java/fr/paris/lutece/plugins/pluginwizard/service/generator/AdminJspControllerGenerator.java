@@ -120,7 +120,7 @@ public class AdminJspControllerGenerator extends AbstractGenerator
     private String getJspBusinessFile( BusinessClass businessClass, String strFeatureName, String strPluginName, boolean bIsModule )
     {
         String strBeanName = strFeatureName.toLowerCase( ) + businessClass.getBusinessClass( );
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_BUSINESS_CLASS, businessClass );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_BEAN_NAME, strBeanName );
@@ -140,7 +140,7 @@ public class AdminJspControllerGenerator extends AbstractGenerator
      */
     private String getFeatureJspFile( String strFeatureName, String strPluginName, boolean bIsModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, bIsModule );

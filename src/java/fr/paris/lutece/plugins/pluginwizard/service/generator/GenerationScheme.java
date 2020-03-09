@@ -98,20 +98,22 @@ public class GenerationScheme
 
     /**
      * get is default
+     * 
      * @return true if default
      */
-	public boolean isDefault() {
-		return _bIsDefault;
-	}
+    public boolean isDefault( )
+    {
+        return _bIsDefault;
+    }
 
-	/**
-	 * set is default
-	 * 
-	 * @param _bIsDefault
-	 */
-	public void setIsDefault(boolean _bIsDefault) {
-		this._bIsDefault = _bIsDefault;
-	}
-    
-    
+    /**
+     * set is default
+     * 
+     * @param _bIsDefault
+     */
+    public void setIsDefault( boolean _bIsDefault )
+    {
+        this._bIsDefault = _bIsDefault;
+    }
+
 }

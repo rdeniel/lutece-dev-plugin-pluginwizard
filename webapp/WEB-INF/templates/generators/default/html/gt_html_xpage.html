@@ -16,7 +16,11 @@
 
 				<#list business_class.attributes as attribute>
           <${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' helpKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}' mandatory=true>
+						<#if attribute.type != "boolean">
 						<${macro}input type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> tabIndex="${attribute_index + 1}" />
+						<#else>
+						<${macro}checkBox id="${attribute.paramName}" name="${attribute.paramName}" value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
+						</#if>
 					</${macro}formGroup>
 				</#list>
         <${macro}formGroup>
@@ -44,7 +48,11 @@
 
 				<#list business_class.attributes as attribute>
 				<${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' mandatory=true>
-          <${macro}input type='text' id='${attribute.paramName}' name='${attribute.paramName}' <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}' tabIndex='${attribute_index}' />
+				<#if attribute.type != "boolean">
+          		<${macro}input type='text' id='${attribute.paramName}' name='${attribute.paramName}' <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!\'\'${bra_close}' tabIndex='${attribute_index}' />
+				<#else>
+				<${macro}checkBox id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
+			    </#if>
 				</${macro}formGroup>
 				</#list>
 
@@ -84,7 +92,11 @@
 					<input type="hidden" id="id" name="id" />
 					<#list business_class.attributes as attribute>
             <td>
+            				<#if attribute.type != "boolean">
 							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+							<#else>
+							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}?c${bra_close}
+							</#if>
             </td>    
         </#list>
 					<td>

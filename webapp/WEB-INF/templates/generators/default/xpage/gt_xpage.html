@@ -31,7 +31,10 @@
  *
  * License 1.0
  */
-  <#if plugin_model.type= "MODULE" >
+  <#list business_class.attributes as attribute>
+	<#assign pluginType = attribute.type />
+</#list>
+<#if pluginType = "MODULE" >
   	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
   	<#assign msg= "module."+plugin_model.pluginName?split("-")[0]+"."+plugin_model.pluginName?split("-")[1] />
  <#else>

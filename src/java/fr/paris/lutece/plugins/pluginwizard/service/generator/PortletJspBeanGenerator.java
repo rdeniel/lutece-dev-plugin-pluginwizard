@@ -35,7 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.plugins.pluginwizard.business.model.Portlet;
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -82,7 +81,7 @@ public class PortletJspBeanGenerator extends AbstractGenerator
      */
     private String getPortletJspBean( Portlet portlet, String strPluginName, boolean isModule )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( Markers.MARK_PORTLET, portlet );
         model.put( Markers.MARK_PLUGIN_NAME, strPluginName );
         model.put( Markers.MARK_IS_MODULE, isModule );

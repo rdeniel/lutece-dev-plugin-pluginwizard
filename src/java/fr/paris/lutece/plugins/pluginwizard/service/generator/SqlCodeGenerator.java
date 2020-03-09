@@ -101,7 +101,7 @@ public class SqlCodeGenerator extends AbstractGenerator
      */
     private String getSqlScript( PluginModel pm, int nSqlType )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         PluginXmlGenerator.setJspName( pm );
         model.put( Markers.MARK_PLUGIN, pm );
