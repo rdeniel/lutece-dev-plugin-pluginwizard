@@ -59,13 +59,13 @@ public class PortletGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        if( !listFiles.equals( null ) ) 
+        if( listFiles != null ) 
         {
             _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
         }
         else
         {
-            _listFiles = listFiles;
+            _listFiles = null;
         }
     }
 

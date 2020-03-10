@@ -64,13 +64,13 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
     public void setFiles( List<AdminJspBeanFileConfig> listFiles )
     {
-        if( !listFiles.equals( null ) )
+        if( listFiles != null )
         {
             _listFiles = ( List<AdminJspBeanFileConfig> )( ( ( ArrayList<AdminJspBeanFileConfig> )listFiles).clone( ) );
         }
         else
         {
-            _listFiles = listFiles;
+            _listFiles = null;
         }
     }
 

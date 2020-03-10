@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +74,14 @@ public class Rest implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        return _nIdBusinessClasses;
+        if ( _nIdBusinessClasses != null ) 
+        {
+            return ( List<Integer> )( ( ( ArrayList<Integer> )_nIdBusinessClasses ).clone( ) );
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -85,6 +92,13 @@ public class Rest implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        _nIdBusinessClasses = nIdBusinessClasses;
+        if ( nIdBusinessClasses != null ) 
+        {
+            _nIdBusinessClasses = ( List<Integer> )( ( ( ArrayList<Integer> )nIdBusinessClasses ).clone( ) );
+        }
+        else
+        {
+            _nIdBusinessClasses = null;
+        }
     }
 }

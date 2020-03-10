@@ -723,16 +723,20 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
-        List<Attribute> listAttributes = bc.getAttributes( );
-
-        for ( Attribute attribute : listAttributes )
+        if ( bc != null )
         {
-            if ( attribute.getId( ) == nAttributeId )
+            List<Attribute> listAttributes = bc.getAttributes( );
+    
+            for ( Attribute attribute : listAttributes )
             {
-                return attribute;
+                if ( attribute.getId( ) == nAttributeId )
+                {
+                    return attribute;
+                }
             }
+    
+            return null;
         }
-
         return null;
     }
 
@@ -750,12 +754,15 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
-        List<Attribute> listAttributes = bc.getAttributes( );
-        attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
-        attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId( ) ) );
-
-        listAttributes.add( attribute );
-        savePluginModel( pm );
+        if ( bc != null )
+        {
+            List<Attribute> listAttributes = bc.getAttributes( );
+            attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
+            attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId( ) ) );
+    
+            listAttributes.add( attribute );
+            savePluginModel( pm );
+        }
     }
 
     /**
@@ -794,19 +801,22 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
-        List<Attribute> list = bc.getAttributes( );
-
-        for ( int i = 0; i < list.size( ); i++ )
+        if ( bc != null )
         {
-            Attribute attr = list.get( i );
-
-            if ( attr.getId( ) == attribute.getId( ) )
+            List<Attribute> list = bc.getAttributes( );
+    
+            for ( int i = 0; i < list.size( ); i++ )
             {
-                list.set( i, attribute );
-
-                savePluginModel( pm );
-
-                break;
+                Attribute attr = list.get( i );
+    
+                if ( attr.getId( ) == attribute.getId( ) )
+                {
+                    list.set( i, attribute );
+    
+                    savePluginModel( pm );
+    
+                    break;
+                }
             }
         }
     }
@@ -825,20 +835,24 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass bc = getBusinessClass( pm, nBusinessClassId );
-        List<Attribute> list = bc.getAttributes( );
-
-        for ( int i = 0; i < list.size( ); i++ )
+        List<Attribute> list;
+        if ( bc != null )
         {
-            Attribute attr = list.get( i );
-
-            if ( attr.getId( ) == nAttributeId )
+            list = bc.getAttributes( );
+            for ( int i = 0; i < list.size( ); i++ )
             {
-                list.remove( i );
-                savePluginModel( pm );
+                Attribute attr = list.get( i );
 
-                break;
+                if ( attr.getId( ) == nAttributeId )
+                {
+                    list.remove( i );
+                    savePluginModel( pm );
+
+                    break;
+                }
             }
         }
+
     }
 
     // //////////////////////////////////////////////////////////////////////////
