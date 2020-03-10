@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -113,8 +113,8 @@ public abstract class AbstractFileGenerator extends AbstractGenerator
     /**
      * Produces the file code in a map
      *
-     * @param pm, generationSchemeName
-     *            the plugin model and the generation scheme name
+     * @param pm
+     *            , generationSchemeName the plugin model and the generation scheme name
      * @return the map
      */
     protected Map generateFile( PluginModel pm, String generationSchemeName )

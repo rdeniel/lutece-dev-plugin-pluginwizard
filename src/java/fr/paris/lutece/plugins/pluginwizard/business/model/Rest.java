@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -74,9 +74,9 @@ public class Rest implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        if ( _nIdBusinessClasses != null ) 
+        if ( _nIdBusinessClasses != null )
         {
-            return ( List<Integer> )( ( ( ArrayList<Integer> )_nIdBusinessClasses ).clone( ) );
+            return (List<Integer>) ( ( (ArrayList<Integer>) _nIdBusinessClasses ).clone( ) );
         }
         else
         {
@@ -92,9 +92,9 @@ public class Rest implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        if ( nIdBusinessClasses != null ) 
+        if ( nIdBusinessClasses != null )
         {
-            _nIdBusinessClasses = ( List<Integer> )( ( ( ArrayList<Integer> )nIdBusinessClasses ).clone( ) );
+            _nIdBusinessClasses = (List<Integer>) ( ( (ArrayList<Integer>) nIdBusinessClasses ).clone( ) );
         }
         else
         {

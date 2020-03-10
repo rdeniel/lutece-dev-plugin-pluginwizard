@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -726,7 +726,7 @@ public final class ModelService
         if ( bc != null )
         {
             List<Attribute> listAttributes = bc.getAttributes( );
-    
+
             for ( Attribute attribute : listAttributes )
             {
                 if ( attribute.getId( ) == nAttributeId )
@@ -734,7 +734,7 @@ public final class ModelService
                     return attribute;
                 }
             }
-    
+
             return null;
         }
         return null;
@@ -759,7 +759,7 @@ public final class ModelService
             List<Attribute> listAttributes = bc.getAttributes( );
             attribute.setId( getMaxAttributeId( listAttributes ) + 1 );
             attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId( ) ) );
-    
+
             listAttributes.add( attribute );
             savePluginModel( pm );
         }
@@ -804,17 +804,17 @@ public final class ModelService
         if ( bc != null )
         {
             List<Attribute> list = bc.getAttributes( );
-    
+
             for ( int i = 0; i < list.size( ); i++ )
             {
                 Attribute attr = list.get( i );
-    
+
                 if ( attr.getId( ) == attribute.getId( ) )
                 {
                     list.set( i, attribute );
-    
+
                     savePluginModel( pm );
-    
+
                     break;
                 }
             }

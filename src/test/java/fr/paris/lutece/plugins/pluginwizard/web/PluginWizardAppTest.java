@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,7 @@ public class PluginWizardAppTest extends LuteceTestCase
         request.addParameter( "business_class", "MyBusinessClass" );
         request.addParameter( "business_table_name", "myplugin_mytable" );
         request.addParameter( "id_feature", "1" );
-        request.addParameter( "business_class_id", "1");
+        request.addParameter( "business_class_id", "1" );
         instance.getModifyBusinessClass( request );
         instance.doCreateBusinessClass( request );
     }

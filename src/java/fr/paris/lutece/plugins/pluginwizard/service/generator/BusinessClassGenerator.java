@@ -60,9 +60,9 @@ public class BusinessClassGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        if( listFiles != null ) 
+        if ( listFiles != null )
         {
-            _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+            _listFiles = (List<BusinessFileConfig>) ( ( (ArrayList<BusinessFileConfig>) listFiles ).clone( ) );
         }
         else
         {

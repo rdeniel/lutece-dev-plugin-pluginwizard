@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,7 +31,6 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.BusinessClass;
@@ -60,9 +59,9 @@ public class BusinessKotlinClassGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        if( listFiles != null ) 
+        if ( listFiles != null )
         {
-            _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+            _listFiles = (List<BusinessFileConfig>) ( ( (ArrayList<BusinessFileConfig>) listFiles ).clone( ) );
         }
         else
         {

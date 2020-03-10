@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -81,7 +81,6 @@ public final class Markers
     public static final String MARK_GLOBAL_POM_VERSION = "pom_parent_version";
     public static final String MARK_DEPENDECY_REST_VERSION = "dependecy_rest_version";
     public static final String MARK_POM_MODEL_VERSION = "pom_model_version";
-    
 
     /** Private constructor */
     private Markers( )

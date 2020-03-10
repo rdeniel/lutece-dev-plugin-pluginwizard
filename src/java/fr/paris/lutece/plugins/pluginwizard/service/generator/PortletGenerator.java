@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,9 +59,9 @@ public class PortletGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        if( listFiles != null ) 
+        if ( listFiles != null )
         {
-            _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+            _listFiles = (List<BusinessFileConfig>) ( ( (ArrayList<BusinessFileConfig>) listFiles ).clone( ) );
         }
         else
         {

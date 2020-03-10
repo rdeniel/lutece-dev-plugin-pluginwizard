@@ -206,7 +206,5 @@ public abstract class AbstractGenerator implements Generator
 
         return template.getHtml( );
     }
-    
-    
 
 }

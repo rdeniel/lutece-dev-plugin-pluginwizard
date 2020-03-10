@@ -66,18 +66,18 @@ public final class PluginModelDAO implements IPluginModelDAO
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
-    
+
             int nKey;
-    
+
             if ( !daoUtil.next( ) )
             {
                 // if the table is empty
                 nKey = 1;
             }
-    
+
             nKey = daoUtil.getInt( 1 ) + 1;
             daoUtil.free( );
-    
+
             return nKey;
         }
     }
@@ -94,9 +94,9 @@ public final class PluginModelDAO implements IPluginModelDAO
     {
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
-    
+
             pluginModel.setIdPlugin( newPrimaryKey( plugin ) );
-    
+
             daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
             daoUtil.setString( 2, pluginModel.getPluginName( ) );
             daoUtil.setString( 3, pluginModel.getPluginClass( ) );
@@ -111,7 +111,7 @@ public final class PluginModelDAO implements IPluginModelDAO
             daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
             daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
             daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
-    
+
             daoUtil.executeUpdate( );
             daoUtil.free( );
         }
@@ -132,13 +132,13 @@ public final class PluginModelDAO implements IPluginModelDAO
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
-    
+
             PluginModel pluginModel = null;
-    
+
             if ( daoUtil.next( ) )
             {
                 pluginModel = new PluginModel( );
-    
+
                 pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
                 pluginModel.setPluginName( daoUtil.getString( 2 ) );
                 pluginModel.setPluginClass( daoUtil.getString( 3 ) );
@@ -153,12 +153,12 @@ public final class PluginModelDAO implements IPluginModelDAO
                 pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
                 pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
                 pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
-    
+
                 // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
             }
-    
+
             daoUtil.free( );
-    
+
             return pluginModel;
         }
     }
@@ -193,7 +193,7 @@ public final class PluginModelDAO implements IPluginModelDAO
     {
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
-    
+
             daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
             daoUtil.setString( 2, pluginModel.getPluginName( ) );
             daoUtil.setString( 3, pluginModel.getPluginClass( ) );
@@ -209,7 +209,7 @@ public final class PluginModelDAO implements IPluginModelDAO
             daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
             daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
             daoUtil.setInt( 15, pluginModel.getIdPlugin( ) );
-    
+
             daoUtil.executeUpdate( );
             daoUtil.free( );
         }
@@ -228,11 +228,11 @@ public final class PluginModelDAO implements IPluginModelDAO
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
-    
+
             while ( daoUtil.next( ) )
             {
                 PluginModel pluginModel = new PluginModel( );
-    
+
                 pluginModel.setIdPlugin( daoUtil.getInt( 1 ) );
                 pluginModel.setPluginName( daoUtil.getString( 2 ) );
                 pluginModel.setPluginClass( daoUtil.getString( 3 ) );
@@ -247,12 +247,12 @@ public final class PluginModelDAO implements IPluginModelDAO
                 pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
                 pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
                 pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
-    
+
                 pluginModelList.add( pluginModel );
             }
-    
+
             daoUtil.free( );
-    
+
             return pluginModelList;
         }
     }
@@ -272,16 +272,16 @@ public final class PluginModelDAO implements IPluginModelDAO
         {
             daoUtil.setString( 1, strPluginName );
             daoUtil.executeQuery( );
-    
+
             int nPluginId = 0;
-    
+
             if ( daoUtil.next( ) )
             {
                 nPluginId = daoUtil.getInt( 1 );
             }
-    
+
             daoUtil.free( );
-    
+
             return nPluginId;
         }
     }
@@ -303,19 +303,19 @@ public final class PluginModelDAO implements IPluginModelDAO
         {
             daoUtil.setString( 1, strPluginName );
             daoUtil.executeQuery( );
-    
+
             if ( daoUtil.next( ) )
             {
                 nCount = daoUtil.getInt( 1 );
             }
-    
+
             daoUtil.free( );
-    
+
             if ( nCount > 0 )
             {
                 bValue = true;
             }
-    
+
             return bValue;
         }
     }

@@ -74,7 +74,7 @@ public class GeneratorService
         {
             try
             {
-                mapSources.putAll( generator.generate( model , generationScheme.getName( ) ) );
+                mapSources.putAll( generator.generate( model, generationScheme.getName( ) ) );
             }
             catch( Exception e )
             {

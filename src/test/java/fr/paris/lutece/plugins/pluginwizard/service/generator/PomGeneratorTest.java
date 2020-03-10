@@ -59,11 +59,11 @@ public class PomGeneratorTest extends LuteceTestCase
         PomGenerator instance = SpringContextService.getBean( "pluginwizard.generator.lutece7.pom" );
         Map result = instance.generate( pm, "schemeLutece7" );
         GeneratorUtils.outputMap( result );
-        
+
         instance = SpringContextService.getBean( "pluginwizard.generator.lutece6.pom" );
         result = instance.generate( pm, "schemeLutece6" );
         GeneratorUtils.outputMap( result );
-        
+
         instance = SpringContextService.getBean( "pluginwizard.generator.lutece5.pom" );
         result = instance.generate( pm, "schemeLutece5" );
         GeneratorUtils.outputMap( result );

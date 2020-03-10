@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2019, Mairie de Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,7 +45,7 @@ public class GenerationScheme
     private String _strCoreVersion;
     private List<Generator> _listGenerators;
     private boolean _bIsDefault = false;
-    
+
     /**
      * @return the _strName
      */
@@ -85,9 +85,9 @@ public class GenerationScheme
      */
     public List<Generator> getGeneratorsList( )
     {
-        if( _listGenerators != null ) 
+        if ( _listGenerators != null )
         {
-            return ( List<Generator> )( ( ( ArrayList<Generator> )_listGenerators ).clone( ) );
+            return (List<Generator>) ( ( (ArrayList<Generator>) _listGenerators ).clone( ) );
         }
         else
         {
@@ -101,9 +101,9 @@ public class GenerationScheme
      */
     public void setGeneratorsList( List<Generator> generatorsList )
     {
-        if( generatorsList != null ) 
+        if ( generatorsList != null )
         {
-            _listGenerators = ( List<Generator> )( ( ( ArrayList<Generator> )generatorsList ).clone( ) );
+            _listGenerators = (List<Generator>) ( ( (ArrayList<Generator>) generatorsList ).clone( ) );
         }
         else
         {
