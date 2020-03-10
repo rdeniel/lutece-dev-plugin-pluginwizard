@@ -70,7 +70,14 @@ public class XPageGenerator extends AbstractGenerator
      */
     public void setFiles( List<XPageFileConfig> listFiles )
     {
-        _listFiles = ( List<XPageFileConfig> )( ( ( ArrayList<XPageFileConfig> )listFiles ).clone( ) );
+        if( !listFiles.equals( null ) ) 
+        {
+            _listFiles = ( List<XPageFileConfig> )( ( ( ArrayList<XPageFileConfig> )listFiles ).clone( ) );
+        }
+        else
+        {
+            _listFiles = listFiles;
+        }
     }
 
     /**

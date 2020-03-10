@@ -53,7 +53,14 @@ public class AttributeService
      */
     public void setAttributeTypesList( List<AttributeType> list )
     {
-        _listAttributeTypes = ( List<AttributeType> )( ( ( ArrayList<AttributeType> )list ).clone( ) );
+        if( !list.equals( null ) ) 
+        {
+            _listAttributeTypes = ( List<AttributeType> )( ( ( ArrayList<AttributeType> )list ).clone( ) );
+        }
+        else
+        {
+            _listAttributeTypes = list;
+        }
     }
 
     /**

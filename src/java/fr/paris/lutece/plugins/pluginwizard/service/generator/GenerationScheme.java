@@ -85,7 +85,14 @@ public class GenerationScheme
      */
     public List<Generator> getGeneratorsList( )
     {
-        return ( List<Generator> )( ( ( ArrayList<Generator> )_listGenerators ).clone( ) );
+        if( !_listGenerators.equals( null ) ) 
+        {
+            return ( List<Generator> )( ( ( ArrayList<Generator> )_listGenerators ).clone( ) );
+        }
+        else
+        {
+            return _listGenerators;
+        }
     }
 
     /**
@@ -94,7 +101,14 @@ public class GenerationScheme
      */
     public void setGeneratorsList( List<Generator> generatorsList )
     {
-        _listGenerators = ( List<Generator> )( ( ( ArrayList<Generator> )generatorsList ).clone( ) );
+        if( !generatorsList.equals( null ) ) 
+        {
+            _listGenerators = ( List<Generator> )( ( ( ArrayList<Generator> )generatorsList ).clone( ) );
+        }
+        else
+        {
+            _listGenerators = generatorsList;
+        }
     }
 
     /**

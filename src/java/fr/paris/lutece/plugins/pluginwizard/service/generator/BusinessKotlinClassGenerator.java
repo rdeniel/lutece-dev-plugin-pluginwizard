@@ -60,7 +60,14 @@ public class BusinessKotlinClassGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+        if( !listFiles.equals( null ) ) 
+        {
+            _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+        }
+        else
+        {
+            _listFiles = listFiles;
+        }
     }
 
     /**
