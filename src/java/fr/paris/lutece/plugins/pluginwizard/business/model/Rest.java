@@ -42,6 +42,10 @@ import java.util.List;
  */
 public class Rest implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private int _nId;
     private List<Integer> _nIdBusinessClasses;

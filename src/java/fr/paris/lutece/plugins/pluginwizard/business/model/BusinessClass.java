@@ -139,7 +139,14 @@ public class BusinessClass
      */
     public void setAttributes( List<Attribute> listAttributes )
     {
-        _listAttributes = listAttributes;
+        if ( listAttributes != null )
+        {
+            _listAttributes = (List<Attribute>) ( ( (ArrayList<Attribute>) listAttributes ).clone( ) );
+        }
+        else
+        {
+            _listAttributes = null;
+        }
     }
 
     /**

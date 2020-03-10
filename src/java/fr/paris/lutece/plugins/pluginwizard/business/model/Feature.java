@@ -47,6 +47,10 @@ import javax.validation.constraints.Size;
  */
 public class Feature implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private List<Integer> _nIdBusinessClasses;
     private int _nId;

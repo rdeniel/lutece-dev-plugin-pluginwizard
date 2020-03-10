@@ -510,7 +510,14 @@ public class PluginModel
      */
     public void setPluginApplications( List<Application> listPluginApplications )
     {
-        _listPluginApplications = listPluginApplications;
+        if ( listPluginApplications != null )
+        {
+            _listPluginApplications = (List<Application>) ( ( (ArrayList<Application>) listPluginApplications ).clone( ) );
+        }
+        else
+        {
+            _listPluginApplications = null;
+        }
     }
 
     /**
@@ -552,7 +559,14 @@ public class PluginModel
      */
     public void setPluginFeatures( List<Feature> listPluginFeatures )
     {
-        _listPluginFeatures = listPluginFeatures;
+        if ( listPluginFeatures != null )
+        {
+            _listPluginFeatures = (List<Feature>) ( ( (ArrayList<Feature>) listPluginFeatures ).clone( ) );
+        }
+        else
+        {
+            _listPluginFeatures = null;
+        }
     }
 
     /**
@@ -573,7 +587,14 @@ public class PluginModel
      */
     public void setPluginPortlets( List<Portlet> listPluginPortlets )
     {
-        _listPluginPortlets = listPluginPortlets;
+        if ( listPluginPortlets != null )
+        {
+            _listPluginPortlets = (List<Portlet>) ( ( (ArrayList<Portlet>) listPluginPortlets ).clone( ) );
+        }
+        else
+        {
+            _listPluginPortlets = null;
+        }
     }
 
     /**
@@ -649,9 +670,9 @@ public class PluginModel
      * @param _bIsModule
      *            The isModule boolean value
      */
-    public void setModule( boolean _bIsModule )
+    public void setModule( boolean bIsModule )
     {
-        this._bIsModule = _bIsModule;
+        this._bIsModule = bIsModule;
     }
 
 }

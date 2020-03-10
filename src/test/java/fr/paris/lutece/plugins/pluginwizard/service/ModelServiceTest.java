@@ -35,8 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.Attribute;
 import fr.paris.lutece.test.LuteceTestCase;
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 /**

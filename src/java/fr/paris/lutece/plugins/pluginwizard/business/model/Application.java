@@ -35,8 +35,6 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +46,10 @@ import javax.validation.constraints.Pattern;
  */
 public class Application implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private int _nId;
     private List<Integer> _nIdBusinessClasses;

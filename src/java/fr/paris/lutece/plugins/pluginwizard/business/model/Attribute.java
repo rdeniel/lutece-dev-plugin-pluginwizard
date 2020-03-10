@@ -49,6 +49,10 @@ import javax.validation.constraints.Pattern;
  */
 public class Attribute implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private int _nIdAttribute;
     private int _nAttributeTypeId;

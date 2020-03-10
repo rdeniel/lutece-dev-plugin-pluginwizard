@@ -737,7 +737,10 @@ public final class ModelService
 
             return null;
         }
-        return null;
+        else
+        {
+            return null;
+        }
     }
 
     /**
