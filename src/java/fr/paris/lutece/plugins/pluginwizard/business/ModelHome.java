@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class ModelHome
 {
     // Static variable pointed at the DAO instance
-    private static IModelDAO _dao = (IModelDAO) SpringContextService.getBean( "pluginwizard.modelDAO" );
+    private static IModelDAO _dao = SpringContextService.getBean( "pluginwizard.modelDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
