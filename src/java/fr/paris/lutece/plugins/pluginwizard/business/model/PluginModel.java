@@ -552,14 +552,7 @@ public class PluginModel
      */
     public void setPluginFeatures( List<Feature> listPluginFeatures )
     {
-        if ( listPluginFeatures != null ) 
-        {
-            _listPluginFeatures = ( List<Feature> )( ( ( ArrayList<Feature> )listPluginFeatures ).clone( ) );
-        }
-        else
-        {
-            _listPluginFeatures = null;
-        }
+        _listPluginFeatures = listPluginFeatures;
     }
 
     /**
@@ -569,14 +562,7 @@ public class PluginModel
      */
     public List<Feature> getFeatures( )
     {
-        if ( _listPluginFeatures != null ) 
-        {
-            return ( List<Feature> )( ( ( ArrayList<Feature> )_listPluginFeatures ).clone( ) );
-        }
-        else
-        {
-            return null;
-        }
+        return _listPluginFeatures;
     }
 
     /**
@@ -587,14 +573,7 @@ public class PluginModel
      */
     public void setPluginPortlets( List<Portlet> listPluginPortlets )
     {
-        if ( listPluginPortlets != null ) 
-        {
-            _listPluginPortlets = ( List<Portlet> )( ( ( ArrayList<Portlet> )listPluginPortlets ).clone( ) );
-        }
-        else
-        {
-            _listPluginPortlets = null;
-        }
+        _listPluginPortlets = listPluginPortlets;
     }
 
     /**
@@ -604,14 +583,7 @@ public class PluginModel
      */
     public List<Portlet> getPortlets( )
     {
-        if ( _listPluginFeatures != null ) 
-        {
-            return ( List<Portlet> )( ( ( ArrayList<Portlet> )_listPluginPortlets ).clone( ) );
-        }
-        else
-        {
-            return null;
-        }
+        return _listPluginPortlets;
     }
 
     /**
