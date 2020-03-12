@@ -508,11 +508,11 @@ public class PluginModel
      * @param listPluginApplications
      *            The list of plugin applications
      */
-    public void setPluginApplications( List<Application> listPluginApplications )
+    public void setApplications( List<Application> listPluginApplications )
     {
         if ( listPluginApplications != null )
         {
-            _listPluginApplications = (List<Application>) ( ( (ArrayList<Application>) listPluginApplications ).clone( ) );
+            _listPluginApplications = new ArrayList<>( listPluginApplications );
         }
         else
         {
@@ -527,7 +527,7 @@ public class PluginModel
      */
     public List<Application> getApplications( )
     {
-        return _listPluginApplications;
+        return  new ArrayList<>( _listPluginApplications );
     }
 
     /**
@@ -557,11 +557,11 @@ public class PluginModel
      * @param listPluginFeatures
      *            The list of plugi features
      */
-    public void setPluginFeatures( List<Feature> listPluginFeatures )
+    public void setFeatures( List<Feature> listPluginFeatures )
     {
         if ( listPluginFeatures != null )
         {
-            _listPluginFeatures = (List<Feature>) ( ( (ArrayList<Feature>) listPluginFeatures ).clone( ) );
+            _listPluginFeatures = new ArrayList<>( listPluginFeatures );
         }
         else
         {
@@ -576,7 +576,7 @@ public class PluginModel
      */
     public List<Feature> getFeatures( )
     {
-        return _listPluginFeatures;
+        return new ArrayList<>( _listPluginFeatures );
     }
 
     /**
@@ -585,11 +585,11 @@ public class PluginModel
      * @param listPluginPortlets
      *            The list of plugin portlets
      */
-    public void setPluginPortlets( List<Portlet> listPluginPortlets )
+    public void setPortlets( List<Portlet> listPluginPortlets )
     {
         if ( listPluginPortlets != null )
         {
-            _listPluginPortlets = (List<Portlet>) ( ( (ArrayList<Portlet>) listPluginPortlets ).clone( ) );
+            _listPluginPortlets = new ArrayList<>( listPluginPortlets );
         }
         else
         {
@@ -604,7 +604,7 @@ public class PluginModel
      */
     public List<Portlet> getPortlets( )
     {
-        return _listPluginPortlets;
+        return new ArrayList<>( _listPluginPortlets );
     }
 
     /**
@@ -614,7 +614,12 @@ public class PluginModel
      */
     public List<BusinessClass> getBusinessClasses( )
     {
-        return _listBusinessClasses;
+        return new ArrayList<>( _listBusinessClasses );
+    }
+    
+    public void setBusinessClasses( List<BusinessClass> listBusinessClasses )
+    {
+        _listBusinessClasses = new ArrayList<>( listBusinessClasses );
     }
 
     public List<Feature> BusinessClass( )

@@ -141,7 +141,7 @@ public class BusinessClass
     {
         if ( listAttributes != null )
         {
-            _listAttributes = (List<Attribute>) ( ( (ArrayList<Attribute>) listAttributes ).clone( ) );
+            _listAttributes = new ArrayList<>( listAttributes );
         }
         else
         {
@@ -156,7 +156,14 @@ public class BusinessClass
      */
     public List<Attribute> getAttributes( )
     {
-        return _listAttributes;
+        if (_listAttributes != null) 
+        {
+            return new ArrayList<>(_listAttributes);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**

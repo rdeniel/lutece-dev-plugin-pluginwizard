@@ -80,7 +80,7 @@ public class Rest implements Serializable
     {
         if ( _nIdBusinessClasses != null )
         {
-            return (List<Integer>) ( ( (ArrayList<Integer>) _nIdBusinessClasses ).clone( ) );
+            return new ArrayList<>( _nIdBusinessClasses );
         }
         else
         {
@@ -98,7 +98,7 @@ public class Rest implements Serializable
     {
         if ( nIdBusinessClasses != null )
         {
-            _nIdBusinessClasses = (List<Integer>) ( ( (ArrayList<Integer>) nIdBusinessClasses ).clone( ) );
+            _nIdBusinessClasses = new ArrayList<>( nIdBusinessClasses );
         }
         else
         {

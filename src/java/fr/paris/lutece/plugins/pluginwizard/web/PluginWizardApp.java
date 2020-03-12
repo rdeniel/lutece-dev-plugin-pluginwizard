@@ -1369,7 +1369,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
      */
     private List<Integer> getBusinessClasses( HttpServletRequest request )
     {
-        List<Integer> list = new ArrayList<Integer>( );
+        List<Integer> list = new ArrayList<>( );
         Enumeration e = request.getParameterNames( );
 
         while ( e.hasMoreElements( ) )

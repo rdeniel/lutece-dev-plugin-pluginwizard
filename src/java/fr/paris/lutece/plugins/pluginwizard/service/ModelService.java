@@ -461,7 +461,9 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         portlet.setId( getMaxPortletId( pm ) + 1 );
-        pm.getPortlets( ).add( portlet );
+        List<Portlet> portletList = pm.getPortlets( );
+        portletList.add( portlet );
+        pm.setPortlets( portletList );
         savePluginModel( pm );
     }
 
@@ -594,6 +596,7 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         BusinessClass businessClass = _mapper.map( bc, BusinessClass.class );
+        List<BusinessClass> businessClassesList;
         businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
 
         String strBusinessClass = "";
@@ -608,7 +611,9 @@ public final class ModelService
         }
         businessClass.setPrimaryKey( ID + strBusinessClass );
 
-        pm.getBusinessClasses( ).add( businessClass );
+        businessClassesList = pm.getBusinessClasses( );
+        businessClassesList.add( businessClass );
+        pm.setBusinessClasses( businessClassesList );
         savePluginModel( pm );
 
         return businessClass;
@@ -764,6 +769,8 @@ public final class ModelService
             attribute.setMaxLength( getAttributeMaxLength( attribute.getAttributeTypeId( ) ) );
 
             listAttributes.add( attribute );
+            bc.setAttributes( listAttributes );
+            
             savePluginModel( pm );
         }
     }

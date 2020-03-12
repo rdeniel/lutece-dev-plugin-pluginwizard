@@ -44,7 +44,7 @@ import java.util.Collection;
 public final class PluginModelHome
 {
     // Static variable pointed at the DAO instance
-    private static IPluginModelDAO _dao = (IPluginModelDAO) SpringContextService.getBean( "pluginwizard.pluginModelDAO" );
+    private static IPluginModelDAO _dao = SpringContextService.getBean( "pluginwizard.pluginModelDAO" );
 
     /**
      * Private constructor - this class need not be instantiated
