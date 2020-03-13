@@ -185,7 +185,10 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         feature.setId( getMaxFeatureId( pm ) + 1 );
-        pm.getFeatures( ).add( feature );
+        List<Feature> list = pm.getFeatures( );
+        list.add( feature );
+        pm.setFeatures( list );
+        
         savePluginModel( pm );
     }
 
@@ -255,6 +258,8 @@ public final class ModelService
             if ( f.getId( ) == feature.getId( ) )
             {
                 list.set( i, feature );
+                pm.setFeatures( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -282,6 +287,8 @@ public final class ModelService
             if ( f.getId( ) == nFeatureId )
             {
                 list.remove( i );
+                pm.setFeatures( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -342,7 +349,10 @@ public final class ModelService
     {
         PluginModel pm = getPluginModel( nPluginId );
         application.setId( getMaxApplicationId( pm ) + 1 );
-        pm.getApplications( ).add( application );
+        List<Application> list = pm.getApplications( );
+        list.add( application );
+        pm.setApplications( list );
+        
         savePluginModel( pm );
     }
 
@@ -388,6 +398,8 @@ public final class ModelService
             if ( app.getId( ) == application.getId( ) )
             {
                 list.set( i, application );
+                pm.setApplications( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -415,6 +427,8 @@ public final class ModelService
             if ( f.getId( ) == nApplicationId )
             {
                 list.remove( i );
+                pm.setApplications( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -509,6 +523,8 @@ public final class ModelService
             if ( p.getId( ) == portlet.getId( ) )
             {
                 list.set( i, portlet );
+                pm.setPortlets( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -536,6 +552,7 @@ public final class ModelService
             if ( p.getId( ) == nPortletId )
             {
                 list.remove( i );
+                pm.setPortlets( list );
                 savePluginModel( pm );
 
                 break;
@@ -661,6 +678,10 @@ public final class ModelService
             if ( bc.getId( ) == businessClass.getId( ) )
             {
                 _mapper.map( businessClass, bc );
+                
+                list.set( i, bc );
+                pm.setBusinessClasses( list );
+                
                 savePluginModel( pm );
 
                 break;
@@ -688,6 +709,7 @@ public final class ModelService
             if ( bc.getId( ) == nBusinessClassId )
             {
                 list.remove( i );
+                pm.setBusinessClasses( list );
                 savePluginModel( pm );
 
                 break;
@@ -822,7 +844,7 @@ public final class ModelService
                 if ( attr.getId( ) == attribute.getId( ) )
                 {
                     list.set( i, attribute );
-
+                    bc.setAttributes(list);
                     savePluginModel( pm );
 
                     break;
@@ -856,6 +878,7 @@ public final class ModelService
                 if ( attr.getId( ) == nAttributeId )
                 {
                     list.remove( i );
+                    bc.setAttributes(list);
                     savePluginModel( pm );
 
                     break;
