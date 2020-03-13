@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -508,9 +508,16 @@ public class PluginModel
      * @param listPluginApplications
      *            The list of plugin applications
      */
-    public void setPluginApplications( List<Application> listPluginApplications )
+    public void setApplications( List<Application> listPluginApplications )
     {
-        _listPluginApplications = listPluginApplications;
+        if ( listPluginApplications != null )
+        {
+            _listPluginApplications = new ArrayList<>( listPluginApplications );
+        }
+        else
+        {
+            _listPluginApplications = null;
+        }
     }
 
     /**
@@ -520,7 +527,7 @@ public class PluginModel
      */
     public List<Application> getApplications( )
     {
-        return _listPluginApplications;
+        return  new ArrayList<>( _listPluginApplications );
     }
 
     /**
@@ -550,9 +557,16 @@ public class PluginModel
      * @param listPluginFeatures
      *            The list of plugi features
      */
-    public void setPluginFeatures( List<Feature> listPluginFeatures )
+    public void setFeatures( List<Feature> listPluginFeatures )
     {
-        _listPluginFeatures = listPluginFeatures;
+        if ( listPluginFeatures != null )
+        {
+            _listPluginFeatures = new ArrayList<>( listPluginFeatures );
+        }
+        else
+        {
+            _listPluginFeatures = null;
+        }
     }
 
     /**
@@ -562,7 +576,7 @@ public class PluginModel
      */
     public List<Feature> getFeatures( )
     {
-        return _listPluginFeatures;
+        return new ArrayList<>( _listPluginFeatures );
     }
 
     /**
@@ -571,9 +585,16 @@ public class PluginModel
      * @param listPluginPortlets
      *            The list of plugin portlets
      */
-    public void setPluginPortlets( List<Portlet> listPluginPortlets )
+    public void setPortlets( List<Portlet> listPluginPortlets )
     {
-        _listPluginPortlets = listPluginPortlets;
+        if ( listPluginPortlets != null )
+        {
+            _listPluginPortlets = new ArrayList<>( listPluginPortlets );
+        }
+        else
+        {
+            _listPluginPortlets = null;
+        }
     }
 
     /**
@@ -583,7 +604,7 @@ public class PluginModel
      */
     public List<Portlet> getPortlets( )
     {
-        return _listPluginPortlets;
+        return new ArrayList<>( _listPluginPortlets );
     }
 
     /**
@@ -593,7 +614,12 @@ public class PluginModel
      */
     public List<BusinessClass> getBusinessClasses( )
     {
-        return _listBusinessClasses;
+        return new ArrayList<>( _listBusinessClasses );
+    }
+    
+    public void setBusinessClasses( List<BusinessClass> listBusinessClasses )
+    {
+        _listBusinessClasses = new ArrayList<>( listBusinessClasses );
     }
 
     public List<Feature> BusinessClass( )
@@ -649,9 +675,9 @@ public class PluginModel
      * @param _bIsModule
      *            The isModule boolean value
      */
-    public void setModule( boolean _bIsModule )
+    public void setModule( boolean bIsModule )
     {
-        this._bIsModule = _bIsModule;
+        this._bIsModule = bIsModule;
     }
 
 }

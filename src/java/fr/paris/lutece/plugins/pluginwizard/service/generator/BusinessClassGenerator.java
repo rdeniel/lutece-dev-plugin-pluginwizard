@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -60,7 +60,14 @@ public class BusinessClassGenerator extends AbstractGenerator
      */
     public void setFiles( List<BusinessFileConfig> listFiles )
     {
-        _listFiles = ( List<BusinessFileConfig> )( ( ( ArrayList<BusinessFileConfig> )listFiles).clone( ) );
+        if ( listFiles != null )
+        {
+            _listFiles = (List<BusinessFileConfig>) ( ( (ArrayList<BusinessFileConfig>) listFiles ).clone( ) );
+        }
+        else
+        {
+            _listFiles = null;
+        }
     }
 
     /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,14 @@ public class AdminJspBeanGenerator extends AbstractGenerator
 
     public void setFiles( List<AdminJspBeanFileConfig> listFiles )
     {
-        _listFiles = ( List<AdminJspBeanFileConfig> )( ( ( ArrayList<AdminJspBeanFileConfig> )listFiles).clone( ) );
+        if ( listFiles != null )
+        {
+            _listFiles = (List<AdminJspBeanFileConfig>) ( ( (ArrayList<AdminJspBeanFileConfig>) listFiles ).clone( ) );
+        }
+        else
+        {
+            _listFiles = null;
+        }
     }
 
     /**

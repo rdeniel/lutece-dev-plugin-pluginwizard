@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service;
 
-import org.codehaus.jackson.map.DeserializationConfig;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
@@ -87,9 +86,7 @@ public final class MapperService
     {
         try
         {
-            PluginModel model = _mapper.readValue( strJson, PluginModel.class );
-
-            return model;
+            return _mapper.readValue( strJson, PluginModel.class );
         }
         catch( Exception ex )
         {

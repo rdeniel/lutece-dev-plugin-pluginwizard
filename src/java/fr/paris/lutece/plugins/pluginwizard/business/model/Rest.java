@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.business.model;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +42,10 @@ import java.util.List;
  */
 public class Rest implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private int _nId;
     private List<Integer> _nIdBusinessClasses;
@@ -74,7 +78,14 @@ public class Rest implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        return _nIdBusinessClasses;
+        if ( _nIdBusinessClasses != null )
+        {
+            return new ArrayList<>( _nIdBusinessClasses );
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -85,6 +96,13 @@ public class Rest implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        _nIdBusinessClasses = nIdBusinessClasses;
+        if ( nIdBusinessClasses != null )
+        {
+            _nIdBusinessClasses = new ArrayList<>( nIdBusinessClasses );
+        }
+        else
+        {
+            _nIdBusinessClasses = null;
+        }
     }
 }

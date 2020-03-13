@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,18 +64,18 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
-    
+
             int nKey;
-    
+
             if ( !daoUtil.next( ) )
             {
                 // if the table is empty
                 nKey = 1;
             }
-    
+
             nKey = daoUtil.getInt( 1 ) + 1;
             daoUtil.free( );
-    
+
             return nKey;
         }
     }
@@ -92,13 +92,13 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
     {
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
-    
+
             configurationKey.setIdKey( newPrimaryKey( plugin ) );
-    
+
             daoUtil.setInt( 1, configurationKey.getIdKey( ) );
             daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
             daoUtil.setString( 3, configurationKey.getKeyValue( ) );
-    
+
             daoUtil.executeUpdate( );
             daoUtil.free( );
         }
@@ -119,20 +119,20 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
-    
+
             ConfigurationKey configurationKey = null;
-    
+
             if ( daoUtil.next( ) )
             {
                 configurationKey = new ConfigurationKey( );
-    
+
                 configurationKey.setIdKey( daoUtil.getInt( 1 ) );
                 configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
                 configurationKey.setKeyValue( daoUtil.getString( 3 ) );
             }
-    
+
             daoUtil.free( );
-    
+
             return configurationKey;
         }
     }
@@ -167,12 +167,12 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
     {
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
-    
+
             daoUtil.setInt( 1, configurationKey.getIdKey( ) );
             daoUtil.setString( 2, configurationKey.getKeyDescription( ) );
             daoUtil.setString( 3, configurationKey.getKeyValue( ) );
             daoUtil.setInt( 4, configurationKey.getIdKey( ) );
-    
+
             daoUtil.executeUpdate( );
             daoUtil.free( );
         }
@@ -191,20 +191,20 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
         try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
-    
+
             while ( daoUtil.next( ) )
             {
                 ConfigurationKey configurationKey = new ConfigurationKey( );
-    
+
                 configurationKey.setIdKey( daoUtil.getInt( 1 ) );
                 configurationKey.setKeyDescription( daoUtil.getString( 2 ) );
                 configurationKey.setKeyValue( daoUtil.getString( 3 ) );
-    
+
                 configurationKeyList.add( configurationKey );
             }
-    
+
             daoUtil.free( );
-    
+
             return configurationKeyList;
         }
     }

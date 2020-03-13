@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,14 @@ public class AttributeService
      */
     public void setAttributeTypesList( List<AttributeType> list )
     {
-        _listAttributeTypes = ( List<AttributeType> )( ( ( ArrayList<AttributeType> )list ).clone( ) );
+        if ( list != null )
+        {
+            _listAttributeTypes = (List<AttributeType>) ( ( (ArrayList<AttributeType>) list ).clone( ) );
+        }
+        else
+        {
+            _listAttributeTypes = null;
+        }
     }
 
     /**

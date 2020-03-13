@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2019, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -50,18 +50,18 @@ import java.util.Map;
 public class PomGenerator extends AbstractFileGenerator
 {
 
-    private static final String KEY_PREFIX = "plugin-wizard.site_property." ;
-    
+    private static final String KEY_PREFIX = "plugin-wizard.site_property.";
+
     private String _strModelVersion;
     private String _strGlobalPomVersion;
     private String _strDependencyCoreVersion;
     private String _strDependencyRestVersion;
-    
+
     /**
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm, String generationSchemeName)
+    public Map generate( PluginModel pm, String generationSchemeName )
     {
         HashMap map = new HashMap( );
         map.put( getFilePath( pm ), getCode( pm, generationSchemeName ) );
@@ -93,7 +93,7 @@ public class PomGenerator extends AbstractFileGenerator
 
         return build( model );
     }
-   
+
     /**
      * {@inheritDoc }
      */
@@ -111,68 +111,84 @@ public class PomGenerator extends AbstractFileGenerator
     {
         return "";
     }
-    
+
     /**
      * get pom model version
+     * 
      * @return the pom model version
      */
-    public String getModelVersion( ) {
+    public String getModelVersion( )
+    {
         return _strModelVersion;
     }
-    
+
     /**
      * set PomModelVersion
+     * 
      * @param strPomModelVersion
      */
-    public void setModelVersion( String strModelVersion ) {
+    public void setModelVersion( String strModelVersion )
+    {
         this._strModelVersion = strModelVersion;
     }
 
     /**
-     * get global pom  Version
+     * get global pom Version
+     * 
      * @return the global Pom Version
      */
-    public String getGlobalPomVersion( ) {
+    public String getGlobalPomVersion( )
+    {
         return _strGlobalPomVersion;
     }
 
     /**
      * set Pom Parent Version
+     * 
      * @param strVersion
      */
-    public void setGlobalPomVersion( String strVersion ) {
+    public void setGlobalPomVersion( String strVersion )
+    {
         this._strGlobalPomVersion = strVersion;
     }
 
     /**
      * get Dependency Core Version
+     * 
      * @return the Dependency Core Version
      */
-    public String getDependencyCoreVersion( ) {
+    public String getDependencyCoreVersion( )
+    {
         return _strDependencyCoreVersion;
     }
 
     /**
      * set Dependency Core Version
+     * 
      * @param strDependencyCoreVersion
      */
-    public void setDependencyCoreVersion( String strDependencyCoreVersion ) {
+    public void setDependencyCoreVersion( String strDependencyCoreVersion )
+    {
         this._strDependencyCoreVersion = strDependencyCoreVersion;
     }
 
     /**
      * get Dependency Rest Version
+     * 
      * @return the Dependency Rest Version
      */
-    public String getDependencyRestVersion( ) {
+    public String getDependencyRestVersion( )
+    {
         return _strDependencyRestVersion;
     }
-    
+
     /**
      * set Dependency Rest Version
+     * 
      * @param strDependencyRestVersion
      */
-    public void setDependencyRestVersion( String strDependencyRestVersion ) {
+    public void setDependencyRestVersion( String strDependencyRestVersion )
+    {
         this._strDependencyRestVersion = strDependencyRestVersion;
     }
 }

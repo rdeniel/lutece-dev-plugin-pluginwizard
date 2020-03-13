@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.pluginwizard.business.model;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.constraints.Pattern;
@@ -47,6 +47,10 @@ import javax.validation.constraints.Size;
  */
 public class Feature implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private List<Integer> _nIdBusinessClasses;
     private int _nId;
@@ -223,7 +227,14 @@ public class Feature implements Serializable
      */
     public List<Integer> getIdBusinessClasses( )
     {
-        return _nIdBusinessClasses;
+        if ( _nIdBusinessClasses != null )
+        {
+            return (List<Integer>) ( ( (ArrayList<Integer>) _nIdBusinessClasses ).clone( ) );
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -234,6 +245,13 @@ public class Feature implements Serializable
      */
     public void setIdBusinessClasses( List<Integer> nIdBusinessClasses )
     {
-        _nIdBusinessClasses = nIdBusinessClasses;
+        if ( nIdBusinessClasses != null )
+        {
+            _nIdBusinessClasses = (List<Integer>) ( ( (ArrayList<Integer>) nIdBusinessClasses ).clone( ) );
+        }
+        else
+        {
+            _nIdBusinessClasses = null;
+        }
     }
 }

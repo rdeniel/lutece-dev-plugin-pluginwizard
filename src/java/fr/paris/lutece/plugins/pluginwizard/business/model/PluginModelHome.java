@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -44,7 +44,7 @@ import java.util.Collection;
 public final class PluginModelHome
 {
     // Static variable pointed at the DAO instance
-    private static IPluginModelDAO _dao = (IPluginModelDAO) SpringContextService.getBean( "pluginwizard.pluginModelDAO" );
+    private static IPluginModelDAO _dao = SpringContextService.getBean( "pluginwizard.pluginModelDAO" );
 
     /**
      * Private constructor - this class need not be instantiated

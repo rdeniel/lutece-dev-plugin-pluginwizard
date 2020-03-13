@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -139,7 +139,14 @@ public class BusinessClass
      */
     public void setAttributes( List<Attribute> listAttributes )
     {
-        _listAttributes = listAttributes;
+        if ( listAttributes != null )
+        {
+            _listAttributes = new ArrayList<>( listAttributes );
+        }
+        else
+        {
+            _listAttributes = null;
+        }
     }
 
     /**
@@ -149,7 +156,14 @@ public class BusinessClass
      */
     public List<Attribute> getAttributes( )
     {
-        return _listAttributes;
+        if (_listAttributes != null) 
+        {
+            return new ArrayList<>(_listAttributes);
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**

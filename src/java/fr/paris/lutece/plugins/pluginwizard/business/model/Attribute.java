@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -49,6 +49,10 @@ import javax.validation.constraints.Pattern;
  */
 public class Attribute implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Variables declarations
     private int _nIdAttribute;
     private int _nAttributeTypeId;

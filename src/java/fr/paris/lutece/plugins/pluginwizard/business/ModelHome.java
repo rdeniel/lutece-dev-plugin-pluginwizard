@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2014, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class ModelHome
 {
     // Static variable pointed at the DAO instance
-    private static IModelDAO _dao = (IModelDAO) SpringContextService.getBean( "pluginwizard.modelDAO" );
+    private static IModelDAO _dao = SpringContextService.getBean( "pluginwizard.modelDAO" );
     private static Plugin _plugin = PluginService.getPlugin( "pluginwizard" );
 
     /**
