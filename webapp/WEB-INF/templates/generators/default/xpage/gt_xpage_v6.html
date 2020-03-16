@@ -146,7 +146,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
     public XPage doCreate${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, LocaleService.getContextUserLocale( request ) );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
         {
@@ -234,7 +234,7 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
     public XPage doModify${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, LocaleService.getContextUserLocale( request ) );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
         {
