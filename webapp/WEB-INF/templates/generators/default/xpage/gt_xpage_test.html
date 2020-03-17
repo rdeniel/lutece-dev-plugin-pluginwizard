@@ -102,11 +102,11 @@ public void testXPage(  ) throws AccessDeniedException
 		request.addParameter( "action" , "create${business_class.instanceName?cap_first}" );
 		<#list business_class.attributes as attribute>
 		<#if attribute.type = "String">
-        request.addParameter( "${attribute.paramName}" , ${attribute.paramName?upper_case}1 );
+        request.addParameter( "${attribute.paramName}" , ${attribute.name?upper_case}1 );
         <#elseif attribute.type = "Date">
-        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.paramName?upper_case}1, LocaleService.getDefault( ) ) );
+        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.name?upper_case}1, LocaleService.getDefault( ) ) );
         <#else>
-        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.paramName?upper_case}1) );
+        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.name?upper_case}1) );
         </#if>
 		</#list>
 		request.setMethod( "POST" );
@@ -128,11 +128,11 @@ public void testXPage(  ) throws AccessDeniedException
 		LocalVariables.setLocal(config, request, response);
 		<#list business_class.attributes as attribute>
 		<#if attribute.type = "String">
-        request.addParameter( "${attribute.paramName}" , ${attribute.paramName?upper_case}2 );
+        request.addParameter( "${attribute.paramName}" , ${attribute.name?upper_case}2 );
         <#elseif attribute.type = "Date">
-        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.paramName?upper_case}2, LocaleService.getDefault( ) ) );
+        request.addParameter( "${attribute.paramName}" , DateUtil.getDateString( ${attribute.name?upper_case}2, LocaleService.getDefault( ) ) );
         <#else>
-        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.paramName?upper_case}2) );
+        request.addParameter( "${attribute.paramName}" , String.valueOf( ${attribute.name?upper_case}2) );
         </#if>
 		</#list>
 
