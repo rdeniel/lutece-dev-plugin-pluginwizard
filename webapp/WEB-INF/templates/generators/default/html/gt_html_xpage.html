@@ -6,8 +6,8 @@
 <${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
 <div class="row">
-	<${macro}columns>
-		<${macro}tform class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+	<div class="col-xs-12">
+		<form class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}' method="post" role="form">
 			<fieldset>
 				<legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title${i18n_close}</legend>
 				<${macro}messages errors=errors />
@@ -15,21 +15,33 @@
 				<input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
 				<#list business_class.attributes as attribute>
-          <${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' helpKey='${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}.help${i18n_close}' mandatory=true>
+          			<div class="form-group">
+         				<label for='${attribute.paramName}' class="col-xs-12 col-sm-3 control-label">
+         				${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}
+         					<i class="fa fa-asterisk" aria-hidden="true"></i>
+         				</label>
 						<#if attribute.type != "boolean">
-						<${macro}input type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> tabIndex="${attribute_index + 1}" />
+						<input type="text" id="${attribute.paramName}" name="${attribute.paramName}" value="${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!''${bra_close}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> tabIndex="${attribute_index + 1}" />
 						<#else>
-						<${macro}checkBox id="${attribute.paramName}" name="${attribute.paramName}" value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
+						<input type="checkbox" id="${attribute.paramName}" name="${attribute.paramName}" value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
 						</#if>
-					</${macro}formGroup>
+					</div>
 				</#list>
-        <${macro}formGroup>
-          <${macro}button name='action_create${business_class.businessClass}' type='submit' tabIndex='${business_class.attributes?size}' title='${i18n_open}portal.util.labelCreate${i18n_close}' buttonIcon='plus' />
-					<${macro}button name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}' buttonIcon='close' color='btn-secondary' />
-				</${macro}formGroup>
+				<div class="form-group">
+        			<div class=col-xs-12 col-sm-offset-3 col-sm-6">
+          				<button class="btn btn-primary btn-flat" name='action_create${business_class.businessClass}' type='submit' title='${i18n_open}portal.util.labelCreate${i18n_close}'>
+          					<i class="fa fa-close" aria-hidden="true"></i>
+          				${i18n_open}portal.util.labelCreate${i18n_close}
+          				</button>
+						<button class="btn btn-btn-secondary btn-flat" name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}'>
+							<i class="fa fa-close" aria-hidden="true"></i>
+          				${i18n_open}portal.util.labelCancel${i18n_close}
+						</button>
+					</div>
+				</div>
         </fieldset>
-    </${macro}tform>
-	</${macro}columns>
+    </form>
+	</div>
 </div>
 <#break>
 
@@ -38,8 +50,8 @@
 <${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
 <div class="row">
-	<${macro}columns>
-		<${macro}tform class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+	<div class="col-xs-12">
+		<form class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}' method="post" role="form">
 			<fieldset>
 				<legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title${i18n_close}</legend>
 				<${macro}messages errors=errors />
@@ -47,22 +59,31 @@
 				<input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
 				<#list business_class.attributes as attribute>
-				<${macro}formGroup labelFor='${attribute.paramName}' labelKey='${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}' mandatory=true>
-				<#if attribute.type != "boolean">
-          		<${macro}input type='text' id='${attribute.paramName}' name='${attribute.paramName}' <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!\'\'${bra_close}' tabIndex='${attribute_index}' />
-				<#else>
-				<${macro}checkBox id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
-			    </#if>
-				</${macro}formGroup>
+				<div class="form-group">
+					<label for='${attribute.paramName}' class="col-xs-12 col-sm-3 control-label">
+	         			<i class="fa fa-asterisk" aria-hidden="true"></i>
+	         			${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.label${attribute.name}${i18n_close}
+	         		</label>
+					<#if attribute.type != "boolean">
+	          		<input type="text" id='${attribute.paramName}' name='${attribute.paramName}' <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value='${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!\'\'${bra_close}' tabIndex='${attribute_index}' />
+					<#else>
+					<input type="checkbox" id="${attribute.paramName}" name="${attribute.paramName}" <#if attribute.maxLength &gt; 0> maxlength=${attribute.maxLength}</#if> value="1" checked=${business_class.businessClass?lower_case}.${attribute.name?uncap_first}!'false' tabIndex='${attribute_index}' />
+				    </#if>
+				</div>
 				</#list>
-
-				<${macro}formGroup>
-          <${macro}button name='action_modify${business_class.businessClass}' type='submit' tabIndex='${business_class.attributes?size}' title='${i18n_open}portal.util.labelModify${i18n_close}' buttonIcon='plus' />
-          <${macro}button name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}' buttonIcon='close' color='btn-secondary' />
-				</${macro}formGroup>
+				<div class="form-group">
+		          <button class="btn btn-primary btn-flat" name='action_modify${business_class.businessClass}' type='submit' tabIndex='${business_class.attributes?size}' title='${i18n_open}portal.util.labelModify${i18n_close}'>
+		          	<i class="fa fa-close" aria-hidden="true"></i>
+		          ${i18n_open}portal.util.labelModify${i18n_close}
+		          </button>
+		          <button class="btn btn-btn-secondary btn-flat" name='view_manage${business_class.businessClass}s' type='submit' title='${i18n_open}portal.util.labelCancel${i18n_close}'>
+		          	<i class="fa fa-close" aria-hidden="true"></i>
+		          ${i18n_open}portal.util.labelCancel${i18n_close}
+		          </button>
+				</div>
         </fieldset>
-		</${macro}tform>
-	</${macro}columns>
+		</form>
+	</div>
 </div>
 <#break>
 
@@ -71,43 +92,55 @@
 <${macro}tabs2 tab="${business_class.businessClass?lower_case}" />
 
 <div class="row">
-	<${macro}columns>
+	<div class="col-xs-12">
 		<${macro}messages infos=infos />
-		<${macro}tform action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'>
+		<form action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}'  method="post" role="form">
 			<${macro}button type='submit' name='view_create${business_class.businessClass}' class='pull-right' buttonIcon='plus' title='${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.buttonAdd${i18n_close}' />
-		</${macro}tform>
+		</form>
 
     <h4>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.title${i18n_close}</h4>
         
-    <${macro}table>
-			<tr>
-				<input type="hidden" id="id" name="id"/>
-				<#list business_class.attributes as attribute>
-					<th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
-				</#list>
-					<th>${i18n_open}portal.util.labelActions${i18n_close}</th>
-        </tr>
-				<${variable}list ${business_class.businessClass?lower_case}_list as ${business_class.businessClass?lower_case} >
-        <tr>
-					<input type="hidden" id="id" name="id" />
+	    <div class="table-responsive">
+	    	<table class="table  table-condensed table-hover">
+				<tr>
+					<input type="hidden" id="id" name="id"/>
 					<#list business_class.attributes as attribute>
-            <td>
-            				<#if attribute.type != "boolean">
-							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
-							<#else>
-							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}?c${bra_close}
-							</#if>
-            </td>    
-        </#list>
-					<td>
-						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' hideTitle=['all'] buttonIcon='pencil-square-o' />
-						
-						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' hideTitle=['all'] color='btn-danger' />
-					</td>
-        </tr>
-        </${variable}list>
-    </${macro}table>
-	</${macro}columns>
+						<th>${i18n_open}${plugin_name}.manage_${business_class.businessClass?lower_case}s.column${attribute.name}${i18n_close}</th>
+					</#list>
+						<th>${i18n_open}portal.util.labelActions${i18n_close}</th>
+	        </tr>
+					<${variable}list ${business_class.businessClass?lower_case}_list as ${business_class.businessClass?lower_case} >
+	        <tr>
+						<input type="hidden" id="id" name="id" />
+						<#list business_class.attributes as attribute>
+	            <td>
+	            				<#if attribute.type != "boolean">
+								${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+								<#else>
+								${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}?c${bra_close}
+								</#if>
+	            </td>    
+	        </#list>
+						<td>
+							<a class="btn btn-primary btn-flat" href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}'>
+								<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								<span class="hidden">
+								${i18n_open}portal.util.labelModify${i18n_close}
+								</span>
+							</a>
+							
+							<a class="btn btn-btn-danger btn-flat" href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}'>
+								<i class="fa fa-trash" aria-hidden="true"></i>
+								<span class="hidden">
+								${i18n_open}portal.util.labelDelete${i18n_close}
+								</span>
+							</a>
+						</td>
+	        </tr>
+	        </${variable}list>
+	        </table>
+	    </div>
+	</div>
 </div>
 <#break>
 <#default>
