@@ -150,7 +150,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
     public String doCreate${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, AdminAuthenticationService.getInstance( ).getRegisteredUser( request ).getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
         {
@@ -237,7 +237,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
     public String doModify${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, AdminAuthenticationService.getInstance( ).getRegisteredUser( request ).getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
         {
