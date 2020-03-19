@@ -46,7 +46,6 @@ import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.busin
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.security.SecurityTokenService;
-import fr.paris.lutece.portal.service.admin.AdminAuthenticationService;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
 import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
@@ -150,7 +149,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
     public String doCreate${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, AdminAuthenticationService.getInstance( ).getRegisteredUser( request ).getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
         {
@@ -237,7 +236,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
     public String doModify${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, AdminAuthenticationService.getInstance( ).getRegisteredUser( request ).getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
         {
