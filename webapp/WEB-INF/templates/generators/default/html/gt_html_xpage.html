@@ -10,17 +10,28 @@
 		<form class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}' method="post" role="form">
 			<fieldset>
 				<legend>${i18n_open}${plugin_name}.create_${business_class.businessClass?lower_case}.title${i18n_close}</legend>
-				<#-- Error messages handling -->
-			    <#if errors??>
-			        <#if errors?size &gt; 0 >
-			            <div class="${errors_class}" id="messages_errors_div">
-			                <a class="close" data-dismiss="alert" href="#">x</a>
-			                <#list errors as error >
-			                    <i class="fa fa-exclamation-circle"></i> ${error.message} <br>
-			                </#list>
-			            </div>
-			        </#if>
-			    </#if>
+				<#assign errors_class_generator= '<#assign errors_class = \'alert alert-danger\' />' />
+				<#assign errors_line_one = '<#if errors??>' />
+				<#assign errors_line_two = '<#if errors?size &gt; 0 >' />
+					<#assign errors_line_three = '<div class="'+r'${errors_class}'+'" id="messages_errors_div">' />
+						<#assign errors_line_four = '<a class="close" data-dismiss="alert" href="#">x</a>' />
+						<#assign errors_line_five = '<#list errors as error >' />
+							<#assign errors_line_six = '<i class="fa fa-exclamation-circle"></i> '+r'${error.message}'+' <br>' />
+						<#assign errors_line_seven = '</#list>' />
+					<#assign errors_line_eight = '</div>' />
+				<#assign errors_line_nine = '</#if>' />
+				<#assign errors_line_ten = '</#if>' />
+				${errors_class_generator}
+				${errors_line_one}
+				${errors_line_two}
+			    ${errors_line_three}
+			    ${errors_line_four}
+			    ${errors_line_five}
+			    ${errors_line_six}
+			    ${errors_line_seven}
+			    ${errors_line_eight}
+			    ${errors_line_nine}
+			    ${errors_line_ten}
 				<input type="hidden" id="id" name="id"/>
 				<input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
@@ -67,17 +78,28 @@
 		<form class='form-horizontal' action='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}' method="post" role="form">
 			<fieldset>
 				<legend>${i18n_open}${plugin_name}.modify_${business_class.businessClass?lower_case}.title${i18n_close}</legend>
-				<#-- Error messages handling -->
-			    <#if errors??>
-			        <#if errors?size &gt; 0 >
-			            <div class="${errors_class}" id="messages_errors_div">
-			                <a class="close" data-dismiss="alert" href="#">x</a>
-			                <#list errors as error >
-			                    <i class="fa fa-exclamation-circle"></i> ${error.message} <br>
-			                </#list>
-			            </div>
-			        </#if>
-			    </#if>
+				<#assign errors_class_generator= '<#assign errors_class = \'alert alert-danger\' />' />
+				<#assign errors_line_one = '<#if errors??>' />
+				<#assign errors_line_two = '<#if errors?size &gt; 0 >' />
+					<#assign errors_line_three = '<div class="'+r'${errors_class}'+'" id="messages_errors_div">' />
+						<#assign errors_line_four = '<a class="close" data-dismiss="alert" href="#">x</a>' />
+						<#assign errors_line_five = '<#list errors as error >' />
+							<#assign errors_line_six = '<i class="fa fa-exclamation-circle"></i> '+r'${error.message}'+' <br>' />
+						<#assign errors_line_seven = '</#list>' />
+					<#assign errors_line_eight = '</div>' />
+				<#assign errors_line_nine = '</#if>' />
+				<#assign errors_line_ten = '</#if>' />
+				${errors_class_generator}
+				${errors_line_one}
+				${errors_line_two}
+			    ${errors_line_three}
+			    ${errors_line_four}
+			    ${errors_line_five}
+			    ${errors_line_six}
+			    ${errors_line_seven}
+			    ${errors_line_eight}
+			    ${errors_line_nine}
+			    ${errors_line_ten}
 				<input type="hidden" id="id" name="id" value="${bra_open}${business_class.businessClass?lower_case}.id${bra_close}"/>
 				<input type="hidden" value="${bra_open}token${bra_close}" name="token" />
 
