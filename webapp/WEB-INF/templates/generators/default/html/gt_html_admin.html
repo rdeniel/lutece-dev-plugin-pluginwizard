@@ -86,11 +86,13 @@
         <tr>
             <input type="hidden" id="id" name="id"/>
             <#list business_class.attributes as attribute>
+            <td>
             <#if attribute.type != "boolean">
-							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
-							<#else>
-							${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}?c${bra_close}
-							</#if>
+			${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}${bra_close}
+			<#else>
+			${bra_open}${business_class.businessClass?lower_case}.${attribute.name?uncap_first}?c${bra_close}
+			</#if>
+			</td>
         </#list>
         <td>
 			<${macro}aButton href='jsp/admin/plugins/${pluginPath}/Manage${business_class.businessClass}s.jsp?view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' hideTitle=['all'] buttonIcon='pencil' />
