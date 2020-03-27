@@ -274,6 +274,19 @@
          </list>
       </constructor-arg>
    </bean>
+   <bean id="pluginwizard.generator.admin.java.xpage.before_7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageGenerator">
+      <property name="files">
+         <ref bean="pluginwizard.list.files.xpage" />
+      </property>
+   </bean>
+   <bean id="pluginwizard.list.files.xpage.before_7" class="java.util.ArrayList">
+      <constructor-arg>
+         <list>
+            <ref bean="pluginwizard.xpage.java.before_7" />
+            <ref bean="pluginwizard.xpage.test" />
+         </list>
+      </constructor-arg>
+   </bean>
    <bean id="pluginwizard.business.class" class="fr.paris.lutece.plugins.pluginwizard.service.generator.BusinessFileConfig">
       <property name="template">
          <value>/generators/default/business/gt_business_class.html</value>
@@ -349,6 +362,30 @@
          <value>/generators/default/jspbean/gt_jspbean.html</value>
       </property>
    </bean>
+   <bean id="pluginwizard.generator.admin.jspbeans.before_7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanGenerator">
+      <property name="files">
+         <ref bean="pluginwizard.list.files.admin.jspbeans.before_7" />
+      </property>
+       <property name="abstractParentBeanTemplate">
+         <value>/generators/default/jspbean/gt_jspbean_abstract.html</value>
+      </property>
+   </bean>
+   <bean id="pluginwizard.list.files.admin.jspbeans.before_7" class="java.util.ArrayList">
+      <constructor-arg>
+         <list>
+            <ref bean="pluginwizard.generator.admin.java.jspbean.before_7" />
+            <ref bean="pluginwizard.generator.java.jspbean.test" />
+         </list>
+      </constructor-arg>
+   </bean>
+   <bean id="pluginwizard.generator.admin.java.jspbean.before_7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminJspBeanFileConfig">
+      <property name="sourcePath">
+         <value>src/</value>
+      </property>
+      <property name="template">
+         <value>/generators/default/jspbean/gt_jspbean_v6.html</value>
+      </property>
+   </bean>
    <bean id="pluginwizard.generator.admin.html" class="fr.paris.lutece.plugins.pluginwizard.service.generator.AdminTemplateGenerator">
       <property name="template">
          <value>/generators/default/html/gt_html_admin.html</value>
@@ -376,6 +413,14 @@
    <bean id="pluginwizard.xpage.java" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageFileConfig">
       <property name="template">
          <value>/generators/default/xpage/gt_xpage.html</value>
+      </property>
+      <property name="sourcePath">
+         <value>src/</value>
+      </property>
+   </bean>
+   <bean id="pluginwizard.xpage.java.before_7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.XPageFileConfig">
+      <property name="template">
+         <value>/generators/default/xpage/gt_xpage_v6.html</value>
       </property>
       <property name="sourcePath">
          <value>src/</value>
@@ -599,10 +644,10 @@
             <ref bean="pluginwizard.generator.resources" />
             <ref bean="pluginwizard.generator.sql" />
             <ref bean="pluginwizard.generator.admin.java.business" />
-            <ref bean="pluginwizard.generator.admin.jspbeans" />
+            <ref bean="pluginwizard.generator.admin.jspbeans.before_7" />
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html.v5" />
-            <ref bean="pluginwizard.generator.admin.java.xpage" />
+            <ref bean="pluginwizard.generator.admin.java.xpage.before_7" />
             <ref bean="pluginwizard.generator.xpage.html.v5" />
             <ref bean="pluginwizard.generator.portlet.java.business" />
             <ref bean="pluginwizard.generator.portlet.jsp" />
@@ -629,10 +674,10 @@
             <ref bean="pluginwizard.generator.resources" />
             <ref bean="pluginwizard.generator.sql" />
             <ref bean="pluginwizard.generator.admin.java.business" />
-            <ref bean="pluginwizard.generator.admin.jspbeans" />
+            <ref bean="pluginwizard.generator.admin.jspbeans.before_7" />
             <ref bean="pluginwizard.generator.admin.jsp" />
             <ref bean="pluginwizard.generator.admin.html.v6" />
-            <ref bean="pluginwizard.generator.admin.java.xpage" />
+            <ref bean="pluginwizard.generator.admin.java.xpage.before_7" />
             <ref bean="pluginwizard.generator.xpage.html.v6" />
             <ref bean="pluginwizard.generator.portlet.java.business" />
             <ref bean="pluginwizard.generator.portlet.jsp" />

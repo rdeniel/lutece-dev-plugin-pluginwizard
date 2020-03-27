@@ -100,9 +100,9 @@
             </td>    
         </#list>
 					<td>
-						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' showTitle=false buttonIcon='pencil-square-o' />
+						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&view=modify${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelModify${i18n_close}' hideTitle=['all'] buttonIcon='pencil-square-o' />
 						
-						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' showTitle=false color='btn-danger' />
+						<${macro}aButton href='jsp/site/Portal.jsp?page=${business_class.businessClass?lower_case}&action=confirmRemove${business_class.businessClass}&id=${bra_open}${business_class.businessClass?lower_case?lower_case}.id${bra_close}' title='${i18n_open}portal.util.labelDelete${i18n_close}' buttonIcon='trash' hideTitle=['all'] color='btn-danger' />
 					</td>
         </tr>
         </${variable}list>

@@ -31,7 +31,10 @@
  *
  * License 1.0
  */
-<#if plugin_model.module = true>
+  <#list business_class.attributes as attribute>
+	<#assign pluginType = attribute.type />
+</#list>
+<#if pluginType = "MODULE" >
   	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
   	<#assign msg= "module."+plugin_model.pluginName?split("-")[0]+"."+plugin_model.pluginName?split("-")[1] />
  <#else>
@@ -39,54 +42,48 @@
  	<#assign msg= plugin_model.pluginName />
  	
  </#if>
-package fr.paris.lutece.plugins.${radicalPackage}.web;
+<#if business_class??>
 
+package fr.paris.lutece.plugins.${radicalPackage}.web;
+ 
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
-import fr.paris.lutece.portal.service.message.AdminMessage;
-import fr.paris.lutece.portal.service.message.AdminMessageService;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
+import fr.paris.lutece.portal.web.xpages.XPage;
+import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
+import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+import fr.paris.lutece.util.url.UrlItem;
+import fr.paris.lutece.portal.service.message.SiteMessageService;
+import fr.paris.lutece.portal.service.message.SiteMessage;
+import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.security.SecurityTokenService;
 import fr.paris.lutece.portal.service.admin.AccessDeniedException;
-import fr.paris.lutece.portal.util.mvc.admin.annotations.Controller;
-import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
-import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
-import fr.paris.lutece.util.url.UrlItem;
 
-import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest; 
 
 /**
- * This class provides the user interface to manage ${business_class.businessClass} features ( manage, create, modify, remove )
+ * This class provides the user interface to manage ${business_class.businessClass} xpages ( manage, create, modify, remove )
  */
-@Controller( controllerJsp = "Manage${business_class.businessClass}s.jsp", controllerPath = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/", right = "${feature_right}" )
-public class ${business_class.businessClass}JspBean extends Abstract${feature_name}JspBean
+@Controller( xpageName = "${business_class.businessClass?lower_case}" , pageTitleI18nKey = "${msg}.xpage.${business_class.businessClass?lower_case}.pageTitle" , pagePathI18nKey = "${msg}.xpage.${business_class.businessClass?lower_case}.pagePathLabel" )
+public class ${business_class.businessClass}XPage extends MVCApplication
 {
     // Templates
-    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/admin/plugins/${radicalPackage?replace(".","/")}/manage_${business_class.businessClass?lower_case}s.html";
-    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/create_${business_class.businessClass?lower_case}.html";
-    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
-
+    private static final String TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S = "/skin/plugins/${radicalPackage?replace(".","/")}/manage_${business_class.businessClass?lower_case}s.html";
+    private static final String TEMPLATE_CREATE_${business_class.businessClass?upper_case} = "/skin/plugins/${radicalPackage?replace(".","/")}/create_${business_class.businessClass?lower_case}.html";
+    private static final String TEMPLATE_MODIFY_${business_class.businessClass?upper_case} = "/skin/plugins/${radicalPackage?replace(".","/")}/modify_${business_class.businessClass?lower_case}.html";
+    
     // Parameters
     private static final String PARAMETER_ID_${business_class.businessClass?upper_case} = "id";
-
-    // Properties for page titles
-    private static final String PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S = "${msg?lower_case}.manage_${business_class.businessClass?lower_case}s.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case} = "${msg?lower_case}.modify_${business_class.businessClass?lower_case}.pageTitle";
-    private static final String PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case} = "${msg?lower_case}.create_${business_class.businessClass?lower_case}.pageTitle";
-
+    
     // Markers
     private static final String MARK_${business_class.businessClass?upper_case}_LIST = "${business_class.businessClass?lower_case}_list";
     private static final String MARK_${business_class.businessClass?upper_case} = "${business_class.businessClass?lower_case}";
-
-    private static final String JSP_MANAGE_${business_class.businessClass?upper_case}S = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/Manage${business_class.businessClass?cap_first}s.jsp";
-
-    // Properties
+    
+    // Message
     private static final String MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case} = "${msg}.message.confirmRemove${business_class.businessClass?cap_first}";
-
-    // Validations
-    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${msg}.model.entity.${business_class.businessClass?lower_case}.attribute.";
-
+    
     // Views
     private static final String VIEW_MANAGE_${business_class.businessClass?upper_case}S = "manage${business_class.businessClass}s";
     private static final String VIEW_CREATE_${business_class.businessClass?upper_case} = "create${business_class.businessClass}";
@@ -104,21 +101,21 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
     private static final String INFO_${business_class.businessClass?upper_case}_REMOVED = "${msg}.info.${business_class.businessClass?lower_case}.removed";
     
     // Session variable to store working values
-    private ${business_class.businessClass} _${business_class.businessClass?lower_case};
+    private ${business_class.businessClass?cap_first} _${business_class.businessClass?lower_case};
     
     /**
-     * Build the Manage View
-     * @param request The HTTP request
-     * @return The page
+     * return the form to manage ${business_class.businessClass?lower_case}s
+     * @param request The Http request
+     * @return the html code of the list of ${business_class.businessClass?lower_case}s
      */
     @View( value = VIEW_MANAGE_${business_class.businessClass?upper_case}S, defaultView = true )
-    public String getManage${business_class.businessClass}s( HttpServletRequest request )
+    public XPage getManage${business_class.businessClass}s( HttpServletRequest request )
     {
         _${business_class.businessClass?lower_case} = null;
-        List<${business_class.businessClass}> list${business_class.businessClass}s = ${business_class.businessClass}Home.get${business_class.businessClass}sList(  );
-        Map<String, Object> model = getPaginatedListModel( request, MARK_${business_class.businessClass?upper_case}_LIST, list${business_class.businessClass}s, JSP_MANAGE_${business_class.businessClass?upper_case}S );
-
-        return getPage( PROPERTY_PAGE_TITLE_MANAGE_${business_class.businessClass?upper_case}S, TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, model );
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${business_class.businessClass?upper_case}_LIST, ${business_class.businessClass?cap_first}Home.get${business_class.businessClass?cap_first}sList(  ) );
+        
+        return getXPage( TEMPLATE_MANAGE_${business_class.businessClass?upper_case}S, request.getLocale(  ), model );
     }
 
     /**
@@ -128,15 +125,15 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      * @return the html code of the ${business_class.businessClass?lower_case} form
      */
     @View( VIEW_CREATE_${business_class.businessClass?upper_case} )
-    public String getCreate${business_class.businessClass}( HttpServletRequest request )
+    public XPage getCreate${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
-        _${business_class.businessClass?lower_case} = ( _${business_class.businessClass?lower_case} != null ) ? _${business_class.businessClass?lower_case} : new ${business_class.businessClass}(  );
+        _${business_class.businessClass?lower_case} = ( _${business_class.businessClass?lower_case} != null ) ? _${business_class.businessClass?lower_case} : new ${business_class.businessClass?cap_first}(  );
 
         Map<String, Object> model = getModel(  );
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
         model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) );
 
-        return getPage( PROPERTY_PAGE_TITLE_CREATE_${business_class.businessClass?upper_case}, TEMPLATE_CREATE_${business_class.businessClass?upper_case}, model );
+        return getXPage( TEMPLATE_CREATE_${business_class.businessClass?upper_case}, request.getLocale(  ), model );
     }
 
     /**
@@ -147,9 +144,9 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      * @throws AccessDeniedException
      */
     @Action( ACTION_CREATE_${business_class.businessClass?upper_case} )
-    public String doCreate${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
+    public XPage doCreate${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${business_class.businessClass?upper_case} ) )
         {
@@ -157,13 +154,13 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         }
 
         // Check constraints
-        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirectView( request, VIEW_CREATE_${business_class.businessClass?upper_case} );
         }
 
         ${business_class.businessClass}Home.create( _${business_class.businessClass?lower_case} );
-        addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale(  ) );
+        addInfo( INFO_${business_class.businessClass?upper_case}_CREATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
@@ -174,17 +171,18 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      *
      * @param request The Http request
      * @return the html code to confirm
+     * @throws fr.paris.lutece.portal.service.message.SiteMessageException {@link fr.paris.lutece.portal.service.message.SiteMessageException}
      */
     @Action( ACTION_CONFIRM_REMOVE_${business_class.businessClass?upper_case} )
-    public String getConfirmRemove${business_class.businessClass}( HttpServletRequest request )
+    public XPage getConfirmRemove${business_class.businessClass?cap_first}( HttpServletRequest request ) throws SiteMessageException
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
-        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
+
+        UrlItem url = new UrlItem( getActionFullUrl( ACTION_REMOVE_${business_class.businessClass?upper_case} ) );
         url.addParameter( PARAMETER_ID_${business_class.businessClass?upper_case}, nId );
-
-        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
-
-        return redirect( request, strMessageUrl );
+        
+        SiteMessageService.setMessage( request, MESSAGE_CONFIRM_REMOVE_${business_class.businessClass?upper_case}, SiteMessage.TYPE_CONFIRMATION, url.getUrl(  ) );
+        return null;
     }
 
     /**
@@ -194,11 +192,11 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      * @return the jsp URL to display the form to manage ${business_class.businessClass?lower_case}s
      */
     @Action( ACTION_REMOVE_${business_class.businessClass?upper_case} )
-    public String doRemove${business_class.businessClass}( HttpServletRequest request )
+    public XPage doRemove${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
         ${business_class.businessClass}Home.remove( nId );
-        addInfo( INFO_${business_class.businessClass?upper_case}_REMOVED, getLocale(  ) );
+        addInfo( INFO_${business_class.businessClass?upper_case}_REMOVED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
@@ -210,11 +208,11 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      * @return The HTML form to update info
      */
     @View( VIEW_MODIFY_${business_class.businessClass?upper_case} )
-    public String getModify${business_class.businessClass}( HttpServletRequest request )
+    public XPage getModify${business_class.businessClass?cap_first}( HttpServletRequest request )
     {
         int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${business_class.businessClass?upper_case} ) );
 
-        if ( _${business_class.businessClass?lower_case} == null || ( _${business_class.businessClass?lower_case}.getId(  ) != nId ) )
+        if ( _${business_class.businessClass?lower_case} == null  || ( _${business_class.businessClass?lower_case}.getId( ) != nId ) )
         {
             _${business_class.businessClass?lower_case} = ${business_class.businessClass}Home.findByPrimaryKey( nId );
         }
@@ -223,7 +221,7 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         model.put( MARK_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case} );
         model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) );
 
-        return getPage( PROPERTY_PAGE_TITLE_MODIFY_${business_class.businessClass?upper_case}, TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, model );
+        return getXPage( TEMPLATE_MODIFY_${business_class.businessClass?upper_case}, request.getLocale(  ), model );
     }
 
     /**
@@ -234,9 +232,9 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
      * @throws AccessDeniedException
      */
     @Action( ACTION_MODIFY_${business_class.businessClass?upper_case} )
-    public String doModify${business_class.businessClass}( HttpServletRequest request ) throws AccessDeniedException
+    public XPage doModify${business_class.businessClass?cap_first}( HttpServletRequest request ) throws AccessDeniedException
     {
-        populate( _${business_class.businessClass?lower_case}, request, getLocale( ) );
+        populate( _${business_class.businessClass?lower_case}, request, request.getLocale( ) );
 
         if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${business_class.businessClass?upper_case} ) )
         {
@@ -244,14 +242,45 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         }
 
         // Check constraints
-        if ( !validateBean( _${business_class.businessClass?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        if ( !validateBean( _${business_class.businessClass?lower_case} ) )
         {
             return redirect( request, VIEW_MODIFY_${business_class.businessClass?upper_case}, PARAMETER_ID_${business_class.businessClass?upper_case}, _${business_class.businessClass?lower_case}.getId( ) );
         }
 
         ${business_class.businessClass}Home.update( _${business_class.businessClass?lower_case} );
-        addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale(  ) );
+        addInfo( INFO_${business_class.businessClass?upper_case}_UPDATED, getLocale( request ) );
 
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
 }
+<#else>
+package fr.paris.lutece.plugins.${radicalPackage}.web;
+
+import fr.paris.lutece.portal.web.xpages.XPage;
+import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
+import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
+import fr.paris.lutece.portal.util.mvc.xpage.annotations.Controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * This class provides a simple implementation of an XPage
+ */
+@Controller( xpageName = "${plugin_application.applicationName}" , pageTitleI18nKey = "${msg}.xpage.${plugin_application.applicationName}.pageTitle" , pagePathI18nKey = "${msg}.xpage.${plugin_application.applicationName}.pagePathLabel" )
+public class ${plugin_application.applicationClass} extends MVCApplication
+{
+    private static final String TEMPLATE_XPAGE = "/skin/plugins/${radicalPackage?replace(".","/")}/${plugin_application.applicationName}.html";
+    private static final String VIEW_HOME = "home";
+    
+    /**
+     * Returns the content of the page ${plugin_application.applicationName}. 
+     * @param request The HTTP request
+     * @return The view
+     */
+    @View( value = VIEW_HOME , defaultView = true )
+    public XPage viewHome( HttpServletRequest request )
+    {
+        return getXPage( TEMPLATE_XPAGE, request.getLocale(  ) );
+    }
+}
+</#if>
