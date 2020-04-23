@@ -33,16 +33,20 @@
  */
 package fr.paris.lutece.plugins.pluginwizard.service;
 
+import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.util.ReferenceList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Attribute Service
  */
 public class AttributeService
 {
+    private static final String  I18N_RESOURCE_KEY_PREFIX = "pluginwizard.pluginwizard_attributes_types.";
+    private static final String  I18N_RESOURCE_KEY_DESCRIPTION_SUFFIX = ".description";
     private List<AttributeType> _listAttributeTypes;
 
     /**
@@ -68,13 +72,19 @@ public class AttributeService
      * 
      * @return The list
      */
-    public ReferenceList getAttributeTypes( )
+    public ReferenceList getAttributeTypes( Locale locale )
     {
         ReferenceList list = new ReferenceList( );
 
         for ( AttributeType type : _listAttributeTypes )
         {
-            list.addItem( type.getIdAttributeType( ), type.getDescription( ) );
+        	String strDescription = I18nService.getLocalizedString( I18N_RESOURCE_KEY_PREFIX + type.getIdAttributeType() + I18N_RESOURCE_KEY_DESCRIPTION_SUFFIX, locale ) ;
+        	if ( strDescription == null )
+        	{
+        		strDescription = type.getDescription( );
+        	}
+
+        	list.addItem( type.getIdAttributeType( ), strDescription );
         }
 
         return list;

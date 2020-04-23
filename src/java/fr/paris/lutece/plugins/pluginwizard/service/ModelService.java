@@ -51,6 +51,7 @@ import org.dozer.DozerBeanMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Model Service provides all plugin'model manipulations
@@ -1120,9 +1121,9 @@ public final class ModelService
      * 
      * @return A list of attributes types
      */
-    public static ReferenceList getAttributeTypes( )
+    public static ReferenceList getAttributeTypes( Locale locale )
     {
-        return _serviceAttribute.getAttributeTypes( );
+        return _serviceAttribute.getAttributeTypes( locale );
     }
 
     /**

@@ -852,7 +852,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         Map<String, Object> model = getModel( );
         model.put( MARK_BUSINESS_CLASS_ID, strBusinessClassId );
-        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( ) );
+        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( getLocale( request ) ) );
         model.put( MARK_ATTRIBUTE, _attribute );
 
         return getXPage( TEMPLATE_CREATE_ATTRIBUTE, request.getLocale( ), model );
@@ -879,7 +879,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         model.put( MARK_PLUGIN_ID, _nPluginId );
         model.put( MARK_BUSINESS_CLASS_ID, nIdBusinessClass );
-        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( ) );
+        model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( getLocale( request ) ) );
         model.put( MARK_ATTRIBUTE, _attribute );
 
         return getXPage( TEMPLATE_MODIFY_ATTRIBUTE, request.getLocale( ), model );

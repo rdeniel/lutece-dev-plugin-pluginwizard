@@ -15,7 +15,7 @@
          <value>int</value>
       </property>
       <property name="description">
-         <value>Entier</value>
+         <value>Integer</value>
       </property>
       <property name="javaType">
          <value>int</value>
@@ -35,7 +35,7 @@
          <value>shortText</value>
       </property>
       <property name="description">
-         <value>Texte court (50 caractères)</value>
+         <value>Short text (50 characters)</value>
       </property>
       <property name="javaType">
          <value>String</value>
@@ -55,7 +55,7 @@
          <value>mediumText</value>
       </property>
       <property name="description">
-         <value>Texte moyen (255 caractères)</value>
+         <value>Medium text (255 characters)</value>
       </property>
       <property name="javaType">
          <value>String</value>
@@ -75,7 +75,7 @@
          <value>longText</value>
       </property>
       <property name="description">
-         <value>Texte long ( &gt; 255 caractères)</value>
+         <value>Long text ( &gt; 255 characters)</value>
       </property>
       <property name="javaType">
          <value>String</value>
@@ -95,7 +95,7 @@
          <value>email</value>
       </property>
       <property name="description">
-         <value>Email (255 caractères)</value>
+         <value>Email (255 characters)</value>
       </property>
       <property name="javaType">
          <value>String</value>
@@ -118,7 +118,7 @@
          <value>url</value>
       </property>
       <property name="description">
-         <value>URL (255 caractères)</value>
+         <value>URL (255 characters)</value>
       </property>
       <property name="javaType">
          <value>String</value>
@@ -164,7 +164,7 @@
          <value>boolean</value>
       </property>
       <property name="description">
-         <value>Booléen</value>
+         <value>Boolean</value>
       </property>
       <property name="javaType">
          <value>boolean</value>
