@@ -53,6 +53,7 @@ import fr.paris.lutece.plugins.pluginwizard.web.formbean.PluginNameFormBean;
 import fr.paris.lutece.portal.service.message.SiteMessageException;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.security.UserNotSignedException;
+import fr.paris.lutece.portal.service.util.AppPropertiesService;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.View;
 import fr.paris.lutece.portal.util.mvc.utils.MVCMessageBox;
@@ -150,6 +151,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String ACTION_DESCRIPTION_PREVIOUS = "descriptionPrevious";
     private static final String ACTION_DESCRIPTION_NEXT = "descriptionNext";
     private static final String ACTION_RESET_DATA = "resetData";
+    private static final String PROPERTY_SEARCH_DUPLICATES = "pluginwizard.searchDuplicates";
 
     // REST
     private static final String VIEW_MANAGE_REST = "manageRest";
@@ -321,7 +323,17 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         }
 
         _strPluginName = form.getName( );
-        _nPluginId = ModelHome.exists( form.getName( ) );
+        
+        // search duplicates plugin names
+        if ( AppPropertiesService.getPropertyBoolean( PROPERTY_SEARCH_DUPLICATES, false) )
+        {
+        	_nPluginId = ModelHome.exists( form.getName( ) ) ;
+        }
+        else
+        {
+        	_nPluginId = -1 ;
+        }
+        
 
         if ( _nPluginId == -1 )
         {
