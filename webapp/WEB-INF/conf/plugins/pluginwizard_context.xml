@@ -662,7 +662,7 @@
    </bean>
    <bean id="schemeLutece6" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
-         <value>Modèle Lutece 6.0 (DAO SQL)</value>
+         <value>Java Lutece 6.0 (DAO SQL)</value>
       </property>
       <property name="generatorsList">
          <list>
@@ -727,7 +727,7 @@
 
 <bean id="schemeLutece7" class="fr.paris.lutece.plugins.pluginwizard.service.generator.GenerationScheme">
       <property name="name">
-         <value>Modèle Lutece 7.0</value>
+         <value>Java Lutece 7.0 (DAO SQL)</value>
       </property>
       <property name="isDefault">
          <value>true</value>
