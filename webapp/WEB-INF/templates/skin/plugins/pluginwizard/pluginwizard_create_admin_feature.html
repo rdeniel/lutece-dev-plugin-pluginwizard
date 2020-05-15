@@ -22,14 +22,16 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureTitle} : </label>                
 								<div class="col-md-9">      
-									 <input class="form-control input-md" type="text" name="feature_title" value="${feature.featureTitle!''}" />                                         
+									<input class="form-control input-md" type="text" name="feature_title" value="${feature.featureTitle!''}" />                                         
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_admin_feature_title.help}</span>
 								</div>
 							</div>
 
 							<div class="form-group">                                                         
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureDescription} : </label>                 
 								<div class="col-md-9">        
-									 <input class="form-control input-md" type="text" name="feature_description" value="${feature.featureDescription!''}" />                           
+									<input class="form-control input-md" type="text" name="feature_description" value="${feature.featureDescription!''}" />                           
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_admin_feature_description.help}</span>
 								</div>
 							</div>
 
@@ -37,7 +39,8 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_admin_feature.labelFeatureName} :         
 								</label>          
 								<div class="col-md-9">           
-									 <input class="form-control input-md" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?keep_after("-")?cap_first}</#if>" />                     
+									 <input class="form-control input-md" type="text" name="feature_name" value="<#if feature.featureName??>${feature.featureName}<#else>Manage${plugin_model.pluginName?keep_after("-")?cap_first}</#if>" />
+									 <span class="help-block">#i18n{pluginwizard.pluginwizard_admin_feature_name.help}</span>
 								</div>             
 							</div> 
 

@@ -23,13 +23,15 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationName} :</label>
 								<div class="col-md-9">   
 									<input class="form-control input-md" type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?keep_after("-")?lower_case}</#if>" />
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_application_name.help}</span>
 								</div>    
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationClass} :</label>
 								<div class="col-md-9">
-									<input class="form-control input-md" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}App</#if>"  />
+									<input class="form-control input-md" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}App</#if>" />
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_admin_application_class.help}</span>
 								</div>
 							</div>
 							 
