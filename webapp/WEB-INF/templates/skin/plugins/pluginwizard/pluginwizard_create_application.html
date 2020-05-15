@@ -23,6 +23,7 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationName} :</label>
 								<div class="col-md-9">   
 									<input class="form-control input-md autocorrect" type="text" name="application_name" value="<#if application.applicationName??>${application.applicationName}<#else>${plugin_model.pluginName?keep_after("-")?lower_case}</#if>" data-pattern="${application_name_pattern}" />
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_application_name.help}</span>
 								</div>    
 							</div>
 
@@ -30,6 +31,7 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_application.labelApplicationClass} :</label>
 								<div class="col-md-9">
 									<input class="form-control input-md autocorrect" type="text" name="application_class" value="<#if application.applicationClass??>${application.applicationClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}App</#if>" data-pattern="${application_class_pattern}" />
+									<span class="help-block">#i18n{pluginwizard.pluginwizard_admin_application_class.help}</span>
 								</div>
 							</div>
 							 
