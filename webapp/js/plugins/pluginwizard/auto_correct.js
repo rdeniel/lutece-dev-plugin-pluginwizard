@@ -141,7 +141,6 @@ function addListeners()
 		let inputName = htmlInputs[i].getAttribute("name");
 		let htmlInput = htmlInputs[i];
 		htmlInputs[i].addEventListener("focusout", function(){ fieldFormat(htmlInput, inputName);});
-
 			
 	}
 }
