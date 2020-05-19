@@ -34,7 +34,7 @@
 <#list business_class.attributes as attribute>
 	<#assign pluginType = attribute.type />
 </#list>
-<#if pluginType = "MODULE" >
+<#if plugin_type = "MODULE" >
  	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
 <#else>
 	<#assign radicalPackage= plugin_model.pluginName /> 	
