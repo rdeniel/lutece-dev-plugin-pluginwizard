@@ -156,7 +156,7 @@ public final class ModelService
             // if the plugin doesn't exist
             model = new Model( );
             model.setName( pm.getPluginName( ) );
-
+           
             ModelHome.create( model );
         }
         else
@@ -1209,5 +1209,9 @@ public final class ModelService
         PluginModel pm = getPluginModel( nPluginId );
 
         return _mapper.map( getBusinessClass( pm, nBusinessClassId ), BusinessClassFormBean.class );
+    }
+    public static boolean getLoaded( int nPluginId )
+    {
+        return getPluginModel( nPluginId ).getLoaded( );
     }
 }

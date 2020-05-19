@@ -85,6 +85,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     // Constants
     private static final String MARK_PLUGIN_ID = "plugin_id";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
+    private static final String MARK_PLUGIN_LOADED = "is_loaded";
 
     // Management Bookmarks
     private static final String MARK_PLUGIN_PORTLETS = "plugin_portlets";
@@ -249,6 +250,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private Application _application;
     private Portlet _portlet;
     private Rest _rest;
+    private boolean _bIsLoaded;
 
     /**
      * {@inheritDoc }
@@ -369,6 +371,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         String strJson = new String( fileItem.get( ), StandardCharsets.UTF_8 );
         PluginModel pluginModel = MapperService.readJson( strJson );
+        pluginModel.setLoaded( true );
 
         _nPluginId = ModelService.savePluginModelFromJson( pluginModel );
         _description = ModelService.getDescription( _nPluginId );
@@ -424,7 +427,9 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     {
         Map<String, Object> model = getPluginModel( );
         _description = ( _description != null ) ? _description : ModelService.getDescription( _nPluginId );
+        _bIsLoaded = ModelService.getLoaded(_nPluginId );
         model.put( MARK_PLUGIN_MODEL, _description );
+        model.put( MARK_PLUGIN_LOADED, _bIsLoaded );
 
         return getXPage( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, request.getLocale( ), model );
     }

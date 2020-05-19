@@ -7,10 +7,14 @@
     <li class="btn btn-sm btn-block <#if step=="xpage"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelXPageStep}</h5></li>
     <li class="btn btn-sm btn-block <#if step=="portlet"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelPortletsStep}</h5></li>
     <li class="btn btn-sm btn-block <#if step=="rest"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelRestStep}</h5></li>
-    <#if step=="creation" || step=="generate"> 
+    <#if is_loaded??>
+    <#if is_loaded == false>
     <li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>       
 	<#else>
 	<a class="btn btn-sm btn-block btn-default" href="jsp/site/Portal.jsp?page=pluginwizard&view=recapitulate"><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></a>
+	</#if>
+	<#else>
+	<li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>       
 	</#if>
 </ul>
 </#macro>
