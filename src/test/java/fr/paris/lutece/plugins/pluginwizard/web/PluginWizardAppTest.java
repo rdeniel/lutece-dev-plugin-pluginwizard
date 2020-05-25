@@ -60,7 +60,7 @@ public class PluginWizardAppTest extends LuteceTestCase
         request.addParameter( "business_table_name", "myplugin_mytable" );
         request.addParameter( "id_feature", "1" );
         request.addParameter( "business_class_id", "1" );
-        instance.getModifyBusinessClass( request );
         instance.doCreateBusinessClass( request );
+        instance.getModifyBusinessClass( request );
     }
 }
