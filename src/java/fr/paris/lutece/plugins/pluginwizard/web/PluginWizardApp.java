@@ -88,6 +88,12 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     // Constants
     private static final String MARK_PLUGIN_ID = "plugin_id";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
+    
+    //RegEx
+    private static final String MARK_ADMIN_FEATURE_NAME_PATTERN = "admin_feature_name_pattern";
+    private static final String MARK_ADMIN_FEATURE_RIGHT_PATTERN = "admin_feature_right_pattern";
+    private static final String MARK_APPLICATION_NAME_PATTERN = "application_name_pattern";
+    private static final String MARK_APPLICATION_CLASS_PATTERN = "application_class_pattern";
 
     // Management Bookmarks
     private static final String MARK_PLUGIN_PORTLETS = "plugin_portlets";
@@ -542,6 +548,9 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_ADMIN_FEATURES, pm.getFeatures( ) );
         model.put( MARK_FEATURE, _feature );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
+        model.put( MARK_ADMIN_FEATURE_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.admin_feature_type_name") );
+        model.put( MARK_ADMIN_FEATURE_RIGHT_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.admin_feature_right_name") );
+        
 
         return getXPage( TEMPLATE_CREATE_ADMIN_FEATURE, getLocale( request ), model );
     }
@@ -568,6 +577,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_FEATURE, _feature );
         model.put( MARK_ADMIN_FEATURES, pm.getFeatures( ) );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
+        model.put( MARK_ADMIN_FEATURE_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.admin_feature_type_name") );
+        model.put( MARK_ADMIN_FEATURE_RIGHT_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.admin_feature_right_name") );
 
         return getXPage( TEMPLATE_MODIFY_ADMIN_FEATURE, getLocale( request ), model );
     }
@@ -1033,6 +1044,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_APPLICATION, _application );
         model.put( MARK_PLUGIN_APPLICATIONS, pm.getApplications( ) );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
+        model.put( MARK_APPLICATION_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.application_name") );
+        model.put( MARK_APPLICATION_CLASS_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.application_class") );
 
         return getXPage( TEMPLATE_CREATE_PLUGIN_APPLICATION, getLocale( request ), model );
     }
@@ -1060,6 +1073,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_APPLICATIONS, pm.getApplications( ) );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
+        model.put( MARK_APPLICATION_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.application_name") );
+        model.put( MARK_APPLICATION_CLASS_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_admin_feature.application_class") );
 
         return getXPage( TEMPLATE_MODIFY_PLUGIN_APPLICATION, getLocale( request ), model );
     }
@@ -1278,7 +1293,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         url.addParameter( PARAM_ACTION, ACTION_REMOVE_PORTLET );
         url.addParameter( PARAM_PORTLET_ID, request.getParameter( PARAM_PORTLET_ID ) );
 
-        return redirectMessageBox( request,
+       return redirectMessageBox( request,
                 buildConfirmMessageBox( PROPERTY_CONFIRM_REMOVE_PORTLET_MESSAGE, url.getUrl( ), getViewFullUrl( VIEW_MANAGE_PORTLETS ) ) );
     }
 

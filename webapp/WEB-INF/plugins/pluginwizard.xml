@@ -35,5 +35,9 @@
             <application-class>fr.paris.lutece.plugins.pluginwizard.web.PluginWizardApp</application-class>
         </application>
     </applications>
+    
+	<javascript-files>
+    	<javascript-file>pluginwizard/auto_correct.js</javascript-file>
+    </javascript-files>
 
 </plug-in>

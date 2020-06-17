@@ -40,14 +40,14 @@
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureName} :                            
 								</label>                               
 								<div class="col-md-9">                                                              	                              
-									 <input class="form-control input-md" type="text" name="feature_name" value="${feature.featureName}" /> 				                                                                        
+									 <input class="form-control input-md" type="text" name="feature_name" value="${feature.featureName}" data-pattern="${admin_feature_name_pattern}" /> 				                                                                        
 								</div>         	  				                     
 							</div>   
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_admin_feature.labelFeatureManagement} : </label>                     
 								<div class="col-md-9">               
-									<input class="form-control input-md" type="text" name="feature_right" value="${feature.featureRight}" />                                 
+									<input class="form-control input-md" type="text" name="feature_right" value="${feature.featureRight}" data-pattern="${admin_feature_right_pattern}" />                                 
 								</div> 
 							</div>
 
