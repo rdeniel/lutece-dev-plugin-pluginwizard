@@ -42,7 +42,8 @@ import java.util.Locale;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import org.codehaus.jackson.annotate.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * This is the business class for the object PluginModel
