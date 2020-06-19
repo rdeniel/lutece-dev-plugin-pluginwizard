@@ -38,8 +38,9 @@ import java.util.List;
 
 import javax.validation.constraints.Pattern;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 

@@ -36,7 +36,8 @@ package fr.paris.lutece.plugins.pluginwizard.service;
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.StringWriter;
 
@@ -45,7 +46,7 @@ import java.io.StringWriter;
  */
 public final class MapperService
 {
-    private static ObjectMapper _mapper = new ObjectMapper( );
+    private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     /** Private constructor */
     private MapperService( )

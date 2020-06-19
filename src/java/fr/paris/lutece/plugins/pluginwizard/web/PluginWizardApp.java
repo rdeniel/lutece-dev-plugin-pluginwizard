@@ -46,7 +46,6 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Rest;
 import fr.paris.lutece.plugins.pluginwizard.service.MapperService;
 import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.plugins.pluginwizard.service.generator.GeneratorService;
-import fr.paris.lutece.plugins.pluginwizard.util.Utils;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.PluginNameFormBean;
@@ -82,6 +81,10 @@ import org.apache.commons.fileupload.FileUploadException;
 @Controller( xpageName = "pluginwizard", pagePathI18nKey = "pluginwizard.pagePathLabel", pageTitleI18nKey = "pluginwizard.pageTitle" )
 public class PluginWizardApp extends MVCApplication implements Serializable
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     // Constants
     private static final String MARK_PLUGIN_ID = "plugin_id";
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
