@@ -47,38 +47,31 @@ import java.util.Map;
  */
 public class AdminJspBeanGeneratorTest extends LuteceTestCase
 {
-    /**
-     * Test of generate method, of class AdminJspBeanGenerator.
-     */
-    @Test
-    public void testGenerateClassic( )
-    {
-        try
-        {
-            System.out.println( "generate Admin JspBean files (classic)" );
+	/**
+	 * Test of generate method, of class AdminJspBeanGenerator.
+	 */
+	@Test
+	public void testGenerateClassic( )
+	{
+		System.out.println( "generate Admin JspBean files (classic)" );
 
-            PluginModel pm = GeneratorUtils.getTestModel( );
-            AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
-            Map result = instance.generate( pm, "schemeLutece7" );
-            GeneratorUtils.outputMap( result );
-        }
-        catch( Exception e )
-        {
-            e.printStackTrace( );
-        }
-    }
+		PluginModel pm = GeneratorUtils.getTestModel( );
+		AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
+		Map result = instance.generate( pm, "schemeLutece7" );
+		GeneratorUtils.outputMap( result );
+	}
 
-    /**
-     * Test of generate method, of class AdminJspBeanGenerator.
-     */
-    @Test
-    public void testGenerateAlternative( )
-    {
-        System.out.println( "generate Admin JspBean files (alternative)" );
+	/**
+	 * Test of generate method, of class AdminJspBeanGenerator.
+	 */
+	@Test
+	public void testGenerateAlternative( )
+	{
+		System.out.println( "generate Admin JspBean files (alternative)" );
 
-        PluginModel pm = GeneratorUtils.getTestModel( );
-        AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
-        Map result = instance.generate( pm, "schemeLutece7" );
-        GeneratorUtils.outputMap( result );
-    }
+		PluginModel pm = GeneratorUtils.getTestModel( );
+		AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
+		Map result = instance.generate( pm, "schemeLutece7" );
+		GeneratorUtils.outputMap( result );
+	}
 }

@@ -45,13 +45,17 @@ import fr.paris.lutece.plugins.pluginwizard.business.model.Rest;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.BusinessClassFormBean;
 import fr.paris.lutece.plugins.pluginwizard.web.formbean.DescriptionFormBean;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
+import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.util.ReferenceList;
 
-import org.dozer.DozerBeanMapper;
-
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import org.apache.commons.beanutils.BeanUtils;
 
 /**
  * Model Service provides all plugin'model manipulations
@@ -59,7 +63,7 @@ import java.util.Locale;
 public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
-    private static DozerBeanMapper _mapper = new DozerBeanMapper( );
+    private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     private static final String ID = "id";
     private static final String UNDERSCORE = "_";
 
@@ -613,7 +617,19 @@ public final class ModelService
     public static BusinessClass addBusinessClass( int nPluginId, BusinessClassFormBean bc )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        BusinessClass businessClass = _mapper.map( bc, BusinessClass.class );
+        
+        BusinessClass businessClass;
+ 
+        try
+        {
+            businessClass = _mapper.readValue( _mapper.writeValueAsString( bc ), BusinessClass.class );
+        }
+        catch (IOException e)
+        {
+            throw new AppException( "Mapping exception", e);
+        }
+
+        
         List<BusinessClass> businessClassesList;
         businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
 
@@ -678,9 +694,19 @@ public final class ModelService
 
             if ( bc.getId( ) == businessClass.getId( ) )
             {
-                _mapper.map( businessClass, bc );
+
+                BusinessClass newBusinessClass = null;
+                try
+                {
+                    newBusinessClass = _mapper.readValue( _mapper.writeValueAsString(  businessClass ), bc.getClass( ) );
+                }
+                catch (IOException e)
+                {
+
+                	throw new AppException( "JSON parsing error",e );
+                }
                 
-                list.set( i, bc );
+                list.set( i, newBusinessClass );
                 pm.setBusinessClasses( list );
                 
                 savePluginModel( pm );
@@ -1193,21 +1219,55 @@ public final class ModelService
     public static void updateDescription( int nPluginId, DescriptionFormBean description )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        _mapper.map( description, pm );
+        
+        try
+        {
+            _mapper.readValue( _mapper.writeValueAsString(  description ), pm.getClass( ) );
+        }
+        catch (IOException e)
+        {
+            throw new AppException( "JSON exception", e );
+        }
+
+        
+        try
+        {
+            BeanUtils.copyProperties(pm.getClass( ), pm);
+        }
+        catch (IllegalAccessException | InvocationTargetException e)
+        {
+        	throw new AppException( "Bean exception",e );
+        }
+         
         savePluginModel( pm );
     }
 
     public static DescriptionFormBean getDescription( int nPluginId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-
-        return _mapper.map( pm, DescriptionFormBean.class );
+        
+        try
+        {
+            return _mapper.readValue( _mapper.writeValueAsString( pm ), DescriptionFormBean.class );
+        }
+        catch (IOException e)
+        {
+            throw new AppException( "JSON exception", e );
+            
+        }
     }
 
     public static BusinessClassFormBean getFormBusinessClass( int nPluginId, int nBusinessClassId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-
-        return _mapper.map( getBusinessClass( pm, nBusinessClassId ), BusinessClassFormBean.class );
+        
+        try
+        {
+            return _mapper.readValue( _mapper.writeValueAsString( getBusinessClass( pm, nBusinessClassId  ) ), BusinessClassFormBean.class );
+        }
+        catch (IOException e)
+        {
+            throw new AppException( "JSON exception", e );
+        }
     }
 }
