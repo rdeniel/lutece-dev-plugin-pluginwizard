@@ -291,7 +291,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     @View( value = VIEW_CREATE_PLUGIN, defaultView = true )
     public XPage getCreatePlugin( HttpServletRequest request )
     {
-        return getXPage( TEMPLATE_CREATE_PLUGIN, request.getLocale( ) );
+        return getXPage( TEMPLATE_CREATE_PLUGIN, getLocale( request ) );
     }
 
     /**
@@ -304,7 +304,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     @View( VIEW_MODIFY_PLUGIN )
     public XPage getModifyPlugin( HttpServletRequest request )
     {
-        return getXPage( TEMPLATE_MODIFY_PLUGIN, request.getLocale( ), getPluginModel( ) );
+        return getXPage( TEMPLATE_MODIFY_PLUGIN, getLocale( request ), getPluginModel( ) );
     }
 
     /**
@@ -412,7 +412,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         model.put( MARK_PLUGIN_ID, _nPluginId );
 
-        return getXPage( TEMPLATE_CREATE_PLUGIN_DESCRIPTION, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_PLUGIN_DESCRIPTION, getLocale( request ), model );
     }
 
     /**
@@ -429,7 +429,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         _description = ( _description != null ) ? _description : ModelService.getDescription( _nPluginId );
         model.put( MARK_PLUGIN_MODEL, _description );
 
-        return getXPage( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, getLocale( request ), model );
     }
 
     /**
@@ -522,7 +522,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
         model.put( MARK_ADMIN_FEATURES, pm.getFeatures( ) );
 
-        return getXPage( TEMPLATE_MANAGE_ADMIN_FEATURES, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MANAGE_ADMIN_FEATURES, getLocale( request ), model );
     }
 
     /**
@@ -543,7 +543,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_FEATURE, _feature );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
 
-        return getXPage( TEMPLATE_CREATE_ADMIN_FEATURE, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_ADMIN_FEATURE, getLocale( request ), model );
     }
 
     /**
@@ -569,7 +569,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_ADMIN_FEATURES, pm.getFeatures( ) );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
 
-        return getXPage( TEMPLATE_MODIFY_ADMIN_FEATURE, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_ADMIN_FEATURE, getLocale( request ), model );
     }
 
     /**
@@ -679,7 +679,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
         model.put( MARK_BUSINESS_CLASSES, ModelService.getPluginModel( _nPluginId ).getBusinessClasses( ) );
 
-        return getXPage( TEMPLATE_MANAGE_BUSINESS_CLASSES, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MANAGE_BUSINESS_CLASSES, getLocale( request ), model );
     }
 
     /**
@@ -698,7 +698,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
 
         model.put( MARK_BUSINESS_CLASS, _businessClass );
 
-        return getXPage( TEMPLATE_CREATE_BUSINESS_CLASS, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_BUSINESS_CLASS, getLocale( request ), model );
     }
 
     /**
@@ -725,7 +725,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_BUSINESS_CLASS, _businessClass );
         model.put( MARK_ATTRIBUTES_LIST, ModelService.getBusinessClass( _nPluginId, nBusinessClassId ).getAttributes( ) );
 
-        return getXPage( TEMPLATE_MODIFY_BUSINESS_CLASS, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_BUSINESS_CLASS, getLocale( request ), model );
     }
 
     /**
@@ -870,7 +870,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( getLocale( request ) ) );
         model.put( MARK_ATTRIBUTE, _attribute );
 
-        return getXPage( TEMPLATE_CREATE_ATTRIBUTE, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_ATTRIBUTE, getLocale( request ), model );
     }
 
     /**
@@ -897,7 +897,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_ATTRIBUTE_TYPE_COMBO, ModelService.getAttributeTypes( getLocale( request ) ) );
         model.put( MARK_ATTRIBUTE, _attribute );
 
-        return getXPage( TEMPLATE_MODIFY_ATTRIBUTE, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_ATTRIBUTE, getLocale( request ), model );
     }
 
     /**
@@ -1013,7 +1013,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
         model.put( MARK_PLUGIN_APPLICATIONS, ModelService.getPluginModel( _nPluginId ).getApplications( ) );
 
-        return getXPage( TEMPLATE_MANAGE_PLUGIN_APPLICATIONS, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MANAGE_PLUGIN_APPLICATIONS, getLocale( request ), model );
     }
 
     /**
@@ -1034,7 +1034,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_APPLICATIONS, pm.getApplications( ) );
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
 
-        return getXPage( TEMPLATE_CREATE_PLUGIN_APPLICATION, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_PLUGIN_APPLICATION, getLocale( request ), model );
     }
 
     /**
@@ -1061,7 +1061,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
 
-        return getXPage( TEMPLATE_MODIFY_PLUGIN_APPLICATION, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_PLUGIN_APPLICATION, getLocale( request ), model );
     }
 
     /**
@@ -1171,7 +1171,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_ID, Integer.toString( _nPluginId ) );
         model.put( MARK_PLUGIN_PORTLETS, ModelService.getPluginModel( _nPluginId ).getPortlets( ) );
 
-        return getXPage( TEMPLATE_MANAGE_PLUGIN_PORTLETS, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MANAGE_PLUGIN_PORTLETS, getLocale( request ), model );
     }
 
     /**
@@ -1189,7 +1189,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         Map<String, Object> model = getPluginModel( );
         model.put( MARK_PORTLET, _portlet );
 
-        return getXPage( TEMPLATE_CREATE_PLUGIN_PORTLET, request.getLocale( ), model );
+        return getXPage( TEMPLATE_CREATE_PLUGIN_PORTLET, getLocale( request ), model );
     }
 
     /**
@@ -1212,7 +1212,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         Map<String, Object> model = getModel( );
         model.put( MARK_PORTLET, _portlet );
 
-        return getXPage( TEMPLATE_MODIFY_PLUGIN_PORTLET, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MODIFY_PLUGIN_PORTLET, getLocale( request ), model );
     }
 
     /**
@@ -1320,7 +1320,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses( ) );
         model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes( ) );
 
-        return getXPage( TEMPLATE_GET_RECAPITULATE, request.getLocale( ), model );
+        return getXPage( TEMPLATE_GET_RECAPITULATE, getLocale( request ), model );
     }
 
     /**
@@ -1432,7 +1432,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_BUSINESS_CLASSES_COMBO, ModelService.getComboBusinessClasses( _nPluginId ) );
         model.put( MARK_PLUGIN_REST, ModelService.getRest( _nPluginId ) );
 
-        return getXPage( TEMPLATE_MANAGE_REST, request.getLocale( ), model );
+        return getXPage( TEMPLATE_MANAGE_REST, getLocale( request ), model );
     }
 
     /**
