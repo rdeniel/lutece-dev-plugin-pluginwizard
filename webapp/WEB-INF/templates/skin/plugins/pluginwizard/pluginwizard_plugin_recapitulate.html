@@ -134,7 +134,7 @@
                                 		<#assign defaultItemValue=item.code />
                                 	</#if>
                                 </#list>
-                                <@comboWithParams name="scheme" items=combo_schemes default_value=defaultItemValue additionalParameters='class="input-lg"' />       
+                                <@select name="scheme" default_value=defaultItemValue class='input-lg' items=combo_schemes />       
                             </div>
                             <button class="btn btn-success btn-lg" type="submit" >
                                 <i class="glyphicon glyphicon-download-alt">  </i>
