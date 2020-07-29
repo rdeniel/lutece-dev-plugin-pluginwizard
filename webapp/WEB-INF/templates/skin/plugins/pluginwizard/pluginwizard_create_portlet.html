@@ -24,21 +24,21 @@
 							 <div class="form-group">
 								<label class="control-label col-md-3">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletClass} :</label>
 								<div class="col-md-9">   
-									 <input class="form-control input-md" type="text" name="portlet_class" value="<#if portlet.portletClass??>${portlet.portletClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}Portlet</#if>" />
+									 <input class="form-control input-md autocorrect" type="text" name="portlet_class" value="<#if portlet.portletClass??>${portlet.portletClass}<#else>${plugin_model.pluginName?keep_after("-")?cap_first}Portlet</#if>" />
 								</div>  
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelPortletTypeName} :</label>
 								<div class="col-md-9"> 
-									 <input class="form-control input-md" type="text" name="portlet_type_name" value="<#if portlet.portletTypeName??>${portlet.portletTypeName}<#else>${plugin_model.pluginName?keep_after("-")?upper_case}_PORTLET</#if>" />
+									 <input class="form-control input-md autocorrect" type="text" name="portlet_type_name" value="<#if portlet.portletTypeName??>${portlet.portletTypeName}<#else>${plugin_model.pluginName?keep_after("-")?upper_case}_PORTLET</#if>" />
 								</div>  
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_create_portlet.labelJspBaseName} :</label>
 								<div class="col-md-9"> 
-									 <input class="form-control input-md" type="text" name="jsp_base_name" value="<#if portlet.jspBaseName??>${portlet.jspBaseName}<#else>Portlet${plugin_model.pluginName?keep_after("-")?cap_first}</#if>" />
+									 <input class="form-control input-md autocorrect" type="text" name="jsp_base_name" value="<#if portlet.jspBaseName??>${portlet.jspBaseName}<#else>Portlet${plugin_model.pluginName?keep_after("-")?cap_first}</#if>" />
 								</div>  
 							</div>
 
