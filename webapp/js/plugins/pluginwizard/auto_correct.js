@@ -1,6 +1,8 @@
-function getElements(tagName)
+var pluginName;
+
+function getElements(attName)
 {
-	return document.getElementsByTagName(tagName);
+	return document.getElementsByClassName(attName);
 }
 
 function elementSelector(selector)
@@ -11,12 +13,6 @@ function elementSelector(selector)
 function firstLetterCapitalize(fieldValue)
 {
 	return fieldValue.charAt(0).toUpperCase() + fieldValue.slice(1);
-}
-
-
-function saveValue(element)
-{
-	sessionStorage.setItem("pluginName", element.value);
 }
 
 function checkPrefix(prefix, fieldValue)
@@ -47,41 +43,39 @@ function eliminateChars(inputValue, exception)
 {
 	let startRegEx = "([^a-z";
 	let finalRegEx = new RegExp( startRegEx + exception + "]+)", "gi" );
-	console.log("ma regex" + finalRegEx.toString());
 	return inputValue.replace(finalRegEx, "");
 }
 
 function fieldFormat(htmlInput, inputName)
 {
-	let fieldsList = {
-					  business_class:"/^[A-Z][a-zA-Z]*$/",
-					  business_table_name:"/^[a-z]+_[a-z]*$/",
-					  application_name:"/^[a-z]+$/",
-					  portlet_class:"/^[a-zA-Z]*Portlet$/",
-					  portlet_type_name:"/[A-Z]*_PORTLET$/",
-					  jsp_base_name:"/^Portlet[A-Z][a-zA-Z]*$/",
-					  feature_title:"/^[a-zA-Z]{6,80}$/",
-					  feature_description:"/^[a-zA-Z]{6,255}$/",
-					  feature_name:"[A-Z][a-zA-Z]*",
-					  feature_right:"/^[A-Z][A-Z_]*$/",
-					  application_class:"/^[A-Z][a-zA-Z]*$/"
-						  };
+	let fieldsList = [
+					  "business_class",
+					  "business_table_name",
+					  "application_name",
+					  "portlet_class",
+					  "portlet_type_name",
+					  "jsp_base_name",
+					  "feature_title",
+					  "feature_description",
+					  "feature_name",
+					  "feature_right",
+					  "application_class"
+						  ];
 	let inputValue = htmlInput.value;
 	
 	
-	if( fieldsList.hasOwnProperty(inputName) && !inputValue.match( RegExp( fieldsList[inputName]) ) )
+	if( fieldsList.includes(inputName) && !inputValue.match( RegExp( htmlInput.getAttribute( "data-pattern" ) ) ) )
 	{
 		let newValue = eliminateChars(inputValue, "");
 		
-		switch(Object.keys(fieldsList).indexOf(inputName))
+		switch(fieldsList.indexOf(inputName))
 		{
 			case 0:
 				htmlInput.value = firstLetterCapitalize(newValue);
 				break;
 			case 1:
 				newValue = eliminateChars(inputValue, "_");
-				let pluginPrefix = sessionStorage.getItem("pluginName").toLowerCase()+"_";
-				htmlInput.value = checkPrefix(pluginPrefix, newValue.toLowerCase());
+				htmlInput.value = checkPrefix(pluginName, newValue.toLowerCase());
 				break;
 			case 2:
 				htmlInput.value = newValue.toLowerCase();
@@ -113,33 +107,30 @@ function fieldFormat(htmlInput, inputName)
 
 function addListeners()
 {
-	let htmlInputs = getElements("input");
+	let htmlInputs = getElements("autocorrect");
 	for (let i = 0; i < htmlInputs.length; i++)
 	{
 
-		if(htmlInputs[i].getAttribute("type") == "text" && htmlInputs[i].getAttribute("type"))
-		{
+		let inputName = htmlInputs[i].getAttribute("name");
+		let htmlInput = htmlInputs[i];
+		htmlInputs[i].addEventListener("focusout", function(){ fieldFormat(htmlInput, inputName);});
 
-			let inputName = htmlInputs[i].getAttribute("name");
-			let htmlInput = htmlInputs[i];
-			htmlInputs[i].addEventListener("focusout", function(){ fieldFormat(htmlInput, inputName);});
-		}
 			
 	}
 }
 
 function getPluginName()
 {
-	let formFields = getElements("input");
+	let formFields = getElements("autocorrect");
 
 	for(let i = 0; i < formFields.length; i++)
 	{
-		if (formFields[i].getAttribute("name")  == "name")
+		if (formFields[i].getAttribute("name")  == "business_table_name")
 		{
-			formFields[i].addEventListener("focusout", function(){saveValue(formFields[i]);});
+			pluginName = formFields[i].value;
 		}
 	}
 	
 }
 
-document.addEventListener("DOMContentLoaded", function(){console.log("pluginName = " + elementSelector("input[name='plugin_name']")[0].value); addListeners(); getPluginName();});
+document.addEventListener("DOMContentLoaded", function(){getPluginName(); addListeners();});
