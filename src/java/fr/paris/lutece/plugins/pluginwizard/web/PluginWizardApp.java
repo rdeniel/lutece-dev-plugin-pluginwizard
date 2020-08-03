@@ -90,10 +90,13 @@ public class PluginWizardApp extends MVCApplication implements Serializable
     private static final String MARK_PLUGIN_MODEL = "plugin_model";
     
     //RegEx
+    private static final String MARK_BUSINESS_CLASS_NAME_PATTERN = "business_class_name_pattern";
+    private static final String MARK_BUSINESS_CLASS_TAB_NAME_PATTERN = "business_class_tab_name_pattern";
     private static final String MARK_ADMIN_FEATURE_NAME_PATTERN = "admin_feature_name_pattern";
     private static final String MARK_ADMIN_FEATURE_RIGHT_PATTERN = "admin_feature_right_pattern";
     private static final String MARK_APPLICATION_NAME_PATTERN = "application_name_pattern";
     private static final String MARK_APPLICATION_CLASS_PATTERN = "application_class_pattern";
+    private static final String MARK_PLUGIN_PROVIDER_URL_PATTERN = "plugin_provider_url_pattern";
 
     // Management Bookmarks
     private static final String MARK_PLUGIN_PORTLETS = "plugin_portlets";
@@ -417,6 +420,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         }
 
         model.put( MARK_PLUGIN_ID, _nPluginId );
+        model.put( MARK_PLUGIN_PROVIDER_URL_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_modify_plugin.plugin_provider_url" ) );
 
         return getXPage( TEMPLATE_CREATE_PLUGIN_DESCRIPTION, request.getLocale( ), model );
     }
@@ -434,7 +438,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         Map<String, Object> model = getPluginModel( );
         _description = ( _description != null ) ? _description : ModelService.getDescription( _nPluginId );
         model.put( MARK_PLUGIN_MODEL, _description );
-
+        model.put( MARK_PLUGIN_PROVIDER_URL_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_modify_plugin.plugin_provider_url" ) );
+        
         return getXPage( TEMPLATE_MODIFY_PLUGIN_DESCRIPTION, request.getLocale( ), model );
     }
 
@@ -708,6 +713,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         Map<String, Object> model = getPluginModel( );
 
         model.put( MARK_BUSINESS_CLASS, _businessClass );
+        model.put( MARK_BUSINESS_CLASS_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_business_class.business_class_name") );
+        model.put( MARK_BUSINESS_CLASS_TAB_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_business_class.business_class_tab_name") );
 
         return getXPage( TEMPLATE_CREATE_BUSINESS_CLASS, request.getLocale( ), model );
     }
@@ -735,6 +742,8 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         Map<String, Object> model = getPluginModel( );
         model.put( MARK_BUSINESS_CLASS, _businessClass );
         model.put( MARK_ATTRIBUTES_LIST, ModelService.getBusinessClass( _nPluginId, nBusinessClassId ).getAttributes( ) );
+        model.put( MARK_BUSINESS_CLASS_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_business_class.business_class_name") );
+        model.put( MARK_BUSINESS_CLASS_TAB_NAME_PATTERN, AppPropertiesService.getProperty( "pluginwizard.regex.do_create_business_class.business_class_tab_name") );
 
         return getXPage( TEMPLATE_MODIFY_BUSINESS_CLASS, request.getLocale( ), model );
     }

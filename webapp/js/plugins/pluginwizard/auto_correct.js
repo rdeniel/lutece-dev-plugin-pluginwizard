@@ -46,6 +46,30 @@ function eliminateChars(inputValue, exception)
 	return inputValue.replace(finalRegEx, "");
 }
 
+function domainFormatter(url)
+{
+    let urlToLower = url.toLowerCase();
+    if(!urlToLower.startsWith("http://") && !urlToLower.startsWith("https://"))
+    {
+        switch(true)
+        {
+            case(urlToLower.startsWith("https")):
+                return urlToLower.replace("https","https://");
+                break;
+            case(urlToLower.startsWith("http")):
+                return urlToLower.replace("http","http://");
+                break;
+            default:
+                return "http://"+urlToLower;
+                break;
+        }
+    }
+    else
+    {
+        return urlToLower;
+    }
+}
+
 function fieldFormat(htmlInput, inputName)
 {
 	let fieldsList = [
@@ -59,10 +83,10 @@ function fieldFormat(htmlInput, inputName)
 					  "feature_description",
 					  "feature_name",
 					  "feature_right",
-					  "application_class"
+					  "application_class",
+                      "plugin_provider_url"
 						  ];
 	let inputValue = htmlInput.value;
-	
 	
 	if( fieldsList.includes(inputName) && !inputValue.match( RegExp( htmlInput.getAttribute( "data-pattern" ) ) ) )
 	{
@@ -74,8 +98,8 @@ function fieldFormat(htmlInput, inputName)
 				htmlInput.value = firstLetterCapitalize(newValue);
 				break;
 			case 1:
-				newValue = eliminateChars(inputValue, "_");
-				htmlInput.value = checkPrefix(pluginName, newValue.toLowerCase());
+				newValue2 = eliminateChars(inputValue, "_");
+				htmlInput.value = checkPrefix(pluginName, newValue2.toLowerCase());
 				break;
 			case 2:
 				htmlInput.value = newValue.toLowerCase();
@@ -100,6 +124,9 @@ function fieldFormat(htmlInput, inputName)
 			case 10:
 				htmlInput.value = firstLetterCapitalize(newValue);
 				break;
+            case 11:
+                htmlInput.value = domainFormatter(inputValue);
+                break;
 		}
 
 	}
@@ -127,7 +154,7 @@ function getPluginName()
 	{
 		if (formFields[i].getAttribute("name")  == "business_table_name")
 		{
-			pluginName = formFields[i].value;
+			pluginName = formFields[i].value.split("_")[0] + "_";
 		}
 	}
 	
