@@ -28,14 +28,14 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessClass} *:</label>      
 								<div class="col-md-9">
-									<input class="form-control input-md" type="text" name="business_class" value="${business_class.businessClass}" size="30" />      
+									<input class="form-control input-md autocorrect" type="text" name="business_class" value="${business_class.businessClass}" size="30" data-pattern="${business_class_name_pattern}" />      
 								</div>  
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label">#i18n{pluginwizard.pluginwizard_modify_business_class.labelBusinessTableName} *: </label>      
 								<div class="col-md-9">  
-									 <input class="form-control input-md" type="text" name="business_table_name" value="${business_class.businessTableName}" size="30" />      
+									 <input class="form-control input-md autocorrect" type="text" name="business_table_name" value="${business_class.businessTableName}" size="30" data-pattern="${business_class_tab_name_pattern}" />      
 								</div>                       
 							</div>
 
