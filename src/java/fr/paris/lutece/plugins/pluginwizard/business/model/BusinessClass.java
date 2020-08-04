@@ -157,9 +157,9 @@ public class BusinessClass
      */
     public List<Attribute> getAttributes( )
     {
-        if (_listAttributes != null) 
+        if ( _listAttributes != null )
         {
-            return new ArrayList<>(_listAttributes);
+            return new ArrayList<>( _listAttributes );
         }
         else
         {

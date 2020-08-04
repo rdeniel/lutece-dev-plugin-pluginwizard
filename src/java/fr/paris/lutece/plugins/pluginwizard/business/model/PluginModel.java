@@ -528,7 +528,7 @@ public class PluginModel
      */
     public List<Application> getApplications( )
     {
-        return  new ArrayList<>( _listPluginApplications );
+        return new ArrayList<>( _listPluginApplications );
     }
 
     /**
@@ -617,7 +617,7 @@ public class PluginModel
     {
         return new ArrayList<>( _listBusinessClasses );
     }
-    
+
     public void setBusinessClasses( List<BusinessClass> listBusinessClasses )
     {
         _listBusinessClasses = new ArrayList<>( listBusinessClasses );

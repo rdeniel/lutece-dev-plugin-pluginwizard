@@ -123,8 +123,8 @@ public class XPageTemplateGenerator extends AbstractGenerator
      *            The plugin name
      * @return The html code of the create template
      */
-    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Application application, BusinessClass businessClass,
-            int nTemplateType, String strPluginName )
+    private String getCreateHtmlCode( Collection<BusinessClass> listAllBusinessClasses, Application application, BusinessClass businessClass, int nTemplateType,
+            String strPluginName )
     {
         Map<String, Object> model = new HashMap<>( );
 

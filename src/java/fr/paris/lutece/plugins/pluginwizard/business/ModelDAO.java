@@ -61,7 +61,7 @@ public final class ModelDAO implements IModelDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -86,7 +86,7 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void insert( Model model, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
 
             model.setIdPlugin( newPrimaryKey( plugin ) );
@@ -112,7 +112,7 @@ public final class ModelDAO implements IModelDAO
     @Override
     public Model load( int nId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
@@ -145,7 +145,7 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void delete( int nModelId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nModelId );
             daoUtil.executeUpdate( );
@@ -164,7 +164,7 @@ public final class ModelDAO implements IModelDAO
     @Override
     public void store( Model model, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
 
             daoUtil.setInt( 1, model.getIdPlugin( ) );
@@ -188,7 +188,7 @@ public final class ModelDAO implements IModelDAO
     public List<Model> selectModelsList( Plugin plugin )
     {
         List<Model> modelList = new ArrayList<>( );
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 

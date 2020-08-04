@@ -46,7 +46,7 @@ import java.io.StringWriter;
  */
 public final class MapperService
 {
-    private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private static ObjectMapper _mapper = new ObjectMapper( ).configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false );
 
     /** Private constructor */
     private MapperService( )

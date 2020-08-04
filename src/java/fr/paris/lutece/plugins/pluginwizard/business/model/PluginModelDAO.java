@@ -63,7 +63,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -92,7 +92,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void insert( PluginModel pluginModel, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
 
             pluginModel.setIdPlugin( newPrimaryKey( plugin ) );
@@ -128,7 +128,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public PluginModel load( int nId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
@@ -173,7 +173,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void delete( int nPluginModelId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nPluginModelId );
             daoUtil.executeUpdate( );
@@ -191,7 +191,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public void store( PluginModel pluginModel, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
 
             daoUtil.setInt( 1, pluginModel.getIdPlugin( ) );
@@ -225,7 +225,7 @@ public final class PluginModelDAO implements IPluginModelDAO
     public Collection<PluginModel> selectPluginModelsList( Plugin plugin )
     {
         Collection<PluginModel> pluginModelList = new ArrayList<>( );
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -268,7 +268,7 @@ public final class PluginModelDAO implements IPluginModelDAO
      */
     public int selectPluginModelByName( Plugin plugin, String strPluginName )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_NAME, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_FIND_BY_NAME, plugin ) )
         {
             daoUtil.setString( 1, strPluginName );
             daoUtil.executeQuery( );
@@ -299,7 +299,7 @@ public final class PluginModelDAO implements IPluginModelDAO
     {
         boolean bValue = false;
         int nCount = 0;
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_COUNT_FIND_BY_NAME, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_COUNT_FIND_BY_NAME, plugin ) )
         {
             daoUtil.setString( 1, strPluginName );
             daoUtil.executeQuery( );

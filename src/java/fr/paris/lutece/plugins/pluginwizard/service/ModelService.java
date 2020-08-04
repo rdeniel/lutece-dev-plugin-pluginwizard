@@ -63,7 +63,7 @@ import org.apache.commons.beanutils.BeanUtils;
 public final class ModelService
 {
     private static AttributeService _serviceAttribute = SpringContextService.getBean( "pluginwizard.attribute.service" );
-    private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    private static ObjectMapper _mapper = new ObjectMapper( ).configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false );
     private static final String ID = "id";
     private static final String UNDERSCORE = "_";
 
@@ -193,7 +193,7 @@ public final class ModelService
         List<Feature> list = pm.getFeatures( );
         list.add( feature );
         pm.setFeatures( list );
-        
+
         savePluginModel( pm );
     }
 
@@ -264,7 +264,7 @@ public final class ModelService
             {
                 list.set( i, feature );
                 pm.setFeatures( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -293,7 +293,7 @@ public final class ModelService
             {
                 list.remove( i );
                 pm.setFeatures( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -357,7 +357,7 @@ public final class ModelService
         List<Application> list = pm.getApplications( );
         list.add( application );
         pm.setApplications( list );
-        
+
         savePluginModel( pm );
     }
 
@@ -404,7 +404,7 @@ public final class ModelService
             {
                 list.set( i, application );
                 pm.setApplications( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -433,7 +433,7 @@ public final class ModelService
             {
                 list.remove( i );
                 pm.setApplications( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -529,7 +529,7 @@ public final class ModelService
             {
                 list.set( i, portlet );
                 pm.setPortlets( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -617,24 +617,23 @@ public final class ModelService
     public static BusinessClass addBusinessClass( int nPluginId, BusinessClassFormBean bc )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        
+
         BusinessClass businessClass;
- 
+
         try
         {
             businessClass = _mapper.readValue( _mapper.writeValueAsString( bc ), BusinessClass.class );
         }
-        catch (IOException e)
+        catch( IOException e )
         {
-            throw new AppException( "Mapping exception", e);
+            throw new AppException( "Mapping exception", e );
         }
 
-        
         List<BusinessClass> businessClassesList;
         businessClass.setId( getMaxBusinessClassId( pm ) + 1 );
 
         String strBusinessClass = "";
-        char charBusinessClass [ ] = bc.getBusinessClass( ).toCharArray( );
+        char charBusinessClass[] = bc.getBusinessClass( ).toCharArray( );
         for ( int i = 0; i < charBusinessClass.length; i++ )
         {
             if ( Character.isUpperCase( charBusinessClass [i] ) )
@@ -698,17 +697,17 @@ public final class ModelService
                 BusinessClass newBusinessClass = null;
                 try
                 {
-                    newBusinessClass = _mapper.readValue( _mapper.writeValueAsString(  businessClass ), bc.getClass( ) );
+                    newBusinessClass = _mapper.readValue( _mapper.writeValueAsString( businessClass ), bc.getClass( ) );
                 }
-                catch (IOException e)
+                catch( IOException e )
                 {
 
-                	throw new AppException( "JSON parsing error",e );
+                    throw new AppException( "JSON parsing error", e );
                 }
-                
+
                 list.set( i, newBusinessClass );
                 pm.setBusinessClasses( list );
-                
+
                 savePluginModel( pm );
 
                 break;
@@ -819,7 +818,7 @@ public final class ModelService
 
             listAttributes.add( attribute );
             bc.setAttributes( listAttributes );
-            
+
             savePluginModel( pm );
         }
     }
@@ -871,7 +870,7 @@ public final class ModelService
                 if ( attr.getId( ) == attribute.getId( ) )
                 {
                     list.set( i, attribute );
-                    bc.setAttributes(list);
+                    bc.setAttributes( list );
                     savePluginModel( pm );
 
                     break;
@@ -905,7 +904,7 @@ public final class ModelService
                 if ( attr.getId( ) == nAttributeId )
                 {
                     list.remove( i );
-                    bc.setAttributes(list);
+                    bc.setAttributes( list );
                     savePluginModel( pm );
 
                     break;
@@ -1219,53 +1218,52 @@ public final class ModelService
     public static void updateDescription( int nPluginId, DescriptionFormBean description )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        
+
         try
         {
-            _mapper.readValue( _mapper.writeValueAsString(  description ), pm.getClass( ) );
+            _mapper.readValue( _mapper.writeValueAsString( description ), pm.getClass( ) );
         }
-        catch (IOException e)
+        catch( IOException e )
         {
             throw new AppException( "JSON exception", e );
         }
 
-        
         try
         {
-            BeanUtils.copyProperties(pm.getClass( ), pm);
+            BeanUtils.copyProperties( pm.getClass( ), pm );
         }
-        catch (IllegalAccessException | InvocationTargetException e)
+        catch( IllegalAccessException | InvocationTargetException e )
         {
-        	throw new AppException( "Bean exception",e );
+            throw new AppException( "Bean exception", e );
         }
-         
+
         savePluginModel( pm );
     }
 
     public static DescriptionFormBean getDescription( int nPluginId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        
+
         try
         {
             return _mapper.readValue( _mapper.writeValueAsString( pm ), DescriptionFormBean.class );
         }
-        catch (IOException e)
+        catch( IOException e )
         {
             throw new AppException( "JSON exception", e );
-            
+
         }
     }
 
     public static BusinessClassFormBean getFormBusinessClass( int nPluginId, int nBusinessClassId )
     {
         PluginModel pm = getPluginModel( nPluginId );
-        
+
         try
         {
-            return _mapper.readValue( _mapper.writeValueAsString( getBusinessClass( pm, nBusinessClassId  ) ), BusinessClassFormBean.class );
+            return _mapper.readValue( _mapper.writeValueAsString( getBusinessClass( pm, nBusinessClassId ) ), BusinessClassFormBean.class );
         }
-        catch (IOException e)
+        catch( IOException e )
         {
             throw new AppException( "JSON exception", e );
         }

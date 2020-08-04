@@ -79,8 +79,8 @@ public class ResourcesGenerator extends AbstractGenerator
         for ( String strLanguage : _languages )
         {
             String strFilesPath = ( isKotlin( ) ) ? PATH_KOTLIN : PATH_JAVA;
-            String strPath = getFilePath( pm, strFilesPath, prefixFileName + "_messages" + ( strLanguage.length( ) > 0 ? "_" : "" ) + strLanguage
-                    + ".properties" );
+            String strPath = getFilePath( pm, strFilesPath,
+                    prefixFileName + "_messages" + ( strLanguage.length( ) > 0 ? "_" : "" ) + strLanguage + ".properties" );
 
             String strSourceCode = getCode( pm, strLanguage );
             map.put( strPath, strSourceCode );

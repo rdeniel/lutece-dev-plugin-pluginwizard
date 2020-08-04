@@ -61,7 +61,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public int newPrimaryKey( Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_NEW_PK, plugin ) )
         {
             daoUtil.executeQuery( );
 
@@ -90,7 +90,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void insert( ConfigurationKey configurationKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, plugin ) )
         {
 
             configurationKey.setIdKey( newPrimaryKey( plugin ) );
@@ -115,7 +115,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public ConfigurationKey load( int nId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
@@ -147,7 +147,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void delete( int nConfigurationKeyId, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
         {
             daoUtil.setInt( 1, nConfigurationKeyId );
             daoUtil.executeUpdate( );
@@ -165,7 +165,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
      */
     public void store( ConfigurationKey configurationKey, Plugin plugin )
     {
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, plugin ) )
         {
 
             daoUtil.setInt( 1, configurationKey.getIdKey( ) );
@@ -188,7 +188,7 @@ public final class ConfigurationKeyDAO implements IConfigurationKeyDAO
     public Collection<ConfigurationKey> selectConfigurationKeysList( Plugin plugin )
     {
         Collection<ConfigurationKey> configurationKeyList = new ArrayList<>( );
-        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECTALL, plugin ) )
         {
             daoUtil.executeQuery( );
 
