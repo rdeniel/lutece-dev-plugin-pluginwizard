@@ -61,17 +61,17 @@ public class AdminJspBeanGeneratorTest extends LuteceTestCase
         GeneratorUtils.outputMap( result );
     }
 
-    /**
-     * Test of generate method, of class AdminJspBeanGenerator.
-     */
-    @Test
-    public void testGenerateAlternative( )
-    {
-        System.out.println( "generate Admin JspBean files (alternative)" );
+	/**
+	 * Test of generate method, of class AdminJspBeanGenerator.
+	 */
+	@Test
+	public void testGenerateAlternative( )
+	{
+		System.out.println( "generate Admin JspBean files (alternative)" );
 
-        PluginModel pm = GeneratorUtils.getTestModel( );
-        AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
-        Map result = instance.generate( pm, "schemeLutece7" );
-        GeneratorUtils.outputMap( result );
-    }
+		PluginModel pm = GeneratorUtils.getTestModel( );
+		AdminJspBeanGenerator instance = SpringContextService.getBean( "pluginwizard.generator.admin.jspbeans" );
+		Map result = instance.generate( pm, "schemeLutece7" );
+		GeneratorUtils.outputMap( result );
+	}
 }
