@@ -1,16 +1,16 @@
-<#macro sidebar step >
-<ul class="list-unstyled hidden-phone">
-    <li class="btn btn-sm btn-block <#if step=="creation"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelCreationStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="description"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelDescriptionStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="model"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelBusinessStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="administration"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelFeaturesStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="xpage"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelXPageStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="portlet"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelPortletsStep}</h5></li>
-    <li class="btn btn-sm btn-block <#if step=="rest"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelRestStep}</h5></li>
-    <#if step=="creation" || step=="generate"> 
-    <li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>       
-	<#else>
-	<a class="btn btn-sm btn-block btn-default" href="jsp/site/Portal.jsp?page=pluginwizard&view=recapitulate"><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></a>
-	</#if>
-</ul>
-</#macro>
+					<#macro sidebar step >
+					<ul class="list-unstyled hidden-phone">
+					    <li class="btn btn-sm btn-block <#if step=="creation"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelCreationStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="description"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelDescriptionStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="model"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelBusinessStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="administration"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelFeaturesStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="xpage"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelXPageStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="portlet"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelPortletsStep}</h5></li>
+					    <li class="btn btn-sm btn-block <#if step=="rest"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelRestStep}</h5></li>
+					    <#if step=="creation" || step=="generate"> 
+					    <li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>       
+						<#else>
+						<a class="btn btn-sm btn-block btn-default" href="jsp/site/Portal.jsp?page=pluginwizard&view=recapitulate"><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></a>
+						</#if>
+					</ul>
+					</#macro>
