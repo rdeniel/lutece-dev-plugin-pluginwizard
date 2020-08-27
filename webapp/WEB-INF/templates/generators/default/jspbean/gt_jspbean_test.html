@@ -34,7 +34,6 @@
 
 package fr.paris.lutece.plugins.${radical_package}.web;
 
-import java.io.IOException;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
@@ -44,9 +43,10 @@ import fr.paris.lutece.portal.service.admin.AdminAuthenticationService;
 import fr.paris.lutece.portal.service.security.UserNotSignedException;
 import java.util.List;
 import fr.paris.lutece.test.LuteceTestCase;
-import fr.paris.lutece.portal.web.LocalVariables;
 import fr.paris.lutece.portal.service.security.SecurityTokenService;
 <#if business_class??>
+import fr.paris.lutece.portal.web.LocalVariables;
+import java.io.IOException;
 import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass};
 import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass}Home;
 <#list business_class.attributes as attribute>
@@ -233,6 +233,7 @@ public void testJspBeans(  ) throws AccessDeniedException
      }
 }
 <#else>
+import java.util.ArrayList;
 /**
  * This is the business class test for the object ${feature_name}
  */
@@ -283,8 +284,9 @@ public void testJspBeans(  ) throws AccessDeniedException
 
         //display modify ${feature_name} JSP
         request = new MockHttpServletRequest();
-
-        List<Integer> listIds = ${feature_name}Home.getId${feature_name}sList();
+        
+        //this list must contain the objects' ID
+        List<Integer> listIds = new ArrayList<>();
         assertTrue( !listIds.isEmpty( ) );
         request.addParameter( "id", String.valueOf( listIds.get( 0 ) ) );
         jspbean = new ${feature_name}JspBean();
