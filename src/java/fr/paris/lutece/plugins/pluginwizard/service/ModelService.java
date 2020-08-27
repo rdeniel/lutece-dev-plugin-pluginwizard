@@ -1222,21 +1222,11 @@ public final class ModelService
         
         try
         {
-            _mapper.readValue( _mapper.writeValueAsString(  description ), pm.getClass( ) );
-        }
-        catch (IOException e)
-        {
-            throw new AppException( "JSON exception", e );
-        }
-
-        
-        try
-        {
-            BeanUtils.copyProperties(pm.getClass( ), pm);
+            BeanUtils.copyProperties(pm, description);
         }
         catch (IllegalAccessException | InvocationTargetException e)
         {
-        	throw new AppException( "Bean exception",e );
+            throw new AppException( "Bean exception",e );
         }
          
         savePluginModel( pm );

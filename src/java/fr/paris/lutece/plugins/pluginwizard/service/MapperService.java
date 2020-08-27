@@ -34,66 +34,64 @@
 package fr.paris.lutece.plugins.pluginwizard.service;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.portal.service.util.AppException;
 import fr.paris.lutece.portal.service.util.AppLogService;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.io.StringWriter;
 
 /**
  * Mapper Service
  */
 public final class MapperService
 {
-    private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	private static ObjectMapper _mapper = new ObjectMapper( ).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    /** Private constructor */
-    private MapperService( )
-    {
-    }
+	/** Private constructor */
+	private MapperService( )
+	{
+	}
 
-    /**
-     * Transform the model into a JSON String
-     * 
-     * @param model
-     *            The model
-     * @return A JSON String
-     */
-    public static String getJson( PluginModel model )
-    {
-        StringWriter sw = new StringWriter( );
+	/**
+	 * Transform the model into a JSON String
+	 * @param model
+	 *            The model
+	 * @return A JSON String
+	 */
+	public static String getJson( PluginModel model )
+	{
+		try
+		{
+			String sw = _mapper.writeValueAsString( model);
+			return sw;
+		}
+		catch (JsonProcessingException e)
+		{
 
-        try
-        {
-            _mapper.writeValue( sw, model );
-        }
-        catch( Exception ex )
-        {
-            AppLogService.error( "Error while writing JSON " + ex.getMessage( ), ex );
-        }
+			throw new AppException("JSON error", e);
+		}
 
-        return sw.toString( );
-    }
+	}
 
-    /**
-     * Read a JSON String to fill a model
-     * 
-     * @param strJson
-     *            The JSON String
-     * @return The model
-     */
-    public static PluginModel readJson( String strJson )
-    {
-        try
-        {
-            return _mapper.readValue( strJson, PluginModel.class );
-        }
-        catch( Exception ex )
-        {
-            AppLogService.error( "Error while reading JSON " + ex.getMessage( ) + "JSON = " + strJson, ex );
-        }
+	/**
+	 * Read a JSON String to fill a model
+	 * 
+	 * @param strJson
+	 *            The JSON String
+	 * @return The model
+	 */
+	public static PluginModel readJson( String strJson )
+	{
+		try
+		{
+			return _mapper.readValue( strJson, PluginModel.class );
+		}
+		catch( Exception ex )
+		{
+			AppLogService.error( "Error while reading JSON " + ex.getMessage( ) + "JSON = " + strJson, ex );
+		}
 
-        return null;
-    }
+		return null;
+	}
 }

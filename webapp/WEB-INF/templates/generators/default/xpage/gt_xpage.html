@@ -31,21 +31,17 @@
  *
  * License 1.0
  */
-  <#list business_class.attributes as attribute>
-	<#assign pluginType = attribute.type />
-</#list>
-<#if pluginType = "MODULE" >
+<#if plugin_model.module = true >
   	<#assign radicalPackage= plugin_model.pluginName?split("-")[0]+".modules."+plugin_model.pluginName?split("-")[1] />
   	<#assign msg= "module."+plugin_model.pluginName?split("-")[0]+"."+plugin_model.pluginName?split("-")[1] />
- <#else>
+<#else>
  	<#assign radicalPackage= plugin_model.pluginName />
- 	<#assign msg= plugin_model.pluginName />
- 	
- </#if>
-<#if business_class??>
+ 	<#assign msg= plugin_model.pluginName /> 	
+</#if>
 
 package fr.paris.lutece.plugins.${radicalPackage}.web;
- 
+
+<#if business_class??> 
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
 import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 import fr.paris.lutece.portal.util.mvc.commons.annotations.Action;
@@ -254,7 +250,6 @@ public class ${business_class.businessClass}XPage extends MVCApplication
     }
 }
 <#else>
-package fr.paris.lutece.plugins.${radicalPackage}.web;
 
 import fr.paris.lutece.portal.web.xpages.XPage;
 import fr.paris.lutece.portal.util.mvc.xpage.MVCApplication;
@@ -267,8 +262,12 @@ import javax.servlet.http.HttpServletRequest;
  * This class provides a simple implementation of an XPage
  */
 @Controller( xpageName = "${plugin_application.applicationName}" , pageTitleI18nKey = "${msg}.xpage.${plugin_application.applicationName}.pageTitle" , pagePathI18nKey = "${msg}.xpage.${plugin_application.applicationName}.pagePathLabel" )
-public class ${plugin_application.applicationClass} extends MVCApplication
+public class ${plugin_application.applicationName}${plugin_application.applicationClass} extends MVCApplication
 {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private static final String TEMPLATE_XPAGE = "/skin/plugins/${radicalPackage?replace(".","/")}/${plugin_application.applicationName}.html";
     private static final String VIEW_HOME = "home";
     

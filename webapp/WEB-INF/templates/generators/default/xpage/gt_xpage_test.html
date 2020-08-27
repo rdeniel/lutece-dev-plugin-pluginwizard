@@ -42,9 +42,8 @@ import fr.paris.lutece.portal.service.security.SecurityTokenService;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockServletConfig;
-import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass};
-import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass}Home;
 import java.util.List;
+<#if business_class??>
 <#list business_class.attributes as attribute>
 	<#if attribute.type = "Date">
 		<#assign hasDate = true>
@@ -55,6 +54,8 @@ import java.sql.Date;
 import fr.paris.lutece.util.date.DateUtil;
 import fr.paris.lutece.portal.web.l10n.LocaleService;
 </#if>
+import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass};
+import fr.paris.lutece.plugins.${radical_package}.business.${business_class.businessClass}Home;
 /**
  * This is the business class test for the object ${business_class.businessClass}
  */
@@ -168,3 +169,25 @@ public void testXPage(  ) throws AccessDeniedException
     }
     
 }
+<#else>
+import fr.paris.lutece.plugins.${radical_package}.business.${plugin_application.applicationName};
+import fr.paris.lutece.plugins.${radical_package}.business.${plugin_application.applicationName}Home;
+/**
+ * This is the application class test for the object ${plugin_application.applicationName}
+ */
+public class ${plugin_application.applicationName}XPageTest extends LuteceTestCase
+{
+
+
+public void testXPage(  ) throws AccessDeniedException
+    {
+        // Xpage create test
+        MockHttpServletRequest request = new MockHttpServletRequest( );
+        MockHttpServletResponse response = new MockHttpServletResponse( );
+        MockServletConfig config = new MockServletConfig( );
+
+        assertNotNull( viewHome( request ) );
+    }
+    
+}
+</#if>

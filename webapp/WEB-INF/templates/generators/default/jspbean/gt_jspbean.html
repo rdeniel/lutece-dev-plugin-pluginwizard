@@ -41,8 +41,6 @@
  </#if>
 package fr.paris.lutece.plugins.${radicalPackage}.web;
 
-import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
-import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 import fr.paris.lutece.portal.service.message.AdminMessage;
 import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.security.SecurityTokenService;
@@ -55,6 +53,9 @@ import fr.paris.lutece.util.url.UrlItem;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+<#if business_class??>
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first};
+import fr.paris.lutece.plugins.${radicalPackage}.business.${business_class.businessClass?cap_first}Home;
 
 /**
  * This class provides the user interface to manage ${business_class.businessClass} features ( manage, create, modify, remove )
@@ -255,3 +256,208 @@ public class ${business_class.businessClass}JspBean extends Abstract${feature_na
         return redirectView( request, VIEW_MANAGE_${business_class.businessClass?upper_case}S );
     }
 }
+<#else>
+/**
+ * This class provides the user interface to manage ${feature_name} features ( manage, create, modify, remove )
+ */
+@Controller( controllerJsp = "Manage${feature_name}s.jsp", controllerPath = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/", right = "${feature_right}" )
+public class ${feature_name}JspBean extends Abstract${feature_name}JspBean
+{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
+    
+    // Templates
+    private static final String TEMPLATE_MANAGE_${feature_name?upper_case}S = "/admin/plugins/${radicalPackage?replace(".","/")}/manage_${feature_name?lower_case}s.html";
+    private static final String TEMPLATE_CREATE_${feature_name?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/create_${feature_name?lower_case}.html";
+    private static final String TEMPLATE_MODIFY_${feature_name?upper_case} = "/admin/plugins/${radicalPackage?replace(".","/")}/modify_${feature_name?lower_case}.html";
+    
+    // Parameters
+    private static final String PARAMETER_ID_${feature_name?upper_case} = "id";
+    
+    // Properties
+    private static final String MESSAGE_CONFIRM_REMOVE_${feature_name?upper_case} = "${msg}.message.confirmRemove$${feature_name?cap_first}";
+    
+    // Validations
+    private static final String VALIDATION_ATTRIBUTES_PREFIX = "${msg}.model.entity.${feature_name?lower_case}.attribute.";
+    
+    // Properties for page titles
+    private static final String PROPERTY_PAGE_TITLE_MANAGE_${feature_name?upper_case}S = "${msg?lower_case}.manage_${feature_name?lower_case}s.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_MODIFY_${feature_name?upper_case} = "${msg?lower_case}.modify_${feature_name?lower_case}.pageTitle";
+    private static final String PROPERTY_PAGE_TITLE_CREATE_${feature_name?upper_case} = "${msg?lower_case}.create_${feature_name?lower_case}.pageTitle";
+    
+    // Markers
+    private static final String MARK_${feature_name?upper_case}_LIST = "${feature_name?lower_case}_list";
+    private static final String MARK_${feature_name?upper_case} = "${feature_name?lower_case}";
+    
+    private static final String JSP_MANAGE_${feature_name?upper_case}S = "jsp/admin/plugins/${radicalPackage?replace(".","/")}/Manage${feature_name?cap_first}s.jsp";
+    
+    // Actions
+    private static final String ACTION_CREATE_${feature_name?upper_case} = "create${feature_name}";
+    private static final String ACTION_MODIFY_${feature_name?upper_case} = "modify${feature_name}";
+    private static final String ACTION_REMOVE_${feature_name?upper_case} = "remove${feature_name}";
+    private static final String ACTION_CONFIRM_REMOVE_${feature_name?upper_case} = "confirmRemove${feature_name}";
+    
+    // Views
+    private static final String VIEW_MANAGE_${feature_name?upper_case}S = "manage${feature_name}s";
+    private static final String VIEW_CREATE_${feature_name?upper_case} = "create${feature_name}";
+    private static final String VIEW_MODIFY_${feature_name?upper_case} = "modify${feature_name}";
+    
+    // Infos
+    private static final String INFO_${feature_name?upper_case}_CREATED = "${msg}.info.${feature_name?lower_case}.created";
+    private static final String INFO_${feature_name?upper_case}_UPDATED = "${msg}.info.${feature_name?lower_case}.updated";
+    private static final String INFO_${feature_name?upper_case}_REMOVED = "${msg}.info.${feature_name?lower_case}.removed";
+    
+    // Session variable to store working values
+    private Object _${feature_name?lower_case};
+    
+    /**
+     * Returns the content of the page ${feature_name}. 
+     * @param request The HTTP request
+     * @return The view
+     */
+    @View( VIEW_MANAGE_${feature_name?upper_case}S  )
+    public String getManage${feature_name}s( HttpServletRequest request )
+    {
+        _${feature_name?lower_case} = null;
+        List<Object> list${feature_name}s = null;
+        Map<String, Object> model = getPaginatedListModel( request, MARK_${feature_name?upper_case}_LIST, list${feature_name}s, JSP_MANAGE_${feature_name?upper_case}S );
+        return getPage( PROPERTY_PAGE_TITLE_MANAGE_${feature_name?upper_case}S, TEMPLATE_MANAGE_${feature_name?upper_case}S, model );
+    }
+    /**
+     * Returns the form to create a ${feature_name?lower_case}
+     *
+     * @param request The Http request
+     * @return the html code of the ${feature_name?lower_case} form
+     */
+    @View( VIEW_CREATE_${feature_name?upper_case} )
+    public String getCreate${feature_name}( HttpServletRequest request )
+    {
+        _${feature_name?lower_case} = ( _${feature_name?lower_case} != null ) ? _${feature_name?lower_case} : new Object(  );
+
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${feature_name?upper_case}, _${feature_name?lower_case} );
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_CREATE_${feature_name?upper_case} ) );
+
+        return getPage( PROPERTY_PAGE_TITLE_CREATE_${feature_name?upper_case}, TEMPLATE_CREATE_${feature_name?upper_case}, model );
+    }
+    
+    /**
+     * Process the data capture form of a new ${feature_name?lower_case}
+     *
+     * @param request The Http Request
+     * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
+     */
+    @Action( ACTION_CREATE_${feature_name?upper_case} )
+    public String doCreate${feature_name}( HttpServletRequest request ) throws AccessDeniedException
+    {
+        populate( _${feature_name?lower_case}, request, getLocale( ) );
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_CREATE_${feature_name?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
+        }
+
+        // Check constraints
+        if ( !validateBean( _${feature_name?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        {
+            return redirectView( request, VIEW_CREATE_${feature_name?upper_case} );
+        }
+
+        //add DAO createmethod call here
+        addInfo( INFO_${feature_name?upper_case}_CREATED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${feature_name?upper_case}S );
+    }
+
+    /**
+     * Manages the removal form of a ${feature_name?lower_case} whose identifier is in the http
+     * request
+     *
+     * @param request The Http request
+     * @return the html code to confirm
+     */
+    @Action( ACTION_CONFIRM_REMOVE_${feature_name?upper_case} )
+    public String getConfirmRemove${feature_name}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${feature_name?upper_case} ) );
+        UrlItem url = new UrlItem( getActionUrl( ACTION_REMOVE_${feature_name?upper_case} ) );
+        url.addParameter( PARAMETER_ID_${feature_name?upper_case}, nId );
+
+        String strMessageUrl = AdminMessageService.getMessageUrl( request, MESSAGE_CONFIRM_REMOVE_${feature_name?upper_case}, url.getUrl(  ), AdminMessage.TYPE_CONFIRMATION );
+
+        return redirect( request, strMessageUrl );
+    }
+
+    /**
+     * Handles the removal form of a ${feature_name?lower_case}
+     *
+     * @param request The Http request
+     * @return the jsp URL to display the form to manage ${feature_name?lower_case}s
+     */
+    @Action( ACTION_REMOVE_${feature_name?upper_case} )
+    public String doRemove${feature_name}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${feature_name?upper_case} ) );
+        //add DAO remove method call here
+        addInfo( INFO_${feature_name?upper_case}_REMOVED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${feature_name?upper_case}S );
+    }
+
+    /**
+     * Returns the form to update info about a ${feature_name?lower_case}
+     *
+     * @param request The Http request
+     * @return The HTML form to update info
+     */
+    @View( VIEW_MODIFY_${feature_name?upper_case} )
+    public String getModify${feature_name}( HttpServletRequest request )
+    {
+        int nId = Integer.parseInt( request.getParameter( PARAMETER_ID_${feature_name?upper_case} ) );
+
+        if ( _${feature_name?lower_case} == null /*|| ( add object getId() method call here != nId )*/ )
+        {
+           /* _${feature_name?lower_case} = add object DAO find by primary key method call;*/
+        }
+
+        Map<String, Object> model = getModel(  );
+        model.put( MARK_${feature_name?upper_case}, _${feature_name?lower_case} );
+        model.put( SecurityTokenService.MARK_TOKEN, SecurityTokenService.getInstance( ).getToken( request, ACTION_MODIFY_${feature_name?upper_case} ) );
+
+        return getPage( PROPERTY_PAGE_TITLE_MODIFY_${feature_name?upper_case}, TEMPLATE_MODIFY_${feature_name?upper_case}, model );
+    }
+
+    /**
+     * Process the change form of a ${feature_name?lower_case}
+     *
+     * @param request The Http request
+     * @return The Jsp URL of the process result
+     * @throws AccessDeniedException
+     */
+    @Action( ACTION_MODIFY_${feature_name?upper_case} )
+    public String doModify${feature_name}( HttpServletRequest request ) throws AccessDeniedException
+    {
+        populate( _${feature_name?lower_case}, request, getLocale( ) );
+
+        if ( !SecurityTokenService.getInstance( ).validate( request, ACTION_MODIFY_${feature_name?upper_case} ) )
+        {
+            throw new AccessDeniedException ( "Invalid security token" );
+        }
+
+        // Check constraints
+        if ( !validateBean( _${feature_name?lower_case}, VALIDATION_ATTRIBUTES_PREFIX ) )
+        {
+            return redirect( request, VIEW_MODIFY_${feature_name?upper_case}/*, PARAMETER_ID_${feature_name?upper_case}, add Object Id here*/ );
+        }
+
+        //add DAO update method call here
+        addInfo( INFO_${feature_name?upper_case}_UPDATED, getLocale(  ) );
+
+        return redirectView( request, VIEW_MANAGE_${feature_name?upper_case}S );
+    }
+    
+}
+</#if>
