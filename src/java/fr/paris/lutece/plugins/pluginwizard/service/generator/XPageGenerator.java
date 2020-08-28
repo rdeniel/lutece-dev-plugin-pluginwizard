@@ -100,7 +100,7 @@ public class XPageGenerator extends AbstractGenerator
 				for ( XPageFileConfig file : _listFiles )
 				{
 					String strSuffix = SUFFIX_XPAGE + file.getSuffix( ) + ( isKotlin( ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
-					String strFilename = application.getApplicationName( ) + application.getApplicationClass( ) + strSuffix;
+					String strFilename = application.getApplicationClass( ) + strSuffix;
 					String strPath = getFilePath( pm, file.getSourcePath( ) + ( isKotlin( ) ? PATH_KOTLIN : PATH_JAVA ), strFilename );
 					String strSourceCode = getXPageCode( pm, application.getApplicationName( ), application.getId( ), application,
 							pm.getPluginNameAsRadicalPackage( ), file.getTemplate( ) );
