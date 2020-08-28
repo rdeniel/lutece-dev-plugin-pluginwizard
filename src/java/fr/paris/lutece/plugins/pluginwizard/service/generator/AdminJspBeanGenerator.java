@@ -49,126 +49,166 @@ import java.util.Map;
  */
 public class AdminJspBeanGenerator extends AbstractGenerator
 {
-    private static final String PATH_JAVA = "java/fr/paris/lutece/plugins/{plugin_name}/web/";
-    private static final String PATH_KOTLIN = "kotlin/fr/paris/lutece/plugins/{plugin_name}/web/";
-    private static final String PREFIX_JSPBEAN = "Abstract";
-    private static final String PREFIX_JSPBEAN_PATH = "src/";
+	private static final String PATH_JAVA = "java/fr/paris/lutece/plugins/{plugin_name}/web/";
+	private static final String PATH_KOTLIN = "kotlin/fr/paris/lutece/plugins/{plugin_name}/web/";
+	private static final String PREFIX_JSPBEAN = "Abstract";
+	private static final String PREFIX_JSPBEAN_PATH = "src/";
 
-    private static final String SUFFIX_JAVA_EXTENSION = ".java";
-    private static final String SUFFIX_KOTLIN_EXTENSION = ".kt";
+	private static final String SUFFIX_JAVA_EXTENSION = ".java";
+	private static final String SUFFIX_KOTLIN_EXTENSION = ".kt";
 
-    private static final String SUFFIX_JSPBEAN_CLASS = "JspBean";
+	private static final String SUFFIX_JSPBEAN_CLASS = "JspBean";
 
-    private String _strAbstractParentBeanTemplate = "/generators/default/jspbean/gt_jspbean_abstract.html";
-    private List<AdminJspBeanFileConfig> _listFiles;
+	private String _strAbstractParentBeanTemplate = "/generators/default/jspbean/gt_jspbean_abstract.html";
+	private List<AdminJspBeanFileConfig> _listFiles;
 
-    public void setFiles( List<AdminJspBeanFileConfig> listFiles )
-    {
-        if ( listFiles != null )
-        {
-            _listFiles = (List<AdminJspBeanFileConfig>) ( ( (ArrayList<AdminJspBeanFileConfig>) listFiles ).clone( ) );
-        }
-        else
-        {
-            _listFiles = null;
-        }
-    }
+	public void setFiles( List<AdminJspBeanFileConfig> listFiles )
+	{
+		if ( listFiles != null )
+		{
+			_listFiles = (List<AdminJspBeanFileConfig>) ( ( (ArrayList<AdminJspBeanFileConfig>) listFiles ).clone( ) );
+		}
+		else
+		{
+			_listFiles = null;
+		}
+	}
 
-    /**
-     * Set the parent bean template
-     * 
-     * @param strParent
-     *            The parent bean template
-     */
-    public void setAbstractParentBeanTemplate( String strParent )
-    {
-        _strAbstractParentBeanTemplate = strParent;
-    }
+	/**
+	 * Set the parent bean template
+	 * 
+	 * @param strParent
+	 *            The parent bean template
+	 */
+	public void setAbstractParentBeanTemplate( String strParent )
+	{
+		_strAbstractParentBeanTemplate = strParent;
+	}
 
-    /**
-     * {@inheritDoc }
-     */
-    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
-    {
-        HashMap<String, String> map = new HashMap<>( );
+	/**
+	 * {@inheritDoc }
+	 */
+	public Map<String, String> generate( PluginModel pm, String generationSchemeName )
+	{
+		HashMap<String, String> map = new HashMap<>( );
 
-        for ( Feature feature : pm.getFeatures( ) )
-        {
-            Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
+		for ( Feature feature : pm.getFeatures( ) )
+		{
 
-            String strSuffix = SUFFIX_JSPBEAN_CLASS + ( ( isKotlin( ) ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
-            String strFilesPath = ( isKotlin( ) ) ? PATH_KOTLIN : PATH_JAVA;
-            for ( BusinessClass business : listBusinessClasses )
-            {
-                for ( AdminJspBeanFileConfig file : _listFiles )
-                {
-                    String strSuffixConfig = SUFFIX_JSPBEAN_CLASS + file.getSuffix( ) + ( ( isKotlin( ) ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
-                    String strFilename = business.getBusinessClassCapsFirst( ) + strSuffixConfig;
-                    String strPath = getFilePath( pm, file.getSourcePath( ) + ( isKotlin( ) ? PATH_KOTLIN : PATH_JAVA ), strFilename );
-                    String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), business, file.getTemplate( ),
-                            pm.getPluginNameAsRadicalPackage( ), pm.getPluginName( ) );
-                    map.put( strPath, strSourceCode );
-                }
-            }
+			Collection<BusinessClass> listBusinessClasses = ModelService.getBusinessClassesByFeature( pm, feature.getId( ) );
 
-            String strPath = getFilePath( pm, PREFIX_JSPBEAN_PATH + strFilesPath, PREFIX_JSPBEAN + feature.getFeatureName( ) + strSuffix );
-            String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), pm.getPluginNameAsRadicalPackage( ),
-                    pm.getPluginName( ) );
-            map.put( strPath, strSourceCode );
-        }
+			String strSuffix = SUFFIX_JSPBEAN_CLASS + ( ( isKotlin( ) ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
+			String strFilesPath = ( isKotlin( ) ) ? PATH_KOTLIN : PATH_JAVA;
+			if ( listBusinessClasses.isEmpty( ) )
+			{
+				for ( AdminJspBeanFileConfig file : _listFiles )
+				{
+					String strSuffixConfig = SUFFIX_JSPBEAN_CLASS + file.getSuffix( ) + ( ( isKotlin( ) ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
+					String strFilename = feature.getFeatureName() + strSuffixConfig;
+					String strPath = getFilePath( pm, file.getSourcePath( ) + ( isKotlin( ) ? PATH_KOTLIN : PATH_JAVA ), strFilename );
+					String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), file.getTemplate( ),
+							pm.getPluginNameAsRadicalPackage( ), pm.getPluginName( ) );
+					map.put( strPath, strSourceCode );
+				}
+			}
+			else
+			{
+				for ( BusinessClass business : listBusinessClasses )
+				{
+					for ( AdminJspBeanFileConfig file : _listFiles )
+					{
+						String strSuffixConfig = SUFFIX_JSPBEAN_CLASS + file.getSuffix( ) + ( ( isKotlin( ) ) ? SUFFIX_KOTLIN_EXTENSION : SUFFIX_JAVA_EXTENSION );
+						String strFilename = business.getBusinessClassCapsFirst( ) + strSuffixConfig;
+						String strPath = getFilePath( pm, file.getSourcePath( ) + ( isKotlin( ) ? PATH_KOTLIN : PATH_JAVA ), strFilename );
+						String strSourceCode = getJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), business, file.getTemplate( ),
+								pm.getPluginNameAsRadicalPackage( ), pm.getPluginName( ) );
+						map.put( strPath, strSourceCode );
+					}
+				}
+			}
+			String strPath = getFilePath( pm, PREFIX_JSPBEAN_PATH + strFilesPath, PREFIX_JSPBEAN + feature.getFeatureName( ) + strSuffix );
+			String strSourceCode = getAbstractJspBeanCode( pm, feature.getFeatureName( ), feature.getFeatureRight( ), pm.getPluginNameAsRadicalPackage( ),
+					pm.getPluginName( ) );
+			map.put( strPath, strSourceCode );
+		}
 
-        return map;
-    }
+		return map;
+	}
 
-    /**
-     * Return JspBean code
-     *
-     * @param pm
-     *            The plugin model
-     * @param strFeatureName
-     *            The feature name
-     * @param strFeatureRight
-     *            The feature right
-     * @param business
-     *            The business classes
-     * @return the template The source code of the Jsp Bean
-     */
-    private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, BusinessClass business, String strTemplate,
-            String strRadicalPackage, String strBeanName )
-    {
-        Map<String, Object> model = getModel( pm );
+	/**
+	 * Return JspBean code
+	 *
+	 * @param pm
+	 *            The plugin model
+	 * @param strFeatureName
+	 *            The feature name
+	 * @param strFeatureRight
+	 *            The feature right
+	 * @param business
+	 *            The business classes
+	 * @return the template The source code of the Jsp Bean
+	 */
+	private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, BusinessClass business, String strTemplate,
+			String strRadicalPackage, String strBeanName )
+	{
+		Map<String, Object> model = getModel( pm );
 
-        model.put( Markers.MARK_BUSINESS_CLASS, business );
-        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
-        model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
+		model.put( Markers.MARK_BUSINESS_CLASS, business );
+		model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+		model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
-        model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
-        model.put( Markers.MARK_BEAN_NAME, strBeanName );
+		model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
+		model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
-        return build( strTemplate, model );
-    }
+		return build( strTemplate, model );
+	}
+	/**
+	 * Return JspBean code
+	 *
+	 * @param pm
+	 *            The plugin model
+	 * @param strFeatureName
+	 *            The feature name
+	 * @param strFeatureRight
+	 *            The feature right
+	 * @param business
+	 *            The business classes
+	 * @return the template The source code of the Jsp Bean
+	 */
+	private String getJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, String strTemplate,
+			String strRadicalPackage, String strBeanName )
+	{
+		Map<String, Object> model = getModel( pm );
 
-    /**
-     * Return JspBean code
-     *
-     * @param pm
-     *            The plugin model
-     * @param strFeatureName
-     *            The feature name
-     * @param strFeatureRight
-     *            The feature right
-     * @return the template The source code of the Jsp Bean
-     */
-    private String getAbstractJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, String strRadicalPackage, String strBeanName )
-    {
-        Map<String, Object> model = getModel( pm );
+		model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+		model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
 
-        model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
-        model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
+		model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
+		model.put( Markers.MARK_BEAN_NAME, strBeanName );
 
-        model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
-        model.put( Markers.MARK_BEAN_NAME, strBeanName );
+		return build( strTemplate, model );
+	}
+	/**
+	 * Return JspBean code
+	 *
+	 * @param pm
+	 *            The plugin model
+	 * @param strFeatureName
+	 *            The feature name
+	 * @param strFeatureRight
+	 *            The feature right
+	 * @return the template The source code of the Jsp Bean
+	 */
+	private String getAbstractJspBeanCode( PluginModel pm, String strFeatureName, String strFeatureRight, String strRadicalPackage, String strBeanName )
+	{
+		Map<String, Object> model = getModel( pm );
 
-        return build( _strAbstractParentBeanTemplate, model );
-    }
+		model.put( Markers.MARK_FEATURE_NAME, strFeatureName );
+		model.put( Markers.MARK_FEATURE_RIGHT, strFeatureRight );
+
+		model.put( Markers.MARK_RADICAL_PACKAGE, strRadicalPackage );
+		model.put( Markers.MARK_BEAN_NAME, strBeanName );
+
+		return build( _strAbstractParentBeanTemplate, model );
+	}
 }
