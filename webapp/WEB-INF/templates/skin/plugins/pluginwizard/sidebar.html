@@ -10,7 +10,11 @@
 					    <#if step=="creation" || step=="generate"> 
 					    <li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>       
 						<#else>
-						<a class="btn btn-sm btn-block btn-default" href="jsp/site/Portal.jsp?page=pluginwizard&view=recapitulate"><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></a>
+						  <#if !(business_classes??) || (business_classes?size = 0)>
+						   <li class="btn btn-sm btn-block <#if step=="generate"> btn-primary <#else>btn-default</#if> disabled" ><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></li>
+						  <#else>
+						  <a class="btn btn-sm btn-block btn-default" href="jsp/site/Portal.jsp?page=pluginwizard&view=recapitulate"><h5>#i18n{pluginwizard.pluginwizard_create_application.labelGenerateStep}</h5></a>
+						  </#if>
 						</#if>
 					</ul>
 					</#macro>

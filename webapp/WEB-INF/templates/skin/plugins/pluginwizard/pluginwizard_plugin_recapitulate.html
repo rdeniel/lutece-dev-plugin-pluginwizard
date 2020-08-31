@@ -93,9 +93,9 @@
                             </li>
                             </#if>
                             </#if>
-
+                             
+                            <#if plugin_rest?? && (plugin_rest.getIdBusinessClasses())?? >  
                             <#assign restSize = plugin_rest.getIdBusinessClasses()?size>                
-                            <#if restSize gt 0>
                             <li>
                                 <h5>
                                     <span class="badge badge-info">${restSize}</span> &nbsp; 
