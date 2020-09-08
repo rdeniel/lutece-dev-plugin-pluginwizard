@@ -34,6 +34,7 @@
 package fr.paris.lutece.plugins.pluginwizard.service.generator;
 
 import fr.paris.lutece.plugins.pluginwizard.business.model.PluginModel;
+import fr.paris.lutece.plugins.pluginwizard.service.ModelService;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.util.AppLogService;
@@ -90,10 +91,20 @@ public class GeneratorService
      * 
      * @return Generation schemes
      */
-    public static ReferenceList getGenerationSchemes( )
+    public static ReferenceList getGenerationSchemes( int nPluginId )
     {
+    	PluginModel pm = ModelService.getPluginModel( nPluginId );
+    	int dbPool = pm.getPluginDbPoolRequired( );
         _listSchemes = SpringContextService.getBeansOfType( GenerationScheme.class );
-
+        if( dbPool == 0 )
+        {
+        	for( GenerationScheme scheme : _listSchemes)
+        	{
+        		List<Generator> generators = scheme.getGeneratorsList();
+        		generators.remove( SpringContextService.getBean( "pluginwizard.generator.sql") );
+        		scheme.setGeneratorsList( generators );
+        	}
+        }
         ReferenceList list = new ReferenceList( );
 
         for ( int i = 0; i < _listSchemes.size( ); i++ )
@@ -104,7 +115,7 @@ public class GeneratorService
             item.setChecked( _listSchemes.get( i ).isDefault( ) );
             list.add( item );
         }
-
+        
         return list;
     }
 

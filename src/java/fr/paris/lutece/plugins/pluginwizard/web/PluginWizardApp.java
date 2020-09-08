@@ -1318,7 +1318,7 @@ public class PluginWizardApp extends MVCApplication implements Serializable
         model.put( MARK_PLUGIN_PORTLETS, pm.getPortlets( ) );
         model.put( MARK_PLUGIN_REST, pm.getRest( ) );
         model.put( MARK_BUSINESS_CLASSES, pm.getBusinessClasses( ) );
-        model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes( ) );
+        model.put( MARK_SCHEMES_COMBO, GeneratorService.getGenerationSchemes( _nPluginId ) );
 
         return getXPage( TEMPLATE_GET_RECAPITULATE, getLocale( request ), model );
     }
