@@ -74,7 +74,7 @@ public class PluginModel
     @NotEmpty( message = "pluginwizard.error.plugin.urlProvider.notEmpty" )
     @URL( message = "pluginwizard.error.plugin.urlProvider.url" )
     private String _strPluginProviderUrl;
-    private String _strPluginDbPoolRequired;
+    private int _nPluginDbPoolRequired;
     private Locale _locale;
     private List<Application> _listPluginApplications;
     private List<Feature> _listPluginFeatures;
@@ -466,20 +466,20 @@ public class PluginModel
      * 
      * @return The PluginDbPoolRequired
      */
-    public String getPluginDbPoolRequired( )
+    public int getPluginDbPoolRequired( )
     {
-        return _strPluginDbPoolRequired;
+        return _nPluginDbPoolRequired;
     }
 
     /**
      * Sets the PluginDbPoolRequired
      * 
-     * @param strPluginDbPoolRequired
+     * @param nPluginDbPoolRequired
      *            The PluginDbPoolRequired
      */
-    public void setPluginDbPoolRequired( String strPluginDbPoolRequired )
+    public void setPluginDbPoolRequired( int nPluginDbPoolRequired )
     {
-        _strPluginDbPoolRequired = strPluginDbPoolRequired;
+        _nPluginDbPoolRequired = nPluginDbPoolRequired;
     }
 
     /**

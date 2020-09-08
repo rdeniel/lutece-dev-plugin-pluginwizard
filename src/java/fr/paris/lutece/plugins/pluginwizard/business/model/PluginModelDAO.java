@@ -110,7 +110,7 @@ public final class PluginModelDAO implements IPluginModelDAO
             daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
             daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
             daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
-            daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
+            daoUtil.setInt( 14, pluginModel.getPluginDbPoolRequired( ) );
 
             daoUtil.executeUpdate( );
             daoUtil.free( );
@@ -152,7 +152,7 @@ public final class PluginModelDAO implements IPluginModelDAO
                 pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
                 pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
                 pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
-                pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
+                pluginModel.setPluginDbPoolRequired( daoUtil.getInt( 14 ) );
 
                 // //TODO Portlets pluginModel.setPluginPortlets( PluginPortletHome.findByPlugin( nId, plugin ) );
             }
@@ -207,7 +207,7 @@ public final class PluginModelDAO implements IPluginModelDAO
             daoUtil.setString( 11, pluginModel.getPluginIconUrl( ) );
             daoUtil.setString( 12, pluginModel.getPluginProvider( ) );
             daoUtil.setString( 13, pluginModel.getPluginProviderUrl( ) );
-            daoUtil.setString( 14, pluginModel.getPluginDbPoolRequired( ) );
+            daoUtil.setInt( 14, pluginModel.getPluginDbPoolRequired( ) );
             daoUtil.setInt( 15, pluginModel.getIdPlugin( ) );
 
             daoUtil.executeUpdate( );
@@ -246,7 +246,7 @@ public final class PluginModelDAO implements IPluginModelDAO
                 pluginModel.setPluginIconUrl( daoUtil.getString( 11 ) );
                 pluginModel.setPluginProvider( daoUtil.getString( 12 ) );
                 pluginModel.setPluginProviderUrl( daoUtil.getString( 13 ) );
-                pluginModel.setPluginDbPoolRequired( daoUtil.getString( 14 ) );
+                pluginModel.setPluginDbPoolRequired( daoUtil.getInt( 14 ) );
 
                 pluginModelList.add( pluginModel );
             }
