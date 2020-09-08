@@ -57,9 +57,9 @@ public class SqlCodeGenerator extends AbstractGenerator
      * {@inheritDoc }
      */
     @Override
-    public Map generate( PluginModel pm, String generationSchemeName )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
-        HashMap map = new HashMap( );
+        HashMap<String, String> map = new HashMap<>( );
 
         for ( int i = 0; i < _prefix.length; i++ )
         {

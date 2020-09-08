@@ -49,9 +49,9 @@ public class SiteDocumentationGenerator extends AbstractGenerator
     };
 
     @Override
-    public Map generate( PluginModel pm, String generationSchemeName )
+    public Map<String, String> generate( PluginModel pm, String generationSchemeName )
     {
-        HashMap map = new HashMap( );
+        HashMap<String, String> map = new HashMap<>( );
 
         for ( int i = 0; i < _files.length; i++ )
         {
